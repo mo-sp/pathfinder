@@ -5,6 +5,69 @@
 
 ---
 
+### Session 5 – 2026-04-11
+**Focus:** Product-depth track – RIASEC hexagon widget, resume-on-reload, Pinia store tests
+
+**Meta / process notes:**
+- Three-PR session following the "branch off fresh main, edit-test-iterate live via HMR, commit only after user approval" workflow from Session 4's memory. Earlier PRs in the session shipped with NO `SUMMARY.md` change; this Session 5 entry rides with the final PR of the session and retrospectively covers all three.
+- New convention adopted this session: **do not include PR URLs in SUMMARY entries.** PR URLs aren't known at commit time (the SUMMARY commit ships as part of the same branch that becomes the PR), and editing after opening the PR is blocked by the "approved PRs are frozen" rule. Reference PRs by verb ("the hexagon widget PR") or commit hash when needed.
+
+**What was done — PR #8 (RIASEC hexagon widget):**
+- New widget `src/widgets/riasec-chart/ui/RiasecHexagon.vue` – dependency-free inline SVG in the standard Holland hexagon order (R-I-A-S-E-C clockwise from top at 60° intervals), grid rings at 25/50/75/100 %, axis labels showing letter + percent, and a filled polygon for the user profile. Scales fluidly via `viewBox` + `w-full`. Barrel export from `src/widgets/riasec-chart/index.ts`.
+- `ResultsPage.vue` swaps the six horizontal percent bars for the hexagon + a compact 3-column legend grid (3/2/1 col responsive) that preserves the German dimension descriptions from the i18n layer.
+- **Also bundled in PR #8 (small layout fix found during browser test):** long German occupation titles overflowed their top-10 cards on narrow viewports. Classic flexbox `min-width: auto` trap – the title `<div>` couldn't shrink below its content width. Fix: `min-w-0 flex-1` on the title container, `shrink-0` on the fit-score, `break-words` on the text so long compound words wrap.
+- Verified: `npm test` 32/32 ✅, type-check ✅, lint ✅, build ✅ (ResultsPage chunk 2.88 KB → 5.22 KB for the hexagon; store chunk unchanged at 600 KB).
+- Browser-tested by @mo-sp: hexagon renders correctly, labels don't clip, responsive legend reflows 3→2→1 col, all-*Sehr gerne* profile fills, all-*Überhaupt nicht* profile → 20 % (expected – see findings below).
+
+**What was done — PR #9 (resume on reload + header nav rename):**
+- Added `hydrate()` to the questionnaire store and a persist-on-change `watch` around `[answers, currentIndex]` with `{ deep: true }`. `main.ts` calls `hydrate()` via **dynamic import** (`import('@features/questionnaire/model/store')`) only when `window.location.pathname` matches `/test` or `/ergebnis`, so a visitor who bounces off `/` still doesn't download the 600 KB occupations chunk. Landing on `/` always starts fresh.
+- Removed the initial "length > 0" guard on the persist watcher so even empty resets get written to Dexie. Without this, reloading `/test` immediately after clicking *Test starten* (before answering) would hydrate the previous completed session as the "most recent by startedAt".
+- Dynamic-import side effect: rolldown re-chunked `vue-router` (140 KB → 24 KB) and hoisted `pinia` into its own 115 KB chunk. Same total bytes for `/`, just a different split. Store chunk stayed at 600 KB and remained lazy.
+- **Also bundled (found during browser test):** the header nav's `Start` label collided with the homepage *Test starten* CTA, AND the header `Test starten` link silently did NOT reset the store (unlike the homepage CTA's `@click="start"` path). Same label, different semantics. Renamed to `Startseite` + `Zum Test` so the labels match the actual behavior; unchanged underlying behavior.
+- Verified: 32/32 ✅, type-check ✅, lint ✅, build ✅. Browser-tested: reload `/test` resumes at next unanswered question, reload `/ergebnis` after completion still shows results, the `→ Zum Test` interstitial button now resumes instead of restarting from question 1, and *Test starten* from home after completion correctly starts a fresh test.
+
+**What was done — questionnaire store tests (this session's final PR):**
+- Added `src/features/questionnaire/model/store.test.ts` with **17 new tests** exercising the Pinia store end-to-end against real `onet-items.json` + `onet-occupations.json` and a `fake-indexeddb` Dexie backend.
+- Chose `fake-indexeddb/auto` as a **scoped import at the top of the test file** (not a global vitest setup file) so sibling tests keep their plain node environment and don't silently depend on an IDB global.
+- **Action-layer block (6 tests):** initial state + `total === 10` guard, `answer()` advances + records, `answer()` overwrites a re-answered question without duplicating, `answer()` clamps at the last index (doesn't step off the end of the questions array), `previous()` clamps at 0, `reset()` clears answers + currentIndex + generates a new `sessionId`.
+- **Computed-layer block (3 tests):** `riasecProfile` sums Likert responses per dimension against the known PoC distribution `R=2/I=2/A=2/S=2/E=1/C=1` (so answering all 10 with value 3 lands on exact counts `R=I=A=S=6, E=C=3`), `riasecPercent` normalization at max (every dim → 100), `results` empty-until-complete.
+- **Persist-watcher block (3 tests):** writes in-progress session after an answer, writes `completedAt` + `riasecProfile` + `results` once the session is complete, empty `reset()` overrides the previous completed session as "latest by startedAt" – the specific behavior that lets `hydrate()` find a fresh state after a double *Test starten* click.
+- **Hydrate block (5 tests):** restores an in-progress session and advances `currentIndex` to the next unanswered question, restores a complete session and clamps `currentIndex` to `total-1` (prevents stepping off the questions array), no-op on empty Dexie, picks the most recent session by `startedAt` regardless of insertion order (`bulkPut([old, newer])` still hydrates `newer`), second call is a no-op so intervening user input is not clobbered.
+- Small helper `flushPersist()` – `2× nextTick()` + `2× setTimeout(0)`. Overkill for fake-IDB's write speed but keeps the tests stable without polling for state. 17/17 green on first run after fixing one TS error where the initial draft reached for `store.startedAt` which isn't exposed in the store's public return block.
+- Verified: `npm test` → **49/49** ✅ (32 from prior sessions + 17 new), type-check ✅, lint ✅, build ✅. No runtime/bundle delta – pure test-only addition. No browser test applicable.
+
+**Session-wide findings / non-bugs noted for the record:**
+- **Likert minimum = 20 %, not 0 %.** Scale is 1-5, so the minimum response maps to `1×count / (5×count) = 20%`. The math at `src/features/scoring/lib/riasec.ts:37` is working as designed; matching uses the raw profile (not percent) so ranking is unaffected. Noted so future sessions don't "fix" it.
+- **Narrow-viewport limit is the browser's own minimum window width (~500 px), not an app bug.** The hexagon + legend scale fluidly down to that limit. Use DevTools device mode for smaller widths.
+- **Resume-on-reload is best-effort, not transactional.** If Dexie is unavailable (private mode, quota exceeded), `hydrate()` and the persist watcher silently swallow the error and the store stays in its pristine in-memory state. The user continues uninterrupted but loses the resume feature.
+- **One narrow edge case accepted on PR #9:** reloading `/test` immediately after clicking *Test starten* from the homepage without answering any questions. The empty-reset persist covers it, but the user explicitly marked it as low-priority if it flakes.
+
+**Branches / merge commits:**
+- `feat/riasec-hexagon-widget` – hexagon widget + top-10 overflow fix, merged as `d6479f4`
+- `feat/resume-on-reload` – resume on reload + header nav rename, merged as `f427487`
+- `test/questionnaire-store` – this session's final PR, carries this SUMMARY entry
+
+**Known issues / TODOs:**
+- Bundle-size warning (~600 KB `store` chunk) **unchanged** since Session 2. The store chunk is already lazy-loaded for the `/` route (via page imports + PR #9's dynamic import for hydration), but on `/test` or `/ergebnis` the whole 600 KB / 169 KB gz chunk still loads as a single unit. The cleanest remaining fix is extracting `onet-occupations.json` out of the store chunk into its own lazy import inside the matcher, so `/test` (which only needs questions) doesn't pay for the occupations payload.
+- 50 of 60 O*NET items still English-only. Deferred because native German judgment is needed per item – better as a dedicated back-and-forth session.
+- No tests yet for the Dexie persistence layer directly (the store tests indirectly exercise it via fake-indexeddb).
+- No component-level tests yet for `AssessmentPage`, `ResultsPage`, or `HomePage`.
+- Resume-on-reload does not yet handle a "start a new test from /test after completion" flow distinctly from "continue test" – navigating `/test` after completion via the header's *Zum Test* link would show the last completed question. HomePage's `Test starten` CTA is the only fresh-start entry point.
+- Still no Phase 1 MVP ship items: domain decision, free-tier hosting deploy, Spenden-Seite (Bitcoin/PayPal), Impressum/Datenschutz/Über pages, responsive audit.
+
+**Next steps – product-depth track (continued):**
+- Translate the remaining 50 O*NET items to German (dedicated session – needs native review per item).
+- Extract `onet-occupations.json` out of the store chunk into its own lazy import inside the matcher.
+- Add component-level tests for the assessment flow (`AssessmentPage` + `ResultsPage` rendering against a test store).
+
+**Next steps – ship-it track (still untouched):**
+- Domain decision + first hosting deploy (Cloudflare Pages / Vercel).
+- Spenden-Seite: Bitcoin on-chain + Lightning + PayPal.
+- Impressum / Datenschutz / Über pages (required before any public launch in DE).
+- Responsive design audit across common mobile/tablet breakpoints.
+
+---
+
 ### Session 4 – 2026-04-11
 **Focus:** Routing bugfix for *Test neu starten* on `/ergebnis` + scoring pipeline integration tests against real O*NET data
 
