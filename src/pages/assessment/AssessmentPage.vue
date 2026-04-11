@@ -54,13 +54,13 @@ async function selectAnswer(value: number): Promise<void> {
 <template>
   <section class="mx-auto max-w-2xl px-4 py-12">
     <div class="mb-6">
-      <div class="flex items-center justify-between text-xs text-slate-500">
+      <div class="flex items-center justify-between text-xs text-slate-400">
         <span>Frage {{ store.currentIndex + 1 }} von {{ store.total }}</span>
         <span>{{ Math.round(store.progress * 100) }} %</span>
       </div>
-      <div class="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-200">
+      <div class="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-800">
         <div
-          class="h-full bg-indigo-600 transition-all duration-300"
+          class="h-full bg-indigo-500 transition-all duration-300"
           :style="{ width: `${store.progress * 100}%` }"
         />
       </div>
@@ -68,12 +68,12 @@ async function selectAnswer(value: number): Promise<void> {
 
     <div
       v-if="store.currentQuestion"
-      class="rounded-lg border border-slate-200 bg-white p-8 shadow-sm"
+      class="rounded-lg border border-slate-800 bg-slate-900 p-8"
     >
-      <p class="text-xs uppercase tracking-wide text-slate-400">
+      <p class="text-xs uppercase tracking-wide text-slate-500">
         Wie sehr würdest du das gerne tun?
       </p>
-      <h2 class="mt-2 text-2xl font-semibold text-slate-900">
+      <h2 class="mt-2 text-2xl font-semibold text-slate-100">
         {{ text }}
       </h2>
 
@@ -82,20 +82,20 @@ async function selectAnswer(value: number): Promise<void> {
           v-for="value in likertOptions"
           :key="value"
           type="button"
-          class="group flex flex-col items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-3 text-sm text-slate-700 transition hover:border-indigo-500 hover:bg-indigo-50"
+          class="group flex flex-col items-center gap-2 rounded-md border border-slate-700 bg-slate-800 px-3 py-3 text-sm text-slate-200 transition hover:border-indigo-400 hover:bg-indigo-950/50"
           @click="selectAnswer(value)"
         >
-          <span class="text-lg font-bold text-slate-900 group-hover:text-indigo-700">
+          <span class="text-lg font-bold text-slate-100 group-hover:text-indigo-300">
             {{ value }}
           </span>
-          <span class="text-xs text-slate-500">{{ t(`likert.${value}`) }}</span>
+          <span class="text-xs text-slate-400">{{ t(`likert.${value}`) }}</span>
         </button>
       </div>
 
       <div class="mt-6 flex justify-between text-xs">
         <button
           type="button"
-          class="text-slate-500 hover:text-slate-900 disabled:opacity-30"
+          class="text-slate-400 hover:text-slate-100 disabled:opacity-30"
           :disabled="store.currentIndex === 0"
           @click="store.previous"
         >
@@ -103,7 +103,7 @@ async function selectAnswer(value: number): Promise<void> {
         </button>
         <button
           type="button"
-          class="text-slate-500 hover:text-slate-900"
+          class="text-slate-400 hover:text-slate-100"
           @click="store.reset"
         >
           Neu starten

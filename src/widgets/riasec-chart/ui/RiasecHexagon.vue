@@ -120,7 +120,7 @@ const labels = computed(() =>
         :key="`ring-${i}`"
         :points="points"
         fill="none"
-        stroke="#e2e8f0"
+        stroke="#334155"
         stroke-width="1"
       />
 
@@ -132,16 +132,16 @@ const labels = computed(() =>
         :y1="CENTER"
         :x2="axis.x"
         :y2="axis.y"
-        stroke="#e2e8f0"
+        stroke="#334155"
         stroke-width="1"
       />
 
       <!-- user profile polygon -->
       <polygon
         :points="profilePolygon"
-        fill="#4f46e5"
-        fill-opacity="0.2"
-        stroke="#4f46e5"
+        fill="#6366f1"
+        fill-opacity="0.25"
+        stroke="#6366f1"
         stroke-width="2"
         stroke-linejoin="round"
       />
@@ -153,7 +153,7 @@ const labels = computed(() =>
         :cx="v.x"
         :cy="v.y"
         r="3.5"
-        fill="#4f46e5"
+        fill="#6366f1"
       />
 
       <!-- axis labels: "R 73%" -->
@@ -164,11 +164,11 @@ const labels = computed(() =>
         :y="lab.y"
         :text-anchor="lab.anchor"
         :dy="lab.dy"
-        fill="#0f172a"
+        fill="#f1f5f9"
         font-size="14"
         font-weight="600"
       >{{ lab.letter }} <tspan
-        fill="#64748b"
+        fill="#94a3b8"
         font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
         font-weight="400"
       >{{ lab.percent }}%</tspan></text>
