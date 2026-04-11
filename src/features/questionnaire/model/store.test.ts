@@ -146,8 +146,11 @@ describe('questionnaire store', () => {
       // the landing-page bundle.
       expect(store.results).toEqual([])
       await store.loadOccupations()
-      expect(store.results.length).toBeGreaterThan(0)
-      expect(store.results.length).toBeLessThanOrEqual(20)
+      // The store returns the full ranked list (pagination happens in the
+      // UI). With the 923-entry O*NET dataset that's comfortably > 20 — a
+      // loose bound is enough to guard against a regression to the old
+      // hardcoded topN = 20 cap.
+      expect(store.results.length).toBeGreaterThan(20)
     })
 
     it('loadOccupations is idempotent and returns the same dataset on repeat calls', async () => {
