@@ -60,7 +60,7 @@ The order on every change is **automated checks → push → human browser test 
 
 For Claude Code sessions, that means:
 
-1. **Make the change** and run automated checks: `npm run type-check`, `npm run lint`, `npm run build`. Add a Vitest test if appropriate; run `npm test`.
+1. **Make the change** and run automated checks: `npm run type-check`, `npm run lint`, `npm run build`. Add a Vitest test if appropriate; run `npm test`. **Update `SUMMARY.md` (and any other docs that describe the change) as part of this step**, so the PR you'll push contains its own session log – never with stale placeholders like "PR to be filed". Once a PR is approved, the branch is frozen: do not push more commits to it (not even docs).
 2. **Commit and push** the branch to origin. Vite dev server on the dev-sandbox shares the same checkout, so the user's browser sees the change instantly via HMR – no extra deploy step.
 3. **Provide explicit browser test instructions to the user**, including:
    - The exact URL to open (e.g. `http://192.168.178.33:5173/`, or whatever port the user's dev server is on)
