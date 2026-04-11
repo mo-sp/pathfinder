@@ -5,6 +5,48 @@
 
 ---
 
+### Session 3 – 2026-04-11
+**Focus:** Vitest setup + unit tests for `pearson.ts`, `riasec.ts`, `matcher.ts` (plus stacked-PR recovery)
+
+**Meta / recovery:**
+- Discovered that PR #2 (`feat/esco-german-titles`) and PR #3 (`docs/session-summary-pr-links`) had merged into their stacked parent branches (`feat/poc-scaffold` and `feat/esco-german-titles` respectively) rather than into `main`, leaving `main` stuck at PR #1's state. ESCO German titles, the `build-esco-german.mjs` script, and the Testing & Review Workflow docs were all orphaned in feature branches. Root causes: (a) repo setting `delete_branch_on_merge = false`, so GitHub never auto-retargeted child PRs when a parent merged; (b) feature branches were cut from each other locally rather than from a freshly-pulled `main`, so `gh pr create` defaulted each PR's base to the immediate parent feature branch.
+- **Fix:** opened a one-shot catch-up PR from `feat/esco-german-titles` → `main`. Normal merge, no rewrites, no force-pushes. Pulled 8 commits (PRs #2 + #3 content) onto `main` in one go.
+  - **PR mo-sp/pathfinder#4** → https://github.com/mo-sp/pathfinder/pull/4
+- **Prevention:** flipped repo setting to `delete_branch_on_merge = true` via `gh api -X PATCH repos/mo-sp/pathfinder -f delete_branch_on_merge=true`. Future stacked PRs will now auto-retarget to the grandparent base as parents merge. Also saved memory (`feedback_stacked_pr_hygiene.md`) so future sessions default to branching from a freshly-pulled `main`.
+
+**What was done:**
+- Installed `vitest@^4.1.4` as a dev dependency. Added `npm test` (one-shot, used by pre-PR checks) and `npm run test:watch` (interactive watch mode) scripts to `package.json`. Added a `test` block to `vite.config.ts` (node environment, `src/**/*.test.ts` include pattern) so the existing `@features/*` / `@entities/*` path aliases resolve in tests automatically.
+- Wrote 24 unit tests across the three pure-logic modules that drive the scoring pipeline:
+  - **`src/features/scoring/lib/pearson.test.ts`** (9 tests) – empty/mismatched-length inputs return 0; zero-variance guard (no NaN); identical and linearly-scaled inputs → +1; inverse inputs → −1; hand-computed known value (`[1..5]` vs `[2,4,5,4,5]` → ~0.7746); symmetry.
+  - **`src/features/scoring/lib/riasec.test.ts`** (9 tests) – `computeRiasecProfile` per-dimension Likert sums, ignores non-riasec layer answers, ignores answers referencing unknown `questionId`, ignores riasec questions carrying an invalid dimension letter; `normalizeRiasecToPercent` percent math against item counts, zero-count safety (no divide-by-zero), integer rounding.
+  - **`src/features/matching/lib/matcher.test.ts`** (6 tests) – identical user/occupation profile ranks that occupation first with `fitScore ≈ 1`, results sort strictly descending by `fitScore`, `rank` field assigned 1..N, `topN` slicing, empty list returns empty, occupation references preserved (no defensive cloning).
+- First config attempt imported `defineConfig` from `'vitest/config'`. This silently broke Vite **dev-mode** alias resolution (every `@app`/`@shared` import in `src/main.ts` failed with `Failed to resolve import`) while leaving `npm run build` and `npm test` working. A second root-level `.vite/` cache directory also appeared alongside the usual `node_modules/.vite/` — `vitest/config`'s `defineConfig` seems to apply extra wrapping that interferes with Vite 8's environment-aware alias plumbing in the dev server. **Fix:** switch back to `defineConfig` from `'vite'` and declare the `test` block's type via a `/// <reference types="vitest/config" />` directive (the other pattern the vitest docs recommend). Manually verified with a curl against `/src/main.ts` on a temporary port — the transform returned the real file paths like `App from "/src/app/App.vue"`.
+- Verified: `npm test` → 24/24 passing, `npm run type-check` ✅, `npm run lint` ✅, `npm run build` ✅ (existing 500 KB store-chunk warning unchanged), dev server on `--host` mode serves the questionnaire end-to-end with German occupation titles on the Results page (confirmed by @mo-sp in the browser before PR).
+
+**Commits / PRs:**
+- Branch: `feat/vitest-scoring-tests` (branched from `main` **after** PR #4 merged — truly clean base)
+- `a67b922` chore(tests): set up vitest with node env and path aliases
+- `ff3cdf6` test(scoring): add unit tests for pearson, riasec, and matcher
+- `fe13b50` fix(vite): use defineConfig from 'vite' with triple-slash vitest type ref
+- **PR mo-sp/pathfinder#5** → https://github.com/mo-sp/pathfinder/pull/5
+- Related: **PR mo-sp/pathfinder#4** → https://github.com/mo-sp/pathfinder/pull/4 (catch-up merge that put PRs #2 + #3 onto `main`)
+
+**Known issues / TODOs:**
+- **"Test neu starten" routing bug** (spotted during Session 3 smoke test, pre-existing — not introduced here): clicking *Test neu starten* on the Results page after a completed assessment bounces to a "Du hast den Test noch nicht abgeschlossen" interstitial with a `> Zum Test` link, and only then starts a new run. It eventually works but the interstitial shouldn't appear on this path — likely an assessment-route guard that checks for an in-progress session too eagerly.
+- Bundle-size warning (~600 KB `store` chunk) unchanged since Session 2. Lazy-loading `onet-occupations.json` is still the cleanest fix.
+- 50 of 60 O*NET items still only have English text.
+- No tests yet for the Pinia `questionnaire` store, the Dexie persistence layer, or any component/integration test. Deferred.
+- No integration test yet that runs the full scoring pipeline against the real `src/data/onet-occupations.json` (e.g. an all-Investigative profile should rank software/science occupations in the top 10).
+
+**Next steps:**
+- Fix the "Test neu starten" interstitial routing bug (small, scoped).
+- Replace the RIASEC bar chart with a proper hexagon/radar widget under `widgets/riasec-chart/`.
+- Lazy-load `onet-occupations.json` out of the main store chunk.
+- Add an integration test that exercises scoring + matching against the real occupations JSON.
+- Translate the remaining 50 O*NET items to German.
+
+---
+
 ### Session 2 – 2026-04-11
 **Focus:** ESCO mapping → German occupation titles in `ResultsPage`
 
