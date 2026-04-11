@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useQuestionnaireStore } from '@features/questionnaire/model/store'
@@ -7,6 +7,16 @@ import { useQuestionnaireStore } from '@features/questionnaire/model/store'
 const store = useQuestionnaireStore()
 const router = useRouter()
 const { t } = useI18n()
+
+// Prefetch the lazy occupations chunk while the user answers so results
+// can render instantly on completion. Fire-and-forget: a failure here just
+// means /ergebnis will trigger its own load with a short delay, and the
+// user won't be blocked from answering questions either way.
+onMounted(() => {
+  store.loadOccupations().catch((err) => {
+    console.error('Failed to prefetch occupations', err)
+  })
+})
 
 const likertOptions = [1, 2, 3, 4, 5] as const
 
