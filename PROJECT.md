@@ -10,23 +10,39 @@ Inspired by the creator's own experience: decades of searching before finding hi
 
 ### Assessment Layers
 
-1. **RIASEC Interests (Layer 1 – MVP):** 60 items from the O*NET Interest Profiler Short Form. Measures six interest dimensions: Realistic, Investigative, Artistic, Social, Enterprising, Conventional.
+The assessment is a **progressive funnel**, not three separate tests. Each layer narrows and sharpens the results from the previous one. Users see their results update live as they complete each layer — the experience is one continuous journey that gets more precise the deeper you go.
 
-2. **Personality / Big Five (Layer 2 – Phase 2):** 30 IPIP items. Measures Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism. Used as secondary filter for matching.
+1. **RIASEC Interests (Layer 1 – MVP):** 60 items from the O*NET Interest Profiler Short Form. Measures six interest dimensions: Realistic, Investigative, Artistic, Social, Enterprising, Conventional. This is the broadest filter — it reduces 923 occupations to ~80-100 realistic candidates (correlation > 0.5). Users see a first result ("Your profile is strongly Investigative-Artistic") but the occupation list is explicitly framed as a draft.
 
-3. **Values & Preferences (Layer 3 – Phase 2):** Custom items. Education willingness, indoor/outdoor, team/solo, security vs. freedom, income vs. meaning, mobility, physical demands.
+2. **Personality / Big Five (Layer 2 – Phase 2):** 50 IPIP-50 Big Five Factor Markers items (Goldberg 1992, Public Domain). Measures Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism with 10 items per dimension. Big Five **re-ranks within the RIASEC funnel** — it does not filter occupations out. Example: within a high-I/A candidate pool, an introverted + conscientious profile pushes Archivist and Data Analyst up, while an extraverted + open profile pushes Science Journalist and Museum Curator up.
 
-4. **Skills Self-Assessment (Layer 4 – Phase 2):** Self-rated abilities matched against O*NET ability data per occupation.
+3. **Values & Preferences (Layer 3 – Phase 2):** Custom items. Education willingness, indoor/outdoor, team/solo, security vs. freedom, income vs. meaning, mobility, physical demands. These act as **hard filters and weight adjustments**: "max 3 years training" eliminates Surgeon; "outdoor work preferred" eliminates lab-based roles; "income over meaning" shifts rankings.
 
-### Scoring Algorithm
+4. **Skills Self-Assessment (Layer 4 – Phase 2):** Self-rated abilities matched against O*NET ability data per occupation. Provides a final reality-check layer — high interest + low self-assessed ability triggers a "you'd need to develop these skills" note rather than elimination.
+
+### Progressive Scoring Architecture
+
+The core principle: **each layer refines, not replaces**. A user who completes only Layer 1 gets useful results. A user who completes all layers gets highly differentiated results.
 
 ```
-1. Sum responses per RIASEC dimension (Likert 1-5, 10 items each → score 10-50)
-2. Compute Pearson correlation between user RIASEC profile and each occupation's RIASEC profile
-3. Filter by user preferences (Layer 3)
-4. Weight with personality overlay (Layer 2) and skills match (Layer 4)
-5. Return top-20 ranked occupations with fit scores and explanations
+Score_final(occupation) =
+    w1 × RIASEC_correlation          // Layer 1: base fit (Pearson, -1 to 1)
+  + w2 × BigFive_modifier            // Layer 2: personality re-ranking multiplier
+  + w3 × Skills_match                // Layer 4: ability alignment bonus
+  − penalties(Values_conflicts)      // Layer 3: hard/soft constraint violations
 ```
+
+**Layer interactions:**
+- `RIASEC_correlation` is always the foundation. Without it, no scoring happens.
+- `BigFive_modifier` is a multiplier, not an independent score. If an occupation typically requires high Extraversion and the user scores low, the fit score is dampened — but never zeroed out. This ensures Big Five refines rather than overrides RIASEC.
+- `Values_conflicts` are the only source of hard eliminations (e.g. education duration exceeds willingness). Soft conflicts (e.g. "prefers outdoor" but occupation is mixed) apply a smaller penalty.
+- `Skills_match` is additive — high skill alignment boosts a candidate, but low alignment doesn't eliminate it (instead triggers a "development needed" annotation).
+
+**UX implication:** After each completed layer, the results page updates live. The user sees their top-20 shift and can understand why — "After your personality profile, Research Scientist moved up because your high Openness and low Extraversion match well."
+
+### Optional: Adaptive Deepening
+
+For users with ambiguous RIASEC profiles (e.g. three dimensions within 5 points of each other), the system can offer targeted follow-up questions from the O*NET Interest Profiler Long Form (180 items total, 30 per dimension) — but only for the ambiguous dimensions. This avoids forcing all users through 180 questions while giving unclear profiles more resolution.
 
 ### Data Flow
 
@@ -35,7 +51,7 @@ User answers questions (browser)
     → Responses stored in IndexedDB (Dexie.js)
     → Scoring engine computes RIASEC + Big5 profiles (Pinia store)
     → Matching engine correlates against occupation database (static JSON)
-    → Results displayed with visualizations
+    → Results displayed with visualizations, updating after each layer
     → Optional: anonymous statistics sent to Supabase (opt-in, Phase 3)
 ```
 
@@ -93,9 +109,11 @@ interface AssessmentSession {
   id: string
   startedAt: Date
   completedAt?: Date
+  currentLayer: 'riasec' | 'bigfive' | 'values' | 'skills'
   answers: Answer[]
   riasecProfile?: RIASECProfile
   bigFiveProfile?: BigFiveProfile
+  valuesProfile?: ValuesProfile
   results?: MatchResult[]
 }
 
@@ -107,8 +125,13 @@ interface Answer {
 
 interface MatchResult {
   occupation: Occupation
-  fitScore: number           // Pearson correlation (-1 to 1)
+  fitScore: number           // combined score
+  riasecCorrelation: number  // Layer 1 component (Pearson, -1 to 1)
+  bigFiveModifier?: number   // Layer 2 component (multiplier)
+  skillsMatch?: number       // Layer 4 component
+  valuesPenalty?: number     // Layer 3 component (subtracted)
   rank: number
+  explanation?: string       // "Why this career fits you" (algorithmic, not AI)
 }
 ```
 
@@ -117,7 +140,7 @@ interface MatchResult {
 | Phase | Focus | Timeline |
 |-------|-------|----------|
 | 1 | MVP: German RIASEC test + occupation matching | Months 1-3 |
-| 2 | Depth: Big Five, values, skills, better matching | Months 4-8 |
+| 2 | Depth: Big Five, values, skills, progressive scoring | Months 4-8 |
 | 3 | Feedback: anonymous backend, data-driven improvements | Months 9-14 |
 | 4 | International: English, more languages, SEO | Year 2+ |
 | 5 | Professional: native apps, partnerships, optional monetization | Year 3+ |
