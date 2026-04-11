@@ -4,17 +4,17 @@ import { RouterLink, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useQuestionnaireStore } from '@features/questionnaire/model/store'
 import { RIASEC_DIMENSIONS } from '@features/scoring/lib/riasec'
+import { RiasecHexagon } from '@widgets/riasec-chart'
 
 const store = useQuestionnaireStore()
 const router = useRouter()
 const { t } = useI18n()
 
-const bars = computed(() =>
+const legend = computed(() =>
   RIASEC_DIMENSIONS.map((dim) => ({
     dim,
     label: t(`riasec.${dim}`),
     description: t(`riasecDescription.${dim}`),
-    percent: store.riasecPercent[dim],
   })),
 )
 
@@ -49,29 +49,24 @@ async function restart(): Promise<void> {
         Short Form.
       </p>
 
-      <div class="mt-8 space-y-4">
-        <div
-          v-for="bar in bars"
-          :key="bar.dim"
-          class="rounded-lg border border-slate-200 bg-white p-4"
-        >
-          <div class="flex items-baseline justify-between">
-            <div>
-              <div class="font-semibold text-slate-900">
-                {{ bar.dim }} – {{ bar.label }}
-              </div>
-              <div class="text-xs text-slate-500">{{ bar.description }}</div>
-            </div>
-            <div class="text-sm font-mono text-slate-700">{{ bar.percent }} %</div>
-          </div>
-          <div class="mt-2 h-3 overflow-hidden rounded-full bg-slate-100">
-            <div
-              class="h-full bg-indigo-600 transition-all duration-500"
-              :style="{ width: `${bar.percent}%` }"
-            />
-          </div>
-        </div>
+      <div class="mt-10 rounded-lg border border-slate-200 bg-white p-6">
+        <RiasecHexagon :profile="store.riasecPercent" />
       </div>
+
+      <dl class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          v-for="entry in legend"
+          :key="entry.dim"
+          class="rounded-md border border-slate-200 bg-white p-3"
+        >
+          <dt class="text-sm font-semibold text-slate-900">
+            {{ entry.dim }} – {{ entry.label }}
+          </dt>
+          <dd class="mt-1 text-xs text-slate-500">
+            {{ entry.description }}
+          </dd>
+        </div>
+      </dl>
 
       <h2 class="mt-12 text-2xl font-semibold text-slate-900">
         Top-Berufsempfehlungen
@@ -85,18 +80,18 @@ async function restart(): Promise<void> {
         <li
           v-for="result in store.results.slice(0, 10)"
           :key="result.occupation.onetCode"
-          class="flex items-center justify-between rounded-md border border-slate-200 bg-white px-4 py-3"
+          class="flex items-center justify-between gap-3 rounded-md border border-slate-200 bg-white px-4 py-3"
         >
-          <div>
-            <div class="font-medium text-slate-900">
+          <div class="min-w-0 flex-1">
+            <div class="font-medium break-words text-slate-900">
               {{ result.rank }}. {{ result.occupation.title.de || result.occupation.title.en }}
             </div>
-            <div class="text-xs text-slate-500">
+            <div class="text-xs break-words text-slate-500">
               O*NET {{ result.occupation.onetCode }}
               <span v-if="!result.occupation.title.de"> · (Übersetzung folgt)</span>
             </div>
           </div>
-          <div class="font-mono text-sm text-indigo-600">
+          <div class="shrink-0 font-mono text-sm text-indigo-600">
             {{ (result.fitScore * 100).toFixed(0) }}
           </div>
         </li>
