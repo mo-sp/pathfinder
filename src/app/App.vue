@@ -13,8 +13,8 @@ import { RouterLink, RouterView } from 'vue-router'
           PathFinder
         </RouterLink>
         <nav class="flex gap-4 text-sm text-slate-600">
-          <RouterLink to="/" class="hover:text-indigo-600">Start</RouterLink>
-          <RouterLink to="/test" class="hover:text-indigo-600">Test starten</RouterLink>
+          <RouterLink to="/" class="hover:text-indigo-600">Startseite</RouterLink>
+          <RouterLink to="/test" class="hover:text-indigo-600">Zum Test</RouterLink>
         </nav>
       </div>
     </header>
