@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import type { Answer, AssessmentSession } from '@entities/assessment/model/types'
 import type { Question } from '@entities/question/model/types'
@@ -107,6 +107,57 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     await db.sessions.put(session)
   }
 
+  /**
+   * Restore the most recent session from IndexedDB so reloading /test or
+   * /ergebnis mid-assessment resumes where the user left off instead of
+   * starting fresh. Only called once, from main.ts before mount, and only
+   * when the entry URL is on the assessment or results route – landing on
+   * "/" always starts with a clean slate. Failures are swallowed because
+   * IndexedDB may be unavailable (private mode, quota, etc.), and in that
+   * case the store simply stays in its pristine in-memory state.
+   */
+  let hydrated = false
+  async function hydrate(): Promise<void> {
+    if (hydrated) return
+    hydrated = true
+    try {
+      const latest = await db.sessions
+        .orderBy('startedAt')
+        .reverse()
+        .first()
+      if (!latest) return
+      sessionId.value = latest.id
+      startedAt.value = latest.startedAt
+      answers.value = [...latest.answers]
+      // Resume at the next unanswered question; clamp so a complete session
+      // sits on the last question instead of stepping past the end of the
+      // questions array.
+      const nextIndex = answers.value.length
+      const lastIndex = Math.max(0, total.value - 1)
+      currentIndex.value = Math.min(nextIndex, lastIndex)
+    } catch (err) {
+      console.error('Failed to hydrate assessment session', err)
+    }
+  }
+
+  // Persist on every answer, navigation, or reset so a reload always finds
+  // the latest state. The session is tiny and Likert clicks happen at
+  // human pace, so no debouncing is needed. We intentionally persist empty
+  // resets too: without it, reloading /test immediately after clicking
+  // "Test starten" would hydrate the previous completed session, because
+  // the empty fresh session wouldn't yet be in Dexie. The initial store
+  // instantiation does *not* fire this watcher (Vue 3 watch defaults to
+  // non-immediate), so the landing page ("/") never writes a stray row.
+  watch(
+    [answers, currentIndex],
+    () => {
+      void persist().catch((err) => {
+        console.error('Failed to persist assessment session', err)
+      })
+    },
+    { deep: true },
+  )
+
   return {
     sessionId,
     answers,
@@ -123,5 +174,6 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     previous,
     reset,
     persist,
+    hydrate,
   }
 })
