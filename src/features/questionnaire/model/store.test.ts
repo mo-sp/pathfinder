@@ -17,15 +17,19 @@ import type { AssessmentSession } from '@entities/assessment/model/types'
 
 /**
  * Let the reactive watcher fire and the async persist() call (including
- * the fake-IDB transaction commit) settle before the next assertion. Two
- * microtasks + two macrotasks is overkill for fake-IDB writes of a tiny
- * row but keeps the tests stable without having to poll.
+ * the dynamic occupations import on completion and the fake-IDB
+ * transaction commit) settle before the next assertion. Four
+ * microtasks + four macrotasks is overkill for fake-IDB writes of a tiny
+ * row, but `persist()` now awaits `loadOccupations()` when isComplete,
+ * which adds a chain of dynamic-import + ref-assignment microtasks
+ * between the watcher firing and the Dexie write. Keeps the tests stable
+ * without having to poll for state.
  */
 async function flushPersist(): Promise<void> {
-  await nextTick()
-  await nextTick()
-  await new Promise((resolve) => setTimeout(resolve, 0))
-  await new Promise((resolve) => setTimeout(resolve, 0))
+  for (let i = 0; i < 4; i += 1) await nextTick()
+  for (let i = 0; i < 4; i += 1) {
+    await new Promise((resolve) => setTimeout(resolve, 0))
+  }
 }
 
 describe('questionnaire store', () => {
@@ -125,7 +129,7 @@ describe('questionnaire store', () => {
       expect(p.C).toBe(100)
     })
 
-    it('results is empty until the session is complete', () => {
+    it('results populates once the session is complete and occupations are loaded', async () => {
       const store = useQuestionnaireStore()
       expect(store.results).toEqual([])
       for (let i = 0; i < store.total - 1; i += 1) store.answer(4)
@@ -133,8 +137,25 @@ describe('questionnaire store', () => {
       expect(store.results).toEqual([])
       store.answer(4)
       expect(store.isComplete).toBe(true)
+      // Occupations are lazy-loaded from a separate chunk: results stays
+      // empty after completion until loadOccupations() resolves. This is
+      // the intentional trade-off for keeping the ~500 KB dataset out of
+      // the landing-page bundle.
+      expect(store.results).toEqual([])
+      await store.loadOccupations()
       expect(store.results.length).toBeGreaterThan(0)
       expect(store.results.length).toBeLessThanOrEqual(20)
+    })
+
+    it('loadOccupations is idempotent and returns the same dataset on repeat calls', async () => {
+      const store = useQuestionnaireStore()
+      const first = await store.loadOccupations()
+      const second = await store.loadOccupations()
+      // Module-scoped promise cache means both calls resolve to the exact
+      // same array reference — not just structurally equal. Guards against
+      // a regression where a second caller kicks off a duplicate fetch.
+      expect(second).toBe(first)
+      expect(first.length).toBeGreaterThan(0)
     })
   })
 

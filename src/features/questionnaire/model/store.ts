@@ -8,7 +8,6 @@ import { matchOccupations } from '@features/matching/lib/matcher'
 import { db } from '@shared/config/db'
 import { uuid } from '@shared/lib/uuid'
 import itemsData from '@data/onet-items.json'
-import occupationsData from '@data/onet-occupations.json'
 
 const POC_ITEM_IDS = [
   'ip-r-01', // Build kitchen cabinets
@@ -28,13 +27,33 @@ interface ItemsFile {
 }
 
 const allItems = (itemsData as ItemsFile).items
-const occupations = occupationsData as Occupation[]
+
+/**
+ * Lazy-load the ~600 KB O*NET occupations JSON. Keeping this out of the
+ * store chunk means the landing page ("/") downloads only the store logic
+ * (~100 KB) instead of the full dataset, and the assessment page can
+ * prefetch occupations in parallel with the user answering the ten
+ * questions so results still render instantly on completion. The cached
+ * promise doubles as both a "loaded" marker and a deduper for concurrent
+ * callers (AssessmentPage onMount + ResultsPage onMount + the persist
+ * watcher all race to trigger it).
+ */
+let occupationsPromise: Promise<Occupation[]> | null = null
+async function fetchOccupations(): Promise<Occupation[]> {
+  if (!occupationsPromise) {
+    occupationsPromise = import('@data/onet-occupations.json').then(
+      (mod) => (mod.default ?? mod) as unknown as Occupation[],
+    )
+  }
+  return occupationsPromise
+}
 
 export const useQuestionnaireStore = defineStore('questionnaire', () => {
   const sessionId = ref<string>(uuid())
   const startedAt = ref<number>(Date.now())
   const answers = ref<Answer[]>([])
   const currentIndex = ref(0)
+  const occupations = ref<Occupation[] | null>(null)
 
   // PoC: 10 hand-picked items in German.
   const questions = computed<Question[]>(() =>
@@ -78,6 +97,21 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     currentIndex.value = 0
   }
 
+  /**
+   * Kick off (or await an already-in-flight) dynamic import of the
+   * occupations dataset and assign it to the reactive `occupations` ref so
+   * `results` re-computes. Safe to call repeatedly: the module-scoped
+   * `occupationsPromise` cache means the browser fetches the chunk at most
+   * once per page load. Call from route entry (`/test` preload, `/ergebnis`
+   * safety net) and from `persist()` so the completed session written to
+   * Dexie always contains the full `results` snapshot.
+   */
+  async function loadOccupations(): Promise<Occupation[]> {
+    const data = await fetchOccupations()
+    if (occupations.value !== data) occupations.value = data
+    return data
+  }
+
   const riasecProfile = computed<RIASECProfile>(() =>
     computeRiasecProfile(answers.value, questions.value),
   )
@@ -86,11 +120,18 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     normalizeRiasecToPercent(riasecProfile.value, questions.value),
   )
 
-  const results = computed<MatchResult[]>(() =>
-    isComplete.value ? matchOccupations(riasecProfile.value, occupations, 20) : [],
-  )
+  const results = computed<MatchResult[]>(() => {
+    if (!isComplete.value || !occupations.value) return []
+    return matchOccupations(riasecProfile.value, occupations.value, 20)
+  })
 
   async function persist(): Promise<void> {
+    // Writing a completed session: make sure the occupations dataset is
+    // loaded so `results` is populated before we snapshot. Otherwise a
+    // persist triggered by the 10th answer would race the dynamic import
+    // and write an empty `results` array to Dexie. In-progress sessions
+    // don't touch occupations so they skip the wait.
+    if (isComplete.value) await loadOccupations()
     // JSON-roundtrip strips Vue reactive proxies so Dexie's structured-clone
     // serialization always sees plain objects. Cheap because the session is
     // tiny (≤60 answers + 6 floats + ≤20 match summaries).
@@ -175,5 +216,6 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     reset,
     persist,
     hydrate,
+    loadOccupations,
   }
 })

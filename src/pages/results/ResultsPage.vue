@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useQuestionnaireStore } from '@features/questionnaire/model/store'
@@ -9,6 +9,17 @@ import { RiasecHexagon } from '@widgets/riasec-chart'
 const store = useQuestionnaireStore()
 const router = useRouter()
 const { t } = useI18n()
+
+// Safety net for direct navigation / reload on /ergebnis: AssessmentPage
+// prefetches the occupations chunk on mount, so the common flow lands here
+// with results already populated, but a user who jumps straight to
+// /ergebnis (bookmark, reload after hydrate) still needs the chunk. The
+// store caches the promise so this is a no-op when it's already resolved.
+onMounted(() => {
+  store.loadOccupations().catch((err) => {
+    console.error('Failed to load occupations for results', err)
+  })
+})
 
 const legend = computed(() =>
   RIASEC_DIMENSIONS.map((dim) => ({
@@ -76,7 +87,13 @@ async function restart(): Promise<void> {
         RIASEC-Profilen aus der O*NET-Datenbank.
       </p>
 
-      <ol class="mt-6 space-y-3">
+      <p
+        v-if="store.results.length === 0"
+        class="mt-6 rounded-md border border-dashed border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500"
+      >
+        Berufsempfehlungen werden geladen …
+      </p>
+      <ol v-else class="mt-6 space-y-3">
         <li
           v-for="result in store.results.slice(0, 10)"
           :key="result.occupation.onetCode"
