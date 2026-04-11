@@ -1,5 +1,12 @@
 export type RiasecDimension = 'R' | 'I' | 'A' | 'S' | 'E' | 'C'
 
+export type BigFiveDimension =
+  | 'openness'
+  | 'conscientiousness'
+  | 'extraversion'
+  | 'agreeableness'
+  | 'neuroticism'
+
 export type QuestionLayer = 'riasec' | 'bigfive' | 'values' | 'skills'
 
 export type Scale = 'likert5' | 'likert7' | 'boolean'

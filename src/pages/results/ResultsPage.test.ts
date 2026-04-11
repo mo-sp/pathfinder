@@ -201,6 +201,67 @@ describe('ResultsPage', () => {
     )
   })
 
+  describe('Big Five refinement block (Phase 2 / Layer 2)', () => {
+    it('shows the "Persönlichkeitsprofil starten" CTA when RIASEC is complete but Big Five is not', async () => {
+      await seedDirectionalSession()
+      const wrapper = mountWith(makeRouter())
+
+      // Heading from the v-else branch of the bigfiveIsComplete gate.
+      expect(wrapper.text()).toContain('Ergebnis verfeinern')
+      expect(wrapper.text()).toContain('50 zusätzliche Fragen')
+      // BigFiveBars must NOT render yet — it's on the other side of the gate.
+      expect(wrapper.text()).not.toContain('Dein Persönlichkeitsprofil')
+    })
+
+    it('clicking the CTA calls store.startBigFiveLayer() AND pushes /test', async () => {
+      const router = makeRouter()
+      const pushSpy = vi.spyOn(router, 'push').mockResolvedValue(undefined)
+
+      await seedDirectionalSession()
+      const store = useQuestionnaireStore()
+
+      const wrapper = mountWith(router)
+      const ctaButton = wrapper
+        .findAll('button')
+        .find((b) => b.text().includes('Persönlichkeitsprofil starten'))
+      expect(ctaButton).toBeDefined()
+      await ctaButton!.trigger('click')
+
+      // Layer switch happens in-place — the store mutates synchronously
+      // before the router push resolves.
+      expect(store.currentLayer).toBe('bigfive')
+      await vi.waitFor(() => {
+        expect(pushSpy).toHaveBeenCalledWith('/test')
+      })
+    })
+
+    it('renders BigFiveBars and the five dimension legend when both layers are complete', async () => {
+      await seedDirectionalSession()
+      const store = useQuestionnaireStore()
+      store.startBigFiveLayer()
+      // Answer all 50 Big Five items with the neutral value; it flips
+      // fixed-point through the reverse-score gate so every dimension
+      // sums to 30 — good enough to prove the block renders.
+      for (let i = 0; i < store.bigfiveTotal; i += 1) store.answer(3)
+      expect(store.bigfiveIsComplete).toBe(true)
+
+      const wrapper = mountWith(makeRouter())
+
+      expect(wrapper.text()).toContain('Dein Persönlichkeitsprofil')
+      // All five dimension labels from the Big Five i18n messages appear
+      // in the legend — one assertion per dimension catches a regression
+      // where the legend renders partially.
+      expect(wrapper.text()).toContain('Offenheit')
+      expect(wrapper.text()).toContain('Gewissenhaftigkeit')
+      expect(wrapper.text()).toContain('Extraversion')
+      expect(wrapper.text()).toContain('Verträglichkeit')
+      expect(wrapper.text()).toContain('Neurotizismus')
+      // Verfeinern CTA disappears now that the refinement has been
+      // completed — the gate flipped the other way.
+      expect(wrapper.text()).not.toContain('Ergebnis verfeinern')
+    })
+  })
+
   describe('restart from results page', () => {
     it('"Test neu starten" calls store.reset() AND navigates to /test', async () => {
       const router = makeRouter()

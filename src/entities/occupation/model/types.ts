@@ -1,6 +1,11 @@
-import type { RiasecDimension } from '@entities/question/model/types'
+import type {
+  BigFiveDimension,
+  RiasecDimension,
+} from '@entities/question/model/types'
 
 export type RIASECProfile = Record<RiasecDimension, number>
+
+export type BigFiveProfile = Record<BigFiveDimension, number>
 
 export interface Occupation {
   /** O*NET-SOC code, e.g. "15-1252.00". */

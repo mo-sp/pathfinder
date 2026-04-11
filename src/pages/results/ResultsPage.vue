@@ -7,7 +7,9 @@ import {
   hasProfileDirection,
   RIASEC_DIMENSIONS,
 } from '@features/scoring/lib/riasec'
+import { BIG_FIVE_DIMENSIONS } from '@features/scoring/lib/bigfive'
 import { RiasecHexagon } from '@widgets/riasec-chart'
+import { BigFiveBars } from '@widgets/bigfive-chart'
 
 const store = useQuestionnaireStore()
 const router = useRouter()
@@ -52,11 +54,19 @@ onMounted(() => {
   })
 })
 
-const legend = computed(() =>
+const riasecLegend = computed(() =>
   RIASEC_DIMENSIONS.map((dim) => ({
     dim,
     label: t(`riasec.${dim}`),
     description: t(`riasecDescription.${dim}`),
+  })),
+)
+
+const bigfiveLegend = computed(() =>
+  BIG_FIVE_DIMENSIONS.map((dim) => ({
+    dim,
+    label: t(`bigfive.${dim}`),
+    description: t(`bigfiveDescription.${dim}`),
   })),
 )
 
@@ -68,11 +78,22 @@ async function restart(): Promise<void> {
   store.reset()
   await router.push('/test')
 }
+
+/**
+ * Promote the user into the Big Five layer and send them back to /test.
+ * Kept as a separate action from `startBigFiveLayer` alone so the page is
+ * the only call site that knows about the navigation pairing — the store
+ * stays router-agnostic.
+ */
+async function refineWithBigFive(): Promise<void> {
+  store.startBigFiveLayer()
+  await router.push('/test')
+}
 </script>
 
 <template>
   <section class="mx-auto max-w-3xl px-4 py-12">
-    <div v-if="!store.isComplete" class="rounded-lg border border-amber-800/60 bg-amber-950/40 p-6">
+    <div v-if="!store.riasecIsComplete" class="rounded-lg border border-amber-800/60 bg-amber-950/40 p-6">
       <p class="text-sm text-amber-200">
         Du hast den Test noch nicht abgeschlossen.
       </p>
@@ -87,7 +108,7 @@ async function restart(): Promise<void> {
     <template v-else>
       <h1 class="text-3xl font-bold text-slate-100">Dein RIASEC-Profil</h1>
       <p class="mt-2 text-sm text-slate-400">
-        Basierend auf {{ store.total }} Items aus dem O*NET Interest Profiler
+        Basierend auf {{ store.riasecTotal }} Items aus dem O*NET Interest Profiler
         Short Form.
       </p>
 
@@ -97,7 +118,7 @@ async function restart(): Promise<void> {
 
       <dl class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         <div
-          v-for="entry in legend"
+          v-for="entry in riasecLegend"
           :key="entry.dim"
           class="rounded-md border border-slate-800 bg-slate-900 p-3"
         >
@@ -109,6 +130,58 @@ async function restart(): Promise<void> {
           </dd>
         </div>
       </dl>
+
+      <!-- Big Five block: either the completed profile + legend, or an
+           invitation to start the refinement layer. -->
+      <template v-if="store.bigfiveIsComplete">
+        <h2 class="mt-12 text-2xl font-semibold text-slate-100">
+          Dein Persönlichkeitsprofil
+        </h2>
+        <p class="mt-2 text-sm text-slate-400">
+          Basierend auf {{ store.bigfiveTotal }} Items aus dem IPIP Big Five
+          Factor Markers Set.
+        </p>
+        <div class="mt-6 rounded-lg border border-slate-800 bg-slate-900 p-6">
+          <BigFiveBars :profile="store.bigfivePercent" />
+        </div>
+        <dl class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            v-for="entry in bigfiveLegend"
+            :key="entry.dim"
+            class="rounded-md border border-slate-800 bg-slate-900 p-3"
+          >
+            <dt class="text-sm font-semibold text-slate-100">
+              {{ entry.label }}
+            </dt>
+            <dd class="mt-1 text-xs text-slate-400">
+              {{ entry.description }}
+            </dd>
+          </div>
+        </dl>
+      </template>
+      <div
+        v-else
+        class="mt-12 rounded-lg border border-indigo-800/60 bg-indigo-950/40 p-6"
+      >
+        <p class="text-base font-semibold text-indigo-100">
+          Ergebnis verfeinern
+        </p>
+        <p class="mt-2 text-sm text-indigo-200">
+          Mit einem Persönlichkeitsprofil nach dem Big-Five-Modell wird deine
+          Berufsliste präziser neu gewichtet. Die weiteren Ebenen filtern
+          nicht, sie verfeinern die bestehende Reihenfolge.
+        </p>
+        <p class="mt-1 text-sm text-indigo-200">
+          {{ store.bigfiveTotal }} zusätzliche Fragen, etwa 5 Minuten.
+        </p>
+        <button
+          type="button"
+          class="mt-4 inline-flex items-center rounded-md bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-400"
+          @click="refineWithBigFive"
+        >
+          Persönlichkeitsprofil starten
+        </button>
+      </div>
 
       <h2 class="mt-12 text-2xl font-semibold text-slate-100">
         Top-Berufsempfehlungen

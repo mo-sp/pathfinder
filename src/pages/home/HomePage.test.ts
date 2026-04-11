@@ -77,4 +77,17 @@ describe('HomePage', () => {
     expect(cta.exists()).toBe(true)
     expect(cta.text()).toContain('Test starten')
   })
+
+  it('shows all four progressive-funnel layer cards (PROJECT.md §5 Layer 1-4)', () => {
+    // Every planned layer must be visible upfront so users see the full
+    // depth of the assessment from day one — Big Five and Values/Skills
+    // land as refinement steps, not surprises. Active layers stay at
+    // normal opacity, not-yet-implemented layers render muted via the
+    // `opacity-60` class.
+    const wrapper = mountHomePage()
+    expect(wrapper.text()).toContain('Schicht 1: RIASEC')
+    expect(wrapper.text()).toContain('Schicht 2: Big Five')
+    expect(wrapper.text()).toContain('Schicht 3: Werte')
+    expect(wrapper.text()).toContain('Schicht 4: Fähigkeiten')
+  })
 })
