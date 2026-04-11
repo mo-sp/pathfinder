@@ -165,7 +165,14 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
 
   const results = computed<MatchResult[]>(() => {
     if (!isComplete.value || !occupations.value) return []
-    return matchOccupations(riasecProfile.value, occupations.value, 20)
+    // Return the full ranked list; ResultsPage paginates locally and hides
+    // entries with fitScore ≤ 0 so the "Mehr anzeigen" button can cap out
+    // naturally at the point where remaining matches carry no signal.
+    return matchOccupations(
+      riasecProfile.value,
+      occupations.value,
+      occupations.value.length,
+    )
   })
 
   async function persist(): Promise<void> {

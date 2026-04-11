@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useQuestionnaireStore } from '@features/questionnaire/model/store'
@@ -21,6 +21,25 @@ const { t } = useI18n()
 // case. The hexagon stays visible — a flat hexagon is itself informative
 // feedback about what happened.
 const hasDirection = computed(() => hasProfileDirection(store.riasecProfile))
+
+// Results pagination: show 20 initially, reveal 20 more per click. Cap at
+// fitScore > 0 so we don't surface the "rank 500: Postmasters · 0" tail —
+// a zero correlation carries no signal and would only dilute the list.
+// visibleCount is local UI state; a reload resets to 20 on purpose.
+const PAGE_SIZE = 20
+const visibleCount = ref(PAGE_SIZE)
+const rankedResults = computed(() =>
+  store.results.filter((r) => r.fitScore > 0),
+)
+const visibleResults = computed(() =>
+  rankedResults.value.slice(0, visibleCount.value),
+)
+const canShowMore = computed(
+  () => visibleCount.value < rankedResults.value.length,
+)
+function showMore(): void {
+  visibleCount.value += PAGE_SIZE
+}
 
 // Safety net for direct navigation / reload on /ergebnis: AssessmentPage
 // prefetches the occupations chunk on mount, so the common flow lands here
@@ -123,7 +142,7 @@ async function restart(): Promise<void> {
         </p>
         <ol v-else class="mt-6 space-y-3">
           <li
-            v-for="result in store.results.slice(0, 10)"
+            v-for="result in visibleResults"
             :key="result.occupation.onetCode"
             class="flex items-center justify-between gap-3 rounded-md border border-slate-200 bg-white px-4 py-3"
           >
@@ -141,9 +160,18 @@ async function restart(): Promise<void> {
             </div>
           </li>
         </ol>
+        <div v-if="canShowMore" class="mt-4 flex justify-center">
+          <button
+            type="button"
+            class="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            @click="showMore"
+          >
+            Mehr anzeigen
+          </button>
+        </div>
       </template>
 
-      <div class="mt-10">
+      <div class="mt-10 flex justify-center">
         <button
           type="button"
           class="text-sm text-slate-500 underline hover:text-slate-900"
