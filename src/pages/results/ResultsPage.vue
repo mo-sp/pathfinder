@@ -72,26 +72,26 @@ async function restart(): Promise<void> {
 
 <template>
   <section class="mx-auto max-w-3xl px-4 py-12">
-    <div v-if="!store.isComplete" class="rounded-lg border border-amber-200 bg-amber-50 p-6">
-      <p class="text-sm text-amber-900">
+    <div v-if="!store.isComplete" class="rounded-lg border border-amber-800/60 bg-amber-950/40 p-6">
+      <p class="text-sm text-amber-200">
         Du hast den Test noch nicht abgeschlossen.
       </p>
       <RouterLink
         to="/test"
-        class="mt-4 inline-block text-sm font-medium text-amber-900 underline hover:text-amber-950"
+        class="mt-4 inline-block text-sm font-medium text-amber-200 underline hover:text-amber-100"
       >
         → Zum Test
       </RouterLink>
     </div>
 
     <template v-else>
-      <h1 class="text-3xl font-bold text-slate-900">Dein RIASEC-Profil</h1>
-      <p class="mt-2 text-sm text-slate-500">
+      <h1 class="text-3xl font-bold text-slate-100">Dein RIASEC-Profil</h1>
+      <p class="mt-2 text-sm text-slate-400">
         Basierend auf {{ store.total }} Items aus dem O*NET Interest Profiler
         Short Form.
       </p>
 
-      <div class="mt-10 rounded-lg border border-slate-200 bg-white p-6">
+      <div class="mt-10 rounded-lg border border-slate-800 bg-slate-900 p-6">
         <RiasecHexagon :profile="store.riasecPercent" />
       </div>
 
@@ -99,35 +99,35 @@ async function restart(): Promise<void> {
         <div
           v-for="entry in legend"
           :key="entry.dim"
-          class="rounded-md border border-slate-200 bg-white p-3"
+          class="rounded-md border border-slate-800 bg-slate-900 p-3"
         >
-          <dt class="text-sm font-semibold text-slate-900">
+          <dt class="text-sm font-semibold text-slate-100">
             {{ entry.dim }} – {{ entry.label }}
           </dt>
-          <dd class="mt-1 text-xs text-slate-500">
+          <dd class="mt-1 text-xs text-slate-400">
             {{ entry.description }}
           </dd>
         </div>
       </dl>
 
-      <h2 class="mt-12 text-2xl font-semibold text-slate-900">
+      <h2 class="mt-12 text-2xl font-semibold text-slate-100">
         Top-Berufsempfehlungen
       </h2>
-      <p class="mt-1 text-sm text-slate-500">
+      <p class="mt-1 text-sm text-slate-400">
         Berechnet via Pearson-Korrelation zwischen deinem Profil und den
         RIASEC-Profilen aus der O*NET-Datenbank.
       </p>
 
       <div
         v-if="!hasDirection"
-        class="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-6"
+        class="mt-6 rounded-lg border border-amber-800/60 bg-amber-950/40 p-6"
       >
-        <p class="text-sm text-amber-900">
+        <p class="text-sm text-amber-200">
           Dein Profil ist auf allen sechs Dimensionen gleich gewichtet. Ohne
           Präferenzunterschiede kann das Matching keine aussagekräftigen
           Berufsempfehlungen berechnen.
         </p>
-        <p class="mt-2 text-sm text-amber-900">
+        <p class="mt-2 text-sm text-amber-200">
           Der Test wird hilfreicher, wenn du bei den Antworten klarer
           differenzierst – zwischen Aktivitäten, die du wirklich gerne
           machen würdest, und solchen, die dich weniger reizen.
@@ -136,7 +136,7 @@ async function restart(): Promise<void> {
       <template v-else>
         <p
           v-if="store.results.length === 0"
-          class="mt-6 rounded-md border border-dashed border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500"
+          class="mt-6 rounded-md border border-dashed border-slate-700 bg-slate-900 px-4 py-6 text-center text-sm text-slate-400"
         >
           Berufsempfehlungen werden geladen …
         </p>
@@ -144,18 +144,18 @@ async function restart(): Promise<void> {
           <li
             v-for="result in visibleResults"
             :key="result.occupation.onetCode"
-            class="flex items-center justify-between gap-3 rounded-md border border-slate-200 bg-white px-4 py-3"
+            class="flex items-center justify-between gap-3 rounded-md border border-slate-800 bg-slate-900 px-4 py-3"
           >
             <div class="min-w-0 flex-1">
-              <div class="font-medium break-words text-slate-900">
+              <div class="font-medium break-words text-slate-100">
                 {{ result.rank }}. {{ result.occupation.title.de || result.occupation.title.en }}
               </div>
-              <div class="text-xs break-words text-slate-500">
+              <div class="text-xs break-words text-slate-400">
                 O*NET {{ result.occupation.onetCode }}
                 <span v-if="!result.occupation.title.de"> · (Übersetzung folgt)</span>
               </div>
             </div>
-            <div class="shrink-0 font-mono text-sm text-indigo-600">
+            <div class="shrink-0 font-mono text-sm text-indigo-400">
               {{ (result.fitScore * 100).toFixed(0) }}
             </div>
           </li>
@@ -163,7 +163,7 @@ async function restart(): Promise<void> {
         <div v-if="canShowMore" class="mt-4 flex justify-center">
           <button
             type="button"
-            class="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            class="rounded-md border border-slate-700 bg-slate-900 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-slate-800"
             @click="showMore"
           >
             Mehr anzeigen
@@ -174,7 +174,7 @@ async function restart(): Promise<void> {
       <div class="mt-10 flex justify-center">
         <button
           type="button"
-          class="text-sm text-slate-500 underline hover:text-slate-900"
+          class="text-sm text-slate-400 underline hover:text-slate-100"
           @click="restart"
         >
           Test neu starten
