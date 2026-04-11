@@ -5,6 +5,57 @@
 
 ---
 
+### Session 4 – 2026-04-11
+**Focus:** Routing bugfix for *Test neu starten* on `/ergebnis` + scoring pipeline integration tests against real O*NET data
+
+**Meta / process refinements:**
+- Clarified that on the dev-sandbox, Vite HMR serves filesystem edits to the user's browser immediately — git commits, branches, and pushes are purely for version control, not for "making changes visible". Previous sessions were implicitly conflating the two, which caused this session's own early mistake: after pushing the routing fix, the assistant branched off `main` for the integration-tests work, silently reverting `ResultsPage.vue` on disk and breaking the live fix the user was about to browser-test. Fixed in place; memory (`feedback_test_before_pr.md`) rewritten so future sessions edit-test-iterate-live and only commit/branch/push after user approval.
+- Clarified SUMMARY.md discipline: **one entry per session, rides with the final PR only.** Multi-PR sessions do NOT fragment the session log across PRs. Earlier PRs in the session ship with no SUMMARY change. Memory (`feedback_summary_timing.md`) rewritten accordingly. This Session 4 entry ships in PR #7 and covers both PR #6 and PR #7.
+
+**What was done — PR #6 (routing fix):**
+- Traced the *Test neu starten* bug from Session 3's TODO list. Root cause: the button on `ResultsPage.vue` called `store.reset()` directly, clearing answers but leaving the user on `/ergebnis`. `isComplete` flipped to `false`, the `v-if="!store.isComplete"` branch at the top of the page rendered the *Du hast den Test noch nicht abgeschlossen* interstitial, and the user had to click an extra `→ Zum Test` link to actually start over.
+- Fix: introduce a component-local `async function restart() { store.reset(); await router.push('/test') }` and bind the button to `restart`. The identical `@click="store.reset"` on `AssessmentPage` is **not** touched — it already lives at `/test`, so an in-place reset is correct there.
+- Verified: browser-tested on the dev-sandbox by @mo-sp (click *Test neu starten* → direct to question 1, no interstitial, URL changes to `/test`, progress bar shows `1/10`, no console errors).
+
+**What was done — PR #7 (scoring pipeline integration tests):**
+- Added `src/features/matching/lib/matcher.integration.test.ts` with 8 new tests exercising the real scoring pipeline against `src/data/onet-occupations.json` (923 occupations) and `src/data/onet-items.json` (60 items). Complements but does not overlap the existing unit tests from Session 3.
+- **Matcher-only** block (5 tests, synthesized `RIASECProfile` → matcher, no scoring layer):
+  - top-20 sanity (length 20, monotonic desc by `fitScore`, well-formed `rank` 1..20, `fitScore ∈ [-1, 1]`)
+  - identity check: fed Software Developers' own profile, matcher ranks `15-1252.00` first with `fitScore ≈ 1.0`
+  - pure-Social `{R:1,I:1,A:1,S:5,E:1,C:1}` → ≥ 9/10 of top-10 in major group `25` (Education). Actual: 10/10.
+  - pure-Realistic → ≥ 8/10 in `{37, 45, 47}` (Grounds / Agriculture / Construction). Actual: 10/10.
+  - pure-Enterprising → ≥ 7/10 in `{11, 41}` (Management / Sales). Actual: 8/10.
+- **Full pipeline** block (3 tests, `Answer[]` → `computeRiasecProfile` → `matchOccupations`):
+  - dominant-I answers on the **PoC 10** items → ≥ 8/10 of top-10 in `{15, 19}` (Science / Math). Actual: 10/10.
+  - dominant-I answers on the **full 60** items → identical assertion passes against the identical helper fed a larger item subset. Actual: 10/10. This is the forward-compat claim @mo-sp asked about at the start of the session: **scaling the questionnaire from 10 → 60 items requires no test changes.**
+  - helper length check: asserts `makeRiasecAnswers(items, perDim, default)` emits exactly one `Answer` per riasec item in its input subset, and explicitly guards against the PoC silently growing to match the full item set.
+- Key design choice: `makeRiasecAnswers(items: Question[], perDim, defaultValue = 3)` takes the item list as input and never hardcodes IDs or counts. Same helper runs both the 10-item and 60-item tests. Assertions are ≥ bounds (`≥ 7`/`≥ 8`/`≥ 9`) rather than exact ranks so future O*NET data refreshes that nudge a handful of occupations around do not spuriously break the suite — actual counts today have 1-3 occupations of headroom on every assertion.
+- Verified: `npm test` → **32/32** passing (24 from Session 3 + 8 new), `npm run type-check` ✅, `npm run lint` ✅, `npm run build` ✅ (pre-existing 600 KB store-chunk warning unchanged). No browser test applicable — pure test-only addition, no UI impact.
+
+**Commits / PRs:**
+- Branch: `fix/results-restart-navigation` (off fresh `main` post-PR #5 merge)
+  - `062cf82` fix(results): navigate to /test on restart to avoid interstitial
+  - **PR mo-sp/pathfinder#6** → https://github.com/mo-sp/pathfinder/pull/6
+- Branch: `test/scoring-integration` (off fresh `main`, independent of PR #6)
+  - `19e0d18` test(scoring): add integration tests against real O*NET data
+  - *(this SUMMARY commit)* docs(summary): add Session 4 entry for restart fix + integration tests
+  - **PR mo-sp/pathfinder#7** → https://github.com/mo-sp/pathfinder/pull/7
+
+**Known issues / TODOs:**
+- Bundle-size warning (~600 KB `store` chunk) still unchanged since Session 2. Lazy-loading `onet-occupations.json` remains the cleanest fix and is now the oldest carry-over TODO.
+- 50 of 60 O*NET items still only have English text.
+- No tests yet for the Pinia `questionnaire` store (Session 4 added a helper that *would* feed it synthesized answers, but the store itself is still untested), the Dexie persistence layer, or any component/integration test. Still deferred.
+- The new integration tests exercise the real data but **only** the pure-function layer (`computeRiasecProfile`, `matchOccupations`). A full Pinia-level store test still isn't here.
+- One of the integration tests only gets 8/10 top-10 occupations in expected families for pure-Enterprising (tight against the `≥ 7` bound). If O*NET refreshes drop this by two more, the assertion will start flaking. Not urgent but worth a note.
+
+**Next steps:**
+- Replace the RIASEC bar chart with a proper hexagon/radar widget under `widgets/riasec-chart/`.
+- Lazy-load `onet-occupations.json` out of the main store chunk.
+- Translate the remaining 50 O*NET items to German.
+- Eventually add Pinia-level questionnaire store tests (probably with `@pinia/testing`).
+
+---
+
 ### Session 3 – 2026-04-11
 **Focus:** Vitest setup + unit tests for `pearson.ts`, `riasec.ts`, `matcher.ts` (plus stacked-PR recovery)
 
