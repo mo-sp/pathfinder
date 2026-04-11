@@ -54,6 +54,24 @@ npm run type-check   # TypeScript type checking
 - Bug fixes: `fix/short-description`
 - Always create a PR, never push directly to main
 
+## Testing & Review Workflow
+
+The order on every change is **automated checks → push → human browser test → PR**. Never skip the browser-test step.
+
+For Claude Code sessions, that means:
+
+1. **Make the change** and run automated checks: `npm run type-check`, `npm run lint`, `npm run build`. Add a Vitest test if appropriate; run `npm test`.
+2. **Commit and push** the branch to origin. Vite dev server on the dev-sandbox shares the same checkout, so the user's browser sees the change instantly via HMR – no extra deploy step.
+3. **Provide explicit browser test instructions to the user**, including:
+   - The exact URL to open (e.g. `http://192.168.178.33:5173/`, or whatever port the user's dev server is on)
+   - The exact click path (e.g. "Start → Test starten → answer all 10 questions → Ergebnis")
+   - **Concrete acceptance criteria** the user can tick off, e.g. "the top-10 list shows German occupation titles, not English", "the progress bar advances on each click", "no console errors". Be specific about what the *correct* result looks like; vague "check it works" is not enough.
+   - Edge cases worth poking at if there's time (refresh mid-flow, hit Back, restart)
+4. **Wait for user confirmation.** Type-check / lint / build / smoke tests are necessary but not sufficient – they catch shape and syntax problems, not "the right thing renders in the right place". The user's manual browser test is the final gate.
+5. **Only after the user confirms** in the running app, run `gh pr create`. Treat `gh pr create` as a step that needs explicit user go-ahead, not a default end-of-task action.
+
+If a user pushes back ("test before PR", "I want to verify this myself"), they mean it – do not retry the PR command, just provide the test instructions and wait.
+
 ## Data Sources
 
 - O*NET Interest Profiler Short Form (60 items) → `src/data/onet-items-de.json`
