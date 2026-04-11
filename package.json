@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "type-check": "vue-tsc -b --noEmit",
     "lint": "eslint .",
-    "build:data": "node scripts/build-onet-data.mjs"
+    "build:data": "node scripts/build-onet-data.mjs",
+    "build:esco": "node scripts/build-esco-german.mjs"
   },
   "dependencies": {
     "dexie": "^4.0.11",
@@ -24,6 +25,7 @@
     "@types/node": "^24.12.2",
     "@vitejs/plugin-vue": "^6.0.5",
     "@vue/tsconfig": "^0.9.1",
+    "csv-parse": "^6.2.1",
     "eslint": "^9.18.0",
     "eslint-plugin-vue": "^9.32.0",
     "globals": "^17.4.0",
