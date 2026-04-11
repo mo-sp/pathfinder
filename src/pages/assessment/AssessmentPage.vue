@@ -8,6 +8,16 @@ const store = useQuestionnaireStore()
 const router = useRouter()
 const { t } = useI18n()
 
+// Navigating to /test after a completed run (e.g. via the header's "Zum
+// Test" link, or a direct reload of /test with a completed session still
+// in Dexie) would otherwise drop the user on the last question of the
+// finished test — `hydrate()` clamps currentIndex to total-1 for complete
+// sessions. Reset here so the fresh-start rule matches the HomePage CTA.
+// In-progress sessions keep their state and resume at the next unanswered
+// question as before. Runs in setup() — before the first render — so
+// there is no flash of the stale "complete" state.
+if (store.isComplete) store.reset()
+
 // Prefetch the lazy occupations chunk while the user answers so results
 // can render instantly on completion. Fire-and-forget: a failure here just
 // means /ergebnis will trigger its own load with a short delay, and the
