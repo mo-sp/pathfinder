@@ -47,6 +47,31 @@ npm run type-check   # TypeScript type checking
 - Extract business logic into composables or lib/ functions
 - Keep components focused – UI in components, logic in lib/
 
+## Behavioral Guidelines
+
+Derived from common LLM coding pitfalls (Karpathy). These apply to every change.
+
+## Surgical Changes
+- Every changed line must trace directly to the task. No drive-by refactors, no "improving" adjacent code.
+- Don't touch comments, formatting, or naming conventions that aren't part of the task.
+- If YOUR changes orphan imports/variables/functions, remove them. Don't remove pre-existing dead code unless asked.
+- If you notice unrelated issues, mention them in the PR description — don't fix them silently.
+
+## Simplicity First
+- No abstractions for single-use code. No speculative "flexibility" or "configurability".
+- If 200 lines could be 50, rewrite before committing.
+- No error handling for impossible scenarios. No features beyond what was asked.
+- The test: would a senior engineer call this overcomplicated? If yes, simplify.
+
+## Assumptions & Confusion
+- State assumptions explicitly before implementing. If multiple interpretations exist, present them — don't pick silently.
+- If something is unclear, stop and ask. Don't guess and run with it.
+- If a simpler approach exists than what was requested, say so.
+
+## Goal-Driven Execution
+- Transform tasks into verifiable goals: "write a test that reproduces the bug, then fix it" instead of "fix the bug".
+- For multi-step work, state the plan with verification checks before starting:
+
 ## Branching
 
 - `main` is protected (PR required, no force pushes)
