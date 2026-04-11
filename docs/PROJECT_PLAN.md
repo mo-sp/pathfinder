@@ -44,10 +44,10 @@
 | Quelle                          | Items | Lizenz                    | Verwendung              |
 |---------------------------------|-------|---------------------------|-------------------------|
 | O*NET Interest Profiler (Short) | 60    | O*NET Developer License   | RIASEC-Kern (Schicht 1) |
-| IPIP Big Five (BFI-2-S)        | 30    | Public Domain             | Persönlichkeit (Schicht 2) |
+| IPIP-50 Big Five Factor Markers | 50    | Public Domain             | Persönlichkeit (Schicht 2) |
 | Eigene Items                    | ~30   | Eigene Lizenz             | Werte & Rahmenbedingungen (Schicht 3) |
 
-**Gesamtumfang MVP:** ~120 Items in 3 Abschnitten
+**Gesamtumfang MVP:** ~140 Items in 3 Abschnitten
 
 ### 3.2 Berufsdatenbanken
 
@@ -142,7 +142,7 @@ interface RIASECProfile {
 ### Layer 2: Persönlichkeits-Reranking (Big Five)
 
 ```typescript
-// 30 IPIP-Items → 5 Scores
+// 50 IPIP-Items → 5 Scores (10 pro Dimension)
 // Big Five RE-RANKT innerhalb des RIASEC-Trichters, filtert nicht raus.
 // Beispiel bei hohem I/A-Profil:
 //   introvertiert + gewissenhaft → Archivar, Restaurator, Datenanalyst steigen
@@ -370,9 +370,9 @@ src/
 - [ ] MatchResult erweitern: `riasecCorrelation`, `bigFiveModifier`, `skillsMatch`, `valuesPenalty` als transparente Komponenten
 
 **Layer 2 – Big Five (Persönlichkeits-Reranking):**
-- [ ] IPIP Big Five Short Form (30 Items) einbauen
+- [ ] IPIP-50 Big Five Factor Markers (50 Items, 10 pro Dimension) einbauen
 - [ ] BigFive_modifier als Multiplikator implementieren (re-rankt innerhalb RIASEC-Trichter, eliminiert nicht)
-- [ ] Deutsche Übersetzung der 30 Items
+- [ ] Deutsche Übersetzung der 50 Items (validierte IPIP-50-DE-Translation als Referenz)
 
 **Layer 3 – Werte & Rahmenbedingungen (Filter + Gewichtung):**
 - [ ] Werte-Fragebogen (eigene Items, ~30 Fragen)
