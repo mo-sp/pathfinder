@@ -5,6 +5,104 @@
 
 ---
 
+### Session 10 – 2026-04-12
+**Focus:** Phase 2 / Layer 2 kickoff — Big Five foundation (data + scoring + store layer + viz + UI), plus a prep dark-mode pass so the new UI is authored dark-native from day 1. No matcher changes yet; PR B (re-ranking) is explicitly Session 11.
+
+**Meta / process notes:**
+- Two-PR session. Dark mode shipped first as a prerequisite so the Big Five UI could be authored dark-native from the first line instead of needing a second refactor pass. This entry rides with `feat/bigfive-foundation`, the last PR of the session, and retrospectively covers both.
+- **Explicit scope lock: PR A only.** Original plan had Big Five split into PR A (foundation) + PR B (re-ranking integration). User cut the session to PR A at kickoff to avoid cramming a 2-3× larger scope into one sitting. Ranking integration deferred to Session 11.
+- **Upgraded item count: IPIP-50 instead of IPIP-30.** User pushed back on the plan doc's "30 items" during scoping — IPIP-50 Big Five Factor Markers (Goldberg 1992) is the standard validated instrument with ~α = 0.85 per dimension (10 items), vs. ~0.70-0.75 for an arbitrary 6-per-dim subset. +20 questions = ~3 extra minutes for a "deep assessment" already positioned at 30-60 min. And picking the full set skips the "which 6 per dim?" curation question entirely.
+- **German translation sourced via WebFetch from `ipip.ori.org/German50-itemBigFiveFactorMarkers.htm`** (Fritz Ostendorf's official IPIP-DE translation). Used verbatim with three purely orthographic fixes flagged in the JSON's `germanTranslator` metadata: `beleidge`→`beleidige`, `grübel`→`grüble`, `wechsel`→`wechsle`. All missing letters or conjugation errors, not semantic edits — user preference is existing-translation-first, hand-polish for genuinely awkward items later.
+- **New memory: SUMMARY.md is drafted AFTER successful user browser test, not before.** User caught me drafting the entry pre-test mid-session; the order is now (1) code + automated checks, (2) user browser test, (3) SUMMARY + commit + push + PR. Saved as `feedback_summary_after_test.md` overriding the CLAUDE.md §"Testing & Review Workflow" step-1 phrasing.
+- **Four rounds of user-requested UX iteration** landed in this PR before the final go-ahead — this matters for the `feedback_test_before_pr.md` memory: the edit-test-iterate-on-disk loop earned its keep this session. Each iteration was pure HMR, no extra branches, no extra commits until user approval.
+
+**What was done — dark-mode PR (merged as `1070751`):**
+- Pure color-class swap across `App.vue`, `HomePage.vue`, `AssessmentPage.vue`, `ResultsPage.vue`, `RiasecHexagon.vue`, and `main.css`. 62 insertions, 62 deletions, zero logic changes. No Tailwind `dark:` variants, no system-preference detection, no toggle. Dark is the only mode. Going from "dark-only" to "dark default with `dark:` light fallback" later is a cheap second pass, not a rewrite, so deferring the toggle until someone actually asks is the right call.
+- Palette: `:root { color-scheme: dark }`, body `bg-slate-950 text-slate-100`, cards/headers on `slate-900` with `slate-800` borders, primary accents `indigo-500`/`indigo-400`, amber warning/info banners in `amber-950/40` backgrounds with `amber-200` text so they feel muted instead of grab-you-by-the-face. Hexagon SVG colors swapped: grid/axes `#334155` (slate-700), profile polygon/vertices `#6366f1` (indigo-500), axis labels in slate-100/400.
+
+**What was done — `feat/bigfive-foundation` (this PR):**
+
+*Data:*
+- `src/data/ipip-bigfive-items.json` — 50 items, 10 per dimension (O/C/E/A/N), EN+DE, attribution + the three orthographic fixes documented in the file's metadata.
+
+*Types:*
+- `BigFiveDimension = 'openness' | 'conscientiousness' | 'extraversion' | 'agreeableness' | 'neuroticism'`
+- `BigFiveProfile = Record<BigFiveDimension, number>` (parallel to `RIASECProfile`)
+- `AssessmentLayer = 'riasec' | 'bigfive'`
+- `AssessmentSession` gained optional `bigfiveAnswers`, `bigfiveOrder`, `bigfiveProfile`, `currentLayer`. **No Dexie schema bump**: the new fields are non-indexed, Dexie stores them alongside the v1 schema without migration, and the existing `db.test.ts` round-trips still pass.
+
+*Scoring:*
+- `src/features/scoring/lib/bigfive.ts` — `computeBigFiveProfile`, `normalizeBigFiveToPercent`, `BIG_FIVE_DIMENSIONS`. Reverse-scoring helper flips likert5 via `6 - value` (tolerant of a future likert7). Dimension-sum → percent arithmetic matches `riasec.ts` so both charts share the same 0-100 display scale.
+- `bigfive.test.ts` — 10 new tests: empty-answers zero case, direct-key sums, reverse-key flipping, mixed direct/reverse within a dimension, unknown-id robustness, RIASEC/Big-Five layer isolation, normalization 20%/100% boundaries, plus a smoke-integration check against the real 50-item JSON that asserts every dimension sums to 30 at the neutral-answer fixed point. Value 3 is the fixed point of the reverse-key flip (`6 - 3 = 3`), which is why it's the smoke-test value across both layers.
+
+*Store (`src/features/questionnaire/model/store.ts`) — the biggest file in the diff:*
+- **Layer-aware extension, ~170 new lines.** Two parallel per-layer state bundles (`riasecAnswers`/`riasecOrder`/`riasecCurrentIndex` + the Big Five equivalents), a `currentLayer` ref as the switcher, and **layer-aware computed aliases** for `answers`, `questions`, `total`, `currentIndex`, `currentQuestion`, `isComplete`, `progress`. `answer()` and `previous()` dispatch via a small `answerLayer(value, layerAnswers, layerIndex, layerQuestions, layerTotal)` helper.
+- **New actions:** `startBigFiveLayer()` (flips `currentLayer = 'bigfive'`, called from the ResultsPage Verfeinern CTA) and `resetCurrentLayer()` (clears only the active layer's state + re-shuffles its order, keeps `sessionId`/`startedAt` — this is a within-session re-run, not a new session). Full `reset()` still exists and is called from HomePage CTA / ResultsPage "Test neu starten" / AssessmentPage setup guard.
+- `persist()` snapshots both layers to Dexie including `currentLayer`; `hydrate()` restores both with legacy pre-Phase-2 sessions cleanly defaulting `currentLayer` to `'riasec'` and Big Five state to empty. `completedAt` semantics unchanged (set on RIASEC completion so the existing persist tests still pass — Big Five is optional refinement and does not gate the "test is done" timestamp).
+- Persist watcher now tracks `[riasecAnswers, riasecCurrentIndex, bigfiveAnswers, bigfiveCurrentIndex, currentLayer]` so any state change — including a pure layer-switch — triggers a Dexie write. Firing on `currentLayer` alone is what makes the Verfeinern flow durable across reloads.
+- `results` computed unchanged (gated on `riasecIsComplete && occupations`). **PR A does not touch matching**; the top-20 stays observable-equal to pre-Phase-2 for any user. Re-ranking is its own PR next session, intentionally isolated so the eventual diff is easy to reason about.
+
+*Visualization:*
+- `src/widgets/bigfive-chart/ui/BigFiveBars.vue` — horizontal bar chart. 5 rows each `grid-cols-[auto_1fr_auto]` with OCEAN-letter badge + German dimension name + `bg-slate-800` track + `bg-indigo-500` fill scaled to percent + mono percent label. `role="progressbar"` per row with `aria-valuenow`/`min`/`max` + an `aria-label` composing name and percent. Dark-native from the first line.
+- **Decision against a pentagon radar:** Big Five dimensions are not conceptually circular the way Holland RIASEC types are (where adjacent hexagon vertices reflect real interest-similarity). A pentagon radar would imply a meaningless "distance" between e.g. Openness and Extraversion. Bars are info-denser, more honest about the model, and more legible on narrow screens.
+
+*i18n:*
+- Restructured `likert.1..5` → `likert.riasec.1..5` + new `likert.bigfive.1..5`. Preference scale and agreement scale have genuinely different semantics so sharing one label set was wrong.
+- Moved the hardcoded "Wie sehr würdest du das gerne tun?" prompt from `AssessmentPage.vue` into `questionPrompt.riasec`, with sibling `questionPrompt.bigfive = 'Wie sehr trifft diese Aussage auf dich zu?'`.
+- New `bigfive.*` labels (Offenheit, Gewissenhaftigkeit, Extraversion, Verträglichkeit, Neurotizismus) + `bigfiveDescription.*` one-liners for the results-page legend.
+
+*UI / pages:*
+- `AssessmentPage.vue` — layer-aware. Prompt, Likert labels, and progress counter/total all flow from the layer-aware store computeds. New "Schicht {1|2} · {Interessen|Persönlichkeit}" indicator above the progress percent. Existing setup-time fresh-start guard `if (store.isComplete) store.reset()` untouched — because `isComplete` is now the layer-aware alias it auto-handles both layers correctly (mid-Big-Five returns false → no reset → resume; completed layer returns true → reset → fresh RIASEC). Layer promotion into Big Five is strictly inbound: AssessmentPage never auto-continues after RIASEC completion, it routes to `/ergebnis` and the user opts in via the Verfeinern CTA.
+- `ResultsPage.vue` — new "Big Five block" between the RIASEC block and the top matches. Two states gated on `bigfiveIsComplete`: (a) indigo-tinted "Ergebnis verfeinern" CTA card with copy that explicitly frames refinement as re-weighting ("filtern nicht, verfeinern die bestehende Reihenfolge") so users don't think their RIASEC list is about to be thrown away; (b) heading "Dein Persönlichkeitsprofil" + BigFiveBars + 5-card dimension legend mirroring the RIASEC legend. Top-matches list is **unchanged** — `store.results` is still the pure-RIASEC matcher output. The incomplete-session interstitial now gates on `store.riasecIsComplete` explicitly (not the layer-aware `isComplete`), otherwise a user mid-Big-Five would land on the interstitial even though their RIASEC results are ready.
+- `HomePage.vue` — 4th layer card "Schicht 4: Fähigkeiten – folgt in Phase 2" added, grid switched from `sm:grid-cols-3` to `sm:grid-cols-2 lg:grid-cols-4` (1-col mobile, 2-col tablet, 4-col desktop). Schicht 2 Big Five card came out of its `opacity-60` muted state since Layer 2 is live now. Amber "Früher Prototyp" copy updated to reflect the new scope ("RIASEC-Test mit 60 Items, optional verfeinert durch ein Big-Five-Persönlichkeitsprofil mit 50 Items; Werte und Fähigkeiten folgen in späteren Phasen").
+
+**Mid-session UX iterations (all landed in this PR):**
+- **Likert midpoint labels** — "Neutral" was ambiguous in both layers. Changed RIASEC `3` → **"Weder noch"** (standard psychometric German for "neither pro nor con" preference midpoint, matches the formal register of "Überhaupt nicht"/"Eher nicht"/"Gerne"/"Sehr gerne"). Changed Big Five `3` → **"Teils, teils"** (standard German psychometric agreement-midpoint, used in the BFI-2-DE — conveys "sometimes yes, sometimes no / depends"). The two scales need different midpoint labels because preference and agreement are different semantics; trying to share one word across both is what made "Neutral" feel hollow.
+- **`resetCurrentLayer()` + "Schicht neu starten" button label.** Original "Neu starten" did a full reset (both layers + sessionId re-roll). User pointed out that mid-Big-Five this silently threw away the completed RIASEC run, which is a destructive surprise. Now the AssessmentPage button calls `resetCurrentLayer()` which scopes the clear to the active layer only — sessionId + the other layer survive. Full reset is still reachable from HomePage CTA and ResultsPage "Test neu starten", where its destructive semantic is expected.
+- **Visible button affordance for Zurück and Schicht-neu-starten.** Were text-only with hover color change; hard to recognize as buttons. Now both have `rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium` with `hover:border-slate-600 hover:bg-slate-700`, matching the visual weight of the "Mehr anzeigen" button on ResultsPage. Zurück also gains `disabled:cursor-not-allowed disabled:opacity-40` for the index-0 edge.
+- **Progress-bar regression fix.** Was `answers.length / total`; steps backward via "Zurück" didn't lower the percent because the already-stored answer stayed in the array. Fixed to `currentIndex / total` with an `isComplete ? 1 : ...` short-circuit for the very last question (where `answerLayer` clamps `currentIndex` at `total - 1`, so the formula would otherwise read 98% instead of 100% for the brief moment before navigation fires).
+- **"Ergebnisansicht" shortcut button on AssessmentPage** — visible only when `store.riasecIsComplete` (i.e. during Big Five), placed between Zurück and Schicht-neu-starten. Router-push to `/ergebnis` without mutating store state; partial Big Five progress survives the side trip, and coming back via the Verfeinern CTA lands the user exactly where they left off (no reset, no reshuffle).
+
+**Tests added in this PR:**
+- `bigfive.test.ts` — 10 new tests (new file)
+- `store.test.ts` — +13 tests: Big Five layer defaults, `startBigFiveLayer`, layer-isolated `answer()`, 50-item completion fixed-point, persist Big Five round-trip, hydrate Big Five partial resume, legacy-session fallback, `reset()` clears both layers, `resetCurrentLayer()` RIASEC-scoped, `resetCurrentLayer()` preserves the other layer, `resetCurrentLayer()` re-shuffles, `progress` tracks currentIndex through previous(), `progress` forces 1 at `isComplete`
+- `AssessmentPage.test.ts` — +5 tests: Big Five prompt + 1/50 counter + agreement labels, layer-isolated Big Five click, "Schicht neu starten" within-session re-run, "Schicht neu starten" in Big Five preserves RIASEC, "Ergebnisansicht" hidden-in-RIASEC / visible-in-Big-Five / click-preserves-state (3 tests in one describe)
+- `ResultsPage.test.ts` — +3 tests: Verfeinern CTA visible when only RIASEC done, CTA click promotes layer + navigates, BigFiveBars + 5-dim legend renders when both layers done
+- `HomePage.test.ts` — +1 test: all 4 layer cards visible
+- Existing "Neu starten resets the store back to a fresh state" test replaced by the two partial-reset tests — semantic change, not a delete. Old full-reset test coverage survives on HomePage.test.ts' "Test starten calls store.reset()" test.
+- **Net: 94 → 127 tests (+33)**
+
+**Architectural choices worth remembering:**
+- **One `/test` route, layer-aware inside the store.** Not two routes, not a URL query param. Downstream cost if this becomes insufficient (e.g. shareable deep link to "continue Big Five"): trivial — add a query param later and seed `currentLayer` from it in the AssessmentPage setup.
+- **`store.answers` / `store.total` / `store.currentIndex` kept as layer-aware aliases, NOT renamed.** Forcing all call sites to switch to `store.riasecAnswers` / `store.bigfiveAnswers` would have broken every existing test and required an AssessmentPage rewrite instead of an extension. The flat names + dispatching computeds is the single biggest ergonomic win of this PR.
+- **Matcher signature unchanged in PR A.** Session 11's ranking PR will extend `matchOccupations(riasec, occupations, topN)` to `(riasec, bigfive: BigFiveProfile | null, occupations, topN)` with `null` producing exactly today's behaviour. Keeping the matcher out of this PR means the top-20 stays observable-equal to pre-Phase-2 for any user, which makes PR B's re-ranking diff easier to reason about and to compare against in a second friends-feedback round.
+- **Dark mode as a prep PR before Big Five** was the right order. Zero theming refactor on the new BigFiveBars widget, the Verfeinern CTA, or any of the mid-session UX iterations — all authored dark-native from the first line.
+- **Progress = `currentIndex / total` (with `isComplete ? 1` override)**, not `answers.length / total`. Answers-length made the bar feel stuck when stepping backward. The user's mental model is "where am I in the test", not "how many rows sit in storage".
+- **`resetCurrentLayer()` keeps `sessionId`** on purpose. The Dexie row stays linked, hydrate still finds the same run, and re-running just one layer is conceptually a re-answer rather than a new test-taking session.
+
+**Branches / merge commits:**
+- `feat/dark-mode` — dark-mode color swap, merged as `1070751`
+- `feat/bigfive-foundation` — this PR, Big Five foundation (data/scoring/store/viz/UI, no re-ranking)
+
+**Known issues / TODOs (carried over / newly deferred):**
+- **PR B: Big Five re-ranking** (Session 11) — extend matcher to take `bigfive: BigFiveProfile | null`, apply BigFiveModifier as a scaled cosine-similarity multiplier (`1 + α × cosine`, α ≈ 0.3, range [0.7, 1.3], never zero). Occupation-side Big Five target profiles derived from a RIASEC→Big Five transformation matrix — user wants to try Barrick/Mount/Gupta 2003 meta-analytic correlations first (attempt WebSearch/WebFetch), fall back to a transparent rule-based heuristic explicitly documented as placeholder if sourcing fails. `MatchResult` gains `riasecCorrelation` + `bigFiveModifier` as transparent components. Deploy afterwards to `pathfinder-liard-phi.vercel.app` for a second friends-feedback round.
+- **Translation polish pass** on the 50 Big Five items — three orthographic fixes already applied, remaining work is natural-reading roughness surfaced during real use (same workflow as Session 8's RIASEC polish).
+- **Layer 3: Werte** and **Layer 4: Skills** per PROJECT.md §5 — Phase 2 material, sequenced after Layer 2 re-ranking.
+- **O*NET Work Styles** as upgrade path for Layer 2's occupation targets (replaces matrix/heuristic with real per-occupation Big Five data). Own ticket, after re-ranking has been validated against a feedback round.
+- **PROJECT_PLAN.md §3.1 label fix**: still reads "IPIP Big Five (BFI-2-S)" which conflates two different instruments. Correct label for what's shipped is "IPIP Big Five Factor Markers, 50 items (Goldberg 1992)". Tiny doc PR, not in this session's scope.
+- **Ship-it track** (Impressum, Datenschutz, Über, Spenden, domain, responsive audit, remove `noindex`) — still deferred until after the Phase 2 depth layers land.
+
+**Known issues / TODOs closed this session:**
+- ~~Dark-mode prerequisite for Phase 2 UI~~ → `feat/dark-mode` / merge `1070751`
+- ~~Big Five data pipeline end-to-end (Layer 2 foundation)~~ → `feat/bigfive-foundation` (this PR)
+- ~~Progress-bar regression when stepping backward~~ → fixed mid-session in `feat/bigfive-foundation`
+
+**Next steps — Session 11:**
+- **PR B: Big Five re-ranking** — matcher extension + modifier math + results-page surfacing of the two score components. See the Known Issues entry above for the Barrick-2003-vs-heuristic decision tree.
+- Translation polish of the 50 IPIP items surfaced during the browser walkthrough.
+
+---
+
 ### Session 9 – 2026-04-11
 **Focus:** First live deploy – Vercel CLI preview for friends-feedback, plus strategic reframing of the ship-it roadmap
 

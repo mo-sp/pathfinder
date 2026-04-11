@@ -20,21 +20,29 @@ function start(): void {
       Daten bleiben in deinem Browser.
     </p>
 
-    <div class="mt-8 grid gap-4 sm:grid-cols-3">
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       <div class="rounded-lg border border-slate-800 bg-slate-900 p-4">
         <div class="text-sm font-medium text-slate-100">Schicht 1: RIASEC</div>
         <p class="mt-1 text-xs text-slate-400">
           O*NET Interest Profiler – Berufsinteressen nach Holland
         </p>
       </div>
-      <div class="rounded-lg border border-slate-800 bg-slate-900 p-4 opacity-60">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-4">
         <div class="text-sm font-medium text-slate-100">Schicht 2: Big Five</div>
-        <p class="mt-1 text-xs text-slate-400">Persönlichkeit – folgt in Phase 2</p>
+        <p class="mt-1 text-xs text-slate-400">
+          IPIP Big Five Factor Markers – Persönlichkeit
+        </p>
       </div>
       <div class="rounded-lg border border-slate-800 bg-slate-900 p-4 opacity-60">
         <div class="text-sm font-medium text-slate-100">Schicht 3: Werte</div>
         <p class="mt-1 text-xs text-slate-400">
           Rahmenbedingungen – folgt in Phase 2
+        </p>
+      </div>
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-4 opacity-60">
+        <div class="text-sm font-medium text-slate-100">Schicht 4: Fähigkeiten</div>
+        <p class="mt-1 text-xs text-slate-400">
+          Selbsteinschätzung – folgt in Phase 2
         </p>
       </div>
     </div>
@@ -59,8 +67,9 @@ function start(): void {
       </p>
       <p class="mt-3 text-sm">
         Aktueller Stand: vollständiger RIASEC-Test mit 60 Items aus dem O*NET
-        Interest Profiler Short Form. Big Five und persönliche Werte folgen in
-        Phase 2.
+        Interest Profiler Short Form, optional verfeinert durch ein Big-Five-
+        Persönlichkeitsprofil mit 50 Items aus dem IPIP Factor Markers Set.
+        Werte und Fähigkeiten folgen in späteren Phasen.
       </p>
     </div>
   </section>

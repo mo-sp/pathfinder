@@ -92,6 +92,40 @@ describe('questionnaire store', () => {
       expect(store.currentIndex).toBe(0)
     })
 
+    it('progress tracks currentIndex, so previous() lowers the displayed percent', () => {
+      // Regression guard: progress used to be `answers.length / total`
+      // which stayed frozen at the high-water mark when the user
+      // stepped back. Binding progress to currentIndex instead makes
+      // the bar follow the user's actual position in the layer.
+      const store = useQuestionnaireStore()
+      for (let i = 0; i < 15; i += 1) store.answer(3)
+      expect(store.currentIndex).toBe(15)
+      expect(store.progress).toBeCloseTo(15 / 60)
+
+      store.previous()
+      expect(store.currentIndex).toBe(14)
+      // Before the fix this would still read 15/60 because
+      // answers.length is still 15 — the whole point of the bug.
+      expect(store.progress).toBeCloseTo(14 / 60)
+
+      store.previous()
+      store.previous()
+      expect(store.currentIndex).toBe(12)
+      expect(store.progress).toBeCloseTo(12 / 60)
+    })
+
+    it('progress jumps to 100% once the layer is complete (handles the currentIndex clamp edge)', () => {
+      const store = useQuestionnaireStore()
+      for (let i = 0; i < store.total; i += 1) store.answer(3)
+      // `answerLayer` clamps the last advance so currentIndex stays at
+      // total-1 after the final click. Without the isComplete
+      // short-circuit, progress would read 59/60 ≈ 98% for the brief
+      // moment before navigation instead of hitting 100%.
+      expect(store.currentIndex).toBe(store.total - 1)
+      expect(store.isComplete).toBe(true)
+      expect(store.progress).toBe(1)
+    })
+
     it('reset() clears answers, currentIndex, and assigns a new sessionId', () => {
       const store = useQuestionnaireStore()
       const originalId = store.sessionId
@@ -445,6 +479,222 @@ describe('questionnaire store', () => {
       // the questionnaire would be unreachable.
       expect(store.total).toBe(60)
       expect(store.questions.map((q) => q.id)).toEqual(sourceOrderIds)
+    })
+  })
+
+  describe('Big Five layer (Phase 2 / Layer 2)', () => {
+    it('starts with a bigfive pool of 50 items that defaults to NOT active', () => {
+      const store = useQuestionnaireStore()
+      expect(store.currentLayer).toBe('riasec')
+      // Full IPIP Big Five Factor Markers set: 10 items per dimension × 5
+      // dimensions = 50. Same "shrink guard" as the RIASEC total assertion.
+      expect(store.bigfiveTotal).toBe(50)
+      expect(store.bigfiveAnswers).toEqual([])
+      expect(store.bigfiveIsComplete).toBe(false)
+      // Layer-aware alias stays on RIASEC because currentLayer is still
+      // 'riasec' — AssessmentPage must not accidentally render Big Five
+      // items for a fresh store.
+      expect(store.total).toBe(60)
+    })
+
+    it('startBigFiveLayer() flips currentLayer and makes the layer-aware aliases point at Big Five state', () => {
+      const store = useQuestionnaireStore()
+      store.startBigFiveLayer()
+      expect(store.currentLayer).toBe('bigfive')
+      // Aliases now reflect Big Five — existing UI (AssessmentPage) reads
+      // these without knowing which layer it's on.
+      expect(store.total).toBe(50)
+      expect(store.answers).toEqual([])
+      expect(store.currentIndex).toBe(0)
+      expect(store.isComplete).toBe(false)
+    })
+
+    it('answer() writes to the Big Five layer when currentLayer=bigfive without touching RIASEC state', () => {
+      const store = useQuestionnaireStore()
+      // Seed one RIASEC answer to prove it survives the layer switch.
+      store.answer(4)
+      expect(store.riasecAnswers).toHaveLength(1)
+
+      store.startBigFiveLayer()
+      store.answer(5)
+      store.answer(2)
+
+      expect(store.bigfiveAnswers).toHaveLength(2)
+      expect(store.bigfiveAnswers[0]?.value).toBe(5)
+      // RIASEC layer is frozen during Big Five answering — switching
+      // back must find the seeded answer untouched.
+      expect(store.riasecAnswers).toHaveLength(1)
+      expect(store.riasecAnswers[0]?.value).toBe(4)
+    })
+
+    it('answering all 50 Big Five items flips bigfiveIsComplete and populates bigfiveProfile', () => {
+      const store = useQuestionnaireStore()
+      // Complete RIASEC first so the layer transition lands on Big Five.
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(3)
+      store.startBigFiveLayer()
+      for (let i = 0; i < store.bigfiveTotal; i += 1) store.answer(3)
+
+      expect(store.bigfiveIsComplete).toBe(true)
+      // Value 3 on every Big Five item: reverse-keyed items flip 3 → 3
+      // too, so every dimension sums to 10 × 3 = 30 — the same
+      // fixed-point reasoning as the RIASEC neutral-answer test.
+      const p = store.bigfiveProfile
+      expect(p.openness).toBe(30)
+      expect(p.conscientiousness).toBe(30)
+      expect(p.extraversion).toBe(30)
+      expect(p.agreeableness).toBe(30)
+      expect(p.neuroticism).toBe(30)
+    })
+
+    it('persist() writes the Big Five layer state to Dexie', async () => {
+      const store = useQuestionnaireStore()
+      // Complete RIASEC (persist triggers on each answer so no manual call
+      // needed) and partial Big Five.
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(3)
+      store.startBigFiveLayer()
+      store.answer(4)
+      store.answer(5)
+      await flushPersist()
+
+      const row = await db.sessions.get(store.sessionId)
+      expect(row).toBeDefined()
+      expect(row?.bigfiveAnswers).toHaveLength(2)
+      expect(row?.bigfiveAnswers?.[0]?.value).toBe(4)
+      expect(row?.currentLayer).toBe('bigfive')
+      // Big Five profile is undefined until the layer is complete — we
+      // only snapshot computed profiles when they're meaningful.
+      expect(row?.bigfiveProfile).toBeUndefined()
+      expect(row?.bigfiveOrder).toBeDefined()
+      expect(row?.bigfiveOrder?.length).toBe(50)
+    })
+
+    it('hydrate restores Big Five state including the active layer and partial answers', async () => {
+      await db.sessions.put({
+        id: 'seed-bigfive',
+        startedAt: Date.now(),
+        answers: Array.from({ length: 60 }, (_, i) => ({
+          questionId: `seed-r-${i}`,
+          value: 3,
+          answeredAt: 0,
+        })),
+        currentLayer: 'bigfive',
+        bigfiveAnswers: [
+          { questionId: 'bf-o-01', value: 5, answeredAt: 100 },
+          { questionId: 'bf-o-02', value: 4, answeredAt: 200 },
+          { questionId: 'bf-o-03', value: 3, answeredAt: 300 },
+        ],
+      })
+
+      const store = useQuestionnaireStore()
+      await store.hydrate()
+
+      expect(store.currentLayer).toBe('bigfive')
+      expect(store.bigfiveAnswers).toHaveLength(3)
+      // Layer-aware currentIndex resumes at the next unanswered Big Five
+      // slot, not at the RIASEC end-position.
+      expect(store.currentIndex).toBe(3)
+      expect(store.total).toBe(50)
+      expect(store.isComplete).toBe(false)
+    })
+
+    it('hydrate of a pre-Phase-2 (legacy) session defaults currentLayer to riasec with empty Big Five state', async () => {
+      await db.sessions.put({
+        id: 'legacy',
+        startedAt: Date.now(),
+        answers: [
+          { questionId: 'ip-r-01', value: 5, answeredAt: Date.now() },
+        ],
+        // No currentLayer, no bigfiveAnswers, no bigfiveOrder — this is
+        // what Dexie rows written before Phase 2 look like.
+      })
+
+      const store = useQuestionnaireStore()
+      await store.hydrate()
+
+      expect(store.currentLayer).toBe('riasec')
+      expect(store.bigfiveAnswers).toEqual([])
+      expect(store.bigfiveIsComplete).toBe(false)
+      // RIASEC side still restores correctly — the legacy path must not
+      // regress the existing behaviour.
+      expect(store.riasecAnswers).toHaveLength(1)
+    })
+
+    it('reset() clears both layers and returns currentLayer to riasec', () => {
+      const store = useQuestionnaireStore()
+      store.answer(4)
+      store.startBigFiveLayer()
+      store.answer(5)
+      expect(store.bigfiveAnswers).toHaveLength(1)
+
+      store.reset()
+
+      expect(store.currentLayer).toBe('riasec')
+      expect(store.riasecAnswers).toEqual([])
+      expect(store.bigfiveAnswers).toEqual([])
+      // currentIndex is the layer-aware alias; with currentLayer='riasec'
+      // after reset it reads riasecCurrentIndex.
+      expect(store.currentIndex).toBe(0)
+    })
+
+    it('resetCurrentLayer() in the RIASEC layer clears only RIASEC and preserves sessionId', () => {
+      const store = useQuestionnaireStore()
+      const originalId = store.sessionId
+      store.answer(4)
+      store.answer(3)
+      expect(store.riasecAnswers).toHaveLength(2)
+
+      store.resetCurrentLayer()
+
+      expect(store.riasecAnswers).toEqual([])
+      expect(store.currentIndex).toBe(0)
+      // sessionId must stay — this is a within-session re-run, not a new
+      // session. The AssessmentPage button ("Schicht neu starten") relies
+      // on this so the Dexie row stays linked and hydrate still finds
+      // the same run.
+      expect(store.sessionId).toBe(originalId)
+    })
+
+    it('resetCurrentLayer() in the Big Five layer wipes Big Five but leaves RIASEC completion intact', () => {
+      const store = useQuestionnaireStore()
+      // Full RIASEC run …
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(4)
+      expect(store.riasecIsComplete).toBe(true)
+      const riasecProfileSnapshot = { ...store.riasecProfile }
+
+      // … then a partial Big Five run …
+      store.startBigFiveLayer()
+      store.answer(5)
+      store.answer(5)
+      store.answer(5)
+      expect(store.bigfiveAnswers).toHaveLength(3)
+
+      // … and a "Schicht neu starten" click while still in Big Five.
+      store.resetCurrentLayer()
+
+      // Big Five side wiped clean.
+      expect(store.bigfiveAnswers).toEqual([])
+      expect(store.currentIndex).toBe(0)
+      expect(store.currentLayer).toBe('bigfive')
+      // RIASEC side completely untouched — the whole point of the
+      // layer-scoped reset vs. the full reset(). Asserting on both the
+      // answer length and the computed profile guards against a silent
+      // cross-layer mutation.
+      expect(store.riasecAnswers).toHaveLength(store.riasecTotal)
+      expect(store.riasecIsComplete).toBe(true)
+      expect(store.riasecProfile).toEqual(riasecProfileSnapshot)
+    })
+
+    it('resetCurrentLayer() re-shuffles the active layer order so a retry is not the same sequence', () => {
+      const store = useQuestionnaireStore()
+      store.startBigFiveLayer()
+      const orderBefore = store.bigfiveQuestions.map((q) => q.id)
+      store.resetCurrentLayer()
+      const orderAfter = store.bigfiveQuestions.map((q) => q.id)
+      // Two 50-item Fisher-Yates shuffles colliding by chance is 1/50!
+      // — the same probabilistic guarantee the RIASEC shuffle tests
+      // rely on. Any real collision is a Fisher-Yates regression.
+      expect(orderAfter).not.toEqual(orderBefore)
+      expect(new Set(orderAfter)).toEqual(new Set(orderBefore))
     })
   })
 })
