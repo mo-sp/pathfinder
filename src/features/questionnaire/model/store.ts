@@ -9,30 +9,22 @@ import { db } from '@shared/config/db'
 import { uuid } from '@shared/lib/uuid'
 import itemsData from '@data/onet-items.json'
 
-const POC_ITEM_IDS = [
-  'ip-r-01', // Build kitchen cabinets
-  'ip-r-03', // Repair household appliances
-  'ip-i-01', // Develop a new medicine
-  'ip-i-08', // Work in a biology lab
-  'ip-a-01', // Write books or plays
-  'ip-a-04', // Draw pictures
-  'ip-s-02', // Help people with personal/emotional problems
-  'ip-s-10', // Teach a high-school class
-  'ip-e-05', // Start your own business
-  'ip-c-01', // Develop a spreadsheet using computer software
-] as const
-
 interface ItemsFile {
   items: Question[]
 }
 
-const allItems = (itemsData as ItemsFile).items
+// All 60 items from the O*NET Interest Profiler Short Form, evenly
+// distributed 10 per RIASEC dimension. Filtered defensively in case a
+// future layer (Big Five, values) gets mixed into the same JSON file.
+const allRiasecItems = (itemsData as ItemsFile).items.filter(
+  (q) => q.layer === 'riasec',
+)
 
 /**
  * Lazy-load the ~600 KB O*NET occupations JSON. Keeping this out of the
  * store chunk means the landing page ("/") downloads only the store logic
  * (~100 KB) instead of the full dataset, and the assessment page can
- * prefetch occupations in parallel with the user answering the ten
+ * prefetch occupations in parallel with the user answering the 60
  * questions so results still render instantly on completion. The cached
  * promise doubles as both a "loaded" marker and a deduper for concurrent
  * callers (AssessmentPage onMount + ResultsPage onMount + the persist
@@ -55,12 +47,8 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
   const currentIndex = ref(0)
   const occupations = ref<Occupation[] | null>(null)
 
-  // PoC: 10 hand-picked items in German.
-  const questions = computed<Question[]>(() =>
-    POC_ITEM_IDS.map((id) => allItems.find((q) => q.id === id)).filter(
-      (q): q is Question => q != null,
-    ),
-  )
+  // Full 60-item O*NET Interest Profiler Short Form in its authored order.
+  const questions = computed<Question[]>(() => allRiasecItems)
 
   const total = computed(() => questions.value.length)
   const currentQuestion = computed<Question | null>(

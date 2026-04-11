@@ -47,12 +47,13 @@ function start(): void {
       >
         Test starten ({{ store.total }} Fragen)
       </RouterLink>
-      <span class="text-sm text-slate-500">~2 Minuten · Proof of Concept</span>
+      <span class="text-sm text-slate-500">~5 Minuten</span>
     </div>
 
     <p class="mt-12 text-xs text-slate-400">
-      Aktueller Stand: PoC mit 10 RIASEC-Items. Der vollständige Test mit 60
-      Items folgt im MVP.
+      Aktueller Stand: vollständiger RIASEC-Test mit 60 Items aus dem O*NET
+      Interest Profiler Short Form. Big Five und persönliche Werte folgen in
+      Phase 2.
     </p>
   </section>
 </template>

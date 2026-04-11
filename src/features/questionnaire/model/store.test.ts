@@ -45,9 +45,11 @@ describe('questionnaire store', () => {
       expect(store.currentIndex).toBe(0)
       expect(store.isComplete).toBe(false)
       expect(store.progress).toBe(0)
-      // PoC hard-codes 10 items; this guards against the subset silently
-      // growing and invalidating downstream test assertions.
-      expect(store.total).toBe(10)
+      // Full O*NET Interest Profiler Short Form: 60 items, 10 per RIASEC
+      // dimension. This guards against a regression that silently shrinks
+      // the questionnaire back to the PoC subset and invalidates the
+      // downstream scoring assertions.
+      expect(store.total).toBe(60)
     })
 
     it('answer() records the response and advances currentIndex', () => {
@@ -56,7 +58,7 @@ describe('questionnaire store', () => {
       expect(store.answers).toHaveLength(1)
       expect(store.answers[0]?.value).toBe(3)
       expect(store.currentIndex).toBe(1)
-      expect(store.progress).toBeCloseTo(0.1)
+      expect(store.progress).toBeCloseTo(1 / 60)
     })
 
     it('answer() overwrites a re-answered question instead of duplicating', () => {
@@ -74,8 +76,8 @@ describe('questionnaire store', () => {
     it('answer() on the last question does not step past the end', () => {
       const store = useQuestionnaireStore()
       for (let i = 0; i < store.total; i += 1) store.answer(3)
-      expect(store.answers).toHaveLength(10)
-      expect(store.currentIndex).toBe(9) // clamped, not 10
+      expect(store.answers).toHaveLength(store.total)
+      expect(store.currentIndex).toBe(store.total - 1) // clamped, not total
       expect(store.isComplete).toBe(true)
     })
 
@@ -105,16 +107,17 @@ describe('questionnaire store', () => {
   describe('computed: scoring & results', () => {
     it('riasecProfile sums Likert responses per dimension', () => {
       const store = useQuestionnaireStore()
-      // PoC item layout: R=2, I=2, A=2, S=2, E=1, C=1 → answering all 10
-      // with value 3 must land exactly on count*3 per dim.
+      // Full Interest Profiler Short Form is evenly distributed 10 items
+      // per RIASEC dimension, so answering all 60 with value 3 must land
+      // exactly on 30 per dim (10 × 3).
       for (let i = 0; i < store.total; i += 1) store.answer(3)
       const p = store.riasecProfile
-      expect(p.R).toBe(6)
-      expect(p.I).toBe(6)
-      expect(p.A).toBe(6)
-      expect(p.S).toBe(6)
-      expect(p.E).toBe(3)
-      expect(p.C).toBe(3)
+      expect(p.R).toBe(30)
+      expect(p.I).toBe(30)
+      expect(p.A).toBe(30)
+      expect(p.S).toBe(30)
+      expect(p.E).toBe(30)
+      expect(p.C).toBe(30)
     })
 
     it('riasecPercent normalizes each dimension to 100 when maxed out', () => {
@@ -180,7 +183,7 @@ describe('questionnaire store', () => {
 
       const row = await db.sessions.get(store.sessionId)
       expect(row).toBeDefined()
-      expect(row?.answers).toHaveLength(10)
+      expect(row?.answers).toHaveLength(store.total)
       expect(typeof row?.completedAt).toBe('number')
       expect(row?.riasecProfile).toBeDefined()
       expect(row?.results?.length ?? 0).toBeGreaterThan(0)
@@ -231,7 +234,11 @@ describe('questionnaire store', () => {
     })
 
     it('restores a completed session and clamps currentIndex to total-1', async () => {
-      const seedAnswers = Array.from({ length: 10 }, (_, i) => ({
+      // Seed 60 answers to simulate a fully completed Interest Profiler
+      // session. The fake questionIds don't need to match real items —
+      // hydrate() just restores the array verbatim; the clamp logic reads
+      // answers.length against total.
+      const seedAnswers = Array.from({ length: 60 }, (_, i) => ({
         questionId: `seed-q-${i}`,
         value: 3,
         answeredAt: Date.now(),
@@ -241,17 +248,17 @@ describe('questionnaire store', () => {
         startedAt: Date.now() - 1000,
         completedAt: Date.now() - 500,
         answers: seedAnswers,
-        riasecProfile: { R: 6, I: 6, A: 6, S: 6, E: 3, C: 3 },
+        riasecProfile: { R: 30, I: 30, A: 30, S: 30, E: 30, C: 30 },
         results: [],
       })
 
       const store = useQuestionnaireStore()
       await store.hydrate()
 
-      expect(store.answers).toHaveLength(10)
-      // Without the clamp, currentIndex would land on 10 and currentQuestion
+      expect(store.answers).toHaveLength(60)
+      // Without the clamp, currentIndex would land on 60 and currentQuestion
       // would fall off the end of the questions array.
-      expect(store.currentIndex).toBe(9)
+      expect(store.currentIndex).toBe(store.total - 1)
       expect(store.isComplete).toBe(true)
     })
 
