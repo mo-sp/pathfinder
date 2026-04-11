@@ -57,4 +57,18 @@ function isRiasecDimension(value: string): value is RiasecDimension {
   return (DIMENSIONS as string[]).includes(value)
 }
 
+/**
+ * True iff the profile expresses at least some preference direction —
+ * i.e. the six RIASEC dimensions are not all equal. A flat profile has
+ * zero variance, which makes Pearson correlation collapse to 0 for
+ * every occupation (see `pearson.ts`'s zero-variance guard), so the
+ * matching step can't rank anything meaningfully. ResultsPage uses
+ * this to swap the top-10 list for an explanatory message instead of
+ * showing 10 occupations with fitScore=0.
+ */
+export function hasProfileDirection(profile: RIASECProfile): boolean {
+  const first = profile[DIMENSIONS[0]]
+  return DIMENSIONS.some((dim) => profile[dim] !== first)
+}
+
 export const RIASEC_DIMENSIONS = DIMENSIONS

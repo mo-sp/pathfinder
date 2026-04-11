@@ -3,12 +3,24 @@ import { computed, onMounted } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useQuestionnaireStore } from '@features/questionnaire/model/store'
-import { RIASEC_DIMENSIONS } from '@features/scoring/lib/riasec'
+import {
+  hasProfileDirection,
+  RIASEC_DIMENSIONS,
+} from '@features/scoring/lib/riasec'
 import { RiasecHexagon } from '@widgets/riasec-chart'
 
 const store = useQuestionnaireStore()
 const router = useRouter()
 const { t } = useI18n()
+
+// A user who answers uniformly (all 1s, all 3s, all 5s) ends up with a
+// flat profile. Pearson correlation's zero-variance guard then collapses
+// every occupation's fitScore to 0, so the top-10 would render as a
+// confusing list of zeros in whatever arbitrary order the matcher
+// returned. Swap the list for an explanatory German message in that
+// case. The hexagon stays visible — a flat hexagon is itself informative
+// feedback about what happened.
+const hasDirection = computed(() => hasProfileDirection(store.riasecProfile))
 
 // Safety net for direct navigation / reload on /ergebnis: AssessmentPage
 // prefetches the occupations chunk on mount, so the common flow lands here
@@ -87,32 +99,49 @@ async function restart(): Promise<void> {
         RIASEC-Profilen aus der O*NET-Datenbank.
       </p>
 
-      <p
-        v-if="store.results.length === 0"
-        class="mt-6 rounded-md border border-dashed border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500"
+      <div
+        v-if="!hasDirection"
+        class="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-6"
       >
-        Berufsempfehlungen werden geladen …
-      </p>
-      <ol v-else class="mt-6 space-y-3">
-        <li
-          v-for="result in store.results.slice(0, 10)"
-          :key="result.occupation.onetCode"
-          class="flex items-center justify-between gap-3 rounded-md border border-slate-200 bg-white px-4 py-3"
+        <p class="text-sm text-amber-900">
+          Dein Profil ist auf allen sechs Dimensionen gleich gewichtet. Ohne
+          Präferenzunterschiede kann das Matching keine aussagekräftigen
+          Berufsempfehlungen berechnen.
+        </p>
+        <p class="mt-2 text-sm text-amber-900">
+          Der Test wird hilfreicher, wenn du bei den Antworten klarer
+          differenzierst – zwischen Aktivitäten, die du wirklich gerne
+          machen würdest, und solchen, die dich weniger reizen.
+        </p>
+      </div>
+      <template v-else>
+        <p
+          v-if="store.results.length === 0"
+          class="mt-6 rounded-md border border-dashed border-slate-200 bg-white px-4 py-6 text-center text-sm text-slate-500"
         >
-          <div class="min-w-0 flex-1">
-            <div class="font-medium break-words text-slate-900">
-              {{ result.rank }}. {{ result.occupation.title.de || result.occupation.title.en }}
+          Berufsempfehlungen werden geladen …
+        </p>
+        <ol v-else class="mt-6 space-y-3">
+          <li
+            v-for="result in store.results.slice(0, 10)"
+            :key="result.occupation.onetCode"
+            class="flex items-center justify-between gap-3 rounded-md border border-slate-200 bg-white px-4 py-3"
+          >
+            <div class="min-w-0 flex-1">
+              <div class="font-medium break-words text-slate-900">
+                {{ result.rank }}. {{ result.occupation.title.de || result.occupation.title.en }}
+              </div>
+              <div class="text-xs break-words text-slate-500">
+                O*NET {{ result.occupation.onetCode }}
+                <span v-if="!result.occupation.title.de"> · (Übersetzung folgt)</span>
+              </div>
             </div>
-            <div class="text-xs break-words text-slate-500">
-              O*NET {{ result.occupation.onetCode }}
-              <span v-if="!result.occupation.title.de"> · (Übersetzung folgt)</span>
+            <div class="shrink-0 font-mono text-sm text-indigo-600">
+              {{ (result.fitScore * 100).toFixed(0) }}
             </div>
-          </div>
-          <div class="shrink-0 font-mono text-sm text-indigo-600">
-            {{ (result.fitScore * 100).toFixed(0) }}
-          </div>
-        </li>
-      </ol>
+          </li>
+        </ol>
+      </template>
 
       <div class="mt-10">
         <button
