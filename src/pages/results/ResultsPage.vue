@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useQuestionnaireStore } from '@features/questionnaire/model/store'
 import { RIASEC_DIMENSIONS } from '@features/scoring/lib/riasec'
 
 const store = useQuestionnaireStore()
+const router = useRouter()
 const { t } = useI18n()
 
 const bars = computed(() =>
@@ -16,6 +17,15 @@ const bars = computed(() =>
     percent: store.riasecPercent[dim],
   })),
 )
+
+// Restart from the Results page must also navigate back to /test. Otherwise
+// store.reset() clears the answers but leaves the user on /ergebnis, where
+// the "noch nicht abgeschlossen" interstitial immediately renders because
+// isComplete flips to false.
+async function restart(): Promise<void> {
+  store.reset()
+  await router.push('/test')
+}
 </script>
 
 <template>
@@ -96,7 +106,7 @@ const bars = computed(() =>
         <button
           type="button"
           class="text-sm text-slate-500 underline hover:text-slate-900"
-          @click="store.reset"
+          @click="restart"
         >
           Test neu starten
         </button>
