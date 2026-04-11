@@ -1,4 +1,4 @@
-# PathFinder – Find Your Path
+# Berufung – Finde deinen Weg
 ## Projektplan & Technische Architektur
 
 > *"Jeder Mensch hat ein Recht darauf, seine Berufung zu finden – unabhängig von Einkommen, Herkunft oder Bildungsstand."*
@@ -106,15 +106,28 @@ Das Backend ist optional und speichert nur anonymisierte, aggregierte Daten.
 
 ---
 
-## 5. Scoring-Algorithmus
+## 5. Scoring-Algorithmus – Progressive Verfeinerung
 
-### Phase 1: RIASEC-Profil berechnen
+### Kernprinzip
+
+Das Assessment ist ein **progressiver Trichter**, nicht drei separate Tests. Jeder Layer verfeinert die Ergebnisse des vorherigen. User sehen ihre Ergebnisse nach jedem Layer live aktualisiert — die Berufsliste wird mit jedem Schritt präziser.
+
+```
+Score_final(Beruf) =
+    w1 × RIASEC_correlation          // Layer 1: Basis-Fit (Pearson, -1 bis 1)
+  + w2 × BigFive_modifier            // Layer 2: Persönlichkeits-Reranking
+  + w3 × Skills_match                // Layer 4: Fähigkeiten-Bonus
+  − penalties(Values_conflicts)      // Layer 3: Werte-Konflikte (hart + weich)
+```
+
+### Layer 1: RIASEC-Profil (Trichter)
 
 ```typescript
-// Jede der 60 O*NET-Fragen gehört zu einer RIASEC-Dimension
-// Antwortskala: 1 (strongly dislike) bis 5 (strongly like)
-// Score pro Dimension = Summe der 10 zugehörigen Antworten
-// Ergebnis: { R: 12, I: 38, A: 24, S: 18, E: 30, C: 15 }
+// 60 O*NET-Fragen → 6 Dimensionen
+// Score pro Dimension = Summe der 10 zugehörigen Antworten (10-50)
+// Pearson-Korrelation gegen alle 923 Berufsprofile
+// Ergebnis: ~80-100 realistische Kandidaten (Korrelation > 0.5)
+// Dem User als "Zwischenergebnis / Draft" präsentiert
 
 interface RIASECProfile {
   R: number  // Realistic    (10-50)
@@ -126,13 +139,17 @@ interface RIASECProfile {
 }
 ```
 
-### Phase 2: Persönlichkeits-Overlay (Big Five)
+### Layer 2: Persönlichkeits-Reranking (Big Five)
 
 ```typescript
 // 30 IPIP-Items → 5 Scores
-// Wird als sekundärer Filter verwendet:
-// z.B. hohe Extraversion + hohes E → Vertrieb/Management
-//      niedrige Extraversion + hohes I → Forschung/Analyse
+// Big Five RE-RANKT innerhalb des RIASEC-Trichters, filtert nicht raus.
+// Beispiel bei hohem I/A-Profil:
+//   introvertiert + gewissenhaft → Archivar, Restaurator, Datenanalyst steigen
+//   extravertiert + offen → Wissenschaftsjournalist, Museumskurator steigen
+// BigFive_modifier ist ein Multiplikator, kein eigener Score.
+// Hohe Extraversion bei Beruf der Extraversion braucht → Boost
+// Niedrige Extraversion bei gleichem Beruf → Dämpfung (aber nie Null)
 
 interface BigFiveProfile {
   openness: number
@@ -143,30 +160,72 @@ interface BigFiveProfile {
 }
 ```
 
-### Phase 3: Berufs-Matching
+### Layer 3: Werte & Rahmenbedingungen (Filter + Gewichtung)
 
 ```typescript
-// Pearson-Korrelation zwischen User-RIASEC und Berufs-RIASEC
-// Gefiltert nach Werte-/Rahmenbedingungen (Schicht 3)
+// Eigene Items → Harte Filter + weiche Gewichtungsanpassungen
+// Hart: "Max 3 Jahre Ausbildung" → eliminiert Chirurg
+// Weich: "Bevorzugt Outdoor" bei Mixed-Beruf → kleine Penalty
+// Einzige Quelle für echte Eliminierungen
 
+interface ValuesProfile {
+  maxEducationYears: number
+  prefersOutdoor: boolean
+  prefersTeamwork: boolean
+  incomeOverMeaning: number    // Spektrum
+  mobilityWillingness: number
+  physicalDemandTolerance: number
+}
+```
+
+### Layer 4: Fähigkeiten-Selbsteinschätzung (Bonus)
+
+```typescript
+// Selbstbewertung gegen O*NET Ability-Daten pro Beruf
+// Additiv: hohe Übereinstimmung → Bonus
+// Niedrige Übereinstimmung eliminiert NICHT, sondern triggert:
+// "Du müsstest diese Fähigkeiten entwickeln" Annotation
+```
+
+### Berufs-Matching (alle Layer kombiniert)
+
+```typescript
 function matchOccupations(
-  userProfile: RIASECProfile,
-  occupations: Occupation[],
-  filters: UserPreferences
+  riasec: RIASECProfile,
+  bigFive: BigFiveProfile | null,
+  values: ValuesProfile | null,
+  skills: SkillsProfile | null,
+  occupations: Occupation[]
 ): RankedOccupation[] {
   return occupations
-    .map(occ => ({
-      ...occ,
-      fit: pearsonCorrelation(
-        Object.values(userProfile),
+    .map(occ => {
+      const riasecFit = pearsonCorrelation(
+        Object.values(riasec),
         Object.values(occ.riasecProfile)
       )
-    }))
-    .filter(occ => applyFilters(occ, filters))
-    .sort((a, b) => b.fit - a.fit)
+      const bfMod = bigFive ? computeBigFiveModifier(bigFive, occ) : 0
+      const skillsMod = skills ? computeSkillsMatch(skills, occ) : 0
+      const valuesPen = values ? computeValuesPenalty(values, occ) : 0
+
+      return {
+        ...occ,
+        fitScore: W1 * riasecFit + W2 * bfMod + W3 * skillsMod - valuesPen,
+        riasecCorrelation: riasecFit,
+        bigFiveModifier: bfMod,
+        skillsMatch: skillsMod,
+        valuesPenalty: valuesPen,
+        eliminated: values ? isHardConflict(values, occ) : false
+      }
+    })
+    .filter(occ => !occ.eliminated)
+    .sort((a, b) => b.fitScore - a.fitScore)
     .slice(0, 20)
 }
 ```
+
+### Optionale Adaptive Vertiefung
+
+Bei uneindeutigem RIASEC-Profil (≥3 Dimensionen innerhalb von 5 Punkten) bietet das System gezielte Nachfragen aus der O*NET Interest Profiler Long Form (180 Items, 30 pro Dimension) an — aber nur für die unklaren Dimensionen. Kein User muss alle 180 Fragen beantworten.
 
 ---
 
@@ -252,46 +311,103 @@ src/
 
 ### Phase 1 – MVP (Monate 1-3)
 **Ziel:** Funktionierender RIASEC-Test auf Deutsch mit Berufsempfehlungen
+**Release-Strategie:** Kein Public Launch in Phase 1. Preview-Deploy auf Vercel für Freunde-Feedback, dann Phase 2 für echte Tiefe, Public Launch erst danach.
 
-**Proof of Concept (Woche 1-2):**
-- [ ] Projekt-Setup: Vue 3 + Vite + TypeScript + Tailwind + Pinia + Dexie
-- [ ] Domain-Recherche: Verfügbarkeit prüfen, Name final entscheiden
-- [ ] 10 O*NET-Items als Minimal-Fragebogen implementieren (Deutsch)
-- [ ] Basis-Scoring: RIASEC-Summen berechnen & als Balkendiagramm anzeigen
-- [ ] 20 Berufe als Test-JSON → einfaches Matching → Ergebnis-Liste
-- [ ] Deploy auf Free-Tier-Hoster → erster spielbarer Prototyp live
+**Proof of Concept (Woche 1-2) — ✅ erledigt (CC Sessions 1-4):**
+- [x] Projekt-Setup: Vue 3 + Vite + TypeScript + Tailwind + Pinia + Dexie
+- [x] 10 O*NET-Items als Minimal-Fragebogen implementieren (Deutsch)
+- [x] Basis-Scoring: RIASEC-Summen berechnen & als Balkendiagramm anzeigen
+- [x] 923 Berufe aus O*NET DB als statisches JSON aufbereitet
+- [x] Pearson-Korrelation Matching implementiert
+- [x] Ergebnis-Seite: Top-10-Berufe mit Fit-Scores
+- [x] 890/923 deutsche Berufsbezeichnungen via ESCO-Mapping
+- [x] 32 Tests (Unit + Integration) für Scoring-Pipeline
+- [x] O*NET Attribution im Footer
 
-**Vollständiger MVP (Woche 3-12):**
-- [ ] O*NET Interest Profiler Short Form (60 Items) implementieren
-- [ ] Deutsche Übersetzung der 60 Items (Referenz: OPEN RIASEC von opentest.ch)
-- [ ] O*NET Occupation Database als statisches JSON aufbereiten
-- [ ] Deutsche Berufsbezeichnungen via ESCO-Mapping einbinden
-- [ ] RIASEC-Scoring implementieren
-- [ ] Pearson-Korrelation Matching implementieren
-- [ ] Ergebnis-Seite: Top-20-Berufe mit RIASEC-Profil-Vergleich
-- [ ] RIASEC-Hexagon-Visualisierung (Radar-Chart)
-- [ ] Responsive Design (Mobile-first)
-- [ ] Fortschritt-Speicherung in IndexedDB (Session überdauert Tab-Schließen)
-- [ ] O*NET Attribution korrekt einbinden
-- [ ] Spenden-Seite: Bitcoin (On-Chain + Lightning) & PayPal
-- [ ] Impressum, Datenschutz, Über-das-Projekt-Seite
+**Vollständiger MVP — CC Sessions 5-8:**
+
+**CC Session 5 — Deutsche Übersetzung + 60-Item-Umstellung:**
+- [ ] 50 verbleibende Items übersetzen (Referenz: OPEN RIASEC opentest.ch + Überarbeitung)
+- [ ] AssessmentPage von 10 auf 60 Items umstellen
+- [ ] Fortschrittsbalken anpassen (1/60)
+- [ ] Bestehende Tests verifizieren (Integration-Tests sind auf 60 Items vorbereitet)
+
+**CC Session 6 — RIASEC Hexagon-Chart + Top-20:**
+- [ ] `widgets/riasec-chart/` als Radar/Hexagon (SVG oder Chart-Lib)
+- [ ] ResultsPage auf Top-20 erweitern
+- [ ] Alten Balkenchart ersetzen
+- [ ] Optional: Profilvergleich (User vs. Beruf) in der Occupation Card
+
+**CC Session 7 — Bundle-Optimierung + Dexie-Härtung:**
+- [ ] `onet-occupations.json` lazy-loaden (dynamic import im Matcher)
+- [ ] Dexie-Persistenz testen: Tab schließen → wiederkommen → Fortschritt da
+- [ ] Tests für Dexie-Layer und ggf. Pinia Questionnaire Store
+- [ ] Bundle-Size verifizieren (Ziel: initial chunk < 200 KB gzipped)
+
+**CC Session 8 — Vercel Preview-Deploy (Friends-only):**
+- [ ] `vercel.json` mit SPA-Rewrite (alle Routen → `index.html`)
+- [ ] `<meta name="robots" content="noindex">` in `index.html`
+- [ ] Dezenter "Früher Prototyp – Feedback willkommen" Hinweis im Footer
+- [ ] Responsive Durchgang: Assessment-Flow + Results auf Mobile prüfen
+- [ ] Prod-Build verifizieren + Deploy
+- [ ] Kein Impressum / Datenschutz / Spenden nötig (nicht öffentlich)
+
+→ **Nach Session 8:** Link an Freunde, Feedback sammeln, dann Phase 2.
+
+**Auf Public Launch verschoben (nach Phase 2):**
+- Domain-Entscheidung + eigene Domain verbinden
+- Impressum, Datenschutz, Über-das-Projekt-Seite
+- Spenden-Seite: Bitcoin (On-Chain + Lightning) & PayPal
+- SEO-Basics
 
 ### Phase 2 – Vertiefung (Monate 4-8)
-**Ziel:** Tieferes, persönlicheres Assessment – das Herzstück des Projekts
+**Ziel:** Tieferes, persönlicheres Assessment mit progressiver Verfeinerung – das Herzstück des Projekts
 
-- [ ] IPIP Big Five Short Form (30 Items) einbauen → Persönlichkeits-Overlay
-- [ ] Werte-/Rahmenbedingungen-Fragebogen (Schicht 3, eigene Items)
+**Progressive Scoring-Architektur:**
+- [ ] Scoring-Engine umbauen: `Score_final = w1×RIASEC + w2×BigFive_modifier + w3×Skills − penalties(Values)`
+- [ ] Ergebnis-Seite nach jedem Layer live aktualisieren (User sieht Top-20 sich verändern)
+- [ ] Erklärungstext pro Beruf: "Warum passt dieser Beruf nach Layer X besser/schlechter?" (algorithmisch, kein AI)
+- [ ] MatchResult erweitern: `riasecCorrelation`, `bigFiveModifier`, `skillsMatch`, `valuesPenalty` als transparente Komponenten
+
+**Layer 2 – Big Five (Persönlichkeits-Reranking):**
+- [ ] IPIP Big Five Short Form (30 Items) einbauen
+- [ ] BigFive_modifier als Multiplikator implementieren (re-rankt innerhalb RIASEC-Trichter, eliminiert nicht)
+- [ ] Deutsche Übersetzung der 30 Items
+
+**Layer 3 – Werte & Rahmenbedingungen (Filter + Gewichtung):**
+- [ ] Werte-Fragebogen (eigene Items, ~30 Fragen)
   - Ausbildungsbereitschaft, Indoor/Outdoor, Team/Solo, Sicherheit vs. Freiheit
   - Einkommen vs. Sinnhaftigkeit, Mobilität, körperliche Belastung
-- [ ] Fähigkeiten-Selbsteinschätzung (Schicht 4)
-  - Matching gegen O*NET Ability-Daten pro Beruf
+- [ ] Harte Filter (z.B. max Ausbildungsdauer) + weiche Penalties implementieren
+- [ ] O*NET JobZone-Daten als Proxy für Ausbildungsdauer nutzen
+
+**Layer 4 – Fähigkeiten-Selbsteinschätzung (Bonus):**
+- [ ] Matching gegen O*NET Ability-Daten pro Beruf
+- [ ] Niedrige Übereinstimmung → "Entwicklungsbedarf" Annotation (nicht Elimination)
+
+**Optionale Adaptive Vertiefung:**
+- [ ] Erkennung uneindeutiger RIASEC-Profile (≥3 Dimensionen innerhalb 5 Punkte)
+- [ ] Gezielte Nachfragen aus O*NET Long Form (180 Items) nur für unklare Dimensionen
+- [ ] UX: "Dein Profil ist noch nicht ganz eindeutig – möchtest du 10 weitere Fragen beantworten?"
+
+**Sonstige Verbesserungen:**
 - [ ] Vertiefungsmodule pro RIASEC-Typ (zusätzliche 20-30 Fragen)
 - [ ] Szenario-basierte Fragen ("Stell dir vor, du hast einen Tag frei…")
-- [ ] Matching-Algorithmus verfeinern: gewichtete Kombination aus RIASEC + Big Five + Werte + Fähigkeiten
 - [ ] Detaillierte deutsche Berufsprofile: Beschreibungen, typische Ausbildungswege (DACH)
-- [ ] Ergebnis-Seite verbessern: Warum passt dieser Beruf zu dir? (algorithmische Erklärung)
 - [ ] Share-Funktion (URL mit encoded Result, kein Backend nötig)
 - [ ] Ergebnis-Export als PDF
+
+### 🚀 Public Launch (nach Phase 2)
+**Ziel:** Echtes öffentliches Release mit rechtlicher Absicherung und Monetarisierung
+
+- [ ] Domain-Entscheidung finalisieren + verbinden
+- [ ] Impressum (§5 TMG)
+- [ ] Datenschutzerklärung (IndexedDB-Hinweis, kein Tracking, ggf. Supabase opt-in)
+- [ ] Über-das-Projekt-Seite
+- [ ] Spenden-Seite: Bitcoin (On-Chain + Lightning) & PayPal
+- [ ] `<meta name="robots">` entfernen, SEO-Basics
+- [ ] "Prototyp"-Hinweis aus Footer entfernen
+- [ ] Zweite Feedback-Runde mit denselben Testern (sehen den Sprung Phase 1 → 2)
 
 ### Phase 3 – Feedback & Daten (Monate 9-14)
 **Ziel:** Das Assessment durch echte Nutzerdaten verbessern
@@ -329,15 +445,15 @@ src/
 
 **Grundsatz:** Das Produkt ist und bleibt kostenlos. Keine Paywall, nie.
 
-| Kanal               | Ab Phase | Beschreibung                                     |
-|----------------------|----------|--------------------------------------------------|
-| Bitcoin (On-Chain)   | 1        | BTC-Adresse + QR-Code auf Spenden-Seite          |
-| Bitcoin (Lightning)  | 1        | LNURL / Lightning Address für Mikro-Spenden      |
-| PayPal               | 1        | Für Nicht-Crypto-Nutzer                           |
-| GitHub Sponsors      | 1        | Open-Source-Community                             |
-| Dezente Werbung      | 5        | Nur Ergebnis-Seite, keine Tracker, transparent    |
-| Affiliate            | 5        | Weiterbildungsanbieter (gekennzeichnet)           |
-| Beratungs-Vermittlung| 5        | Opt-in Vermittlung an Karriereberater             |
+| Kanal               | Ab Phase      | Beschreibung                                     |
+|----------------------|---------------|--------------------------------------------------|
+| Bitcoin (On-Chain)   | Public Launch | BTC-Adresse + QR-Code auf Spenden-Seite          |
+| Bitcoin (Lightning)  | Public Launch | LNURL / Lightning Address für Mikro-Spenden      |
+| PayPal               | Public Launch | Für Nicht-Crypto-Nutzer                           |
+| GitHub Sponsors      | Public Launch | Open-Source-Community                             |
+| Dezente Werbung      | 5             | Nur Ergebnis-Seite, keine Tracker, transparent    |
+| Affiliate            | 5             | Weiterbildungsanbieter (gekennzeichnet)           |
+| Beratungs-Vermittlung| 5             | Opt-in Vermittlung an Karriereberater             |
 
 ---
 
