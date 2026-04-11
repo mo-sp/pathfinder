@@ -5,6 +5,270 @@
 
 ---
 
+### Session 9 – 2026-04-11
+**Focus:** First live deploy – Vercel CLI preview for friends-feedback, plus strategic reframing of the ship-it roadmap
+
+**Meta / process notes:**
+- Single-PR session. This entry rides with `feat/vercel-preview-deploy`, which is both the first and the last (and only) PR of the session.
+- **Strategic pivot, set at session start:** the user pushed back on the Session-8 "ship-it track" framing which bundled *hosting deploy* with *Impressum / Datenschutz / Über / Spenden-Seite / responsive audit* under one umbrella. His argument: the current content is still primarily "another 60-item RIASEC test", the differentiator is only "no trackers / no login", and shipping legal infrastructure for something he'd only show to friends anyway is premature. Decision: split the umbrella – do a **minimal friends-only preview deploy now** to close the feedback loop on what's already built, continue with **Phase 2 depth work (Big Five)** next, and save the real legal/content/domain push for when the app is actually ship-ready post-Phase-2. This is the shape the rest of the session was executed against.
+- **Bushcraft-Planer deploy pattern adopted for PathFinder.** User already deploys his Bushcraft-Planer project via `npx vercel` manually, without installing the Vercel GitHub App. We replicated that here for the same reason: the Vercel GitHub App install dialog requests `code: write` (among other broad scopes), and the manual-CLI path skips the entire permission grant. Tradeoff accepted: no auto-preview on push, no PR-comment preview URLs, no webhook magic — every future deploy is a manual `npx vercel --prod` from his terminal. For a friends-feedback preview updated maybe 1-2× per session, that's fine.
+- **Updated `PROJECT.md` (PR #21, merged before session start) is now the authoritative roadmap document** and was read into context at the top of this session. Key architectural decisions encoded there that affect future sessions: progressive funnel (RIASEC base → Big Five multiplier → Values hard/soft penalties → Skills additive bonus, each layer *refines* not *replaces*), Big Five is a re-ranking multiplier on the RIASEC correlation (not an independent score), values are the only source of hard eliminations, skills are additive with a "development needed" annotation rather than elimination. This resolves the open (a)-vs-(b) Big-Five-matching question the assistant flagged earlier in the session: the plan is (b), with concrete architecture.
+
+**What was done:**
+- **`vercel.json`** (new, 5 lines): SPA catch-all rewrite `{ source: "/(.*)", destination: "/index.html" }`. Vercel's static-filesystem check runs before rewrites, so real build artifacts under `dist/assets/` (JS/CSS/favicon) serve normally and only non-existent paths like `/test` and `/ergebnis` fall through to `index.html`, at which point Vue Router takes over client-side. Verified on the live deploy by directly hitting the deep-links in a fresh browser tab with no 404s.
+- **`index.html`**: added `<meta name="robots" content="noindex, nofollow">` in the `<head>`. Keeps the preview URL out of Google while the app is still in "RIASEC-only" state. Comes off at the same time as the legal pages go live during the eventual real ship-it push.
+- **`src/pages/home/HomePage.vue`**: new amber banner at the bottom of the landing section replacing the previous tiny gray `mt-12 text-xs text-slate-400` "Aktueller Stand:" footnote. Structure: `rounded-lg border border-amber-200 bg-amber-50 p-5 text-amber-900` container with a `text-base font-semibold` heading "Früher Prototyp", a `text-sm` body paragraph about the early-development-stage nature and the feedback invitation, and — merged in mid-session at the user's explicit request — a third `text-sm` paragraph carrying the original "Aktueller Stand: vollständiger RIASEC-Test mit 60 Items … Big Five und persönliche Werte folgen in Phase 2." text. The two messages conceptually belong together: one sets expectations for *quality*, the other sets expectations for *scope*, and having them visually joined keeps the HomePage footer area one coherent block instead of two disconnected notes. Font sizes came up from the old `text-xs` because the original was too quiet to register as real information.
+- One intermediate state that did not ship: an initial attempt put a one-line "Früher Prototyp – Feedback willkommen." in the App-level footer (`App.vue`) instead of a HomePage banner. User asked for something more prominent; the footer line was removed when the HomePage banner was added, to avoid a duplicate prototype notice on the same page. Net change to `App.vue` is zero.
+
+**Deploy:**
+- First live deploy ever for PathFinder. `npx vercel` wizard accepted defaults: project name `pathfinder`, framework auto-detected as Vite, build + output dirs from Vite defaults, scope = user's personal Vercel account.
+- Key CLI prompt: *"Detected a repository. Connect it to this project?"* → answered **N**. That prompt is the trigger for the Vercel GitHub App install dialog; saying N keeps the project purely CLI-driven with zero GitHub-side integration, zero webhooks, zero PR-comment bots. Matches the Bushcraft-Planer setup.
+- **Live production alias:** `pathfinder-liard-phi.vercel.app`. Vercel auto-disambiguated because `pathfinder.vercel.app` was already taken; the `liard-phi` suffix is random and stable. The alias points to whatever the latest `--prod` deploy is, so subsequent `npx vercel --prod` runs replace the content behind the same URL.
+- **Gotcha worth remembering:** `npx vercel` bundles the **local working tree**, not `HEAD`. The first live deploy in this session was of uncommitted working-tree changes on `feat/vercel-preview-deploy` — it worked and was correct, but it's a different failure mode than the git-based workflow (a deploy can contain state that doesn't match any commit). Mitigation going forward: commit before deploying, even though the CLI doesn't enforce it. Not a blocker, just a different mental model.
+- Five manual acceptance checks passed on the live `pathfinder-liard-phi.vercel.app` before the user gave go-ahead for commit + PR:
+  1. HomePage renders with the amber banner visible and the "Aktueller Stand" copy inside it
+  2. Direct `/test` URL renders the assessment page (SPA rewrite working end-to-end)
+  3. Direct `/ergebnis` URL renders the "noch nicht abgeschlossen" interstitial (also SPA rewrite)
+  4. View-source on `/` confirms the `noindex, nofollow` meta tag survived the Vite build
+  5. Full 60-item questionnaire flow end-to-end with hexagon + top-20 + "Mehr anzeigen" + no console errors
+
+**Findings / notes for the record:**
+- **`npx vercel` from a git repo triggers a "Connect it to this project?" prompt that is a GitHub-App-install gate.** The question is phrased as if it's about linking, but answering Y actually walks you into the Vercel GitHub App permission dialog (`administration`, `checks`, `code: write`, `commit statuses`, `deployments`, `issues`, `pull requests`, `repository hooks`, `workflows`). For any future Vercel project that the user wants to keep CLI-only, this prompt must be answered **N**.
+- **`code: write` is the single permission worth pausing over** when deciding whether to install the Vercel GitHub App at all. Vercel's own docs say they don't use the write access for anything in practice, but the permission is bundled into GitHub's permission model at the "contents" level and can't be split out. For Bushcraft-Planer and PathFinder both, the user has opted out of granting it entirely via the CLI-deploy path.
+- **The "Only select repositories" scope during GitHub App installation is the single most important risk-reducer** if the GitHub App route is ever chosen in the future. It limits the blast radius of the entire permission list to exactly the opted-in repos. Noted here for whichever future session re-evaluates the deploy automation question.
+- **Strategic reframing is the main outcome of this session, not the code changes.** The three-file diff is small and boring on its own. What matters is the rearranged TODO list: "first hosting deploy" is now closed (friends-only preview), the rest of the old ship-it bundle is deferred behind Phase 2, and next session picks up Big Five as the first Phase 2 deliverable instead of Impressum/Datenschutz. Session 8's "next session is explicitly the ship-it track" instruction has been superseded.
+
+**Branches / merge commits:**
+- `feat/vercel-preview-deploy` – first live deploy config (`vercel.json`, `noindex`, HomePage prototype banner) + this SUMMARY entry
+
+**Known issues / TODOs (carried over, re-prioritized):**
+- **Phase 2 depth layers** per updated `PROJECT.md` – **this is now the active track**, starting with Big Five:
+  - **Layer 2: Big Five** (IPIP-30 items, 6 per dimension, Public Domain). New `bigfive` layer in the store, second scoring module, second visualization, results page updates live after completing the new layer, integration into `fitScore` as a multiplier per the progressive-funnel architecture. In the absence of Big Five profiles per O*NET occupation, either an externally-sourced mapping or a transparent heuristic (user-inspectable) will be needed.
+  - Layer 3: Values (custom items, hard filters + soft penalties)
+  - Layer 4: Skills self-assessment (matched against O*NET ability data, additive bonus)
+- **Real ship-it track** (deferred until after Phase 2 is actually in): Impressum / Datenschutz / Über pages, Spenden-Seite (Bitcoin / Lightning / PayPal), domain decision, responsive audit, removal of the `noindex, nofollow` meta tag
+- **Deploy automation** stays deliberately manual (`npx vercel --prod` from the user's terminal). If that becomes friction later, revisit the GitHub App install question with "Only select repositories" scope as the risk-reducer
+
+**Known issues / TODOs closed this session:**
+- ~~First hosting deploy~~ → `feat/vercel-preview-deploy` + live `pathfinder-liard-phi.vercel.app`. Domain decision itself is still deferred to the real ship-it push; the auto-generated Vercel alias is fine for friends-feedback and subsequent `--prod` deploys keep the URL stable.
+
+**Next steps – Phase 2 depth track (next session):**
+- **Big Five (Layer 2)** as the first Phase 2 deliverable – see details above. Once it lands, promote to the same `pathfinder-liard-phi.vercel.app` URL via `npx vercel --prod` for a round-two feedback cycle with the same friends; the link stays identical, only the content behind it changes.
+
+**Next steps – ship-it track (deferred until post-Phase-2):**
+- Domain decision + migrate off the auto-generated Vercel alias
+- Impressum / Datenschutz / Über pages (required before any public DE launch)
+- Spenden-Seite: Bitcoin on-chain + Lightning + PayPal
+- Responsive design audit across common mobile/tablet breakpoints
+- Remove the `noindex, nofollow` meta tag at the same time as the legal pages go live
+
+---
+
+### Session 8 – 2026-04-11
+**Focus:** Test infrastructure depth – Dexie persistence direct tests, page-level component tests, plus a small German translation polish pass caught during manual browser testing
+
+**Meta / process notes:**
+- Three-PR session following the Session 5/6/7 workflow (branch off fresh main → edit-test-iterate live via HMR → commit+push+PR only after user approval). PRs #18 and #19 shipped with no `SUMMARY.md` change; this entry rides with PR C and retrospectively covers all three.
+- The translation polish (PR C) was **not** planned at session start. The user spotted five items while doing a real walkthrough of the live app between PRs B and C and surfaced them mid-session. Fits the "edit-test-iterate live on disk" pattern: PR B's changes don't affect runtime, so the user could keep testing on the live app between automated test runs and manual flagging without context switches.
+- Native-proofreading TODO from Sessions 5/6/7 has been **demoted** by the user after this session's manual reading. The remaining German strings are mostly natural; the five items caught here are subtle polish, not blockers. Pushed to end-of-Phase-2 polishing or later.
+
+**What was done — PR #18 (Dexie persistence direct tests):**
+- New `src/shared/config/db.test.ts` with **11 tests** covering the persistence contract directly: schema declaration (DB name `pathfinder`, single `sessions` table), CRUD round-trips for both minimal in-progress and fully populated complete `AssessmentSession` shapes, the exact `orderBy('startedAt').reverse().first()` query that `hydrate()` relies on (plus its empty-table boundary so the `if (!latest) return` branch is locked in), `completedAt` index sanity via `where().above()`, and `bulkPut`/`clear` round-trip preservation.
+- Where the existing `store.test.ts` exercises persistence *through* the watcher and `hydrate()`, these tests isolate the Dexie layer so a regression localizes to either the store wiring **or** the schema definition, not both.
+- Behavioral assertions throughout — no introspection of internal Dexie API fields like `schema.primKey.name` — so the suite is robust against Dexie version bumps.
+- Closes the schema + round-trip half of the long-standing "Dexie persistence layer direct tests" TODO from Sessions 5/6/7. The "schema upgrades" half is moot: the schema is still at version 1 with nothing to upgrade from.
+
+**What was done — PR #19 (page component tests + jsdom setup):**
+- Added `jsdom@29` and `@vue/test-utils@2.4` as devDependencies.
+- Per-file `// @vitest-environment jsdom` docblock pattern: only the three new page test files run jsdom; existing node-environment tests (store, db, scoring, matcher) stay node. **No global vitest config change** — sibling tests can't accidentally inherit the jsdom env.
+- New `src/pages/home/HomePage.test.ts` (3 tests): title + CTA with live `store.total`, the homepage `Test starten` reset path, CTA href targeting.
+- New `src/pages/assessment/AssessmentPage.test.ts` (8 tests). The centerpiece is the **PR #17 setup-time fresh-start guard** under regression test: mounting with a complete session calls `store.reset()` *before the first render*, leaving no flash of stale state; gegenproben confirm in-progress and empty stores stay untouched. Plus Likert click recording, Zurück disabled at index 0, Neu starten resets, progress display, and the completion → `router.push('/ergebnis')` flow.
+- New `src/pages/results/ResultsPage.test.ts` (10 tests). Locks in **PR #15 uniform-answer banner** (full assertion at value 3 plus an `it.each([1, 5])` boundary check so all-low and all-high uniform profiles also catch the banner — not just the obvious midpoint), **PR #16 pagination** (initial 20 visible, "Mehr anzeigen" reveals 20 more, button disappears once every positive-`fitScore` match is shown, visible row count asserted equal to `store.results.filter(r => r.fitScore > 0).length` so zero/negative entries demonstrably never leak), and the **Session 4 restart fix** (the "Test neu starten" path now explicitly verifies both `store.reset()` AND `router.push('/test')` fire — guards the regression where missing the navigate left the user back on the "noch nicht abgeschlossen" interstitial).
+- Test count: **62 → 73** after PR #18, **73 → 94** after PR #19 (21 new component tests).
+- Setup choices worth knowing for future page tests:
+  - Real `createMemoryHistory()` router with stub routes, not mock objects, so `useRouter()` returns a real instance and `vi.spyOn(router, 'push')` works without prop-drilling.
+  - Real `i18n` singleton from `@shared/lib/i18n` — messages are static, no cross-test leak.
+  - `fake-indexeddb/auto` per file for the persist watchers' fire-and-forget writes during seeding.
+- Two non-obvious gotchas hit and resolved during PR #19's debugging:
+  - **Pre-warming `loadOccupations()`** before the final-click test in AssessmentPage was needed because `selectAnswer`'s `await store.persist()` chain dynamic-imports the 500 KB occupations JSON when `isComplete`, which can stretch past `vi.waitFor`'s default window on first load. With the pre-warm the chain settles in <50 ms — deterministic. Documented inline.
+  - **"Mehr anzeigen" loop has a 100-click safety bound** so a regression to "always visible" doesn't infinite-loop the test instead of failing it.
+
+**What was done — PR C (German translation polish, this PR):**
+- Five edits in `src/data/onet-items.json`. All caught by the user during a manual walkthrough of the live app between PRs B and C. Each fix preserves the O*NET semantics while replacing slightly off German with something a German speaker would actually say:
+  - **`ip-r-01`** `Build kitchen cabinets`: `Küchenschränke bauen` → `Küchenschränke aus Holz bauen`. The English `build` in a craft context means "make from raw materials" (Tischler), not "assemble from a flat-pack" (IKEA). Plain `bauen` is ambiguous in German and many readers default to the IKEA mental model — wrong frame for an R-dimension item where the intended career is carpentry/joinery. `aus Holz` disambiguates without inventing job context.
+  - **`ip-s-04`** `Perform rehabilitation therapy`: `Rehabilitationstherapie durchführen` → `In der Reha mit Patienten arbeiten`. The original German is technically correct but bureaucratic — no German speaker would describe their job that way. The new phrasing is what an actual Reha-Therapeut*in or Physiotherapeut*in would say, and the survey frame "wie sehr würdest du das gerne tun?" reads naturally with it.
+  - **`ip-s-06`** `Teach children how to play sports`: `Kindern Sport beibringen` → `Kindern Sportarten beibringen`. `Sport` is unzählbar in German so `Sport beibringen` is grammatically odd — `beibringen` wants something concrete. `Sportarten` (sports as disciplines) matches the English plural and gives the verb a proper object.
+  - **`ip-s-08`** `Help conduct a group therapy session`: `Bei einer Gruppentherapie assistieren` → `Bei einer Gruppentherapie mithelfen`. `assistieren` leans clinical/medical (Operationsassistent), losing the softer co-facilitation sense of the English `help conduct`. `mithelfen` is closer in register and clearly captures the "junior helper to the lead therapist" role. Also addresses a real reader misreading the user reported during testing: the English doesn't mean "help the *group*" but "help [someone] *conduct* the session" — `mithelfen` keeps that ambiguity narrower than `assistieren` did.
+  - **`ip-a-08`** `Perform jazz or tap dance`: `Jazz- oder Stepptanz aufführen` → `Auf der Bühne tanzen, zum Beispiel Jazz Dance oder Stepptanz`. `Jazztanz` exists in the Duden but is rarely used in real German — actual dance schools use the English loanword `Jazz Dance`. `Auf der Bühne tanzen` rescues the `Perform` semantic that `aufführen` carried; the `zum Beispiel` framing keeps both styles as concrete examples without making the unusual compound do all the work.
+- No code changes, no test changes. JSON edits only — `npm test` still 94/94 because the items file is loaded by the store and shape-checked but the German strings aren't asserted anywhere (intentional: tests should not couple to copy).
+
+**Session-wide findings / notes for the record:**
+- **The per-file `// @vitest-environment jsdom` docblock is the right move** vs. flipping the global vitest environment to jsdom or splitting into two configs. Sibling node tests can't accidentally pull in DOM globals, and the cost is one comment line per page-test file.
+- **Translation polish from "edit-test-iterate live on disk" is more efficient than a planned proofreading pass.** The user found these by actually using the app under realistic conditions — the same translations had been looked at during Session 6's batch review without flagging them. Lesson: the next translation pass should be "use the app for real and flag what catches the eye", not "read 60 items in a list".
+- **`store.results.filter(r => r.fitScore > 0).length` as a test invariant** is a more robust assertion than "click N times and check final count" because it asserts the cap *rule*, not the cap *number* — survives changes to `PAGE_SIZE` or to the underlying occupation dataset.
+- **Component tests run in <2 s** even with real Pinia + real router + real i18n + fake-indexeddb. No mocking ceremony was worth introducing; the real wiring is fast enough.
+
+**Branches / merge commits:**
+- `test/dexie-persistence-direct` – PR #18, 11 Dexie schema/CRUD/index tests, merged as `bef9ee1`
+- `test/page-components` – PR #19, jsdom + @vue/test-utils + 21 page component tests, merged as `623fcb5`
+- `fix/de-translation-polish` – this PR, carries this SUMMARY entry
+
+**Known issues / TODOs (carried over):**
+- **Still no Phase 1 MVP ship items** (untouched since session-1 inception): domain decision, free-tier hosting deploy, Spenden-Seite (Bitcoin/Lightning/PayPal), Impressum/Datenschutz/Über pages, responsive audit. **Next session is explicitly the ship-it track per user instruction.**
+- **Dexie schema upgrade testing** – moot until the schema goes past v1; nothing to upgrade from yet.
+
+**Known issues / TODOs closed this session:**
+- ~~Dexie persistence layer direct tests (schema, round-trip)~~ → PR #18
+- ~~Component-level tests for `HomePage`, `AssessmentPage`, `ResultsPage`~~ → PR #19
+- ~~German translation native-proofreading pass~~ → **demoted** by user after this session's manual reading; the five subtle polish items found here went into PR C, but the broader "full pass" is no longer blocking and is pushed to end-of-Phase-2 polishing or later
+
+**Next steps – ship-it track (user's call for next session):**
+- Domain decision + first hosting deploy (Cloudflare Pages / Vercel)
+- Spenden-Seite: Bitcoin on-chain + Lightning + PayPal
+- Impressum / Datenschutz / Über pages (required before any public DE launch)
+- Responsive design audit across common mobile/tablet breakpoints
+
+**Next steps – product-depth track (deferred):**
+- Translation polish opportunistically as the user keeps using the app, not as a dedicated session.
+- (No outstanding test-coverage gaps after this session.)
+
+---
+
+### Session 7 – 2026-04-11
+**Focus:** Product-depth follow-ups – top-20 results pagination, post-completion fresh-start on `/test`
+
+**Meta / process notes:**
+- Two-PR session following the same workflow as Sessions 5 and 6 (branch off fresh main → edit-test-iterate live via HMR → commit+push+PR only after user approval). First PR shipped with no `SUMMARY.md` change; this entry rides with the final PR and retrospectively covers both.
+- PR #16's top-20 task was queued at the end of Session 6 via a handoff memory note (not via a Session 6 SUMMARY TODO), including two open design questions the user deferred at the time. Both questions resolved at the start of this session before touching code (cap = `fitScore > 0`, label = "Mehr anzeigen").
+
+**What was done — PR #16 (top-20 results + "Mehr anzeigen" pagination):**
+- `/ergebnis` now renders **20 occupations initially** instead of the previous fixed top-10, with a centered **"Mehr anzeigen"** button that reveals 20 more per click. `ResultsPage` holds a local `visibleCount = ref(20)` with a `PAGE_SIZE = 20` step; the store dropped its hardcoded `topN = 20` cap on `matchOccupations` and now returns the **full ranked list** so the UI owns pagination.
+- The visible slice filters entries with `fitScore ≤ 0` — so the button **auto-disappears** at the point where remaining matches carry no signal rather than exposing a "rank 500: Postmasters · 0" tail. Honest self-adjusting cap instead of an arbitrary round number. The `fitScore > 0` filter was the recommended approach from Session 6's handoff and stayed after a brief discussion of alternatives (no cap / round cap).
+- `visibleCount` is intentionally **local UI state**, not persisted: a reload resets to 20 because it's a fresh visit. No Dexie schema change.
+- Natural composition with Session 6's uniform-answer banner: when `hasProfileDirection === false`, the banner renders alone — neither the list nor the "Mehr anzeigen" button appear, zero extra plumbing needed.
+- **Drive-by fix** caught during browser test: centered the "Test neu starten" button via `flex justify-center` on its wrapper div (was hanging half-left). User explicitly pulled it into this PR since we were already in the file.
+- One existing store test updated: the `toBeLessThanOrEqual(20)` assertion in the `results populates once complete` test flipped to `toBeGreaterThan(20)` to lock in the new "store returns the full ranked list" contract — guards against a regression to the old hardcoded cap.
+- Bundle impact: ResultsPage chunk **6.17 → 6.55 kB** (+0.38 kB, pagination state + button markup). Store chunk essentially flat (108.18 → 108.20 kB).
+
+**What was done — this session's final PR (post-completion fresh-start on /test):**
+- **Bug fix:** navigating to `/test` with a completed session in the store — via the header's "Zum Test" link, a direct reload of `/test`, or any programmatic path — used to land the user on the **last** question of the finished run. `hydrate()` clamps `currentIndex` to `total - 1` for complete sessions, which is correct resume behavior for *in-progress* runs but wrong for *completed* ones. Only the homepage's *Test starten* CTA was a clean fresh-start entry point. Known issue carried over from Session 5, noted in Session 6's TODO list.
+- **Fix:** a 2-line check in `AssessmentPage.vue`'s `<script setup>`: `if (store.isComplete) store.reset()`. Runs during setup, before the first render, so there's no flash of the stale "complete" state. `reset()` also re-rolls `questionOrder`, so the fresh run gets a genuinely different shuffle sequence from the one just finished. The existing persist watcher writes the empty fresh session to Dexie, same mechanism as HomePage's *Test starten* path, keeping hydrate-next-reload consistent.
+- **Why not a literal router `beforeEach` guard** (user's original phrasing in the carry-over memory was "Route-Guard"): every navigation flavor to `/test` converges on a single mount of `AssessmentPage`, so the observable behavior is identical. The router-guard version would add ~6 lines of async dynamic-import plumbing with no realistic future payoff — "kein Login / keine Tracker / keine i18n-URL-Präfixe / single assessment entry" rules out the standard beforeEach use cases, and the CLAUDE.md "no abstractions for single-use code" rule wins. Decision was walked through with the user explicitly and accepted. If a second `/test` entry appears later, hoisting the check into the router is a trivial refactor.
+- **Regression surface — all existing resume scenarios still work unchanged and were browser-tested:**
+  - Mid-test reload of `/test` → resumes at next unanswered question (`isComplete === false`, check is a no-op)
+  - Mid-test click on header "Zum Test" → resumes at next unanswered question
+  - Reload of `/ergebnis` after completion → still shows results (check is scoped to AssessmentPage, ResultsPage untouched)
+  - Homepage "Test starten" → unchanged (HomePage's own `store.reset()` already covers it; the new check is a no-op)
+- Bundle impact: AssessmentPage chunk **2.43 → 2.45 kB** (+0.02 kB).
+
+**Session-wide findings / notes for the record:**
+- **Pagination doesn't need persistence.** Considered briefly whether `visibleCount` should round-trip to Dexie so a user who clicked "Mehr anzeigen" 5× and reloaded sees 120 results again. Decided no: a reload is a fresh visit, 20 is the natural starting point, and persisting a UI pagination counter in the assessment session schema would be scope creep.
+- **`fitScore > 0` cap also sidesteps a subtle UX footgun:** because the uniform-answer banner from Session 6's final PR handles flat profiles (`hasProfileDirection === false`), the only way to hit "all remaining matches are ≤ 0" with the banner bypassed is an adversarially-constructed profile against the full O*NET dataset — practically impossible at 923 diverse entries. We therefore didn't add a fallback message for "20 shown, but nothing past them is positive"; if it ever triggers the button just doesn't render, which is acceptable dead-end behavior for an edge case that won't happen.
+
+**Branches / merge commits:**
+- `feat/top-20-show-more` – top-20 pagination + "Mehr anzeigen" + centered restart button, merged as `e367dd1`
+- `fix/zum-test-fresh-start` – this session's final PR, carries this SUMMARY entry
+
+**Known issues / TODOs (carried over):**
+- **Component-level tests** for `HomePage`, `AssessmentPage`, `ResultsPage` – still deferred. The setup-level fresh-start check from this session's final PR is exactly the kind of behavior a component test would lock in; currently it's only covered by the manual browser test.
+- **Dexie persistence layer direct tests** – still only indirectly exercised via `fake-indexeddb` in the store tests; no focused unit tests for `@shared/config/db` (schema, upgrades, round-trip).
+- **German translation native-proofreading pass** – current 60-item pass from Session 6 reads naturally but a native speaker skimming all 60 in context may still catch a few.
+- **Still no Phase 1 MVP ship items:** domain decision, free-tier hosting deploy, Spenden-Seite (Bitcoin/Lightning/PayPal), Impressum/Datenschutz/Über pages, responsive audit.
+
+**Known issues / TODOs closed this session:**
+- ~~Top-10 results list is too narrow; want top-20 with "Mehr anzeigen" pagination~~ → PR #16 (queued from Session 6 handoff memory)
+- ~~Header's *Zum Test* link resumes at the last answered question after a completed run instead of starting fresh~~ → this session's final PR (known issue since Session 5)
+
+**Next steps – product-depth track (continued):**
+- Component-level tests for the assessment flow (`AssessmentPage` + `ResultsPage` rendering against a test store). The fresh-start setup check is a prime candidate for the first regression test in that suite.
+- Dexie persistence layer direct tests (schema round-trip, legacy row handling).
+- Revisit translations in a native-proofreading pass.
+
+**Next steps – ship-it track (still untouched):**
+- Domain decision + first hosting deploy (Cloudflare Pages / Vercel).
+- Spenden-Seite: Bitcoin on-chain + Lightning + PayPal.
+- Impressum / Datenschutz / Über pages (required before any public launch in DE).
+- Responsive design audit across common mobile/tablet breakpoints.
+
+---
+
+### Session 6 – 2026-04-11
+**Focus:** Product-depth track – bundle split, full 60-item questionnaire in German, per-session question shuffle, uniform-answer edge case
+
+**Meta / process notes:**
+- Four-PR session following the Session-4/5 workflow (branch off fresh main → edit-test-iterate live via HMR → commit+push+PR only after user approval). Earlier PRs shipped with no `SUMMARY.md` change; this Session 6 entry rides with the final PR and retrospectively covers all four.
+- No PR URLs in the entry (per the convention established in Session 5): PRs are referenced by verb or branch name.
+
+**What was done — PR #12 (lazy-load occupations):**
+- Moved the ~495 KB `onet-occupations.json` import out of the questionnaire store chunk via dynamic `import()`, creating a separate `onet-occupations-*.js` chunk. `AssessmentPage.onMounted` prefetches it while the user reads question 1 so the chunk is cached by the time they finish; `ResultsPage.onMounted` triggers a safety-net load for direct `/ergebnis` navigation. Brief "Berufsempfehlungen werden geladen …" placeholder during that short fetch window.
+- `persist()` awaits `loadOccupations()` when `isComplete`, so the Dexie write always snapshots populated `results` instead of racing the dynamic import.
+- Bundle delta: **store chunk 600.48 → 105.89 kB (−494 kB)**, landing-page initial JS **~748 → ~253 kB (−495 kB / −66 %)**. Same total bytes shipped — just split so `/` no longer pays the occupations tax up front. Pre-existing 500 kB chunk-size warning (carried over since Session 2) is **gone**.
+- 1 new test in `store.test.ts` for `loadOccupations()` idempotency; the "results populates once complete" test was updated to reflect the new lazy behavior (explicit `await store.loadOccupations()` after the final answer).
+- Browser-tested: network tab showed the split working, completion flow still renders instantly because of the prefetch.
+
+**What was done — PR #13 (full 60-item questionnaire in German):**
+- **50 new German translations** for the O*NET Interest Profiler Short Form items that had been `de: null` since Session 1. All 60 items now have German text. Style matches the existing 10: infinitive verb phrases, gender-neutral via verb form, natural idiomatic German. Notable choices: `Ziegel mauern oder Fliesen verlegen` (ip-r-02, disambiguates `mauern` verb with preceding object), `Mit einem Taschenrechner arbeiten` (ip-c-04, survey frame "how much would you enjoy this?" rather than literal "bedienen"), `Mandanten vor Gericht vertreten` (ip-e-07, accepted generic masculine since `Mandant:innen` felt too formal for a career-interest survey).
+- **Production questionnaire bumped from PoC 10 → full 60 items.** `store.ts` drops `POC_ITEM_IDS` and filters `allItems` by `layer === 'riasec'` defensively. Store tests parameterized with `store.total` where it made the assertions more robust (e.g. `expect(row?.answers).toHaveLength(store.total)`), and the seed-complete hydrate fixture grew from 10 to 60 fake answers.
+- `HomePage` footer text rewritten to reflect the full questionnaire ("vollständiger RIASEC-Test mit 60 Items aus dem O*NET Interest Profiler Short Form. Big Five und persönliche Werte folgen in Phase 2."), time estimate bumped ~2 → ~5 min, and the trailing "· Proof of Concept" qualifier removed at the user's request since the questionnaire itself is no longer a PoC.
+- `matcher.integration.test.ts` still keeps its local 10-item `POC_ITEM_IDS` as a frozen fixture so the scaling claim ("same helper, 10 items and 60 items, same scoring outcome") remains a meaningful forward-compat smoke check. Test names and comments updated so they don't read as if the production store still uses the PoC subset.
+- Build impact: store chunk 105.89 → 107.64 kB (+1.75 kB from the extra German text). No functional regressions.
+- Browser-tested: user walked the full 60-item questionnaire in German and confirmed translations read naturally. During the test, spotted and accepted the **uniform-answer fitScore=0 edge case** (see PR B below) as mathematically correct Pearson behavior.
+
+**What was done — PR #14 (per-session question shuffle):**
+- Fisher-Yates shuffle (module-scoped helper in `store.ts`) randomises the presentation order of the 60 items per session. Breaks the source-order R→I→A→S→E→C clustering so a tired user's lower-energy answers don't all fall in the same RIASEC letter and bias the profile against that dimension.
+- Order is persisted in a new `AssessmentSession.questionOrder?: string[]` field and restored on `hydrate()` so reload preserves the exact sequence the user started with — `currentIndex` still maps to the same question they actually saw. `reset()` re-rolls a fresh order so "Test neu starten" gives a meaningfully different run.
+- `hydrate()` validates the restored order via `isValidOrder()` (same length as source, no duplicates, no stray ids). Legacy pre-shuffle sessions in a returning user's IndexedDB (no `questionOrder` field) and tampered Dexie rows (wrong length / bad ids) fall back to source order — which is what those sessions were implicitly authored against, so their `currentIndex` still lines up.
+- Internal: added module-scoped `sourceOrder: readonly string[]` and `itemsById: Map<string, Question>` so the `questions` computed does an O(1) lookup per slot instead of `allItems.find()`.
+- 7 new tests in the store suite: valid permutation (length + set equality + no dupes), shuffled order ≠ identity (1/60! ≈ 10⁻⁸² false-positive rate, documented), `reset()` re-roll, `persist()` writes `questionOrder`, `hydrate()` restores exact order (tested with a deliberately-reversed source order to prove the module-level init shuffle isn't leaking through), legacy fallback, tampered-row rejection (`questionOrder: ['ip-r-01', 'ip-r-02']` → falls back to source, `total` stays at 60).
+- Browser-tested: first question differs across fresh starts, reload mid-assessment preserves the order, reset re-rolls, dimensions visibly interleave, two-tab parallel hydration shows the same order.
+
+**What was done — this session's final PR (uniform-answer banner):**
+- **Root cause recap:** a user who answers every item with the same Likert value (all 1s, all 3s, all 5s) produces a flat RIASEC profile (`{R, I, A, S, E, C}` all equal). Pearson correlation at `features/scoring/lib/pearson.ts:37` has a zero-variance guard that returns 0 when the user's profile has `σ = 0`, so every occupation's `fitScore` collapses to 0 and the top-10 renders as an arbitrary list of zeros. Mathematically correct — a flat profile expresses no preference direction, so there's no axis to rank along — but the UI looked broken.
+- **Fix:** new `hasProfileDirection(profile)` helper in `features/scoring/lib/riasec.ts` returns `false` iff all six dimensions are equal (covers all-zero, all-low, all-high, and any mid-level uniform profile). `ResultsPage.vue` imports it as a reactive computed over `store.riasecProfile` and swaps the top-10 block for an amber-banner German message when the profile has no direction:
+  > *Dein Profil ist auf allen sechs Dimensionen gleich gewichtet. Ohne Präferenzunterschiede kann das Matching keine aussagekräftigen Berufsempfehlungen berechnen.*
+  > *Der Test wird hilfreicher, wenn du bei den Antworten klarer differenzierst – zwischen Aktivitäten, die du wirklich gerne machen würdest, und solchen, die dich weniger reizen.*
+- The hexagon stays visible even when the banner is shown — a flat hexagon is itself informative visual feedback about what happened. The "Test neu starten" button at the bottom of the page already gives the user a way to try again, so no duplicate CTA in the banner.
+- 5 new unit tests for `hasProfileDirection`: returns true when one dimension differs, returns false for all-low uniform / all-high uniform / all-zero (initial state) / all-mid uniform, returns true even for a single-dimension outlier (one value off by 1).
+- Build: `ResultsPage` chunk 5.56 → 6.17 kB (+0.6 kB from the banner markup and the extra computed); store chunk 108.12 → 108.18 kB (+0.06 kB from the added helper export).
+
+**Session-wide findings / non-bugs noted for the record:**
+- **Pearson zero-variance → fitScore=0 is correct math.** Covered by `pearson.test.ts`'s "zero-variance guard" unit test from Session 3. The banner in this session's final PR addresses the UX, not the math.
+- **The Vite dev server reports `onet-occupations.json` at ~4 MB** in the browser's Network tab, which alarmed the user during PR #12's browser test. That's how Vite serves JSON in dev mode (one `export const` per field for tree-shaking), not what ships. Production build output is the authoritative 484 kB / 134 kB gz chunk in `dist/assets/`.
+- **Shuffle's "1/60! false positive rate" assertions** in the store tests are deliberate: a random permutation of 60 elements coinciding with the identity has a probability of ~10⁻⁸². If those assertions fail, Fisher-Yates is broken, not unlucky. Documented in test comments so future maintainers don't "fix" the non-determinism.
+
+**Branches / merge commits:**
+- `feat/lazy-load-occupations` – lazy-load occupations, merged as `38d00e7`
+- `feat/full-60-items-german` – 60-item questionnaire + 50 translations + landing page cleanup, merged as `72b7fb5`
+- `feat/shuffle-questions` – per-session Fisher-Yates shuffle with hydrate preservation, merged as `6c30507`
+- `feat/uniform-answer-banner` – this session's final PR, carries this SUMMARY entry
+
+**Known issues / TODOs (carried over):**
+- **Component-level tests** for `HomePage`, `AssessmentPage`, `ResultsPage` – still deferred. The store-layer tests from Session 5 + the shuffle and banner tests from Session 6 cover the logic, but no `@vue/test-utils` rendering tests yet.
+- **Dexie persistence layer direct tests** – still indirectly exercised via `fake-indexeddb` in the store tests; no focused unit tests for `@shared/config/db` (schema, upgrades, round-trip).
+- **Resume-on-reload edge case** from Session 5: navigating `/test` via the header's *Zum Test* link *after* a completed run shows the last completed question instead of starting fresh. Only `HomePage`'s *Test starten* CTA is a clean fresh-start entry point. Small route-guard fix.
+- **Still no Phase 1 MVP ship items:** domain decision, free-tier hosting deploy, Spenden-Seite (Bitcoin/Lightning/PayPal), Impressum/Datenschutz/Über pages, responsive audit.
+
+**Known issues / TODOs closed this session:**
+- ~~Translate the remaining 50 O*NET items to German~~ → PR #13
+- ~~Lazy-load `onet-occupations.json` out of the main store chunk~~ → PR #12 (and the ~600 KB chunk-size warning that had been carried since Session 2 is also gone)
+- ~~No Pinia `questionnaire` store tests~~ → closed by Session 5's initial test suite and extended by PRs #14 and the final PR this session
+- ~~Clustered question order / dimension-block fatigue risk~~ → PR #14
+- ~~Uniform-answer UX (top-10 of zeros)~~ → this session's final PR
+
+**Next steps – product-depth track (continued):**
+- Component-level tests for the assessment flow (`AssessmentPage` + `ResultsPage` rendering against a test store).
+- Dexie persistence layer direct tests (schema round-trip, legacy row handling).
+- Resume-on-reload "fresh start from header link after completion" route guard.
+- Revisit translations in a native-proofreading pass (current pass is natural but a German speaker skimming all 60 in context may still catch a few).
+
+**Next steps – ship-it track (still untouched):**
+- Domain decision + first hosting deploy (Cloudflare Pages / Vercel).
+- Spenden-Seite: Bitcoin on-chain + Lightning + PayPal.
+- Impressum / Datenschutz / Über pages (required before any public launch in DE).
+- Responsive design audit across common mobile/tablet breakpoints.
+
+---
+
 ### Session 5 – 2026-04-11
 **Focus:** Product-depth track – RIASEC hexagon widget, resume-on-reload, Pinia store tests
 

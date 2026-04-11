@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { computeRiasecProfile, normalizeRiasecToPercent, RIASEC_DIMENSIONS } from './riasec'
+import {
+  computeRiasecProfile,
+  hasProfileDirection,
+  normalizeRiasecToPercent,
+  RIASEC_DIMENSIONS,
+} from './riasec'
 import type { Question } from '@entities/question/model/types'
 import type { Answer } from '@entities/assessment/model/types'
 
@@ -139,5 +144,41 @@ describe('normalizeRiasecToPercent', () => {
       [],
     )
     expect(result).toEqual({ R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 })
+  })
+})
+
+describe('hasProfileDirection', () => {
+  it('returns true when at least one dimension differs from the others', () => {
+    expect(
+      hasProfileDirection({ R: 5, I: 3, A: 3, S: 3, E: 3, C: 3 }),
+    ).toBe(true)
+  })
+
+  it('returns false when every dimension is equal (all-low uniform answers)', () => {
+    // A user answering every item with "1" ends up with sum counts that
+    // are equal across dims (10 items × 1 each = 10 per dim for the full
+    // Interest Profiler). The matching step would produce fitScore 0 for
+    // every occupation via pearson.ts's zero-variance guard.
+    expect(
+      hasProfileDirection({ R: 10, I: 10, A: 10, S: 10, E: 10, C: 10 }),
+    ).toBe(false)
+  })
+
+  it('returns false when every dimension is equal (all-high uniform answers)', () => {
+    expect(
+      hasProfileDirection({ R: 50, I: 50, A: 50, S: 50, E: 50, C: 50 }),
+    ).toBe(false)
+  })
+
+  it('returns false for the all-zero profile (no answers yet)', () => {
+    expect(
+      hasProfileDirection({ R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 }),
+    ).toBe(false)
+  })
+
+  it('returns true even when only one dimension differs', () => {
+    expect(
+      hasProfileDirection({ R: 10, I: 10, A: 10, S: 10, E: 10, C: 11 }),
+    ).toBe(true)
   })
 })

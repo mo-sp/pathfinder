@@ -4,17 +4,17 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <div class="min-h-full flex flex-col">
-    <header class="border-b border-slate-200 bg-white">
+    <header class="border-b border-slate-800 bg-slate-900">
       <div class="mx-auto max-w-4xl px-4 py-4 flex items-center justify-between">
         <RouterLink
           to="/"
-          class="text-xl font-bold text-slate-900 hover:text-indigo-600 transition-colors"
+          class="text-xl font-bold text-slate-100 hover:text-indigo-400 transition-colors"
         >
           PathFinder
         </RouterLink>
-        <nav class="flex gap-4 text-sm text-slate-600">
-          <RouterLink to="/" class="hover:text-indigo-600">Startseite</RouterLink>
-          <RouterLink to="/test" class="hover:text-indigo-600">Zum Test</RouterLink>
+        <nav class="flex gap-4 text-sm text-slate-400">
+          <RouterLink to="/" class="hover:text-indigo-400">Startseite</RouterLink>
+          <RouterLink to="/test" class="hover:text-indigo-400">Zum Test</RouterLink>
         </nav>
       </div>
     </header>
@@ -23,7 +23,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterView />
     </main>
 
-    <footer class="border-t border-slate-200 bg-white text-xs text-slate-500">
+    <footer class="border-t border-slate-800 bg-slate-900 text-xs text-slate-400">
       <div class="mx-auto max-w-4xl px-4 py-6 space-y-2">
         <p>
           Diese Seite verwendet Material aus den O*NET® Career Exploration Tools

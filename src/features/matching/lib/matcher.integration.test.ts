@@ -28,9 +28,11 @@ interface ItemsFile {
 const occupations = occupationsData as Occupation[]
 const allItems = (itemsData as ItemsFile).items
 
-// The 10 items the PoC questionnaire uses today (see
-// features/questionnaire/model/store.ts). Kept here instead of imported so
-// the test fails obviously if the store drops or renames one.
+// The original 10-item PoC subset. The production questionnaire now uses
+// all 60 items (see features/questionnaire/model/store.ts), but this
+// subset is preserved here as a frozen 10-item fixture so the scaling
+// claim below — "same helper on 10 items and on 60 items, same scoring
+// outcome" — remains a meaningful forward-compat smoke check.
 const POC_ITEM_IDS = [
   'ip-r-01',
   'ip-r-03',
@@ -144,7 +146,7 @@ describe('scoring pipeline integration (real O*NET data)', () => {
   })
 
   describe('full pipeline: answers → computeRiasecProfile → matchOccupations', () => {
-    it('dominant-Investigative answers on the PoC 10 items rank science/research roles first', () => {
+    it('dominant-Investigative answers on a 10-item subset rank science/research roles first', () => {
       const answers = makeRiasecAnswers(pocItems, { I: 5 }, 1)
       const profile = computeRiasecProfile(answers, pocItems)
       const results = matchOccupations(profile, occupations, 10)
@@ -171,9 +173,9 @@ describe('scoring pipeline integration (real O*NET data)', () => {
 
       expect(answers10).toHaveLength(pocRiasecCount)
       expect(answers60).toHaveLength(fullRiasecCount)
-      // PoC has 10 riasec items, full Interest Profiler has 60 — if these
-      // ever coincide, the PoC has silently grown and this test's value
-      // as a forward-compat smoke check is gone.
+      // The 10-item frozen subset exists purely to make this scaling claim
+      // testable — if the two counts ever coincide, the subset has grown
+      // and this forward-compat smoke check is gone.
       expect(answers10.length).toBeLessThan(answers60.length)
     })
   })
