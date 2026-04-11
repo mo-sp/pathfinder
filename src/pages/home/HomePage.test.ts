@@ -1,0 +1,80 @@
+// @vitest-environment jsdom
+/**
+ * Component-level tests for HomePage.
+ *
+ * Mounts the page against a fresh Pinia + a stub router and asserts that
+ * (a) the title and CTA render with the live question count from the
+ * store, (b) clicking the CTA calls store.reset() — the homepage's
+ * fresh-start guarantee that AssessmentPage's mount-time check relies on
+ * for the in-flow case, and (c) the CTA links to /test.
+ */
+import 'fake-indexeddb/auto'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { mount } from '@vue/test-utils'
+import { createPinia, setActivePinia } from 'pinia'
+import { createMemoryHistory, createRouter } from 'vue-router'
+import HomePage from './HomePage.vue'
+import { useQuestionnaireStore } from '@features/questionnaire/model/store'
+import { db } from '@shared/config/db'
+
+function makeRouter() {
+  return createRouter({
+    history: createMemoryHistory(),
+    routes: [
+      { path: '/', component: HomePage },
+      // Stub /test target so the click navigation has somewhere to land.
+      { path: '/test', component: { template: '<div />' } },
+    ],
+  })
+}
+
+function mountHomePage() {
+  return mount(HomePage, {
+    global: {
+      plugins: [makeRouter()],
+    },
+  })
+}
+
+describe('HomePage', () => {
+  beforeEach(async () => {
+    setActivePinia(createPinia())
+    await db.sessions.clear()
+  })
+
+  it('renders the title and the CTA with the live question count', () => {
+    const wrapper = mountHomePage()
+    expect(wrapper.text()).toContain('Finde deinen Weg.')
+    // store.total === 60 (full Interest Profiler Short Form). Asserting
+    // the exact number guards against a regression to the old PoC subset,
+    // the same way the store tests do at the data layer.
+    expect(wrapper.text()).toContain('Test starten (60 Fragen)')
+  })
+
+  it('clicking "Test starten" calls store.reset() — the homepage fresh-start path', async () => {
+    const store = useQuestionnaireStore()
+    // Seed the store with some "previous run" state. After the click,
+    // every field should be back to its initial state and the sessionId
+    // should have been re-rolled. This is the same fresh-start guarantee
+    // that AssessmentPage's setup-time check (PR #17) relies on for the
+    // in-flow /test entries — exercised here from the homepage CTA path.
+    store.answer(4)
+    store.answer(5)
+    const beforeId = store.sessionId
+    expect(store.answers).toHaveLength(2)
+
+    const wrapper = mountHomePage()
+    await wrapper.find('a[href="/test"]').trigger('click')
+
+    expect(store.answers).toEqual([])
+    expect(store.currentIndex).toBe(0)
+    expect(store.sessionId).not.toBe(beforeId)
+  })
+
+  it('the CTA links to /test', () => {
+    const wrapper = mountHomePage()
+    const cta = wrapper.find('a[href="/test"]')
+    expect(cta.exists()).toBe(true)
+    expect(cta.text()).toContain('Test starten')
+  })
+})
