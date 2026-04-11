@@ -50,10 +50,18 @@ function start(): void {
       <span class="text-sm text-slate-500">~5 Minuten</span>
     </div>
 
-    <p class="mt-12 text-xs text-slate-400">
-      Aktueller Stand: vollständiger RIASEC-Test mit 60 Items aus dem O*NET
-      Interest Profiler Short Form. Big Five und persönliche Werte folgen in
-      Phase 2.
-    </p>
+    <div class="mt-12 rounded-lg border border-amber-200 bg-amber-50 p-5 text-amber-900">
+      <p class="text-base font-semibold">Früher Prototyp</p>
+      <p class="mt-1 text-sm">
+        Diese Version ist ein frühes Entwicklungsstadium zum Testen mit
+        Freunden. Fehler, Anmerkungen und Verbesserungsvorschläge sind
+        ausdrücklich willkommen.
+      </p>
+      <p class="mt-3 text-sm">
+        Aktueller Stand: vollständiger RIASEC-Test mit 60 Items aus dem O*NET
+        Interest Profiler Short Form. Big Five und persönliche Werte folgen in
+        Phase 2.
+      </p>
+    </div>
   </section>
 </template>
