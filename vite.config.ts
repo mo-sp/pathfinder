@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 import vue from '@vitejs/plugin-vue'
@@ -17,5 +18,9 @@ export default defineConfig({
       '@shared': fileURLToPath(new URL('./src/shared', import.meta.url)),
       '@data': fileURLToPath(new URL('./src/data', import.meta.url)),
     },
+  },
+  test: {
+    environment: 'node',
+    include: ['src/**/*.test.ts'],
   },
 })

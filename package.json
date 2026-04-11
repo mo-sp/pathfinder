@@ -9,6 +9,8 @@
     "preview": "vite preview",
     "type-check": "vue-tsc -b --noEmit",
     "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "build:data": "node scripts/build-onet-data.mjs",
     "build:esco": "node scripts/build-esco-german.mjs"
   },
@@ -33,6 +35,7 @@
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.20.0",
     "vite": "^8.0.4",
+    "vitest": "^4.1.4",
     "vue-eslint-parser": "^9.4.3",
     "vue-tsc": "^3.2.6"
   }
