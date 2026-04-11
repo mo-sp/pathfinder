@@ -320,4 +320,128 @@ describe('questionnaire store', () => {
       expect(store.answers).toHaveLength(beforeSecondHydrate)
     })
   })
+
+  describe('question order: per-session shuffle', () => {
+    // The literal source order from onet-items.json (R-block, I-block, ...)
+    // used to assert shuffled orders are not accidentally the identity.
+    const sourceOrderIds = [
+      'ip-r-01', 'ip-r-02', 'ip-r-03', 'ip-r-04', 'ip-r-05',
+      'ip-r-06', 'ip-r-07', 'ip-r-08', 'ip-r-09', 'ip-r-10',
+      'ip-i-01', 'ip-i-02', 'ip-i-03', 'ip-i-04', 'ip-i-05',
+      'ip-i-06', 'ip-i-07', 'ip-i-08', 'ip-i-09', 'ip-i-10',
+      'ip-a-01', 'ip-a-02', 'ip-a-03', 'ip-a-04', 'ip-a-05',
+      'ip-a-06', 'ip-a-07', 'ip-a-08', 'ip-a-09', 'ip-a-10',
+      'ip-s-01', 'ip-s-02', 'ip-s-03', 'ip-s-04', 'ip-s-05',
+      'ip-s-06', 'ip-s-07', 'ip-s-08', 'ip-s-09', 'ip-s-10',
+      'ip-e-01', 'ip-e-02', 'ip-e-03', 'ip-e-04', 'ip-e-05',
+      'ip-e-06', 'ip-e-07', 'ip-e-08', 'ip-e-09', 'ip-e-10',
+      'ip-c-01', 'ip-c-02', 'ip-c-03', 'ip-c-04', 'ip-c-05',
+      'ip-c-06', 'ip-c-07', 'ip-c-08', 'ip-c-09', 'ip-c-10',
+    ]
+
+    it('a fresh store produces a valid permutation of all 60 source items', () => {
+      const store = useQuestionnaireStore()
+      const ids = store.questions.map((q) => q.id)
+      expect(ids).toHaveLength(60)
+      // Same set of IDs as the source, just (almost certainly) reordered.
+      expect(new Set(ids)).toEqual(new Set(sourceOrderIds))
+      // No duplicates — asserted implicitly by the set equality above, but
+      // a direct check documents the invariant.
+      expect(new Set(ids).size).toBe(60)
+    })
+
+    it('shuffled order is not the source order (probabilistic; 1/60! failure rate)', () => {
+      // A random permutation of 60 elements has a vanishing probability
+      // (1/60! ≈ 10⁻⁸²) of being identical to the identity permutation.
+      // Treat a failure here as "Fisher-Yates regressed to identity"
+      // rather than "cosmic ray" — the odds of coincidence are nil.
+      const store = useQuestionnaireStore()
+      const ids = store.questions.map((q) => q.id)
+      expect(ids).not.toEqual(sourceOrderIds)
+    })
+
+    it('reset() generates a new order different from the previous run', () => {
+      const store = useQuestionnaireStore()
+      const before = store.questions.map((q) => q.id)
+      store.reset()
+      const after = store.questions.map((q) => q.id)
+      // Same guarantee: two random permutations of 60 elements collide
+      // with probability 1/60!. If this flakes, Fisher-Yates is broken,
+      // not unlucky.
+      expect(after).not.toEqual(before)
+      // Still a valid permutation of the full set.
+      expect(new Set(after)).toEqual(new Set(sourceOrderIds))
+    })
+
+    it('persists questionOrder with each session write', async () => {
+      const store = useQuestionnaireStore()
+      const expected = store.questions.map((q) => q.id)
+      store.answer(4)
+      await flushPersist()
+
+      const row = await db.sessions.get(store.sessionId)
+      expect(row?.questionOrder).toEqual(expected)
+    })
+
+    it('hydrate restores the exact order that was persisted', async () => {
+      // Authored custom order (reverse of source) to prove hydrate uses
+      // the persisted value verbatim, not the module-level shuffle that
+      // runs on store creation.
+      const customOrder = [...sourceOrderIds].reverse()
+      await db.sessions.put({
+        id: 'seed-order',
+        startedAt: Date.now(),
+        answers: [],
+        questionOrder: customOrder,
+      })
+
+      const store = useQuestionnaireStore()
+      await store.hydrate()
+
+      expect(store.questions.map((q) => q.id)).toEqual(customOrder)
+      // First question the user will see matches the restored order, not
+      // whatever random shuffle the store initialized with.
+      expect(store.currentQuestion?.id).toBe(customOrder[0])
+    })
+
+    it('hydrate falls back to source order for legacy sessions with no questionOrder', async () => {
+      // Pre-shuffle session (as written by the app before this PR) has no
+      // questionOrder field. Its currentIndex is implicitly authored
+      // against source order, so fallback must be source order — not the
+      // module-level shuffle that the store happened to create on init.
+      await db.sessions.put({
+        id: 'legacy-session',
+        startedAt: Date.now(),
+        answers: [
+          { questionId: 'ip-r-01', value: 5, answeredAt: Date.now() },
+          { questionId: 'ip-r-02', value: 4, answeredAt: Date.now() },
+          { questionId: 'ip-r-03', value: 3, answeredAt: Date.now() },
+        ],
+      })
+
+      const store = useQuestionnaireStore()
+      await store.hydrate()
+
+      expect(store.questions.map((q) => q.id)).toEqual(sourceOrderIds)
+      expect(store.currentIndex).toBe(3) // next unanswered, lines up with source order
+    })
+
+    it('hydrate rejects a tampered questionOrder (wrong length) and falls back to source', async () => {
+      await db.sessions.put({
+        id: 'tampered-order',
+        startedAt: Date.now(),
+        answers: [],
+        questionOrder: ['ip-r-01', 'ip-r-02'], // only 2 entries
+      })
+
+      const store = useQuestionnaireStore()
+      await store.hydrate()
+
+      // Fell back to the 60-item source order instead of trusting the
+      // short list — otherwise `total` would drop to 2 and the rest of
+      // the questionnaire would be unreachable.
+      expect(store.total).toBe(60)
+      expect(store.questions.map((q) => q.id)).toEqual(sourceOrderIds)
+    })
+  })
 })

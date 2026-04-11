@@ -20,6 +20,47 @@ const allRiasecItems = (itemsData as ItemsFile).items.filter(
   (q) => q.layer === 'riasec',
 )
 
+/** Source order of riasec item IDs (JSON authored order, R→I→A→S→E→C). */
+const sourceOrder: readonly string[] = allRiasecItems.map((q) => q.id)
+
+/** O(1) id→Question lookup so `questions` computed doesn't do find() per slot. */
+const itemsById = new Map<string, Question>(
+  allRiasecItems.map((q) => [q.id, q]),
+)
+
+/**
+ * Fisher-Yates shuffle producing a fresh array — does not mutate the
+ * source. Used to randomise the presentation order of the 60 items per
+ * session, which breaks the R→I→A→S→E→C clustering in the source data
+ * and mitigates dimension-block fatigue where a tired user's lower-energy
+ * answers all fall in the same RIASEC letter.
+ */
+function shuffleOrder(): string[] {
+  const out = [...sourceOrder]
+  for (let i = out.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[out[i], out[j]] = [out[j], out[i]]
+  }
+  return out
+}
+
+/**
+ * True iff `order` is a valid permutation of the full source id list —
+ * same length, no duplicates, no stray ids. Used to decide whether to
+ * trust a hydrated questionOrder or fall back to source order for a
+ * pre-shuffle (legacy) session or a tampered Dexie row.
+ */
+function isValidOrder(order: readonly string[]): boolean {
+  if (order.length !== sourceOrder.length) return false
+  const seen = new Set<string>()
+  for (const id of order) {
+    if (!itemsById.has(id)) return false
+    if (seen.has(id)) return false
+    seen.add(id)
+  }
+  return true
+}
+
 /**
  * Lazy-load the ~600 KB O*NET occupations JSON. Keeping this out of the
  * store chunk means the landing page ("/") downloads only the store logic
@@ -46,9 +87,20 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
   const answers = ref<Answer[]>([])
   const currentIndex = ref(0)
   const occupations = ref<Occupation[] | null>(null)
+  // Per-session randomised order of question IDs — shuffled on store
+  // creation, regenerated on reset(), persisted + hydrated so a reload
+  // preserves the exact sequence the user started with.
+  const questionOrder = ref<string[]>(shuffleOrder())
 
-  // Full 60-item O*NET Interest Profiler Short Form in its authored order.
-  const questions = computed<Question[]>(() => allRiasecItems)
+  // Full 60-item O*NET Interest Profiler Short Form, mapped through the
+  // current per-session question order. `questions` therefore reflects
+  // the exact sequence the user sees and `currentIndex` stays consistent
+  // across answer()/previous()/hydrate() calls.
+  const questions = computed<Question[]>(() =>
+    questionOrder.value
+      .map((id) => itemsById.get(id))
+      .filter((q): q is Question => q != null),
+  )
 
   const total = computed(() => questions.value.length)
   const currentQuestion = computed<Question | null>(
@@ -83,6 +135,9 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     startedAt.value = Date.now()
     answers.value = []
     currentIndex.value = 0
+    // Re-roll the order on every reset so "Test neu starten" gives the
+    // user a meaningfully different experience from their previous run.
+    questionOrder.value = shuffleOrder()
   }
 
   /**
@@ -131,6 +186,7 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
         answers: answers.value,
         riasecProfile: isComplete.value ? riasecProfile.value : undefined,
         results: isComplete.value ? results.value : undefined,
+        questionOrder: questionOrder.value,
       }),
     )
     await db.sessions.put(session)
@@ -158,6 +214,16 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
       sessionId.value = latest.id
       startedAt.value = latest.startedAt
       answers.value = [...latest.answers]
+      // Restore the exact order the user was shown when they created the
+      // session, so currentIndex still maps to the same question. Legacy
+      // sessions written before shuffling existed (or rows tampered with
+      // externally) fall back to source order — that's what they were
+      // implicitly authored against, so their currentIndex lines up.
+      if (latest.questionOrder && isValidOrder(latest.questionOrder)) {
+        questionOrder.value = [...latest.questionOrder]
+      } else {
+        questionOrder.value = [...sourceOrder]
+      }
       // Resume at the next unanswered question; clamp so a complete session
       // sits on the last question instead of stepping past the end of the
       // questions array.
