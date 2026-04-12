@@ -26,8 +26,8 @@ import type { AssessmentSession } from '@entities/assessment/model/types'
  * without having to poll for state.
  */
 async function flushPersist(): Promise<void> {
-  for (let i = 0; i < 4; i += 1) await nextTick()
-  for (let i = 0; i < 4; i += 1) {
+  for (let i = 0; i < 6; i += 1) await nextTick()
+  for (let i = 0; i < 6; i += 1) {
     await new Promise((resolve) => setTimeout(resolve, 0))
   }
 }
@@ -695,6 +695,47 @@ describe('questionnaire store', () => {
       // rely on. Any real collision is a Fisher-Yates regression.
       expect(orderAfter).not.toEqual(orderBefore)
       expect(new Set(orderAfter)).toEqual(new Set(orderBefore))
+    })
+  })
+
+  describe('Big Five re-ranking (PR B)', () => {
+    it('results include riasecCorrelation and null bigFiveModifier when only RIASEC is done', async () => {
+      const store = useQuestionnaireStore()
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(4)
+      await flushPersist()
+      await store.loadOccupations()
+
+      expect(store.results.length).toBeGreaterThan(0)
+      const first = store.results[0]
+      expect(first.riasecCorrelation).toBeDefined()
+      expect(first.riasecCorrelation).toBe(first.fitScore)
+      expect(first.bigFiveModifier).toBeNull()
+    })
+
+    it('results re-rank when Big Five is completed and profiles are loaded', async () => {
+      const store = useQuestionnaireStore()
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(4)
+      await flushPersist()
+      await store.loadOccupations()
+      await store.loadBigFiveProfiles()
+
+      store.startBigFiveLayer()
+      for (let i = 0; i < store.bigfiveTotal; i += 1) store.answer((i % 5) + 1)
+      await flushPersist()
+
+      const withBigFive = store.results
+      const hasModifiers = withBigFive.some((r) => r.bigFiveModifier !== null)
+      expect(hasModifiers).toBe(true)
+
+      const mapped = withBigFive.filter((r) => r.bigFiveModifier !== null)
+      expect(mapped.length).toBeGreaterThan(0)
+      const withShift = mapped.filter((r) => Math.abs(r.bigFiveModifier! - 1.0) > 0.001)
+      expect(withShift.length).toBeGreaterThan(0)
+
+      const unmapped = withBigFive.filter((r) => r.bigFiveModifier === null)
+      for (const r of unmapped) {
+        expect(r.fitScore).toBe(r.riasecCorrelation)
+      }
     })
   })
 })

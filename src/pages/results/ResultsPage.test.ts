@@ -262,6 +262,33 @@ describe('ResultsPage', () => {
     })
   })
 
+  describe('Big Five re-ranking UI (PR B)', () => {
+    it('shows RIASEC-only subtitle text when Big Five is not complete', async () => {
+      await seedDirectionalSession()
+      const wrapper = mountWith(makeRouter())
+      expect(wrapper.text()).toContain('Pearson-Korrelation')
+      // The combined subtitle should NOT appear yet
+      expect(wrapper.text()).not.toContain('Gewichtet nach RIASEC-Korrelation und')
+    })
+
+    it('switches subtitle to combined text and shows toggle when Big Five is complete', async () => {
+      await seedDirectionalSession()
+      const store = useQuestionnaireStore()
+      await store.loadBigFiveProfiles()
+
+      store.startBigFiveLayer()
+      for (let i = 0; i < store.bigfiveTotal; i += 1) store.answer((i % 5) + 1)
+      expect(store.bigfiveIsComplete).toBe(true)
+
+      const wrapper = mountWith(makeRouter())
+      // Combined subtitle
+      expect(wrapper.text()).toContain('Gewichtet nach RIASEC-Korrelation und')
+      // Toggle buttons visible
+      expect(wrapper.text()).toContain('Nur Interessen')
+      expect(wrapper.text()).toContain('+ Persönlichkeit')
+    })
+  })
+
   describe('restart from results page', () => {
     it('"Test neu starten" calls store.reset() AND navigates to /test', async () => {
       const router = makeRouter()

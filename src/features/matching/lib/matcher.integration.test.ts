@@ -94,8 +94,9 @@ describe('scoring pipeline integration (real O*NET data)', () => {
       for (let i = 0; i < results.length; i++) {
         expect(results[i].rank).toBe(i + 1)
         expect(Number.isFinite(results[i].fitScore)).toBe(true)
-        expect(results[i].fitScore).toBeGreaterThanOrEqual(-1)
-        expect(results[i].fitScore).toBeLessThanOrEqual(1)
+        expect(results[i].riasecCorrelation).toBeGreaterThanOrEqual(-1)
+        expect(results[i].riasecCorrelation).toBeLessThanOrEqual(1)
+        expect(results[i].bigFiveModifier).toBeNull()
         if (i > 0) {
           expect(results[i].fitScore).toBeLessThanOrEqual(
             results[i - 1].fitScore,

@@ -24,14 +24,32 @@ const { t } = useI18n()
 // feedback about what happened.
 const hasDirection = computed(() => hasProfileDirection(store.riasecProfile))
 
-// Results pagination: show 20 initially, reveal 20 more per click. Cap at
-// fitScore > 0 so we don't surface the "rank 500: Postmasters · 0" tail —
-// a zero correlation carries no signal and would only dilute the list.
-// visibleCount is local UI state; a reload resets to 20 on purpose.
+// Toggle between RIASEC-only and combined (RIASEC + Big Five) ranking.
+// Only meaningful after Big Five is complete; defaults to combined.
+const showCombined = ref(true)
+
+// RIASEC-only ranking: same results, sorted by riasecCorrelation instead
+// of fitScore. Computed once so the toggle is instant.
+const riasecOnlyRanked = computed(() =>
+  [...store.results]
+    .sort((a, b) => b.riasecCorrelation - a.riasecCorrelation)
+    .map((r, i) => ({ ...r, rank: i + 1 })),
+)
+
+// Active result set: combined or RIASEC-only based on toggle.
+const activeResults = computed(() =>
+  store.bigfiveIsComplete && showCombined.value
+    ? store.results
+    : riasecOnlyRanked.value,
+)
+
+// Results pagination: show 20 initially, reveal 20 more per click.
 const PAGE_SIZE = 20
 const visibleCount = ref(PAGE_SIZE)
 const rankedResults = computed(() =>
-  store.results.filter((r) => r.fitScore > 0),
+  activeResults.value.filter((r) =>
+    showCombined.value ? r.fitScore > 0 : r.riasecCorrelation > 0,
+  ),
 )
 const visibleResults = computed(() =>
   rankedResults.value.slice(0, visibleCount.value),
@@ -43,6 +61,13 @@ function showMore(): void {
   visibleCount.value += PAGE_SIZE
 }
 
+/** Score delta for a result: combined fitScore minus RIASEC-only score, as display points. */
+function scoreDelta(result: { riasecCorrelation: number; fitScore: number; bigFiveModifier: number | null }): number | null {
+  if (!store.bigfiveIsComplete || !showCombined.value) return null
+  if (result.bigFiveModifier == null) return null
+  return Math.round(result.fitScore * 100) - Math.round(result.riasecCorrelation * 100)
+}
+
 // Safety net for direct navigation / reload on /ergebnis: AssessmentPage
 // prefetches the occupations chunk on mount, so the common flow lands here
 // with results already populated, but a user who jumps straight to
@@ -51,6 +76,9 @@ function showMore(): void {
 onMounted(() => {
   store.loadOccupations().catch((err) => {
     console.error('Failed to load occupations for results', err)
+  })
+  store.loadBigFiveProfiles().catch((err) => {
+    console.error('Failed to load Big Five occupation profiles', err)
   })
 })
 
@@ -183,13 +211,41 @@ async function refineWithBigFive(): Promise<void> {
         </button>
       </div>
 
-      <h2 class="mt-12 text-2xl font-semibold text-slate-100">
-        Top-Berufsempfehlungen
-      </h2>
-      <p class="mt-1 text-sm text-slate-400">
-        Berechnet via Pearson-Korrelation zwischen deinem Profil und den
-        RIASEC-Profilen aus der O*NET-Datenbank.
-      </p>
+      <div class="mt-12 flex items-end justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-semibold text-slate-100">
+            Top-Berufsempfehlungen
+          </h2>
+          <p v-if="store.bigfiveIsComplete && showCombined" class="mt-1 text-sm text-slate-400">
+            Gewichtet nach RIASEC-Korrelation und Persönlichkeitsprofil.
+          </p>
+          <p v-else class="mt-1 text-sm text-slate-400">
+            Berechnet via Pearson-Korrelation zwischen deinem Profil und den
+            RIASEC-Profilen aus der O*NET-Datenbank.
+          </p>
+        </div>
+        <div
+          v-if="store.bigfiveIsComplete"
+          class="flex shrink-0 overflow-hidden rounded-md border border-slate-700"
+        >
+          <button
+            type="button"
+            class="px-3 py-1.5 text-xs font-medium transition-colors"
+            :class="!showCombined ? 'bg-slate-700 text-slate-100' : 'bg-slate-900 text-slate-400 hover:text-slate-200'"
+            @click="showCombined = false"
+          >
+            Nur Interessen
+          </button>
+          <button
+            type="button"
+            class="px-3 py-1.5 text-xs font-medium transition-colors"
+            :class="showCombined ? 'bg-indigo-600 text-white' : 'bg-slate-900 text-slate-400 hover:text-slate-200'"
+            @click="showCombined = true"
+          >
+            + Persönlichkeit
+          </button>
+        </div>
+      </div>
 
       <div
         v-if="!hasDirection"
@@ -228,8 +284,19 @@ async function refineWithBigFive(): Promise<void> {
                 <span v-if="!result.occupation.title.de"> · (Übersetzung folgt)</span>
               </div>
             </div>
-            <div class="shrink-0 font-mono text-sm text-indigo-400">
-              {{ (result.fitScore * 100).toFixed(0) }}
+            <div class="flex shrink-0 items-center gap-2">
+              <span
+                v-if="scoreDelta(result) != null && scoreDelta(result) !== 0"
+                class="rounded px-1.5 py-0.5 font-mono text-xs"
+                :class="scoreDelta(result)! > 0
+                  ? 'bg-emerald-950/60 text-emerald-400'
+                  : 'bg-red-950/60 text-red-400'"
+              >
+                {{ scoreDelta(result)! > 0 ? '+' : '' }}{{ scoreDelta(result) }}
+              </span>
+              <span class="font-mono text-sm text-indigo-400">
+                {{ (result.fitScore * 100).toFixed(0) }}
+              </span>
             </div>
           </li>
         </ol>

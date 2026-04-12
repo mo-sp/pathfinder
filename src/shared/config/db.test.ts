@@ -70,6 +70,8 @@ describe('pathfinder Dexie schema', () => {
               jobZone: 4,
             },
             fitScore: 0.87,
+            riasecCorrelation: 0.87,
+            bigFiveModifier: null,
             rank: 1,
           },
         ],
