@@ -378,6 +378,28 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     }
   }
 
+  /**
+   * Reset a specific layer and switch to it so the user can re-answer its
+   * questions without losing other layers' data. Called from ResultsPage
+   * "wiederholen" links.
+   */
+  function repeatLayer(layer: AssessmentLayer): void {
+    currentLayer.value = layer
+    resetCurrentLayer()
+  }
+
+  /**
+   * Update a single values answer in-place. Used by the interactive cards
+   * on ResultsPage so users can tweak preferences without re-taking the
+   * whole values layer.
+   */
+  function updateValuesAnswer(questionId: string, value: number): void {
+    const idx = valuesAnswers.value.findIndex((a) => a.questionId === questionId)
+    if (idx >= 0) {
+      valuesAnswers.value[idx] = { questionId, value, answeredAt: Date.now() }
+    }
+  }
+
   /** Promote the user into the values layer. Called from the ResultsPage CTA. */
   function startValuesLayer(): void {
     currentLayer.value = 'values'
@@ -597,6 +619,8 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     previous,
     reset,
     resetCurrentLayer,
+    repeatLayer,
+    updateValuesAnswer,
     startBigFiveLayer,
     startValuesLayer,
     persist,

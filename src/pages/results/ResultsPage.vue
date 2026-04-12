@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onBeforeUnmount, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import type { AssessmentLayer } from '@entities/assessment/model/types'
 import { useQuestionnaireStore } from '@features/questionnaire/model/store'
 import {
   hasProfileDirection,
@@ -152,18 +153,22 @@ const bigfiveLegend = computed(() =>
   })),
 )
 
-// Values legend: show each dimension's label + the user's chosen answer text.
+// Values legend: each dimension's label, current choice, question ID,
+// current value (1-5), and all 5 option labels for the interactive picker.
 const valuesLegend = computed(() => {
   if (!store.valuesIsComplete) return []
   const profile = store.valuesProfile
   return VALUES_DIMENSIONS.map((dim) => {
     const q = store.valuesQuestions.find((q) => q.dimension === dim)
     const value = profile[dim]
-    const choiceLabel = q?.labels?.de?.[value - 1] ?? `${value}/5`
+    const options = q?.labels?.de ?? []
     return {
       dim,
       label: t(`values.${dim}`),
-      choice: choiceLabel,
+      choice: options[value - 1] ?? `${value}/5`,
+      questionId: q?.id ?? '',
+      value,
+      options,
     }
   })
 })
@@ -199,6 +204,40 @@ async function refineWithValues(): Promise<void> {
   store.startValuesLayer()
   await router.push('/test')
 }
+
+async function repeatLayer(layer: AssessmentLayer): Promise<void> {
+  store.repeatLayer(layer)
+  await router.push('/test')
+}
+
+// Track which values dimension dropdown is open (null = all closed).
+const openValuesDim = ref<string | null>(null)
+const valuesGridRef = ref<HTMLElement | null>(null)
+
+function toggleValuesDim(dim: string): void {
+  openValuesDim.value = openValuesDim.value === dim ? null : dim
+}
+
+function selectValuesOption(questionId: string, value: number): void {
+  store.updateValuesAnswer(questionId, value)
+  openValuesDim.value = null
+}
+
+// Close any open values dropdown when the user clicks outside the grid.
+function handleDocumentClick(event: MouseEvent): void {
+  if (openValuesDim.value === null) return
+  const grid = valuesGridRef.value
+  if (grid && !grid.contains(event.target as Node)) {
+    openValuesDim.value = null
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleDocumentClick)
+})
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleDocumentClick)
+})
 </script>
 
 <template>
@@ -216,35 +255,46 @@ async function refineWithValues(): Promise<void> {
     </div>
 
     <template v-else>
-      <h1 class="text-3xl font-bold text-slate-100">Dein RIASEC-Profil</h1>
-      <p class="mt-2 text-sm text-slate-400">
-        Basierend auf {{ store.riasecTotal }} Items aus dem O*NET Interest Profiler
-        Short Form.
-      </p>
+      <div class="rounded-xl border border-slate-700/60 bg-slate-900/50 p-6">
+        <h1 class="text-3xl font-bold text-slate-100">Dein RIASEC-Profil</h1>
+        <p class="mt-2 text-sm text-slate-400">
+          Basierend auf {{ store.riasecTotal }} Items aus dem O*NET Interest Profiler
+          Short Form.
+        </p>
 
-      <div class="mt-10 rounded-lg border border-slate-800 bg-slate-900 p-6">
-        <RiasecHexagon :profile="store.riasecPercent" />
-      </div>
-
-      <dl class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        <div
-          v-for="entry in riasecLegend"
-          :key="entry.dim"
-          class="rounded-md border border-slate-800 bg-slate-900 p-3"
-        >
-          <dt class="text-sm font-semibold text-slate-100">
-            {{ entry.dim }} – {{ entry.label }}
-          </dt>
-          <dd class="mt-1 text-xs text-slate-400">
-            {{ entry.description }}
-          </dd>
+        <div class="mt-10 rounded-lg border border-slate-800 bg-slate-900 p-6">
+          <RiasecHexagon :profile="store.riasecPercent" />
         </div>
-      </dl>
+
+        <dl class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            v-for="entry in riasecLegend"
+            :key="entry.dim"
+            class="rounded-md border border-slate-800 bg-slate-900 p-3"
+          >
+            <dt class="text-sm font-semibold text-slate-100">
+              {{ entry.dim }} – {{ entry.label }}
+            </dt>
+            <dd class="mt-1 text-xs text-slate-400">
+              {{ entry.description }}
+            </dd>
+          </div>
+        </dl>
+        <div class="mt-4 flex justify-end">
+          <button
+            type="button"
+            class="text-sm text-slate-400 underline hover:text-slate-100"
+            @click="repeatLayer('riasec')"
+          >
+            Interessen-Test wiederholen
+          </button>
+        </div>
+      </div>
 
       <!-- Big Five block: either the completed profile + legend, or an
            invitation to start the refinement layer. -->
-      <template v-if="store.bigfiveIsComplete">
-        <h2 class="mt-12 text-2xl font-semibold text-slate-100">
+      <div v-if="store.bigfiveIsComplete" class="mt-12 rounded-xl border border-slate-700/60 bg-slate-900/50 p-6">
+        <h2 class="text-2xl font-semibold text-slate-100">
           Dein Persönlichkeitsprofil
         </h2>
         <p class="mt-2 text-sm text-slate-400">
@@ -268,7 +318,16 @@ async function refineWithValues(): Promise<void> {
             </dd>
           </div>
         </dl>
-      </template>
+        <div class="mt-4 flex justify-end">
+          <button
+            type="button"
+            class="text-sm text-slate-400 underline hover:text-slate-100"
+            @click="repeatLayer('bigfive')"
+          >
+            Persönlichkeitstest wiederholen
+          </button>
+        </div>
+      </div>
       <div
         v-else
         class="mt-12 rounded-lg border border-indigo-800/60 bg-indigo-950/40 p-6"
@@ -297,28 +356,61 @@ async function refineWithValues(): Promise<void> {
            invitation to start the values layer. Only shown after Big Five
            is complete (values is the next step in the progressive funnel). -->
       <template v-if="store.bigfiveIsComplete">
-        <template v-if="store.valuesIsComplete">
-          <h2 class="mt-12 text-2xl font-semibold text-slate-100">
+        <div v-if="store.valuesIsComplete" class="mt-12 rounded-xl border border-slate-700/60 bg-slate-900/50 p-6">
+          <h2 class="text-2xl font-semibold text-slate-100">
             Deine Werte & Rahmenbedingungen
           </h2>
           <p class="mt-2 text-sm text-slate-400">
             Deine Präferenzen zu Ausbildung, Arbeitsumfeld und Arbeitsweise.
           </p>
-          <dl class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <dl ref="valuesGridRef" class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <div
               v-for="entry in valuesLegend"
               :key="entry.dim"
-              class="rounded-md border border-slate-800 bg-slate-900 p-3"
+              class="relative rounded-md border border-slate-800 bg-slate-900 p-3"
             >
               <dt class="text-xs font-medium text-slate-400">
                 {{ entry.label }}
               </dt>
-              <dd class="mt-1 text-sm font-semibold text-slate-100">
-                {{ entry.choice }}
+              <dd>
+                <button
+                  type="button"
+                  class="mt-1 w-full text-left text-sm font-semibold text-slate-100 hover:text-indigo-300"
+                  @click="toggleValuesDim(entry.dim)"
+                >
+                  {{ entry.choice }}
+                  <span class="ml-1 text-xs text-slate-500">▾</span>
+                </button>
+                <ul
+                  v-if="openValuesDim === entry.dim"
+                  class="absolute left-0 right-0 top-full z-10 mt-1 rounded-md border border-slate-700 bg-slate-800 py-1 shadow-lg"
+                >
+                  <li v-for="(optLabel, optIdx) in entry.options" :key="optIdx">
+                    <button
+                      type="button"
+                      class="w-full px-3 py-1.5 text-left text-sm transition-colors"
+                      :class="optIdx + 1 === entry.value
+                        ? 'bg-indigo-500/20 text-indigo-300'
+                        : 'text-slate-300 hover:bg-slate-700'"
+                      @click="selectValuesOption(entry.questionId, optIdx + 1)"
+                    >
+                      {{ optLabel }}
+                    </button>
+                  </li>
+                </ul>
               </dd>
             </div>
           </dl>
-        </template>
+          <div class="mt-4 flex justify-end">
+            <button
+              type="button"
+              class="text-sm text-slate-400 underline hover:text-slate-100"
+              @click="repeatLayer('values')"
+            >
+              Werte-Test wiederholen
+            </button>
+          </div>
+        </div>
         <div
           v-else
           class="mt-12 rounded-lg border border-indigo-800/60 bg-indigo-950/40 p-6"

@@ -5,6 +5,51 @@
 
 ---
 
+### Session 13 – 2026-04-12
+**Focus:** Layer-Wiederholung ohne Full-Reset + interaktive Werte-Cards im Ergebnis für direktes "Was-wäre-wenn"-Testen.
+
+**What was done — `feat/layer-repeat-and-values-picker`:**
+
+*Store:*
+- `repeatLayer(layer)` — atomar: setzt `currentLayer` + ruft `resetCurrentLayer()`. Kombiniert die zwei Schritte, damit UI-Aufrufer sie nicht einzeln aufrufen können (und damit die AssessmentPage-Guard-Invariante brechen).
+- `updateValuesAnswer(questionId, value)` — mutiert eine einzelne Values-Antwort in-place. `valuesProfile` + `results` computeds rechnen automatisch nach, Persist-Watcher schreibt nach Dexie.
+
+*AssessmentPage guard fix (`src/pages/assessment/AssessmentPage.vue:22`):*
+- `if (store.isComplete) store.reset()` → `if (store.isComplete) store.resetCurrentLayer()`.
+- Ursprünglicher Guard stammt aus Zeit, als nur RIASEC existierte — `reset()` und Layer-Reset waren identisch. Mit 3 Layern löschte der alte Guard beim Wiedereinstieg in `/test` alle Layer. Jetzt wird nur der aktive Layer geleert.
+- Alle bestehenden Flows analysiert: Fresh-Start, Mid-Layer-Resume, Verfeinern-CTA, Repeat-Flow — alle verhalten sich korrekt.
+
+*ResultsPage — Repeat-Links:*
+- Jeder abgeschlossene Layer-Block (RIASEC, Big Five, Werte) ist in einen eigenen Container mit `rounded-xl border border-slate-700/60 bg-slate-900/50 p-6` gewrappt — visuell klar als eigenständige Sektion erkennbar.
+- Dezenter "wiederholen"-Link unten rechts in jedem Block: "Interessen-Test wiederholen", "Persönlichkeitstest wiederholen", "Werte-Test wiederholen".
+
+*ResultsPage — interaktive Values-Cards:*
+- Iteration 1 (verworfen): Alle 5 Optionen als Pills nebeneinander — zu viel visueller Lärm.
+- Iteration 2 (final): Card zeigt nur den gewählten Wert mit `▾`-Indikator. Klick öffnet Dropdown unter der Card, Auswahl schließt ihn und übernimmt sofort den neuen Wert.
+- Klick außerhalb des Grids schließt den offenen Dropdown (document-level click listener, sauber via `onMounted`/`onBeforeUnmount` registriert).
+- Nur ein Dropdown gleichzeitig offen.
+- Berufsranking rechnet live nach — Edu-Wert runter/hoch ändert auch den Hard-Filter-Count.
+- Use case: schnelles "was wäre wenn" ohne 8 Fragen neu zu beantworten; hilft beim Kalibrieren des Values-Scoring.
+
+**Tests: 159 → 166 (+7)**
+- `store.test.ts`: 3 neue Tests für `repeatLayer` (bigfive/riasec/values — jeweils clears target, preserves others, keeps sessionId)
+- `AssessmentPage.test.ts`: Guard-Regressions-Test aktualisiert — `sessionId` bleibt jetzt erhalten (war vorher: wird neu gerollt)
+- `ResultsPage.test.ts`: 4 neue Tests für Repeat-Buttons (Sichtbarkeit pro Layer + Click löst repeatLayer + Navigation)
+
+**Branches:**
+- `feat/layer-repeat-and-values-picker` — diese PR
+
+**Known issues / TODOs:**
+- `updateValuesAnswer` hat keinen eigenen Unit-Test — die Wirkung wurde per Browser-Test validiert. Wenn der Code mal komplexer wird (z.B. Validierung, Cross-Layer-Effekte), sollte ein Test nachgezogen werden.
+- Die interaktiven Cards gibt es aktuell nur für den Values-Layer. RIASEC und Big Five haben keine vergleichbare "Live-Anpassung" — bewusst, da deren Antworten aggregiert in Profile einfließen und eine Einzelanpassung semantisch weniger aussagekräftig wäre.
+- Layer 4 (Fähigkeiten) + Scoring-Validierung bleiben auf der Roadmap.
+
+**Next steps — Session 14:**
+- Layer 4: Skills self-assessment
+- Post-Layer-4: Scoring-Validierung anhand bekannter Berufe
+
+---
+
 ### Session 12 – 2026-04-12
 **Focus:** Layer 3 — Werte & Rahmenbedingungen (values & preferences). Hard filters + soft penalties backed by real O*NET data.
 
