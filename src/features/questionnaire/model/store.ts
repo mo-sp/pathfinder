@@ -114,6 +114,19 @@ async function fetchOccupations(): Promise<Occupation[]> {
   return occupationsPromise
 }
 
+let bigfiveProfilesPromise: Promise<Record<string, BigFiveProfile>> | null = null
+async function fetchBigFiveProfiles(): Promise<Record<string, BigFiveProfile>> {
+  if (!bigfiveProfilesPromise) {
+    bigfiveProfilesPromise = import('@data/bigfive-occupation-profiles.json').then(
+      (mod) => {
+        const data = (mod.default ?? mod) as { profiles: Record<string, BigFiveProfile> }
+        return data.profiles
+      },
+    )
+  }
+  return bigfiveProfilesPromise
+}
+
 export const useQuestionnaireStore = defineStore('questionnaire', () => {
   const sessionId = ref<string>(uuid())
   const startedAt = ref<number>(Date.now())
@@ -140,6 +153,7 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
   const bigfiveOrder = ref<string[]>(shuffleOrder(bigfiveSourceOrder))
 
   const occupations = ref<Occupation[] | null>(null)
+  const bigfiveOccupationProfiles = ref<Record<string, BigFiveProfile> | null>(null)
 
   // Per-layer questions (ordered for this session) -------------------------
   const riasecQuestions = computed<Question[]>(() =>
@@ -329,16 +343,20 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     return data
   }
 
+  async function loadBigFiveProfiles(): Promise<Record<string, BigFiveProfile>> {
+    const data = await fetchBigFiveProfiles()
+    if (bigfiveOccupationProfiles.value !== data) bigfiveOccupationProfiles.value = data
+    return data
+  }
+
   const results = computed<MatchResult[]>(() => {
-    // Results populate as soon as RIASEC is done — Big Five is optional
-    // refinement and does not block the first ranking. PR A: ranking is
-    // pure RIASEC Pearson regardless of Big Five state. PR B will add the
-    // Big Five re-ranking multiplier.
     if (!riasecIsComplete.value || !occupations.value) return []
     return matchOccupations(
       riasecProfile.value,
       occupations.value,
       occupations.value.length,
+      bigfiveIsComplete.value ? bigfiveProfile.value : null,
+      bigfiveIsComplete.value ? bigfiveOccupationProfiles.value : null,
     )
   })
 
@@ -496,5 +514,6 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     persist,
     hydrate,
     loadOccupations,
+    loadBigFiveProfiles,
   }
 })

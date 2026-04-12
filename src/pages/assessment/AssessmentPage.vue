@@ -29,6 +29,9 @@ onMounted(() => {
   store.loadOccupations().catch((err) => {
     console.error('Failed to prefetch occupations', err)
   })
+  store.loadBigFiveProfiles().catch((err) => {
+    console.error('Failed to prefetch Big Five profiles', err)
+  })
 })
 
 const likertOptions = [1, 2, 3, 4, 5] as const

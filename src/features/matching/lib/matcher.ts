@@ -1,23 +1,54 @@
-import type { RIASECProfile, Occupation, MatchResult } from '@entities/occupation/model/types'
+import type { RIASECProfile, BigFiveProfile, Occupation, MatchResult } from '@entities/occupation/model/types'
 import { pearsonCorrelation } from '@features/scoring/lib/pearson'
 import { RIASEC_DIMENSIONS } from '@features/scoring/lib/riasec'
+import { BIG_FIVE_DIMENSIONS } from '@features/scoring/lib/bigfive'
+
+/** Strength of the Big Five modifier. 0.3 → modifier range [0.7, 1.3]. */
+const BIG_FIVE_ALPHA = 0.3
 
 /**
- * Rank occupations by Pearson correlation between the user's RIASEC profile
- * and each occupation's RIASEC profile. Pearson is scale-invariant so the
- * user's raw Likert sums and O*NET's 1-7 OI values can be compared directly.
+ * Rank occupations by RIASEC fit, optionally re-ranked by Big Five
+ * personality similarity.
+ *
+ * Base fit is Pearson correlation between the user's RIASEC profile and
+ * each occupation's RIASEC profile (scale-invariant, so raw Likert sums
+ * and O*NET's 1-7 OI values compare directly).
+ *
+ * When a user Big Five profile and occupation Big Five lookup are
+ * provided, each occupation that has a Big Five target profile gets a
+ * modifier: `1 + α × pearson(userBigFive, occBigFive)`. The fitScore
+ * becomes `riasecCorrelation × modifier`, shifting matched personalities
+ * up and mismatched ones down without ever zeroing out RIASEC fit.
  */
 export function matchOccupations(
   userProfile: RIASECProfile,
   occupations: Occupation[],
   topN = 20,
+  userBigFive?: BigFiveProfile | null,
+  occBigFiveProfiles?: Record<string, BigFiveProfile> | null,
 ): MatchResult[] {
   const userVector = RIASEC_DIMENSIONS.map((d) => userProfile[d])
+  const useBigFive = !!userBigFive && !!occBigFiveProfiles
 
   const scored = occupations.map<MatchResult>((occupation) => {
     const occVector = RIASEC_DIMENSIONS.map((d) => occupation.riasecProfile[d])
-    const fitScore = pearsonCorrelation(userVector, occVector)
-    return { occupation, fitScore, rank: 0 }
+    const riasecCorrelation = pearsonCorrelation(userVector, occVector)
+
+    let bigFiveModifier: number | null = null
+    let fitScore = riasecCorrelation
+
+    if (useBigFive) {
+      const occBigFive = occBigFiveProfiles[occupation.onetCode]
+      if (occBigFive) {
+        const userBfVector = BIG_FIVE_DIMENSIONS.map((d) => userBigFive[d])
+        const occBfVector = BIG_FIVE_DIMENSIONS.map((d) => occBigFive[d])
+        const similarity = pearsonCorrelation(userBfVector, occBfVector)
+        bigFiveModifier = 1 + BIG_FIVE_ALPHA * similarity
+        fitScore = Math.min(riasecCorrelation * bigFiveModifier, 1)
+      }
+    }
+
+    return { occupation, fitScore, riasecCorrelation, bigFiveModifier, rank: 0 }
   })
 
   scored.sort((a, b) => b.fitScore - a.fitScore)
