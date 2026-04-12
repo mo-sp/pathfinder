@@ -143,7 +143,7 @@ interface MatchResult {
 | 2 | Depth: Big Five, values, skills, progressive scoring | Months 4-8 |
 | 3 | Feedback: anonymous backend, data-driven improvements | Months 9-14 |
 | 4 | International: English, more languages, SEO | Year 2+ |
-| 5 | Professional: native apps, partnerships, optional monetization | Year 3+ |
+| 5 | Professional: native apps, partnerships, research collaboration | Year 3+ |
 
 See `docs/PROJECT_PLAN.md` for the full roadmap with detailed tasks.
 
