@@ -33,10 +33,10 @@ function start(): void {
           IPIP Big Five Factor Markers – Persönlichkeit
         </p>
       </div>
-      <div class="rounded-lg border border-slate-800 bg-slate-900 p-4 opacity-60">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-4">
         <div class="text-sm font-medium text-slate-100">Schicht 3: Werte</div>
         <p class="mt-1 text-xs text-slate-400">
-          Rahmenbedingungen – folgt in Phase 2
+          Rahmenbedingungen – Ausbildung, Umfeld, Arbeitsweise
         </p>
       </div>
       <div class="rounded-lg border border-slate-800 bg-slate-900 p-4 opacity-60">
@@ -66,10 +66,9 @@ function start(): void {
         ausdrücklich willkommen.
       </p>
       <p class="mt-3 text-sm">
-        Aktueller Stand: vollständiger RIASEC-Test mit 60 Items aus dem O*NET
-        Interest Profiler Short Form, optional verfeinert durch ein Big-Five-
-        Persönlichkeitsprofil mit 50 Items aus dem IPIP Factor Markers Set.
-        Werte und Fähigkeiten folgen in späteren Phasen.
+        Aktueller Stand: RIASEC-Test mit 60 Items, Big-Five-Persönlichkeitsprofil
+        mit 50 Items und Werte-Schicht mit 8 Items zu Ausbildung, Arbeitsumfeld
+        und Arbeitsweise. Fähigkeiten-Selbsteinschätzung folgt in einer späteren Phase.
       </p>
     </div>
   </section>

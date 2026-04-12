@@ -1,4 +1,4 @@
-import type { RIASECProfile, BigFiveProfile, Occupation, MatchResult } from '@entities/occupation/model/types'
+import type { RIASECProfile, BigFiveProfile, ValuesProfile, Occupation, MatchResult } from '@entities/occupation/model/types'
 import { pearsonCorrelation } from '@features/scoring/lib/pearson'
 import { RIASEC_DIMENSIONS } from '@features/scoring/lib/riasec'
 import { BIG_FIVE_DIMENSIONS } from '@features/scoring/lib/bigfive'
@@ -6,9 +6,58 @@ import { BIG_FIVE_DIMENSIONS } from '@features/scoring/lib/bigfive'
 /** Strength of the Big Five modifier. 0.3 → modifier range [0.7, 1.3]. */
 const BIG_FIVE_ALPHA = 0.3
 
+/** Weight per soft values dimension. 7 dims × 0.05 = max 0.35 total penalty. */
+const VALUES_DIMENSION_WEIGHT = 0.05
+
+/** Normalize a 1-5 value to 0-1 range. */
+function norm(value: number): number {
+  return (value - 1) / 4
+}
+
+/**
+ * Compute the soft values penalty for one occupation. Each dimension
+ * contributes abs(userNorm - occNorm) × WEIGHT. Missing occupation
+ * data skips that dimension (no penalty for unknowns).
+ */
+function computeValuesPenalty(
+  userValues: ValuesProfile,
+  occupation: Occupation,
+): number {
+  const wc = occupation.workContext
+  if (!wc) return 0
+
+  let penalty = 0
+
+  // Environment: composite indoor/outdoor → 1 (very indoor) to 5 (very outdoor)
+  const occEnv = Math.max(1, Math.min(5, (wc.outdoor - wc.indoor + 5) / 2))
+  penalty += Math.abs(norm(userValues.environment) - norm(occEnv)) * VALUES_DIMENSION_WEIGHT
+
+  // Social interaction → Contact With Others (1-5)
+  penalty += Math.abs(norm(userValues.socialInteraction) - norm(wc.contactWithOthers)) * VALUES_DIMENSION_WEIGHT
+
+  // Teamwork → Work With Team (1-5)
+  penalty += Math.abs(norm(userValues.teamwork) - norm(wc.teamwork)) * VALUES_DIMENSION_WEIGHT
+
+  // Physical demands → avg(standing, walking) (1-5)
+  const occPhysical = (wc.standing + wc.walking) / 2
+  penalty += Math.abs(norm(userValues.physicalDemands) - norm(occPhysical)) * VALUES_DIMENSION_WEIGHT
+
+  // Autonomy → Freedom to Make Decisions (1-5)
+  penalty += Math.abs(norm(userValues.autonomy) - norm(wc.autonomy)) * VALUES_DIMENSION_WEIGHT
+
+  // Public contact → Deal With Public (1-5)
+  penalty += Math.abs(norm(userValues.publicContact) - norm(wc.publicContact)) * VALUES_DIMENSION_WEIGHT
+
+  // Routine: INVERTED — user 5 (variety) matches occupation LOW routine.
+  // User 1 (routine) matches occupation HIGH routine.
+  penalty += Math.abs(norm(userValues.routine) - (1 - norm(wc.routine))) * VALUES_DIMENSION_WEIGHT
+
+  return Math.round(penalty * 1000) / 1000
+}
+
 /**
  * Rank occupations by RIASEC fit, optionally re-ranked by Big Five
- * personality similarity.
+ * personality similarity and/or filtered by values preferences.
  *
  * Base fit is Pearson correlation between the user's RIASEC profile and
  * each occupation's RIASEC profile (scale-invariant, so raw Likert sums
@@ -19,6 +68,11 @@ const BIG_FIVE_ALPHA = 0.3
  * modifier: `1 + α × pearson(userBigFive, occBigFive)`. The fitScore
  * becomes `riasecCorrelation × modifier`, shifting matched personalities
  * up and mismatched ones down without ever zeroing out RIASEC fit.
+ *
+ * When a values profile is provided, occupations whose jobZone exceeds
+ * the user's education willingness are hard-filtered. Remaining
+ * occupations receive soft penalties for mismatched work-context
+ * preferences, subtracted from fitScore.
  */
 export function matchOccupations(
   userProfile: RIASECProfile,
@@ -26,11 +80,21 @@ export function matchOccupations(
   topN = 20,
   userBigFive?: BigFiveProfile | null,
   occBigFiveProfiles?: Record<string, BigFiveProfile> | null,
+  userValues?: ValuesProfile | null,
 ): MatchResult[] {
   const userVector = RIASEC_DIMENSIONS.map((d) => userProfile[d])
   const useBigFive = !!userBigFive && !!occBigFiveProfiles
+  const useValues = !!userValues
 
-  const scored = occupations.map<MatchResult>((occupation) => {
+  // Hard filter: eliminate occupations that exceed education willingness
+  const eligible = useValues
+    ? occupations.filter((occ) => {
+        if (occ.jobZone == null) return true
+        return occ.jobZone <= userValues.education
+      })
+    : occupations
+
+  const scored = eligible.map<MatchResult>((occupation) => {
     const occVector = RIASEC_DIMENSIONS.map((d) => occupation.riasecProfile[d])
     const riasecCorrelation = pearsonCorrelation(userVector, occVector)
 
@@ -48,7 +112,13 @@ export function matchOccupations(
       }
     }
 
-    return { occupation, fitScore, riasecCorrelation, bigFiveModifier, rank: 0 }
+    let valuesPenalty: number | null = null
+    if (useValues) {
+      valuesPenalty = computeValuesPenalty(userValues, occupation)
+      fitScore -= valuesPenalty
+    }
+
+    return { occupation, fitScore, riasecCorrelation, bigFiveModifier, valuesPenalty, rank: 0 }
   })
 
   scored.sort((a, b) => b.fitScore - a.fitScore)

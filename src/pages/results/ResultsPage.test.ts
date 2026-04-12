@@ -282,7 +282,7 @@ describe('ResultsPage', () => {
 
       const wrapper = mountWith(makeRouter())
       // Combined subtitle
-      expect(wrapper.text()).toContain('Gewichtet nach RIASEC-Korrelation und')
+      expect(wrapper.text()).toContain('Gewichtet nach RIASEC-Korrelation und Persönlichkeitsprofil')
       // Toggle buttons visible
       expect(wrapper.text()).toContain('Nur Interessen')
       expect(wrapper.text()).toContain('+ Persönlichkeit')

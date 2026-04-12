@@ -1,0 +1,219 @@
+{
+  "meta": {
+    "version": "1.0",
+    "itemCount": 8,
+    "source": "Custom items backed by O*NET Work Context (CX scale) and Job Zones",
+    "description": "Each item maps 1:1 to an O*NET occupation attribute. Per-question labels replace layer-level Likert labels."
+  },
+  "items": [
+    {
+      "id": "val-education-01",
+      "layer": "values",
+      "dimension": "education",
+      "filterType": "hard",
+      "text": {
+        "de": "Wie viel Ausbildung oder Studium bist du bereit zu investieren?",
+        "en": "How much education or training are you willing to invest?"
+      },
+      "scale": "likert5",
+      "labels": {
+        "de": [
+          "Keine bis wenig (kurze Einarbeitung)",
+          "Etwas (z.\u202fB. ~2 Jahre Ausbildung)",
+          "Mittel (z.\u202fB. ~3 Jahre Lehre)",
+          "Viel (z.\u202fB. Bachelor, ~4 Jahre)",
+          "Sehr viel (z.\u202fB. Master/Promotion, 5+ Jahre)"
+        ],
+        "en": [
+          "Little or none (brief on-the-job training)",
+          "Some (e.g. ~2 years vocational)",
+          "Medium (e.g. ~3 years apprenticeship)",
+          "Considerable (e.g. bachelor's degree, ~4 years)",
+          "Extensive (e.g. master's/PhD, 5+ years)"
+        ]
+      }
+    },
+    {
+      "id": "val-environment-01",
+      "layer": "values",
+      "dimension": "environment",
+      "text": {
+        "de": "In welcher Umgebung arbeitest du am liebsten?",
+        "en": "In which environment do you prefer to work?"
+      },
+      "scale": "likert5",
+      "labels": {
+        "de": [
+          "Immer drinnen (Büro, Labor)",
+          "Meistens drinnen",
+          "Egal / beides",
+          "Meistens draußen",
+          "Immer draußen"
+        ],
+        "en": [
+          "Always indoors (office, lab)",
+          "Mostly indoors",
+          "No preference / both",
+          "Mostly outdoors",
+          "Always outdoors"
+        ]
+      }
+    },
+    {
+      "id": "val-social-01",
+      "layer": "values",
+      "dimension": "socialInteraction",
+      "text": {
+        "de": "Wie viel Kontakt mit anderen Menschen möchtest du im Beruf?",
+        "en": "How much contact with other people do you want at work?"
+      },
+      "scale": "likert5",
+      "labels": {
+        "de": [
+          "So wenig wie möglich",
+          "Eher wenig",
+          "Durchschnittlich",
+          "Viel",
+          "Ständig / mit vielen Menschen"
+        ],
+        "en": [
+          "As little as possible",
+          "Rather little",
+          "Average",
+          "A lot",
+          "Constantly / with many people"
+        ]
+      }
+    },
+    {
+      "id": "val-teamwork-01",
+      "layer": "values",
+      "dimension": "teamwork",
+      "text": {
+        "de": "Arbeitest du lieber allein oder im Team?",
+        "en": "Do you prefer working alone or in a team?"
+      },
+      "scale": "likert5",
+      "labels": {
+        "de": [
+          "Immer allein",
+          "Meistens allein",
+          "Egal / beides",
+          "Meistens im Team",
+          "Immer im Team"
+        ],
+        "en": [
+          "Always alone",
+          "Mostly alone",
+          "No preference / both",
+          "Mostly in a team",
+          "Always in a team"
+        ]
+      }
+    },
+    {
+      "id": "val-physical-01",
+      "layer": "values",
+      "dimension": "physicalDemands",
+      "text": {
+        "de": "Wie viel körperliche Arbeit ist für dich in Ordnung?",
+        "en": "How much physical work is okay for you?"
+      },
+      "scale": "likert5",
+      "labels": {
+        "de": [
+          "Gar keine (Schreibtischarbeit)",
+          "Wenig",
+          "Etwas",
+          "Viel",
+          "Sehr viel (schwere körperliche Arbeit)"
+        ],
+        "en": [
+          "None at all (desk work)",
+          "A little",
+          "Some",
+          "A lot",
+          "Very much (heavy physical work)"
+        ]
+      }
+    },
+    {
+      "id": "val-autonomy-01",
+      "layer": "values",
+      "dimension": "autonomy",
+      "text": {
+        "de": "Wie wichtig ist dir Entscheidungsfreiheit im Beruf?",
+        "en": "How important is decision-making freedom at work to you?"
+      },
+      "scale": "likert5",
+      "labels": {
+        "de": [
+          "Unwichtig – ich folge lieber klaren Anweisungen",
+          "Eher unwichtig",
+          "Mittel",
+          "Wichtig",
+          "Sehr wichtig – ich entscheide am liebsten selbst"
+        ],
+        "en": [
+          "Not important – I prefer clear instructions",
+          "Rather unimportant",
+          "Medium",
+          "Important",
+          "Very important – I prefer to decide myself"
+        ]
+      }
+    },
+    {
+      "id": "val-public-01",
+      "layer": "values",
+      "dimension": "publicContact",
+      "text": {
+        "de": "Möchtest du direkt mit Kunden oder der Öffentlichkeit arbeiten?",
+        "en": "Do you want to work directly with customers or the public?"
+      },
+      "scale": "likert5",
+      "labels": {
+        "de": [
+          "Nein, lieber nicht",
+          "Eher nicht",
+          "Egal",
+          "Gerne",
+          "Sehr gerne"
+        ],
+        "en": [
+          "No, I'd rather not",
+          "Rather not",
+          "No preference",
+          "Gladly",
+          "Very much so"
+        ]
+      }
+    },
+    {
+      "id": "val-routine-01",
+      "layer": "values",
+      "dimension": "routine",
+      "text": {
+        "de": "Bevorzugst du Routine oder Abwechslung im Berufsalltag?",
+        "en": "Do you prefer routine or variety in your daily work?"
+      },
+      "scale": "likert5",
+      "labels": {
+        "de": [
+          "Viel Routine – gleichmäßige Aufgaben",
+          "Eher Routine",
+          "Egal / beides",
+          "Eher Abwechslung",
+          "Viel Abwechslung – ständig Neues"
+        ],
+        "en": [
+          "Lots of routine – consistent tasks",
+          "Rather routine",
+          "No preference / both",
+          "Rather variety",
+          "Lots of variety – constantly new things"
+        ]
+      }
+    }
+  ]
+}

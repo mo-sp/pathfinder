@@ -47,9 +47,23 @@ const text = computed(() => {
 // currently on. Layer number is hardcoded here (riasec=1, bigfive=2) to
 // match PROJECT.md's numbering.
 const layerLabel = computed(() => {
+  if (store.currentLayer === 'values') return 'Schicht 3 · Werte & Rahmenbedingungen'
   if (store.currentLayer === 'bigfive') return 'Schicht 2 · Persönlichkeit'
   return 'Schicht 1 · Interessen'
 })
+
+// Values questions carry per-question labels; RIASEC/BigFive use layer-level i18n labels.
+const likertLabels = computed(() => {
+  const q = store.currentQuestion
+  if (q?.labels) return q.labels.de ?? q.labels.en
+  return likertOptions.map((n) => t(`likert.${store.currentLayer}.${n}`))
+})
+
+// Values questions are self-contained (the question text IS the prompt).
+// RIASEC/BigFive show a separate prompt above the question text.
+const showQuestionPrompt = computed(
+  () => store.currentLayer !== 'values',
+)
 
 async function selectAnswer(value: number): Promise<void> {
   store.answer(value)
@@ -88,7 +102,10 @@ async function selectAnswer(value: number): Promise<void> {
       v-if="store.currentQuestion"
       class="rounded-lg border border-slate-800 bg-slate-900 p-8"
     >
-      <p class="text-xs uppercase tracking-wide text-slate-500">
+      <p
+        v-if="showQuestionPrompt"
+        class="text-xs uppercase tracking-wide text-slate-500"
+      >
         {{ t(`questionPrompt.${store.currentLayer}`) }}
       </p>
       <h2 class="mt-2 text-2xl font-semibold text-slate-100">
@@ -106,7 +123,7 @@ async function selectAnswer(value: number): Promise<void> {
           <span class="text-lg font-bold text-slate-100 group-hover:text-indigo-300">
             {{ value }}
           </span>
-          <span class="text-xs text-slate-400">{{ t(`likert.${store.currentLayer}.${value}`) }}</span>
+          <span class="text-xs text-slate-400">{{ likertLabels[value - 1] }}</span>
         </button>
       </div>
 
