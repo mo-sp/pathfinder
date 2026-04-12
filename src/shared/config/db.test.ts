@@ -73,6 +73,8 @@ describe('pathfinder Dexie schema', () => {
             riasecCorrelation: 0.87,
             bigFiveModifier: null,
             valuesPenalty: null,
+            skillsMatch: null,
+            skillsBonus: null,
             rank: 1,
           },
         ],

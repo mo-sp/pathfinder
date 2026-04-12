@@ -2,12 +2,26 @@ import type { RIASECProfile, BigFiveProfile, ValuesProfile, Occupation, MatchRes
 import { pearsonCorrelation } from '@features/scoring/lib/pearson'
 import { RIASEC_DIMENSIONS } from '@features/scoring/lib/riasec'
 import { BIG_FIVE_DIMENSIONS } from '@features/scoring/lib/bigfive'
+import {
+  SKILLS_SUB_CATEGORIES,
+  type SkillsProfile,
+} from '@features/scoring/lib/skills'
 
 /** Strength of the Big Five modifier. 0.3 → modifier range [0.7, 1.3]. */
 const BIG_FIVE_ALPHA = 0.3
 
 /** Weight per soft values dimension. 7 dims × 0.05 = max 0.35 total penalty. */
 const VALUES_DIMENSION_WEIGHT = 0.05
+
+/**
+ * Skills bonus magnitude. skillsMatch ∈ [0, 1] maps to bonus
+ * ∈ [-SKILLS_ALPHA/2, +SKILLS_ALPHA/2] via (match - 0.5) × SKILLS_ALPHA.
+ * 0.5 → range [-0.25, +0.25]. A perfectly matched skills profile beats
+ * a perfectly mismatched one by 0.5 in the final fitScore, which is
+ * enough to move an occupation ±10 ranks in a typical top-20 on a
+ * mid-density RIASEC correlation (~0.6).
+ */
+const SKILLS_ALPHA = 0.5
 
 /** Normalize a 1-5 value to 0-1 range. */
 function norm(value: number): number {
@@ -56,8 +70,51 @@ function computeValuesPenalty(
 }
 
 /**
+ * Compute the skills match score for one occupation. Iterates over the
+ * three sub-categories (skills, abilities, knowledge), and for each
+ * element the occupation lists, compares the user's self-assessed level
+ * to the occupation's required level, weighted by the occupation's
+ * declared importance of that element.
+ *
+ *   userNorm   = (userValue - 1) / 4        ∈ [0, 1]   (likert5 → 0..1)
+ *   occNorm    = occ.l / 7                  ∈ [0, 1]   (O*NET LV 0..7)
+ *   sim_i      = 1 − |userNorm − occNorm|   ∈ [0, 1]
+ *   weight_i   = occ.i                      ∈ [1, 5]
+ *   skillsMatch = Σ sim_i × weight_i / Σ weight_i   ∈ [0, 1]
+ *
+ * Returns null when the occupation has no skills data at all, or when
+ * the user has not rated any elements the occupation lists.
+ */
+function computeSkillsMatch(
+  userSkills: SkillsProfile,
+  occupation: Occupation,
+): number | null {
+  let totalSim = 0
+  let totalWeight = 0
+  for (const sub of SKILLS_SUB_CATEGORIES) {
+    const occSub = occupation[sub]
+    if (!occSub) continue
+    const userSub = userSkills[sub]
+    for (const elementId in occSub) {
+      const userValue = userSub[elementId]
+      if (userValue == null) continue
+      const occEntry = occSub[elementId]
+      const userNorm = (userValue - 1) / 4
+      const occNorm = occEntry.l / 7
+      const sim = 1 - Math.abs(userNorm - occNorm)
+      const weight = occEntry.i
+      totalSim += sim * weight
+      totalWeight += weight
+    }
+  }
+  if (totalWeight === 0) return null
+  return totalSim / totalWeight
+}
+
+/**
  * Rank occupations by RIASEC fit, optionally re-ranked by Big Five
- * personality similarity and/or filtered by values preferences.
+ * personality similarity, filtered/penalized by values preferences, and
+ * nudged by skills-match bonuses.
  *
  * Base fit is Pearson correlation between the user's RIASEC profile and
  * each occupation's RIASEC profile (scale-invariant, so raw Likert sums
@@ -73,6 +130,10 @@ function computeValuesPenalty(
  * the user's education willingness are hard-filtered. Remaining
  * occupations receive soft penalties for mismatched work-context
  * preferences, subtracted from fitScore.
+ *
+ * When a skills profile is provided, each occupation with skills data
+ * gets a weighted similarity score in [0, 1], mapped to a centered bonus
+ * `(match − 0.5) × α` in [−0.25, +0.25], added to the final fitScore.
  */
 export function matchOccupations(
   userProfile: RIASECProfile,
@@ -81,10 +142,12 @@ export function matchOccupations(
   userBigFive?: BigFiveProfile | null,
   occBigFiveProfiles?: Record<string, BigFiveProfile> | null,
   userValues?: ValuesProfile | null,
+  userSkills?: SkillsProfile | null,
 ): MatchResult[] {
   const userVector = RIASEC_DIMENSIONS.map((d) => userProfile[d])
   const useBigFive = !!userBigFive && !!occBigFiveProfiles
   const useValues = !!userValues
+  const useSkills = !!userSkills
 
   // Hard filter: eliminate occupations that exceed education willingness
   const eligible = useValues
@@ -118,7 +181,26 @@ export function matchOccupations(
       fitScore -= valuesPenalty
     }
 
-    return { occupation, fitScore, riasecCorrelation, bigFiveModifier, valuesPenalty, rank: 0 }
+    let skillsMatch: number | null = null
+    let skillsBonus: number | null = null
+    if (useSkills) {
+      skillsMatch = computeSkillsMatch(userSkills, occupation)
+      if (skillsMatch != null) {
+        skillsBonus = Math.round(((skillsMatch - 0.5) * SKILLS_ALPHA) * 1000) / 1000
+        fitScore += skillsBonus
+      }
+    }
+
+    return {
+      occupation,
+      fitScore,
+      riasecCorrelation,
+      bigFiveModifier,
+      valuesPenalty,
+      skillsMatch,
+      skillsBonus,
+      rank: 0,
+    }
   })
 
   scored.sort((a, b) => b.fitScore - a.fitScore)

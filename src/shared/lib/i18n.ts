@@ -52,9 +52,37 @@ const messages = {
       publicContact: 'Ob du direkt mit Kunden oder der Öffentlichkeit arbeiten möchtest.',
       routine: 'Ob du gleichmäßige Aufgaben oder ständig Neues bevorzugst.',
     },
+    skillsSubCategory: {
+      skills: 'Fähigkeiten',
+      abilities: 'Talente',
+      knowledge: 'Wissen',
+    },
+    skillsSubCategoryDescription: {
+      skills: 'Erlernte Kompetenzen – was du durch Übung beherrschst.',
+      abilities: 'Angeborene Ausprägungen – deine Grundveranlagungen.',
+      knowledge: 'Fachliches Wissen – Gebiete, die du kennst.',
+    },
+    skillsSubCategoryCountText: {
+      skills: '35 Fragen zu deinen Fähigkeiten',
+      abilities: '52 Fragen zu deinen Talenten',
+      knowledge: '33 Fragen zu deinem Wissen',
+    },
+    skillsInterstitial: {
+      done: {
+        skills: 'Fähigkeiten abgeschlossen',
+        abilities: 'Talente abgeschlossen',
+      },
+      nextHeader: 'Als nächstes',
+      continue: 'Weiter',
+    },
     questionPrompt: {
       riasec: 'Wie sehr würdest du das gerne tun?',
       bigfive: 'Wie sehr trifft diese Aussage auf dich zu?',
+      skills: {
+        skills: 'Wie gut beherrschst du diese Fähigkeit?',
+        abilities: 'Wie stark ist diese Ausprägung bei dir?',
+        knowledge: 'Wie viel Wissen hast du auf diesem Gebiet?',
+      },
     },
     likert: {
       riasec: {
@@ -70,6 +98,29 @@ const messages = {
         3: 'Teils, teils',
         4: 'Eher zu',
         5: 'Trifft voll zu',
+      },
+      skills: {
+        skills: {
+          1: 'Gar nicht',
+          2: 'Grundkenntnisse',
+          3: 'Solide',
+          4: 'Sehr gut',
+          5: 'Experte',
+        },
+        abilities: {
+          1: 'Sehr schwach',
+          2: 'Eher schwach',
+          3: 'Durchschnittlich',
+          4: 'Eher stark',
+          5: 'Sehr stark',
+        },
+        knowledge: {
+          1: 'Kein Wissen',
+          2: 'Grundlagen',
+          3: 'Solide',
+          4: 'Fortgeschritten',
+          5: 'Expertenwissen',
+        },
       },
     },
   },

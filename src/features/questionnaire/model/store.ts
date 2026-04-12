@@ -5,7 +5,10 @@ import type {
   AssessmentLayer,
   AssessmentSession,
 } from '@entities/assessment/model/types'
-import type { Question } from '@entities/question/model/types'
+import type {
+  Question,
+  SkillsSubCategory,
+} from '@entities/question/model/types'
 import type {
   BigFiveProfile,
   MatchResult,
@@ -19,12 +22,18 @@ import {
   normalizeBigFiveToPercent,
 } from '@features/scoring/lib/bigfive'
 import { computeValuesProfile } from '@features/scoring/lib/values'
+import {
+  SKILLS_SUB_CATEGORY_COUNTS,
+  computeSkillsProfile,
+  type SkillsProfile,
+} from '@features/scoring/lib/skills'
 import { matchOccupations } from '@features/matching/lib/matcher'
 import { db } from '@shared/config/db'
 import { uuid } from '@shared/lib/uuid'
 import itemsData from '@data/onet-items.json'
 import bigfiveItemsData from '@data/ipip-bigfive-items.json'
 import valuesItemsData from '@data/values-items.json'
+import skillsItemsData from '@data/skills-items.json'
 
 interface ItemsFile {
   items: Question[]
@@ -51,6 +60,23 @@ const allValuesItems = (valuesItemsData as ItemsFile).items.filter(
   (q) => q.layer === 'values',
 )
 
+// Skills layer (Layer 4). 120 items across 3 sub-categories: Fähigkeiten
+// (Skills, 35) → Talente (Abilities, 52) → Wissen (Knowledge, 33). Items
+// come from O*NET Skills/Abilities/Knowledge taxonomies with manual DE
+// translations (v1). The JSON stores `subCategory` + `onetElementId` but
+// omits `dimension`/`scale`; we synthesize both here so Question retains
+// a uniform shape across all layers (dimension = subCategory, scale = likert5).
+interface SkillsItemsFile {
+  items: Array<Omit<Question, 'dimension' | 'scale'> & Partial<Pick<Question, 'dimension' | 'scale'>>>
+}
+const allSkillsItems: Question[] = (skillsItemsData as SkillsItemsFile).items
+  .filter((q) => q.layer === 'skills')
+  .map((q) => ({
+    ...q,
+    dimension: q.dimension ?? q.subCategory ?? 'skills',
+    scale: q.scale ?? 'likert5',
+  }))
+
 /** Source order of riasec item IDs (JSON authored order, R→I→A→S→E→C). */
 const riasecSourceOrder: readonly string[] = allRiasecItems.map((q) => q.id)
 
@@ -59,6 +85,23 @@ const bigfiveSourceOrder: readonly string[] = allBigFiveItems.map((q) => q.id)
 
 /** Source order of values item IDs (JSON authored order). */
 const valuesSourceOrder: readonly string[] = allValuesItems.map((q) => q.id)
+
+/**
+ * Skills source IDs bucketed by sub-category, preserving JSON authored
+ * order within each bucket. Concatenating these gives the full
+ * non-shuffled order (skills → abilities → knowledge). Shuffling happens
+ * per-bucket so the three sub-categories stay sequential in the UI.
+ */
+const skillsBySubCategory: Readonly<Record<SkillsSubCategory, readonly string[]>> = {
+  skills: allSkillsItems.filter((q) => q.subCategory === 'skills').map((q) => q.id),
+  abilities: allSkillsItems.filter((q) => q.subCategory === 'abilities').map((q) => q.id),
+  knowledge: allSkillsItems.filter((q) => q.subCategory === 'knowledge').map((q) => q.id),
+}
+const skillsSourceOrder: readonly string[] = [
+  ...skillsBySubCategory.skills,
+  ...skillsBySubCategory.abilities,
+  ...skillsBySubCategory.knowledge,
+]
 
 /** O(1) id→Question lookup so `questions` computed doesn't do find() per slot. */
 const riasecItemsById = new Map<string, Question>(
@@ -71,6 +114,10 @@ const bigfiveItemsById = new Map<string, Question>(
 
 const valuesItemsById = new Map<string, Question>(
   allValuesItems.map((q) => [q.id, q]),
+)
+
+const skillsItemsById = new Map<string, Question>(
+  allSkillsItems.map((q) => [q.id, q]),
 )
 
 /**
@@ -87,6 +134,20 @@ function shuffleOrder(source: readonly string[]): string[] {
     ;[out[i], out[j]] = [out[j], out[i]]
   }
   return out
+}
+
+/**
+ * Build a skills layer order by shuffling each sub-category independently
+ * and concatenating in canonical order (skills → abilities → knowledge).
+ * Keeping sub-categories sequential is what lets the AssessmentPage show
+ * a Zwischenscreen at each boundary.
+ */
+function buildSkillsOrder(): string[] {
+  return [
+    ...shuffleOrder(skillsBySubCategory.skills),
+    ...shuffleOrder(skillsBySubCategory.abilities),
+    ...shuffleOrder(skillsBySubCategory.knowledge),
+  ]
 }
 
 /**
@@ -173,6 +234,15 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
   const valuesCurrentIndex = ref(0)
   const valuesOrder = ref<string[]>(shuffleOrder(valuesSourceOrder))
 
+  // Skills layer state (Layer 4, 3 sub-categories flattened to 120 slots)
+  const skillsAnswers = ref<Answer[]>([])
+  const skillsCurrentIndex = ref(0)
+  const skillsOrder = ref<string[]>(buildSkillsOrder())
+  // True when the user just answered the last question of a sub-category
+  // and should see the Zwischenscreen before continuing. Persisted so a
+  // reload on the interstitial screen keeps the interstitial visible.
+  const skillsInterstitialPending = ref(false)
+
   const occupations = ref<Occupation[] | null>(null)
   const bigfiveOccupationProfiles = ref<Record<string, BigFiveProfile> | null>(null)
 
@@ -192,10 +262,16 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
       .map((id) => valuesItemsById.get(id))
       .filter((q): q is Question => q != null),
   )
+  const skillsQuestions = computed<Question[]>(() =>
+    skillsOrder.value
+      .map((id) => skillsItemsById.get(id))
+      .filter((q): q is Question => q != null),
+  )
 
   const riasecTotal = computed(() => riasecQuestions.value.length)
   const bigfiveTotal = computed(() => bigfiveQuestions.value.length)
   const valuesTotal = computed(() => valuesQuestions.value.length)
+  const skillsTotal = computed(() => skillsQuestions.value.length)
 
   const riasecIsComplete = computed(
     () => riasecAnswers.value.length >= riasecTotal.value,
@@ -206,6 +282,64 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
   const valuesIsComplete = computed(
     () => valuesAnswers.value.length >= valuesTotal.value,
   )
+  const skillsIsComplete = computed(
+    () => skillsAnswers.value.length >= skillsTotal.value,
+  )
+
+  /**
+   * Boundary indices inside the skills order where a sub-category ends:
+   *   boundary[0] = last skill slot (currentIndex === 34 means we just
+   *   answered the 35th and final skill item).
+   *   boundary[1] = last ability slot (index 86, = 35 + 52 - 1).
+   * Computed, not hardcoded, so changes to the items JSON counts flow
+   * through without source-level edits.
+   */
+  const skillsBoundaries = computed(() => [
+    SKILLS_SUB_CATEGORY_COUNTS.skills - 1,
+    SKILLS_SUB_CATEGORY_COUNTS.skills + SKILLS_SUB_CATEGORY_COUNTS.abilities - 1,
+  ])
+
+  /** Which sub-category the user is currently on, derived from the flat index. */
+  const skillsCurrentSubCategory = computed<SkillsSubCategory>(() => {
+    const idx = skillsCurrentIndex.value
+    if (idx < SKILLS_SUB_CATEGORY_COUNTS.skills) return 'skills'
+    if (idx < SKILLS_SUB_CATEGORY_COUNTS.skills + SKILLS_SUB_CATEGORY_COUNTS.abilities) {
+      return 'abilities'
+    }
+    return 'knowledge'
+  })
+
+  /** Local index inside the current sub-category (0-based, for "X/35" display). */
+  const skillsSubCategoryIndex = computed(() => {
+    const idx = skillsCurrentIndex.value
+    if (idx < SKILLS_SUB_CATEGORY_COUNTS.skills) return idx
+    if (idx < SKILLS_SUB_CATEGORY_COUNTS.skills + SKILLS_SUB_CATEGORY_COUNTS.abilities) {
+      return idx - SKILLS_SUB_CATEGORY_COUNTS.skills
+    }
+    return idx - SKILLS_SUB_CATEGORY_COUNTS.skills - SKILLS_SUB_CATEGORY_COUNTS.abilities
+  })
+
+  /** Item count of the current sub-category (35, 52, or 33). */
+  const skillsSubCategoryTotal = computed(
+    () => SKILLS_SUB_CATEGORY_COUNTS[skillsCurrentSubCategory.value],
+  )
+
+  /**
+   * Sub-category the Zwischenscreen is transitioning *to*. null when no
+   * interstitial is pending. Derived from skillsCurrentIndex because the
+   * answer() handler only sets `pending = true` when we just answered a
+   * boundary question — index at that moment is 34 (→ abilities) or 86
+   * (→ knowledge).
+   */
+  const skillsPendingNextSubCategory = computed<SkillsSubCategory | null>(() => {
+    if (!skillsInterstitialPending.value) return null
+    const idx = skillsCurrentIndex.value
+    if (idx === SKILLS_SUB_CATEGORY_COUNTS.skills - 1) return 'abilities'
+    if (idx === SKILLS_SUB_CATEGORY_COUNTS.skills + SKILLS_SUB_CATEGORY_COUNTS.abilities - 1) {
+      return 'knowledge'
+    }
+    return null
+  })
 
   // Progress tracks the user's *current position* in the layer, not the
   // number of answers on file. That matters for the "Zurück" button: when
@@ -232,6 +366,11 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     if (valuesIsComplete.value) return 1
     return valuesCurrentIndex.value / valuesTotal.value
   })
+  const skillsProgress = computed(() => {
+    if (skillsTotal.value === 0) return 0
+    if (skillsIsComplete.value) return 1
+    return skillsCurrentIndex.value / skillsTotal.value
+  })
 
   const riasecProfile = computed<RIASECProfile>(() =>
     computeRiasecProfile(riasecAnswers.value, riasecQuestions.value),
@@ -251,26 +390,34 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     computeValuesProfile(valuesAnswers.value, valuesQuestions.value),
   )
 
+  const skillsProfile = computed<SkillsProfile>(() =>
+    computeSkillsProfile(skillsAnswers.value, skillsQuestions.value),
+  )
+
   // Layer-aware aliases ----------------------------------------------------
   // AssessmentPage and existing call sites read these and stay unaware of
   // which layer is active. Keeping the flat names (`answers`, `total`,
   // `isComplete`, ...) preserves the existing Vue + test contract.
   const answers = computed<Answer[]>(() => {
+    if (currentLayer.value === 'skills') return skillsAnswers.value
     if (currentLayer.value === 'values') return valuesAnswers.value
     if (currentLayer.value === 'bigfive') return bigfiveAnswers.value
     return riasecAnswers.value
   })
   const questions = computed<Question[]>(() => {
+    if (currentLayer.value === 'skills') return skillsQuestions.value
     if (currentLayer.value === 'values') return valuesQuestions.value
     if (currentLayer.value === 'bigfive') return bigfiveQuestions.value
     return riasecQuestions.value
   })
   const total = computed(() => {
+    if (currentLayer.value === 'skills') return skillsTotal.value
     if (currentLayer.value === 'values') return valuesTotal.value
     if (currentLayer.value === 'bigfive') return bigfiveTotal.value
     return riasecTotal.value
   })
   const currentIndex = computed(() => {
+    if (currentLayer.value === 'skills') return skillsCurrentIndex.value
     if (currentLayer.value === 'values') return valuesCurrentIndex.value
     if (currentLayer.value === 'bigfive') return bigfiveCurrentIndex.value
     return riasecCurrentIndex.value
@@ -279,23 +426,54 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     () => questions.value[currentIndex.value] ?? null,
   )
   const isComplete = computed(() => {
+    if (currentLayer.value === 'skills') return skillsIsComplete.value
     if (currentLayer.value === 'values') return valuesIsComplete.value
     if (currentLayer.value === 'bigfive') return bigfiveIsComplete.value
     return riasecIsComplete.value
   })
   const progress = computed(() => {
+    if (currentLayer.value === 'skills') return skillsProgress.value
     if (currentLayer.value === 'values') return valuesProgress.value
     if (currentLayer.value === 'bigfive') return bigfiveProgress.value
     return riasecProgress.value
   })
 
   function answer(value: number): void {
-    if (currentLayer.value === 'values') {
+    if (currentLayer.value === 'skills') {
+      answerSkillsQuestion(value)
+    } else if (currentLayer.value === 'values') {
       answerLayer(value, valuesAnswers, valuesCurrentIndex, valuesQuestions, valuesTotal)
     } else if (currentLayer.value === 'bigfive') {
       answerLayer(value, bigfiveAnswers, bigfiveCurrentIndex, bigfiveQuestions, bigfiveTotal)
     } else {
       answerLayer(value, riasecAnswers, riasecCurrentIndex, riasecQuestions, riasecTotal)
+    }
+  }
+
+  /**
+   * Skills-layer answer handler. Records the answer just like other layers
+   * but stops at sub-category boundaries: after answering the 35th skill
+   * (index 34) or 52nd ability (index 86), index stays put and
+   * `skillsInterstitialPending` flips on. AssessmentPage renders the
+   * Zwischenscreen until the user clicks "Weiter" (→ dismissSkillsInterstitial).
+   */
+  function answerSkillsQuestion(value: number): void {
+    const q = skillsQuestions.value[skillsCurrentIndex.value]
+    if (!q) return
+    const existing = skillsAnswers.value.findIndex((a) => a.questionId === q.id)
+    const record: Answer = { questionId: q.id, value, answeredAt: Date.now() }
+    if (existing >= 0) {
+      skillsAnswers.value[existing] = record
+    } else {
+      skillsAnswers.value.push(record)
+    }
+    const boundaries = skillsBoundaries.value
+    if (boundaries.includes(skillsCurrentIndex.value)) {
+      skillsInterstitialPending.value = true
+      return
+    }
+    if (skillsCurrentIndex.value < skillsTotal.value - 1) {
+      skillsCurrentIndex.value += 1
     }
   }
 
@@ -321,7 +499,16 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
   }
 
   function previous(): void {
-    if (currentLayer.value === 'values') {
+    if (currentLayer.value === 'skills') {
+      // On an interstitial screen Back clears the pending flag — user
+      // returns to the just-answered boundary question (index unchanged)
+      // so they can revise their last answer if desired.
+      if (skillsInterstitialPending.value) {
+        skillsInterstitialPending.value = false
+        return
+      }
+      if (skillsCurrentIndex.value > 0) skillsCurrentIndex.value -= 1
+    } else if (currentLayer.value === 'values') {
       if (valuesCurrentIndex.value > 0) valuesCurrentIndex.value -= 1
     } else if (currentLayer.value === 'bigfive') {
       if (bigfiveCurrentIndex.value > 0) bigfiveCurrentIndex.value -= 1
@@ -343,6 +530,10 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     valuesAnswers.value = []
     valuesCurrentIndex.value = 0
     valuesOrder.value = shuffleOrder(valuesSourceOrder)
+    skillsAnswers.value = []
+    skillsCurrentIndex.value = 0
+    skillsOrder.value = buildSkillsOrder()
+    skillsInterstitialPending.value = false
   }
 
   /**
@@ -363,7 +554,12 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
    * stay put — this is a within-session re-run, not a new session.
    */
   function resetCurrentLayer(): void {
-    if (currentLayer.value === 'values') {
+    if (currentLayer.value === 'skills') {
+      skillsAnswers.value = []
+      skillsCurrentIndex.value = 0
+      skillsOrder.value = buildSkillsOrder()
+      skillsInterstitialPending.value = false
+    } else if (currentLayer.value === 'values') {
       valuesAnswers.value = []
       valuesCurrentIndex.value = 0
       valuesOrder.value = shuffleOrder(valuesSourceOrder)
@@ -405,6 +601,23 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     currentLayer.value = 'values'
   }
 
+  /** Promote the user into the skills layer. Called from the ResultsPage CTA. */
+  function startSkillsLayer(): void {
+    currentLayer.value = 'skills'
+  }
+
+  /**
+   * Dismiss the Zwischenscreen and advance past the sub-category boundary.
+   * Called from the AssessmentPage interstitial "Weiter" button.
+   */
+  function dismissSkillsInterstitial(): void {
+    if (!skillsInterstitialPending.value) return
+    skillsInterstitialPending.value = false
+    if (skillsCurrentIndex.value < skillsTotal.value - 1) {
+      skillsCurrentIndex.value += 1
+    }
+  }
+
   /**
    * Kick off (or await an already-in-flight) dynamic import of the
    * occupations dataset and assign it to the reactive `occupations` ref so
@@ -435,8 +648,33 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
       bigfiveIsComplete.value ? bigfiveProfile.value : null,
       bigfiveIsComplete.value ? bigfiveOccupationProfiles.value : null,
       valuesIsComplete.value ? valuesProfile.value : null,
+      skillsIsComplete.value ? skillsProfile.value : null,
     )
   })
+
+  /**
+   * Strip the bulky per-occupation skills/abilities/knowledge maps (each
+   * ~120 entries) and workContext from MatchResult.occupation so the
+   * persisted session stays small. Those fields are only needed by the
+   * matcher, which reads them from the live in-memory `occupations`
+   * dataset — never from the persisted session. Keeps the Dexie row
+   * under ~30 KB instead of several MB with layer-4 data attached.
+   * Also caps to top 20; the live `results` computed always recomputes
+   * the full list on demand, so hydrate() never reads this back.
+   */
+  function trimResultsForPersist(rs: MatchResult[]): MatchResult[] {
+    const top = rs.slice(0, 20)
+    return top.map((r) => ({
+      ...r,
+      occupation: {
+        ...r.occupation,
+        skills: undefined,
+        abilities: undefined,
+        knowledge: undefined,
+        workContext: undefined,
+      },
+    }))
+  }
 
   async function persist(): Promise<void> {
     // Writing a completed session: make sure the occupations dataset is
@@ -446,8 +684,7 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     // sessions don't touch occupations so they skip the wait.
     if (riasecIsComplete.value) await loadOccupations()
     // JSON-roundtrip strips Vue reactive proxies so Dexie's structured-clone
-    // serialization always sees plain objects. Cheap because the session is
-    // tiny (≤110 answers + 11 floats + ≤20 match summaries).
+    // serialization always sees plain objects.
     const session: AssessmentSession = JSON.parse(
       JSON.stringify({
         id: sessionId.value,
@@ -455,7 +692,7 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
         completedAt: riasecIsComplete.value ? Date.now() : undefined,
         answers: riasecAnswers.value,
         riasecProfile: riasecIsComplete.value ? riasecProfile.value : undefined,
-        results: riasecIsComplete.value ? results.value : undefined,
+        results: riasecIsComplete.value ? trimResultsForPersist(results.value) : undefined,
         questionOrder: riasecOrder.value,
         bigfiveAnswers: bigfiveAnswers.value,
         bigfiveOrder: bigfiveOrder.value,
@@ -467,6 +704,9 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
         valuesProfile: valuesIsComplete.value
           ? valuesProfile.value
           : undefined,
+        skillsAnswers: skillsAnswers.value,
+        skillsOrder: skillsOrder.value,
+        skillsInterstitialPending: skillsInterstitialPending.value,
         currentLayer: currentLayer.value,
       }),
     )
@@ -532,6 +772,19 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
       } else {
         valuesOrder.value = [...valuesSourceOrder]
       }
+      // Skills restoration: same backward-compat pattern.
+      skillsAnswers.value = latest.skillsAnswers
+        ? [...latest.skillsAnswers]
+        : []
+      if (
+        latest.skillsOrder &&
+        isValidOrder(latest.skillsOrder, skillsSourceOrder, skillsItemsById)
+      ) {
+        skillsOrder.value = [...latest.skillsOrder]
+      } else {
+        skillsOrder.value = buildSkillsOrder()
+      }
+      skillsInterstitialPending.value = latest.skillsInterstitialPending ?? false
       currentLayer.value = latest.currentLayer ?? 'riasec'
       // Resume at the next unanswered question in *each* layer; clamp so a
       // complete layer sits on its last question instead of stepping past
@@ -545,6 +798,16 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
       const nextValues = valuesAnswers.value.length
       const lastValues = Math.max(0, valuesTotal.value - 1)
       valuesCurrentIndex.value = Math.min(nextValues, lastValues)
+      // Skills: interstitial-aware resume. When the user saved mid-
+      // Zwischenscreen we want them to land back ON the boundary question
+      // (skillsInterstitialPending=true) rather than one past it. All
+      // other cases behave like the simpler layers (resume at next
+      // unanswered, clamp at last index for completed layers).
+      const lastSkills = Math.max(0, skillsTotal.value - 1)
+      const nextSkills = skillsInterstitialPending.value && skillsAnswers.value.length > 0
+        ? skillsAnswers.value.length - 1
+        : skillsAnswers.value.length
+      skillsCurrentIndex.value = Math.min(nextSkills, lastSkills)
     } catch (err) {
       console.error('Failed to hydrate assessment session', err)
     }
@@ -567,6 +830,9 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
       bigfiveCurrentIndex,
       valuesAnswers,
       valuesCurrentIndex,
+      skillsAnswers,
+      skillsCurrentIndex,
+      skillsInterstitialPending,
       currentLayer,
     ],
     () => {
@@ -611,6 +877,18 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     valuesIsComplete,
     valuesProgress,
     valuesProfile,
+    // Skills-specific
+    skillsAnswers,
+    skillsQuestions,
+    skillsTotal,
+    skillsIsComplete,
+    skillsProgress,
+    skillsProfile,
+    skillsCurrentSubCategory,
+    skillsSubCategoryIndex,
+    skillsSubCategoryTotal,
+    skillsInterstitialPending,
+    skillsPendingNextSubCategory,
     // Occupation count (for hard-filter display on ResultsPage)
     totalOccupations: computed(() => occupations.value?.length ?? 0),
     // Results & actions
@@ -623,6 +901,8 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     updateValuesAnswer,
     startBigFiveLayer,
     startValuesLayer,
+    startSkillsLayer,
+    dismissSkillsInterstitial,
     persist,
     hydrate,
     loadOccupations,

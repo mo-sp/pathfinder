@@ -895,4 +895,142 @@ describe('questionnaire store', () => {
       expect(withPenalty.length).toBeGreaterThan(0)
     })
   })
+
+  describe('Layer 4: Skills (+ sub-categories & Zwischenscreen)', () => {
+    it('starts with empty skills state and currentLayer=riasec', () => {
+      const store = useQuestionnaireStore()
+      expect(store.skillsAnswers).toEqual([])
+      expect(store.skillsIsComplete).toBe(false)
+      expect(store.skillsTotal).toBe(120)
+      expect(store.currentLayer).toBe('riasec')
+      expect(store.skillsInterstitialPending).toBe(false)
+    })
+
+    it('startSkillsLayer switches currentLayer to skills', () => {
+      const store = useQuestionnaireStore()
+      store.startSkillsLayer()
+      expect(store.currentLayer).toBe('skills')
+    })
+
+    it('skillsCurrentSubCategory and skillsSubCategoryIndex reflect position', () => {
+      const store = useQuestionnaireStore()
+      store.startSkillsLayer()
+      // At index 0: first skill
+      expect(store.skillsCurrentSubCategory).toBe('skills')
+      expect(store.skillsSubCategoryIndex).toBe(0)
+      expect(store.skillsSubCategoryTotal).toBe(35)
+    })
+
+    it('answer in skills layer records and advances within sub-category', () => {
+      const store = useQuestionnaireStore()
+      store.startSkillsLayer()
+      store.answer(4)
+      expect(store.skillsAnswers).toHaveLength(1)
+      expect(store.skillsAnswers[0].value).toBe(4)
+      expect(store.currentIndex).toBe(1)
+      expect(store.skillsInterstitialPending).toBe(false)
+    })
+
+    it('answering the last skills item (index 34) sets interstitialPending without advancing', () => {
+      const store = useQuestionnaireStore()
+      store.startSkillsLayer()
+      // Answer first 35 items (all skills sub-category)
+      for (let i = 0; i < 35; i += 1) store.answer(3)
+      expect(store.skillsAnswers).toHaveLength(35)
+      // Index stays at 34 (last skill), interstitial pending
+      expect(store.currentIndex).toBe(34)
+      expect(store.skillsInterstitialPending).toBe(true)
+      expect(store.skillsPendingNextSubCategory).toBe('abilities')
+    })
+
+    it('dismissSkillsInterstitial advances past boundary and clears flag', () => {
+      const store = useQuestionnaireStore()
+      store.startSkillsLayer()
+      for (let i = 0; i < 35; i += 1) store.answer(3)
+      store.dismissSkillsInterstitial()
+      expect(store.skillsInterstitialPending).toBe(false)
+      expect(store.currentIndex).toBe(35)
+      expect(store.skillsCurrentSubCategory).toBe('abilities')
+      expect(store.skillsSubCategoryIndex).toBe(0)
+      expect(store.skillsSubCategoryTotal).toBe(52)
+    })
+
+    it('answering the last abilities item (index 86) triggers knowledge interstitial', () => {
+      const store = useQuestionnaireStore()
+      store.startSkillsLayer()
+      for (let i = 0; i < 35; i += 1) store.answer(3)
+      store.dismissSkillsInterstitial()
+      for (let i = 0; i < 52; i += 1) store.answer(3)
+      expect(store.currentIndex).toBe(86)
+      expect(store.skillsInterstitialPending).toBe(true)
+      expect(store.skillsPendingNextSubCategory).toBe('knowledge')
+    })
+
+    it('previous() on the Zwischenscreen clears pending flag without changing index', () => {
+      const store = useQuestionnaireStore()
+      store.startSkillsLayer()
+      for (let i = 0; i < 35; i += 1) store.answer(3)
+      expect(store.skillsInterstitialPending).toBe(true)
+      store.previous()
+      expect(store.skillsInterstitialPending).toBe(false)
+      // Still on the last skill question — user can revise before advancing
+      expect(store.currentIndex).toBe(34)
+    })
+
+    it('completing all 120 skills items sets skillsIsComplete and no pending flag', () => {
+      const store = useQuestionnaireStore()
+      store.startSkillsLayer()
+      for (let i = 0; i < 35; i += 1) store.answer(3)
+      store.dismissSkillsInterstitial()
+      for (let i = 0; i < 52; i += 1) store.answer(3)
+      store.dismissSkillsInterstitial()
+      for (let i = 0; i < 33; i += 1) store.answer(3)
+      expect(store.skillsIsComplete).toBe(true)
+      expect(store.skillsAnswers).toHaveLength(120)
+      expect(store.skillsInterstitialPending).toBe(false)
+    })
+
+    it('resetCurrentLayer on skills clears answers, index, order, and interstitial flag', () => {
+      const store = useQuestionnaireStore()
+      store.startSkillsLayer()
+      for (let i = 0; i < 35; i += 1) store.answer(3)
+      expect(store.skillsInterstitialPending).toBe(true)
+      store.resetCurrentLayer()
+      expect(store.skillsAnswers).toEqual([])
+      expect(store.currentIndex).toBe(0)
+      expect(store.skillsInterstitialPending).toBe(false)
+    })
+
+    it('persist/hydrate round-trip preserves skills state including interstitial flag', async () => {
+      const store1 = useQuestionnaireStore()
+      store1.startSkillsLayer()
+      for (let i = 0; i < 35; i += 1) store1.answer(3)
+      expect(store1.skillsInterstitialPending).toBe(true)
+      await store1.persist()
+
+      setActivePinia(createPinia())
+      const store2 = useQuestionnaireStore()
+      await store2.hydrate()
+      expect(store2.currentLayer).toBe('skills')
+      expect(store2.skillsAnswers).toHaveLength(35)
+      expect(store2.currentIndex).toBe(34)
+      expect(store2.skillsInterstitialPending).toBe(true)
+      expect(store2.skillsPendingNextSubCategory).toBe('abilities')
+    })
+
+    it('results include skillsMatch when skills complete', async () => {
+      const store = useQuestionnaireStore()
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer((i % 5) + 1)
+      await store.loadOccupations()
+      store.startSkillsLayer()
+      for (let i = 0; i < 35; i += 1) store.answer(3)
+      store.dismissSkillsInterstitial()
+      for (let i = 0; i < 52; i += 1) store.answer(3)
+      store.dismissSkillsInterstitial()
+      for (let i = 0; i < 33; i += 1) store.answer(3)
+      expect(store.skillsIsComplete).toBe(true)
+      const withSkills = store.results.filter((r) => r.skillsMatch !== null)
+      expect(withSkills.length).toBeGreaterThan(0)
+    })
+  })
 })

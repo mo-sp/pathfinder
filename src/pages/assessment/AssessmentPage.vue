@@ -42,28 +42,88 @@ const text = computed(() => {
   return q.text.de ?? q.text.en
 })
 
+// Skills items carry an optional short concept description (e.g., the
+// O*NET definition of "Active Listening"). Rendered below the label so
+// users who don't know the term can disambiguate without leaving the
+// question. RIASEC/BigFive/Values items don't have this field.
+const description = computed(() => {
+  const q = store.currentQuestion
+  if (!q?.description) return null
+  return q.description.de ?? q.description.en
+})
+
 // "Schicht 1 · Interessen" vs "Schicht 2 · Persönlichkeit" — gives the
 // user an anchor to know which stage of the progressive funnel they're
 // currently on. Layer number is hardcoded here (riasec=1, bigfive=2) to
 // match PROJECT.md's numbering.
 const layerLabel = computed(() => {
+  if (store.currentLayer === 'skills') return 'Schicht 4 · Fähigkeiten, Talente & Wissen'
   if (store.currentLayer === 'values') return 'Schicht 3 · Werte & Rahmenbedingungen'
   if (store.currentLayer === 'bigfive') return 'Schicht 2 · Persönlichkeit'
   return 'Schicht 1 · Interessen'
 })
 
-// Values questions carry per-question labels; RIASEC/BigFive use layer-level i18n labels.
+// Skills layer shows a sub-category indicator ("Fähigkeiten (12/35)")
+// in place of the generic "Frage X von Y" count so users know where they
+// are inside the 3-part sub-sequence.
+const isSkillsLayer = computed(() => store.currentLayer === 'skills')
+const subCategoryLabel = computed(() => {
+  if (!isSkillsLayer.value) return ''
+  const name = t(`skillsSubCategory.${store.skillsCurrentSubCategory}`)
+  return `${name} (${store.skillsSubCategoryIndex + 1}/${store.skillsSubCategoryTotal})`
+})
+
+// Values questions carry per-question labels; RIASEC/BigFive use layer-
+// level i18n labels; skills uses per-sub-category labels (different
+// semantics: "beherrschen" vs. "ausgeprägt" vs. "Wissen").
 const likertLabels = computed(() => {
   const q = store.currentQuestion
   if (q?.labels) return q.labels.de ?? q.labels.en
+  if (store.currentLayer === 'skills') {
+    return likertOptions.map((n) =>
+      t(`likert.skills.${store.skillsCurrentSubCategory}.${n}`),
+    )
+  }
   return likertOptions.map((n) => t(`likert.${store.currentLayer}.${n}`))
 })
 
 // Values questions are self-contained (the question text IS the prompt).
-// RIASEC/BigFive show a separate prompt above the question text.
+// RIASEC/BigFive/Skills show a separate prompt above the question text.
 const showQuestionPrompt = computed(
   () => store.currentLayer !== 'values',
 )
+const questionPromptText = computed(() => {
+  if (store.currentLayer === 'skills') {
+    return t(`questionPrompt.skills.${store.skillsCurrentSubCategory}`)
+  }
+  return t(`questionPrompt.${store.currentLayer}`)
+})
+
+// Interstitial / Zwischenscreen computeds — only used when the skills
+// layer is active AND `skillsInterstitialPending` is true. Layered so the
+// template stays free of nested ternaries.
+const interstitialFromSub = computed(() => store.skillsCurrentSubCategory)
+const interstitialToSub = computed(() => store.skillsPendingNextSubCategory)
+const interstitialDoneText = computed(() => {
+  const sub = interstitialFromSub.value
+  if (sub === 'skills') {
+    return 'Du hast alle 35 Fragen zu deinen Fähigkeiten beantwortet.'
+  }
+  if (sub === 'abilities') {
+    return 'Du hast alle 52 Fragen zu deinen Talenten beantwortet.'
+  }
+  return ''
+})
+const interstitialNextText = computed(() => {
+  const sub = interstitialToSub.value
+  if (!sub) return ''
+  return t(`skillsSubCategoryCountText.${sub}`)
+})
+const interstitialNextDescription = computed(() => {
+  const sub = interstitialToSub.value
+  if (!sub) return ''
+  return t(`skillsSubCategoryDescription.${sub}`)
+})
 
 async function selectAnswer(value: number): Promise<void> {
   store.answer(value)
@@ -88,7 +148,8 @@ async function selectAnswer(value: number): Promise<void> {
         <span>{{ Math.round(store.progress * 100) }} %</span>
       </div>
       <div class="mt-1 flex items-center justify-between text-xs text-slate-500">
-        <span>Frage {{ store.currentIndex + 1 }} von {{ store.total }}</span>
+        <span v-if="isSkillsLayer">{{ subCategoryLabel }}</span>
+        <span v-else>Frage {{ store.currentIndex + 1 }} von {{ store.total }}</span>
       </div>
       <div class="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-800">
         <div
@@ -98,19 +159,66 @@ async function selectAnswer(value: number): Promise<void> {
       </div>
     </div>
 
+    <!-- Zwischenscreen: shown between skills sub-categories so the user
+         gets a clear checkpoint / intro to the next sub-sequence instead
+         of silently crossing from "skill 35" to "ability 1". -->
     <div
-      v-if="store.currentQuestion"
+      v-if="store.skillsInterstitialPending"
+      class="rounded-lg border border-indigo-500/40 bg-slate-900 p-8"
+    >
+      <p class="text-xs uppercase tracking-wide text-indigo-300">Sehr gut!</p>
+      <h2 class="mt-2 text-2xl font-semibold text-slate-100">
+        {{ t(`skillsInterstitial.done.${interstitialFromSub}`) }}
+      </h2>
+      <p class="mt-3 text-sm text-slate-300">{{ interstitialDoneText }}</p>
+
+      <div class="mt-6 border-t border-slate-800 pt-6">
+        <p class="text-xs uppercase tracking-wide text-slate-500">
+          {{ t('skillsInterstitial.nextHeader') }}
+        </p>
+        <p class="mt-2 text-lg font-semibold text-slate-100">
+          {{ interstitialNextText }}
+        </p>
+        <p class="mt-1 text-sm text-slate-400">{{ interstitialNextDescription }}</p>
+      </div>
+
+      <div class="mt-8 flex flex-wrap items-center justify-between gap-2">
+        <button
+          type="button"
+          class="rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700"
+          @click="store.previous"
+        >
+          ← Zurück
+        </button>
+        <button
+          type="button"
+          class="rounded-md bg-indigo-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-400"
+          @click="store.dismissSkillsInterstitial"
+        >
+          {{ t('skillsInterstitial.continue') }} →
+        </button>
+      </div>
+    </div>
+
+    <div
+      v-else-if="store.currentQuestion"
       class="rounded-lg border border-slate-800 bg-slate-900 p-8"
     >
       <p
         v-if="showQuestionPrompt"
         class="text-xs uppercase tracking-wide text-slate-500"
       >
-        {{ t(`questionPrompt.${store.currentLayer}`) }}
+        {{ questionPromptText }}
       </p>
       <h2 class="mt-2 text-2xl font-semibold text-slate-100">
         {{ text }}
       </h2>
+      <p
+        v-if="description"
+        class="mt-2 text-sm text-slate-400"
+      >
+        {{ description }}
+      </p>
 
       <div class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-5">
         <button

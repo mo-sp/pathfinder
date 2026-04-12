@@ -22,5 +22,10 @@ export default defineConfig({
   test: {
     environment: 'node',
     include: ['src/**/*.test.ts'],
+    // Layer 4 pushes onet-occupations.json past 7 MB (skills + abilities
+    // + knowledge per occupation). Dynamic-import + parse at test time is
+    // proportionally slower, so bump the per-test timeout to give the
+    // integration tests that call loadOccupations() comfortable headroom.
+    testTimeout: 15_000,
   },
 })

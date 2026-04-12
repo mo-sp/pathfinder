@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { matchOccupations } from './matcher'
-import type { BigFiveProfile, Occupation, RIASECProfile, ValuesProfile } from '@entities/occupation/model/types'
+import type { BigFiveProfile, Occupation, OccupationSkillMap, RIASECProfile, ValuesProfile } from '@entities/occupation/model/types'
+import type { SkillsProfile } from '@features/scoring/lib/skills'
 
 function occupation(
   onetCode: string,
@@ -305,6 +306,128 @@ describe('matchOccupations', () => {
       expect(r.valuesPenalty).not.toBeNull()
       // fitScore = min(riasec * bf, 1) - penalty
       expect(r.fitScore).toBeLessThan(Math.min(r.riasecCorrelation * r.bigFiveModifier!, 1))
+    })
+  })
+
+  describe('Skills bonus', () => {
+    // Per-element entry: l = Level (0-7), i = Importance (1-5).
+    // techJob requires high skills in programming + critical thinking + mathematics.
+    const techSkills: OccupationSkillMap = {
+      '2.A.1.a': { l: 5.0, i: 4.5 }, // Reading Comprehension
+      '2.B.3.e': { l: 6.5, i: 4.8 }, // Programming
+      '2.A.2.a': { l: 5.5, i: 4.6 }, // Critical Thinking
+    }
+    const techAbilities: OccupationSkillMap = {
+      '1.A.1.b.4': { l: 5.8, i: 4.5 }, // Deductive Reasoning
+    }
+    const techKnowledge: OccupationSkillMap = {
+      '2.C.3.a': { l: 6.0, i: 4.8 }, // Computers and Electronics
+      '2.C.4.a': { l: 5.0, i: 4.2 }, // Mathematics
+    }
+    const techJob: Occupation = {
+      ...occupation('15-1252.01', { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }, 'Software Dev'),
+      skills: techSkills,
+      abilities: techAbilities,
+      knowledge: techKnowledge,
+    }
+
+    const craftJob: Occupation = {
+      ...occupation('47-2031.01', { R: 7, I: 2, A: 2, S: 2, E: 2, C: 3 }, 'Carpenter'),
+      skills: {
+        '2.B.3.l': { l: 5.5, i: 4.7 }, // Repairing
+        '2.B.3.h': { l: 5.8, i: 4.8 }, // Operation and Control
+      },
+      abilities: {
+        '1.A.2.a.3': { l: 5.5, i: 4.6 }, // Finger Dexterity
+        '1.A.3.a.1': { l: 5.0, i: 4.2 }, // Static Strength
+      },
+    }
+
+    // A user who rates themselves high on all tech-related skills
+    const techUser: SkillsProfile = {
+      skills: { '2.A.1.a': 5, '2.B.3.e': 5, '2.A.2.a': 5 },
+      abilities: { '1.A.1.b.4': 5 },
+      knowledge: { '2.C.3.a': 5, '2.C.4.a': 5 },
+    }
+
+    // A user who rates themselves low on all tech skills
+    const noTechUser: SkillsProfile = {
+      skills: { '2.A.1.a': 1, '2.B.3.e': 1, '2.A.2.a': 1 },
+      abilities: { '1.A.1.b.4': 1 },
+      knowledge: { '2.C.3.a': 1, '2.C.4.a': 1 },
+    }
+
+    it('returns skillsMatch and skillsBonus null when skills not provided', () => {
+      const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
+      const results = matchOccupations(userProfile, [techJob])
+      expect(results[0].skillsMatch).toBeNull()
+      expect(results[0].skillsBonus).toBeNull()
+    })
+
+    it('returns skillsMatch and skillsBonus null when occupation has no skills data', () => {
+      const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
+      const bare: Occupation = occupation('99-0000.01', { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 })
+      const results = matchOccupations(userProfile, [bare], 20, null, null, null, techUser)
+      expect(results[0].skillsMatch).toBeNull()
+      expect(results[0].skillsBonus).toBeNull()
+    })
+
+    it('gives a positive skills bonus for a strongly matching profile', () => {
+      const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
+      const results = matchOccupations(userProfile, [techJob], 20, null, null, null, techUser)
+      const r = results[0]
+      expect(r.skillsMatch).not.toBeNull()
+      expect(r.skillsMatch!).toBeGreaterThan(0.6)
+      expect(r.skillsBonus!).toBeGreaterThan(0)
+      expect(r.skillsBonus!).toBeLessThanOrEqual(0.25)
+    })
+
+    it('gives a negative skills bonus (dampening) for a strongly mismatching profile', () => {
+      const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
+      const results = matchOccupations(userProfile, [techJob], 20, null, null, null, noTechUser)
+      const r = results[0]
+      expect(r.skillsMatch!).toBeLessThan(0.4)
+      expect(r.skillsBonus!).toBeLessThan(0)
+      expect(r.skillsBonus!).toBeGreaterThanOrEqual(-0.25)
+    })
+
+    it('skills bonus is applied to fitScore', () => {
+      const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
+      const results = matchOccupations(userProfile, [techJob], 20, null, null, null, techUser)
+      const r = results[0]
+      // fitScore = riasecCorrelation (no BF, no values) + skillsBonus
+      expect(r.fitScore).toBeCloseTo(r.riasecCorrelation + r.skillsBonus!, 6)
+    })
+
+    it('skills re-rank occupations with similar RIASEC fit', () => {
+      const userProfile: RIASECProfile = { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }
+      // Both occupations have flat RIASEC correlation against flat user → tie
+      // Tech skills user should push techJob above craftJob
+      const results = matchOccupations(userProfile, [techJob, craftJob], 20, null, null, null, techUser)
+      expect(results[0].occupation.onetCode).toBe(techJob.onetCode)
+    })
+
+    it('ignores user answers for elements the occupation does not list', () => {
+      const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
+      // User answers tons of skills that techJob does not list — should not
+      // dilute the match for the ones that do match.
+      const userWithExtras: SkillsProfile = {
+        skills: { ...techUser.skills, 'X.Y.Z': 1, 'A.B.C': 1 },
+        abilities: techUser.abilities,
+        knowledge: techUser.knowledge,
+      }
+      const results = matchOccupations(userProfile, [techJob], 20, null, null, null, userWithExtras)
+      // Still a strong match since all the occupation's listed elements align
+      expect(results[0].skillsMatch!).toBeGreaterThan(0.6)
+    })
+
+    it('skills bonus magnitude stays within ±0.25', () => {
+      const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
+      // Extreme cases: perfect high match and perfect low match
+      const extremeHigh = matchOccupations(userProfile, [techJob], 20, null, null, null, techUser)
+      const extremeLow = matchOccupations(userProfile, [techJob], 20, null, null, null, noTechUser)
+      expect(extremeHigh[0].skillsBonus!).toBeLessThanOrEqual(0.25)
+      expect(extremeLow[0].skillsBonus!).toBeGreaterThanOrEqual(-0.25)
     })
   })
 })

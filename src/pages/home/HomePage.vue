@@ -39,10 +39,10 @@ function start(): void {
           Rahmenbedingungen – Ausbildung, Umfeld, Arbeitsweise
         </p>
       </div>
-      <div class="rounded-lg border border-slate-800 bg-slate-900 p-4 opacity-60">
+      <div class="rounded-lg border border-slate-800 bg-slate-900 p-4">
         <div class="text-sm font-medium text-slate-100">Schicht 4: Fähigkeiten</div>
         <p class="mt-1 text-xs text-slate-400">
-          Selbsteinschätzung – folgt in Phase 2
+          Selbsteinschätzung – Fähigkeiten, Talente &amp; Wissen (O*NET)
         </p>
       </div>
     </div>
@@ -67,8 +67,8 @@ function start(): void {
       </p>
       <p class="mt-3 text-sm">
         Aktueller Stand: RIASEC-Test mit 60 Items, Big-Five-Persönlichkeitsprofil
-        mit 50 Items und Werte-Schicht mit 8 Items zu Ausbildung, Arbeitsumfeld
-        und Arbeitsweise. Fähigkeiten-Selbsteinschätzung folgt in einer späteren Phase.
+        mit 50 Items, Werte-Schicht mit 8 Items und Fähigkeiten-Schicht mit 120
+        Items (35 Fähigkeiten + 52 Talente + 33 Wissensgebiete).
       </p>
     </div>
   </section>
