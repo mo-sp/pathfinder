@@ -398,7 +398,7 @@ src/
 - [ ] Ergebnis-Export als PDF
 
 ### 🚀 Public Launch (nach Phase 2)
-**Ziel:** Echtes öffentliches Release mit rechtlicher Absicherung und Monetarisierung
+**Ziel:** Echtes öffentliches Release mit rechtlicher Absicherung und Spenden-Setup
 
 - [ ] Domain-Entscheidung finalisieren + verbinden
 - [ ] Impressum (§5 TMG)
@@ -430,20 +430,17 @@ src/
 - [ ] Matching gegen reale Stellenanzeigen (Job-Board-API-Integration)
 
 ### Phase 5 – Professionalisierung (Jahr 3+)
-**Ziel:** Nachhaltiges Projekt mit optionalen Einnahmen
+**Ziel:** Nachhaltiges, professionelles Open-Source-Projekt
 
 - [ ] Capacitor: Native Apps (iOS/Android)
 - [ ] Zusammenarbeit mit Berufsberatung / Arbeitspsychologie
 - [ ] Optionaler AI-Erklärungstext für Ergebnisse (LLM-Call, anonymisiert)
-- [ ] Dezente, transparente Werbung (nur Ergebnis-Seite, keine Tracker)
-- [ ] Affiliate: Links zu Weiterbildungsanbietern (transparent gekennzeichnet)
-- [ ] Opt-in Vermittlung an Karriereberater
 
 ---
 
 ## 8. Finanzierung
 
-**Grundsatz:** Das Produkt ist und bleibt kostenlos. Keine Paywall, nie.
+**Grundsatz:** Das Produkt ist und bleibt kostenlos. Keine Paywall, keine Werbung, kein Tracking, keine kommerzielle Monetarisierung. Nie.
 
 | Kanal               | Ab Phase      | Beschreibung                                     |
 |----------------------|---------------|--------------------------------------------------|
@@ -451,9 +448,6 @@ src/
 | Bitcoin (Lightning)  | Public Launch | LNURL / Lightning Address für Mikro-Spenden      |
 | PayPal               | Public Launch | Für Nicht-Crypto-Nutzer                           |
 | GitHub Sponsors      | Public Launch | Open-Source-Community                             |
-| Dezente Werbung      | 5             | Nur Ergebnis-Seite, keine Tracker, transparent    |
-| Affiliate            | 5             | Weiterbildungsanbieter (gekennzeichnet)           |
-| Beratungs-Vermittlung| 5             | Opt-in Vermittlung an Karriereberater             |
 
 ---
 
