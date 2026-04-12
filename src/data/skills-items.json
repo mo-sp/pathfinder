@@ -1,0 +1,1335 @@
+{
+  "source": "O*NET 29.2 Content Model — Skills, Abilities, Knowledge",
+  "sourceUrl": "https://www.onetcenter.org/",
+  "license": "CC BY 4.0",
+  "itemCount": 120,
+  "subcategoryCounts": {
+    "skills": 35,
+    "abilities": 52,
+    "knowledge": 33
+  },
+  "translator": "claude-manual, v1 (2026-04-12) — polish pass pending",
+  "translationNotes": "German translations are first-pass. Short labels favor established psychometric/professional German terms over literal word-for-word. Descriptions are paraphrased idiomatically rather than translated verbatim.",
+  "items": [
+    {
+      "id": "sk-skills-2.A.1.a",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.A.1.a",
+      "text": { "en": "Reading Comprehension", "de": "Leseverständnis" },
+      "description": {
+        "en": "Understanding written sentences and paragraphs in work-related documents.",
+        "de": "Geschriebene Sätze und Absätze in beruflichen Dokumenten verstehen."
+      }
+    },
+    {
+      "id": "sk-skills-2.A.1.b",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.A.1.b",
+      "text": { "en": "Active Listening", "de": "Aktives Zuhören" },
+      "description": {
+        "en": "Giving full attention to what other people are saying, taking time to understand the points being made, asking questions as appropriate, and not interrupting at inappropriate times.",
+        "de": "Anderen aufmerksam zuhören, ihre Aussagen verstehen, gezielt nachfragen und nicht unpassend unterbrechen."
+      }
+    },
+    {
+      "id": "sk-skills-2.A.1.c",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.A.1.c",
+      "text": { "en": "Writing", "de": "Schreiben" },
+      "description": {
+        "en": "Communicating effectively in writing as appropriate for the needs of the audience.",
+        "de": "Schriftlich klar und zielgruppengerecht kommunizieren."
+      }
+    },
+    {
+      "id": "sk-skills-2.A.1.d",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.A.1.d",
+      "text": { "en": "Speaking", "de": "Sprechen" },
+      "description": {
+        "en": "Talking to others to convey information effectively.",
+        "de": "Informationen mündlich klar und wirksam vermitteln."
+      }
+    },
+    {
+      "id": "sk-skills-2.A.1.e",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.A.1.e",
+      "text": { "en": "Mathematics", "de": "Mathematik" },
+      "description": {
+        "en": "Using mathematics to solve problems.",
+        "de": "Mathematische Methoden zur Lösung von Problemen einsetzen."
+      }
+    },
+    {
+      "id": "sk-skills-2.A.1.f",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.A.1.f",
+      "text": { "en": "Science", "de": "Naturwissenschaften" },
+      "description": {
+        "en": "Using scientific rules and methods to solve problems.",
+        "de": "Wissenschaftliche Regeln und Methoden zur Problemlösung anwenden."
+      }
+    },
+    {
+      "id": "sk-skills-2.A.2.a",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.A.2.a",
+      "text": { "en": "Critical Thinking", "de": "Kritisches Denken" },
+      "description": {
+        "en": "Using logic and reasoning to identify the strengths and weaknesses of alternative solutions, conclusions, or approaches to problems.",
+        "de": "Mit Logik und Argumentation Stärken und Schwächen verschiedener Lösungsansätze abwägen."
+      }
+    },
+    {
+      "id": "sk-skills-2.A.2.b",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.A.2.b",
+      "text": { "en": "Active Learning", "de": "Aktives Lernen" },
+      "description": {
+        "en": "Understanding the implications of new information for both current and future problem-solving and decision-making.",
+        "de": "Erfassen, welche Bedeutung neue Informationen für aktuelle und künftige Entscheidungen haben."
+      }
+    },
+    {
+      "id": "sk-skills-2.A.2.c",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.A.2.c",
+      "text": { "en": "Learning Strategies", "de": "Lernstrategien" },
+      "description": {
+        "en": "Selecting and using training/instructional methods and procedures appropriate for the situation when learning or teaching new things.",
+        "de": "Passende Lern- oder Unterrichtsmethoden je nach Situation auswählen und anwenden."
+      }
+    },
+    {
+      "id": "sk-skills-2.A.2.d",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.A.2.d",
+      "text": { "en": "Monitoring", "de": "Leistungsbeobachtung" },
+      "description": {
+        "en": "Monitoring/Assessing performance of yourself, other individuals, or organizations to make improvements or take corrective action.",
+        "de": "Eigene Leistung oder die von anderen beobachten und beurteilen, um Verbesserungen einzuleiten."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.1.a",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.1.a",
+      "text": { "en": "Social Perceptiveness", "de": "Soziale Wahrnehmung" },
+      "description": {
+        "en": "Being aware of others' reactions and understanding why they react as they do.",
+        "de": "Reaktionen anderer wahrnehmen und deren Hintergründe verstehen."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.1.b",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.1.b",
+      "text": { "en": "Coordination", "de": "Koordination" },
+      "description": {
+        "en": "Adjusting actions in relation to others' actions.",
+        "de": "Eigenes Handeln mit dem Handeln anderer abstimmen."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.1.c",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.1.c",
+      "text": { "en": "Persuasion", "de": "Überzeugungskraft" },
+      "description": {
+        "en": "Persuading others to change their minds or behavior.",
+        "de": "Andere dazu bewegen, ihre Meinung oder ihr Verhalten zu ändern."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.1.d",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.1.d",
+      "text": { "en": "Negotiation", "de": "Verhandlungsgeschick" },
+      "description": {
+        "en": "Bringing others together and trying to reconcile differences.",
+        "de": "Parteien zusammenbringen und zwischen unterschiedlichen Positionen vermitteln."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.1.e",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.1.e",
+      "text": { "en": "Instructing", "de": "Unterweisen" },
+      "description": {
+        "en": "Teaching others how to do something.",
+        "de": "Anderen beibringen, wie etwas gemacht wird."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.1.f",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.1.f",
+      "text": { "en": "Service Orientation", "de": "Serviceorientierung" },
+      "description": {
+        "en": "Actively looking for ways to help people.",
+        "de": "Aktiv nach Möglichkeiten suchen, Menschen zu helfen."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.2.i",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.2.i",
+      "text": { "en": "Complex Problem Solving", "de": "Komplexes Problemlösen" },
+      "description": {
+        "en": "Identifying complex problems and reviewing related information to develop and evaluate options and implement solutions.",
+        "de": "Komplexe Probleme erkennen, Informationen prüfen, Optionen entwickeln und Lösungen umsetzen."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.3.a",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.3.a",
+      "text": { "en": "Operations Analysis", "de": "Anforderungsanalyse" },
+      "description": {
+        "en": "Analyzing needs and product requirements to create a design.",
+        "de": "Bedürfnisse und Produktanforderungen analysieren, um daraus einen Entwurf zu entwickeln."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.3.b",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.3.b",
+      "text": { "en": "Technology Design", "de": "Technologieentwicklung" },
+      "description": {
+        "en": "Generating or adapting equipment and technology to serve user needs.",
+        "de": "Geräte und Technologien entwickeln oder anpassen, um Nutzerbedürfnisse zu erfüllen."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.3.c",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.3.c",
+      "text": { "en": "Equipment Selection", "de": "Werkzeug- und Geräteauswahl" },
+      "description": {
+        "en": "Determining the kind of tools and equipment needed to do a job.",
+        "de": "Entscheiden, welche Werkzeuge und Geräte für eine Aufgabe nötig sind."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.3.d",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.3.d",
+      "text": { "en": "Installation", "de": "Installation" },
+      "description": {
+        "en": "Installing equipment, machines, wiring, or programs to meet specifications.",
+        "de": "Geräte, Maschinen, Verkabelung oder Programme nach Vorgabe installieren."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.3.e",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.3.e",
+      "text": { "en": "Programming", "de": "Programmieren" },
+      "description": {
+        "en": "Writing computer programs for various purposes.",
+        "de": "Computerprogramme für verschiedene Zwecke schreiben."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.3.g",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.3.g",
+      "text": { "en": "Operations Monitoring", "de": "Betriebsüberwachung" },
+      "description": {
+        "en": "Watching gauges, dials, or other indicators to make sure a machine is working properly.",
+        "de": "Anzeigen und Instrumente beobachten, um den einwandfreien Betrieb einer Maschine sicherzustellen."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.3.h",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.3.h",
+      "text": { "en": "Operation and Control", "de": "Bedienung und Steuerung" },
+      "description": {
+        "en": "Controlling operations of equipment or systems.",
+        "de": "Betrieb von Geräten oder Anlagen steuern."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.3.j",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.3.j",
+      "text": { "en": "Equipment Maintenance", "de": "Gerätewartung" },
+      "description": {
+        "en": "Performing routine maintenance on equipment and determining when and what kind of maintenance is needed.",
+        "de": "Routinewartung durchführen und einschätzen, wann und welche Wartung nötig ist."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.3.k",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.3.k",
+      "text": { "en": "Troubleshooting", "de": "Fehlerdiagnose" },
+      "description": {
+        "en": "Determining causes of operating errors and deciding what to do about it.",
+        "de": "Ursachen von Betriebsstörungen ermitteln und geeignete Gegenmaßnahmen festlegen."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.3.l",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.3.l",
+      "text": { "en": "Repairing", "de": "Reparieren" },
+      "description": {
+        "en": "Repairing machines or systems using the needed tools.",
+        "de": "Maschinen oder Anlagen mit den erforderlichen Werkzeugen reparieren."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.3.m",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.3.m",
+      "text": { "en": "Quality Control Analysis", "de": "Qualitätsprüfung" },
+      "description": {
+        "en": "Conducting tests and inspections of products, services, or processes to evaluate quality or performance.",
+        "de": "Produkte, Dienstleistungen oder Prozesse prüfen, um Qualität und Leistung zu bewerten."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.4.e",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.4.e",
+      "text": { "en": "Judgment and Decision Making", "de": "Urteils- und Entscheidungsvermögen" },
+      "description": {
+        "en": "Considering the relative costs and benefits of potential actions to choose the most appropriate one.",
+        "de": "Kosten und Nutzen möglicher Handlungen abwägen, um die beste Option zu wählen."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.4.g",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.4.g",
+      "text": { "en": "Systems Analysis", "de": "Systemanalyse" },
+      "description": {
+        "en": "Determining how a system should work and how changes in conditions, operations, and the environment will affect outcomes.",
+        "de": "Bestimmen, wie ein System funktionieren soll und wie Änderungen die Ergebnisse beeinflussen."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.4.h",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.4.h",
+      "text": { "en": "Systems Evaluation", "de": "Systembewertung" },
+      "description": {
+        "en": "Identifying measures or indicators of system performance and the actions needed to improve or correct performance, relative to the goals of the system.",
+        "de": "Kennzahlen für die Systemleistung festlegen und nötige Maßnahmen zur Verbesserung bestimmen."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.5.a",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.5.a",
+      "text": { "en": "Time Management", "de": "Zeitmanagement" },
+      "description": {
+        "en": "Managing one's own time and the time of others.",
+        "de": "Die eigene Zeit und die Zeit anderer effektiv einteilen."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.5.b",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.5.b",
+      "text": { "en": "Management of Financial Resources", "de": "Finanzmanagement" },
+      "description": {
+        "en": "Determining how money will be spent to get the work done, and accounting for these expenditures.",
+        "de": "Festlegen, wie Finanzmittel eingesetzt werden, und diese Ausgaben dokumentieren."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.5.c",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.5.c",
+      "text": { "en": "Management of Material Resources", "de": "Ressourcenmanagement" },
+      "description": {
+        "en": "Obtaining and seeing to the appropriate use of equipment, facilities, and materials needed to do certain work.",
+        "de": "Ausrüstung, Räume und Materialien beschaffen und für deren sachgerechte Nutzung sorgen."
+      }
+    },
+    {
+      "id": "sk-skills-2.B.5.d",
+      "layer": "skills",
+      "subCategory": "skills",
+      "onetElementId": "2.B.5.d",
+      "text": { "en": "Management of Personnel Resources", "de": "Personalführung" },
+      "description": {
+        "en": "Motivating, developing, and directing people as they work, identifying the best people for the job.",
+        "de": "Mitarbeitende motivieren, fördern und anleiten und die passenden Personen für Aufgaben auswählen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.a.1",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.a.1",
+      "text": { "en": "Oral Comprehension", "de": "Mündliches Verständnis" },
+      "description": {
+        "en": "The ability to listen to and understand information and ideas presented through spoken words and sentences.",
+        "de": "Die Fähigkeit, gesprochene Informationen und Gedanken zu hören und zu verstehen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.a.2",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.a.2",
+      "text": { "en": "Written Comprehension", "de": "Schriftliches Verständnis" },
+      "description": {
+        "en": "The ability to read and understand information and ideas presented in writing.",
+        "de": "Die Fähigkeit, schriftlich dargestellte Informationen und Gedanken zu lesen und zu verstehen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.a.3",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.a.3",
+      "text": { "en": "Oral Expression", "de": "Mündlicher Ausdruck" },
+      "description": {
+        "en": "The ability to communicate information and ideas in speaking so others will understand.",
+        "de": "Die Fähigkeit, Informationen und Gedanken so mündlich zu vermitteln, dass andere sie verstehen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.a.4",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.a.4",
+      "text": { "en": "Written Expression", "de": "Schriftlicher Ausdruck" },
+      "description": {
+        "en": "The ability to communicate information and ideas in writing so others will understand.",
+        "de": "Die Fähigkeit, Informationen und Gedanken so schriftlich zu vermitteln, dass andere sie verstehen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.b.1",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.b.1",
+      "text": { "en": "Fluency of Ideas", "de": "Ideenflüssigkeit" },
+      "description": {
+        "en": "The ability to come up with a number of ideas about a topic (the number of ideas is important, not their quality, correctness, or creativity).",
+        "de": "Die Fähigkeit, zu einem Thema viele Ideen zu entwickeln — dabei zählt die Menge, nicht die Qualität."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.b.2",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.b.2",
+      "text": { "en": "Originality", "de": "Originalität" },
+      "description": {
+        "en": "The ability to come up with unusual or clever ideas about a given topic or situation, or to develop creative ways to solve a problem.",
+        "de": "Die Fähigkeit, ungewöhnliche oder kreative Ideen und Lösungswege zu entwickeln."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.b.3",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.b.3",
+      "text": { "en": "Problem Sensitivity", "de": "Problemsensitivität" },
+      "description": {
+        "en": "The ability to tell when something is wrong or is likely to go wrong. It does not involve solving the problem, only recognizing that there is a problem.",
+        "de": "Die Fähigkeit zu erkennen, wenn etwas nicht stimmt oder schiefgehen könnte — nicht das Lösen, sondern das Erkennen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.b.4",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.b.4",
+      "text": { "en": "Deductive Reasoning", "de": "Deduktives Denken" },
+      "description": {
+        "en": "The ability to apply general rules to specific problems to produce answers that make sense.",
+        "de": "Die Fähigkeit, allgemeine Regeln auf konkrete Probleme anzuwenden, um sinnvolle Lösungen zu finden."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.b.5",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.b.5",
+      "text": { "en": "Inductive Reasoning", "de": "Induktives Denken" },
+      "description": {
+        "en": "The ability to combine pieces of information to form general rules or conclusions (includes finding a relationship among seemingly unrelated events).",
+        "de": "Die Fähigkeit, aus Einzelinformationen allgemeine Regeln oder Schlüsse abzuleiten, auch bei scheinbar unzusammenhängenden Ereignissen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.b.6",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.b.6",
+      "text": { "en": "Information Ordering", "de": "Informationsordnung" },
+      "description": {
+        "en": "The ability to arrange things or actions in a certain order or pattern according to a specific rule or set of rules (e.g., patterns of numbers, letters, words, pictures, mathematical operations).",
+        "de": "Die Fähigkeit, Dinge oder Handlungen nach festgelegten Regeln in eine bestimmte Reihenfolge oder ein Muster zu bringen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.b.7",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.b.7",
+      "text": { "en": "Category Flexibility", "de": "Kategorienflexibilität" },
+      "description": {
+        "en": "The ability to generate or use different sets of rules for combining or grouping things in different ways.",
+        "de": "Die Fähigkeit, verschiedene Regelsätze zu nutzen, um Dinge auf unterschiedliche Weise zu gruppieren."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.c.1",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.c.1",
+      "text": { "en": "Mathematical Reasoning", "de": "Mathematisches Denken" },
+      "description": {
+        "en": "The ability to choose the right mathematical methods or formulas to solve a problem.",
+        "de": "Die Fähigkeit, die passenden mathematischen Methoden oder Formeln zur Lösung eines Problems zu wählen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.c.2",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.c.2",
+      "text": { "en": "Number Facility", "de": "Rechenfertigkeit" },
+      "description": {
+        "en": "The ability to add, subtract, multiply, or divide quickly and correctly.",
+        "de": "Die Fähigkeit, schnell und korrekt zu addieren, subtrahieren, multiplizieren und dividieren."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.d.1",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.d.1",
+      "text": { "en": "Memorization", "de": "Merkfähigkeit" },
+      "description": {
+        "en": "The ability to remember information such as words, numbers, pictures, and procedures.",
+        "de": "Die Fähigkeit, sich Informationen wie Wörter, Zahlen, Bilder und Abläufe zu merken."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.e.1",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.e.1",
+      "text": { "en": "Speed of Closure", "de": "Wahrnehmungsintegration" },
+      "description": {
+        "en": "The ability to quickly make sense of, combine, and organize information into meaningful patterns.",
+        "de": "Die Fähigkeit, Informationen rasch zu ordnen und zu sinnvollen Mustern zusammenzufügen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.e.2",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.e.2",
+      "text": { "en": "Flexibility of Closure", "de": "Gestalterkennung" },
+      "description": {
+        "en": "The ability to identify or detect a known pattern (a figure, object, word, or sound) that is hidden in other distracting material.",
+        "de": "Die Fähigkeit, ein bekanntes Muster zu erkennen, auch wenn es von störendem Material überlagert ist."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.e.3",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.e.3",
+      "text": { "en": "Perceptual Speed", "de": "Wahrnehmungsgeschwindigkeit" },
+      "description": {
+        "en": "The ability to quickly and accurately compare similarities and differences among sets of letters, numbers, objects, pictures, or patterns. The things to be compared may be presented at the same time or one after the other. This ability also includes comparing a presented object with a remembered object.",
+        "de": "Die Fähigkeit, Ähnlichkeiten und Unterschiede zwischen Zeichen, Bildern oder Mustern schnell und präzise zu erkennen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.f.1",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.f.1",
+      "text": { "en": "Spatial Orientation", "de": "Räumliche Orientierung" },
+      "description": {
+        "en": "The ability to know your location in relation to the environment or to know where other objects are in relation to you.",
+        "de": "Die Fähigkeit, die eigene Position im Raum und die Lage anderer Objekte dazu einzuschätzen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.f.2",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.f.2",
+      "text": { "en": "Visualization", "de": "Räumliches Vorstellungsvermögen" },
+      "description": {
+        "en": "The ability to imagine how something will look after it is moved around or when its parts are moved or rearranged.",
+        "de": "Die Fähigkeit, sich vorzustellen, wie etwas nach einer Bewegung oder Umordnung seiner Teile aussieht."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.g.1",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.g.1",
+      "text": { "en": "Selective Attention", "de": "Selektive Aufmerksamkeit" },
+      "description": {
+        "en": "The ability to concentrate on a task over a period of time without being distracted.",
+        "de": "Die Fähigkeit, sich über längere Zeit auf eine Aufgabe zu konzentrieren, ohne sich ablenken zu lassen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.1.g.2",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.1.g.2",
+      "text": { "en": "Time Sharing", "de": "Aufmerksamkeitsteilung" },
+      "description": {
+        "en": "The ability to shift back and forth between two or more activities or sources of information (such as speech, sounds, touch, or other sources).",
+        "de": "Die Fähigkeit, zwischen mehreren Aufgaben oder Informationsquellen hin und her zu wechseln."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.2.a.1",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.2.a.1",
+      "text": { "en": "Arm-Hand Steadiness", "de": "Arm-Hand-Ruhe" },
+      "description": {
+        "en": "The ability to keep your hand and arm steady while moving your arm or while holding your arm and hand in one position.",
+        "de": "Die Fähigkeit, Hand und Arm bei Bewegung oder in einer festen Position ruhig zu halten."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.2.a.2",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.2.a.2",
+      "text": { "en": "Manual Dexterity", "de": "Handgeschicklichkeit" },
+      "description": {
+        "en": "The ability to quickly move your hand, your hand together with your arm, or your two hands to grasp, manipulate, or assemble objects.",
+        "de": "Die Fähigkeit, Hände und Arme schnell und koordiniert einzusetzen, um Gegenstände zu greifen oder zu montieren."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.2.a.3",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.2.a.3",
+      "text": { "en": "Finger Dexterity", "de": "Fingergeschicklichkeit" },
+      "description": {
+        "en": "The ability to make precisely coordinated movements of the fingers of one or both hands to grasp, manipulate, or assemble very small objects.",
+        "de": "Die Fähigkeit, die Finger präzise zu koordinieren, um kleine Objekte zu greifen oder zu montieren."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.2.b.1",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.2.b.1",
+      "text": { "en": "Control Precision", "de": "Steuerungspräzision" },
+      "description": {
+        "en": "The ability to quickly and repeatedly adjust the controls of a machine or a vehicle to exact positions.",
+        "de": "Die Fähigkeit, Bedienelemente einer Maschine oder eines Fahrzeugs schnell und wiederholt exakt einzustellen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.2.b.2",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.2.b.2",
+      "text": { "en": "Multilimb Coordination", "de": "Mehrgliedrige Koordination" },
+      "description": {
+        "en": "The ability to coordinate two or more limbs (for example, two arms, two legs, or one leg and one arm) while sitting, standing, or lying down. It does not involve performing the activities while the whole body is in motion.",
+        "de": "Die Fähigkeit, mehrere Gliedmaßen im Sitzen, Stehen oder Liegen koordiniert einzusetzen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.2.b.3",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.2.b.3",
+      "text": { "en": "Response Orientation", "de": "Reaktionsauswahl" },
+      "description": {
+        "en": "The ability to choose quickly between two or more movements in response to two or more different signals (lights, sounds, pictures). It includes the speed with which the correct response is started with the hand, foot, or other body part.",
+        "de": "Die Fähigkeit, schnell die richtige Bewegung als Antwort auf unterschiedliche Signale auszuwählen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.2.b.4",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.2.b.4",
+      "text": { "en": "Rate Control", "de": "Bewegungsantizipation" },
+      "description": {
+        "en": "The ability to time your movements or the movement of a piece of equipment in anticipation of changes in the speed and/or direction of a moving object or scene.",
+        "de": "Die Fähigkeit, Bewegungen auf Veränderungen von Geschwindigkeit oder Richtung abzustimmen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.2.c.1",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.2.c.1",
+      "text": { "en": "Reaction Time", "de": "Reaktionszeit" },
+      "description": {
+        "en": "The ability to quickly respond (with the hand, finger, or foot) to a signal (sound, light, picture) when it appears.",
+        "de": "Die Fähigkeit, auf ein Signal mit Hand, Finger oder Fuß schnell zu reagieren."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.2.c.2",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.2.c.2",
+      "text": { "en": "Wrist-Finger Speed", "de": "Hand-Finger-Schnelligkeit" },
+      "description": {
+        "en": "The ability to make fast, simple, repeated movements of the fingers, hands, and wrists.",
+        "de": "Die Fähigkeit zu schnellen, wiederholten Bewegungen der Finger, Hände und Handgelenke."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.2.c.3",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.2.c.3",
+      "text": { "en": "Speed of Limb Movement", "de": "Gliedmaßenschnelligkeit" },
+      "description": {
+        "en": "The ability to quickly move the arms and legs.",
+        "de": "Die Fähigkeit, Arme und Beine schnell zu bewegen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.3.a.1",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.3.a.1",
+      "text": { "en": "Static Strength", "de": "Statische Kraft" },
+      "description": {
+        "en": "The ability to exert maximum muscle force to lift, push, pull, or carry objects.",
+        "de": "Die Fähigkeit, maximale Muskelkraft zum Heben, Schieben, Ziehen oder Tragen einzusetzen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.3.a.2",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.3.a.2",
+      "text": { "en": "Explosive Strength", "de": "Schnellkraft" },
+      "description": {
+        "en": "The ability to use short bursts of muscle force to propel oneself (as in jumping or sprinting), or to throw an object.",
+        "de": "Die Fähigkeit, kurze, kraftvolle Muskelimpulse für Sprünge, Sprints oder Würfe einzusetzen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.3.a.3",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.3.a.3",
+      "text": { "en": "Dynamic Strength", "de": "Dynamische Kraft" },
+      "description": {
+        "en": "The ability to exert muscle force repeatedly or continuously over time. This involves muscular endurance and resistance to muscle fatigue.",
+        "de": "Die Fähigkeit, Muskelkraft über längere Zeit wiederholt oder kontinuierlich einzusetzen — Kraftausdauer."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.3.a.4",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.3.a.4",
+      "text": { "en": "Trunk Strength", "de": "Rumpfkraft" },
+      "description": {
+        "en": "The ability to use your abdominal and lower back muscles to support part of the body repeatedly or continuously over time without \"giving out\" or fatiguing.",
+        "de": "Die Fähigkeit, Bauch- und unteren Rückenmuskeln über längere Zeit ohne Ermüdung zu belasten."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.3.b.1",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.3.b.1",
+      "text": { "en": "Stamina", "de": "Ausdauer" },
+      "description": {
+        "en": "The ability to exert yourself physically over long periods of time without getting winded or out of breath.",
+        "de": "Die Fähigkeit, sich über lange Zeit körperlich anzustrengen, ohne außer Atem zu kommen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.3.c.1",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.3.c.1",
+      "text": { "en": "Extent Flexibility", "de": "Beweglichkeit" },
+      "description": {
+        "en": "The ability to bend, stretch, twist, or reach with your body, arms, and/or legs.",
+        "de": "Die Fähigkeit, sich mit Körper, Armen oder Beinen zu beugen, zu strecken oder zu drehen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.3.c.2",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.3.c.2",
+      "text": { "en": "Dynamic Flexibility", "de": "Dynamische Beweglichkeit" },
+      "description": {
+        "en": "The ability to quickly and repeatedly bend, stretch, twist, or reach out with your body, arms, and/or legs.",
+        "de": "Die Fähigkeit, sich schnell und wiederholt zu beugen, zu strecken oder zu drehen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.3.c.3",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.3.c.3",
+      "text": { "en": "Gross Body Coordination", "de": "Ganzkörperkoordination" },
+      "description": {
+        "en": "The ability to coordinate the movement of your arms, legs, and torso together when the whole body is in motion.",
+        "de": "Die Fähigkeit, Arme, Beine und Rumpf bei Bewegung des ganzen Körpers koordiniert einzusetzen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.3.c.4",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.3.c.4",
+      "text": { "en": "Gross Body Equilibrium", "de": "Körpergleichgewicht" },
+      "description": {
+        "en": "The ability to keep or regain your body balance or stay upright when in an unstable position.",
+        "de": "Die Fähigkeit, in instabilen Lagen das Gleichgewicht zu halten oder wiederzuerlangen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.4.a.1",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.4.a.1",
+      "text": { "en": "Near Vision", "de": "Nahsicht" },
+      "description": {
+        "en": "The ability to see details at close range (within a few feet of the observer).",
+        "de": "Die Fähigkeit, Details in geringer Entfernung scharf zu sehen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.4.a.2",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.4.a.2",
+      "text": { "en": "Far Vision", "de": "Fernsicht" },
+      "description": {
+        "en": "The ability to see details at a distance.",
+        "de": "Die Fähigkeit, Details aus der Ferne scharf zu sehen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.4.a.3",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.4.a.3",
+      "text": { "en": "Visual Color Discrimination", "de": "Farbunterscheidung" },
+      "description": {
+        "en": "The ability to match or detect differences between colors, including shades of color and brightness.",
+        "de": "Die Fähigkeit, Farben, Farbabstufungen und Helligkeiten zu unterscheiden."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.4.a.4",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.4.a.4",
+      "text": { "en": "Night Vision", "de": "Nachtsicht" },
+      "description": {
+        "en": "The ability to see under low-light conditions.",
+        "de": "Die Fähigkeit, bei schwachem Licht zu sehen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.4.a.5",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.4.a.5",
+      "text": { "en": "Peripheral Vision", "de": "Peripheres Sehen" },
+      "description": {
+        "en": "The ability to see objects or movement of objects to one's side when the eyes are looking ahead.",
+        "de": "Die Fähigkeit, Objekte oder Bewegungen seitlich wahrzunehmen, während der Blick geradeaus gerichtet ist."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.4.a.6",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.4.a.6",
+      "text": { "en": "Depth Perception", "de": "Tiefenwahrnehmung" },
+      "description": {
+        "en": "The ability to judge which of several objects is closer or farther away from you, or to judge the distance between you and an object.",
+        "de": "Die Fähigkeit, Entfernungen zwischen Objekten oder zum eigenen Standort einzuschätzen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.4.a.7",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.4.a.7",
+      "text": { "en": "Glare Sensitivity", "de": "Blendempfindlichkeit" },
+      "description": {
+        "en": "The ability to see objects in the presence of a glare or bright lighting.",
+        "de": "Die Fähigkeit, Objekte trotz Blendung oder sehr hellen Lichts zu erkennen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.4.b.1",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.4.b.1",
+      "text": { "en": "Hearing Sensitivity", "de": "Hörempfindlichkeit" },
+      "description": {
+        "en": "The ability to detect or tell the differences between sounds that vary in pitch and loudness.",
+        "de": "Die Fähigkeit, Töne in Höhe und Lautstärke zu unterscheiden."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.4.b.2",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.4.b.2",
+      "text": { "en": "Auditory Attention", "de": "Auditive Aufmerksamkeit" },
+      "description": {
+        "en": "The ability to focus on a single source of sound in the presence of other distracting sounds.",
+        "de": "Die Fähigkeit, sich trotz störender Geräusche auf eine einzelne Schallquelle zu konzentrieren."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.4.b.3",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.4.b.3",
+      "text": { "en": "Sound Localization", "de": "Schalllokalisation" },
+      "description": {
+        "en": "The ability to tell the direction from which a sound originated.",
+        "de": "Die Fähigkeit zu erkennen, aus welcher Richtung ein Geräusch kommt."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.4.b.4",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.4.b.4",
+      "text": { "en": "Speech Recognition", "de": "Sprachverstehen" },
+      "description": {
+        "en": "The ability to identify and understand the speech of another person.",
+        "de": "Die Fähigkeit, die Sprache einer anderen Person zu erkennen und zu verstehen."
+      }
+    },
+    {
+      "id": "sk-abilities-1.A.4.b.5",
+      "layer": "skills",
+      "subCategory": "abilities",
+      "onetElementId": "1.A.4.b.5",
+      "text": { "en": "Speech Clarity", "de": "Sprechdeutlichkeit" },
+      "description": {
+        "en": "The ability to speak clearly so others can understand you.",
+        "de": "Die Fähigkeit, so deutlich zu sprechen, dass andere einen verstehen."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.1.a",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.1.a",
+      "text": { "en": "Administration and Management", "de": "Unternehmensführung" },
+      "description": {
+        "en": "Knowledge of business and management principles involved in strategic planning, resource allocation, human resources modeling, leadership technique, production methods, and coordination of people and resources.",
+        "de": "Kenntnisse zu strategischer Planung, Ressourceneinsatz, Führungstechniken, Produktionsmethoden und Koordination von Menschen und Mitteln."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.1.b",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.1.b",
+      "text": { "en": "Administrative", "de": "Büroorganisation" },
+      "description": {
+        "en": "Knowledge of administrative and office procedures and systems such as word processing, managing files and records, stenography and transcription, designing forms, and workplace terminology.",
+        "de": "Kenntnisse zu Verwaltungs- und Büroabläufen wie Textverarbeitung, Aktenführung, Formulargestaltung und Fachterminologie."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.1.c",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.1.c",
+      "text": { "en": "Economics and Accounting", "de": "Wirtschaft und Rechnungswesen" },
+      "description": {
+        "en": "Knowledge of economic and accounting principles and practices, the financial markets, banking, and the analysis and reporting of financial data.",
+        "de": "Kenntnisse zu Wirtschafts- und Buchhaltungsprinzipien, Finanzmärkten, Bankwesen und Finanzanalyse."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.1.d",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.1.d",
+      "text": { "en": "Sales and Marketing", "de": "Vertrieb und Marketing" },
+      "description": {
+        "en": "Knowledge of principles and methods for showing, promoting, and selling products or services. This includes marketing strategy and tactics, product demonstration, sales techniques, and sales control systems.",
+        "de": "Kenntnisse zu Methoden der Präsentation, Bewerbung und des Verkaufs von Produkten oder Dienstleistungen."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.1.e",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.1.e",
+      "text": { "en": "Customer and Personal Service", "de": "Kundenservice" },
+      "description": {
+        "en": "Knowledge of principles and processes for providing customer and personal services. This includes customer needs assessment, meeting quality standards for services, and evaluation of customer satisfaction.",
+        "de": "Kenntnisse zu Kundenbedürfnissen, Servicestandards und der Bewertung von Kundenzufriedenheit."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.1.f",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.1.f",
+      "text": { "en": "Personnel and Human Resources", "de": "Personalwesen" },
+      "description": {
+        "en": "Knowledge of principles and procedures for personnel recruitment, selection, training, compensation and benefits, labor relations and negotiation, and personnel information systems.",
+        "de": "Kenntnisse zu Personalauswahl, Weiterbildung, Vergütung, Arbeitsbeziehungen und Personalsystemen."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.2.a",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.2.a",
+      "text": { "en": "Production and Processing", "de": "Produktion und Fertigung" },
+      "description": {
+        "en": "Knowledge of raw materials, production processes, quality control, costs, and other techniques for maximizing the effective manufacture and distribution of goods.",
+        "de": "Kenntnisse zu Rohstoffen, Produktionsprozessen, Qualitätskontrolle und Kosten in der Warenherstellung."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.2.b",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.2.b",
+      "text": { "en": "Food Production", "de": "Lebensmittelproduktion" },
+      "description": {
+        "en": "Knowledge of techniques and equipment for planting, growing, and harvesting food products (both plant and animal) for consumption, including storage/handling techniques.",
+        "de": "Kenntnisse zu Anbau, Aufzucht, Ernte und Lagerung pflanzlicher und tierischer Lebensmittel."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.3.a",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.3.a",
+      "text": { "en": "Computers and Electronics", "de": "Computer und Elektronik" },
+      "description": {
+        "en": "Knowledge of circuit boards, processors, chips, electronic equipment, and computer hardware and software, including applications and programming.",
+        "de": "Kenntnisse zu Platinen, Prozessoren, elektronischen Geräten sowie Computer-Hardware und -Software."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.3.b",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.3.b",
+      "text": { "en": "Engineering and Technology", "de": "Ingenieurwesen und Technik" },
+      "description": {
+        "en": "Knowledge of the practical application of engineering science and technology. This includes applying principles, techniques, procedures, and equipment to the design and production of various goods and services.",
+        "de": "Kenntnisse zur praktischen Anwendung von Ingenieurwissenschaften bei Entwurf und Herstellung von Gütern und Dienstleistungen."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.3.c",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.3.c",
+      "text": { "en": "Design", "de": "Konstruktion und Design" },
+      "description": {
+        "en": "Knowledge of design techniques, tools, and principles involved in production of precision technical plans, blueprints, drawings, and models.",
+        "de": "Kenntnisse zu Techniken und Werkzeugen für präzise technische Pläne, Zeichnungen und Modelle."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.3.d",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.3.d",
+      "text": { "en": "Building and Construction", "de": "Bauwesen" },
+      "description": {
+        "en": "Knowledge of materials, methods, and the tools involved in the construction or repair of houses, buildings, or other structures such as highways and roads.",
+        "de": "Kenntnisse zu Materialien, Methoden und Werkzeugen für Bau und Instandsetzung von Gebäuden und Verkehrswegen."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.3.e",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.3.e",
+      "text": { "en": "Mechanical", "de": "Mechanik" },
+      "description": {
+        "en": "Knowledge of machines and tools, including their designs, uses, repair, and maintenance.",
+        "de": "Kenntnisse zu Aufbau, Einsatz, Reparatur und Wartung von Maschinen und Werkzeugen."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.4.a",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.4.a",
+      "text": { "en": "Mathematics", "de": "Mathematik" },
+      "description": {
+        "en": "Knowledge of arithmetic, algebra, geometry, calculus, statistics, and their applications.",
+        "de": "Kenntnisse in Arithmetik, Algebra, Geometrie, Analysis, Statistik und deren Anwendungen."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.4.b",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.4.b",
+      "text": { "en": "Physics", "de": "Physik" },
+      "description": {
+        "en": "Knowledge and prediction of physical principles, laws, their interrelationships, and applications to understanding fluid, material, and atmospheric dynamics, and mechanical, electrical, atomic and sub-atomic structures and processes.",
+        "de": "Kenntnisse zu physikalischen Prinzipien und Gesetzen sowie deren Anwendung auf mechanische, elektrische und atomare Prozesse."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.4.c",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.4.c",
+      "text": { "en": "Chemistry", "de": "Chemie" },
+      "description": {
+        "en": "Knowledge of the chemical composition, structure, and properties of substances and of the chemical processes and transformations that they undergo. This includes uses of chemicals and their interactions, danger signs, production techniques, and disposal methods.",
+        "de": "Kenntnisse zu Aufbau, Eigenschaften und Reaktionen von Stoffen sowie zu sicherem Umgang und Entsorgung."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.4.d",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.4.d",
+      "text": { "en": "Biology", "de": "Biologie" },
+      "description": {
+        "en": "Knowledge of plant and animal organisms, their tissues, cells, functions, interdependencies, and interactions with each other and the environment.",
+        "de": "Kenntnisse zu Pflanzen- und Tierorganismen, ihren Zellen, Funktionen und Wechselwirkungen mit der Umwelt."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.4.e",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.4.e",
+      "text": { "en": "Psychology", "de": "Psychologie" },
+      "description": {
+        "en": "Knowledge of human behavior and performance; individual differences in ability, personality, and interests; learning and motivation; psychological research methods; and the assessment and treatment of behavioral and affective disorders.",
+        "de": "Kenntnisse zu menschlichem Verhalten, Persönlichkeit, Lernen, Motivation, Forschungsmethoden sowie Diagnostik und Therapie."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.4.f",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.4.f",
+      "text": { "en": "Sociology and Anthropology", "de": "Soziologie und Anthropologie" },
+      "description": {
+        "en": "Knowledge of group behavior and dynamics, societal trends and influences, human migrations, ethnicity, cultures, and their history and origins.",
+        "de": "Kenntnisse zu Gruppenverhalten, gesellschaftlichen Trends, Migration, Ethnizität und kulturellen Ursprüngen."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.4.g",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.4.g",
+      "text": { "en": "Geography", "de": "Geografie" },
+      "description": {
+        "en": "Knowledge of principles and methods for describing the features of land, sea, and air masses, including their physical characteristics, locations, interrelationships, and distribution of plant, animal, and human life.",
+        "de": "Kenntnisse zu Land-, Meeres- und Luftmassen sowie zur Verteilung von Pflanzen-, Tier- und Menschenwelt."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.5.a",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.5.a",
+      "text": { "en": "Medicine and Dentistry", "de": "Medizin und Zahnmedizin" },
+      "description": {
+        "en": "Knowledge of the information and techniques needed to diagnose and treat human injuries, diseases, and deformities. This includes symptoms, treatment alternatives, drug properties and interactions, and preventive health-care measures.",
+        "de": "Kenntnisse zur Diagnose und Behandlung von Verletzungen und Krankheiten, einschließlich Medikamenten und Prävention."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.5.b",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.5.b",
+      "text": { "en": "Therapy and Counseling", "de": "Therapie und Beratung" },
+      "description": {
+        "en": "Knowledge of principles, methods, and procedures for diagnosis, treatment, and rehabilitation of physical and mental dysfunctions, and for career counseling and guidance.",
+        "de": "Kenntnisse zu Diagnostik, Behandlung und Rehabilitation körperlicher und psychischer Störungen sowie zur Berufsberatung."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.6",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.6",
+      "text": { "en": "Education and Training", "de": "Pädagogik und Didaktik" },
+      "description": {
+        "en": "Knowledge of principles and methods for curriculum and training design, teaching and instruction for individuals and groups, and the measurement of training effects.",
+        "de": "Kenntnisse zu Lehrplanentwicklung, Unterricht, Schulung von Einzelnen und Gruppen sowie Lernerfolgsmessung."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.7.a",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.7.a",
+      "text": { "en": "English Language", "de": "Englische Sprache" },
+      "description": {
+        "en": "Knowledge of the structure and content of the English language including the meaning and spelling of words, and rules of composition and grammar.",
+        "de": "Kenntnisse zu Aufbau und Inhalt der englischen Sprache: Wortbedeutung, Rechtschreibung, Grammatik und Stil."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.7.b",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.7.b",
+      "text": { "en": "Foreign Language", "de": "Fremdsprachen" },
+      "description": {
+        "en": "Knowledge of the structure and content of a foreign (non-English) language including the meaning and spelling of words, rules of composition and grammar, and pronunciation.",
+        "de": "Kenntnisse zu Aufbau und Inhalt einer Fremdsprache: Wortbedeutung, Rechtschreibung, Grammatik und Aussprache."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.7.c",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.7.c",
+      "text": { "en": "Fine Arts", "de": "Bildende und darstellende Künste" },
+      "description": {
+        "en": "Knowledge of the theory and techniques required to compose, produce, and perform works of music, dance, visual arts, drama, and sculpture.",
+        "de": "Kenntnisse zu Theorie und Techniken von Musik, Tanz, bildender Kunst, Theater und Bildhauerei."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.7.d",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.7.d",
+      "text": { "en": "History and Archeology", "de": "Geschichte und Archäologie" },
+      "description": {
+        "en": "Knowledge of historical events and their causes, indicators, and effects on civilizations and cultures.",
+        "de": "Kenntnisse zu historischen Ereignissen, ihren Ursachen und ihren Wirkungen auf Kulturen und Zivilisationen."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.7.e",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.7.e",
+      "text": { "en": "Philosophy and Theology", "de": "Philosophie und Theologie" },
+      "description": {
+        "en": "Knowledge of different philosophical systems and religions. This includes their basic principles, values, ethics, ways of thinking, customs, practices, and their impact on human culture.",
+        "de": "Kenntnisse zu philosophischen Systemen und Religionen, ihren Werten, Ethik und kulturellen Wirkungen."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.8.a",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.8.a",
+      "text": { "en": "Public Safety and Security", "de": "Öffentliche Sicherheit" },
+      "description": {
+        "en": "Knowledge of relevant equipment, policies, procedures, and strategies to promote effective local, state, or national security operations for the protection of people, data, property, and institutions.",
+        "de": "Kenntnisse zu Ausrüstung, Richtlinien und Strategien zum Schutz von Menschen, Daten, Eigentum und Institutionen."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.8.b",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.8.b",
+      "text": { "en": "Law and Government", "de": "Recht und Verwaltung" },
+      "description": {
+        "en": "Knowledge of laws, legal codes, court procedures, precedents, government regulations, executive orders, agency rules, and the democratic political process.",
+        "de": "Kenntnisse zu Gesetzen, Gerichtsverfahren, Behördenvorschriften und dem demokratischen politischen Prozess."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.9.a",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.9.a",
+      "text": { "en": "Telecommunications", "de": "Telekommunikation" },
+      "description": {
+        "en": "Knowledge of transmission, broadcasting, switching, control, and operation of telecommunications systems.",
+        "de": "Kenntnisse zu Übertragung, Vermittlung, Steuerung und Betrieb von Telekommunikationssystemen."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.9.b",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.9.b",
+      "text": { "en": "Communications and Media", "de": "Kommunikation und Medien" },
+      "description": {
+        "en": "Knowledge of media production, communication, and dissemination techniques and methods. This includes alternative ways to inform and entertain via written, oral, and visual media.",
+        "de": "Kenntnisse zu Medienproduktion und -verbreitung in Schrift, Bild und Ton zur Information und Unterhaltung."
+      }
+    },
+    {
+      "id": "sk-knowledge-2.C.10",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.10",
+      "text": { "en": "Transportation", "de": "Transport und Verkehr" },
+      "description": {
+        "en": "Knowledge of principles and methods for moving people or goods by air, rail, sea, or road, including the relative costs and benefits.",
+        "de": "Kenntnisse zu Methoden des Personen- und Gütertransports per Luft, Schiene, See oder Straße inklusive Kosten-Nutzen-Abwägung."
+      }
+    }
+  ]
+}

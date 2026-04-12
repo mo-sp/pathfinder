@@ -178,13 +178,22 @@ interface ValuesProfile {
 }
 ```
 
-### Layer 4: Fähigkeiten-Selbsteinschätzung (Bonus)
+### Layer 4: Fähigkeiten, Talente & Wissen
 
 ```typescript
-// Selbstbewertung gegen O*NET Ability-Daten pro Beruf
-// Additiv: hohe Übereinstimmung → Bonus
-// Niedrige Übereinstimmung eliminiert NICHT, sondern triggert:
-// "Du müsstest diese Fähigkeiten entwickeln" Annotation
+// Selbstbewertung gegen O*NET Skills + Abilities + Knowledge (insg. 120 Items)
+// 3 Unterkategorien:
+//   Fähigkeiten (Skills, 35)   — erlernte Kompetenzen
+//   Talente    (Abilities, 52) — angeborene Ausprägungen
+//   Wissen     (Knowledge, 33) — fachliches Wissen
+//
+// Scoring: zentriert statt rein additiv
+//   skillsMatch = Σ (1 − |userNorm − occNorm|) × occImportance  /  Σ occImportance   ∈ [0, 1]
+//   skillsBonus = (skillsMatch − 0.5) × 0.5                                          ∈ [−0.25, +0.25]
+//
+// Hohe Übereinstimmung  → Bonus (max +0.25)
+// Niedrige Übereinstimmung → Dämpfung (max −0.25)
+// Kein Hard-Filter: Skills sind lernbar und eliminieren nie einen Beruf.
 ```
 
 ### Berufs-Matching (alle Layer kombiniert)

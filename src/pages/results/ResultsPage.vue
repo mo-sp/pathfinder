@@ -10,6 +10,11 @@ import {
 } from '@features/scoring/lib/riasec'
 import { BIG_FIVE_DIMENSIONS } from '@features/scoring/lib/bigfive'
 import { VALUES_DIMENSIONS } from '@features/scoring/lib/values'
+import {
+  SKILLS_SUB_CATEGORIES,
+  averageToPercent,
+  subCategoryAverages,
+} from '@features/scoring/lib/skills'
 import { RiasecHexagon } from '@widgets/riasec-chart'
 import { BigFiveBars } from '@widgets/bigfive-chart'
 
@@ -26,14 +31,16 @@ const { t } = useI18n()
 // feedback about what happened.
 const hasDirection = computed(() => hasProfileDirection(store.riasecProfile))
 
-// Three-position view toggle — one per completed layer:
+// Four-position view toggle — one per completed layer:
 //   'riasec'  → RIASEC-only (baseline)
 //   'bigfive' → RIASEC + Big Five (personality modifier, no values filter)
 //   'values'  → RIASEC + Big Five + Values (full combined, with hard filter)
-type ViewMode = 'riasec' | 'bigfive' | 'values'
+//   'skills'  → RIASEC + Big Five + Values + Skills (full combined plus skills bonus)
+type ViewMode = 'riasec' | 'bigfive' | 'values' | 'skills'
 
 // Default to the highest completed layer so the most refined view shows first.
 const defaultMode = computed<ViewMode>(() => {
+  if (store.skillsIsComplete) return 'skills'
   if (store.valuesIsComplete) return 'values'
   if (store.bigfiveIsComplete) return 'bigfive'
   return 'riasec'
@@ -51,6 +58,9 @@ const toggleOptions = computed(() => {
   if (store.valuesIsComplete) {
     opts.push({ mode: 'values', label: '+ Werte' })
   }
+  if (store.skillsIsComplete) {
+    opts.push({ mode: 'skills', label: '+ Fähigkeiten' })
+  }
   return opts
 })
 
@@ -58,7 +68,7 @@ const showToggle = computed(() => toggleOptions.value.length > 1)
 
 // Layer ordering for progressive toggle highlighting: all layers up to
 // and including the active viewMode are highlighted blue.
-const MODE_ORDER: ViewMode[] = ['riasec', 'bigfive', 'values']
+const MODE_ORDER: ViewMode[] = ['riasec', 'bigfive', 'values', 'skills']
 
 function isActiveToggle(mode: ViewMode): boolean {
   return MODE_ORDER.indexOf(mode) <= MODE_ORDER.indexOf(viewMode.value)
@@ -85,9 +95,27 @@ const bigfiveRanked = computed(() =>
     .map((r, i) => ({ ...r, rank: i + 1 })),
 )
 
-// Active result set based on toggle position.
+// RIASEC + Big Five + Values: same as store.results when skills is NOT
+// complete, but strips skills bonus when it IS. Lets the user toggle
+// back to "just up to values" after Layer 4 finishes.
+const valuesRanked = computed(() =>
+  [...store.results]
+    .map((r) => {
+      let fit = r.riasecCorrelation
+      if (r.bigFiveModifier != null) fit = Math.min(fit * r.bigFiveModifier, 1)
+      if (r.valuesPenalty != null) fit -= r.valuesPenalty
+      return { ...r, fitScore: fit }
+    })
+    .sort((a, b) => b.fitScore - a.fitScore)
+    .map((r, i) => ({ ...r, rank: i + 1 })),
+)
+
+// Active result set based on toggle position. `store.results` is the
+// fully-combined ranking (all completed layers applied), used for 'skills'
+// mode. For lower modes we re-derive with fewer layers.
 const activeResults = computed(() => {
-  if (viewMode.value === 'values' && store.valuesIsComplete) return store.results
+  if (viewMode.value === 'skills' && store.skillsIsComplete) return store.results
+  if (viewMode.value === 'values' && store.valuesIsComplete) return valuesRanked.value
   if (viewMode.value === 'bigfive' && store.bigfiveIsComplete) return bigfiveRanked.value
   return riasecOnlyRanked.value
 })
@@ -111,15 +139,21 @@ function showMore(): void {
 }
 
 /** Score delta: difference between the current view's fitScore and the RIASEC baseline. */
-function scoreDelta(result: { riasecCorrelation: number; fitScore: number; bigFiveModifier: number | null; valuesPenalty: number | null }): number | null {
+function scoreDelta(result: { riasecCorrelation: number; fitScore: number; bigFiveModifier: number | null; valuesPenalty: number | null; skillsBonus: number | null }): number | null {
   if (viewMode.value === 'riasec') return null
   if (viewMode.value === 'bigfive') {
     if (result.bigFiveModifier == null) return null
     const bfScore = Math.min(result.riasecCorrelation * result.bigFiveModifier, 1)
     return Math.round(bfScore * 100) - Math.round(result.riasecCorrelation * 100)
   }
-  // values view: total delta from RIASEC baseline
-  if (result.bigFiveModifier == null && result.valuesPenalty == null) return null
+  // values / skills view: total delta from RIASEC baseline
+  if (
+    result.bigFiveModifier == null &&
+    result.valuesPenalty == null &&
+    result.skillsBonus == null
+  ) {
+    return null
+  }
   return Math.round(result.fitScore * 100) - Math.round(result.riasecCorrelation * 100)
 }
 
@@ -174,10 +208,27 @@ const valuesLegend = computed(() => {
 })
 
 // Count of hard-filtered occupations (education). Compare total loaded
-// occupations vs results after hard filter.
+// occupations vs results after hard filter. Shown in any mode at-or-above
+// 'values' once the values layer is complete (the hard-filter is part of
+// the pipeline from values onwards, not exclusive to the 'values' toggle).
 const hardFilteredCount = computed(() => {
-  if (!store.valuesIsComplete || viewMode.value !== 'values') return 0
+  if (!store.valuesIsComplete) return 0
+  if (viewMode.value !== 'values' && viewMode.value !== 'skills') return 0
   return store.totalOccupations - store.results.length
+})
+
+// Skills sub-category averages (1-5 Likert) and percentages (0-100) for
+// the three aggregate bars on the skills block.
+const skillsSummary = computed(() => {
+  if (!store.skillsIsComplete) return []
+  const avgs = subCategoryAverages(store.skillsProfile)
+  return SKILLS_SUB_CATEGORIES.map((sub) => ({
+    sub,
+    label: t(`skillsSubCategory.${sub}`),
+    description: t(`skillsSubCategoryDescription.${sub}`),
+    average: avgs[sub],
+    percent: averageToPercent(avgs[sub]),
+  }))
 })
 
 // Restart from the Results page must also navigate back to /test. Otherwise
@@ -202,6 +253,11 @@ async function refineWithBigFive(): Promise<void> {
 
 async function refineWithValues(): Promise<void> {
   store.startValuesLayer()
+  await router.push('/test')
+}
+
+async function refineWithSkills(): Promise<void> {
+  store.startSkillsLayer()
   await router.push('/test')
 }
 
@@ -436,12 +492,83 @@ onBeforeUnmount(() => {
         </div>
       </template>
 
+      <!-- Skills block: either the completed self-assessment summary (3
+           aggregate bars for Fähigkeiten / Talente / Wissen) or the CTA
+           to start Layer 4. Only shown after Values is complete. -->
+      <template v-if="store.valuesIsComplete">
+        <div v-if="store.skillsIsComplete" class="mt-12 rounded-xl border border-slate-700/60 bg-slate-900/50 p-6">
+          <h2 class="text-2xl font-semibold text-slate-100">
+            Deine Fähigkeiten, Talente & Wissen
+          </h2>
+          <p class="mt-2 text-sm text-slate-400">
+            Deine Selbsteinschätzung zu 120 Kompetenzen aus der O*NET-Taxonomie.
+          </p>
+          <dl class="mt-6 space-y-3">
+            <div
+              v-for="entry in skillsSummary"
+              :key="entry.sub"
+              class="rounded-md border border-slate-800 bg-slate-900 p-4"
+            >
+              <dt class="flex items-baseline justify-between gap-3">
+                <span class="text-sm font-semibold text-slate-100">{{ entry.label }}</span>
+                <span class="font-mono text-sm text-indigo-400">{{ entry.percent }} %</span>
+              </dt>
+              <dd class="mt-2">
+                <div class="h-2 w-full overflow-hidden rounded-full bg-slate-800">
+                  <div
+                    class="h-full bg-indigo-500 transition-all duration-300"
+                    :style="{ width: `${entry.percent}%` }"
+                  />
+                </div>
+                <p class="mt-2 text-xs text-slate-400">{{ entry.description }}</p>
+              </dd>
+            </div>
+          </dl>
+          <div class="mt-4 flex justify-end">
+            <button
+              type="button"
+              class="text-sm text-slate-400 underline hover:text-slate-100"
+              @click="repeatLayer('skills')"
+            >
+              Fähigkeiten-Test wiederholen
+            </button>
+          </div>
+        </div>
+        <div
+          v-else
+          class="mt-12 rounded-lg border border-indigo-800/60 bg-indigo-950/40 p-6"
+        >
+          <p class="text-base font-semibold text-indigo-100">
+            Fähigkeiten ergänzen
+          </p>
+          <p class="mt-2 text-sm text-indigo-200">
+            Mit einer Selbsteinschätzung deiner Fähigkeiten, Talente und
+            Wissensgebiete wird die Berufsliste nochmal nachgeschärft. Berufe,
+            deren Kompetenzanforderungen zu deinem Profil passen, rücken nach
+            oben; weniger passende werden zurückgesetzt.
+          </p>
+          <p class="mt-1 text-sm text-indigo-200">
+            {{ store.skillsTotal }} Fragen in drei Abschnitten, etwa 15 Minuten.
+          </p>
+          <button
+            type="button"
+            class="mt-4 inline-flex items-center rounded-md bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-400"
+            @click="refineWithSkills"
+          >
+            Fähigkeiten-Test starten
+          </button>
+        </div>
+      </template>
+
       <div class="mt-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h2 class="text-2xl font-semibold text-slate-100">
             Top-Berufsempfehlungen
           </h2>
-          <p v-if="viewMode === 'values'" class="mt-1 text-sm text-slate-400">
+          <p v-if="viewMode === 'skills'" class="mt-1 text-sm text-slate-400">
+            Gewichtet nach RIASEC, Persönlichkeit, Werten und deinen Fähigkeiten.
+          </p>
+          <p v-else-if="viewMode === 'values'" class="mt-1 text-sm text-slate-400">
             Gewichtet nach RIASEC-Korrelation, Persönlichkeitsprofil und deinen Werten.
           </p>
           <p v-else-if="viewMode === 'bigfive'" class="mt-1 text-sm text-slate-400">

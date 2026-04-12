@@ -5,6 +5,118 @@
 
 ---
 
+### Session 14 – 2026-04-12
+**Focus:** Layer 4 — Fähigkeiten, Talente & Wissen. 120 O*NET items across 3 sub-categories, additive-centered score bonus, Zwischenscreen between sub-categories, 4-position results toggle.
+
+**Meta / process notes:**
+- Scope pivot mid-planning: started planning scoring-validation session first, but user flipped to "ship Layer 4 first, validate all 4 layers together next session" — better to add the last signal before tuning weights than to tune twice.
+- Translation strategy: manual first-pass DE for all 120 labels + descriptions, delegated to sub-agent with explicit fidelity rules (EN verbatim from O*NET Content Model Reference, DE idiomatic paraphrase, short psychometric-register labels). Marked in `skills-items.json` as `translator: "claude-manual, v1 (2026-04-12) — polish pass pending"` since no official DE O*NET translation exists (unlike IPIP-50 which had Fritz Ostendorf's published set).
+- **Scoring design call: centered bonus ±0.25 (not additive-positive).** PROJECT_PLAN.md originally said "additive: high match → bonus, low match → no effect, annotation". User agreed with centered variant: pure positive would lift all occupations equally and not differentiate ranking, while centered lets mismatched skills actively dampen. PROJECT_PLAN.md §Layer 4 updated in the same PR to reflect the decision. Magnitude locked at 0.25 for v1; explicit follow-up in next session to validate by playing with the values-picker and comparing rankings to intuition.
+- **Perf regression found + fixed in the same PR.** With full Layer 4 data, each occupation now carries 120 skill-items — and the store was persisting all 923 `results` with embedded full occupation objects on every Likert click. Mid-test: the final RIASEC-answer navigation broke a 5s vi.waitFor in `AssessmentPage.test.ts` because `persist()` was serializing ~7MB per answer. Added `trimResultsForPersist()` which slices to top-20 and strips `skills/abilities/knowledge/workContext` from each embedded occupation. Dexie row drops from multi-MB back to <30KB. `hydrate()` was never reading `results` back anyway — the live app always recomputes from the lazy `occupations` chunk — so the trim is purely an archive-size optimization, not a behavior change.
+
+**What was done — `feat/layer-skills-talents-knowledge`:**
+
+*Data pipeline (`scripts/build-onet-data.mjs`):*
+- Reads `Skills.txt`, `Abilities.txt`, `Knowledge.txt` in addition to the existing sources. `parseLayer4Source()` helper merges the two rows per element (IM = Importance, LV = Level) into a single `{ l, i }` entry per O*NET Element ID, keyed by occupation. Short keys to save ~1.5 MB on the JSON (120 items × 923 occupations × 2 floats = lots of keys).
+- Build output: 879/923 occupations have skills/abilities/knowledge data (the same 44 that lack workContext — low-density/bright-outlook occupations).
+- Full rebuild: `onet-occupations.json` grew ~653 KB → 7.7 MB raw, **657 KB gzipped** on the wire. Minified JS chunk: 3.78 MB. Acceptable for a lazy-loaded chunk on `/ergebnis`.
+
+*Items data (`src/data/skills-items.json`):*
+- 120 items: 35 Skills (2.A.* + 2.B.*), 52 Abilities (1.A.*.* leaves), 33 Knowledge (2.C.* leaves).
+- Each item: `id` (`sk-{subCategory}-{onetElementId}`), `layer: 'skills'`, `subCategory`, `onetElementId`, `text` (en+de label), `description` (en+de concept description). EN fields copied verbatim from `Content Model Reference.txt`; DE hand-translated (v1).
+- Translation judgment calls worth revisiting in a polish pass: "Monitoring" → "Leistungsbeobachtung" (O*NET scope is performance assessment, not generic Überwachung); "Speed/Flexibility of Closure" → "Wahrnehmungsintegration"/"Gestalterkennung" (no clean German Gestalt-psych term); "Rate Control" → "Bewegungsantizipation"; "Administration and Management" → "Unternehmensführung" (cleaner than literal); "Design" → "Konstruktion und Design" (pure "Design" leans graphic in German; O*NET means technical drafting); "Fine Arts" → "Bildende und darstellende Künste" (O*NET bundles music/dance/drama/visual).
+
+*Types:*
+- `SkillsSubCategory = 'skills' | 'abilities' | 'knowledge'` in `question/model/types.ts`.
+- `Question` extended with optional `subCategory`, `onetElementId`, `description` fields (non-breaking for other layers).
+- `OccupationSkillEntry = { l: number; i: number }` + `OccupationSkillMap` in `occupation/model/types.ts`; `Occupation` extended with optional `skills`/`abilities`/`knowledge` maps.
+- `MatchResult` extended with required `skillsMatch: number | null` + `skillsBonus: number | null` fields.
+- `AssessmentLayer` union gains `'skills'`.
+- `AssessmentSession` extended with optional `skillsAnswers`, `skillsOrder`, `skillsInterstitialPending`.
+
+*Scoring (`src/features/scoring/lib/skills.ts` + 17 unit tests):*
+- `SkillsProfile` = `{ skills: Record<elementId, value>; abilities: ...; knowledge: ... }` — grouped by sub-category, keyed by O*NET Element ID (same keying as occupation skill maps so the matcher can do a direct join).
+- `computeSkillsProfile()` drops non-skills-layer answers and items missing `subCategory`/`onetElementId`.
+- `subCategoryAverages()` + `averageToPercent()` feed the three aggregate bars on ResultsPage.
+- `totalAnswers()` sums across sub-cats for progress/completion math.
+
+*Matcher (`src/features/matching/lib/matcher.ts` + 8 integration tests):*
+- `computeSkillsMatch(userSkills, occupation)` iterates the 3 sub-categories, joins on Element ID, computes `sim_i = 1 − |userNorm − occLevelNorm|` weighted by `occ.importance`, returns `Σ sim × weight / Σ weight ∈ [0, 1]`. Skips items the user hasn't rated or the occupation doesn't list. Returns `null` when no overlap exists (e.g., no skills data on occupation).
+- `skillsBonus = (skillsMatch − 0.5) × SKILLS_ALPHA` with `SKILLS_ALPHA = 0.5`, yielding range `[−0.25, +0.25]`.
+- `matchOccupations` gains optional `userSkills?: SkillsProfile | null` parameter. Fully backward-compatible — existing RIASEC-only/RIASEC+BF/RIASEC+BF+Values call sites unchanged. Final `fitScore = min(riasecCorrelation × bigFiveModifier, 1) − valuesPenalty + skillsBonus`.
+
+*Store (`src/features/questionnaire/model/store.ts` + 13 new tests):*
+- Skills items JSON loader synthesizes `dimension = subCategory` + `scale = 'likert5'` at load time so Question keeps a uniform required-fields shape across all layers.
+- Source order = [shuffled 35 skills] + [shuffled 52 abilities] + [shuffled 33 knowledge], reshuffled independently per sub-category so the 3 sub-sequences stay sequential in the UI. `buildSkillsOrder()` helper.
+- New state: `skillsAnswers`, `skillsCurrentIndex`, `skillsOrder`, `skillsInterstitialPending`.
+- New computeds: `skillsQuestions`, `skillsTotal` (120), `skillsIsComplete`, `skillsProgress`, `skillsProfile`, `skillsCurrentSubCategory` (derived from flat index), `skillsSubCategoryIndex` (local 0-based inside current sub-cat for "12/35" display), `skillsSubCategoryTotal`, `skillsPendingNextSubCategory` (Zwischenscreen-target inference).
+- Layer-aware aliases (`answers`, `questions`, `total`, `currentIndex`, `currentQuestion`, `isComplete`, `progress`) extended to the 4th layer.
+- New action `answerSkillsQuestion(value)` records + advances, but at boundary indices (34 = last skill, 86 = last ability) flips `skillsInterstitialPending = true` and keeps index put. `dismissSkillsInterstitial()` clears the flag and advances past the boundary. `previous()` on an interstitial clears the flag without changing index (user can revise their last answer before committing to the transition).
+- `startSkillsLayer()` + `repeatLayer('skills')` + `resetCurrentLayer()` + `reset()` all extended.
+- `persist()` snapshots skills state + interstitial flag to Dexie. `hydrate()` has interstitial-aware resume: if `skillsInterstitialPending` was true on save, user lands back ON the boundary question (index = answers.length − 1) instead of one past it.
+- `results` computed passes `skillsProfile` to the matcher when `skillsIsComplete`.
+- `trimResultsForPersist()` strips bulky occupation fields and caps to top 20 before Dexie write (perf fix).
+
+*AssessmentPage (`src/pages/assessment/AssessmentPage.vue`):*
+- Layer label: *"Schicht 4 · Fähigkeiten, Talente & Wissen"*; sub-line shows *"Fähigkeiten (12/35)"* / *"Talente (3/52)"* / *"Wissen (10/33)"* instead of generic "Frage X von Y" for Layer 4.
+- Per-sub-category prompt + Likert labels (different semantics — *"Wie gut beherrschst du das?"* / *"Wie stark ausgeprägt?"* / *"Wie viel Wissen?"* with matching scales Gar nicht→Experte / Sehr schwach→Sehr stark / Kein Wissen→Expertenwissen).
+- Skills items render an optional `description` line in smaller slate-400 text below the label, so unfamiliar terms ("Kategorienflexibilität", "Bewegungsantizipation") are self-explanatory without a hover.
+- **Zwischenscreen** — between `v-if="store.currentQuestion"` and the question card, a new `v-if="store.skillsInterstitialPending"` block with indigo-tinted border, "Sehr gut!" eyebrow, "{ sub-cat } abgeschlossen" headline, "Du hast alle N Fragen zu … beantwortet", then an "Als nächstes"-divider with the upcoming sub-cat's count + description, and Zurück / Weiter buttons. Weiter calls `dismissSkillsInterstitial()`; Zurück calls `store.previous()` which clears the flag.
+
+*ResultsPage (`src/pages/results/ResultsPage.vue`):*
+- `ViewMode` union extended to 4 values; `toggleOptions` appends `+ Fähigkeiten` when `skillsIsComplete`; `MODE_ORDER` drives the progressive-highlight logic.
+- New `valuesRanked` computed — derives "up to values" ranking even when skills is also complete (strips `skillsBonus` from `store.results`). Symmetric with existing `riasecOnlyRanked` and `bigfiveRanked`.
+- `activeResults` switch adds 'skills' case → returns `store.results` (= full-combined ranking with skills bonus applied).
+- `scoreDelta` extended to include `skillsBonus` in the "no contribution → null" short-circuit.
+- `hardFilteredCount` display extended to also apply in 'skills' view (hard-filter is part of the pipeline from values onwards; the 'skills' toggle is above values, so the filter is still in effect).
+- **Skills block** after the Values block: *"Deine Fähigkeiten, Talente & Wissen"* with 3 indigo progress bars (sub-category averages on 1-5 → percent via `averageToPercent`) and per-sub-cat description. "Fähigkeiten-Test wiederholen" repeat-link.
+- **Skills CTA** shown when `valuesIsComplete && !skillsIsComplete`: *"Fähigkeiten ergänzen"*, calls `refineWithSkills()` → `startSkillsLayer()` + router.push('/test').
+- Subtitle line on the Top-Empfehlungen header gains a 'skills' branch: *"Gewichtet nach RIASEC, Persönlichkeit, Werten und deinen Fähigkeiten."*
+
+*HomePage:*
+- Layer 4 card no longer `opacity-60` muted; description updated from "folgt in Phase 2" to "Selbsteinschätzung – Fähigkeiten, Talente & Wissen (O*NET)".
+- Banner copy updated to reflect the new scope (adds "Fähigkeiten-Schicht mit 120 Items (35 Fähigkeiten + 52 Talente + 33 Wissensgebiete)").
+
+*i18n (`src/shared/lib/i18n.ts`):*
+- New top-level keys `skillsSubCategory`, `skillsSubCategoryDescription`, `skillsSubCategoryCountText`, `skillsInterstitial.{done,nextHeader,continue}`.
+- Nested `questionPrompt.skills.{skills,abilities,knowledge}` and `likert.skills.{skills,abilities,knowledge}.{1..5}` — different semantics per sub-cat means different label sets.
+
+*Other:*
+- `docs/PROJECT_PLAN.md` §Layer 4 block rewritten to reflect the centered-bonus decision (was additive-only).
+- `vite.config.ts` bumps `testTimeout` to 15 000 ms. Dynamic-import of the 7 MB `onet-occupations.json` + matcher work for 923 occupations with Layer 4 data occasionally brushed against the default 5 s under vitest's transform overhead. Not a production concern (the app's matcher runs in a ref + computed reactive loop, not in a test environment).
+
+**Tests: 184 → 196 (+12)**
+- `skills.test.ts`: 10 tests (compute grouped by sub-cat, ignores non-skills-layer, skips broken items, sub-cat averages, percent conversion, totalAnswers, canonical sub-cat order).
+- `matcher.test.ts`: +7 tests for skills block (match null-null contract, positive/negative bonus, bonus applied to fitScore, re-rank on same-RIASEC, ignore extras, range ±0.25).
+- `store.test.ts`: +12 tests in a new Layer 4 describe block (sub-cat indicator, answer-advances-within, boundary-sets-pending, dismiss-advances, second boundary for knowledge, previous on interstitial, complete flow, reset-clears-flag, repeatLayer, persist/hydrate round-trip with interstitial-aware resume, results include skillsMatch).
+- `matcher.integration.test.ts` + `db.test.ts` fixtures updated for the two new MatchResult fields (skillsMatch, skillsBonus).
+
+**Browser test flow (confirmed by user):**
+- HomePage: Layer 4 card active, banner lists 120 items. ✓
+- ResultsPage (post-Values): "Fähigkeiten ergänzen" CTA renders. ✓
+- /test: sub-cat indicator, per-cat prompt + Likert labels, description under label. ✓
+- Zwischenscreen after 35 skills: headline, "Als nächstes" preview, Weiter advances into Talente. ✓
+- Zwischenscreen after 52 abilities: transitions into Wissen. ✓
+- Post-completion: skills block with 3 aggregate bars, toggle has 4 positions, "+ Fähigkeiten" re-ranks live, repeat-link works.
+
+**Branches:**
+- `feat/layer-skills-talents-knowledge` — this PR.
+
+**Known issues / TODOs:**
+- **Scoring validation is the explicit next session's focus.** The SKILLS_ALPHA = 0.5 (bonus range ±0.25) and the equal-weight-per-importance summation were reasonable defaults, not validated numbers. With all 4 layers live it is now possible to trace any ranking end-to-end and see whether the combined math matches intuition. User's explicit call: "es gibt definitiv noch bedarf für die gewichtung und alles, sollten wir nächste session direkt angehen."
+- **Per-sub-category score-delta breakdown** (why did Layer 4 push this occupation up/down by X?). Would use an expandable "Warum dieser Rang?" panel; deferred until validation surfaces concrete questions worth answering.
+- **Interactive skills-cards on ResultsPage** (live-adjust skill ratings like the values-picker from Session 13) — deferred until validation shows it's needed.
+- **"Entwicklungsbedarf"-Annotation per occupation** — deferred to a later session per user call.
+- **DE translations are v1.** 120 hand-translated labels + descriptions; translator tag marks polish-pass as pending. A few judgment calls (Monitoring → Leistungsbeobachtung, Speed of Closure → Wahrnehmungsintegration, Rate Control → Bewegungsantizipation) should be reviewed by a German-fluent user with O*NET domain familiarity.
+- **44 occupations without skills/abilities/knowledge** — same 44 that lack workContext. Matcher returns `skillsMatch: null` for those; fitScore just skips the bonus.
+- **Anni et al. real Big Five data** still pending author reply.
+
+**Next steps — Session 15:**
+- Scoring validation against hand-crafted archetype personas (Software-Dev, Sozialarbeiter, Handwerker, Unternehmer, Künstler). Trace full ranking math, compare to intuition. Tune weights: SKILLS_ALPHA, BIG_FIVE_ALPHA, VALUES_DIMENSION_WEIGHT. Possibly add per-result score-delta explain panels to make tracing easier.
+- Polish pass on the 120 DE translations once 1-2 users have test-driven the Layer 4 flow.
+
+---
+
 ### Session 13 – 2026-04-12
 **Focus:** Layer-Wiederholung ohne Full-Reset + interaktive Werte-Cards im Ergebnis für direktes "Was-wäre-wenn"-Testen.
 

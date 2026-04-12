@@ -5,6 +5,11 @@
  * Reads:
  *   data-raw/db_29_2_text/Interests.txt
  *   data-raw/db_29_2_text/Occupation Data.txt
+ *   data-raw/db_29_2_text/Job Zones.txt
+ *   data-raw/db_29_2_text/Work Context.txt
+ *   data-raw/db_29_2_text/Skills.txt
+ *   data-raw/db_29_2_text/Abilities.txt
+ *   data-raw/db_29_2_text/Knowledge.txt
  *
  * Writes:
  *   src/data/onet-occupations.json
@@ -93,6 +98,40 @@ const WORK_CONTEXT_KEY_MAP = {
   'Importance of Repeating Same Tasks': 'routine',
 }
 
+/**
+ * Extract per-occupation Level + Importance data from a Skills/Abilities/
+ * Knowledge file. Each element has two rows per occupation (one per scale
+ * ID: IM = Importance 1-5, LV = Level 0-7). We combine both into a single
+ * `{ l: level, i: importance }` entry per O*NET Element ID, stored under
+ * the occupation's `skills` / `abilities` / `knowledge` key. Short keys
+ * save ~1.5MB of JSON across 923 occupations × 120 items.
+ */
+function parseLayer4Source(path) {
+  const rows = parseTsv(path)
+  /** @type {Map<string, Record<string, { l: number; i: number }>>} */
+  const byOccupation = new Map()
+  const pending = new Map() // `${code}\t${elementId}` → partial entry
+  for (const row of rows) {
+    const code = row['O*NET-SOC Code']
+    const elementId = row['Element ID']
+    const scale = row['Scale ID']
+    const value = Number.parseFloat(row['Data Value'])
+    if (!code || !elementId || !Number.isFinite(value)) continue
+    if (scale !== 'IM' && scale !== 'LV') continue
+    const key = `${code}\t${elementId}`
+    const existing = pending.get(key) ?? {}
+    if (scale === 'IM') existing.i = Math.round(value * 100) / 100
+    else existing.l = Math.round(value * 100) / 100
+    pending.set(key, existing)
+    if (existing.i != null && existing.l != null) {
+      if (!byOccupation.has(code)) byOccupation.set(code, {})
+      byOccupation.get(code)[elementId] = existing
+      pending.delete(key)
+    }
+  }
+  return byOccupation
+}
+
 function build() {
   ensureRawData()
 
@@ -100,6 +139,9 @@ function build() {
   const occupationRows = parseTsv(join(DB_DIR, 'Occupation Data.txt'))
   const jobZoneRows = parseTsv(join(DB_DIR, 'Job Zones.txt'))
   const workContextRows = parseTsv(join(DB_DIR, 'Work Context.txt'))
+  const skillsByOcc = parseLayer4Source(join(DB_DIR, 'Skills.txt'))
+  const abilitiesByOcc = parseLayer4Source(join(DB_DIR, 'Abilities.txt'))
+  const knowledgeByOcc = parseLayer4Source(join(DB_DIR, 'Knowledge.txt'))
 
   const titles = new Map()
   for (const row of occupationRows) {
@@ -160,6 +202,12 @@ function build() {
     }
     const wc = workContextMap.get(code)
     if (wc) entry.workContext = wc
+    const skills = skillsByOcc.get(code)
+    const abilities = abilitiesByOcc.get(code)
+    const knowledge = knowledgeByOcc.get(code)
+    if (skills) entry.skills = skills
+    if (abilities) entry.abilities = abilities
+    if (knowledge) entry.knowledge = knowledge
     occupations.push(entry)
   }
 
@@ -172,8 +220,14 @@ function build() {
   // Stats
   const withJobZone = occupations.filter((o) => o.jobZone != null).length
   const withWorkContext = occupations.filter((o) => o.workContext).length
+  const withSkills = occupations.filter((o) => o.skills).length
+  const withAbilities = occupations.filter((o) => o.abilities).length
+  const withKnowledge = occupations.filter((o) => o.knowledge).length
   console.log(`  jobZone: ${withJobZone}/${occupations.length}`)
   console.log(`  workContext: ${withWorkContext}/${occupations.length}`)
+  console.log(`  skills:    ${withSkills}/${occupations.length}`)
+  console.log(`  abilities: ${withAbilities}/${occupations.length}`)
+  console.log(`  knowledge: ${withKnowledge}/${occupations.length}`)
 }
 
 build()
