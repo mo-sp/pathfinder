@@ -5,6 +5,57 @@
 
 ---
 
+### Session 11 – 2026-04-12
+**Focus:** Big Five re-ranking (PR B) — make Big Five actually affect the occupation ranking, not just display a profile.
+
+**What was done — `feat/bigfive-reranking` (PR #29):**
+
+*Matcher extension:*
+- `matchOccupations()` gains optional `userBigFive` + `occBigFiveProfiles` params. When both present, each mapped occupation gets a modifier: `1 + 0.3 × pearson(userBigFive, occBigFive)`, range [0.7, 1.3]. `fitScore = riasecCorrelation × modifier`, capped at 1.0.
+- `MatchResult` extended with `riasecCorrelation` (raw Pearson, always present) and `bigFiveModifier` (null for unmapped occupations). Existing RIASEC-only call sites are backward-compatible.
+- Pearson chosen over cosine because T-scores cluster around mean=50 — cosine would give ~0.99 for all pairs, hiding the signal. Pearson mean-centers, extracting the pattern of relative highs/lows.
+
+*Mock occupation Big Five data:*
+- `src/data/bigfive-occupation-profiles.json` — 43 O*NET codes from 15 ISCO-08 groups (extracted from direct ISCO entries in the ESCO crosswalk CSV). Hand-crafted T-scores with intentional personality contrasts (e.g. Software Dev = high O low E, PR Specialist = high E, Potters = high O low E low C).
+- Schema mirrors Anni et al. (2024) exactly. Real data swaps in as a JSON-only change (zero code modifications) after author approval. `meta.mock = true` flag marks the file as placeholder.
+
+*Store integration:*
+- Lazy-load `bigfive-occupation-profiles.json` via `loadBigFiveProfiles()` (same pattern as occupations). Called from AssessmentPage + ResultsPage onMounted.
+- `results` computed passes Big Five profile + occupation profiles to matcher when `bigfiveIsComplete`, reactively re-sorting when Big Five completion flips.
+
+*ResultsPage UI — toggle + score deltas:*
+- **Toggle pill switch** ("Nur Interessen" / "+ Persönlichkeit") appears after Big Five completion. Switches between RIASEC-only ranking (sorted by `riasecCorrelation`) and combined ranking (sorted by `fitScore`). Both computed from the same result set — no re-fetch.
+- **Score-delta badges**: green "+7" / red "-3" next to each occupation's score, showing the point difference between RIASEC-only and combined score. Only visible in combined view for mapped occupations.
+- Subtitle text toggles: "Berechnet via Pearson-Korrelation..." vs "Gewichtet nach RIASEC-Korrelation und Persönlichkeitsprofil."
+
+*Mid-session UX iterations (user feedback → shipped in same commit):*
+- **Score cap at 1.0**: `riasecCorrelation × modifier` could exceed 1.0 (e.g. 0.95 × 1.1 = 1.045). Capped in matcher: `Math.min(riasecCorrelation * bigFiveModifier, 1)`.
+- **Score delta instead of rank change**: original badges showed rank position change (↑5, ↓3) which looked like score changes next to the score number. Switched to actual score point difference — clearer and less ambiguous.
+- **Toggle instead of one-way progression**: user couldn't compare before/after because completing Big Five was a one-way street. The toggle lets users freely switch between views.
+
+**Tests: 134 → 138 (+4)**
+- `matcher.test.ts`: +7 tests (riasecCorrelation populated, Big Five boost/dampen/unmapped/range/re-rank/null-compat)
+- `matcher.integration.test.ts`: updated bounds check for new MatchResult fields
+- `store.test.ts`: +2 tests (riasecCorrelation-only when no Big Five, results re-rank on Big Five completion)
+- `ResultsPage.test.ts`: +2 tests (RIASEC-only subtitle, combined subtitle + toggle buttons)
+- `db.test.ts`: updated MatchResult fixture
+
+**Branches:**
+- `feat/bigfive-reranking` — this PR
+
+**Known issues / TODOs:**
+- **Anni et al. real data**: 263 ISCO-08 groups with empirical T-scores. Author approval pending (katlin.anni@ut.ee). Build script `scripts/build-bigfive-profiles.mjs` needed for ISCO→O*NET mapping at scale (ESCO API for the ~860 O*NET codes without direct ISCO crosswalk entries).
+- **Coverage**: only 43/923 occupations have Big Five profiles with mock data. Most occupations show no delta badge. Real data will cover ~263 ISCO groups → significantly more O*NET codes.
+- **Translation polish** of 50 IPIP items (deferred from Session 10).
+- **PROJECT_PLAN.md label fix**: still reads "BFI-2-S", should say "IPIP Big Five Factor Markers, 50 items (Goldberg 1992)".
+
+**Next steps — Session 12:**
+- Build script for real Anni data (if approval received)
+- Layer 3: Werte & Rahmenbedingungen (values/preferences)
+- Translation polish pass on Big Five items
+
+---
+
 ### Session 10 – 2026-04-12
 **Focus:** Phase 2 / Layer 2 kickoff — Big Five foundation (data + scoring + store layer + viz + UI), plus a prep dark-mode pass so the new UI is authored dark-native from day 1. No matcher changes yet; PR B (re-ranking) is explicitly Session 11.
 
