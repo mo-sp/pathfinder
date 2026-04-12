@@ -320,4 +320,61 @@ describe('ResultsPage', () => {
       })
     })
   })
+
+  describe('layer repeat buttons', () => {
+    it('shows "Interessen-Test wiederholen" when RIASEC is complete', async () => {
+      await seedDirectionalSession()
+      const wrapper = mountWith(makeRouter())
+      expect(wrapper.text()).toContain('Interessen-Test wiederholen')
+    })
+
+    it('clicking "Interessen-Test wiederholen" clears RIASEC and navigates to /test', async () => {
+      await seedDirectionalSession()
+      const router = makeRouter()
+      const pushSpy = vi.spyOn(router, 'push')
+      const wrapper = mountWith(router)
+      const store = useQuestionnaireStore()
+
+      const btn = wrapper.findAll('button').find((b) => b.text().includes('Interessen-Test wiederholen'))!
+      expect(btn).toBeDefined()
+      await btn.trigger('click')
+
+      expect(store.riasecAnswers).toEqual([])
+      expect(store.currentLayer).toBe('riasec')
+      await vi.waitFor(() => {
+        expect(pushSpy).toHaveBeenCalledWith('/test')
+      })
+    })
+
+    it('shows "Persönlichkeitstest wiederholen" only when Big Five is complete', async () => {
+      await seedDirectionalSession()
+      const store = useQuestionnaireStore()
+
+      // Before Big Five: no button
+      const wrapper1 = mountWith(makeRouter())
+      expect(wrapper1.text()).not.toContain('Persönlichkeitstest wiederholen')
+
+      // Complete Big Five
+      store.startBigFiveLayer()
+      for (let i = 0; i < store.bigfiveTotal; i += 1) store.answer((i % 5) + 1)
+      await store.loadBigFiveProfiles()
+      const wrapper2 = mountWith(makeRouter())
+      expect(wrapper2.text()).toContain('Persönlichkeitstest wiederholen')
+    })
+
+    it('shows "Werte-Test wiederholen" only when Values is complete', async () => {
+      await seedDirectionalSession()
+      const store = useQuestionnaireStore()
+
+      // Complete Big Five + Values
+      store.startBigFiveLayer()
+      for (let i = 0; i < store.bigfiveTotal; i += 1) store.answer((i % 5) + 1)
+      await store.loadBigFiveProfiles()
+      store.startValuesLayer()
+      for (let i = 0; i < store.valuesTotal; i += 1) store.answer((i % 5) + 1)
+
+      const wrapper = mountWith(makeRouter())
+      expect(wrapper.text()).toContain('Werte-Test wiederholen')
+    })
+  })
 })

@@ -46,7 +46,7 @@ describe('AssessmentPage', () => {
   })
 
   describe('setup-time fresh-start guard (PR #17 regression check)', () => {
-    it('mounting with a complete session calls store.reset() before the first render', () => {
+    it('mounting with a complete layer resets only that layer, not the whole session', () => {
       const store = useQuestionnaireStore()
       // Seed a fully-complete run via the public answer() API — same code
       // path the user goes through, no internal state hacks.
@@ -56,16 +56,15 @@ describe('AssessmentPage', () => {
 
       const wrapper = mountWith(makeRouter())
 
-      // The check `if (store.isComplete) store.reset()` runs in script
-      // setup, before render. By the time mount() returns, answers must
-      // be empty, currentIndex back to 0, sessionId re-rolled, and
-      // "Frage 1 von 60" must be in the DOM — no flash of the stale
-      // "last question" state. This is the entire point of doing the
-      // check at setup time instead of in onMounted.
+      // The guard `if (store.isComplete) store.resetCurrentLayer()` runs
+      // in script setup, before render. By the time mount() returns,
+      // answers must be empty, currentIndex back to 0, and "Frage 1 von
+      // 60" must be in the DOM. sessionId is preserved because
+      // resetCurrentLayer treats this as a within-session re-run.
       expect(store.isComplete).toBe(false)
       expect(store.answers).toEqual([])
       expect(store.currentIndex).toBe(0)
-      expect(store.sessionId).not.toBe(completedId)
+      expect(store.sessionId).toBe(completedId)
       expect(wrapper.text()).toContain('Frage 1 von 60')
     })
 

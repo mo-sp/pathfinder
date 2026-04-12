@@ -19,7 +19,7 @@ const { t } = useI18n()
 // "complete" state. This relies on the layer-aware `isComplete` alias:
 // when the user is mid-Big Five it returns false and the reset is
 // skipped, so the Verfeinern-CTA path from /ergebnis continues cleanly.
-if (store.isComplete) store.reset()
+if (store.isComplete) store.resetCurrentLayer()
 
 // Prefetch the lazy occupations chunk while the user answers so results
 // can render instantly on completion. Fire-and-forget: a failure here just

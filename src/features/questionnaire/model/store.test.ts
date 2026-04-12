@@ -698,6 +698,71 @@ describe('questionnaire store', () => {
     })
   })
 
+  describe('repeatLayer', () => {
+    it('repeatLayer("bigfive") clears Big Five, preserves RIASEC + Values, keeps sessionId', () => {
+      const store = useQuestionnaireStore()
+      // Complete all 3 layers
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(4)
+      store.startBigFiveLayer()
+      for (let i = 0; i < store.bigfiveTotal; i += 1) store.answer(3)
+      store.startValuesLayer()
+      for (let i = 0; i < store.valuesTotal; i += 1) store.answer(2)
+
+      const id = store.sessionId
+      const riasecCount = store.riasecAnswers.length
+      const valuesCount = store.valuesAnswers.length
+
+      store.repeatLayer('bigfive')
+
+      expect(store.sessionId).toBe(id)
+      expect(store.currentLayer).toBe('bigfive')
+      expect(store.bigfiveAnswers).toEqual([])
+      expect(store.bigfiveIsComplete).toBe(false)
+      expect(store.riasecAnswers).toHaveLength(riasecCount)
+      expect(store.valuesAnswers).toHaveLength(valuesCount)
+    })
+
+    it('repeatLayer("riasec") clears RIASEC, preserves Big Five + Values', () => {
+      const store = useQuestionnaireStore()
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(4)
+      store.startBigFiveLayer()
+      for (let i = 0; i < store.bigfiveTotal; i += 1) store.answer(3)
+      store.startValuesLayer()
+      for (let i = 0; i < store.valuesTotal; i += 1) store.answer(2)
+
+      const bfCount = store.bigfiveAnswers.length
+      const valuesCount = store.valuesAnswers.length
+
+      store.repeatLayer('riasec')
+
+      expect(store.currentLayer).toBe('riasec')
+      expect(store.riasecAnswers).toEqual([])
+      expect(store.riasecIsComplete).toBe(false)
+      expect(store.bigfiveAnswers).toHaveLength(bfCount)
+      expect(store.valuesAnswers).toHaveLength(valuesCount)
+    })
+
+    it('repeatLayer("values") clears Values, preserves RIASEC + Big Five', () => {
+      const store = useQuestionnaireStore()
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(4)
+      store.startBigFiveLayer()
+      for (let i = 0; i < store.bigfiveTotal; i += 1) store.answer(3)
+      store.startValuesLayer()
+      for (let i = 0; i < store.valuesTotal; i += 1) store.answer(2)
+
+      const riasecCount = store.riasecAnswers.length
+      const bfCount = store.bigfiveAnswers.length
+
+      store.repeatLayer('values')
+
+      expect(store.currentLayer).toBe('values')
+      expect(store.valuesAnswers).toEqual([])
+      expect(store.valuesIsComplete).toBe(false)
+      expect(store.riasecAnswers).toHaveLength(riasecCount)
+      expect(store.bigfiveAnswers).toHaveLength(bfCount)
+    })
+  })
+
   describe('Big Five re-ranking (PR B)', () => {
     it('results include riasecCorrelation and null bigFiveModifier when only RIASEC is done', async () => {
       const store = useQuestionnaireStore()
