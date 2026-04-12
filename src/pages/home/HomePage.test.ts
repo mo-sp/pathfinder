@@ -42,13 +42,13 @@ describe('HomePage', () => {
     await db.sessions.clear()
   })
 
-  it('renders the title and the CTA with the live question count', () => {
+  it('renders the title and the CTA with the live total question count', () => {
     const wrapper = mountHomePage()
     expect(wrapper.text()).toContain('Finde deinen Weg.')
-    // store.total === 60 (full Interest Profiler Short Form). Asserting
-    // the exact number guards against a regression to the old PoC subset,
-    // the same way the store tests do at the data layer.
-    expect(wrapper.text()).toContain('Test starten (60 Fragen)')
+    // 60 + 50 + 8 + 120 = 238 items across all 4 layers. Asserting the
+    // full-scope total guards against a regression to the old PoC subsets
+    // of any individual layer.
+    expect(wrapper.text()).toContain('Test starten (238 Fragen gesamt)')
   })
 
   it('clicking "Test starten" calls store.reset() — the homepage fresh-start path', async () => {
