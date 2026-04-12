@@ -11,17 +11,20 @@ import type {
   MatchResult,
   Occupation,
   RIASECProfile,
+  ValuesProfile,
 } from '@entities/occupation/model/types'
 import { computeRiasecProfile, normalizeRiasecToPercent } from '@features/scoring/lib/riasec'
 import {
   computeBigFiveProfile,
   normalizeBigFiveToPercent,
 } from '@features/scoring/lib/bigfive'
+import { computeValuesProfile } from '@features/scoring/lib/values'
 import { matchOccupations } from '@features/matching/lib/matcher'
 import { db } from '@shared/config/db'
 import { uuid } from '@shared/lib/uuid'
 import itemsData from '@data/onet-items.json'
 import bigfiveItemsData from '@data/ipip-bigfive-items.json'
+import valuesItemsData from '@data/values-items.json'
 
 interface ItemsFile {
   items: Question[]
@@ -42,11 +45,20 @@ const allBigFiveItems = (bigfiveItemsData as ItemsFile).items.filter(
   (q) => q.layer === 'bigfive',
 )
 
+// Values layer (Layer 3). 8 custom items backed by O*NET Work Context
+// and Job Zones. Each question maps 1:1 to an occupation attribute.
+const allValuesItems = (valuesItemsData as ItemsFile).items.filter(
+  (q) => q.layer === 'values',
+)
+
 /** Source order of riasec item IDs (JSON authored order, R→I→A→S→E→C). */
 const riasecSourceOrder: readonly string[] = allRiasecItems.map((q) => q.id)
 
 /** Source order of Big Five item IDs (JSON authored order, O→C→E→A→N). */
 const bigfiveSourceOrder: readonly string[] = allBigFiveItems.map((q) => q.id)
+
+/** Source order of values item IDs (JSON authored order). */
+const valuesSourceOrder: readonly string[] = allValuesItems.map((q) => q.id)
 
 /** O(1) id→Question lookup so `questions` computed doesn't do find() per slot. */
 const riasecItemsById = new Map<string, Question>(
@@ -55,6 +67,10 @@ const riasecItemsById = new Map<string, Question>(
 
 const bigfiveItemsById = new Map<string, Question>(
   allBigFiveItems.map((q) => [q.id, q]),
+)
+
+const valuesItemsById = new Map<string, Question>(
+  allValuesItems.map((q) => [q.id, q]),
 )
 
 /**
@@ -152,6 +168,11 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
   const bigfiveCurrentIndex = ref(0)
   const bigfiveOrder = ref<string[]>(shuffleOrder(bigfiveSourceOrder))
 
+  // Values layer state ----------------------------------------------------
+  const valuesAnswers = ref<Answer[]>([])
+  const valuesCurrentIndex = ref(0)
+  const valuesOrder = ref<string[]>(shuffleOrder(valuesSourceOrder))
+
   const occupations = ref<Occupation[] | null>(null)
   const bigfiveOccupationProfiles = ref<Record<string, BigFiveProfile> | null>(null)
 
@@ -166,15 +187,24 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
       .map((id) => bigfiveItemsById.get(id))
       .filter((q): q is Question => q != null),
   )
+  const valuesQuestions = computed<Question[]>(() =>
+    valuesOrder.value
+      .map((id) => valuesItemsById.get(id))
+      .filter((q): q is Question => q != null),
+  )
 
   const riasecTotal = computed(() => riasecQuestions.value.length)
   const bigfiveTotal = computed(() => bigfiveQuestions.value.length)
+  const valuesTotal = computed(() => valuesQuestions.value.length)
 
   const riasecIsComplete = computed(
     () => riasecAnswers.value.length >= riasecTotal.value,
   )
   const bigfiveIsComplete = computed(
     () => bigfiveAnswers.value.length >= bigfiveTotal.value,
+  )
+  const valuesIsComplete = computed(
+    () => valuesAnswers.value.length >= valuesTotal.value,
   )
 
   // Progress tracks the user's *current position* in the layer, not the
@@ -197,6 +227,11 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     if (bigfiveIsComplete.value) return 1
     return bigfiveCurrentIndex.value / bigfiveTotal.value
   })
+  const valuesProgress = computed(() => {
+    if (valuesTotal.value === 0) return 0
+    if (valuesIsComplete.value) return 1
+    return valuesCurrentIndex.value / valuesTotal.value
+  })
 
   const riasecProfile = computed<RIASECProfile>(() =>
     computeRiasecProfile(riasecAnswers.value, riasecQuestions.value),
@@ -212,44 +247,52 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     normalizeBigFiveToPercent(bigfiveProfile.value, bigfiveQuestions.value),
   )
 
+  const valuesProfile = computed<ValuesProfile>(() =>
+    computeValuesProfile(valuesAnswers.value, valuesQuestions.value),
+  )
+
   // Layer-aware aliases ----------------------------------------------------
   // AssessmentPage and existing call sites read these and stay unaware of
   // which layer is active. Keeping the flat names (`answers`, `total`,
   // `isComplete`, ...) preserves the existing Vue + test contract.
-  const answers = computed<Answer[]>(() =>
-    currentLayer.value === 'bigfive'
-      ? bigfiveAnswers.value
-      : riasecAnswers.value,
-  )
-  const questions = computed<Question[]>(() =>
-    currentLayer.value === 'bigfive'
-      ? bigfiveQuestions.value
-      : riasecQuestions.value,
-  )
-  const total = computed(() =>
-    currentLayer.value === 'bigfive' ? bigfiveTotal.value : riasecTotal.value,
-  )
-  const currentIndex = computed(() =>
-    currentLayer.value === 'bigfive'
-      ? bigfiveCurrentIndex.value
-      : riasecCurrentIndex.value,
-  )
+  const answers = computed<Answer[]>(() => {
+    if (currentLayer.value === 'values') return valuesAnswers.value
+    if (currentLayer.value === 'bigfive') return bigfiveAnswers.value
+    return riasecAnswers.value
+  })
+  const questions = computed<Question[]>(() => {
+    if (currentLayer.value === 'values') return valuesQuestions.value
+    if (currentLayer.value === 'bigfive') return bigfiveQuestions.value
+    return riasecQuestions.value
+  })
+  const total = computed(() => {
+    if (currentLayer.value === 'values') return valuesTotal.value
+    if (currentLayer.value === 'bigfive') return bigfiveTotal.value
+    return riasecTotal.value
+  })
+  const currentIndex = computed(() => {
+    if (currentLayer.value === 'values') return valuesCurrentIndex.value
+    if (currentLayer.value === 'bigfive') return bigfiveCurrentIndex.value
+    return riasecCurrentIndex.value
+  })
   const currentQuestion = computed<Question | null>(
     () => questions.value[currentIndex.value] ?? null,
   )
-  const isComplete = computed(() =>
-    currentLayer.value === 'bigfive'
-      ? bigfiveIsComplete.value
-      : riasecIsComplete.value,
-  )
-  const progress = computed(() =>
-    currentLayer.value === 'bigfive'
-      ? bigfiveProgress.value
-      : riasecProgress.value,
-  )
+  const isComplete = computed(() => {
+    if (currentLayer.value === 'values') return valuesIsComplete.value
+    if (currentLayer.value === 'bigfive') return bigfiveIsComplete.value
+    return riasecIsComplete.value
+  })
+  const progress = computed(() => {
+    if (currentLayer.value === 'values') return valuesProgress.value
+    if (currentLayer.value === 'bigfive') return bigfiveProgress.value
+    return riasecProgress.value
+  })
 
   function answer(value: number): void {
-    if (currentLayer.value === 'bigfive') {
+    if (currentLayer.value === 'values') {
+      answerLayer(value, valuesAnswers, valuesCurrentIndex, valuesQuestions, valuesTotal)
+    } else if (currentLayer.value === 'bigfive') {
       answerLayer(value, bigfiveAnswers, bigfiveCurrentIndex, bigfiveQuestions, bigfiveTotal)
     } else {
       answerLayer(value, riasecAnswers, riasecCurrentIndex, riasecQuestions, riasecTotal)
@@ -278,7 +321,9 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
   }
 
   function previous(): void {
-    if (currentLayer.value === 'bigfive') {
+    if (currentLayer.value === 'values') {
+      if (valuesCurrentIndex.value > 0) valuesCurrentIndex.value -= 1
+    } else if (currentLayer.value === 'bigfive') {
       if (bigfiveCurrentIndex.value > 0) bigfiveCurrentIndex.value -= 1
     } else {
       if (riasecCurrentIndex.value > 0) riasecCurrentIndex.value -= 1
@@ -291,12 +336,13 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     currentLayer.value = 'riasec'
     riasecAnswers.value = []
     riasecCurrentIndex.value = 0
-    // Re-roll the order on every reset so "Test neu starten" gives the
-    // user a meaningfully different experience from their previous run.
     riasecOrder.value = shuffleOrder(riasecSourceOrder)
     bigfiveAnswers.value = []
     bigfiveCurrentIndex.value = 0
     bigfiveOrder.value = shuffleOrder(bigfiveSourceOrder)
+    valuesAnswers.value = []
+    valuesCurrentIndex.value = 0
+    valuesOrder.value = shuffleOrder(valuesSourceOrder)
   }
 
   /**
@@ -317,7 +363,11 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
    * stay put — this is a within-session re-run, not a new session.
    */
   function resetCurrentLayer(): void {
-    if (currentLayer.value === 'bigfive') {
+    if (currentLayer.value === 'values') {
+      valuesAnswers.value = []
+      valuesCurrentIndex.value = 0
+      valuesOrder.value = shuffleOrder(valuesSourceOrder)
+    } else if (currentLayer.value === 'bigfive') {
       bigfiveAnswers.value = []
       bigfiveCurrentIndex.value = 0
       bigfiveOrder.value = shuffleOrder(bigfiveSourceOrder)
@@ -326,6 +376,11 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
       riasecCurrentIndex.value = 0
       riasecOrder.value = shuffleOrder(riasecSourceOrder)
     }
+  }
+
+  /** Promote the user into the values layer. Called from the ResultsPage CTA. */
+  function startValuesLayer(): void {
+    currentLayer.value = 'values'
   }
 
   /**
@@ -357,6 +412,7 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
       occupations.value.length,
       bigfiveIsComplete.value ? bigfiveProfile.value : null,
       bigfiveIsComplete.value ? bigfiveOccupationProfiles.value : null,
+      valuesIsComplete.value ? valuesProfile.value : null,
     )
   })
 
@@ -383,6 +439,11 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
         bigfiveOrder: bigfiveOrder.value,
         bigfiveProfile: bigfiveIsComplete.value
           ? bigfiveProfile.value
+          : undefined,
+        valuesAnswers: valuesAnswers.value,
+        valuesOrder: valuesOrder.value,
+        valuesProfile: valuesIsComplete.value
+          ? valuesProfile.value
           : undefined,
         currentLayer: currentLayer.value,
       }),
@@ -437,6 +498,18 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
       } else {
         bigfiveOrder.value = [...bigfiveSourceOrder]
       }
+      // Values restoration: optional, same pattern as Big Five.
+      valuesAnswers.value = latest.valuesAnswers
+        ? [...latest.valuesAnswers]
+        : []
+      if (
+        latest.valuesOrder &&
+        isValidOrder(latest.valuesOrder, valuesSourceOrder, valuesItemsById)
+      ) {
+        valuesOrder.value = [...latest.valuesOrder]
+      } else {
+        valuesOrder.value = [...valuesSourceOrder]
+      }
       currentLayer.value = latest.currentLayer ?? 'riasec'
       // Resume at the next unanswered question in *each* layer; clamp so a
       // complete layer sits on its last question instead of stepping past
@@ -447,6 +520,9 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
       const nextBigFive = bigfiveAnswers.value.length
       const lastBigFive = Math.max(0, bigfiveTotal.value - 1)
       bigfiveCurrentIndex.value = Math.min(nextBigFive, lastBigFive)
+      const nextValues = valuesAnswers.value.length
+      const lastValues = Math.max(0, valuesTotal.value - 1)
+      valuesCurrentIndex.value = Math.min(nextValues, lastValues)
     } catch (err) {
       console.error('Failed to hydrate assessment session', err)
     }
@@ -467,6 +543,8 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
       riasecCurrentIndex,
       bigfiveAnswers,
       bigfiveCurrentIndex,
+      valuesAnswers,
+      valuesCurrentIndex,
       currentLayer,
     ],
     () => {
@@ -504,6 +582,15 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     bigfiveProgress,
     bigfiveProfile,
     bigfivePercent,
+    // Values-specific
+    valuesAnswers,
+    valuesQuestions,
+    valuesTotal,
+    valuesIsComplete,
+    valuesProgress,
+    valuesProfile,
+    // Occupation count (for hard-filter display on ResultsPage)
+    totalOccupations: computed(() => occupations.value?.length ?? 0),
     // Results & actions
     results,
     answer,
@@ -511,6 +598,7 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     reset,
     resetCurrentLayer,
     startBigFiveLayer,
+    startValuesLayer,
     persist,
     hydrate,
     loadOccupations,

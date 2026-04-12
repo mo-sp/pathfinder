@@ -67,11 +67,39 @@ function parseTsv(path) {
   })
 }
 
+// Work Context elements we extract for the values layer (Layer 3).
+// Each maps to a values dimension that users declare preferences for.
+const WORK_CONTEXT_ELEMENTS = [
+  'Indoors, Environmentally Controlled',
+  'Outdoors, Exposed to All Weather Conditions',
+  'Contact With Others',
+  'Work With or Contribute to a Work Group or Team',
+  'Spend Time Standing',
+  'Spend Time Walking or Running',
+  'Freedom to Make Decisions',
+  'Deal With External Customers or the Public in General',
+  'Importance of Repeating Same Tasks',
+]
+
+const WORK_CONTEXT_KEY_MAP = {
+  'Indoors, Environmentally Controlled': 'indoor',
+  'Outdoors, Exposed to All Weather Conditions': 'outdoor',
+  'Contact With Others': 'contactWithOthers',
+  'Work With or Contribute to a Work Group or Team': 'teamwork',
+  'Spend Time Standing': 'standing',
+  'Spend Time Walking or Running': 'walking',
+  'Freedom to Make Decisions': 'autonomy',
+  'Deal With External Customers or the Public in General': 'publicContact',
+  'Importance of Repeating Same Tasks': 'routine',
+}
+
 function build() {
   ensureRawData()
 
   const interestsRows = parseTsv(join(DB_DIR, 'Interests.txt'))
   const occupationRows = parseTsv(join(DB_DIR, 'Occupation Data.txt'))
+  const jobZoneRows = parseTsv(join(DB_DIR, 'Job Zones.txt'))
+  const workContextRows = parseTsv(join(DB_DIR, 'Work Context.txt'))
 
   const titles = new Map()
   for (const row of occupationRows) {
@@ -79,6 +107,29 @@ function build() {
       title: row['Title'],
       description: row['Description'],
     })
+  }
+
+  // Job Zones: O*NET-SOC Code → 1-5
+  const jobZones = new Map()
+  for (const row of jobZoneRows) {
+    const zone = Number.parseInt(row['Job Zone'], 10)
+    if (Number.isFinite(zone)) {
+      jobZones.set(row['O*NET-SOC Code'], zone)
+    }
+  }
+
+  // Work Context: O*NET-SOC Code → { indoor, outdoor, ... }
+  // Only CX scale rows (the context-level mean, not the category percentages).
+  const workContextMap = new Map()
+  for (const row of workContextRows) {
+    if (row['Scale ID'] !== 'CX') continue
+    if (!WORK_CONTEXT_ELEMENTS.includes(row['Element Name'])) continue
+    const code = row['O*NET-SOC Code']
+    const key = WORK_CONTEXT_KEY_MAP[row['Element Name']]
+    const value = Number.parseFloat(row['Data Value'])
+    if (!key || !Number.isFinite(value)) continue
+    if (!workContextMap.has(code)) workContextMap.set(code, {})
+    workContextMap.get(code)[key] = Math.round(value * 100) / 100
   }
 
   /** @type {Map<string, Record<string, number>>} */
@@ -100,12 +151,16 @@ function build() {
   for (const [code, profile] of profiles) {
     const meta = titles.get(code)
     if (!meta) continue
-    occupations.push({
+    const entry = {
       onetCode: code,
       title: { en: meta.title, de: null },
       description: { en: meta.description, de: null },
       riasecProfile: profile,
-    })
+      jobZone: jobZones.get(code) ?? null,
+    }
+    const wc = workContextMap.get(code)
+    if (wc) entry.workContext = wc
+    occupations.push(entry)
   }
 
   occupations.sort((a, b) => a.onetCode.localeCompare(b.onetCode))
@@ -113,6 +168,12 @@ function build() {
   mkdirSync(dirname(OUT_PATH), { recursive: true })
   writeFileSync(OUT_PATH, JSON.stringify(occupations, null, 2) + '\n')
   console.log(`Wrote ${occupations.length} occupations → ${OUT_PATH}`)
+
+  // Stats
+  const withJobZone = occupations.filter((o) => o.jobZone != null).length
+  const withWorkContext = occupations.filter((o) => o.workContext).length
+  console.log(`  jobZone: ${withJobZone}/${occupations.length}`)
+  console.log(`  workContext: ${withWorkContext}/${occupations.length}`)
 }
 
 build()

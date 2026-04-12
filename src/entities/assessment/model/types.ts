@@ -2,6 +2,7 @@ import type {
   BigFiveProfile,
   MatchResult,
   RIASECProfile,
+  ValuesProfile,
 } from '@entities/occupation/model/types'
 
 export interface Answer {
@@ -17,7 +18,7 @@ export interface Answer {
  * screen. Layers 3 (values) and 4 (skills) will join this union when they
  * are implemented — extending here is cheaper than retrofitting later.
  */
-export type AssessmentLayer = 'riasec' | 'bigfive'
+export type AssessmentLayer = 'riasec' | 'bigfive' | 'values'
 
 export interface AssessmentSession {
   id: string
@@ -47,6 +48,10 @@ export interface AssessmentSession {
   bigfiveAnswers?: Answer[]
   bigfiveOrder?: string[]
   bigfiveProfile?: BigFiveProfile
+  /** Values layer state (Layer 3). Optional for backward compat. */
+  valuesAnswers?: Answer[]
+  valuesOrder?: string[]
+  valuesProfile?: ValuesProfile
   /**
    * Layer the user was last on. Missing on legacy sessions → defaults to
    * `'riasec'` during hydrate so reload behaviour is unchanged for anyone

@@ -8,6 +8,7 @@ import {
   RIASEC_DIMENSIONS,
 } from '@features/scoring/lib/riasec'
 import { BIG_FIVE_DIMENSIONS } from '@features/scoring/lib/bigfive'
+import { VALUES_DIMENSIONS } from '@features/scoring/lib/values'
 import { RiasecHexagon } from '@widgets/riasec-chart'
 import { BigFiveBars } from '@widgets/bigfive-chart'
 
@@ -24,31 +25,78 @@ const { t } = useI18n()
 // feedback about what happened.
 const hasDirection = computed(() => hasProfileDirection(store.riasecProfile))
 
-// Toggle between RIASEC-only and combined (RIASEC + Big Five) ranking.
-// Only meaningful after Big Five is complete; defaults to combined.
-const showCombined = ref(true)
+// Three-position view toggle — one per completed layer:
+//   'riasec'  → RIASEC-only (baseline)
+//   'bigfive' → RIASEC + Big Five (personality modifier, no values filter)
+//   'values'  → RIASEC + Big Five + Values (full combined, with hard filter)
+type ViewMode = 'riasec' | 'bigfive' | 'values'
 
-// RIASEC-only ranking: same results, sorted by riasecCorrelation instead
-// of fitScore. Computed once so the toggle is instant.
+// Default to the highest completed layer so the most refined view shows first.
+const defaultMode = computed<ViewMode>(() => {
+  if (store.valuesIsComplete) return 'values'
+  if (store.bigfiveIsComplete) return 'bigfive'
+  return 'riasec'
+})
+const viewMode = ref<ViewMode>(defaultMode.value)
+
+// Available toggle positions depend on which layers are complete.
+const toggleOptions = computed(() => {
+  const opts: { mode: ViewMode; label: string }[] = [
+    { mode: 'riasec', label: 'Nur Interessen' },
+  ]
+  if (store.bigfiveIsComplete) {
+    opts.push({ mode: 'bigfive', label: '+ Persönlichkeit' })
+  }
+  if (store.valuesIsComplete) {
+    opts.push({ mode: 'values', label: '+ Werte' })
+  }
+  return opts
+})
+
+const showToggle = computed(() => toggleOptions.value.length > 1)
+
+// Layer ordering for progressive toggle highlighting: all layers up to
+// and including the active viewMode are highlighted blue.
+const MODE_ORDER: ViewMode[] = ['riasec', 'bigfive', 'values']
+
+function isActiveToggle(mode: ViewMode): boolean {
+  return MODE_ORDER.indexOf(mode) <= MODE_ORDER.indexOf(viewMode.value)
+}
+
+// RIASEC-only: sort by riasecCorrelation, no filters.
 const riasecOnlyRanked = computed(() =>
   [...store.results]
     .sort((a, b) => b.riasecCorrelation - a.riasecCorrelation)
     .map((r, i) => ({ ...r, rank: i + 1 })),
 )
 
-// Active result set: combined or RIASEC-only based on toggle.
-const activeResults = computed(() =>
-  store.bigfiveIsComplete && showCombined.value
-    ? store.results
-    : riasecOnlyRanked.value,
+// RIASEC + Big Five: sort by riasec × bigFiveModifier, no values penalty/filter.
+// For occupations without Big Five data, falls back to riasecCorrelation.
+const bigfiveRanked = computed(() =>
+  [...store.results]
+    .map((r) => {
+      const score = r.bigFiveModifier != null
+        ? Math.min(r.riasecCorrelation * r.bigFiveModifier, 1)
+        : r.riasecCorrelation
+      return { ...r, fitScore: score }
+    })
+    .sort((a, b) => b.fitScore - a.fitScore)
+    .map((r, i) => ({ ...r, rank: i + 1 })),
 )
+
+// Active result set based on toggle position.
+const activeResults = computed(() => {
+  if (viewMode.value === 'values' && store.valuesIsComplete) return store.results
+  if (viewMode.value === 'bigfive' && store.bigfiveIsComplete) return bigfiveRanked.value
+  return riasecOnlyRanked.value
+})
 
 // Results pagination: show 20 initially, reveal 20 more per click.
 const PAGE_SIZE = 20
 const visibleCount = ref(PAGE_SIZE)
 const rankedResults = computed(() =>
   activeResults.value.filter((r) =>
-    showCombined.value ? r.fitScore > 0 : r.riasecCorrelation > 0,
+    viewMode.value === 'riasec' ? r.riasecCorrelation > 0 : r.fitScore > 0,
   ),
 )
 const visibleResults = computed(() =>
@@ -61,10 +109,16 @@ function showMore(): void {
   visibleCount.value += PAGE_SIZE
 }
 
-/** Score delta for a result: combined fitScore minus RIASEC-only score, as display points. */
-function scoreDelta(result: { riasecCorrelation: number; fitScore: number; bigFiveModifier: number | null }): number | null {
-  if (!store.bigfiveIsComplete || !showCombined.value) return null
-  if (result.bigFiveModifier == null) return null
+/** Score delta: difference between the current view's fitScore and the RIASEC baseline. */
+function scoreDelta(result: { riasecCorrelation: number; fitScore: number; bigFiveModifier: number | null; valuesPenalty: number | null }): number | null {
+  if (viewMode.value === 'riasec') return null
+  if (viewMode.value === 'bigfive') {
+    if (result.bigFiveModifier == null) return null
+    const bfScore = Math.min(result.riasecCorrelation * result.bigFiveModifier, 1)
+    return Math.round(bfScore * 100) - Math.round(result.riasecCorrelation * 100)
+  }
+  // values view: total delta from RIASEC baseline
+  if (result.bigFiveModifier == null && result.valuesPenalty == null) return null
   return Math.round(result.fitScore * 100) - Math.round(result.riasecCorrelation * 100)
 }
 
@@ -98,6 +152,29 @@ const bigfiveLegend = computed(() =>
   })),
 )
 
+// Values legend: show each dimension's label + the user's chosen answer text.
+const valuesLegend = computed(() => {
+  if (!store.valuesIsComplete) return []
+  const profile = store.valuesProfile
+  return VALUES_DIMENSIONS.map((dim) => {
+    const q = store.valuesQuestions.find((q) => q.dimension === dim)
+    const value = profile[dim]
+    const choiceLabel = q?.labels?.de?.[value - 1] ?? `${value}/5`
+    return {
+      dim,
+      label: t(`values.${dim}`),
+      choice: choiceLabel,
+    }
+  })
+})
+
+// Count of hard-filtered occupations (education). Compare total loaded
+// occupations vs results after hard filter.
+const hardFilteredCount = computed(() => {
+  if (!store.valuesIsComplete || viewMode.value !== 'values') return 0
+  return store.totalOccupations - store.results.length
+})
+
 // Restart from the Results page must also navigate back to /test. Otherwise
 // store.reset() clears the answers but leaves the user on /ergebnis, where
 // the "noch nicht abgeschlossen" interstitial immediately renders because
@@ -115,6 +192,11 @@ async function restart(): Promise<void> {
  */
 async function refineWithBigFive(): Promise<void> {
   store.startBigFiveLayer()
+  await router.push('/test')
+}
+
+async function refineWithValues(): Promise<void> {
+  store.startValuesLayer()
   await router.push('/test')
 }
 </script>
@@ -211,12 +293,66 @@ async function refineWithBigFive(): Promise<void> {
         </button>
       </div>
 
-      <div class="mt-12 flex items-end justify-between gap-4">
+      <!-- Values block: either the completed preferences summary, or an
+           invitation to start the values layer. Only shown after Big Five
+           is complete (values is the next step in the progressive funnel). -->
+      <template v-if="store.bigfiveIsComplete">
+        <template v-if="store.valuesIsComplete">
+          <h2 class="mt-12 text-2xl font-semibold text-slate-100">
+            Deine Werte & Rahmenbedingungen
+          </h2>
+          <p class="mt-2 text-sm text-slate-400">
+            Deine Präferenzen zu Ausbildung, Arbeitsumfeld und Arbeitsweise.
+          </p>
+          <dl class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div
+              v-for="entry in valuesLegend"
+              :key="entry.dim"
+              class="rounded-md border border-slate-800 bg-slate-900 p-3"
+            >
+              <dt class="text-xs font-medium text-slate-400">
+                {{ entry.label }}
+              </dt>
+              <dd class="mt-1 text-sm font-semibold text-slate-100">
+                {{ entry.choice }}
+              </dd>
+            </div>
+          </dl>
+        </template>
+        <div
+          v-else
+          class="mt-12 rounded-lg border border-indigo-800/60 bg-indigo-950/40 p-6"
+        >
+          <p class="text-base font-semibold text-indigo-100">
+            Weiter verfeinern
+          </p>
+          <p class="mt-2 text-sm text-indigo-200">
+            Mit deinen Werten und Rahmenbedingungen werden Berufe gefiltert und
+            neu gewichtet. Berufe, die nicht zu deiner Ausbildungsbereitschaft
+            passen, werden ausgeblendet.
+          </p>
+          <p class="mt-1 text-sm text-indigo-200">
+            {{ store.valuesTotal }} kurze Fragen, etwa 1 Minute.
+          </p>
+          <button
+            type="button"
+            class="mt-4 inline-flex items-center rounded-md bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-400"
+            @click="refineWithValues"
+          >
+            Werte & Rahmenbedingungen starten
+          </button>
+        </div>
+      </template>
+
+      <div class="mt-12 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h2 class="text-2xl font-semibold text-slate-100">
             Top-Berufsempfehlungen
           </h2>
-          <p v-if="store.bigfiveIsComplete && showCombined" class="mt-1 text-sm text-slate-400">
+          <p v-if="viewMode === 'values'" class="mt-1 text-sm text-slate-400">
+            Gewichtet nach RIASEC-Korrelation, Persönlichkeitsprofil und deinen Werten.
+          </p>
+          <p v-else-if="viewMode === 'bigfive'" class="mt-1 text-sm text-slate-400">
             Gewichtet nach RIASEC-Korrelation und Persönlichkeitsprofil.
           </p>
           <p v-else class="mt-1 text-sm text-slate-400">
@@ -225,27 +361,30 @@ async function refineWithBigFive(): Promise<void> {
           </p>
         </div>
         <div
-          v-if="store.bigfiveIsComplete"
+          v-if="showToggle"
           class="flex shrink-0 overflow-hidden rounded-md border border-slate-700"
         >
           <button
+            v-for="opt in toggleOptions"
+            :key="opt.mode"
             type="button"
             class="px-3 py-1.5 text-xs font-medium transition-colors"
-            :class="!showCombined ? 'bg-slate-700 text-slate-100' : 'bg-slate-900 text-slate-400 hover:text-slate-200'"
-            @click="showCombined = false"
+            :class="isActiveToggle(opt.mode)
+              ? 'bg-indigo-600 text-white'
+              : 'bg-slate-900 text-slate-400 hover:text-slate-200'"
+            @click="viewMode = opt.mode"
           >
-            Nur Interessen
-          </button>
-          <button
-            type="button"
-            class="px-3 py-1.5 text-xs font-medium transition-colors"
-            :class="showCombined ? 'bg-indigo-600 text-white' : 'bg-slate-900 text-slate-400 hover:text-slate-200'"
-            @click="showCombined = true"
-          >
-            + Persönlichkeit
+            {{ opt.label }}
           </button>
         </div>
       </div>
+
+      <p
+        v-if="hardFilteredCount > 0"
+        class="mt-2 text-xs text-slate-500"
+      >
+        {{ hardFilteredCount }} Berufe aufgrund deiner Ausbildungspräferenz ausgeblendet.
+      </p>
 
       <div
         v-if="!hasDirection"

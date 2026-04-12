@@ -738,4 +738,96 @@ describe('questionnaire store', () => {
       }
     })
   })
+
+  describe('values layer (Layer 3)', () => {
+    it('starts with empty values state', () => {
+      const store = useQuestionnaireStore()
+      expect(store.valuesAnswers).toEqual([])
+      expect(store.valuesIsComplete).toBe(false)
+      expect(store.valuesTotal).toBe(8)
+    })
+
+    it('startValuesLayer switches currentLayer to values', () => {
+      const store = useQuestionnaireStore()
+      store.startValuesLayer()
+      expect(store.currentLayer).toBe('values')
+    })
+
+    it('answer() records values answers when in values layer', () => {
+      const store = useQuestionnaireStore()
+      store.startValuesLayer()
+      store.answer(4)
+      expect(store.valuesAnswers).toHaveLength(1)
+      expect(store.valuesAnswers[0].value).toBe(4)
+      // RIASEC answers untouched
+      expect(store.riasecAnswers).toHaveLength(0)
+    })
+
+    it('valuesIsComplete after answering all 8 questions', () => {
+      const store = useQuestionnaireStore()
+      store.startValuesLayer()
+      for (let i = 0; i < store.valuesTotal; i += 1) store.answer(3)
+      expect(store.valuesIsComplete).toBe(true)
+    })
+
+    it('resetCurrentLayer clears only values state', () => {
+      const store = useQuestionnaireStore()
+      // Complete RIASEC first
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(3)
+      const riasecCount = store.riasecAnswers.length
+      // Start and partially answer values
+      store.startValuesLayer()
+      store.answer(2)
+      store.answer(4)
+      expect(store.valuesAnswers).toHaveLength(2)
+      // Reset only values
+      store.resetCurrentLayer()
+      expect(store.valuesAnswers).toHaveLength(0)
+      expect(store.riasecAnswers).toHaveLength(riasecCount)
+    })
+
+    it('reset clears all layers including values', () => {
+      const store = useQuestionnaireStore()
+      store.startValuesLayer()
+      store.answer(1)
+      store.reset()
+      expect(store.valuesAnswers).toHaveLength(0)
+      expect(store.currentLayer).toBe('riasec')
+    })
+
+    it('persist and hydrate round-trip values state', async () => {
+      const store = useQuestionnaireStore()
+      // Complete RIASEC
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(3)
+      // Start values and answer some
+      store.startValuesLayer()
+      store.answer(5)
+      store.answer(2)
+      await flushPersist()
+
+      // New store, hydrate
+      setActivePinia(createPinia())
+      const store2 = useQuestionnaireStore()
+      await store2.hydrate()
+      expect(store2.currentLayer).toBe('values')
+      expect(store2.valuesAnswers).toHaveLength(2)
+      expect(store2.valuesAnswers[0].value).toBe(5)
+      expect(store2.valuesAnswers[1].value).toBe(2)
+    })
+
+    it('results include valuesPenalty when values complete', async () => {
+      const store = useQuestionnaireStore()
+      // Complete RIASEC
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer((i % 5) + 1)
+      await store.loadOccupations()
+      // Complete values (all extreme answers to create penalties)
+      store.startValuesLayer()
+      for (let i = 0; i < store.valuesTotal; i += 1) store.answer(5)
+      expect(store.valuesIsComplete).toBe(true)
+
+      // Results should have valuesPenalty populated
+      const withPenalty = store.results.filter((r) => r.valuesPenalty !== null)
+      expect(withPenalty.length).toBeGreaterThan(0)
+    })
+  })
 })

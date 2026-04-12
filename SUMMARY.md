@@ -5,6 +5,93 @@
 
 ---
 
+### Session 12 – 2026-04-12
+**Focus:** Layer 3 — Werte & Rahmenbedingungen (values & preferences). Hard filters + soft penalties backed by real O*NET data.
+
+**What was done — `feat/values-layer` (this PR):**
+
+*Data pipeline:*
+- Extended `scripts/build-onet-data.mjs` to read `Job Zones.txt` and `Work Context.txt` (already in `data-raw/`). Adds `jobZone` (1-5) and `workContext` (9 CX-scale floats) per occupation. Coverage: 923/923 jobZone, 879/923 workContext.
+- Re-ran `build-esco-german.mjs` to preserve German titles on the enriched JSON. Output: `onet-occupations.json` grew ~600KB → ~653KB.
+
+*Values items:*
+- `src/data/values-items.json` — 8 custom questions, each mapping 1:1 to an O*NET occupation attribute. Every question carries per-question `labels` (DE+EN) instead of shared layer-level Likert labels.
+- Dimensions: education (hard filter via jobZone), environment (indoor/outdoor composite), social interaction, teamwork, physical demands, autonomy, public contact, routine/variety.
+- All items backed by real O*NET data. Dimensions without data backing (income/meaning, security/freedom, mobility from PROJECT_PLAN.md) explicitly deferred.
+
+*Types:*
+- `ValuesDimension` union type (8 members), `ValuesProfile = Record<ValuesDimension, number>`.
+- `WorkContext` interface on `Occupation` (9 O*NET CX-scale fields).
+- `Question` extended with optional `labels` and `filterType` fields.
+- `AssessmentLayer` extended to `'riasec' | 'bigfive' | 'values'`.
+- `MatchResult` extended with `valuesPenalty: number | null`.
+- `AssessmentSession` extended with `valuesAnswers`, `valuesOrder`, `valuesProfile`.
+
+*Scoring:*
+- `src/features/scoring/lib/values.ts` — trivial: each dimension has exactly 1 question, so profile = raw 1-5 answers. Missing dimensions default to 3 (neutral).
+
+*Matcher:*
+- **Hard filter**: occupations where `jobZone > userValues.education` are eliminated before scoring. Education=1 filters ~892/923 occupations.
+- **Soft penalties**: 7 dimensions, each `|userNorm - occNorm| × 0.05` weight. Max total ~0.35. Special handling: environment is a composite of indoor/outdoor, physicalDemands averages standing+walking, routine is inverted.
+- Combined: `fitScore = min(riasecCorrelation × bigFiveModifier, 1) − valuesPenalty`.
+
+*Store:*
+- Full values layer state: `valuesAnswers`, `valuesCurrentIndex`, `valuesOrder`, `valuesQuestions`, `valuesTotal`, `valuesIsComplete`, `valuesProgress`, `valuesProfile` — following the exact Big Five pattern.
+- Layer-aware aliases extended from 2-way to 3-way switch.
+- `startValuesLayer()`, `resetCurrentLayer()` for values, `reset()` clears all 3 layers.
+- Persist/hydrate includes values state. Watch includes `valuesAnswers`/`valuesCurrentIndex`.
+- Exposed `totalOccupations` computed for hard-filter count display.
+
+*AssessmentPage:*
+- Per-question labels: `likertLabels` computed reads `currentQuestion.labels.de` when available, falls back to layer-level i18n.
+- No question prompt for values layer (question text IS the prompt).
+- Layer indicator: "Schicht 3 · Werte & Rahmenbedingungen".
+
+*ResultsPage — 3-position progressive toggle:*
+- Three view modes: "Nur Interessen" (RIASEC only) | "+ Persönlichkeit" (RIASEC + Big Five) | "+ Werte" (all layers including hard filter).
+- **Progressive highlight**: clicking "+ Werte" colors all 3 buttons blue; clicking "+ Persönlichkeit" colors 2 blue. Visual shows which layers are active.
+- Toggle positions available only for completed layers.
+- Subtitle changes per position; score deltas relative to RIASEC baseline.
+
+*ResultsPage — values profile + hard-filter count:*
+- "Deine Werte & Rahmenbedingungen" section: 8 labeled cards showing the user's chosen answer per dimension.
+- "X Berufe aufgrund deiner Ausbildungspräferenz ausgeblendet" text below the toggle (only in "+ Werte" view, only when occupations were actually filtered).
+- Values CTA ("Weiter verfeinern") appears after Big Five completion, before values is started.
+
+*HomePage:*
+- Layer 3 card activated (no longer grayed out), text updated.
+- Prototype banner updated to mention "Werte-Schicht mit 8 Items".
+
+*Mid-session UX iterations (user feedback → shipped in same commit):*
+- **3-position toggle instead of binary**: user wanted one toggle per layer, not a combined "all or nothing" switch.
+- **Progressive blue highlight**: user wanted all layers up to and including the selected view to be colored, not just the active button.
+- **Hard-filter count bug fix**: `riasecOnlyRanked` was derived from the already-filtered `store.results`, so the difference was always 0. Fixed by comparing against `store.totalOccupations`.
+
+**Tests: 138 → 159 (+21)**
+- `values.test.ts`: 5 tests (profile computation, dimension mapping, neutral defaults, non-values ignore, all 8 dimensions present)
+- `matcher.test.ts`: +9 tests (hard filter eliminates, keeps no-jobZone, soft penalties reduce, null compat, perfect match near-zero penalty, max penalty range, values re-rank, combined BF+values)
+- `store.test.ts`: +7 tests (values defaults, startValuesLayer, layer-isolated answer, completion, resetCurrentLayer, reset clears all, persist/hydrate round-trip, results include valuesPenalty)
+- `ResultsPage.test.ts`: subtitle assertion updated for new toggle text
+- `db.test.ts`: fixture updated for valuesPenalty field
+
+**Branches:**
+- `feat/values-layer` — this PR
+
+**Known issues / TODOs:**
+- **"Einzelne Schichten wiederholen" feature** — users need to re-run specific layers without full restart. Top priority for Session 13.
+- **Scoring validation** — values changes look partially but not universally logical. After Layer 4, dedicate sessions to tracing the combined scoring math against known occupations.
+- **44 occupations without workContext** — 879/923 have Work Context data; the 44 without get 0 soft penalty (treated as neutral). Minor, all have jobZone.
+- **Dimensions without O*NET backing** — income/meaning, security/freedom, mobility from PROJECT_PLAN.md deferred. Can be added when external data is sourced or heuristics designed.
+- **Anni et al. real Big Five data** — still pending author reply (katlin.anni@ut.ee).
+- **Layer 4: Fähigkeiten-Selbsteinschätzung** — next depth layer per PROJECT_PLAN.md.
+
+**Next steps — Session 13:**
+- "Einzelne Schichten wiederholen" feature (user's explicit top priority)
+- Layer 4: Skills self-assessment (if time)
+- Post-Layer-4: scoring validation sessions
+
+---
+
 ### Session 11 – 2026-04-12
 **Focus:** Big Five re-ranking (PR B) — make Big Five actually affect the occupation ranking, not just display a profile.
 

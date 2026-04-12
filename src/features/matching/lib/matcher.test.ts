@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { matchOccupations } from './matcher'
-import type { BigFiveProfile, Occupation, RIASECProfile } from '@entities/occupation/model/types'
+import type { BigFiveProfile, Occupation, RIASECProfile, ValuesProfile } from '@entities/occupation/model/types'
 
 function occupation(
   onetCode: string,
@@ -182,6 +182,129 @@ describe('matchOccupations', () => {
       const withoutBf = matchOccupations(userProfile, [softwareDev, artist, carpenter])
       const withNull = matchOccupations(userProfile, [softwareDev, artist, carpenter], 20, null, null)
       expect(withoutBf.map(r => r.fitScore)).toEqual(withNull.map(r => r.fitScore))
+    })
+  })
+
+  describe('Values filtering and penalties', () => {
+    // Occupations with jobZone and workContext for values testing
+    const deskJob: Occupation = {
+      ...softwareDev,
+      jobZone: 4,
+      workContext: {
+        indoor: 4.9, outdoor: 1.2, contactWithOthers: 3.5, teamwork: 3.8,
+        standing: 1.2, walking: 1.1, autonomy: 4.5, publicContact: 2.0, routine: 2.5,
+      },
+    }
+    const outdoorJob: Occupation = {
+      ...carpenter,
+      jobZone: 2,
+      workContext: {
+        indoor: 1.5, outdoor: 4.8, contactWithOthers: 3.0, teamwork: 3.2,
+        standing: 4.5, walking: 4.0, autonomy: 3.0, publicContact: 2.5, routine: 3.5,
+      },
+    }
+    const surgeonJob: Occupation = {
+      ...occupation('29-1241.00', { R: 4, I: 6, A: 2, S: 5, E: 3, C: 3 }, 'Surgeon'),
+      jobZone: 5,
+      workContext: {
+        indoor: 4.8, outdoor: 1.1, contactWithOthers: 4.5, teamwork: 4.2,
+        standing: 4.2, walking: 2.8, autonomy: 4.8, publicContact: 3.5, routine: 1.5,
+      },
+    }
+
+    const neutralValues: ValuesProfile = {
+      education: 3, environment: 3, socialInteraction: 3, teamwork: 3,
+      physicalDemands: 3, autonomy: 3, publicContact: 3, routine: 3,
+    }
+
+    it('hard-filters occupations whose jobZone exceeds education willingness', () => {
+      const userProfile: RIASECProfile = { R: 3, I: 5, A: 3, S: 3, E: 3, C: 4 }
+      const values: ValuesProfile = { ...neutralValues, education: 3 }
+      const results = matchOccupations(userProfile, [deskJob, outdoorJob, surgeonJob], 20, null, null, values)
+      const codes = results.map(r => r.occupation.onetCode)
+      // deskJob (zone 4) filtered: 4 > 3
+      expect(codes).not.toContain(deskJob.onetCode)
+      // surgeonJob (zone 5) filtered: 5 > 3
+      expect(codes).not.toContain(surgeonJob.onetCode)
+      // outdoorJob (zone 2) kept: 2 <= 3
+      expect(codes).toContain(outdoorJob.onetCode)
+    })
+
+    it('keeps occupations without jobZone when filtering', () => {
+      const noZone: Occupation = occupation('99-0000.00', { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 })
+      const userProfile: RIASECProfile = { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }
+      const values: ValuesProfile = { ...neutralValues, education: 1 }
+      const results = matchOccupations(userProfile, [noZone], 20, null, null, values)
+      expect(results).toHaveLength(1)
+    })
+
+    it('applies soft penalties that reduce fitScore', () => {
+      const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
+      // User who wants all-outdoor but deskJob is all-indoor → penalty
+      const outdoorPref: ValuesProfile = { ...neutralValues, education: 5, environment: 5 }
+      const results = matchOccupations(userProfile, [deskJob], 20, null, null, outdoorPref)
+      const desk = results[0]
+      expect(desk.valuesPenalty).not.toBeNull()
+      expect(desk.valuesPenalty!).toBeGreaterThan(0)
+      expect(desk.fitScore).toBeLessThan(desk.riasecCorrelation)
+    })
+
+    it('returns valuesPenalty: null when values not provided', () => {
+      const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
+      const results = matchOccupations(userProfile, [deskJob])
+      expect(results[0].valuesPenalty).toBeNull()
+    })
+
+    it('penalty is 0 for perfectly matching preferences', () => {
+      const userProfile: RIASECProfile = { R: 7, I: 2, A: 2, S: 2, E: 2, C: 3 }
+      // Preferences that match outdoorJob: outdoor, physical, low contact, moderate autonomy
+      const perfectMatch: ValuesProfile = {
+        education: 5, environment: 5, socialInteraction: 3, teamwork: 3,
+        physicalDemands: 5, autonomy: 3, publicContact: 2, routine: 3,
+      }
+      const results = matchOccupations(userProfile, [outdoorJob], 20, null, null, perfectMatch)
+      // Should be very small (near 0) but not necessarily exactly 0 due to composite math
+      expect(results[0].valuesPenalty!).toBeLessThan(0.05)
+    })
+
+    it('total penalty stays within expected max range (~0.35)', () => {
+      const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
+      // Maximally mismatched: want outdoor+physical+solo vs indoor desk team job
+      const maxMismatch: ValuesProfile = {
+        education: 5, environment: 5, socialInteraction: 1, teamwork: 1,
+        physicalDemands: 5, autonomy: 1, publicContact: 1, routine: 5,
+      }
+      const results = matchOccupations(userProfile, [deskJob], 20, null, null, maxMismatch)
+      expect(results[0].valuesPenalty!).toBeLessThanOrEqual(0.4)
+      expect(results[0].valuesPenalty!).toBeGreaterThan(0)
+    })
+
+    it('values re-rank occupations with similar RIASEC fit', () => {
+      const userProfile: RIASECProfile = { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }
+      // Both have similar RIASEC fit (flat profile) but different work contexts
+      // User prefers outdoor + physical → outdoorJob should rank higher
+      const outdoorPref: ValuesProfile = {
+        education: 5, environment: 5, socialInteraction: 3, teamwork: 3,
+        physicalDemands: 5, autonomy: 3, publicContact: 3, routine: 3,
+      }
+      const results = matchOccupations(userProfile, [deskJob, outdoorJob], 20, null, null, outdoorPref)
+      expect(results[0].occupation.onetCode).toBe(outdoorJob.onetCode)
+    })
+
+    it('combines Big Five modifier and values penalty', () => {
+      const userProfile: RIASECProfile = { R: 2, I: 5, A: 4, S: 2, E: 3, C: 4 }
+      const userBf: BigFiveProfile = { openness: 58, conscientiousness: 55, extraversion: 42, agreeableness: 48, neuroticism: 46 }
+      const occBfProfiles: Record<string, BigFiveProfile> = {
+        [deskJob.onetCode]: { openness: 58, conscientiousness: 55, extraversion: 42, agreeableness: 48, neuroticism: 46 },
+      }
+      const values: ValuesProfile = { ...neutralValues, education: 5, environment: 1 }
+      const results = matchOccupations(userProfile, [deskJob], 20, userBf, occBfProfiles, values)
+      const r = results[0]
+      // Has both modifier and penalty
+      expect(r.bigFiveModifier).not.toBeNull()
+      expect(r.valuesPenalty).not.toBeNull()
+      // fitScore = min(riasec * bf, 1) - penalty
+      expect(r.fitScore).toBeLessThan(Math.min(r.riasecCorrelation * r.bigFiveModifier!, 1))
     })
   })
 })
