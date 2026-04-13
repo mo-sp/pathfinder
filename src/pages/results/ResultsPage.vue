@@ -327,15 +327,16 @@ function stageForValues(penalty: number): Stage {
   if (penalty < 0.2) return 'weak'
   return 'poor'
 }
-// Skills staged by skillsMatch (raw alignment, 0-1), which drives the
-// bonus via (match − 0.5) × 0.5. A match near 0.5 → bonus near 0, so
-// "moderate" maps to neutral tone (tiny drag/boost that isn't really
-// informative). Prior thresholds lit up −0.02 bonuses red, which made
-// near-neutral occupations look worse than they are.
-function stageForSkills(match: number): Stage {
-  if (match > 0.7) return 'strong'
-  if (match >= 0.4) return 'moderate'
-  if (match >= 0.2) return 'weak'
+// Skills staged by the signed skillsBonus in [−0.25, +0.25] rather than
+// raw skillsMatch: the match number is no longer comparable across
+// occupations once per-occupation floor calibration is in the bonus. A
+// match of 0.7 on a low-req job is "barely at floor" (red-worthy) while
+// 0.7 on a high-req job is "well above floor" (positive). The bonus
+// already encodes that normalization — stage on it directly.
+function stageForSkills(bonus: number): Stage {
+  if (bonus > 0.10) return 'strong'
+  if (bonus > -0.05) return 'moderate'
+  if (bonus > -0.15) return 'weak'
   return 'poor'
 }
 
@@ -439,7 +440,7 @@ function scoreBreakdown(result: {
     mkRow(
       'skills',
       result.skillsMatch != null && result.skillsBonus != null,
-      result.skillsMatch != null ? stageForSkills(result.skillsMatch) : null,
+      result.skillsBonus != null ? stageForSkills(result.skillsBonus) : null,
       result.skillsBonus != null ? formatSigned(result.skillsBonus) : '',
     ),
   )
