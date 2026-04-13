@@ -558,6 +558,55 @@ describe('matchOccupations', () => {
       expect(hard[0].skillsBonus).toBe(0.25)
     })
 
+    it('median user (all 3s) hits exactly 0 bonus when the occupation has real requirements', () => {
+      // Neutral anchor: a user who self-rates themselves at the scale
+      // midpoint sits at bonus = 0. This only holds when the job has at
+      // least one occNorm > 0.5, otherwise the median user has already
+      // fully qualified (like the maxed user) and collapses to +0.25.
+      const mixedJob: Occupation = {
+        ...occupation('99-0000.10', { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }, 'Mixed Job'),
+        skills: { '2.A.1.a': { l: 5.0, i: 4.0 }, '2.B.3.e': { l: 4.0, i: 3.5 } },
+      }
+      const hardJob: Occupation = {
+        ...occupation('99-0000.11', { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }, 'Hard Job'),
+        skills: { '2.A.1.a': { l: 6.5, i: 4.0 }, '2.B.3.e': { l: 6.0, i: 3.5 } },
+      }
+      const medianUser: SkillsProfile = {
+        skills: { '2.A.1.a': 3, '2.B.3.e': 3 },
+        abilities: {},
+        knowledge: {},
+      }
+      const userProfile: RIASECProfile = { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }
+      const mixed = matchOccupations(userProfile, [mixedJob], 20, null, null, null, medianUser)
+      const hard = matchOccupations(userProfile, [hardJob], 20, null, null, null, medianUser)
+      expect(mixed[0].skillsBonus).toBe(0)
+      expect(hard[0].skillsBonus).toBe(0)
+    })
+
+    it('weak-mixed user (all 2s) lands in the negative half of the bonus range', () => {
+      // Below-median but above-floor user: must land in (-0.25, 0). The
+      // prior floor-only formula gave this user small positive bonuses
+      // on average-complexity jobs because 0.25 userNorm already beat
+      // the zero-skill floor.
+      const avgJob: Occupation = {
+        ...occupation('99-0000.12', { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }, 'Avg Job'),
+        skills: {
+          '2.A.1.a': { l: 4.0, i: 4.0 },
+          '2.B.3.e': { l: 3.5, i: 3.5 },
+          '2.A.2.a': { l: 4.5, i: 4.2 },
+        },
+      }
+      const weakUser: SkillsProfile = {
+        skills: { '2.A.1.a': 2, '2.B.3.e': 2, '2.A.2.a': 2 },
+        abilities: {},
+        knowledge: {},
+      }
+      const userProfile: RIASECProfile = { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }
+      const results = matchOccupations(userProfile, [avgJob], 20, null, null, null, weakUser)
+      expect(results[0].skillsBonus!).toBeLessThan(0)
+      expect(results[0].skillsBonus!).toBeGreaterThan(-0.25)
+    })
+
     it('floor-calibration rewards importance-weighted matching in mixed profiles', () => {
       // A user who nails the high-importance elements and flunks the
       // low-importance ones should land close to +0.25 — the bonus follows

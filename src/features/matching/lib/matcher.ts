@@ -70,24 +70,26 @@ function computeValuesPenalty(
 }
 
 /**
- * Compute the skills match score for one occupation, along with the
- * occupation's zero-skill floor used to calibrate the bonus.
+ * Compute the skills match score for one occupation, along with two
+ * reference points used to calibrate the bonus piecewise.
  *
- *   userNorm   = (userValue - 1) / 4                      ∈ [0, 1]
- *   occNorm    = occ.l / 7                                ∈ [0, 1]
- *   sim_i      = 1 − max(0, occNorm − userNorm)           ∈ [0, 1]
- *   weight_i   = occ.i                                    ∈ [1, 5]
- *   match      = Σ sim_i × weight_i / Σ weight_i          ∈ [0, 1]
- *   floor      = 1 − Σ occNorm_i × weight_i / Σ weight_i  ∈ [0, 1]
+ *   userNorm    = (userValue - 1) / 4                       ∈ [0, 1]
+ *   occNorm     = occ.l / 7                                 ∈ [0, 1]
+ *   sim_i(u)    = 1 − max(0, occNorm − u)                   ∈ [0, 1]
+ *   weight_i    = occ.i                                     ∈ [1, 5]
+ *   match       = Σ sim_i(userNorm) × w_i / Σ w_i           ∈ [floor, 1]
+ *   floor       = match for userNorm=0 (= 1 − avg occNorm)  ∈ [0, 1]
+ *   neutral     = match for userNorm=0.5 (all-3s user)      ∈ [floor, 1]
  *
  * Asymmetric sim: the penalty only fires when the user falls *below*
  * the occupation's required level; meeting or exceeding gives sim=1
- * ("you qualify"). This means match ∈ [floor, 1] always, where floor
- * is what an all-1s user would score on this occupation (= 1 minus the
- * weighted-average required level). The caller uses floor to re-center
- * the bonus so that a zero-skill user always hits −SKILLS_ALPHA/2 and a
- * maxed user always hits +SKILLS_ALPHA/2, independent of how demanding
- * the occupation is.
+ * ("you qualify"). So match saturates at 1 from above.
+ *
+ * The caller uses these three anchors for a piecewise bonus: floor →
+ * −α/2, neutral → 0, 1 → +α/2. Linear between them. This makes a
+ * zero-skill user (all 1s) always hit the full malus, a median user
+ * (all 3s) always sit at zero bonus, and a maxed user always hit the
+ * full plus, regardless of how demanding the occupation is.
  *
  * Returns null when the occupation has no skills data at all, or when
  * the user has not rated any elements the occupation lists.
@@ -95,8 +97,9 @@ function computeValuesPenalty(
 function computeSkillsMatch(
   userSkills: SkillsProfile,
   occupation: Occupation,
-): { match: number; floor: number } | null {
+): { match: number; floor: number; neutral: number } | null {
   let totalSim = 0
+  let totalNeutralSim = 0
   let totalOccNorm = 0
   let totalWeight = 0
   for (const sub of SKILLS_SUB_CATEGORIES) {
@@ -110,8 +113,10 @@ function computeSkillsMatch(
       const userNorm = (userValue - 1) / 4
       const occNorm = occEntry.l / 7
       const sim = 1 - Math.max(0, occNorm - userNorm)
+      const neutralSim = 1 - Math.max(0, occNorm - 0.5)
       const weight = occEntry.i
       totalSim += sim * weight
+      totalNeutralSim += neutralSim * weight
       totalOccNorm += occNorm * weight
       totalWeight += weight
     }
@@ -120,6 +125,7 @@ function computeSkillsMatch(
   return {
     match: totalSim / totalWeight,
     floor: 1 - totalOccNorm / totalWeight,
+    neutral: totalNeutralSim / totalWeight,
   }
 }
 
@@ -144,10 +150,10 @@ function computeSkillsMatch(
  * preferences, subtracted from fitScore.
  *
  * When a skills profile is provided, each occupation with skills data
- * gets a weighted similarity score in [floor, 1] (where floor = what an
- * all-1s user would score on this occupation), mapped via per-occupation
- * floor calibration to a bonus in [−0.25, +0.25] and added to the final
- * fitScore. See `computeSkillsMatch` for the match/floor derivation.
+ * gets a weighted similarity score `match`. Piecewise-linear bonus with
+ * three per-occupation anchors (floor → −α/2, neutral → 0, 1 → +α/2)
+ * maps it to the fitScore range [−0.25, +0.25]. See `computeSkillsMatch`
+ * for the anchor derivation.
  */
 export function matchOccupations(
   userProfile: RIASECProfile,
@@ -201,11 +207,19 @@ export function matchOccupations(
       const s = computeSkillsMatch(userSkills, occupation)
       if (s != null) {
         skillsMatch = s.match
-        const span = 1 - s.floor
-        // span ≈ 0 means occupation has no real requirements (all occNorm
-        // ≈ 0, floor ≈ 1). No skills signal to read either way → neutral.
-        const normalized = span > 1e-6 ? (s.match - s.floor) / span : 0.5
-        skillsBonus = Math.round(((normalized - 0.5) * SKILLS_ALPHA) * 1000) / 1000
+        const half = SKILLS_ALPHA / 2
+        let raw: number
+        if (s.match >= s.neutral) {
+          const upSpan = 1 - s.neutral
+          // upSpan ≈ 0: occupation is so low-req that the median user
+          // already maxes out. Anyone who reached this branch has fully
+          // qualified (by the asymmetric match) → award full +α/2.
+          raw = upSpan > 1e-6 ? ((s.match - s.neutral) / upSpan) * half : half
+        } else {
+          const downSpan = s.neutral - s.floor
+          raw = downSpan > 1e-6 ? -((s.neutral - s.match) / downSpan) * half : 0
+        }
+        skillsBonus = Math.round(raw * 1000) / 1000
         fitScore += skillsBonus
       }
     }

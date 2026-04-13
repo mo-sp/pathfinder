@@ -327,16 +327,15 @@ function stageForValues(penalty: number): Stage {
   if (penalty < 0.2) return 'weak'
   return 'poor'
 }
-// Skills staged by the signed skillsBonus in [−0.25, +0.25] rather than
-// raw skillsMatch: the match number is no longer comparable across
-// occupations once per-occupation floor calibration is in the bonus. A
-// match of 0.7 on a low-req job is "barely at floor" (red-worthy) while
-// 0.7 on a high-req job is "well above floor" (positive). The bonus
-// already encodes that normalization — stage on it directly.
+// Skills staged by the signed skillsBonus in [−0.25, +0.25]. Binary
+// sign: any positive bonus reads green (strong/moderate), any negative
+// reads red (weak/poor). No neutral grey band — the piecewise bonus is
+// already calibrated around 0 at the median user, so a near-zero bonus
+// is information, not noise.
 function stageForSkills(bonus: number): Stage {
-  if (bonus > 0.10) return 'strong'
-  if (bonus > -0.05) return 'moderate'
-  if (bonus > -0.15) return 'weak'
+  if (bonus >= 0.10) return 'strong'
+  if (bonus >= 0) return 'moderate'
+  if (bonus >= -0.10) return 'weak'
   return 'poor'
 }
 
@@ -344,7 +343,7 @@ const TONE_BY_STAGE: Record<FactorKey, Record<Stage, FactorTone>> = {
   riasec: { strong: 'positive', moderate: 'positive', weak: 'neutral', poor: 'negative' },
   bigfive: { strong: 'positive', moderate: 'neutral', weak: 'negative', poor: 'negative' },
   values: { strong: 'positive', moderate: 'neutral', weak: 'negative', poor: 'negative' },
-  skills: { strong: 'positive', moderate: 'neutral', weak: 'negative', poor: 'negative' },
+  skills: { strong: 'positive', moderate: 'positive', weak: 'negative', poor: 'negative' },
 }
 
 function formatSigned(n: number, digits = 2): string {
