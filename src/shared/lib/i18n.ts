@@ -97,6 +97,8 @@ const messages = {
         skills: 'Fähigkeiten',
       },
       notScored: 'Noch nicht erfasst',
+      noData: 'Keine Daten für diesen Beruf',
+      inactiveTag: 'in dieser Ansicht nicht gewertet',
       thresholds: {
         riasec: {
           strong: 'Sehr starke Interessen-Übereinstimmung.',

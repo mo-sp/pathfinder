@@ -74,10 +74,14 @@ function isActiveToggle(mode: ViewMode): boolean {
   return MODE_ORDER.indexOf(mode) <= MODE_ORDER.indexOf(viewMode.value)
 }
 
-// RIASEC-only: sort by riasecCorrelation, no filters.
+// RIASEC-only: sort by riasecCorrelation, and override fitScore so the
+// top-row indigo number honors the selected view (previously it kept the
+// full-combined fitScore from store.results even in the riasec view,
+// which made the displayed score disagree with the view label).
 const riasecOnlyRanked = computed(() =>
   [...store.results]
-    .sort((a, b) => b.riasecCorrelation - a.riasecCorrelation)
+    .map((r) => ({ ...r, fitScore: r.riasecCorrelation }))
+    .sort((a, b) => b.fitScore - a.fitScore)
     .map((r, i) => ({ ...r, rank: i + 1 })),
 )
 
@@ -284,38 +288,45 @@ function toggleExplanation(onetCode: string): void {
 type FactorTone = 'positive' | 'negative' | 'neutral'
 type FactorKey = 'riasec' | 'bigfive' | 'values' | 'skills'
 type Stage = 'strong' | 'moderate' | 'weak' | 'poor'
+type FactorState = 'active' | 'inactive' | 'notScored' | 'noData'
 
 type FactorRow = {
   key: FactorKey
+  state: FactorState
   label: string
   value: string
   tone: FactorTone
   text: string
-  scored: boolean
+  inactiveTag: string | null
 }
 
 function stageForRiasec(v: number): Stage {
-  if (v > 0.8) return 'strong'
-  if (v > 0.5) return 'moderate'
-  if (v > 0.2) return 'weak'
+  if (v > 0.7) return 'strong'
+  if (v > 0.3) return 'moderate'
+  if (v > 0) return 'weak'
   return 'poor'
 }
 function stageForBigFive(v: number): Stage {
-  if (v > 1.15) return 'strong'
+  if (v > 1.1) return 'strong'
   if (v >= 0.95) return 'moderate'
-  if (v >= 0.85) return 'weak'
+  if (v >= 0.9) return 'weak'
   return 'poor'
 }
 function stageForValues(penalty: number): Stage {
   if (penalty < 0.05) return 'strong'
-  if (penalty < 0.15) return 'moderate'
-  if (penalty < 0.25) return 'weak'
+  if (penalty < 0.1) return 'moderate'
+  if (penalty < 0.2) return 'weak'
   return 'poor'
 }
+// Skills staged by skillsMatch (raw alignment, 0-1), which drives the
+// bonus via (match − 0.5) × 0.5. A match near 0.5 → bonus near 0, so
+// "moderate" maps to neutral tone (tiny drag/boost that isn't really
+// informative). Prior thresholds lit up −0.02 bonuses red, which made
+// near-neutral occupations look worse than they are.
 function stageForSkills(match: number): Stage {
-  if (match > 0.75) return 'strong'
-  if (match >= 0.5) return 'moderate'
-  if (match >= 0.25) return 'weak'
+  if (match > 0.7) return 'strong'
+  if (match >= 0.4) return 'moderate'
+  if (match >= 0.2) return 'weak'
   return 'poor'
 }
 
@@ -330,111 +341,133 @@ function formatSigned(n: number, digits = 2): string {
   return `${n >= 0 ? '+' : ''}${n.toFixed(digits)}`
 }
 
+/**
+ * Which factors contribute to the fitScore in the active view.
+ * Must match the activeResults computed's fitScore derivation exactly —
+ * otherwise the formula line's RHS won't line up with the top-row score.
+ */
+function factorInActiveView(key: FactorKey, mode: ViewMode): boolean {
+  return MODE_ORDER.indexOf(key) <= MODE_ORDER.indexOf(mode)
+}
+
+function factorLayerComplete(key: FactorKey): boolean {
+  if (key === 'riasec') return store.riasecIsComplete
+  if (key === 'bigfive') return store.bigfiveIsComplete
+  if (key === 'values') return store.valuesIsComplete
+  return store.skillsIsComplete
+}
+
 function scoreBreakdown(result: {
   riasecCorrelation: number
   bigFiveModifier: number | null
   valuesPenalty: number | null
   skillsMatch: number | null
   skillsBonus: number | null
-}): FactorRow[] {
+}, mode: ViewMode): FactorRow[] {
+  const mkRow = (
+    key: FactorKey,
+    hasValue: boolean,
+    stage: Stage | null,
+    valueText: string,
+  ): FactorRow => {
+    const complete = factorLayerComplete(key)
+    let state: FactorState
+    if (!complete) state = 'notScored'
+    else if (!hasValue) state = 'noData'
+    else if (!factorInActiveView(key, mode)) state = 'inactive'
+    else state = 'active'
+
+    const tone = state === 'active' && stage
+      ? TONE_BY_STAGE[key][stage]
+      : state === 'inactive' && stage
+        ? TONE_BY_STAGE[key][stage]
+        : 'neutral'
+
+    let text: string
+    if (state === 'notScored') text = t('explainPanel.notScored')
+    else if (state === 'noData') text = t('explainPanel.noData')
+    else text = t(`explainPanel.thresholds.${key}.${stage!}`)
+
+    const inactiveTag = state === 'inactive' ? t('explainPanel.inactiveTag') : null
+
+    return {
+      key,
+      state,
+      label: t(`explainPanel.factors.${key}`),
+      value: state === 'active' || state === 'inactive' ? valueText : '–',
+      tone,
+      text,
+      inactiveTag,
+    }
+  }
+
   const rows: FactorRow[] = []
-  const rstage = stageForRiasec(result.riasecCorrelation)
-  rows.push({
-    key: 'riasec',
-    label: t('explainPanel.factors.riasec'),
-    value: formatSigned(result.riasecCorrelation),
-    tone: TONE_BY_STAGE.riasec[rstage],
-    text: t(`explainPanel.thresholds.riasec.${rstage}`),
-    scored: true,
-  })
-
-  if (result.bigFiveModifier != null) {
-    const stage = stageForBigFive(result.bigFiveModifier)
-    rows.push({
-      key: 'bigfive',
-      label: t('explainPanel.factors.bigfive'),
-      value: `×${result.bigFiveModifier.toFixed(2)}`,
-      tone: TONE_BY_STAGE.bigfive[stage],
-      text: t(`explainPanel.thresholds.bigfive.${stage}`),
-      scored: true,
-    })
-  } else {
-    rows.push({
-      key: 'bigfive',
-      label: t('explainPanel.factors.bigfive'),
-      value: '–',
-      tone: 'neutral',
-      text: t('explainPanel.notScored'),
-      scored: false,
-    })
-  }
-
-  if (result.valuesPenalty != null) {
-    const stage = stageForValues(result.valuesPenalty)
-    rows.push({
-      key: 'values',
-      label: t('explainPanel.factors.values'),
-      value: `−${result.valuesPenalty.toFixed(2)}`,
-      tone: TONE_BY_STAGE.values[stage],
-      text: t(`explainPanel.thresholds.values.${stage}`),
-      scored: true,
-    })
-  } else {
-    rows.push({
-      key: 'values',
-      label: t('explainPanel.factors.values'),
-      value: '–',
-      tone: 'neutral',
-      text: t('explainPanel.notScored'),
-      scored: false,
-    })
-  }
-
-  if (result.skillsMatch != null && result.skillsBonus != null) {
-    const stage = stageForSkills(result.skillsMatch)
-    rows.push({
-      key: 'skills',
-      label: t('explainPanel.factors.skills'),
-      value: formatSigned(result.skillsBonus),
-      tone: TONE_BY_STAGE.skills[stage],
-      text: t(`explainPanel.thresholds.skills.${stage}`),
-      scored: true,
-    })
-  } else {
-    rows.push({
-      key: 'skills',
-      label: t('explainPanel.factors.skills'),
-      value: '–',
-      tone: 'neutral',
-      text: t('explainPanel.notScored'),
-      scored: false,
-    })
-  }
-
+  rows.push(
+    mkRow(
+      'riasec',
+      true,
+      stageForRiasec(result.riasecCorrelation),
+      formatSigned(result.riasecCorrelation),
+    ),
+  )
+  rows.push(
+    mkRow(
+      'bigfive',
+      result.bigFiveModifier != null,
+      result.bigFiveModifier != null ? stageForBigFive(result.bigFiveModifier) : null,
+      result.bigFiveModifier != null ? `×${result.bigFiveModifier.toFixed(2)}` : '',
+    ),
+  )
+  rows.push(
+    mkRow(
+      'values',
+      result.valuesPenalty != null,
+      result.valuesPenalty != null ? stageForValues(result.valuesPenalty) : null,
+      result.valuesPenalty != null ? `−${result.valuesPenalty.toFixed(2)}` : '',
+    ),
+  )
+  rows.push(
+    mkRow(
+      'skills',
+      result.skillsMatch != null && result.skillsBonus != null,
+      result.skillsMatch != null ? stageForSkills(result.skillsMatch) : null,
+      result.skillsBonus != null ? formatSigned(result.skillsBonus) : '',
+    ),
+  )
   return rows
 }
 
+/**
+ * Formula with ONLY the terms that contribute to the active view. RHS
+ * is computed from those same terms, so it matches the top-row score.
+ * If RHS and top-row disagree at runtime, the rendering is a bug signal.
+ */
 function scoreFormula(result: {
   riasecCorrelation: number
   bigFiveModifier: number | null
   valuesPenalty: number | null
   skillsBonus: number | null
-  fitScore: number
-}): string {
-  const r = result.riasecCorrelation.toFixed(2)
+}, mode: ViewMode): string {
+  const r = result.riasecCorrelation
   const parts: string[] = []
-  if (result.bigFiveModifier != null) {
-    parts.push(`min(${r} × ${result.bigFiveModifier.toFixed(2)}, 1.00)`)
+  let rhs: number
+
+  if (factorInActiveView('bigfive', mode) && result.bigFiveModifier != null) {
+    parts.push(`min(${r.toFixed(2)} × ${result.bigFiveModifier.toFixed(2)}, 1.00)`)
+    rhs = Math.min(r * result.bigFiveModifier, 1)
   } else {
-    parts.push(r)
+    parts.push(r.toFixed(2))
+    rhs = r
   }
-  if (result.valuesPenalty != null) {
+  if (factorInActiveView('values', mode) && result.valuesPenalty != null) {
     parts.push(`− ${result.valuesPenalty.toFixed(2)}`)
+    rhs -= result.valuesPenalty
   }
-  if (result.skillsBonus != null) {
+  if (factorInActiveView('skills', mode) && result.skillsBonus != null) {
     parts.push(`${result.skillsBonus >= 0 ? '+' : '−'} ${Math.abs(result.skillsBonus).toFixed(2)}`)
+    rhs += result.skillsBonus
   }
-  return `${parts.join('  ')}  =  ${result.fitScore.toFixed(2)}`
+  return `${parts.join('  ')}  =  ${rhs.toFixed(2)}`
 }
 
 function toggleValuesDim(dim: string): void {
@@ -860,18 +893,21 @@ onBeforeUnmount(() => {
               </div>
               <dl class="space-y-2">
                 <div
-                  v-for="row in scoreBreakdown(result)"
+                  v-for="row in scoreBreakdown(result, viewMode)"
                   :key="row.key"
                   class="grid grid-cols-[auto_1fr_auto] items-baseline gap-3"
+                  :class="{ 'opacity-60': row.state === 'inactive' }"
                 >
                   <dt class="text-sm text-slate-200">{{ row.label }}</dt>
-                  <dd class="text-xs text-slate-400">{{ row.text }}</dd>
+                  <dd class="text-xs text-slate-400">
+                    {{ row.text }}<span v-if="row.inactiveTag" class="ml-1 text-slate-500 italic">· {{ row.inactiveTag }}</span>
+                  </dd>
                   <dd
                     class="rounded px-1.5 py-0.5 font-mono text-xs"
                     :class="{
-                      'bg-emerald-950/60 text-emerald-400': row.tone === 'positive' && row.scored,
-                      'bg-red-950/60 text-red-400': row.tone === 'negative' && row.scored,
-                      'bg-slate-800 text-slate-400': row.tone === 'neutral' || !row.scored,
+                      'bg-emerald-950/60 text-emerald-400': row.tone === 'positive' && (row.state === 'active' || row.state === 'inactive'),
+                      'bg-red-950/60 text-red-400': row.tone === 'negative' && (row.state === 'active' || row.state === 'inactive'),
+                      'bg-slate-800 text-slate-400': row.tone === 'neutral' || row.state === 'notScored' || row.state === 'noData',
                     }"
                   >
                     {{ row.value }}
@@ -879,7 +915,7 @@ onBeforeUnmount(() => {
                 </div>
               </dl>
               <p class="mt-3 border-t border-slate-800 pt-3 font-mono text-xs text-slate-400">
-                {{ scoreFormula(result) }}
+                {{ scoreFormula(result, viewMode) }}
               </p>
             </div>
           </li>
