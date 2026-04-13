@@ -377,4 +377,96 @@ describe('ResultsPage', () => {
       expect(wrapper.text()).toContain('Werte-Test wiederholen')
     })
   })
+
+  describe('explain panel', () => {
+    it('renders one toggle button per visible result, collapsed by default', async () => {
+      await seedDirectionalSession()
+      const wrapper = mountWith(makeRouter())
+
+      const items = wrapper.findAll('ol > li')
+      const toggles = wrapper.findAll('[data-testid^="explain-toggle-"]')
+      expect(toggles).toHaveLength(items.length)
+
+      // All panels start closed.
+      expect(wrapper.findAll('[data-testid^="explain-panel-"]')).toHaveLength(0)
+      expect(wrapper.text()).not.toContain('Warum dieser Rang?')
+    })
+
+    it('clicking the toggle expands the panel with the factor breakdown', async () => {
+      await seedDirectionalSession()
+      const store = useQuestionnaireStore()
+      const firstCode = store.results[0].occupation.onetCode
+
+      const wrapper = mountWith(makeRouter())
+      const toggle = wrapper.find(`[data-testid="explain-toggle-${firstCode}"]`)
+      expect(toggle.exists()).toBe(true)
+      await toggle.trigger('click')
+
+      const panel = wrapper.find(`[data-testid="explain-panel-${firstCode}"]`)
+      expect(panel.exists()).toBe(true)
+      expect(panel.text()).toContain('Warum dieser Rang?')
+      // All four factor labels present.
+      expect(panel.text()).toContain('Interessen (RIASEC)')
+      expect(panel.text()).toContain('Persönlichkeit')
+      expect(panel.text()).toContain('Werte & Rahmen')
+      expect(panel.text()).toContain('Fähigkeiten')
+    })
+
+    it('clicking the toggle twice collapses the panel again', async () => {
+      await seedDirectionalSession()
+      const store = useQuestionnaireStore()
+      const firstCode = store.results[0].occupation.onetCode
+
+      const wrapper = mountWith(makeRouter())
+      const toggle = wrapper.find(`[data-testid="explain-toggle-${firstCode}"]`)
+      await toggle.trigger('click')
+      expect(wrapper.find(`[data-testid="explain-panel-${firstCode}"]`).exists()).toBe(true)
+      await toggle.trigger('click')
+      expect(wrapper.find(`[data-testid="explain-panel-${firstCode}"]`).exists()).toBe(false)
+    })
+
+    it('multiple panels can be open concurrently', async () => {
+      await seedDirectionalSession()
+      const store = useQuestionnaireStore()
+      const codeA = store.results[0].occupation.onetCode
+      const codeB = store.results[1].occupation.onetCode
+
+      const wrapper = mountWith(makeRouter())
+      await wrapper.find(`[data-testid="explain-toggle-${codeA}"]`).trigger('click')
+      await wrapper.find(`[data-testid="explain-toggle-${codeB}"]`).trigger('click')
+
+      expect(wrapper.find(`[data-testid="explain-panel-${codeA}"]`).exists()).toBe(true)
+      expect(wrapper.find(`[data-testid="explain-panel-${codeB}"]`).exists()).toBe(true)
+    })
+
+    it('marks un-scored layers with "Noch nicht erfasst" when only RIASEC is complete', async () => {
+      await seedDirectionalSession()
+      const store = useQuestionnaireStore()
+      const firstCode = store.results[0].occupation.onetCode
+
+      const wrapper = mountWith(makeRouter())
+      await wrapper.find(`[data-testid="explain-toggle-${firstCode}"]`).trigger('click')
+
+      const panel = wrapper.find(`[data-testid="explain-panel-${firstCode}"]`)
+      // Big Five, Werte, Fähigkeiten are all not complete → three "Noch nicht erfasst" lines.
+      const notScoredOccurrences = panel.text().match(/Noch nicht erfasst/g) ?? []
+      expect(notScoredOccurrences.length).toBe(3)
+    })
+
+    it('formula line reflects the final fitScore', async () => {
+      await seedDirectionalSession()
+      const store = useQuestionnaireStore()
+      const first = store.results[0]
+      const firstCode = first.occupation.onetCode
+
+      const wrapper = mountWith(makeRouter())
+      await wrapper.find(`[data-testid="explain-toggle-${firstCode}"]`).trigger('click')
+
+      const panel = wrapper.find(`[data-testid="explain-panel-${firstCode}"]`)
+      // Formula ends with "= 0.xx" where xx matches the fitScore to 2 decimals.
+      // Whitespace around '=' is preserved by `text()` as-is; match flexibly.
+      const expected = first.fitScore.toFixed(2).replace('.', '\\.')
+      expect(panel.text()).toMatch(new RegExp(`=\\s+${expected}$`))
+    })
+  })
 })

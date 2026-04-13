@@ -84,6 +84,48 @@ const messages = {
         knowledge: 'Wie viel Wissen hast du auf diesem Gebiet?',
       },
     },
+    explainPanel: {
+      title: 'Warum dieser Rang?',
+      toggle: {
+        open: 'Details einblenden',
+        close: 'Details ausblenden',
+      },
+      factors: {
+        riasec: 'Interessen (RIASEC)',
+        bigfive: 'Persönlichkeit',
+        values: 'Werte & Rahmen',
+        skills: 'Fähigkeiten',
+      },
+      notScored: 'Noch nicht erfasst',
+      noData: 'Keine Daten für diesen Beruf',
+      inactiveTag: 'in dieser Ansicht nicht gewertet',
+      thresholds: {
+        riasec: {
+          strong: 'Sehr starke Interessen-Übereinstimmung.',
+          moderate: 'Moderate Interessen-Übereinstimmung.',
+          weak: 'Schwache Interessen-Übereinstimmung.',
+          poor: 'Kaum Interessen-Übereinstimmung.',
+        },
+        bigfive: {
+          strong: 'Persönlichkeit passt sehr gut – Score wird angehoben.',
+          moderate: 'Persönlichkeit neutral – kaum Einfluss.',
+          weak: 'Persönlichkeit dämpft den Score leicht.',
+          poor: 'Persönlichkeit dämpft den Score deutlich.',
+        },
+        values: {
+          strong: 'Rahmenbedingungen passen fast perfekt.',
+          moderate: 'Leichte Abweichung bei den Rahmenbedingungen.',
+          weak: 'Deutliche Abweichung bei den Rahmenbedingungen.',
+          poor: 'Starke Abweichung bei den Rahmenbedingungen.',
+        },
+        skills: {
+          strong: 'Deine Fähigkeiten decken sich stark mit dem Berufsprofil.',
+          moderate: 'Solide Überschneidung bei den Fähigkeiten.',
+          weak: 'Nur teilweise passende Fähigkeiten.',
+          poor: 'Fähigkeiten passen kaum zum Profil.',
+        },
+      },
+    },
     likert: {
       riasec: {
         1: 'Überhaupt nicht',

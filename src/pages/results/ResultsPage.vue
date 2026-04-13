@@ -74,10 +74,14 @@ function isActiveToggle(mode: ViewMode): boolean {
   return MODE_ORDER.indexOf(mode) <= MODE_ORDER.indexOf(viewMode.value)
 }
 
-// RIASEC-only: sort by riasecCorrelation, no filters.
+// RIASEC-only: sort by riasecCorrelation, and override fitScore so the
+// top-row indigo number honors the selected view (previously it kept the
+// full-combined fitScore from store.results even in the riasec view,
+// which made the displayed score disagree with the view label).
 const riasecOnlyRanked = computed(() =>
   [...store.results]
-    .sort((a, b) => b.riasecCorrelation - a.riasecCorrelation)
+    .map((r) => ({ ...r, fitScore: r.riasecCorrelation }))
+    .sort((a, b) => b.fitScore - a.fitScore)
     .map((r, i) => ({ ...r, rank: i + 1 })),
 )
 
@@ -269,6 +273,202 @@ async function repeatLayer(layer: AssessmentLayer): Promise<void> {
 // Track which values dimension dropdown is open (null = all closed).
 const openValuesDim = ref<string | null>(null)
 const valuesGridRef = ref<HTMLElement | null>(null)
+
+// Expanded explain panels: Set of onetCodes. Multiple panels may be open
+// concurrently so users can compare two occupations side-by-side.
+const openExplanations = ref<Set<string>>(new Set())
+
+function toggleExplanation(onetCode: string): void {
+  const next = new Set(openExplanations.value)
+  if (next.has(onetCode)) next.delete(onetCode)
+  else next.add(onetCode)
+  openExplanations.value = next
+}
+
+type FactorTone = 'positive' | 'negative' | 'neutral'
+type FactorKey = 'riasec' | 'bigfive' | 'values' | 'skills'
+type Stage = 'strong' | 'moderate' | 'weak' | 'poor'
+type FactorState = 'active' | 'inactive' | 'notScored' | 'noData'
+
+type FactorRow = {
+  key: FactorKey
+  state: FactorState
+  label: string
+  value: string
+  tone: FactorTone
+  text: string
+  inactiveTag: string | null
+}
+
+function stageForRiasec(v: number): Stage {
+  if (v > 0.7) return 'strong'
+  if (v > 0.3) return 'moderate'
+  if (v > 0) return 'weak'
+  return 'poor'
+}
+function stageForBigFive(v: number): Stage {
+  if (v > 1.1) return 'strong'
+  if (v >= 0.95) return 'moderate'
+  if (v >= 0.9) return 'weak'
+  return 'poor'
+}
+function stageForValues(penalty: number): Stage {
+  if (penalty < 0.05) return 'strong'
+  if (penalty < 0.1) return 'moderate'
+  if (penalty < 0.2) return 'weak'
+  return 'poor'
+}
+// Skills staged by skillsMatch (raw alignment, 0-1), which drives the
+// bonus via (match − 0.5) × 0.5. A match near 0.5 → bonus near 0, so
+// "moderate" maps to neutral tone (tiny drag/boost that isn't really
+// informative). Prior thresholds lit up −0.02 bonuses red, which made
+// near-neutral occupations look worse than they are.
+function stageForSkills(match: number): Stage {
+  if (match > 0.7) return 'strong'
+  if (match >= 0.4) return 'moderate'
+  if (match >= 0.2) return 'weak'
+  return 'poor'
+}
+
+const TONE_BY_STAGE: Record<FactorKey, Record<Stage, FactorTone>> = {
+  riasec: { strong: 'positive', moderate: 'positive', weak: 'neutral', poor: 'negative' },
+  bigfive: { strong: 'positive', moderate: 'neutral', weak: 'negative', poor: 'negative' },
+  values: { strong: 'positive', moderate: 'neutral', weak: 'negative', poor: 'negative' },
+  skills: { strong: 'positive', moderate: 'neutral', weak: 'negative', poor: 'negative' },
+}
+
+function formatSigned(n: number, digits = 2): string {
+  return `${n >= 0 ? '+' : ''}${n.toFixed(digits)}`
+}
+
+/**
+ * Which factors contribute to the fitScore in the active view.
+ * Must match the activeResults computed's fitScore derivation exactly —
+ * otherwise the formula line's RHS won't line up with the top-row score.
+ */
+function factorInActiveView(key: FactorKey, mode: ViewMode): boolean {
+  return MODE_ORDER.indexOf(key) <= MODE_ORDER.indexOf(mode)
+}
+
+function factorLayerComplete(key: FactorKey): boolean {
+  if (key === 'riasec') return store.riasecIsComplete
+  if (key === 'bigfive') return store.bigfiveIsComplete
+  if (key === 'values') return store.valuesIsComplete
+  return store.skillsIsComplete
+}
+
+function scoreBreakdown(result: {
+  riasecCorrelation: number
+  bigFiveModifier: number | null
+  valuesPenalty: number | null
+  skillsMatch: number | null
+  skillsBonus: number | null
+}, mode: ViewMode): FactorRow[] {
+  const mkRow = (
+    key: FactorKey,
+    hasValue: boolean,
+    stage: Stage | null,
+    valueText: string,
+  ): FactorRow => {
+    const complete = factorLayerComplete(key)
+    let state: FactorState
+    if (!complete) state = 'notScored'
+    else if (!hasValue) state = 'noData'
+    else if (!factorInActiveView(key, mode)) state = 'inactive'
+    else state = 'active'
+
+    const tone = state === 'active' && stage
+      ? TONE_BY_STAGE[key][stage]
+      : state === 'inactive' && stage
+        ? TONE_BY_STAGE[key][stage]
+        : 'neutral'
+
+    let text: string
+    if (state === 'notScored') text = t('explainPanel.notScored')
+    else if (state === 'noData') text = t('explainPanel.noData')
+    else text = t(`explainPanel.thresholds.${key}.${stage!}`)
+
+    const inactiveTag = state === 'inactive' ? t('explainPanel.inactiveTag') : null
+
+    return {
+      key,
+      state,
+      label: t(`explainPanel.factors.${key}`),
+      value: state === 'active' || state === 'inactive' ? valueText : '–',
+      tone,
+      text,
+      inactiveTag,
+    }
+  }
+
+  const rows: FactorRow[] = []
+  rows.push(
+    mkRow(
+      'riasec',
+      true,
+      stageForRiasec(result.riasecCorrelation),
+      formatSigned(result.riasecCorrelation),
+    ),
+  )
+  rows.push(
+    mkRow(
+      'bigfive',
+      result.bigFiveModifier != null,
+      result.bigFiveModifier != null ? stageForBigFive(result.bigFiveModifier) : null,
+      result.bigFiveModifier != null ? `×${result.bigFiveModifier.toFixed(2)}` : '',
+    ),
+  )
+  rows.push(
+    mkRow(
+      'values',
+      result.valuesPenalty != null,
+      result.valuesPenalty != null ? stageForValues(result.valuesPenalty) : null,
+      result.valuesPenalty != null ? `−${result.valuesPenalty.toFixed(2)}` : '',
+    ),
+  )
+  rows.push(
+    mkRow(
+      'skills',
+      result.skillsMatch != null && result.skillsBonus != null,
+      result.skillsMatch != null ? stageForSkills(result.skillsMatch) : null,
+      result.skillsBonus != null ? formatSigned(result.skillsBonus) : '',
+    ),
+  )
+  return rows
+}
+
+/**
+ * Formula with ONLY the terms that contribute to the active view. RHS
+ * is computed from those same terms, so it matches the top-row score.
+ * If RHS and top-row disagree at runtime, the rendering is a bug signal.
+ */
+function scoreFormula(result: {
+  riasecCorrelation: number
+  bigFiveModifier: number | null
+  valuesPenalty: number | null
+  skillsBonus: number | null
+}, mode: ViewMode): string {
+  const r = result.riasecCorrelation
+  const parts: string[] = []
+  let rhs: number
+
+  if (factorInActiveView('bigfive', mode) && result.bigFiveModifier != null) {
+    parts.push(`min(${r.toFixed(2)} × ${result.bigFiveModifier.toFixed(2)}, 1.00)`)
+    rhs = Math.min(r * result.bigFiveModifier, 1)
+  } else {
+    parts.push(r.toFixed(2))
+    rhs = r
+  }
+  if (factorInActiveView('values', mode) && result.valuesPenalty != null) {
+    parts.push(`− ${result.valuesPenalty.toFixed(2)}`)
+    rhs -= result.valuesPenalty
+  }
+  if (factorInActiveView('skills', mode) && result.skillsBonus != null) {
+    parts.push(`${result.skillsBonus >= 0 ? '+' : '−'} ${Math.abs(result.skillsBonus).toFixed(2)}`)
+    rhs += result.skillsBonus
+  }
+  return `${parts.join('  ')}  =  ${rhs.toFixed(2)}`
+}
 
 function toggleValuesDim(dim: string): void {
   openValuesDim.value = openValuesDim.value === dim ? null : dim
@@ -631,30 +831,92 @@ onBeforeUnmount(() => {
           <li
             v-for="result in visibleResults"
             :key="result.occupation.onetCode"
-            class="flex items-center justify-between gap-3 rounded-md border border-slate-800 bg-slate-900 px-4 py-3"
+            class="rounded-md border border-slate-800 bg-slate-900"
           >
-            <div class="min-w-0 flex-1">
-              <div class="font-medium break-words text-slate-100">
-                {{ result.rank }}. {{ result.occupation.title.de || result.occupation.title.en }}
+            <div class="flex items-center justify-between gap-3 px-4 py-3">
+              <div class="min-w-0 flex-1">
+                <div class="font-medium break-words text-slate-100">
+                  {{ result.rank }}. {{ result.occupation.title.de || result.occupation.title.en }}
+                </div>
+                <div class="text-xs break-words text-slate-400">
+                  O*NET {{ result.occupation.onetCode }}
+                  <span v-if="!result.occupation.title.de"> · (Übersetzung folgt)</span>
+                </div>
               </div>
-              <div class="text-xs break-words text-slate-400">
-                O*NET {{ result.occupation.onetCode }}
-                <span v-if="!result.occupation.title.de"> · (Übersetzung folgt)</span>
+              <div class="flex shrink-0 items-center gap-2">
+                <span
+                  v-if="scoreDelta(result) != null && scoreDelta(result) !== 0"
+                  class="rounded px-1.5 py-0.5 font-mono text-xs"
+                  :class="scoreDelta(result)! > 0
+                    ? 'bg-emerald-950/60 text-emerald-400'
+                    : 'bg-red-950/60 text-red-400'"
+                >
+                  {{ scoreDelta(result)! > 0 ? '+' : '' }}{{ scoreDelta(result) }}
+                </span>
+                <span class="font-mono text-sm text-indigo-400">
+                  {{ (result.fitScore * 100).toFixed(0) }}
+                </span>
+                <button
+                  type="button"
+                  class="flex h-6 w-6 items-center justify-center rounded text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+                  :aria-label="openExplanations.has(result.occupation.onetCode)
+                    ? t('explainPanel.toggle.close')
+                    : t('explainPanel.toggle.open')"
+                  :aria-expanded="openExplanations.has(result.occupation.onetCode)"
+                  :data-testid="`explain-toggle-${result.occupation.onetCode}`"
+                  @click="toggleExplanation(result.occupation.onetCode)"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="h-4 w-4 transition-transform"
+                    :class="{ 'rotate-180': openExplanations.has(result.occupation.onetCode) }"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.39a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
-            <div class="flex shrink-0 items-center gap-2">
-              <span
-                v-if="scoreDelta(result) != null && scoreDelta(result) !== 0"
-                class="rounded px-1.5 py-0.5 font-mono text-xs"
-                :class="scoreDelta(result)! > 0
-                  ? 'bg-emerald-950/60 text-emerald-400'
-                  : 'bg-red-950/60 text-red-400'"
-              >
-                {{ scoreDelta(result)! > 0 ? '+' : '' }}{{ scoreDelta(result) }}
-              </span>
-              <span class="font-mono text-sm text-indigo-400">
-                {{ (result.fitScore * 100).toFixed(0) }}
-              </span>
+            <div
+              v-if="openExplanations.has(result.occupation.onetCode)"
+              class="border-t border-slate-800 px-4 py-3"
+              :data-testid="`explain-panel-${result.occupation.onetCode}`"
+            >
+              <div class="mb-2 text-xs font-semibold tracking-wide text-slate-400 uppercase">
+                {{ t('explainPanel.title') }}
+              </div>
+              <dl class="space-y-2">
+                <div
+                  v-for="row in scoreBreakdown(result, viewMode)"
+                  :key="row.key"
+                  class="grid grid-cols-[auto_1fr_auto] items-baseline gap-3"
+                  :class="{ 'opacity-60': row.state === 'inactive' }"
+                >
+                  <dt class="text-sm text-slate-200">{{ row.label }}</dt>
+                  <dd class="text-xs text-slate-400">
+                    {{ row.text }}<span v-if="row.inactiveTag" class="ml-1 text-slate-500 italic">· {{ row.inactiveTag }}</span>
+                  </dd>
+                  <dd
+                    class="rounded px-1.5 py-0.5 font-mono text-xs"
+                    :class="{
+                      'bg-emerald-950/60 text-emerald-400': row.tone === 'positive' && (row.state === 'active' || row.state === 'inactive'),
+                      'bg-red-950/60 text-red-400': row.tone === 'negative' && (row.state === 'active' || row.state === 'inactive'),
+                      'bg-slate-800 text-slate-400': row.tone === 'neutral' || row.state === 'notScored' || row.state === 'noData',
+                    }"
+                  >
+                    {{ row.value }}
+                  </dd>
+                </div>
+              </dl>
+              <p class="mt-3 border-t border-slate-800 pt-3 font-mono text-xs text-slate-400">
+                {{ scoreFormula(result, viewMode) }}
+              </p>
             </div>
           </li>
         </ol>
