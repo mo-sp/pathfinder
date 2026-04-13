@@ -142,6 +142,15 @@ function showMore(): void {
   visibleCount.value += PAGE_SIZE
 }
 
+// Display cap: the top-row score is rendered as fitScore × 100 and should
+// stay in the 0–100 range for visual consistency across views. Raw
+// fitScore can exceed 1.0 once the +skillsBonus term is added (the
+// min(·, 1) cap is only on riasec × bigfive, not on the final sum).
+// Internal value stays raw for sorting + the debug formula line.
+function displayFitScore(v: number): number {
+  return Math.min(v, 1)
+}
+
 /** Score delta: difference between the current view's fitScore and the RIASEC baseline. */
 function scoreDelta(result: { riasecCorrelation: number; fitScore: number; bigFiveModifier: number | null; valuesPenalty: number | null; skillsBonus: number | null }): number | null {
   if (viewMode.value === 'riasec') return null
@@ -158,7 +167,7 @@ function scoreDelta(result: { riasecCorrelation: number; fitScore: number; bigFi
   ) {
     return null
   }
-  return Math.round(result.fitScore * 100) - Math.round(result.riasecCorrelation * 100)
+  return Math.round(displayFitScore(result.fitScore) * 100) - Math.round(result.riasecCorrelation * 100)
 }
 
 // Safety net for direct navigation / reload on /ergebnis: AssessmentPage
@@ -854,7 +863,7 @@ onBeforeUnmount(() => {
                   {{ scoreDelta(result)! > 0 ? '+' : '' }}{{ scoreDelta(result) }}
                 </span>
                 <span class="font-mono text-sm text-indigo-400">
-                  {{ (result.fitScore * 100).toFixed(0) }}
+                  {{ (displayFitScore(result.fitScore) * 100).toFixed(0) }}
                 </span>
                 <button
                   type="button"
