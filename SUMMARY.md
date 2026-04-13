@@ -5,6 +5,57 @@
 
 ---
 
+### Session 16 – 2026-04-13
+**Focus:** Skills-Bonus-Kalibrierung zu Ende bringen. Der asymmetrische Match aus Session 15 hat Überqualifikation gefixt, aber im Gegenzug die Baseline für den zentrierten Bonus verschoben — ein all-1er User bekam leichte *positive* Boni auf durchschnittlich-komplexen Berufen, statt den erwarteten Malus. Eine PR, zwei Commits (erster: Floor-Only-Calibration, zweiter: Neutral-Anchor + Farb-UX nachgezogen nach dem ersten Browser-Test).
+
+**Meta / process notes:**
+- **Fix wurde in zwei Durchgängen scharf.** Erste Iteration hat nur den zero-skill floor als Anker verwendet: `bonus = ((match − floor)/(1 − floor) − 0.5) × α`. Browser-Test hat dann gezeigt, dass schwache gemischte Profile (User bei ~47%/26%/27% Likert-Durchschnitt pro Sub-Kategorie) immer noch keinen Malus abbekommen. Grund: ihr userNorm ~0.25 liegt schon über der floor-Baseline, also bekommt ein nominell schwacher User auch noch positive Boni. Zweite Iteration: dritter Anker für den Median-User (userNorm=0.5) eingeführt, dann piecewise-linear zwischen floor → neutral → ceiling mappen. Schwach-mixed fällt damit sauber in die negative Hälfte. Diesmal sofort vom User bestätigt.
+- **Drei-Punkt-Kalibrierung war ein echtes Refinement, kein Scope-Creep.** Der Zwischenschritt durch die Floor-Only-Version war nicht umsonst — das Browser-Test-Feedback hat den konzeptionellen Gap aufgedeckt (floor-anchor ≠ neutral-anchor). Ohne den Zwischenschritt wäre der Neutral-Anchor womöglich nicht aufgefallen.
+- **Farb-Feedback nach dem Live-Check dazugenommen.** Grauer Neutral-Band bei Werten 0 bis +0.10 war visuelles Rauschen — der User wollte ein klares grün/rot-Binär, weil der piecewise Bonus jetzt schon um 0 zentriert ist, d.h. near-zero *ist* Information. Änderung minimal (stageForSkills-Schwellen + TONE_BY_STAGE.skills: moderate → positive).
+- **Edge-Case `upSpan = 0` bewusst auf max-Bonus gemappt.** Auf super-einfachen Berufen (alle occNorm < 0.5) hat der Median-User schon match=1 — es gibt keinen Raum für Differenzierung zwischen median und maxed. Beide kriegen +α/2, weil beide "voll qualifiziert" sind. Konsistent mit dem asymmetrischen Match-Prinzip ("qualify → full bonus").
+- **Median-User-Test mußte sich bewusst auf Berufe mit occNorm > 0.5 beschränken**, sonst kollabiert das Assertion-Statement. Im Test-Kommentar dokumentiert.
+
+**What was done — `fix/skills-floor-calibration`:**
+
+*Algorithmus in `matcher.ts`:*
+- `computeSkillsMatch` gibt jetzt `{ match, floor, neutral }` zurück. Drei gewichtete Summen pro Beruf in einem Durchlauf:
+  - `match` = Σ (1 − max(0, occNorm − userNorm)) × w / Σw  — vom User
+  - `floor` = 1 − Σ occNorm × w / Σw  — was ein all-1er scoren würde
+  - `neutral` = Σ (1 − max(0, occNorm − 0.5)) × w / Σw  — was ein all-3er scoren würde
+- Bonus-Mapping in `matchOccupations` piecewise-linear:
+  - `match ≥ neutral`: `bonus = ((match − neutral) / (1 − neutral)) × α/2`, Fallback auf `α/2` wenn `upSpan ≈ 0`
+  - `match < neutral`: `bonus = −((neutral − match) / (neutral − floor)) × α/2`, Fallback auf 0 wenn `downSpan ≈ 0` (unmöglich in der Praxis, aber defensive)
+  - Gerundet auf 3 Dezimalstellen wie bisher
+
+*Display-Logik in `ResultsPage.vue`:*
+- `stageForSkills` liest jetzt `skillsBonus` statt `skillsMatch`. Match ist nach der Kalibrierung pro Beruf relativ, nicht mehr absolut vergleichbar.
+- Schwellen: `>= 0.10 strong`, `>= 0 moderate`, `>= −0.10 weak`, sonst `poor`.
+- `TONE_BY_STAGE.skills.moderate` von `neutral` auf `positive` umgestellt → grauer Band im Bonus-Bereich [0, +0.10] ist weg, jede positive Abweichung ist grün.
+- Caller in `scoreBreakdown` von `stageForSkills(result.skillsMatch)` auf `stageForSkills(result.skillsBonus)` umgezogen.
+
+*Tests (+5):* 205 → 210
+- `all-1s user hits exactly −0.25 regardless of occupation complexity` — Regression gegen den Floor-Only-Bug. Easy-Job (l=2) und Hard-Job (l=6.5) beide getestet.
+- `maxed user hits exactly +0.25 regardless of occupation complexity` — Counterpart. Deckt den `upSpan=0` Pfad mit ab (easy job kollabiert auf full-bonus).
+- `median user (all 3s) hits exactly 0 bonus when the occupation has real requirements` — Neutral-Anchor-Check. Test-Kommentar erklärt warum occNorm > 0.5 nötig ist, sonst kollabiert neutral auf 1.
+- `weak-mixed user (all 2s) lands in the negative half of the bonus range` — Das war der eigentliche Bug den der User gemeldet hat. Test hält den User-Szenario-Pfad abgedeckt.
+- `floor-calibration rewards importance-weighted matching in mixed profiles` — Fokussierter User (5er auf wichtigen Items, 1er auf peripheren) erreicht fast +0.25. Bestätigt dass die importance-Gewichtung sich durch die ganze Kalibrierung hindurchzieht.
+
+**Branches:** `fix/skills-floor-calibration` (dieser PR)
+
+**Offene Beobachtungen / TODOs für folgende Sessions:**
+- **UX: Prozent-Anzeige in Ergebnis-Breakdown** (`Fähigkeiten 47%`) ist nichtssagend für den Nicht-Test-Publikum. Bessere Labels à la "Eher grundlegend / Solide / Stark ausgeprägt" oder Band-Darstellung. Kein Bug, reine UX-Session. Für Debugging aktuell nützlich, also nicht prio.
+- **US-Berufe auf deutsche mappen** — die 923 O*NET-Occupations sind per ESCO teilweise übersetzt, aber nicht alle sind für den DE-Arbeitsmarkt naheliegend oder existieren so überhaupt. Session-Scope: ESCO-Mapping-Coverage prüfen, unmapped/unpassende filtern oder re-labeln.
+- **Ausbildungs-Filter umbauen** — aktuell wird `jobZone ≤ userValues.education` als numerischer Education-Filter benutzt (jobZone 1-5 = Ausbildungsdauer). Für DE-User wären kategoriale Optionen intuitiver: *"ohne Ausbildung / Ausbildungsberufe (kurz/lang) / Studium"*. Braucht UI-Umbau im Values-Picker und Mapping jobZone → Kategorie.
+- **Layer-4-Daten unvollständig für einige Berufe.** 44 von 923 Occupations (~5%) haben keine Skills/Abilities/Knowledge-Maps (die gleichen die auch WorkContext fehlen). Diese kriegen aktuell `skillsBonus = null` und erscheinen in den Ergebnissen mit dem "Keine Daten"-Badge im Panel. Option: (a) händisch/geschätzt nachmappen, (b) entfernen, (c) ausblenden (am billigsten). User tendiert zu (a) oder (c).
+- **Homepage → Ergebnis-Shortcut.** Wenn ein Test abgeschlossen ist und der User zur Homepage navigiert, gibt es aktuell keinen sichtbaren Weg zurück zum Ergebnis außer manuell `/ergebnis` in die URL tippen. Ein "Zu deinem Ergebnis"-Button auf der Homepage wenn `store.results` hydriert/vorhanden ist wäre das kleinste Fix. UX, kein Bug.
+- **Skills-Items DE-Polish** — Translator-Tag `"v1 — polish pass pending"` steht weiter.
+- **Big Five Anni-Daten** — author@ut.ee immer noch ausstehend.
+
+**Next steps — Session 17:**
+- Eines der vier Kernthemen oben angehen. Mein Vorschlag der Reihenfolge: (1) Layer-4-Lücken schließen oder ausblenden (quick-win), (2) DE-Occupation-Mapping + Education-Kategorien (größerer UX-Impact), (3) Prozent-Anzeige polieren, (4) weitere Scoring-Tuning-Runden mit Archetyp-Personas jetzt wo die Kalibrierung ehrlich ist.
+
+---
+
 ### Session 15 – 2026-04-13
 **Focus:** Scoring-Validierungs-Infrastruktur + erster konkret gefundener Scoring-Bug. Zwei PRs in dieser Reihenfolge: (1) Per-Result-Explain-Panel mit vollem Faktor-Breakdown — unser Debug-Werkzeug um durch den 4-Layer-fitScore zu tracen; (2) Skills-Match-Formel auf asymmetrisch umgestellt — das Panel hat den Bug sofort sichtbar gemacht.
 

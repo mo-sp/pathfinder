@@ -327,15 +327,15 @@ function stageForValues(penalty: number): Stage {
   if (penalty < 0.2) return 'weak'
   return 'poor'
 }
-// Skills staged by skillsMatch (raw alignment, 0-1), which drives the
-// bonus via (match − 0.5) × 0.5. A match near 0.5 → bonus near 0, so
-// "moderate" maps to neutral tone (tiny drag/boost that isn't really
-// informative). Prior thresholds lit up −0.02 bonuses red, which made
-// near-neutral occupations look worse than they are.
-function stageForSkills(match: number): Stage {
-  if (match > 0.7) return 'strong'
-  if (match >= 0.4) return 'moderate'
-  if (match >= 0.2) return 'weak'
+// Skills staged by the signed skillsBonus in [−0.25, +0.25]. Binary
+// sign: any positive bonus reads green (strong/moderate), any negative
+// reads red (weak/poor). No neutral grey band — the piecewise bonus is
+// already calibrated around 0 at the median user, so a near-zero bonus
+// is information, not noise.
+function stageForSkills(bonus: number): Stage {
+  if (bonus >= 0.10) return 'strong'
+  if (bonus >= 0) return 'moderate'
+  if (bonus >= -0.10) return 'weak'
   return 'poor'
 }
 
@@ -343,7 +343,7 @@ const TONE_BY_STAGE: Record<FactorKey, Record<Stage, FactorTone>> = {
   riasec: { strong: 'positive', moderate: 'positive', weak: 'neutral', poor: 'negative' },
   bigfive: { strong: 'positive', moderate: 'neutral', weak: 'negative', poor: 'negative' },
   values: { strong: 'positive', moderate: 'neutral', weak: 'negative', poor: 'negative' },
-  skills: { strong: 'positive', moderate: 'neutral', weak: 'negative', poor: 'negative' },
+  skills: { strong: 'positive', moderate: 'positive', weak: 'negative', poor: 'negative' },
 }
 
 function formatSigned(n: number, digits = 2): string {
@@ -439,7 +439,7 @@ function scoreBreakdown(result: {
     mkRow(
       'skills',
       result.skillsMatch != null && result.skillsBonus != null,
-      result.skillsMatch != null ? stageForSkills(result.skillsMatch) : null,
+      result.skillsBonus != null ? stageForSkills(result.skillsBonus) : null,
       result.skillsBonus != null ? formatSigned(result.skillsBonus) : '',
     ),
   )

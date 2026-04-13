@@ -14,10 +14,10 @@ const BIG_FIVE_ALPHA = 0.3
 const VALUES_DIMENSION_WEIGHT = 0.05
 
 /**
- * Skills bonus magnitude. skillsMatch ∈ [0, 1] maps to bonus
- * ∈ [-SKILLS_ALPHA/2, +SKILLS_ALPHA/2] via (match - 0.5) × SKILLS_ALPHA.
- * 0.5 → range [-0.25, +0.25]. A perfectly matched skills profile beats
- * a perfectly mismatched one by 0.5 in the final fitScore, which is
+ * Skills bonus magnitude. The normalized gap (match − floor)/(1 − floor)
+ * ∈ [0, 1] maps to bonus ∈ [-SKILLS_ALPHA/2, +SKILLS_ALPHA/2]. With
+ * SKILLS_ALPHA = 0.5 the bonus swings ±0.25. A perfectly matched skills
+ * profile beats a perfectly mismatched one by 0.5 in the final fitScore,
  * enough to move an occupation ±10 ranks in a typical top-20 on a
  * mid-density RIASEC correlation (~0.6).
  */
@@ -70,26 +70,26 @@ function computeValuesPenalty(
 }
 
 /**
- * Compute the skills match score for one occupation. Iterates over the
- * three sub-categories (skills, abilities, knowledge), and for each
- * element the occupation lists, compares the user's self-assessed level
- * to the occupation's required level, weighted by the occupation's
- * declared importance of that element.
+ * Compute the skills match score for one occupation, along with two
+ * reference points used to calibrate the bonus piecewise.
  *
- *   userNorm   = (userValue - 1) / 4                      ∈ [0, 1]
- *   occNorm    = occ.l / 7                                ∈ [0, 1]
- *   sim_i      = 1 − max(0, occNorm − userNorm)           ∈ [0, 1]
- *   weight_i   = occ.i                                    ∈ [1, 5]
- *   skillsMatch = Σ sim_i × weight_i / Σ weight_i         ∈ [0, 1]
+ *   userNorm    = (userValue - 1) / 4                       ∈ [0, 1]
+ *   occNorm     = occ.l / 7                                 ∈ [0, 1]
+ *   sim_i(u)    = 1 − max(0, occNorm − u)                   ∈ [0, 1]
+ *   weight_i    = occ.i                                     ∈ [1, 5]
+ *   match       = Σ sim_i(userNorm) × w_i / Σ w_i           ∈ [floor, 1]
+ *   floor       = match for userNorm=0 (= 1 − avg occNorm)  ∈ [0, 1]
+ *   neutral     = match for userNorm=0.5 (all-3s user)      ∈ [floor, 1]
  *
- * Asymmetric by design: the penalty only fires when the user falls
- * *below* the occupation's required level. Meeting or exceeding the
- * requirement gives sim=1 ("you qualify"). A symmetric |Δ| made
- * high-skill users look "overqualified" and dragged their skillsMatch
- * back toward the occupation's raw level — which for most occupations
- * clusters around 0.4–0.6 of the 0–7 scale, so a maxed-out user got
- * near-zero bonuses across the board. Overqualification shouldn't
- * penalize a ranking.
+ * Asymmetric sim: the penalty only fires when the user falls *below*
+ * the occupation's required level; meeting or exceeding gives sim=1
+ * ("you qualify"). So match saturates at 1 from above.
+ *
+ * The caller uses these three anchors for a piecewise bonus: floor →
+ * −α/2, neutral → 0, 1 → +α/2. Linear between them. This makes a
+ * zero-skill user (all 1s) always hit the full malus, a median user
+ * (all 3s) always sit at zero bonus, and a maxed user always hit the
+ * full plus, regardless of how demanding the occupation is.
  *
  * Returns null when the occupation has no skills data at all, or when
  * the user has not rated any elements the occupation lists.
@@ -97,8 +97,10 @@ function computeValuesPenalty(
 function computeSkillsMatch(
   userSkills: SkillsProfile,
   occupation: Occupation,
-): number | null {
+): { match: number; floor: number; neutral: number } | null {
   let totalSim = 0
+  let totalNeutralSim = 0
+  let totalOccNorm = 0
   let totalWeight = 0
   for (const sub of SKILLS_SUB_CATEGORIES) {
     const occSub = occupation[sub]
@@ -111,13 +113,20 @@ function computeSkillsMatch(
       const userNorm = (userValue - 1) / 4
       const occNorm = occEntry.l / 7
       const sim = 1 - Math.max(0, occNorm - userNorm)
+      const neutralSim = 1 - Math.max(0, occNorm - 0.5)
       const weight = occEntry.i
       totalSim += sim * weight
+      totalNeutralSim += neutralSim * weight
+      totalOccNorm += occNorm * weight
       totalWeight += weight
     }
   }
   if (totalWeight === 0) return null
-  return totalSim / totalWeight
+  return {
+    match: totalSim / totalWeight,
+    floor: 1 - totalOccNorm / totalWeight,
+    neutral: totalNeutralSim / totalWeight,
+  }
 }
 
 /**
@@ -141,8 +150,10 @@ function computeSkillsMatch(
  * preferences, subtracted from fitScore.
  *
  * When a skills profile is provided, each occupation with skills data
- * gets a weighted similarity score in [0, 1], mapped to a centered bonus
- * `(match − 0.5) × α` in [−0.25, +0.25], added to the final fitScore.
+ * gets a weighted similarity score `match`. Piecewise-linear bonus with
+ * three per-occupation anchors (floor → −α/2, neutral → 0, 1 → +α/2)
+ * maps it to the fitScore range [−0.25, +0.25]. See `computeSkillsMatch`
+ * for the anchor derivation.
  */
 export function matchOccupations(
   userProfile: RIASECProfile,
@@ -193,9 +204,22 @@ export function matchOccupations(
     let skillsMatch: number | null = null
     let skillsBonus: number | null = null
     if (useSkills) {
-      skillsMatch = computeSkillsMatch(userSkills, occupation)
-      if (skillsMatch != null) {
-        skillsBonus = Math.round(((skillsMatch - 0.5) * SKILLS_ALPHA) * 1000) / 1000
+      const s = computeSkillsMatch(userSkills, occupation)
+      if (s != null) {
+        skillsMatch = s.match
+        const half = SKILLS_ALPHA / 2
+        let raw: number
+        if (s.match >= s.neutral) {
+          const upSpan = 1 - s.neutral
+          // upSpan ≈ 0: occupation is so low-req that the median user
+          // already maxes out. Anyone who reached this branch has fully
+          // qualified (by the asymmetric match) → award full +α/2.
+          raw = upSpan > 1e-6 ? ((s.match - s.neutral) / upSpan) * half : half
+        } else {
+          const downSpan = s.neutral - s.floor
+          raw = downSpan > 1e-6 ? -((s.neutral - s.match) / downSpan) * half : 0
+        }
+        skillsBonus = Math.round(raw * 1000) / 1000
         fitScore += skillsBonus
       }
     }
