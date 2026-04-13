@@ -270,6 +270,173 @@ async function repeatLayer(layer: AssessmentLayer): Promise<void> {
 const openValuesDim = ref<string | null>(null)
 const valuesGridRef = ref<HTMLElement | null>(null)
 
+// Expanded explain panels: Set of onetCodes. Multiple panels may be open
+// concurrently so users can compare two occupations side-by-side.
+const openExplanations = ref<Set<string>>(new Set())
+
+function toggleExplanation(onetCode: string): void {
+  const next = new Set(openExplanations.value)
+  if (next.has(onetCode)) next.delete(onetCode)
+  else next.add(onetCode)
+  openExplanations.value = next
+}
+
+type FactorTone = 'positive' | 'negative' | 'neutral'
+type FactorKey = 'riasec' | 'bigfive' | 'values' | 'skills'
+type Stage = 'strong' | 'moderate' | 'weak' | 'poor'
+
+type FactorRow = {
+  key: FactorKey
+  label: string
+  value: string
+  tone: FactorTone
+  text: string
+  scored: boolean
+}
+
+function stageForRiasec(v: number): Stage {
+  if (v > 0.8) return 'strong'
+  if (v > 0.5) return 'moderate'
+  if (v > 0.2) return 'weak'
+  return 'poor'
+}
+function stageForBigFive(v: number): Stage {
+  if (v > 1.15) return 'strong'
+  if (v >= 0.95) return 'moderate'
+  if (v >= 0.85) return 'weak'
+  return 'poor'
+}
+function stageForValues(penalty: number): Stage {
+  if (penalty < 0.05) return 'strong'
+  if (penalty < 0.15) return 'moderate'
+  if (penalty < 0.25) return 'weak'
+  return 'poor'
+}
+function stageForSkills(match: number): Stage {
+  if (match > 0.75) return 'strong'
+  if (match >= 0.5) return 'moderate'
+  if (match >= 0.25) return 'weak'
+  return 'poor'
+}
+
+const TONE_BY_STAGE: Record<FactorKey, Record<Stage, FactorTone>> = {
+  riasec: { strong: 'positive', moderate: 'positive', weak: 'neutral', poor: 'negative' },
+  bigfive: { strong: 'positive', moderate: 'neutral', weak: 'negative', poor: 'negative' },
+  values: { strong: 'positive', moderate: 'neutral', weak: 'negative', poor: 'negative' },
+  skills: { strong: 'positive', moderate: 'neutral', weak: 'negative', poor: 'negative' },
+}
+
+function formatSigned(n: number, digits = 2): string {
+  return `${n >= 0 ? '+' : ''}${n.toFixed(digits)}`
+}
+
+function scoreBreakdown(result: {
+  riasecCorrelation: number
+  bigFiveModifier: number | null
+  valuesPenalty: number | null
+  skillsMatch: number | null
+  skillsBonus: number | null
+}): FactorRow[] {
+  const rows: FactorRow[] = []
+  const rstage = stageForRiasec(result.riasecCorrelation)
+  rows.push({
+    key: 'riasec',
+    label: t('explainPanel.factors.riasec'),
+    value: formatSigned(result.riasecCorrelation),
+    tone: TONE_BY_STAGE.riasec[rstage],
+    text: t(`explainPanel.thresholds.riasec.${rstage}`),
+    scored: true,
+  })
+
+  if (result.bigFiveModifier != null) {
+    const stage = stageForBigFive(result.bigFiveModifier)
+    rows.push({
+      key: 'bigfive',
+      label: t('explainPanel.factors.bigfive'),
+      value: `×${result.bigFiveModifier.toFixed(2)}`,
+      tone: TONE_BY_STAGE.bigfive[stage],
+      text: t(`explainPanel.thresholds.bigfive.${stage}`),
+      scored: true,
+    })
+  } else {
+    rows.push({
+      key: 'bigfive',
+      label: t('explainPanel.factors.bigfive'),
+      value: '–',
+      tone: 'neutral',
+      text: t('explainPanel.notScored'),
+      scored: false,
+    })
+  }
+
+  if (result.valuesPenalty != null) {
+    const stage = stageForValues(result.valuesPenalty)
+    rows.push({
+      key: 'values',
+      label: t('explainPanel.factors.values'),
+      value: `−${result.valuesPenalty.toFixed(2)}`,
+      tone: TONE_BY_STAGE.values[stage],
+      text: t(`explainPanel.thresholds.values.${stage}`),
+      scored: true,
+    })
+  } else {
+    rows.push({
+      key: 'values',
+      label: t('explainPanel.factors.values'),
+      value: '–',
+      tone: 'neutral',
+      text: t('explainPanel.notScored'),
+      scored: false,
+    })
+  }
+
+  if (result.skillsMatch != null && result.skillsBonus != null) {
+    const stage = stageForSkills(result.skillsMatch)
+    rows.push({
+      key: 'skills',
+      label: t('explainPanel.factors.skills'),
+      value: formatSigned(result.skillsBonus),
+      tone: TONE_BY_STAGE.skills[stage],
+      text: t(`explainPanel.thresholds.skills.${stage}`),
+      scored: true,
+    })
+  } else {
+    rows.push({
+      key: 'skills',
+      label: t('explainPanel.factors.skills'),
+      value: '–',
+      tone: 'neutral',
+      text: t('explainPanel.notScored'),
+      scored: false,
+    })
+  }
+
+  return rows
+}
+
+function scoreFormula(result: {
+  riasecCorrelation: number
+  bigFiveModifier: number | null
+  valuesPenalty: number | null
+  skillsBonus: number | null
+  fitScore: number
+}): string {
+  const r = result.riasecCorrelation.toFixed(2)
+  const parts: string[] = []
+  if (result.bigFiveModifier != null) {
+    parts.push(`min(${r} × ${result.bigFiveModifier.toFixed(2)}, 1.00)`)
+  } else {
+    parts.push(r)
+  }
+  if (result.valuesPenalty != null) {
+    parts.push(`− ${result.valuesPenalty.toFixed(2)}`)
+  }
+  if (result.skillsBonus != null) {
+    parts.push(`${result.skillsBonus >= 0 ? '+' : '−'} ${Math.abs(result.skillsBonus).toFixed(2)}`)
+  }
+  return `${parts.join('  ')}  =  ${result.fitScore.toFixed(2)}`
+}
+
 function toggleValuesDim(dim: string): void {
   openValuesDim.value = openValuesDim.value === dim ? null : dim
 }
@@ -631,30 +798,89 @@ onBeforeUnmount(() => {
           <li
             v-for="result in visibleResults"
             :key="result.occupation.onetCode"
-            class="flex items-center justify-between gap-3 rounded-md border border-slate-800 bg-slate-900 px-4 py-3"
+            class="rounded-md border border-slate-800 bg-slate-900"
           >
-            <div class="min-w-0 flex-1">
-              <div class="font-medium break-words text-slate-100">
-                {{ result.rank }}. {{ result.occupation.title.de || result.occupation.title.en }}
+            <div class="flex items-center justify-between gap-3 px-4 py-3">
+              <div class="min-w-0 flex-1">
+                <div class="font-medium break-words text-slate-100">
+                  {{ result.rank }}. {{ result.occupation.title.de || result.occupation.title.en }}
+                </div>
+                <div class="text-xs break-words text-slate-400">
+                  O*NET {{ result.occupation.onetCode }}
+                  <span v-if="!result.occupation.title.de"> · (Übersetzung folgt)</span>
+                </div>
               </div>
-              <div class="text-xs break-words text-slate-400">
-                O*NET {{ result.occupation.onetCode }}
-                <span v-if="!result.occupation.title.de"> · (Übersetzung folgt)</span>
+              <div class="flex shrink-0 items-center gap-2">
+                <span
+                  v-if="scoreDelta(result) != null && scoreDelta(result) !== 0"
+                  class="rounded px-1.5 py-0.5 font-mono text-xs"
+                  :class="scoreDelta(result)! > 0
+                    ? 'bg-emerald-950/60 text-emerald-400'
+                    : 'bg-red-950/60 text-red-400'"
+                >
+                  {{ scoreDelta(result)! > 0 ? '+' : '' }}{{ scoreDelta(result) }}
+                </span>
+                <span class="font-mono text-sm text-indigo-400">
+                  {{ (result.fitScore * 100).toFixed(0) }}
+                </span>
+                <button
+                  type="button"
+                  class="flex h-6 w-6 items-center justify-center rounded text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+                  :aria-label="openExplanations.has(result.occupation.onetCode)
+                    ? t('explainPanel.toggle.close')
+                    : t('explainPanel.toggle.open')"
+                  :aria-expanded="openExplanations.has(result.occupation.onetCode)"
+                  :data-testid="`explain-toggle-${result.occupation.onetCode}`"
+                  @click="toggleExplanation(result.occupation.onetCode)"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="h-4 w-4 transition-transform"
+                    :class="{ 'rotate-180': openExplanations.has(result.occupation.onetCode) }"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.39a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
-            <div class="flex shrink-0 items-center gap-2">
-              <span
-                v-if="scoreDelta(result) != null && scoreDelta(result) !== 0"
-                class="rounded px-1.5 py-0.5 font-mono text-xs"
-                :class="scoreDelta(result)! > 0
-                  ? 'bg-emerald-950/60 text-emerald-400'
-                  : 'bg-red-950/60 text-red-400'"
-              >
-                {{ scoreDelta(result)! > 0 ? '+' : '' }}{{ scoreDelta(result) }}
-              </span>
-              <span class="font-mono text-sm text-indigo-400">
-                {{ (result.fitScore * 100).toFixed(0) }}
-              </span>
+            <div
+              v-if="openExplanations.has(result.occupation.onetCode)"
+              class="border-t border-slate-800 px-4 py-3"
+              :data-testid="`explain-panel-${result.occupation.onetCode}`"
+            >
+              <div class="mb-2 text-xs font-semibold tracking-wide text-slate-400 uppercase">
+                {{ t('explainPanel.title') }}
+              </div>
+              <dl class="space-y-2">
+                <div
+                  v-for="row in scoreBreakdown(result)"
+                  :key="row.key"
+                  class="grid grid-cols-[auto_1fr_auto] items-baseline gap-3"
+                >
+                  <dt class="text-sm text-slate-200">{{ row.label }}</dt>
+                  <dd class="text-xs text-slate-400">{{ row.text }}</dd>
+                  <dd
+                    class="rounded px-1.5 py-0.5 font-mono text-xs"
+                    :class="{
+                      'bg-emerald-950/60 text-emerald-400': row.tone === 'positive' && row.scored,
+                      'bg-red-950/60 text-red-400': row.tone === 'negative' && row.scored,
+                      'bg-slate-800 text-slate-400': row.tone === 'neutral' || !row.scored,
+                    }"
+                  >
+                    {{ row.value }}
+                  </dd>
+                </div>
+              </dl>
+              <p class="mt-3 border-t border-slate-800 pt-3 font-mono text-xs text-slate-400">
+                {{ scoreFormula(result) }}
+              </p>
             </div>
           </li>
         </ol>
