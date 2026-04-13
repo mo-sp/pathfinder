@@ -5,6 +5,88 @@
 
 ---
 
+### Session 15 – 2026-04-13
+**Focus:** Scoring-Validierungs-Infrastruktur + erster konkret gefundener Scoring-Bug. Zwei PRs in dieser Reihenfolge: (1) Per-Result-Explain-Panel mit vollem Faktor-Breakdown — unser Debug-Werkzeug um durch den 4-Layer-fitScore zu tracen; (2) Skills-Match-Formel auf asymmetrisch umgestellt — das Panel hat den Bug sofort sichtbar gemacht.
+
+**Meta / process notes:**
+- Planung hat mehrfach den Ansatz geflipped bevor er stand. Ursprüngliches Memory-Briefing war "Offline-Script + Archetyp-Personas + Live-What-if + Tuning". User hat den ersten Schritt komplett zerlegt: *"was bringen die archetypen? wofür das offline debug script bzw was bringt es? zu live what if auch gerne mehr erzählen.. warum dieser rang explain panel (oder als tooltip für jeden der berufsempfehlungen damit man direkt sieht was einfluss darauf hatte?"* Ergebnis: Explain-Panel zuerst (löst beide Zwecke), kein Offline-Script (wäre wegwerfbare Arbeit gewesen, das permanente UI-Feature kann dasselbe), Archetypen erst später bei Bedarf.
+- **Tooltip-Variante verworfen**, als User sie vorschlug: kein Hover auf Touch (mobile-first-Anspruch), kein Platz für strukturierte 4-Zeilen-Tabelle + Formel, A11y schwach. Expandable-Panel pro `<li>` mit Chevron stattdessen.
+- **Scope-Evolution mid-implementation.** Erste Panel-Version hat Faktoren außerhalb der aktiven View komplett versteckt mit "Ausgeblendet"-Text. User direkt beim ersten Browser-Test: *"fürs debugging sollten wir vielleicht die angezeigten werte komplett drin lassen. weil vielleicht fließen ja die scores auch irgendwie ein, obwohl eigentlich nur interessen ausgewählt ist? das wäre ein bug hinweis."* Richtig gesehen — war tatsächlich ein pre-existing Bug (siehe riasecOnlyRanked unten). Panel wurde auf view-aware-but-transparent umgebaut: alle Faktoren bleiben sichtbar mit ihren Roh-Werten + Farben; nur `inactive`-Zeilen werden gedimmt und mit *"· in dieser Ansicht nicht gewertet"* getagged.
+- **Pre-existing-Bug gleich mitgefunden.** Die Refactor-Runde auf viewMode-aware-Formel hat aufgedeckt, dass `riasecOnlyRanked` in ResultsPage den `fitScore` NICHT überschrieben hat (im Gegensatz zu bigfiveRanked/valuesRanked). In "Nur Interessen"-View hat der Top-Row-Indigo-Score also heimlich den full-combined `store.results[i].fitScore` angezeigt, nicht `riasecCorrelation`. Fix in derselben PR: `.map(r => ({ ...r, fitScore: r.riasecCorrelation }))` in den Pipeline-Step eingebaut. Top-Row ist jetzt ehrlich bzgl. der gewählten View.
+- **Explain-Panel hat seinen Zweck sofort bewiesen.** Post-Merge hat User mit "alle Skills/Talente/Wissen auf 5" getestet — Panel zeigt: fast überall Skills-Bonus zwischen −0.01 und −0.03, nur Physiker +0.01. Das ergab keinen Sinn für einen maxed-out User. Root-Cause via Panel-Formel-Zeile sofort traceable: symmetrische `sim = 1 − |userNorm − occNorm|` bestraft Überqualifikation gleich stark wie Unterqualifikation. Skills-Fix wurde zur zweiten PR dieser Session.
+- **Flaky-Test bewusst verworfen.** Ein Test für den `inactive`-Pfad (mapped-BigFive-Occ in Top-20 mit toggle zurück auf riasec-View) ist vom per-Session-Shuffle abhängig — nur ~63% Wahrscheinlichkeit dass einer der 43 mock-Codes in die Top-20 rutscht. Statt Seeded-Random einzuführen (scope creep) habe ich den Test entfernt; der Pfad ist durch User-Browser-Test abgedeckt.
+
+**PR 1 — `feat/explain-panel` (merged as `4ac95fe`):**
+
+*State:*
+- `openExplanations: Ref<Set<string>>` für offen-Panels (Set statt null-ref, damit mehrere Panels gleichzeitig offen sein können). Toggle via `new Set(prev)`-Reassignment, vermeidet Reactivity-Edge-Cases mit Set-Mutations.
+- Nur lokaler Component-State — keine Store-Änderung, keine Dexie-Persistenz (Panel-Zustand überlebt Reload nicht; v1 so gewollt).
+
+*Panel-Struktur:*
+- `<li>` von `flex items-center justify-between` auf implizit `flex-col` umgebaut: Top-Row (Titel + Score + Chevron) in einen inneren Flex-Container, Expansion-`<div v-if="openExplanations.has(...)">` darunter mit `border-t`.
+- Expansion: Header *"Warum dieser Rang?"*, 4-zeilige Tabelle (Label / threshold-Text + optional Inactive-Tag / Farb-Pill), dann Formel-Zeile darunter mit `border-t` separator.
+- Chevron: SVG mit `transition-transform`, rotiert 180° wenn offen. `aria-expanded`-Flip + `aria-label` wechselt zwischen *Details einblenden* / *Details ausblenden*.
+
+*Vier Row-States* (`FactorState = 'active' | 'inactive' | 'notScored' | 'noData'`):
+- `active` — Layer abgeschlossen UND in der aktiven View → farbige Pill (pos/neg/neutral nach threshold) + Klartext.
+- `inactive` — Layer abgeschlossen, aber View liegt drunter im MODE_ORDER → Wert+Farbe bleiben, aber Row ist `opacity-60` gedimmt und hinten dran kursiv `· in dieser Ansicht nicht gewertet`. **Diese Wahl ist der Debug-Move**: wenn die Formel-RHS (= nur aktive Terme) nicht mit dem Top-Row-Score übereinstimmt, ist irgendwo ein Bug.
+- `notScored` — Layer nicht durchgemacht → graue Pill `–` + *Noch nicht erfasst*.
+- `noData` — Layer durchgemacht, aber dieser Beruf hat keine Daten (z.B. Berufe außerhalb der 43 Big-Five-Mock-Codes) → graue Pill `–` + *Keine Daten für diesen Beruf*.
+
+*Threshold-Tuning:*
+- `stageForSkills` stages by `skillsMatch` (nicht `skillsBonus`) damit near-zero Boni wirklich als neutral gelesen werden. Original hatte `-0.02` Bonus rot gefärbt, obwohl das effektiv nichts drückt. Neue Moderate-Band 0.4–0.7 → match 0.46 (bonus ≈ −0.02) kommt in neutral/grey.
+- `stageForValues` weak-Grenze von 0.15 auf 0.10 vorgezogen → `−0.12` penalty wird jetzt rot (vorher grau, Wahrnehmung war inkonsistent mit `−0.17 = rot`).
+- `stageForRiasec`, `stageForBigFive`: auch leicht enger gezogen damit die Farbsprache über alle 4 Faktoren hinweg einheitlich wirkt.
+
+*Pre-existing-Bug-Fix mit drin:*
+- `riasecOnlyRanked` hatte keinen fitScore-Override. Die zweite `.map((r, i) => ({ ...r, rank: i + 1 }))` hat Rank gesetzt, aber `fitScore` blieb der kombinierte Wert aus `store.results`. → In "Nur Interessen" wurde der volle Combined-Score als "Interessen-Score" getarnt angezeigt. Jetzt erster Map-Step `{ ...r, fitScore: r.riasecCorrelation }` davor → Top-Row passt zur Selection.
+
+*View-aware Formel:*
+- `scoreFormula(result, mode)` baut Terme nur für Faktoren die im aktuellen Modus aktiv sind und berechnet die RHS aus denselben Termen. Mit dem riasecOnlyRanked-Fix matcht die RHS das Top-Row-Score in jeder View exakt.
+
+*i18n:*
+- Neuer Top-Level-Block `explainPanel` mit `title`, `toggle.{open,close}`, `factors.{riasec,bigfive,values,skills}`, `notScored`, `noData`, `inactiveTag`, und `thresholds.{riasec,bigfive,values,skills}.{strong,moderate,weak,poor}` — vier Klartext-Sätze pro Faktor.
+
+*Tests (+5):* 196 → 202
+- Toggle-Button existiert pro visible Result, Default zu, Click öffnet, 2× Click schließt, mehrere Panels concurrent, un-scored Layer zeigen 3× "Noch nicht erfasst" wenn nur RIASEC komplett ist, Formel-RHS = `first.fitScore.toFixed(2)`.
+
+**PR 2 — `fix/skills-match-asymmetric` (diese PR):**
+
+*Core-Fix:*
+- In `computeSkillsMatch` (matcher.ts:104): `sim = 1 - Math.abs(userNorm - occNorm)` → `sim = 1 - Math.max(0, occNorm - userNorm)`. Einzige algorithmische Zeile geändert.
+- Semantik: `userNorm >= occNorm` (Anforderung erfüllt oder übertroffen) → `sim = 1` ("du qualifizierst dich"). `userNorm < occNorm` → linear proportional zum Shortfall — identisch zum alten symmetrischen Fall, d.h. Undershooting-Verhalten unverändert.
+- JSDoc erweitert um die Begründung: symmetrische Formel hat Overqualifikation mit `|Δ|` bestraft, hat skillsMatch für Hoch-Skill-User Richtung gewichteter Berufs-Level-Durchschnitt (~0.4-0.6 normalisiert) gezogen. Ergebnis war "maxed-out User bekommt fast überall bonus ≈ 0".
+
+*Display-Cap (in derselben PR gebündelt):*
+- Neuer Helper `displayFitScore(v) = Math.min(v, 1)` in ResultsPage.vue.
+- Top-Row-Indigo-Score und scoreDelta verwenden ihn — Anzeige bleibt in 0-100 auch wenn der rohe `fitScore` nach Skills-Bonus bis 1.25 steigen kann.
+- **Formel-Zeile im Panel bleibt ungecapped** → zeigt die Wahrheit (z.B. `= 1.24`) auch wenn Top-Row `100` zeigt. Bewusste Design-Entscheidung: Top-Row ist User-facing, Panel-Formel ist Debug-View.
+
+*Tests (+3):* 202 → 205
+- `does NOT penalize overqualification` — Low-Requirement-Job (l=2/7) + maxed-user (value=5) → `skillsMatch === 1`, `skillsBonus === 0.25`. Haupt-Regression-Test für das Bug-Szenario.
+- `matches perfectly when user is exactly at occupation level` — user=5 vs occ-l=7 → `skillsMatch === 1` (meet-or-exceed).
+- `penalizes shortfall proportionally when user is below occupation level` — user=1 vs occ-l=7 → `skillsMatch === 0`, `skillsBonus === −0.25`. Bestätigt dass der Undershooting-Pfad unverändert bleibt.
+- Bestehende 5 Skills-Tests laufen durch: Undershooting-Assertions unbeeinflusst; Matching-Tests produzieren jetzt Skills-Matches ≈ 1.0 statt ≈ 0.8, aber die `> 0.6`-Grenzen halten.
+
+**Branches:**
+- `feat/explain-panel` — PR 1 (merged)
+- `fix/skills-match-asymmetric` — PR 2 (diese PR)
+
+**Offene Beobachtungen / TODOs:**
+- **Baseline-Shift im Skills-Bonus.** All-1er-Gegenprobe zeigt: ungelernte User bekommen bei durchschnittlich-komplexen Berufen noch `+0.01` bis `+0.03` Bonus (z.B. Anthropologe `+0.02`, Geograf `+0.03`). Ursache: `bonus = (match − 0.5) × α` hat einen Baseline bei 0.5, aber der tatsächliche gewichtete Mittelwert von occNorm liegt bei ~0.43-0.48 (typische O*NET-Level 3/7). Saubere Fixes: (a) per-Beruf Baseline aus gewichtetem occNorm rechnen, oder (b) globalen Shift auf z.B. 0.3. Eigene Mini-PR wenn wir das angehen.
+- **Score-Delta-Baseline ist kontextlos.** In jeder View wird Delta gegen raw `riasecCorrelation` gerechnet, nicht gegen den Score der vorherigen View. Heißt: User klickt "+ Werte" und sieht `−18`, meint aber gegenüber dem 88-Bigfive-Score würde das nur `−2` sein. UX-Frage, kein Bug — ein Label wie *"vs. Nur Interessen"* neben dem Delta würde Klarheit schaffen.
+- **Scoring-Validierungs-Sitzung selbst noch offen.** Die Infrastruktur steht, aber eigentliches Tuning (SKILLS_ALPHA, BIG_FIVE_ALPHA, VALUES_DIMENSION_WEIGHT, evtl. Baseline-Shift) ist noch nicht durchgearbeitet.
+- **Flaky-inactive-Pfad-Test.** Siehe Meta-Notes oben; User-Browser-Test deckt das ab. Falls das irgendwann als dauerhaft getesteter Pfad gebraucht wird, müsste ein Seeded-Random dazu.
+- **Anni et al. real Big Five Daten** — weiterhin ausstehend bei author@ut.ee.
+- **DE-Polish der 120 Skills-Items** — Translator-Tag `"v1 — polish pass pending"` steht noch.
+
+**Next steps — Session 16:**
+- Baseline-Shift im Skills-Bonus (all-zero-User sollte nirgendwo positiven Bonus bekommen).
+- Score-Delta Baseline-Labeling oder Umstellung auf Inkremental-Deltas.
+- Weitere Tuning-Runden an SKILLS_ALPHA / BIG_FIVE_ALPHA / VALUES_DIMENSION_WEIGHT mit Archetyp-Personas, jetzt wo das Panel die Zahlen direkt ablesbar macht.
+
+---
+
 ### Session 14 – 2026-04-12
 **Focus:** Layer 4 — Fähigkeiten, Talente & Wissen. 120 O*NET items across 3 sub-categories, additive-centered score bonus, Zwischenscreen between sub-categories, 4-position results toggle.
 

@@ -421,6 +421,73 @@ describe('matchOccupations', () => {
       expect(results[0].skillsMatch!).toBeGreaterThan(0.6)
     })
 
+    it('does NOT penalize overqualification (asymmetric match)', () => {
+      // Low-requirement job: occ level 2/7 ≈ 0.29. Maxed-out user (1.0)
+      // used to be penalized as "overqualified" (sim ≈ 1 − |1 − 0.29| = 0.29).
+      // With asymmetric match, user above occ level → sim = 1 → match = 1.
+      const easyJob: Occupation = {
+        ...occupation('99-0000.02', { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }, 'Easy Job'),
+        skills: {
+          '2.A.1.a': { l: 2.0, i: 4.0 }, // low level, high importance
+          '2.B.3.e': { l: 1.5, i: 3.5 },
+        },
+      }
+      const maxedUser: SkillsProfile = {
+        skills: { '2.A.1.a': 5, '2.B.3.e': 5 },
+        abilities: {},
+        knowledge: {},
+      }
+      const userProfile: RIASECProfile = { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }
+      const results = matchOccupations(userProfile, [easyJob], 20, null, null, null, maxedUser)
+      const r = results[0]
+      // Overqualified user = perfect match, not ~0.3 match.
+      expect(r.skillsMatch).toBe(1)
+      expect(r.skillsBonus).toBe(0.25)
+    })
+
+    it('matches perfectly when user is exactly at occupation level', () => {
+      // occ level 4/7 ≈ 0.57. userValue 3 → userNorm (3-1)/4 = 0.5.
+      // Close but not equal; ok user at level 3/7 ≈ 0.43 with user value 2.
+      // Easiest: occ level 4 with user value 3 (userNorm 0.5 vs occNorm 0.571).
+      // To hit exact equality: occ l = 5 (norm 0.714), user value ≈ 3.86 — not
+      // a valid likert value. Skip exact-equality and assert "user meets or
+      // exceeds → sim = 1" via user value 5 (norm 1.0) vs occ l = 7 (norm 1.0).
+      const exactJob: Occupation = {
+        ...occupation('99-0000.03', { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }, 'Exact Job'),
+        skills: { '2.A.1.a': { l: 7.0, i: 4.0 } },
+        abilities: {},
+        knowledge: {},
+      }
+      const userProfile: RIASECProfile = { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }
+      const atLevelUser: SkillsProfile = {
+        skills: { '2.A.1.a': 5 },
+        abilities: {},
+        knowledge: {},
+      }
+      const results = matchOccupations(userProfile, [exactJob], 20, null, null, null, atLevelUser)
+      expect(results[0].skillsMatch).toBe(1)
+    })
+
+    it('penalizes shortfall proportionally when user is below occupation level', () => {
+      // Shortfall semantics: sim = 1 − (occNorm − userNorm) for user < occ.
+      // occ l=7 (norm=1), user value=1 (norm=0) → sim = 1 − 1 = 0.
+      const hardJob: Occupation = {
+        ...occupation('99-0000.04', { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }, 'Hard Job'),
+        skills: { '2.A.1.a': { l: 7.0, i: 4.0 } },
+        abilities: {},
+        knowledge: {},
+      }
+      const userProfile: RIASECProfile = { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }
+      const underUser: SkillsProfile = {
+        skills: { '2.A.1.a': 1 },
+        abilities: {},
+        knowledge: {},
+      }
+      const results = matchOccupations(userProfile, [hardJob], 20, null, null, null, underUser)
+      expect(results[0].skillsMatch).toBe(0)
+      expect(results[0].skillsBonus).toBe(-0.25)
+    })
+
     it('skills bonus magnitude stays within ±0.25', () => {
       const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
       // Extreme cases: perfect high match and perfect low match

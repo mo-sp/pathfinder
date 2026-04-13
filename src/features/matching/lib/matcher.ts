@@ -76,11 +76,20 @@ function computeValuesPenalty(
  * to the occupation's required level, weighted by the occupation's
  * declared importance of that element.
  *
- *   userNorm   = (userValue - 1) / 4        ∈ [0, 1]   (likert5 → 0..1)
- *   occNorm    = occ.l / 7                  ∈ [0, 1]   (O*NET LV 0..7)
- *   sim_i      = 1 − |userNorm − occNorm|   ∈ [0, 1]
- *   weight_i   = occ.i                      ∈ [1, 5]
- *   skillsMatch = Σ sim_i × weight_i / Σ weight_i   ∈ [0, 1]
+ *   userNorm   = (userValue - 1) / 4                      ∈ [0, 1]
+ *   occNorm    = occ.l / 7                                ∈ [0, 1]
+ *   sim_i      = 1 − max(0, occNorm − userNorm)           ∈ [0, 1]
+ *   weight_i   = occ.i                                    ∈ [1, 5]
+ *   skillsMatch = Σ sim_i × weight_i / Σ weight_i         ∈ [0, 1]
+ *
+ * Asymmetric by design: the penalty only fires when the user falls
+ * *below* the occupation's required level. Meeting or exceeding the
+ * requirement gives sim=1 ("you qualify"). A symmetric |Δ| made
+ * high-skill users look "overqualified" and dragged their skillsMatch
+ * back toward the occupation's raw level — which for most occupations
+ * clusters around 0.4–0.6 of the 0–7 scale, so a maxed-out user got
+ * near-zero bonuses across the board. Overqualification shouldn't
+ * penalize a ranking.
  *
  * Returns null when the occupation has no skills data at all, or when
  * the user has not rated any elements the occupation lists.
@@ -101,7 +110,7 @@ function computeSkillsMatch(
       const occEntry = occSub[elementId]
       const userNorm = (userValue - 1) / 4
       const occNorm = occEntry.l / 7
-      const sim = 1 - Math.abs(userNorm - occNorm)
+      const sim = 1 - Math.max(0, occNorm - userNorm)
       const weight = occEntry.i
       totalSim += sim * weight
       totalWeight += weight
