@@ -42,7 +42,7 @@ export default {
   '29-2099.05': 'Ophthalmologisch-technischer Assistent/Ophthalmologisch-technische Assistentin', // Ophthalmic Medical Technologists
 
   // === Cluster: "Arzt für Allgemeinmedizin" (4) ===
-  '29-1171.00': 'Pflegeexperte APN / Pflegeexpertin APN', // Nurse Practitioners — Advanced Practice Nurse
+  '29-1171.00': 'Pflegeexperte/Pflegeexpertin', // Nurse Practitioners — DE-Äquivalent ist Advanced Practice Nurse, aber der APN-Zusatz stiftet mehr Verwirrung als er nützt
   '29-1215.00': 'Facharzt für Allgemeinmedizin / Fachärztin für Allgemeinmedizin', // Family Medicine Physicians
   '29-1229.02': 'Krankenhausarzt/Krankenhausärztin', // Hospitalists
   '29-1229.05': 'Facharzt für Öffentliches Gesundheitswesen / Fachärztin für Öffentliches Gesundheitswesen', // Preventive Medicine Physicians
@@ -143,13 +143,13 @@ export default {
   '51-2041.00': 'Metallbauer Konstruktionstechnik / Metallbauerin Konstruktionstechnik', // Structural Metal Fabricators and Fitters
 
   // === Cluster: "Metallziehmaschinenbediener" (3) ===
-  '51-4021.00': 'Strangpress- und Ziehmaschinenbediener/Strangpress- und Ziehmaschinenbedienerin Metall', // Extruding and Drawing Machine Setters
-  '51-4022.00': 'Schmiedemaschinenbediener/Schmiedemaschinenbedienerin', // Forging Machine Setters
-  '51-4023.00': 'Walzwerkmaschinenbediener/Walzwerkmaschinenbedienerin', // Rolling Machine Setters
+  '51-4021.00': 'Maschinen- und Anlagenführer Strangpressen und Ziehen / Maschinen- und Anlagenführerin Strangpressen und Ziehen', // Extruding and Drawing Machine Setters
+  '51-4022.00': 'Maschinen- und Anlagenführer Schmiedetechnik / Maschinen- und Anlagenführerin Schmiedetechnik', // Forging Machine Setters
+  '51-4023.00': 'Maschinen- und Anlagenführer Walzwerk / Maschinen- und Anlagenführerin Walzwerk', // Rolling Machine Setters
 
   // === Cluster: "Technischer Modellbauer Fachrichtung Gießerei" (3) ===
   '51-4061.00': 'Technischer Modellbauer Metall und Kunststoff / Technische Modellbauerin Metall und Kunststoff', // Model Makers, Metal and Plastic
-  '51-4062.00': 'Modellformer Metall und Kunststoff / Modellformerin Metall und Kunststoff', // Patternmakers, Metal and Plastic
+  '51-4062.00': 'Technischer Modellbauer Gießereimodelle / Technische Modellbauerin Gießereimodelle', // Patternmakers, Metal and Plastic — Gießerei-Urmodelle (Abgrenzung zu 51-4061 Anschauungs-/Designmodelle)
   '51-7032.00': 'Holzmodellbauer/Holzmodellbauerin', // Patternmakers, Wood
 
   // === Cluster: "Steuerer Ölpumpsysteme" (3) ===
@@ -167,7 +167,7 @@ export default {
   '11-9199.08': 'Leiter Diebstahlprävention / Leiterin Diebstahlprävention', // Loss Prevention Managers
 
   // === Cluster: "Führungskraft im Personalwesen" (2) ===
-  '11-3111.00': 'Leiter Vergütung und Sozialleistungen / Leiterin Vergütung und Sozialleistungen', // Compensation and Benefits Managers
+  '11-3111.00': 'Leiter Vergütung und Zusatzleistungen / Leiterin Vergütung und Zusatzleistungen', // Compensation and Benefits Managers — "Benefits" = betriebliche Zusatzleistungen, nicht staatliche Sozialleistungen
   '11-3121.00': 'Personalleiter/Personalleiterin', // Human Resources Managers
 
   // === Cluster: "Leiter der betrieblichen Aus- und Weiterbildung" (2) ===
