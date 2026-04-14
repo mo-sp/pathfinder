@@ -3,6 +3,7 @@ import { computed, onMounted, onBeforeUnmount, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import type { AssessmentLayer } from '@entities/assessment/model/types'
+import type { Occupation } from '@entities/occupation/model/types'
 import { useQuestionnaireStore } from '@features/questionnaire/model/store'
 import {
   hasProfileDirection,
@@ -127,11 +128,21 @@ const activeResults = computed(() => {
 // Results pagination: show 20 initially, reveal 20 more per click.
 const PAGE_SIZE = 20
 const visibleCount = ref(PAGE_SIZE)
-const rankedResults = computed(() =>
-  activeResults.value.filter((r) =>
+
+// Hide occupations with a non-positive fit score by default — they just add
+// noise to the recommendation view. Toggle-on to reveal everything that
+// passed the hard filter (useful when the user wants to see e.g. the full
+// set of Helfer-Berufe to validate corpus coverage).
+const showWeakMatches = ref(false)
+const rankedResults = computed(() => {
+  if (showWeakMatches.value) return activeResults.value
+  return activeResults.value.filter((r) =>
     viewMode.value === 'riasec' ? r.riasecCorrelation > 0 : r.fitScore > 0,
-  ),
-)
+  )
+})
+const weakMatchCount = computed(() => activeResults.value.length - activeResults.value.filter((r) =>
+  viewMode.value === 'riasec' ? r.riasecCorrelation > 0 : r.fitScore > 0,
+).length)
 const visibleResults = computed(() =>
   rankedResults.value.slice(0, visibleCount.value),
 )
@@ -149,6 +160,31 @@ function showMore(): void {
 // Internal value stays raw for sorting + the debug formula line.
 function displayFitScore(v: number): number {
   return Math.min(v, 1)
+}
+
+// KldB class names carry an Anforderungsniveau suffix (" - Helfer-/Anlerntätigkeiten",
+// " - fachlich ausgerichtete Tätigkeiten", etc.) that adds noise next to the
+// trainingCategory pill. Strip it for display — the category conveys the same info.
+function stripKldbSuffix(name: string | null | undefined): string | null {
+  if (!name) return null
+  const idx = name.indexOf(' - ')
+  return (idx >= 0 ? name.slice(0, idx) : name).trim()
+}
+
+// Primary display name: prefer the ESCO/O*NET German title (concrete names like
+// "Zimmerer/Zimmerin"), fall back to the KldB class name, finally to English.
+function displayTitle(o: Occupation): string {
+  return o.title.de || stripKldbSuffix(o.kldbName) || o.title.en
+}
+
+// Subtitle: show the KldB classification when we have one and it's meaningfully
+// different from the display title — lets the user see both the concrete job
+// ("Zimmerer") and the official classification ("Berufe in der Zimmerei").
+function occupationSubtitle(o: Occupation): string | null {
+  const cleaned = stripKldbSuffix(o.kldbName)
+  if (!cleaned) return null
+  if (cleaned === displayTitle(o)) return null
+  return cleaned
 }
 
 /** Score delta: difference between the current view's fitScore and the RIASEC baseline. */
@@ -836,7 +872,28 @@ onBeforeUnmount(() => {
         >
           Berufsempfehlungen werden geladen …
         </p>
-        <ol v-else class="mt-6 space-y-3">
+        <template v-else>
+          <div
+            v-if="weakMatchCount > 0 || showWeakMatches"
+            class="mt-4 flex items-center gap-2 text-xs text-slate-400"
+          >
+            <label class="inline-flex cursor-pointer items-center gap-2">
+              <input
+                v-model="showWeakMatches"
+                type="checkbox"
+                class="h-3.5 w-3.5 cursor-pointer accent-indigo-500"
+              />
+              <span>
+                Alle Berufe zeigen – auch die, die nicht zu dir passen
+                <span class="text-slate-500">
+                  ({{ showWeakMatches ? activeResults.length : weakMatchCount }}
+                  {{ showWeakMatches ? 'Berufe gesamt' : 'zusätzlich' }})
+                </span>
+              </span>
+            </label>
+          </div>
+
+          <ol class="mt-6 space-y-3">
           <li
             v-for="result in visibleResults"
             :key="result.occupation.onetCode"
@@ -845,11 +902,14 @@ onBeforeUnmount(() => {
             <div class="flex items-center justify-between gap-3 px-4 py-3">
               <div class="min-w-0 flex-1">
                 <div class="font-medium break-words text-slate-100">
-                  {{ result.rank }}. {{ result.occupation.title.de || result.occupation.title.en }}
+                  {{ result.rank }}. {{ displayTitle(result.occupation) }}
                 </div>
                 <div class="text-xs break-words text-slate-400">
+                  <span v-if="occupationSubtitle(result.occupation)">
+                    {{ occupationSubtitle(result.occupation) }} ·
+                  </span>
                   O*NET {{ result.occupation.onetCode }}
-                  <span v-if="!result.occupation.title.de"> · (Übersetzung folgt)</span>
+                  <span v-if="!result.occupation.title.de && !result.occupation.kldbName"> · (Übersetzung folgt)</span>
                 </div>
               </div>
               <div class="flex shrink-0 items-center gap-2">
@@ -938,6 +998,7 @@ onBeforeUnmount(() => {
             Mehr anzeigen
           </button>
         </div>
+        </template>
       </template>
 
       <div class="mt-10 flex justify-center">

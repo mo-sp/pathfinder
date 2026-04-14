@@ -181,11 +181,33 @@ function isValidOrder(
  * (AssessmentPage onMount + ResultsPage onMount + the persist watcher all
  * race to trigger it).
  */
+/**
+ * Load occupations and overlay the KldB (German occupation classification)
+ * mapping in one merged pass so downstream consumers see a single Occupation
+ * shape with both O*NET fields and German name / Anforderungsniveau attached.
+ * The two lazy imports run in parallel.
+ */
 let occupationsPromise: Promise<Occupation[]> | null = null
 async function fetchOccupations(): Promise<Occupation[]> {
   if (!occupationsPromise) {
-    occupationsPromise = import('@data/onet-occupations.json').then(
-      (mod) => (mod.default ?? mod) as unknown as Occupation[],
+    occupationsPromise = Promise.all([
+      import('@data/onet-occupations.json').then(
+        (mod) => (mod.default ?? mod) as unknown as Occupation[],
+      ),
+      import('@data/kldb-occupation-mapping.json').then((mod) => {
+        const data = (mod.default ?? mod) as {
+          mappings: Record<
+            string,
+            Pick<Occupation, 'kldbCode' | 'kldbName' | 'anforderungsniveau' | 'trainingCategory'>
+          >
+        }
+        return data.mappings
+      }),
+    ]).then(([occupations, kldbMap]) =>
+      occupations.map((o) => {
+        const overlay = kldbMap[o.onetCode]
+        return overlay ? { ...o, ...overlay } : o
+      }),
     )
   }
   return occupationsPromise

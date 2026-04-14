@@ -187,10 +187,11 @@ describe('matchOccupations', () => {
   })
 
   describe('Values filtering and penalties', () => {
-    // Occupations with jobZone and workContext for values testing
+    // Occupations with anforderungsniveau (KldB training level) and workContext
+    // for values testing. Anf 2=Ausbildung, 3=Meister/Bachelor, 4=Master+.
     const deskJob: Occupation = {
       ...softwareDev,
-      jobZone: 4,
+      anforderungsniveau: 3,
       workContext: {
         indoor: 4.9, outdoor: 1.2, contactWithOthers: 3.5, teamwork: 3.8,
         standing: 1.2, walking: 1.1, autonomy: 4.5, publicContact: 2.0, routine: 2.5,
@@ -198,7 +199,7 @@ describe('matchOccupations', () => {
     }
     const outdoorJob: Occupation = {
       ...carpenter,
-      jobZone: 2,
+      anforderungsniveau: 2,
       workContext: {
         indoor: 1.5, outdoor: 4.8, contactWithOthers: 3.0, teamwork: 3.2,
         standing: 4.5, walking: 4.0, autonomy: 3.0, publicContact: 2.5, routine: 3.5,
@@ -206,7 +207,7 @@ describe('matchOccupations', () => {
     }
     const surgeonJob: Occupation = {
       ...occupation('29-1241.00', { R: 4, I: 6, A: 2, S: 5, E: 3, C: 3 }, 'Surgeon'),
-      jobZone: 5,
+      anforderungsniveau: 4,
       workContext: {
         indoor: 4.8, outdoor: 1.1, contactWithOthers: 4.5, teamwork: 4.2,
         standing: 4.2, walking: 2.8, autonomy: 4.8, publicContact: 3.5, routine: 1.5,
@@ -218,25 +219,30 @@ describe('matchOccupations', () => {
       physicalDemands: 3, autonomy: 3, publicContact: 3, routine: 3,
     }
 
-    it('hard-filters occupations whose jobZone exceeds education willingness', () => {
+    it('hard-filters occupations whose Anforderungsniveau exceeds education willingness', () => {
       const userProfile: RIASECProfile = { R: 3, I: 5, A: 3, S: 3, E: 3, C: 4 }
-      const values: ValuesProfile = { ...neutralValues, education: 3 }
+      // education=2 → max Anf 2: keep Anf 2, drop Anf 3 and Anf 4
+      const values: ValuesProfile = { ...neutralValues, education: 2 }
       const results = matchOccupations(userProfile, [deskJob, outdoorJob, surgeonJob], 20, null, null, values)
       const codes = results.map(r => r.occupation.onetCode)
-      // deskJob (zone 4) filtered: 4 > 3
-      expect(codes).not.toContain(deskJob.onetCode)
-      // surgeonJob (zone 5) filtered: 5 > 3
-      expect(codes).not.toContain(surgeonJob.onetCode)
-      // outdoorJob (zone 2) kept: 2 <= 3
-      expect(codes).toContain(outdoorJob.onetCode)
+      expect(codes).not.toContain(deskJob.onetCode) // Anf 3 > 2
+      expect(codes).not.toContain(surgeonJob.onetCode) // Anf 4 > 2
+      expect(codes).toContain(outdoorJob.onetCode) // Anf 2 ≤ 2
     })
 
-    it('keeps occupations without jobZone when filtering', () => {
-      const noZone: Occupation = occupation('99-0000.00', { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 })
+    it('keeps occupations without Anforderungsniveau when filtering', () => {
+      const noAnf: Occupation = occupation('99-0000.00', { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 })
       const userProfile: RIASECProfile = { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }
       const values: ValuesProfile = { ...neutralValues, education: 1 }
-      const results = matchOccupations(userProfile, [noZone], 20, null, null, values)
+      const results = matchOccupations(userProfile, [noAnf], 20, null, null, values)
       expect(results).toHaveLength(1)
+    })
+
+    it('education=5 (egal) lets every Anforderungsniveau through', () => {
+      const userProfile: RIASECProfile = { R: 3, I: 5, A: 3, S: 3, E: 3, C: 4 }
+      const values: ValuesProfile = { ...neutralValues, education: 5 }
+      const results = matchOccupations(userProfile, [deskJob, outdoorJob, surgeonJob], 20, null, null, values)
+      expect(results).toHaveLength(3)
     })
 
     it('applies soft penalties that reduce fitScore', () => {
