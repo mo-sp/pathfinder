@@ -107,17 +107,15 @@ If a user pushes back ("test before PR", "I want to verify this myself"), they m
 
 ## Session Protocol
 
-After each session, update `SUMMARY.md` with:
+After each session, update `SUMMARY.md` with a historical log entry:
 - Date, session focus
 - What was built/changed
 - Commits and PRs created
-- Known issues or TODOs
-- Next steps
 
 Forward-looking work — ideas, parked tasks, follow-ups — lives in
-`BACKLOG.md`, not in SUMMARY's "Next steps" prose. At session start, scan
-`BACKLOG.md` to pick the next task; when parking work mid-session, add a
-bullet there rather than burying it in a SUMMARY entry.
+`BACKLOG.md`, not in SUMMARY. At session start, scan `BACKLOG.md` to pick
+the next task; when parking work mid-session, add a bullet there rather
+than burying it in a SUMMARY entry.
 
 ## Key Principles
 
