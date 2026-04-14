@@ -114,6 +114,11 @@ After each session, update `SUMMARY.md` with:
 - Known issues or TODOs
 - Next steps
 
+Forward-looking work — ideas, parked tasks, follow-ups — lives in
+`BACKLOG.md`, not in SUMMARY's "Next steps" prose. At session start, scan
+`BACKLOG.md` to pick the next task; when parking work mid-session, add a
+bullet there rather than burying it in a SUMMARY entry.
+
 ## Key Principles
 
 1. **Privacy first** – All assessment logic runs client-side. No data leaves the browser unless user opts in.
