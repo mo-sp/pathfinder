@@ -26,6 +26,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { spawnSync } from 'node:child_process'
 import { parse } from 'csv-parse/sync'
+import titleOverridesDe from './input/title-overrides-de.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
@@ -223,21 +224,27 @@ async function build() {
   const cache = loadCache()
   const labels = await fetchAllGermanLabels(uniqueUris, cache)
 
-  let withGerman = 0
   for (const occ of occupations) {
     const match = crosswalk.get(occ.onetCode)
     if (!match) continue
     occ.escoUri = match.uri
     const de = labels[match.uri]
-    if (de) {
-      occ.title.de = de
-      withGerman += 1
+    if (de) occ.title.de = de
+  }
+
+  let overridden = 0
+  for (const occ of occupations) {
+    const override = titleOverridesDe[occ.onetCode]
+    if (override && override !== occ.title.de) {
+      occ.title.de = override
+      overridden += 1
     }
   }
 
+  const withGerman = occupations.filter((o) => o.title.de).length
   writeFileSync(OCCUPATIONS_PATH, JSON.stringify(occupations, null, 2) + '\n')
   console.log(
-    `Wrote ${occupations.length} occupations (${withGerman} with German title) → ${OCCUPATIONS_PATH}`,
+    `Wrote ${occupations.length} occupations (${withGerman} with German title, ${overridden} curated overrides applied) → ${OCCUPATIONS_PATH}`,
   )
 }
 
