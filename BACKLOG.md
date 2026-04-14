@@ -18,12 +18,6 @@ current PR. For what shipped when, see `SUMMARY.md`.
 
 Likely next 1–2 sessions.
 
-- **Data-quality sweep for generic `title.de` clusters** — medical specialties
-  (20+ O\*NET codes share `"Facharzt/Fachärztin"`) and Helper-variants
-  (`47-3012.00` Helpers-Carpenters shares `"Zimmerer/Zimmerin"` with the main
-  Carpenter code) produce duplicate-looking rows in search and arbitrary
-  first-alphabetical KldB matches. Fix: DE-title override map per specialty,
-  then rerun `node scripts/build-kldb-mapping.mjs`. See Session 18 entry.
 - **End-to-end scoring validation with archetype-personas** — viable now that
   all four layers have real data. Use the search feature added in Session 18
   as the spot-check tool; tune `SKILLS_ALPHA` (0.5), `BIG_FIVE_ALPHA` (0.3),
@@ -34,6 +28,21 @@ Likely next 1–2 sessions.
 
 ## Data quality
 
+- **KldB subtitle for medical specialties is wrong.** KldB 2010 has only a
+  handful of 5d physician classes (81404 Ärzte ohne Spez., 81414 Kinder- und
+  Jugendmedizin, 81454 Anästhesiologie, 81464 Neurologie/Psychiatrie,
+  81814 Pharmakologie). Specialties without a matching class (Kardiologie,
+  Dermatologie, Urologie, Radiologie, Orthopädie, Allergologie, Pathologie,
+  Sportmedizin, …) currently get routed to arbitrary far-off classes via the
+  stem-overlap tie-breaker — a rebuild attempt in Session 19 sent Sportmedizin
+  to "Führungskräfte Pferdewirtschaft" and Radiologe to "Ergotherapie".
+  Fix idea: per-ISCO fallback in `build-kldb-mapping.mjs` — if the best KldB
+  candidate has stemOverlap 0 with `title.de`, prefer the "ohne
+  Spezialisierung" class for that ISCO group rather than inventing a match.
+- **Similar subtitle mismatches outside medicine.** Moritz spotted 47-2061
+  Construction Laborers → "Sprengtechnik", 33-9094 School Bus Monitors →
+  "Kinderbetreuung und -erziehung". Likely the same stem-overlap-picks-weird-
+  thing pattern.
 - **85 broadMatch KldB mappings** — residual noise tier. Options: (a) hide
   `broadMatch` from display and fall back to jobZone-only category, (b)
   accept. Build-script stat: `match tier of mapped codes: broadMatch`.
@@ -48,6 +57,15 @@ Likely next 1–2 sessions.
   filter/relabel irrelevant ones.
 - **Skills-Items DE-polish** — `translator: "v1 — polish pass pending"` in
   `src/data/skills-items.json` still open.
+- **DE-title quality pass 2 — non-duplicate codes.** Session 19 curated 249
+  overrides but only for codes that sat in a duplicate cluster. The
+  remaining ~640 ESCO-raw labels haven't been line-reviewed. During PR
+  review @mo-sp spotted `43-5071 Shipping/Receiving/Inventory Clerks` →
+  "Warenlagerverwalter" (stale/ungebräuchlich; `Fachkraft für Lagerlogistik`
+  would be the current IHK-Ausbildungsberuf name). Likely more of the same
+  kind across logistics, trade, and technical roles. Fix: enumerate the
+  non-override codes, eyeball each `title.de` against BERUFENET, patch via
+  the same override file.
 
 ## UX polish
 
@@ -70,6 +88,15 @@ Likely next 1–2 sessions.
 - **Baseline-shift for skills bonus** at occupation-level — all-zero users
   currently still get small positive bonuses on avg-complexity occupations;
   Session 15/16 calibration sorted most of this, edge cases may remain.
+
+## Ideas
+
+- **AI-at-risk flag per occupation** — show whether a role is likely to be
+  heavily affected by current AI capability (automation/augmentation). Source
+  options: Frey & Osborne 2013, Brynjolfsson/Mitchell 2023, WEF Future of
+  Jobs, or an opinionated curated flag. Open design questions: binary vs.
+  multi-level, what timeframe, how to frame without fatalism. Discuss scope
+  before building.
 
 ## Tech debt
 
