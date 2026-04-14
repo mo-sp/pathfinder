@@ -372,7 +372,7 @@ export default {
 
   // === Cluster: "Polizist" (2) ===
   '33-3051.00': 'Polizeibeamter Streifendienst / Polizeibeamtin Streifendienst', // Police and Sheriff's Patrol Officers
-  '33-3052.00': 'Bundespolizei Bahn / Verkehrspolizei', // Transit and Railroad Police
+  '33-3052.00': 'Bahn- und Verkehrspolizist/Bahn- und Verkehrspolizistin', // Transit and Railroad Police
 
   // === Cluster: "Hilfskraft im Freizeit- und Erholungsbereich" (2) ===
   '39-3031.00': 'Einlasskontrolle und Saaldienst', // Ushers, Lobby Attendants, and Ticket Takers
@@ -412,11 +412,11 @@ export default {
 
   // === Cluster: "Steinmetz" (2) ===
   '47-2022.00': 'Steinmetz/Steinmetzin', // Stonemasons
-  '47-3011.00': 'Bauhelfer Maurer- und Steinmetzhandwerk', // Helpers--Brickmasons, Blockmasons, Stonemasons
+  '47-3011.00': 'Bauhelfer Maurer- und Steinmetzhandwerk / Bauhelferin Maurer- und Steinmetzhandwerk', // Helpers--Brickmasons, Blockmasons, Stonemasons
 
   // === Cluster: "Zimmerer" (2) ===
   '47-2031.00': 'Zimmerer/Zimmerin', // Carpenters
-  '47-3012.00': 'Bauhelfer Zimmerei', // Helpers--Carpenters
+  '47-3012.00': 'Bauhelfer Zimmerei / Bauhelferin Zimmerei', // Helpers--Carpenters
 
   // === Cluster: "Holzschleifer" (2) ===
   '47-2043.00': 'Parkett- und Bodenschleifer/Parkett- und Bodenschleiferin', // Floor Sanders and Finishers
@@ -428,7 +428,7 @@ export default {
 
   // === Cluster: "Industrieelektriker – Geräte und Systeme" (2) ===
   '47-2111.00': 'Elektroinstallateur/Elektroinstallateurin', // Electricians
-  '47-3013.00': 'Helfer Elektrotechnik', // Helpers--Electricians
+  '47-3013.00': 'Helfer Elektrotechnik / Helferin Elektrotechnik', // Helpers--Electricians
 
   // === Cluster: "Isoliermonteur" (2) ===
   '47-2131.00': 'Bauisolierer Hochbau / Bauisoliererin Hochbau', // Insulation Workers, Floor, Ceiling, and Wall
@@ -436,7 +436,7 @@ export default {
 
   // === Cluster: "Tapezierer" (2) ===
   '47-2142.00': 'Tapezierer/Tapeziererin', // Paperhangers
-  '47-3014.00': 'Bauhelfer Maler- und Tapeziererhandwerk', // Helpers--Painters, Paperhangers, Plasterers
+  '47-3014.00': 'Bauhelfer Maler- und Tapeziererhandwerk / Bauhelferin Maler- und Tapeziererhandwerk', // Helpers--Painters, Paperhangers, Plasterers
 
   // === Cluster: "Dachdecker" (2) ===
   '47-2181.00': 'Dachdecker/Dachdeckerin', // Roofers
