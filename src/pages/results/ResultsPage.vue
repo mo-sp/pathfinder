@@ -134,7 +134,41 @@ const visibleCount = ref(PAGE_SIZE)
 // passed the hard filter (useful when the user wants to see e.g. the full
 // set of Helfer-Berufe to validate corpus coverage).
 const showWeakMatches = ref(false)
+
+// Free-text search — when non-empty, bypasses the weak-match filter and
+// pagination cap, so every occupation that matches the query is listed with
+// its true rank. Handy for "where does X rank?" checks during scoring
+// validation, and for archetype-persona spot-tests.
+const searchQuery = ref('')
+function normalize(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+}
+const searchTokens = computed(() => {
+  const q = normalize(searchQuery.value.trim())
+  return q ? q.split(/\s+/).filter(Boolean) : []
+})
+const isSearching = computed(() => searchTokens.value.length > 0)
+function searchMatches(occ: Occupation): boolean {
+  if (!isSearching.value) return true
+  const haystack = normalize(
+    [occ.title.de ?? '', occ.title.en, occ.kldbName ?? '', occ.onetCode].join(' '),
+  )
+  return searchTokens.value.every((token) => haystack.includes(token))
+}
+function clearSearch(): void {
+  searchQuery.value = ''
+}
+
 const rankedResults = computed(() => {
+  if (isSearching.value) {
+    // Search bypasses the weak-match filter — show every match with its
+    // original rank regardless of score sign. Ranks come from activeResults
+    // directly (already sorted by fitScore desc).
+    return activeResults.value.filter((r) => searchMatches(r.occupation))
+  }
   if (showWeakMatches.value) return activeResults.value
   return activeResults.value.filter((r) =>
     viewMode.value === 'riasec' ? r.riasecCorrelation > 0 : r.fitScore > 0,
@@ -143,11 +177,13 @@ const rankedResults = computed(() => {
 const weakMatchCount = computed(() => activeResults.value.length - activeResults.value.filter((r) =>
   viewMode.value === 'riasec' ? r.riasecCorrelation > 0 : r.fitScore > 0,
 ).length)
-const visibleResults = computed(() =>
-  rankedResults.value.slice(0, visibleCount.value),
-)
+const visibleResults = computed(() => {
+  // Search mode shows every match; otherwise apply the pagination cap.
+  if (isSearching.value) return rankedResults.value
+  return rankedResults.value.slice(0, visibleCount.value)
+})
 const canShowMore = computed(
-  () => visibleCount.value < rankedResults.value.length,
+  () => !isSearching.value && visibleCount.value < rankedResults.value.length,
 )
 function showMore(): void {
   visibleCount.value += PAGE_SIZE
@@ -873,16 +909,41 @@ onBeforeUnmount(() => {
           Berufsempfehlungen werden geladen …
         </p>
         <template v-else>
+          <div class="mt-4 flex flex-wrap items-center gap-3">
+            <div class="relative min-w-[16rem] flex-1">
+              <input
+                v-model="searchQuery"
+                type="search"
+                placeholder="Beruf suchen (z.B. Softwareentwickler, Zimmerer, Arzt)"
+                class="w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-1.5 pr-8 text-xs text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:outline-none"
+              >
+              <button
+                v-if="searchQuery"
+                type="button"
+                class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-200"
+                aria-label="Suche zurücksetzen"
+                @click="clearSearch"
+              >
+                ×
+              </button>
+            </div>
+            <span
+              v-if="isSearching"
+              class="text-xs text-slate-400"
+            >
+              {{ rankedResults.length }} Treffer
+            </span>
+          </div>
           <div
-            v-if="weakMatchCount > 0 || showWeakMatches"
-            class="mt-4 flex items-center gap-2 text-xs text-slate-400"
+            v-if="!isSearching && (weakMatchCount > 0 || showWeakMatches)"
+            class="mt-3 flex items-center gap-2 text-xs text-slate-400"
           >
             <label class="inline-flex cursor-pointer items-center gap-2">
               <input
                 v-model="showWeakMatches"
                 type="checkbox"
                 class="h-3.5 w-3.5 cursor-pointer accent-indigo-500"
-              />
+              >
               <span>
                 Alle Berufe zeigen – auch die, die nicht zu dir passen
                 <span class="text-slate-500">
@@ -894,110 +955,110 @@ onBeforeUnmount(() => {
           </div>
 
           <ol class="mt-6 space-y-3">
-          <li
-            v-for="result in visibleResults"
-            :key="result.occupation.onetCode"
-            class="rounded-md border border-slate-800 bg-slate-900"
-          >
-            <div class="flex items-center justify-between gap-3 px-4 py-3">
-              <div class="min-w-0 flex-1">
-                <div class="font-medium break-words text-slate-100">
-                  {{ result.rank }}. {{ displayTitle(result.occupation) }}
-                </div>
-                <div class="text-xs break-words text-slate-400">
-                  <span v-if="occupationSubtitle(result.occupation)">
-                    {{ occupationSubtitle(result.occupation) }} ·
-                  </span>
-                  O*NET {{ result.occupation.onetCode }}
-                  <span v-if="!result.occupation.title.de && !result.occupation.kldbName"> · (Übersetzung folgt)</span>
-                </div>
-              </div>
-              <div class="flex shrink-0 items-center gap-2">
-                <span
-                  v-if="scoreDelta(result) != null && scoreDelta(result) !== 0"
-                  class="rounded px-1.5 py-0.5 font-mono text-xs"
-                  :class="scoreDelta(result)! > 0
-                    ? 'bg-emerald-950/60 text-emerald-400'
-                    : 'bg-red-950/60 text-red-400'"
-                >
-                  {{ scoreDelta(result)! > 0 ? '+' : '' }}{{ scoreDelta(result) }}
-                </span>
-                <span class="font-mono text-sm text-indigo-400">
-                  {{ (displayFitScore(result.fitScore) * 100).toFixed(0) }}
-                </span>
-                <button
-                  type="button"
-                  class="flex h-6 w-6 items-center justify-center rounded text-slate-400 hover:bg-slate-800 hover:text-slate-200"
-                  :aria-label="openExplanations.has(result.occupation.onetCode)
-                    ? t('explainPanel.toggle.close')
-                    : t('explainPanel.toggle.open')"
-                  :aria-expanded="openExplanations.has(result.occupation.onetCode)"
-                  :data-testid="`explain-toggle-${result.occupation.onetCode}`"
-                  @click="toggleExplanation(result.occupation.onetCode)"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    class="h-4 w-4 transition-transform"
-                    :class="{ 'rotate-180': openExplanations.has(result.occupation.onetCode) }"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.39a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div
-              v-if="openExplanations.has(result.occupation.onetCode)"
-              class="border-t border-slate-800 px-4 py-3"
-              :data-testid="`explain-panel-${result.occupation.onetCode}`"
+            <li
+              v-for="result in visibleResults"
+              :key="result.occupation.onetCode"
+              class="rounded-md border border-slate-800 bg-slate-900"
             >
-              <div class="mb-2 text-xs font-semibold tracking-wide text-slate-400 uppercase">
-                {{ t('explainPanel.title') }}
-              </div>
-              <dl class="space-y-2">
-                <div
-                  v-for="row in scoreBreakdown(result, viewMode)"
-                  :key="row.key"
-                  class="grid grid-cols-[auto_1fr_auto] items-baseline gap-3"
-                  :class="{ 'opacity-60': row.state === 'inactive' }"
-                >
-                  <dt class="text-sm text-slate-200">{{ row.label }}</dt>
-                  <dd class="text-xs text-slate-400">
-                    {{ row.text }}<span v-if="row.inactiveTag" class="ml-1 text-slate-500 italic">· {{ row.inactiveTag }}</span>
-                  </dd>
-                  <dd
-                    class="rounded px-1.5 py-0.5 font-mono text-xs"
-                    :class="{
-                      'bg-emerald-950/60 text-emerald-400': row.tone === 'positive' && (row.state === 'active' || row.state === 'inactive'),
-                      'bg-red-950/60 text-red-400': row.tone === 'negative' && (row.state === 'active' || row.state === 'inactive'),
-                      'bg-slate-800 text-slate-400': row.tone === 'neutral' || row.state === 'notScored' || row.state === 'noData',
-                    }"
-                  >
-                    {{ row.value }}
-                  </dd>
+              <div class="flex items-center justify-between gap-3 px-4 py-3">
+                <div class="min-w-0 flex-1">
+                  <div class="font-medium break-words text-slate-100">
+                    {{ result.rank }}. {{ displayTitle(result.occupation) }}
+                  </div>
+                  <div class="text-xs break-words text-slate-400">
+                    <span v-if="occupationSubtitle(result.occupation)">
+                      {{ occupationSubtitle(result.occupation) }} ·
+                    </span>
+                    O*NET {{ result.occupation.onetCode }}
+                    <span v-if="!result.occupation.title.de && !result.occupation.kldbName"> · (Übersetzung folgt)</span>
+                  </div>
                 </div>
-              </dl>
-              <p class="mt-3 border-t border-slate-800 pt-3 font-mono text-xs text-slate-400">
-                {{ scoreFormula(result, viewMode) }}
-              </p>
-            </div>
-          </li>
-        </ol>
-        <div v-if="canShowMore" class="mt-4 flex justify-center">
-          <button
-            type="button"
-            class="rounded-md border border-slate-700 bg-slate-900 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-slate-800"
-            @click="showMore"
-          >
-            Mehr anzeigen
-          </button>
-        </div>
+                <div class="flex shrink-0 items-center gap-2">
+                  <span
+                    v-if="scoreDelta(result) != null && scoreDelta(result) !== 0"
+                    class="rounded px-1.5 py-0.5 font-mono text-xs"
+                    :class="scoreDelta(result)! > 0
+                      ? 'bg-emerald-950/60 text-emerald-400'
+                      : 'bg-red-950/60 text-red-400'"
+                  >
+                    {{ scoreDelta(result)! > 0 ? '+' : '' }}{{ scoreDelta(result) }}
+                  </span>
+                  <span class="font-mono text-sm text-indigo-400">
+                    {{ (displayFitScore(result.fitScore) * 100).toFixed(0) }}
+                  </span>
+                  <button
+                    type="button"
+                    class="flex h-6 w-6 items-center justify-center rounded text-slate-400 hover:bg-slate-800 hover:text-slate-200"
+                    :aria-label="openExplanations.has(result.occupation.onetCode)
+                      ? t('explainPanel.toggle.close')
+                      : t('explainPanel.toggle.open')"
+                    :aria-expanded="openExplanations.has(result.occupation.onetCode)"
+                    :data-testid="`explain-toggle-${result.occupation.onetCode}`"
+                    @click="toggleExplanation(result.occupation.onetCode)"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      class="h-4 w-4 transition-transform"
+                      :class="{ 'rotate-180': openExplanations.has(result.occupation.onetCode) }"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.39a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div
+                v-if="openExplanations.has(result.occupation.onetCode)"
+                class="border-t border-slate-800 px-4 py-3"
+                :data-testid="`explain-panel-${result.occupation.onetCode}`"
+              >
+                <div class="mb-2 text-xs font-semibold tracking-wide text-slate-400 uppercase">
+                  {{ t('explainPanel.title') }}
+                </div>
+                <dl class="space-y-2">
+                  <div
+                    v-for="row in scoreBreakdown(result, viewMode)"
+                    :key="row.key"
+                    class="grid grid-cols-[auto_1fr_auto] items-baseline gap-3"
+                    :class="{ 'opacity-60': row.state === 'inactive' }"
+                  >
+                    <dt class="text-sm text-slate-200">{{ row.label }}</dt>
+                    <dd class="text-xs text-slate-400">
+                      {{ row.text }}<span v-if="row.inactiveTag" class="ml-1 text-slate-500 italic">· {{ row.inactiveTag }}</span>
+                    </dd>
+                    <dd
+                      class="rounded px-1.5 py-0.5 font-mono text-xs"
+                      :class="{
+                        'bg-emerald-950/60 text-emerald-400': row.tone === 'positive' && (row.state === 'active' || row.state === 'inactive'),
+                        'bg-red-950/60 text-red-400': row.tone === 'negative' && (row.state === 'active' || row.state === 'inactive'),
+                        'bg-slate-800 text-slate-400': row.tone === 'neutral' || row.state === 'notScored' || row.state === 'noData',
+                      }"
+                    >
+                      {{ row.value }}
+                    </dd>
+                  </div>
+                </dl>
+                <p class="mt-3 border-t border-slate-800 pt-3 font-mono text-xs text-slate-400">
+                  {{ scoreFormula(result, viewMode) }}
+                </p>
+              </div>
+            </li>
+          </ol>
+          <div v-if="canShowMore" class="mt-4 flex justify-center">
+            <button
+              type="button"
+              class="rounded-md border border-slate-700 bg-slate-900 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-slate-800"
+              @click="showMore"
+            >
+              Mehr anzeigen
+            </button>
+          </div>
         </template>
       </template>
 
