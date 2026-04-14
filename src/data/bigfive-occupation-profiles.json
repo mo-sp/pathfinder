@@ -1,54 +1,5495 @@
 {
   "meta": {
-    "source": "Mock data — schema matches Anni, Vainik & Mõttus (2024) 'Personality Profiles of 263 Occupations', but T-scores are invented for pipeline testing. Real data pending author approval.",
-    "mock": true,
-    "dimensions": ["openness", "conscientiousness", "extraversion", "agreeableness", "neuroticism"],
-    "scale": "T-scores (population mean=50, SD=10)",
-    "iscoMapping": "43 O*NET codes mapped from ISCO-08 groups via ESCO-O*NET crosswalk direct entries"
+    "source": "Anni, K., Vainik, U., & Mõttus, R. (2024). Personality Profiles of 263 Occupations. Journal of Applied Psychology.",
+    "doi": "10.1037/apl0001249",
+    "osf": "https://osf.io/m9sw3/",
+    "table": "S6 — Big Five personality profiles, weighted n=50",
+    "license": "Data CC BY 4.0 (author-approved use, 2026-04-14)",
+    "mock": false,
+    "dimensions": [
+      "openness",
+      "conscientiousness",
+      "extraversion",
+      "agreeableness",
+      "neuroticism"
+    ],
+    "scale": "T-scores (mean=50, SD=10) across all jobs",
+    "iscoMapping": "782 O*NET codes mapped from 237 real ISCO-08 4d groups via ESCO crosswalk + ESCO occupation taxonomy"
   },
   "profiles": {
-    "15-1252.00": { "openness": 58, "conscientiousness": 55, "extraversion": 42, "agreeableness": 48, "neuroticism": 46 },
-    "17-2112.00": { "openness": 54, "conscientiousness": 58, "extraversion": 44, "agreeableness": 47, "neuroticism": 44 },
-    "11-1031.00": { "openness": 50, "conscientiousness": 52, "extraversion": 56, "agreeableness": 44, "neuroticism": 48 },
-    "11-3031.00": { "openness": 48, "conscientiousness": 60, "extraversion": 54, "agreeableness": 45, "neuroticism": 43 },
-    "29-1171.00": { "openness": 52, "conscientiousness": 58, "extraversion": 54, "agreeableness": 58, "neuroticism": 42 },
-    "29-1131.00": { "openness": 55, "conscientiousness": 56, "extraversion": 48, "agreeableness": 56, "neuroticism": 44 },
-    "29-1051.00": { "openness": 50, "conscientiousness": 62, "extraversion": 48, "agreeableness": 52, "neuroticism": 42 },
-    "29-1031.00": { "openness": 52, "conscientiousness": 56, "extraversion": 52, "agreeableness": 56, "neuroticism": 44 },
-    "25-2032.00": { "openness": 54, "conscientiousness": 54, "extraversion": 56, "agreeableness": 56, "neuroticism": 46 },
-    "25-9031.00": { "openness": 56, "conscientiousness": 54, "extraversion": 52, "agreeableness": 54, "neuroticism": 46 },
-    "27-3031.00": { "openness": 56, "conscientiousness": 50, "extraversion": 60, "agreeableness": 52, "neuroticism": 48 },
-    "27-3091.00": { "openness": 62, "conscientiousness": 54, "extraversion": 44, "agreeableness": 52, "neuroticism": 47 },
-    "27-2012.00": { "openness": 62, "conscientiousness": 48, "extraversion": 58, "agreeableness": 46, "neuroticism": 50 },
-    "51-8013.00": { "openness": 44, "conscientiousness": 58, "extraversion": 42, "agreeableness": 48, "neuroticism": 44 },
-    "29-1024.00": { "openness": 52, "conscientiousness": 60, "extraversion": 48, "agreeableness": 50, "neuroticism": 42 },
-    "31-9092.00": { "openness": 48, "conscientiousness": 56, "extraversion": 52, "agreeableness": 58, "neuroticism": 46 },
-    "41-3031.00": { "openness": 48, "conscientiousness": 52, "extraversion": 60, "agreeableness": 44, "neuroticism": 46 },
-    "33-9093.00": { "openness": 42, "conscientiousness": 56, "extraversion": 46, "agreeableness": 48, "neuroticism": 48 },
-    "33-3021.00": { "openness": 50, "conscientiousness": 56, "extraversion": 52, "agreeableness": 44, "neuroticism": 46 },
-    "39-2021.00": { "openness": 50, "conscientiousness": 50, "extraversion": 48, "agreeableness": 58, "neuroticism": 48 },
-    "41-9012.00": { "openness": 56, "conscientiousness": 42, "extraversion": 60, "agreeableness": 50, "neuroticism": 52 },
-    "25-9042.00": { "openness": 50, "conscientiousness": 52, "extraversion": 52, "agreeableness": 58, "neuroticism": 48 },
-    "45-2021.00": { "openness": 48, "conscientiousness": 52, "extraversion": 42, "agreeableness": 50, "neuroticism": 46 },
-    "45-3031.00": { "openness": 48, "conscientiousness": 46, "extraversion": 40, "agreeableness": 46, "neuroticism": 44 },
-    "51-9195.05": { "openness": 62, "conscientiousness": 50, "extraversion": 42, "agreeableness": 50, "neuroticism": 48 },
-    "51-9195.04": { "openness": 60, "conscientiousness": 52, "extraversion": 40, "agreeableness": 48, "neuroticism": 46 },
-    "51-5113.00": { "openness": 44, "conscientiousness": 54, "extraversion": 44, "agreeableness": 50, "neuroticism": 46 },
-    "49-9081.00": { "openness": 50, "conscientiousness": 56, "extraversion": 44, "agreeableness": 48, "neuroticism": 42 },
-    "45-2041.00": { "openness": 42, "conscientiousness": 50, "extraversion": 42, "agreeableness": 50, "neuroticism": 48 },
-    "51-7042.00": { "openness": 44, "conscientiousness": 54, "extraversion": 42, "agreeableness": 50, "neuroticism": 46 },
-    "47-5032.00": { "openness": 44, "conscientiousness": 58, "extraversion": 44, "agreeableness": 46, "neuroticism": 42 },
-    "47-5044.00": { "openness": 42, "conscientiousness": 54, "extraversion": 42, "agreeableness": 48, "neuroticism": 46 },
-    "51-9011.00": { "openness": 44, "conscientiousness": 56, "extraversion": 42, "agreeableness": 48, "neuroticism": 44 },
-    "51-6063.00": { "openness": 42, "conscientiousness": 54, "extraversion": 42, "agreeableness": 50, "neuroticism": 48 },
-    "51-6061.00": { "openness": 42, "conscientiousness": 54, "extraversion": 42, "agreeableness": 50, "neuroticism": 48 },
-    "51-2092.00": { "openness": 44, "conscientiousness": 52, "extraversion": 48, "agreeableness": 52, "neuroticism": 48 },
-    "51-2031.00": { "openness": 46, "conscientiousness": 56, "extraversion": 42, "agreeableness": 48, "neuroticism": 44 },
-    "51-2022.00": { "openness": 46, "conscientiousness": 56, "extraversion": 42, "agreeableness": 48, "neuroticism": 44 },
-    "53-3032.00": { "openness": 42, "conscientiousness": 50, "extraversion": 46, "agreeableness": 46, "neuroticism": 48 },
-    "47-5022.00": { "openness": 42, "conscientiousness": 52, "extraversion": 42, "agreeableness": 46, "neuroticism": 46 },
-    "45-2093.00": { "openness": 46, "conscientiousness": 48, "extraversion": 42, "agreeableness": 50, "neuroticism": 48 },
-    "47-2061.00": { "openness": 44, "conscientiousness": 50, "extraversion": 46, "agreeableness": 48, "neuroticism": 48 },
-    "35-2011.00": { "openness": 44, "conscientiousness": 48, "extraversion": 50, "agreeableness": 50, "neuroticism": 50 }
+    "11-1011.00": {
+      "openness": 51.87,
+      "conscientiousness": 51.83,
+      "extraversion": 51.14,
+      "agreeableness": 48.93,
+      "neuroticism": 46.71
+    },
+    "11-1011.03": {
+      "openness": 50.91,
+      "conscientiousness": 48.77,
+      "extraversion": 50.63,
+      "agreeableness": 48.68,
+      "neuroticism": 48.3
+    },
+    "11-1021.00": {
+      "openness": 50.59,
+      "conscientiousness": 51.02,
+      "extraversion": 50.38,
+      "agreeableness": 47.93,
+      "neuroticism": 47.16
+    },
+    "11-2011.00": {
+      "openness": 52.78,
+      "conscientiousness": 49.53,
+      "extraversion": 54.46,
+      "agreeableness": 48.09,
+      "neuroticism": 50.5
+    },
+    "11-2021.00": {
+      "openness": 52.51,
+      "conscientiousness": 50.27,
+      "extraversion": 52.73,
+      "agreeableness": 47.59,
+      "neuroticism": 49.08
+    },
+    "11-2022.00": {
+      "openness": 48.94,
+      "conscientiousness": 51.76,
+      "extraversion": 51.67,
+      "agreeableness": 47.87,
+      "neuroticism": 48.15
+    },
+    "11-2032.00": {
+      "openness": 53.26,
+      "conscientiousness": 49.15,
+      "extraversion": 54.4,
+      "agreeableness": 48.2,
+      "neuroticism": 51.11
+    },
+    "11-2033.00": {
+      "openness": 50.65,
+      "conscientiousness": 50.05,
+      "extraversion": 52.59,
+      "agreeableness": 50.02,
+      "neuroticism": 51.98
+    },
+    "11-3012.00": {
+      "openness": 50.83,
+      "conscientiousness": 50.26,
+      "extraversion": 52.03,
+      "agreeableness": 49.05,
+      "neuroticism": 49.62
+    },
+    "11-3013.00": {
+      "openness": 49.38,
+      "conscientiousness": 49.55,
+      "extraversion": 51.98,
+      "agreeableness": 47.07,
+      "neuroticism": 47.03
+    },
+    "11-3013.01": {
+      "openness": 50.45,
+      "conscientiousness": 50.14,
+      "extraversion": 49.69,
+      "agreeableness": 48.23,
+      "neuroticism": 48.07
+    },
+    "11-3021.00": {
+      "openness": 55.49,
+      "conscientiousness": 48.53,
+      "extraversion": 46.42,
+      "agreeableness": 49.11,
+      "neuroticism": 45.61
+    },
+    "11-3031.00": {
+      "openness": 50.66,
+      "conscientiousness": 52.18,
+      "extraversion": 52.16,
+      "agreeableness": 47.83,
+      "neuroticism": 47.39
+    },
+    "11-3031.01": {
+      "openness": 49.49,
+      "conscientiousness": 53.29,
+      "extraversion": 50.68,
+      "agreeableness": 50.13,
+      "neuroticism": 47.95
+    },
+    "11-3031.03": {
+      "openness": 50.27,
+      "conscientiousness": 51.67,
+      "extraversion": 50.97,
+      "agreeableness": 50.14,
+      "neuroticism": 49.11
+    },
+    "11-3051.00": {
+      "openness": 51.08,
+      "conscientiousness": 50.73,
+      "extraversion": 48.94,
+      "agreeableness": 47.58,
+      "neuroticism": 47.13
+    },
+    "11-3051.01": {
+      "openness": 51.06,
+      "conscientiousness": 49.42,
+      "extraversion": 47.5,
+      "agreeableness": 48.45,
+      "neuroticism": 48.11
+    },
+    "11-3051.02": {
+      "openness": 49.73,
+      "conscientiousness": 50.45,
+      "extraversion": 49.13,
+      "agreeableness": 47.93,
+      "neuroticism": 47.39
+    },
+    "11-3051.03": {
+      "openness": 49.79,
+      "conscientiousness": 51.11,
+      "extraversion": 48.86,
+      "agreeableness": 47.18,
+      "neuroticism": 46.72
+    },
+    "11-3051.04": {
+      "openness": 49.5,
+      "conscientiousness": 50.64,
+      "extraversion": 51.37,
+      "agreeableness": 46.83,
+      "neuroticism": 46.76
+    },
+    "11-3051.06": {
+      "openness": 50.41,
+      "conscientiousness": 50.28,
+      "extraversion": 48.88,
+      "agreeableness": 47.67,
+      "neuroticism": 46.7
+    },
+    "11-3061.00": {
+      "openness": 48.57,
+      "conscientiousness": 51.7,
+      "extraversion": 50.01,
+      "agreeableness": 48.75,
+      "neuroticism": 49.53
+    },
+    "11-3071.00": {
+      "openness": 48.3,
+      "conscientiousness": 51.36,
+      "extraversion": 48.63,
+      "agreeableness": 48.41,
+      "neuroticism": 49.46
+    },
+    "11-3071.04": {
+      "openness": 49.04,
+      "conscientiousness": 52.25,
+      "extraversion": 49.21,
+      "agreeableness": 47.96,
+      "neuroticism": 47.94
+    },
+    "11-3111.00": {
+      "openness": 51.05,
+      "conscientiousness": 52.61,
+      "extraversion": 55.59,
+      "agreeableness": 50.29,
+      "neuroticism": 49.33
+    },
+    "11-3121.00": {
+      "openness": 50.03,
+      "conscientiousness": 52,
+      "extraversion": 53.12,
+      "agreeableness": 49.94,
+      "neuroticism": 49.64
+    },
+    "11-3131.00": {
+      "openness": 54.02,
+      "conscientiousness": 48.45,
+      "extraversion": 54.33,
+      "agreeableness": 50.86,
+      "neuroticism": 49.06
+    },
+    "11-9013.00": {
+      "openness": 49.78,
+      "conscientiousness": 48.91,
+      "extraversion": 47.7,
+      "agreeableness": 51.34,
+      "neuroticism": 49.71
+    },
+    "11-9021.00": {
+      "openness": 50.46,
+      "conscientiousness": 50.54,
+      "extraversion": 47.33,
+      "agreeableness": 46.79,
+      "neuroticism": 45.96
+    },
+    "11-9031.00": {
+      "openness": 51.17,
+      "conscientiousness": 50.98,
+      "extraversion": 54.19,
+      "agreeableness": 53.14,
+      "neuroticism": 48.75
+    },
+    "11-9032.00": {
+      "openness": 50.01,
+      "conscientiousness": 50.98,
+      "extraversion": 53.46,
+      "agreeableness": 52.63,
+      "neuroticism": 50.26
+    },
+    "11-9033.00": {
+      "openness": 51.34,
+      "conscientiousness": 50.52,
+      "extraversion": 52.6,
+      "agreeableness": 51.54,
+      "neuroticism": 51.12
+    },
+    "11-9041.00": {
+      "openness": 51.38,
+      "conscientiousness": 50.22,
+      "extraversion": 49.67,
+      "agreeableness": 48.09,
+      "neuroticism": 48.04
+    },
+    "11-9041.01": {
+      "openness": 52.45,
+      "conscientiousness": 50.52,
+      "extraversion": 48.7,
+      "agreeableness": 48.39,
+      "neuroticism": 47.69
+    },
+    "11-9051.00": {
+      "openness": 50.17,
+      "conscientiousness": 49.63,
+      "extraversion": 52.38,
+      "agreeableness": 48.83,
+      "neuroticism": 51.45
+    },
+    "11-9071.00": {
+      "openness": 51.44,
+      "conscientiousness": 50.05,
+      "extraversion": 54.44,
+      "agreeableness": 49.9,
+      "neuroticism": 49.49
+    },
+    "11-9072.00": {
+      "openness": 51.04,
+      "conscientiousness": 50.37,
+      "extraversion": 53.16,
+      "agreeableness": 49.43,
+      "neuroticism": 49.91
+    },
+    "11-9081.00": {
+      "openness": 51.3,
+      "conscientiousness": 50.8,
+      "extraversion": 53.23,
+      "agreeableness": 49.11,
+      "neuroticism": 50.44
+    },
+    "11-9111.00": {
+      "openness": 50.58,
+      "conscientiousness": 52.2,
+      "extraversion": 52.04,
+      "agreeableness": 51.43,
+      "neuroticism": 46.62
+    },
+    "11-9121.00": {
+      "openness": 53.42,
+      "conscientiousness": 48.91,
+      "extraversion": 50.29,
+      "agreeableness": 48.8,
+      "neuroticism": 48.52
+    },
+    "11-9121.01": {
+      "openness": 54.52,
+      "conscientiousness": 50.93,
+      "extraversion": 50.68,
+      "agreeableness": 47.07,
+      "neuroticism": 47.2
+    },
+    "11-9121.02": {
+      "openness": 51.93,
+      "conscientiousness": 48.82,
+      "extraversion": 49.38,
+      "agreeableness": 49.32,
+      "neuroticism": 49.44
+    },
+    "11-9141.00": {
+      "openness": 47.42,
+      "conscientiousness": 48.88,
+      "extraversion": 51.81,
+      "agreeableness": 48.87,
+      "neuroticism": 50.25
+    },
+    "11-9151.00": {
+      "openness": 51.7,
+      "conscientiousness": 50.16,
+      "extraversion": 53.07,
+      "agreeableness": 51.35,
+      "neuroticism": 51
+    },
+    "11-9161.00": {
+      "openness": 51.86,
+      "conscientiousness": 50.71,
+      "extraversion": 50.5,
+      "agreeableness": 49.59,
+      "neuroticism": 47.53
+    },
+    "11-9179.01": {
+      "openness": 51.44,
+      "conscientiousness": 50.05,
+      "extraversion": 54.44,
+      "agreeableness": 49.9,
+      "neuroticism": 49.49
+    },
+    "11-9179.02": {
+      "openness": 51.44,
+      "conscientiousness": 50.05,
+      "extraversion": 54.44,
+      "agreeableness": 49.9,
+      "neuroticism": 49.49
+    },
+    "11-9199.00": {
+      "openness": 52.47,
+      "conscientiousness": 50.36,
+      "extraversion": 49.89,
+      "agreeableness": 48.35,
+      "neuroticism": 48.28
+    },
+    "11-9199.01": {
+      "openness": 52.82,
+      "conscientiousness": 51.69,
+      "extraversion": 51.29,
+      "agreeableness": 48.7,
+      "neuroticism": 49.95
+    },
+    "11-9199.02": {
+      "openness": 52.82,
+      "conscientiousness": 51.69,
+      "extraversion": 51.29,
+      "agreeableness": 48.7,
+      "neuroticism": 49.95
+    },
+    "11-9199.08": {
+      "openness": 49.75,
+      "conscientiousness": 50.41,
+      "extraversion": 49.61,
+      "agreeableness": 47.23,
+      "neuroticism": 47.92
+    },
+    "11-9199.09": {
+      "openness": 49.5,
+      "conscientiousness": 50.64,
+      "extraversion": 51.37,
+      "agreeableness": 46.83,
+      "neuroticism": 46.76
+    },
+    "11-9199.10": {
+      "openness": 49.5,
+      "conscientiousness": 50.64,
+      "extraversion": 51.37,
+      "agreeableness": 46.83,
+      "neuroticism": 46.76
+    },
+    "13-1021.00": {
+      "openness": 48.57,
+      "conscientiousness": 51.7,
+      "extraversion": 50.01,
+      "agreeableness": 48.75,
+      "neuroticism": 49.53
+    },
+    "13-1023.00": {
+      "openness": 49.25,
+      "conscientiousness": 51,
+      "extraversion": 50.97,
+      "agreeableness": 49.5,
+      "neuroticism": 51.05
+    },
+    "13-1031.00": {
+      "openness": 48.93,
+      "conscientiousness": 50.35,
+      "extraversion": 49.24,
+      "agreeableness": 49.01,
+      "neuroticism": 50.39
+    },
+    "13-1032.00": {
+      "openness": 48.93,
+      "conscientiousness": 50.35,
+      "extraversion": 49.24,
+      "agreeableness": 49.01,
+      "neuroticism": 50.39
+    },
+    "13-1041.00": {
+      "openness": 49.97,
+      "conscientiousness": 50.26,
+      "extraversion": 46.88,
+      "agreeableness": 49.03,
+      "neuroticism": 48.03
+    },
+    "13-1041.01": {
+      "openness": 50.98,
+      "conscientiousness": 48.71,
+      "extraversion": 51.54,
+      "agreeableness": 50.77,
+      "neuroticism": 50.33
+    },
+    "13-1041.03": {
+      "openness": 51.05,
+      "conscientiousness": 52.61,
+      "extraversion": 55.59,
+      "agreeableness": 50.29,
+      "neuroticism": 49.33
+    },
+    "13-1041.04": {
+      "openness": 49.73,
+      "conscientiousness": 49.64,
+      "extraversion": 47.87,
+      "agreeableness": 48.72,
+      "neuroticism": 49.2
+    },
+    "13-1041.06": {
+      "openness": 52.82,
+      "conscientiousness": 51.69,
+      "extraversion": 51.29,
+      "agreeableness": 48.7,
+      "neuroticism": 49.95
+    },
+    "13-1041.07": {
+      "openness": 52.82,
+      "conscientiousness": 51.69,
+      "extraversion": 51.29,
+      "agreeableness": 48.7,
+      "neuroticism": 49.95
+    },
+    "13-1041.08": {
+      "openness": 48.38,
+      "conscientiousness": 49.51,
+      "extraversion": 52.36,
+      "agreeableness": 48.62,
+      "neuroticism": 49.09
+    },
+    "13-1051.00": {
+      "openness": 50.39,
+      "conscientiousness": 51.48,
+      "extraversion": 49.66,
+      "agreeableness": 50.05,
+      "neuroticism": 48.62
+    },
+    "13-1071.00": {
+      "openness": 49.43,
+      "conscientiousness": 51.34,
+      "extraversion": 53.53,
+      "agreeableness": 50.97,
+      "neuroticism": 50.75
+    },
+    "13-1075.00": {
+      "openness": 51.41,
+      "conscientiousness": 51.41,
+      "extraversion": 52.92,
+      "agreeableness": 50.14,
+      "neuroticism": 50.8
+    },
+    "13-1081.00": {
+      "openness": 50.69,
+      "conscientiousness": 51.3,
+      "extraversion": 49.19,
+      "agreeableness": 48.91,
+      "neuroticism": 48.31
+    },
+    "13-1081.01": {
+      "openness": 51.51,
+      "conscientiousness": 50.83,
+      "extraversion": 49.18,
+      "agreeableness": 49.39,
+      "neuroticism": 48.49
+    },
+    "13-1081.02": {
+      "openness": 51.51,
+      "conscientiousness": 50.83,
+      "extraversion": 49.18,
+      "agreeableness": 49.39,
+      "neuroticism": 48.49
+    },
+    "13-1082.00": {
+      "openness": 51.31,
+      "conscientiousness": 50.31,
+      "extraversion": 50.66,
+      "agreeableness": 49.07,
+      "neuroticism": 48.66
+    },
+    "13-1111.00": {
+      "openness": 51.65,
+      "conscientiousness": 51.86,
+      "extraversion": 50.71,
+      "agreeableness": 50.45,
+      "neuroticism": 49.31
+    },
+    "13-1121.00": {
+      "openness": 50.25,
+      "conscientiousness": 49.6,
+      "extraversion": 53.93,
+      "agreeableness": 48.72,
+      "neuroticism": 49.21
+    },
+    "13-1131.00": {
+      "openness": 50.83,
+      "conscientiousness": 49.57,
+      "extraversion": 52.89,
+      "agreeableness": 50.46,
+      "neuroticism": 53.7
+    },
+    "13-1141.00": {
+      "openness": 49.89,
+      "conscientiousness": 50.99,
+      "extraversion": 54.77,
+      "agreeableness": 50.39,
+      "neuroticism": 50.5
+    },
+    "13-1151.00": {
+      "openness": 53.09,
+      "conscientiousness": 48.73,
+      "extraversion": 54.47,
+      "agreeableness": 51.55,
+      "neuroticism": 50.34
+    },
+    "13-1161.00": {
+      "openness": 52.34,
+      "conscientiousness": 48.23,
+      "extraversion": 50.05,
+      "agreeableness": 50.23,
+      "neuroticism": 51.58
+    },
+    "13-1161.01": {
+      "openness": 53.16,
+      "conscientiousness": 48.59,
+      "extraversion": 51.39,
+      "agreeableness": 49.15,
+      "neuroticism": 51.38
+    },
+    "13-1199.00": {
+      "openness": 52.49,
+      "conscientiousness": 49.14,
+      "extraversion": 49.25,
+      "agreeableness": 48.95,
+      "neuroticism": 52.69
+    },
+    "13-1199.04": {
+      "openness": 53.01,
+      "conscientiousness": 48.28,
+      "extraversion": 47.27,
+      "agreeableness": 49.88,
+      "neuroticism": 48.74
+    },
+    "13-1199.05": {
+      "openness": 54.52,
+      "conscientiousness": 48.11,
+      "extraversion": 49.26,
+      "agreeableness": 49.64,
+      "neuroticism": 47.87
+    },
+    "13-1199.06": {
+      "openness": 51.5,
+      "conscientiousness": 49.94,
+      "extraversion": 53.75,
+      "agreeableness": 47.86,
+      "neuroticism": 50.02
+    },
+    "13-1199.07": {
+      "openness": 49.75,
+      "conscientiousness": 50.41,
+      "extraversion": 49.61,
+      "agreeableness": 47.23,
+      "neuroticism": 47.92
+    },
+    "13-2011.00": {
+      "openness": 48.98,
+      "conscientiousness": 51.04,
+      "extraversion": 49.75,
+      "agreeableness": 51.38,
+      "neuroticism": 49.72
+    },
+    "13-2022.00": {
+      "openness": 48.93,
+      "conscientiousness": 50.35,
+      "extraversion": 49.24,
+      "agreeableness": 49.01,
+      "neuroticism": 50.39
+    },
+    "13-2023.00": {
+      "openness": 48.93,
+      "conscientiousness": 50.35,
+      "extraversion": 49.24,
+      "agreeableness": 49.01,
+      "neuroticism": 50.39
+    },
+    "13-2031.00": {
+      "openness": 49.49,
+      "conscientiousness": 53.29,
+      "extraversion": 50.68,
+      "agreeableness": 50.13,
+      "neuroticism": 47.95
+    },
+    "13-2041.00": {
+      "openness": 47.68,
+      "conscientiousness": 51.96,
+      "extraversion": 53.44,
+      "agreeableness": 50,
+      "neuroticism": 50.65
+    },
+    "13-2051.00": {
+      "openness": 50.27,
+      "conscientiousness": 51.67,
+      "extraversion": 50.97,
+      "agreeableness": 50.14,
+      "neuroticism": 49.11
+    },
+    "13-2052.00": {
+      "openness": 48.98,
+      "conscientiousness": 51.48,
+      "extraversion": 52.72,
+      "agreeableness": 49.56,
+      "neuroticism": 49.6
+    },
+    "13-2053.00": {
+      "openness": 47.82,
+      "conscientiousness": 50.52,
+      "extraversion": 52.54,
+      "agreeableness": 50.46,
+      "neuroticism": 50.61
+    },
+    "13-2054.00": {
+      "openness": 49.95,
+      "conscientiousness": 50.37,
+      "extraversion": 50.8,
+      "agreeableness": 50.29,
+      "neuroticism": 50
+    },
+    "13-2061.00": {
+      "openness": 48.15,
+      "conscientiousness": 52.8,
+      "extraversion": 50.63,
+      "agreeableness": 51.36,
+      "neuroticism": 48.87
+    },
+    "13-2071.00": {
+      "openness": 48.98,
+      "conscientiousness": 51.48,
+      "extraversion": 52.72,
+      "agreeableness": 49.56,
+      "neuroticism": 49.6
+    },
+    "13-2072.00": {
+      "openness": 47.68,
+      "conscientiousness": 51.96,
+      "extraversion": 53.44,
+      "agreeableness": 50,
+      "neuroticism": 50.65
+    },
+    "13-2082.00": {
+      "openness": 48.15,
+      "conscientiousness": 52.8,
+      "extraversion": 50.63,
+      "agreeableness": 51.36,
+      "neuroticism": 48.87
+    },
+    "13-2099.00": {
+      "openness": 50.29,
+      "conscientiousness": 51.01,
+      "extraversion": 52,
+      "agreeableness": 49.13,
+      "neuroticism": 48.55
+    },
+    "13-2099.01": {
+      "openness": 50.27,
+      "conscientiousness": 51.67,
+      "extraversion": 50.97,
+      "agreeableness": 50.14,
+      "neuroticism": 49.11
+    },
+    "13-2099.04": {
+      "openness": 48.54,
+      "conscientiousness": 51.58,
+      "extraversion": 49.94,
+      "agreeableness": 50.19,
+      "neuroticism": 49.63
+    },
+    "15-1211.00": {
+      "openness": 54.23,
+      "conscientiousness": 47.89,
+      "extraversion": 46.09,
+      "agreeableness": 50.48,
+      "neuroticism": 48.37
+    },
+    "15-1211.01": {
+      "openness": 53.01,
+      "conscientiousness": 49.32,
+      "extraversion": 48.07,
+      "agreeableness": 50.8,
+      "neuroticism": 47.78
+    },
+    "15-1212.00": {
+      "openness": 54.26,
+      "conscientiousness": 47.75,
+      "extraversion": 44.23,
+      "agreeableness": 49.45,
+      "neuroticism": 45.31
+    },
+    "15-1221.00": {
+      "openness": 53.11,
+      "conscientiousness": 49.31,
+      "extraversion": 49.14,
+      "agreeableness": 50.47,
+      "neuroticism": 48.34
+    },
+    "15-1231.00": {
+      "openness": 53.35,
+      "conscientiousness": 46.83,
+      "extraversion": 43.98,
+      "agreeableness": 48.93,
+      "neuroticism": 45.84
+    },
+    "15-1241.00": {
+      "openness": 53.11,
+      "conscientiousness": 49.31,
+      "extraversion": 49.14,
+      "agreeableness": 50.47,
+      "neuroticism": 48.34
+    },
+    "15-1242.00": {
+      "openness": 50.97,
+      "conscientiousness": 47.36,
+      "extraversion": 45.79,
+      "agreeableness": 50.99,
+      "neuroticism": 50.11
+    },
+    "15-1243.00": {
+      "openness": 50.97,
+      "conscientiousness": 47.36,
+      "extraversion": 45.79,
+      "agreeableness": 50.99,
+      "neuroticism": 50.11
+    },
+    "15-1243.01": {
+      "openness": 50.97,
+      "conscientiousness": 47.36,
+      "extraversion": 45.79,
+      "agreeableness": 50.99,
+      "neuroticism": 50.11
+    },
+    "15-1244.00": {
+      "openness": 53.35,
+      "conscientiousness": 46.83,
+      "extraversion": 43.98,
+      "agreeableness": 48.93,
+      "neuroticism": 45.84
+    },
+    "15-1251.00": {
+      "openness": 55.34,
+      "conscientiousness": 46.46,
+      "extraversion": 43.03,
+      "agreeableness": 50.5,
+      "neuroticism": 48.39
+    },
+    "15-1252.00": {
+      "openness": 53.74,
+      "conscientiousness": 47.39,
+      "extraversion": 45.84,
+      "agreeableness": 50.76,
+      "neuroticism": 49.75
+    },
+    "15-1253.00": {
+      "openness": 54.91,
+      "conscientiousness": 46.27,
+      "extraversion": 44.31,
+      "agreeableness": 50.78,
+      "neuroticism": 50.37
+    },
+    "15-1254.00": {
+      "openness": 55.69,
+      "conscientiousness": 46.35,
+      "extraversion": 44.28,
+      "agreeableness": 51.58,
+      "neuroticism": 51.41
+    },
+    "15-1255.00": {
+      "openness": 55.52,
+      "conscientiousness": 46.41,
+      "extraversion": 43.66,
+      "agreeableness": 51.04,
+      "neuroticism": 49.9
+    },
+    "15-1255.01": {
+      "openness": 55.24,
+      "conscientiousness": 45.78,
+      "extraversion": 50.77,
+      "agreeableness": 51.78,
+      "neuroticism": 55.56
+    },
+    "15-1299.02": {
+      "openness": 48.79,
+      "conscientiousness": 48.82,
+      "extraversion": 47.53,
+      "agreeableness": 50.36,
+      "neuroticism": 49.6
+    },
+    "15-1299.03": {
+      "openness": 51.77,
+      "conscientiousness": 49.33,
+      "extraversion": 48.97,
+      "agreeableness": 50.27,
+      "neuroticism": 48.95
+    },
+    "15-1299.04": {
+      "openness": 54.26,
+      "conscientiousness": 47.75,
+      "extraversion": 44.23,
+      "agreeableness": 49.45,
+      "neuroticism": 45.31
+    },
+    "15-1299.05": {
+      "openness": 54.26,
+      "conscientiousness": 47.75,
+      "extraversion": 44.23,
+      "agreeableness": 49.45,
+      "neuroticism": 45.31
+    },
+    "15-1299.06": {
+      "openness": 54.26,
+      "conscientiousness": 47.75,
+      "extraversion": 44.23,
+      "agreeableness": 49.45,
+      "neuroticism": 45.31
+    },
+    "15-1299.07": {
+      "openness": 54.23,
+      "conscientiousness": 47.89,
+      "extraversion": 46.09,
+      "agreeableness": 50.48,
+      "neuroticism": 48.37
+    },
+    "15-1299.08": {
+      "openness": 54.31,
+      "conscientiousness": 47.28,
+      "extraversion": 45.92,
+      "agreeableness": 50.68,
+      "neuroticism": 49.69
+    },
+    "15-1299.09": {
+      "openness": 53.11,
+      "conscientiousness": 49.75,
+      "extraversion": 49.71,
+      "agreeableness": 48.69,
+      "neuroticism": 47
+    },
+    "15-2011.00": {
+      "openness": 49.86,
+      "conscientiousness": 49.58,
+      "extraversion": 49.37,
+      "agreeableness": 51.24,
+      "neuroticism": 50.89
+    },
+    "15-2021.00": {
+      "openness": 54.79,
+      "conscientiousness": 48.12,
+      "extraversion": 47.65,
+      "agreeableness": 50.82,
+      "neuroticism": 50.15
+    },
+    "15-2031.00": {
+      "openness": 51.01,
+      "conscientiousness": 50.93,
+      "extraversion": 50.97,
+      "agreeableness": 50.12,
+      "neuroticism": 49.54
+    },
+    "15-2041.00": {
+      "openness": 51.44,
+      "conscientiousness": 48.75,
+      "extraversion": 48.35,
+      "agreeableness": 51.12,
+      "neuroticism": 50.55
+    },
+    "15-2041.01": {
+      "openness": 53.57,
+      "conscientiousness": 47.45,
+      "extraversion": 46.98,
+      "agreeableness": 50.28,
+      "neuroticism": 50.52
+    },
+    "15-2051.00": {
+      "openness": 53.65,
+      "conscientiousness": 48.17,
+      "extraversion": 46.78,
+      "agreeableness": 50.07,
+      "neuroticism": 48.06
+    },
+    "15-2051.01": {
+      "openness": 52.89,
+      "conscientiousness": 50,
+      "extraversion": 51.52,
+      "agreeableness": 49.73,
+      "neuroticism": 49.85
+    },
+    "15-2051.02": {
+      "openness": 50.58,
+      "conscientiousness": 52.2,
+      "extraversion": 52.04,
+      "agreeableness": 51.43,
+      "neuroticism": 46.62
+    },
+    "15-2099.00": {
+      "openness": 53.57,
+      "conscientiousness": 47.45,
+      "extraversion": 46.98,
+      "agreeableness": 50.28,
+      "neuroticism": 50.52
+    },
+    "15-2099.01": {
+      "openness": 50.88,
+      "conscientiousness": 48.23,
+      "extraversion": 47.32,
+      "agreeableness": 49.37,
+      "neuroticism": 49.42
+    },
+    "17-1011.00": {
+      "openness": 52.48,
+      "conscientiousness": 48.04,
+      "extraversion": 48.34,
+      "agreeableness": 48.66,
+      "neuroticism": 50.57
+    },
+    "17-1012.00": {
+      "openness": 52.87,
+      "conscientiousness": 48.43,
+      "extraversion": 49.36,
+      "agreeableness": 50.45,
+      "neuroticism": 52.27
+    },
+    "17-1021.00": {
+      "openness": 49.66,
+      "conscientiousness": 48.87,
+      "extraversion": 47.01,
+      "agreeableness": 49.39,
+      "neuroticism": 48.8
+    },
+    "17-1022.00": {
+      "openness": 49.66,
+      "conscientiousness": 48.87,
+      "extraversion": 47.01,
+      "agreeableness": 49.39,
+      "neuroticism": 48.8
+    },
+    "17-2011.00": {
+      "openness": 51.8,
+      "conscientiousness": 48.54,
+      "extraversion": 44.75,
+      "agreeableness": 48.75,
+      "neuroticism": 46.11
+    },
+    "17-2021.00": {
+      "openness": 53.01,
+      "conscientiousness": 49.34,
+      "extraversion": 44.45,
+      "agreeableness": 49.01,
+      "neuroticism": 45.47
+    },
+    "17-2031.00": {
+      "openness": 49.97,
+      "conscientiousness": 50.26,
+      "extraversion": 46.88,
+      "agreeableness": 49.03,
+      "neuroticism": 48.03
+    },
+    "17-2041.00": {
+      "openness": 51.02,
+      "conscientiousness": 49.45,
+      "extraversion": 47.27,
+      "agreeableness": 50.2,
+      "neuroticism": 49.18
+    },
+    "17-2051.00": {
+      "openness": 50.61,
+      "conscientiousness": 49.7,
+      "extraversion": 46.58,
+      "agreeableness": 48.66,
+      "neuroticism": 47.56
+    },
+    "17-2051.01": {
+      "openness": 51.32,
+      "conscientiousness": 49.92,
+      "extraversion": 46.38,
+      "agreeableness": 48.52,
+      "neuroticism": 46.65
+    },
+    "17-2051.02": {
+      "openness": 50.93,
+      "conscientiousness": 49.42,
+      "extraversion": 46.44,
+      "agreeableness": 48.48,
+      "neuroticism": 47.33
+    },
+    "17-2061.00": {
+      "openness": 54.36,
+      "conscientiousness": 45.46,
+      "extraversion": 40.11,
+      "agreeableness": 52.06,
+      "neuroticism": 44.41
+    },
+    "17-2071.00": {
+      "openness": 53.23,
+      "conscientiousness": 47.55,
+      "extraversion": 42.55,
+      "agreeableness": 49.74,
+      "neuroticism": 45.34
+    },
+    "17-2072.00": {
+      "openness": 53.34,
+      "conscientiousness": 46.65,
+      "extraversion": 41.6,
+      "agreeableness": 50.11,
+      "neuroticism": 45.28
+    },
+    "17-2072.01": {
+      "openness": 53.34,
+      "conscientiousness": 46.65,
+      "extraversion": 41.6,
+      "agreeableness": 50.11,
+      "neuroticism": 45.28
+    },
+    "17-2081.00": {
+      "openness": 52.08,
+      "conscientiousness": 48.25,
+      "extraversion": 49.88,
+      "agreeableness": 50.39,
+      "neuroticism": 49.09
+    },
+    "17-2111.00": {
+      "openness": 50.25,
+      "conscientiousness": 49.59,
+      "extraversion": 46.69,
+      "agreeableness": 48.73,
+      "neuroticism": 48.02
+    },
+    "17-2111.02": {
+      "openness": 49.97,
+      "conscientiousness": 50.26,
+      "extraversion": 46.88,
+      "agreeableness": 49.03,
+      "neuroticism": 48.03
+    },
+    "17-2112.00": {
+      "openness": 51.5,
+      "conscientiousness": 49.67,
+      "extraversion": 46.25,
+      "agreeableness": 49.11,
+      "neuroticism": 47.27
+    },
+    "17-2112.01": {
+      "openness": 49.97,
+      "conscientiousness": 50.26,
+      "extraversion": 46.88,
+      "agreeableness": 49.03,
+      "neuroticism": 48.03
+    },
+    "17-2112.02": {
+      "openness": 51.95,
+      "conscientiousness": 48.37,
+      "extraversion": 44.8,
+      "agreeableness": 50.12,
+      "neuroticism": 46.91
+    },
+    "17-2112.03": {
+      "openness": 51.74,
+      "conscientiousness": 49.23,
+      "extraversion": 47.03,
+      "agreeableness": 48.96,
+      "neuroticism": 48.38
+    },
+    "17-2121.00": {
+      "openness": 51.57,
+      "conscientiousness": 49.52,
+      "extraversion": 46.09,
+      "agreeableness": 47.72,
+      "neuroticism": 46.47
+    },
+    "17-2131.00": {
+      "openness": 51.41,
+      "conscientiousness": 49.04,
+      "extraversion": 45.11,
+      "agreeableness": 49.41,
+      "neuroticism": 46.83
+    },
+    "17-2141.00": {
+      "openness": 53.01,
+      "conscientiousness": 49.34,
+      "extraversion": 44.45,
+      "agreeableness": 49.01,
+      "neuroticism": 45.47
+    },
+    "17-2141.01": {
+      "openness": 49.97,
+      "conscientiousness": 50.26,
+      "extraversion": 46.88,
+      "agreeableness": 49.03,
+      "neuroticism": 48.03
+    },
+    "17-2141.02": {
+      "openness": 52.35,
+      "conscientiousness": 49.11,
+      "extraversion": 47.52,
+      "agreeableness": 49.35,
+      "neuroticism": 48.83
+    },
+    "17-2151.00": {
+      "openness": 52.16,
+      "conscientiousness": 49.63,
+      "extraversion": 45.42,
+      "agreeableness": 48.77,
+      "neuroticism": 46.06
+    },
+    "17-2161.00": {
+      "openness": 49.97,
+      "conscientiousness": 50.26,
+      "extraversion": 46.88,
+      "agreeableness": 49.03,
+      "neuroticism": 48.03
+    },
+    "17-2171.00": {
+      "openness": 50.37,
+      "conscientiousness": 50.1,
+      "extraversion": 46.73,
+      "agreeableness": 49.7,
+      "neuroticism": 48.17
+    },
+    "17-2199.00": {
+      "openness": 51.12,
+      "conscientiousness": 49.9,
+      "extraversion": 46.02,
+      "agreeableness": 49.25,
+      "neuroticism": 47.22
+    },
+    "17-2199.03": {
+      "openness": 50.54,
+      "conscientiousness": 48.92,
+      "extraversion": 46.49,
+      "agreeableness": 48.43,
+      "neuroticism": 48.01
+    },
+    "17-2199.05": {
+      "openness": 51.53,
+      "conscientiousness": 49.31,
+      "extraversion": 46.01,
+      "agreeableness": 48.89,
+      "neuroticism": 47.15
+    },
+    "17-2199.06": {
+      "openness": 54.36,
+      "conscientiousness": 45.46,
+      "extraversion": 40.11,
+      "agreeableness": 52.06,
+      "neuroticism": 44.41
+    },
+    "17-2199.07": {
+      "openness": 52.16,
+      "conscientiousness": 47.86,
+      "extraversion": 43.5,
+      "agreeableness": 50.55,
+      "neuroticism": 46.22
+    },
+    "17-2199.08": {
+      "openness": 51.5,
+      "conscientiousness": 49.67,
+      "extraversion": 46.25,
+      "agreeableness": 49.11,
+      "neuroticism": 47.27
+    },
+    "17-2199.09": {
+      "openness": 49.97,
+      "conscientiousness": 50.26,
+      "extraversion": 46.88,
+      "agreeableness": 49.03,
+      "neuroticism": 48.03
+    },
+    "17-2199.10": {
+      "openness": 49.97,
+      "conscientiousness": 50.26,
+      "extraversion": 46.88,
+      "agreeableness": 49.03,
+      "neuroticism": 48.03
+    },
+    "17-2199.11": {
+      "openness": 49.97,
+      "conscientiousness": 50.26,
+      "extraversion": 46.88,
+      "agreeableness": 49.03,
+      "neuroticism": 48.03
+    },
+    "17-3011.00": {
+      "openness": 51.32,
+      "conscientiousness": 47.5,
+      "extraversion": 47.43,
+      "agreeableness": 47.62,
+      "neuroticism": 49.63
+    },
+    "17-3012.00": {
+      "openness": 51.32,
+      "conscientiousness": 47.5,
+      "extraversion": 47.43,
+      "agreeableness": 47.62,
+      "neuroticism": 49.63
+    },
+    "17-3013.00": {
+      "openness": 51.32,
+      "conscientiousness": 47.5,
+      "extraversion": 47.43,
+      "agreeableness": 47.62,
+      "neuroticism": 49.63
+    },
+    "17-3021.00": {
+      "openness": 51.2,
+      "conscientiousness": 48.85,
+      "extraversion": 45.66,
+      "agreeableness": 48,
+      "neuroticism": 47.23
+    },
+    "17-3022.00": {
+      "openness": 50.54,
+      "conscientiousness": 48.92,
+      "extraversion": 46.49,
+      "agreeableness": 48.43,
+      "neuroticism": 48.01
+    },
+    "17-3023.00": {
+      "openness": 50.99,
+      "conscientiousness": 47.59,
+      "extraversion": 46.04,
+      "agreeableness": 48.01,
+      "neuroticism": 45.14
+    },
+    "17-3024.00": {
+      "openness": 50.13,
+      "conscientiousness": 48.65,
+      "extraversion": 45.56,
+      "agreeableness": 47.69,
+      "neuroticism": 45.86
+    },
+    "17-3025.00": {
+      "openness": 49.63,
+      "conscientiousness": 48.13,
+      "extraversion": 48.08,
+      "agreeableness": 48.48,
+      "neuroticism": 48.53
+    },
+    "17-3026.00": {
+      "openness": 50.38,
+      "conscientiousness": 49.55,
+      "extraversion": 46.26,
+      "agreeableness": 48.33,
+      "neuroticism": 47.44
+    },
+    "17-3026.01": {
+      "openness": 49.97,
+      "conscientiousness": 50.26,
+      "extraversion": 46.88,
+      "agreeableness": 49.03,
+      "neuroticism": 48.03
+    },
+    "17-3027.00": {
+      "openness": 51.13,
+      "conscientiousness": 49.52,
+      "extraversion": 44.77,
+      "agreeableness": 48.19,
+      "neuroticism": 46.02
+    },
+    "17-3027.01": {
+      "openness": 49.26,
+      "conscientiousness": 49.7,
+      "extraversion": 45.09,
+      "agreeableness": 47.37,
+      "neuroticism": 46.58
+    },
+    "17-3028.00": {
+      "openness": 51.07,
+      "conscientiousness": 47.52,
+      "extraversion": 44.4,
+      "agreeableness": 50,
+      "neuroticism": 47.19
+    },
+    "17-3029.00": {
+      "openness": 50.38,
+      "conscientiousness": 49.55,
+      "extraversion": 46.26,
+      "agreeableness": 48.33,
+      "neuroticism": 47.44
+    },
+    "17-3029.01": {
+      "openness": 48.56,
+      "conscientiousness": 49.61,
+      "extraversion": 46.08,
+      "agreeableness": 48.64,
+      "neuroticism": 49.3
+    },
+    "17-3029.08": {
+      "openness": 49.97,
+      "conscientiousness": 50.26,
+      "extraversion": 46.88,
+      "agreeableness": 49.03,
+      "neuroticism": 48.03
+    },
+    "17-3031.00": {
+      "openness": 49.66,
+      "conscientiousness": 48.87,
+      "extraversion": 47.01,
+      "agreeableness": 49.39,
+      "neuroticism": 48.8
+    },
+    "19-1011.00": {
+      "openness": 53.25,
+      "conscientiousness": 48.34,
+      "extraversion": 47.2,
+      "agreeableness": 50.37,
+      "neuroticism": 51.3
+    },
+    "19-1012.00": {
+      "openness": 51.6,
+      "conscientiousness": 48.78,
+      "extraversion": 47.27,
+      "agreeableness": 50.25,
+      "neuroticism": 49.83
+    },
+    "19-1013.00": {
+      "openness": 50.91,
+      "conscientiousness": 47.76,
+      "extraversion": 49.17,
+      "agreeableness": 50.81,
+      "neuroticism": 48.72
+    },
+    "19-1021.00": {
+      "openness": 52.76,
+      "conscientiousness": 47.45,
+      "extraversion": 47.25,
+      "agreeableness": 50.34,
+      "neuroticism": 51.12
+    },
+    "19-1022.00": {
+      "openness": 50.88,
+      "conscientiousness": 48.23,
+      "extraversion": 47.32,
+      "agreeableness": 49.37,
+      "neuroticism": 49.42
+    },
+    "19-1023.00": {
+      "openness": 50.42,
+      "conscientiousness": 48.36,
+      "extraversion": 47.7,
+      "agreeableness": 49.94,
+      "neuroticism": 48.82
+    },
+    "19-1029.01": {
+      "openness": 53.15,
+      "conscientiousness": 48.07,
+      "extraversion": 47.79,
+      "agreeableness": 50.36,
+      "neuroticism": 49.99
+    },
+    "19-1029.02": {
+      "openness": 52.76,
+      "conscientiousness": 47.45,
+      "extraversion": 47.25,
+      "agreeableness": 50.34,
+      "neuroticism": 51.12
+    },
+    "19-1029.03": {
+      "openness": 52.76,
+      "conscientiousness": 47.45,
+      "extraversion": 47.25,
+      "agreeableness": 50.34,
+      "neuroticism": 51.12
+    },
+    "19-1029.04": {
+      "openness": 50.88,
+      "conscientiousness": 48.23,
+      "extraversion": 47.32,
+      "agreeableness": 49.37,
+      "neuroticism": 49.42
+    },
+    "19-1031.00": {
+      "openness": 52.31,
+      "conscientiousness": 46.9,
+      "extraversion": 49.9,
+      "agreeableness": 50.53,
+      "neuroticism": 49.83
+    },
+    "19-1031.02": {
+      "openness": 52.31,
+      "conscientiousness": 46.9,
+      "extraversion": 49.9,
+      "agreeableness": 50.53,
+      "neuroticism": 49.83
+    },
+    "19-1031.03": {
+      "openness": 52.27,
+      "conscientiousness": 47.81,
+      "extraversion": 50.66,
+      "agreeableness": 50.28,
+      "neuroticism": 50.99
+    },
+    "19-1032.00": {
+      "openness": 49.48,
+      "conscientiousness": 48.37,
+      "extraversion": 47.72,
+      "agreeableness": 49.75,
+      "neuroticism": 48.18
+    },
+    "19-1041.00": {
+      "openness": 52.76,
+      "conscientiousness": 47.45,
+      "extraversion": 47.25,
+      "agreeableness": 50.34,
+      "neuroticism": 51.12
+    },
+    "19-1042.00": {
+      "openness": 52.76,
+      "conscientiousness": 47.45,
+      "extraversion": 47.25,
+      "agreeableness": 50.34,
+      "neuroticism": 51.12
+    },
+    "19-2012.00": {
+      "openness": 53.16,
+      "conscientiousness": 47.45,
+      "extraversion": 47.11,
+      "agreeableness": 50.31,
+      "neuroticism": 50.82
+    },
+    "19-2031.00": {
+      "openness": 50.95,
+      "conscientiousness": 48.84,
+      "extraversion": 47.3,
+      "agreeableness": 49.78,
+      "neuroticism": 49.3
+    },
+    "19-2032.00": {
+      "openness": 50.17,
+      "conscientiousness": 50.18,
+      "extraversion": 46.8,
+      "agreeableness": 49.37,
+      "neuroticism": 48.1
+    },
+    "19-2041.00": {
+      "openness": 52.08,
+      "conscientiousness": 48.25,
+      "extraversion": 49.88,
+      "agreeableness": 50.39,
+      "neuroticism": 49.09
+    },
+    "19-2041.01": {
+      "openness": 52.17,
+      "conscientiousness": 49.64,
+      "extraversion": 51.87,
+      "agreeableness": 48.9,
+      "neuroticism": 51.83
+    },
+    "19-2041.02": {
+      "openness": 52.31,
+      "conscientiousness": 46.9,
+      "extraversion": 49.9,
+      "agreeableness": 50.53,
+      "neuroticism": 49.83
+    },
+    "19-2041.03": {
+      "openness": 52.31,
+      "conscientiousness": 46.9,
+      "extraversion": 49.9,
+      "agreeableness": 50.53,
+      "neuroticism": 49.83
+    },
+    "19-2042.00": {
+      "openness": 51.32,
+      "conscientiousness": 49.92,
+      "extraversion": 46.38,
+      "agreeableness": 48.52,
+      "neuroticism": 46.65
+    },
+    "19-2043.00": {
+      "openness": 51.81,
+      "conscientiousness": 48.41,
+      "extraversion": 48.14,
+      "agreeableness": 49.53,
+      "neuroticism": 48.24
+    },
+    "19-3011.00": {
+      "openness": 51.12,
+      "conscientiousness": 49.99,
+      "extraversion": 50.66,
+      "agreeableness": 50.8,
+      "neuroticism": 50.66
+    },
+    "19-3011.01": {
+      "openness": 51.12,
+      "conscientiousness": 49.99,
+      "extraversion": 50.66,
+      "agreeableness": 50.8,
+      "neuroticism": 50.66
+    },
+    "19-3022.00": {
+      "openness": 51.1,
+      "conscientiousness": 49.33,
+      "extraversion": 51.45,
+      "agreeableness": 49.89,
+      "neuroticism": 51.24
+    },
+    "19-3032.00": {
+      "openness": 52.95,
+      "conscientiousness": 49.12,
+      "extraversion": 54.09,
+      "agreeableness": 53.38,
+      "neuroticism": 50.55
+    },
+    "19-3033.00": {
+      "openness": 55.9,
+      "conscientiousness": 47.09,
+      "extraversion": 53.63,
+      "agreeableness": 55.18,
+      "neuroticism": 49.47
+    },
+    "19-3034.00": {
+      "openness": 53.08,
+      "conscientiousness": 48.46,
+      "extraversion": 53.91,
+      "agreeableness": 53.39,
+      "neuroticism": 50.87
+    },
+    "19-3039.02": {
+      "openness": 55.9,
+      "conscientiousness": 47.09,
+      "extraversion": 53.63,
+      "agreeableness": 55.18,
+      "neuroticism": 49.47
+    },
+    "19-3039.03": {
+      "openness": 55.9,
+      "conscientiousness": 47.09,
+      "extraversion": 53.63,
+      "agreeableness": 55.18,
+      "neuroticism": 49.47
+    },
+    "19-3051.00": {
+      "openness": 52.53,
+      "conscientiousness": 49.17,
+      "extraversion": 49.52,
+      "agreeableness": 49.23,
+      "neuroticism": 50.58
+    },
+    "19-3094.00": {
+      "openness": 53.65,
+      "conscientiousness": 48.03,
+      "extraversion": 52.59,
+      "agreeableness": 48.89,
+      "neuroticism": 53.13
+    },
+    "19-3099.00": {
+      "openness": 52.88,
+      "conscientiousness": 48.82,
+      "extraversion": 50.16,
+      "agreeableness": 50.64,
+      "neuroticism": 53.33
+    },
+    "19-3099.01": {
+      "openness": 50.82,
+      "conscientiousness": 49.98,
+      "extraversion": 48.07,
+      "agreeableness": 48.85,
+      "neuroticism": 49.04
+    },
+    "19-4012.00": {
+      "openness": 49.5,
+      "conscientiousness": 48.62,
+      "extraversion": 48.45,
+      "agreeableness": 51.09,
+      "neuroticism": 47.61
+    },
+    "19-4012.01": {
+      "openness": 51.25,
+      "conscientiousness": 48.98,
+      "extraversion": 46.45,
+      "agreeableness": 50.05,
+      "neuroticism": 46.54
+    },
+    "19-4013.00": {
+      "openness": 50.37,
+      "conscientiousness": 51.73,
+      "extraversion": 46.4,
+      "agreeableness": 46.52,
+      "neuroticism": 44.31
+    },
+    "19-4021.00": {
+      "openness": 48.99,
+      "conscientiousness": 49.02,
+      "extraversion": 47.39,
+      "agreeableness": 48.4,
+      "neuroticism": 47.73
+    },
+    "19-4031.00": {
+      "openness": 48.99,
+      "conscientiousness": 49.02,
+      "extraversion": 47.39,
+      "agreeableness": 48.4,
+      "neuroticism": 47.73
+    },
+    "19-4042.00": {
+      "openness": 50.98,
+      "conscientiousness": 48.71,
+      "extraversion": 51.54,
+      "agreeableness": 50.77,
+      "neuroticism": 50.33
+    },
+    "19-4061.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "19-4071.00": {
+      "openness": 49.58,
+      "conscientiousness": 48.24,
+      "extraversion": 47.78,
+      "agreeableness": 50.02,
+      "neuroticism": 48.27
+    },
+    "19-4092.00": {
+      "openness": 51.23,
+      "conscientiousness": 49.35,
+      "extraversion": 49.16,
+      "agreeableness": 50.53,
+      "neuroticism": 51.15
+    },
+    "19-4099.01": {
+      "openness": 48.67,
+      "conscientiousness": 50.52,
+      "extraversion": 50.01,
+      "agreeableness": 50.04,
+      "neuroticism": 51.56
+    },
+    "19-5011.00": {
+      "openness": 50.06,
+      "conscientiousness": 49.9,
+      "extraversion": 48.85,
+      "agreeableness": 49.49,
+      "neuroticism": 48.96
+    },
+    "19-5012.00": {
+      "openness": 50.1,
+      "conscientiousness": 49.72,
+      "extraversion": 49.84,
+      "agreeableness": 49.72,
+      "neuroticism": 49.42
+    },
+    "21-1011.00": {
+      "openness": 51.18,
+      "conscientiousness": 49.28,
+      "extraversion": 53.49,
+      "agreeableness": 52.75,
+      "neuroticism": 51.51
+    },
+    "21-1012.00": {
+      "openness": 49.95,
+      "conscientiousness": 50.71,
+      "extraversion": 54.2,
+      "agreeableness": 51.27,
+      "neuroticism": 51.3
+    },
+    "21-1013.00": {
+      "openness": 53.54,
+      "conscientiousness": 48.19,
+      "extraversion": 53.56,
+      "agreeableness": 53.97,
+      "neuroticism": 50.49
+    },
+    "21-1014.00": {
+      "openness": 51.18,
+      "conscientiousness": 49.28,
+      "extraversion": 53.49,
+      "agreeableness": 52.75,
+      "neuroticism": 51.51
+    },
+    "21-1015.00": {
+      "openness": 51.13,
+      "conscientiousness": 50.27,
+      "extraversion": 52.86,
+      "agreeableness": 52.61,
+      "neuroticism": 51.54
+    },
+    "21-1019.00": {
+      "openness": 51.18,
+      "conscientiousness": 49.28,
+      "extraversion": 53.49,
+      "agreeableness": 52.75,
+      "neuroticism": 51.51
+    },
+    "21-1021.00": {
+      "openness": 50.62,
+      "conscientiousness": 49.53,
+      "extraversion": 52.67,
+      "agreeableness": 52.69,
+      "neuroticism": 51.21
+    },
+    "21-1022.00": {
+      "openness": 51.18,
+      "conscientiousness": 49.28,
+      "extraversion": 53.49,
+      "agreeableness": 52.75,
+      "neuroticism": 51.51
+    },
+    "21-1023.00": {
+      "openness": 50.62,
+      "conscientiousness": 49.53,
+      "extraversion": 52.67,
+      "agreeableness": 52.69,
+      "neuroticism": 51.21
+    },
+    "21-1029.00": {
+      "openness": 51.18,
+      "conscientiousness": 49.28,
+      "extraversion": 53.49,
+      "agreeableness": 52.75,
+      "neuroticism": 51.51
+    },
+    "21-1091.00": {
+      "openness": 50.41,
+      "conscientiousness": 50.13,
+      "extraversion": 52.87,
+      "agreeableness": 49.14,
+      "neuroticism": 51.97
+    },
+    "21-1092.00": {
+      "openness": 50.34,
+      "conscientiousness": 49.38,
+      "extraversion": 50.86,
+      "agreeableness": 50.02,
+      "neuroticism": 49.55
+    },
+    "21-1093.00": {
+      "openness": 50.62,
+      "conscientiousness": 49.53,
+      "extraversion": 52.67,
+      "agreeableness": 52.69,
+      "neuroticism": 51.21
+    },
+    "21-1094.00": {
+      "openness": 50.62,
+      "conscientiousness": 49.53,
+      "extraversion": 52.67,
+      "agreeableness": 52.69,
+      "neuroticism": 51.21
+    },
+    "21-1099.00": {
+      "openness": 51.73,
+      "conscientiousness": 49.07,
+      "extraversion": 53.04,
+      "agreeableness": 51.56,
+      "neuroticism": 52.17
+    },
+    "21-2011.00": {
+      "openness": 53.72,
+      "conscientiousness": 48.54,
+      "extraversion": 52.39,
+      "agreeableness": 53.67,
+      "neuroticism": 49.88
+    },
+    "21-2021.00": {
+      "openness": 53.72,
+      "conscientiousness": 48.54,
+      "extraversion": 52.39,
+      "agreeableness": 53.67,
+      "neuroticism": 49.88
+    },
+    "23-1011.00": {
+      "openness": 51.78,
+      "conscientiousness": 51.25,
+      "extraversion": 50.61,
+      "agreeableness": 49.44,
+      "neuroticism": 49.98
+    },
+    "23-1012.00": {
+      "openness": 48.98,
+      "conscientiousness": 52.15,
+      "extraversion": 51.04,
+      "agreeableness": 49.84,
+      "neuroticism": 52.08
+    },
+    "23-1021.00": {
+      "openness": 50.53,
+      "conscientiousness": 51.45,
+      "extraversion": 50.63,
+      "agreeableness": 49.36,
+      "neuroticism": 50.16
+    },
+    "23-1023.00": {
+      "openness": 50.53,
+      "conscientiousness": 51.45,
+      "extraversion": 50.63,
+      "agreeableness": 49.36,
+      "neuroticism": 50.16
+    },
+    "23-2011.00": {
+      "openness": 48.98,
+      "conscientiousness": 52.15,
+      "extraversion": 51.04,
+      "agreeableness": 49.84,
+      "neuroticism": 52.08
+    },
+    "23-2093.00": {
+      "openness": 49.12,
+      "conscientiousness": 50.3,
+      "extraversion": 51.81,
+      "agreeableness": 48.58,
+      "neuroticism": 49.7
+    },
+    "23-2099.00": {
+      "openness": 50.06,
+      "conscientiousness": 49.77,
+      "extraversion": 51.86,
+      "agreeableness": 52.63,
+      "neuroticism": 50.91
+    },
+    "25-1011.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1021.00": {
+      "openness": 54.61,
+      "conscientiousness": 49.06,
+      "extraversion": 49.56,
+      "agreeableness": 51.8,
+      "neuroticism": 50.32
+    },
+    "25-1022.00": {
+      "openness": 54.26,
+      "conscientiousness": 48.53,
+      "extraversion": 48.7,
+      "agreeableness": 51.29,
+      "neuroticism": 50.39
+    },
+    "25-1031.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1032.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1041.00": {
+      "openness": 53.81,
+      "conscientiousness": 49.91,
+      "extraversion": 48.74,
+      "agreeableness": 51.13,
+      "neuroticism": 49.27
+    },
+    "25-1042.00": {
+      "openness": 54.61,
+      "conscientiousness": 49.06,
+      "extraversion": 49.56,
+      "agreeableness": 51.8,
+      "neuroticism": 50.32
+    },
+    "25-1043.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1051.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1052.00": {
+      "openness": 54.61,
+      "conscientiousness": 49.06,
+      "extraversion": 49.56,
+      "agreeableness": 51.8,
+      "neuroticism": 50.32
+    },
+    "25-1053.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1054.00": {
+      "openness": 54.61,
+      "conscientiousness": 49.06,
+      "extraversion": 49.56,
+      "agreeableness": 51.8,
+      "neuroticism": 50.32
+    },
+    "25-1061.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1062.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1063.00": {
+      "openness": 52.72,
+      "conscientiousness": 49.88,
+      "extraversion": 49.43,
+      "agreeableness": 51.79,
+      "neuroticism": 49.72
+    },
+    "25-1064.00": {
+      "openness": 54.61,
+      "conscientiousness": 49.06,
+      "extraversion": 49.56,
+      "agreeableness": 51.8,
+      "neuroticism": 50.32
+    },
+    "25-1065.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1066.00": {
+      "openness": 55.95,
+      "conscientiousness": 47.94,
+      "extraversion": 50.98,
+      "agreeableness": 53.27,
+      "neuroticism": 49.63
+    },
+    "25-1067.00": {
+      "openness": 54.61,
+      "conscientiousness": 49.06,
+      "extraversion": 49.56,
+      "agreeableness": 51.8,
+      "neuroticism": 50.32
+    },
+    "25-1071.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1072.00": {
+      "openness": 53.81,
+      "conscientiousness": 49.91,
+      "extraversion": 48.74,
+      "agreeableness": 51.13,
+      "neuroticism": 49.27
+    },
+    "25-1081.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1082.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1111.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1112.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1113.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1121.00": {
+      "openness": 54.61,
+      "conscientiousness": 49.06,
+      "extraversion": 49.56,
+      "agreeableness": 51.8,
+      "neuroticism": 50.32
+    },
+    "25-1122.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1123.00": {
+      "openness": 55.01,
+      "conscientiousness": 48.48,
+      "extraversion": 50.41,
+      "agreeableness": 51.93,
+      "neuroticism": 51.66
+    },
+    "25-1124.00": {
+      "openness": 55.62,
+      "conscientiousness": 48.19,
+      "extraversion": 50.27,
+      "agreeableness": 51.83,
+      "neuroticism": 51.92
+    },
+    "25-1125.00": {
+      "openness": 54.61,
+      "conscientiousness": 49.06,
+      "extraversion": 49.56,
+      "agreeableness": 51.8,
+      "neuroticism": 50.32
+    },
+    "25-1126.00": {
+      "openness": 54.61,
+      "conscientiousness": 49.06,
+      "extraversion": 49.56,
+      "agreeableness": 51.8,
+      "neuroticism": 50.32
+    },
+    "25-1192.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "25-1193.00": {
+      "openness": 52.41,
+      "conscientiousness": 50.2,
+      "extraversion": 49.98,
+      "agreeableness": 51.56,
+      "neuroticism": 49.81
+    },
+    "25-1194.00": {
+      "openness": 53.81,
+      "conscientiousness": 49.91,
+      "extraversion": 48.74,
+      "agreeableness": 51.13,
+      "neuroticism": 49.27
+    },
+    "25-1199.00": {
+      "openness": 52.16,
+      "conscientiousness": 49.02,
+      "extraversion": 54.61,
+      "agreeableness": 52.24,
+      "neuroticism": 51.62
+    },
+    "25-2011.00": {
+      "openness": 48.12,
+      "conscientiousness": 49.73,
+      "extraversion": 53.04,
+      "agreeableness": 53.25,
+      "neuroticism": 52.75
+    },
+    "25-2012.00": {
+      "openness": 47.85,
+      "conscientiousness": 50.26,
+      "extraversion": 53.57,
+      "agreeableness": 53.01,
+      "neuroticism": 52.76
+    },
+    "25-2021.00": {
+      "openness": 51.01,
+      "conscientiousness": 48.73,
+      "extraversion": 52.68,
+      "agreeableness": 53.29,
+      "neuroticism": 52.4
+    },
+    "25-2022.00": {
+      "openness": 55.45,
+      "conscientiousness": 49.07,
+      "extraversion": 52.69,
+      "agreeableness": 53.52,
+      "neuroticism": 52.51
+    },
+    "25-2023.00": {
+      "openness": 52.41,
+      "conscientiousness": 50.2,
+      "extraversion": 49.98,
+      "agreeableness": 51.56,
+      "neuroticism": 49.81
+    },
+    "25-2031.00": {
+      "openness": 53.2,
+      "conscientiousness": 49.35,
+      "extraversion": 50.8,
+      "agreeableness": 52.23,
+      "neuroticism": 50.86
+    },
+    "25-2032.00": {
+      "openness": 52.41,
+      "conscientiousness": 50.2,
+      "extraversion": 49.98,
+      "agreeableness": 51.56,
+      "neuroticism": 49.81
+    },
+    "25-2051.00": {
+      "openness": 48.75,
+      "conscientiousness": 49.95,
+      "extraversion": 52.94,
+      "agreeableness": 53.44,
+      "neuroticism": 53.15
+    },
+    "25-2055.00": {
+      "openness": 52.99,
+      "conscientiousness": 49.41,
+      "extraversion": 52.62,
+      "agreeableness": 52.27,
+      "neuroticism": 52.36
+    },
+    "25-2056.00": {
+      "openness": 52.99,
+      "conscientiousness": 49.41,
+      "extraversion": 52.62,
+      "agreeableness": 52.27,
+      "neuroticism": 52.36
+    },
+    "25-2057.00": {
+      "openness": 52.01,
+      "conscientiousness": 49.7,
+      "extraversion": 53.02,
+      "agreeableness": 53.43,
+      "neuroticism": 53.2
+    },
+    "25-2058.00": {
+      "openness": 48.75,
+      "conscientiousness": 49.95,
+      "extraversion": 52.94,
+      "agreeableness": 53.44,
+      "neuroticism": 53.15
+    },
+    "25-2059.01": {
+      "openness": 49.97,
+      "conscientiousness": 49.7,
+      "extraversion": 53.48,
+      "agreeableness": 49.92,
+      "neuroticism": 49.24
+    },
+    "25-3011.00": {
+      "openness": 53.21,
+      "conscientiousness": 49.26,
+      "extraversion": 53.44,
+      "agreeableness": 53.06,
+      "neuroticism": 52.44
+    },
+    "25-3021.00": {
+      "openness": 50.49,
+      "conscientiousness": 49.37,
+      "extraversion": 53.03,
+      "agreeableness": 51.78,
+      "neuroticism": 50.54
+    },
+    "25-3031.00": {
+      "openness": 49.34,
+      "conscientiousness": 49.77,
+      "extraversion": 51.83,
+      "agreeableness": 52.84,
+      "neuroticism": 51.98
+    },
+    "25-3041.00": {
+      "openness": 52.16,
+      "conscientiousness": 49.02,
+      "extraversion": 54.61,
+      "agreeableness": 52.24,
+      "neuroticism": 51.62
+    },
+    "25-3099.00": {
+      "openness": 50.43,
+      "conscientiousness": 49.42,
+      "extraversion": 51.25,
+      "agreeableness": 50.1,
+      "neuroticism": 50.07
+    },
+    "25-4011.00": {
+      "openness": 50.24,
+      "conscientiousness": 48.68,
+      "extraversion": 50.09,
+      "agreeableness": 53.33,
+      "neuroticism": 53.28
+    },
+    "25-4012.00": {
+      "openness": 51.53,
+      "conscientiousness": 49.75,
+      "extraversion": 52.22,
+      "agreeableness": 51.59,
+      "neuroticism": 51.54
+    },
+    "25-4013.00": {
+      "openness": 54.64,
+      "conscientiousness": 47.79,
+      "extraversion": 50.3,
+      "agreeableness": 52.34,
+      "neuroticism": 54.2
+    },
+    "25-4022.00": {
+      "openness": 48.85,
+      "conscientiousness": 47.9,
+      "extraversion": 50.17,
+      "agreeableness": 53.37,
+      "neuroticism": 52.97
+    },
+    "25-9031.00": {
+      "openness": 53.07,
+      "conscientiousness": 49.07,
+      "extraversion": 53.41,
+      "agreeableness": 51.68,
+      "neuroticism": 51.57
+    },
+    "25-9042.00": {
+      "openness": 45.49,
+      "conscientiousness": 50.19,
+      "extraversion": 52.86,
+      "agreeableness": 53.45,
+      "neuroticism": 53.09
+    },
+    "25-9043.00": {
+      "openness": 45.49,
+      "conscientiousness": 50.19,
+      "extraversion": 52.86,
+      "agreeableness": 53.45,
+      "neuroticism": 53.09
+    },
+    "25-9044.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "27-1011.00": {
+      "openness": 53.27,
+      "conscientiousness": 48.71,
+      "extraversion": 51.84,
+      "agreeableness": 48.52,
+      "neuroticism": 52.46
+    },
+    "27-1012.00": {
+      "openness": 50.86,
+      "conscientiousness": 49.24,
+      "extraversion": 48.46,
+      "agreeableness": 50.45,
+      "neuroticism": 51.62
+    },
+    "27-1013.00": {
+      "openness": 56.45,
+      "conscientiousness": 45.95,
+      "extraversion": 50.69,
+      "agreeableness": 51.59,
+      "neuroticism": 55.19
+    },
+    "27-1014.00": {
+      "openness": 56.45,
+      "conscientiousness": 45.95,
+      "extraversion": 50.69,
+      "agreeableness": 51.59,
+      "neuroticism": 55.19
+    },
+    "27-1019.00": {
+      "openness": 52.49,
+      "conscientiousness": 49.14,
+      "extraversion": 49.25,
+      "agreeableness": 48.95,
+      "neuroticism": 52.69
+    },
+    "27-1021.00": {
+      "openness": 52.45,
+      "conscientiousness": 48.85,
+      "extraversion": 49.09,
+      "agreeableness": 49.56,
+      "neuroticism": 50.77
+    },
+    "27-1022.00": {
+      "openness": 49.94,
+      "conscientiousness": 49.24,
+      "extraversion": 48.9,
+      "agreeableness": 50.88,
+      "neuroticism": 51.47
+    },
+    "27-1023.00": {
+      "openness": 45.65,
+      "conscientiousness": 49.74,
+      "extraversion": 50.37,
+      "agreeableness": 51.59,
+      "neuroticism": 52.53
+    },
+    "27-1024.00": {
+      "openness": 55.24,
+      "conscientiousness": 45.78,
+      "extraversion": 50.77,
+      "agreeableness": 51.78,
+      "neuroticism": 55.56
+    },
+    "27-1025.00": {
+      "openness": 52.53,
+      "conscientiousness": 49.66,
+      "extraversion": 49.89,
+      "agreeableness": 50.26,
+      "neuroticism": 52.34
+    },
+    "27-1026.00": {
+      "openness": 51.42,
+      "conscientiousness": 50.75,
+      "extraversion": 50.52,
+      "agreeableness": 50.81,
+      "neuroticism": 53.17
+    },
+    "27-1027.00": {
+      "openness": 52.91,
+      "conscientiousness": 49.2,
+      "extraversion": 50.7,
+      "agreeableness": 49.14,
+      "neuroticism": 52.76
+    },
+    "27-1029.00": {
+      "openness": 53.71,
+      "conscientiousness": 48.29,
+      "extraversion": 50.28,
+      "agreeableness": 49.52,
+      "neuroticism": 53.1
+    },
+    "27-2011.00": {
+      "openness": 54.3,
+      "conscientiousness": 47.98,
+      "extraversion": 51.46,
+      "agreeableness": 49.46,
+      "neuroticism": 54.65
+    },
+    "27-2012.00": {
+      "openness": 53.66,
+      "conscientiousness": 48.42,
+      "extraversion": 50.79,
+      "agreeableness": 48.3,
+      "neuroticism": 52.56
+    },
+    "27-2012.03": {
+      "openness": 53.66,
+      "conscientiousness": 48.42,
+      "extraversion": 50.79,
+      "agreeableness": 48.3,
+      "neuroticism": 52.56
+    },
+    "27-2012.04": {
+      "openness": 54.82,
+      "conscientiousness": 47.71,
+      "extraversion": 52.33,
+      "agreeableness": 47.65,
+      "neuroticism": 52.43
+    },
+    "27-2012.05": {
+      "openness": 53.66,
+      "conscientiousness": 48.42,
+      "extraversion": 50.79,
+      "agreeableness": 48.3,
+      "neuroticism": 52.56
+    },
+    "27-2022.00": {
+      "openness": 51.45,
+      "conscientiousness": 49.85,
+      "extraversion": 52,
+      "agreeableness": 51.05,
+      "neuroticism": 50.07
+    },
+    "27-2023.00": {
+      "openness": 49.71,
+      "conscientiousness": 50.35,
+      "extraversion": 53.21,
+      "agreeableness": 49.88,
+      "neuroticism": 49.28
+    },
+    "27-2031.00": {
+      "openness": 56.01,
+      "conscientiousness": 48.78,
+      "extraversion": 48.32,
+      "agreeableness": 51.36,
+      "neuroticism": 49.78
+    },
+    "27-2032.00": {
+      "openness": 52.86,
+      "conscientiousness": 49.56,
+      "extraversion": 50.77,
+      "agreeableness": 50.62,
+      "neuroticism": 49.53
+    },
+    "27-2041.00": {
+      "openness": 54.66,
+      "conscientiousness": 47.41,
+      "extraversion": 51.24,
+      "agreeableness": 49.42,
+      "neuroticism": 53.01
+    },
+    "27-2042.00": {
+      "openness": 53.77,
+      "conscientiousness": 47.81,
+      "extraversion": 51.58,
+      "agreeableness": 50,
+      "neuroticism": 53.13
+    },
+    "27-2099.00": {
+      "openness": 52.49,
+      "conscientiousness": 49.14,
+      "extraversion": 49.25,
+      "agreeableness": 48.95,
+      "neuroticism": 52.69
+    },
+    "27-3011.00": {
+      "openness": 54.82,
+      "conscientiousness": 46.31,
+      "extraversion": 52.14,
+      "agreeableness": 48.45,
+      "neuroticism": 53.45
+    },
+    "27-3023.00": {
+      "openness": 54.82,
+      "conscientiousness": 46.31,
+      "extraversion": 52.14,
+      "agreeableness": 48.45,
+      "neuroticism": 53.45
+    },
+    "27-3031.00": {
+      "openness": 54.64,
+      "conscientiousness": 48.44,
+      "extraversion": 54.81,
+      "agreeableness": 48.93,
+      "neuroticism": 52.78
+    },
+    "27-3041.00": {
+      "openness": 52.44,
+      "conscientiousness": 48.4,
+      "extraversion": 50.95,
+      "agreeableness": 50.23,
+      "neuroticism": 52.14
+    },
+    "27-3042.00": {
+      "openness": 55.39,
+      "conscientiousness": 46.72,
+      "extraversion": 49.81,
+      "agreeableness": 50.6,
+      "neuroticism": 53.47
+    },
+    "27-3043.00": {
+      "openness": 54.24,
+      "conscientiousness": 47.44,
+      "extraversion": 51.96,
+      "agreeableness": 49.34,
+      "neuroticism": 53.06
+    },
+    "27-3043.05": {
+      "openness": 55.11,
+      "conscientiousness": 46.52,
+      "extraversion": 50.98,
+      "agreeableness": 49.53,
+      "neuroticism": 53.46
+    },
+    "27-3091.00": {
+      "openness": 53.59,
+      "conscientiousness": 48,
+      "extraversion": 48.46,
+      "agreeableness": 52.38,
+      "neuroticism": 54.82
+    },
+    "27-3092.00": {
+      "openness": 47.69,
+      "conscientiousness": 50.99,
+      "extraversion": 52,
+      "agreeableness": 51.61,
+      "neuroticism": 53.3
+    },
+    "27-4011.00": {
+      "openness": 53.28,
+      "conscientiousness": 48.44,
+      "extraversion": 47.6,
+      "agreeableness": 49.69,
+      "neuroticism": 51.55
+    },
+    "27-4012.00": {
+      "openness": 53.28,
+      "conscientiousness": 48.44,
+      "extraversion": 47.6,
+      "agreeableness": 49.69,
+      "neuroticism": 51.55
+    },
+    "27-4014.00": {
+      "openness": 53.28,
+      "conscientiousness": 48.44,
+      "extraversion": 47.6,
+      "agreeableness": 49.69,
+      "neuroticism": 51.55
+    },
+    "27-4015.00": {
+      "openness": 52.49,
+      "conscientiousness": 49.14,
+      "extraversion": 49.25,
+      "agreeableness": 48.95,
+      "neuroticism": 52.69
+    },
+    "27-4021.00": {
+      "openness": 55.52,
+      "conscientiousness": 47.26,
+      "extraversion": 51.56,
+      "agreeableness": 51.41,
+      "neuroticism": 53.63
+    },
+    "27-4031.00": {
+      "openness": 54.07,
+      "conscientiousness": 47.74,
+      "extraversion": 45.95,
+      "agreeableness": 50.43,
+      "neuroticism": 50.4
+    },
+    "27-4032.00": {
+      "openness": 56.23,
+      "conscientiousness": 46.91,
+      "extraversion": 51.47,
+      "agreeableness": 49.52,
+      "neuroticism": 53.62
+    },
+    "27-4099.00": {
+      "openness": 52.49,
+      "conscientiousness": 49.14,
+      "extraversion": 49.25,
+      "agreeableness": 48.95,
+      "neuroticism": 52.69
+    },
+    "29-1011.00": {
+      "openness": 53.3,
+      "conscientiousness": 50.87,
+      "extraversion": 51.52,
+      "agreeableness": 53.48,
+      "neuroticism": 52.09
+    },
+    "29-1021.00": {
+      "openness": 52.56,
+      "conscientiousness": 50.98,
+      "extraversion": 49.48,
+      "agreeableness": 51.31,
+      "neuroticism": 50.91
+    },
+    "29-1022.00": {
+      "openness": 49.11,
+      "conscientiousness": 53.19,
+      "extraversion": 50.65,
+      "agreeableness": 51.26,
+      "neuroticism": 52.05
+    },
+    "29-1023.00": {
+      "openness": 49.13,
+      "conscientiousness": 52.11,
+      "extraversion": 49.94,
+      "agreeableness": 51.02,
+      "neuroticism": 52.5
+    },
+    "29-1024.00": {
+      "openness": 49.13,
+      "conscientiousness": 52.11,
+      "extraversion": 49.94,
+      "agreeableness": 51.02,
+      "neuroticism": 52.5
+    },
+    "29-1031.00": {
+      "openness": 50.7,
+      "conscientiousness": 49.03,
+      "extraversion": 50.56,
+      "agreeableness": 49.86,
+      "neuroticism": 51.61
+    },
+    "29-1041.00": {
+      "openness": 48.22,
+      "conscientiousness": 51.29,
+      "extraversion": 51.31,
+      "agreeableness": 49.38,
+      "neuroticism": 51.31
+    },
+    "29-1051.00": {
+      "openness": 46.98,
+      "conscientiousness": 50.72,
+      "extraversion": 49.59,
+      "agreeableness": 52.01,
+      "neuroticism": 51.89
+    },
+    "29-1071.00": {
+      "openness": 52.63,
+      "conscientiousness": 51.94,
+      "extraversion": 51.52,
+      "agreeableness": 49.68,
+      "neuroticism": 53.78
+    },
+    "29-1081.00": {
+      "openness": 53.3,
+      "conscientiousness": 50.87,
+      "extraversion": 51.52,
+      "agreeableness": 53.48,
+      "neuroticism": 52.09
+    },
+    "29-1122.00": {
+      "openness": 53.3,
+      "conscientiousness": 50.87,
+      "extraversion": 51.52,
+      "agreeableness": 53.48,
+      "neuroticism": 52.09
+    },
+    "29-1122.01": {
+      "openness": 52.21,
+      "conscientiousness": 49.72,
+      "extraversion": 53.21,
+      "agreeableness": 52.82,
+      "neuroticism": 51.74
+    },
+    "29-1123.00": {
+      "openness": 50.97,
+      "conscientiousness": 49.89,
+      "extraversion": 52.18,
+      "agreeableness": 52.03,
+      "neuroticism": 51.05
+    },
+    "29-1124.00": {
+      "openness": 48.47,
+      "conscientiousness": 49.09,
+      "extraversion": 48.94,
+      "agreeableness": 51.87,
+      "neuroticism": 52.71
+    },
+    "29-1125.00": {
+      "openness": 53.3,
+      "conscientiousness": 50.87,
+      "extraversion": 51.52,
+      "agreeableness": 53.48,
+      "neuroticism": 52.09
+    },
+    "29-1126.00": {
+      "openness": 48.47,
+      "conscientiousness": 49.09,
+      "extraversion": 48.94,
+      "agreeableness": 51.87,
+      "neuroticism": 52.71
+    },
+    "29-1127.00": {
+      "openness": 51.77,
+      "conscientiousness": 50.54,
+      "extraversion": 51.4,
+      "agreeableness": 54.35,
+      "neuroticism": 53.3
+    },
+    "29-1128.00": {
+      "openness": 50.22,
+      "conscientiousness": 49.06,
+      "extraversion": 53.74,
+      "agreeableness": 49.96,
+      "neuroticism": 49.2
+    },
+    "29-1129.00": {
+      "openness": 53.3,
+      "conscientiousness": 50.87,
+      "extraversion": 51.52,
+      "agreeableness": 53.48,
+      "neuroticism": 52.09
+    },
+    "29-1129.01": {
+      "openness": 53.3,
+      "conscientiousness": 50.87,
+      "extraversion": 51.52,
+      "agreeableness": 53.48,
+      "neuroticism": 52.09
+    },
+    "29-1129.02": {
+      "openness": 53.3,
+      "conscientiousness": 50.87,
+      "extraversion": 51.52,
+      "agreeableness": 53.48,
+      "neuroticism": 52.09
+    },
+    "29-1131.00": {
+      "openness": 53.75,
+      "conscientiousness": 49.23,
+      "extraversion": 47.16,
+      "agreeableness": 50.39,
+      "neuroticism": 51.49
+    },
+    "29-1141.00": {
+      "openness": 50.05,
+      "conscientiousness": 51.19,
+      "extraversion": 50.07,
+      "agreeableness": 51.42,
+      "neuroticism": 50.6
+    },
+    "29-1141.01": {
+      "openness": 48.49,
+      "conscientiousness": 51.32,
+      "extraversion": 50.98,
+      "agreeableness": 51.96,
+      "neuroticism": 52.44
+    },
+    "29-1141.02": {
+      "openness": 52.2,
+      "conscientiousness": 49.2,
+      "extraversion": 52.3,
+      "agreeableness": 53.57,
+      "neuroticism": 50.95
+    },
+    "29-1141.03": {
+      "openness": 48.49,
+      "conscientiousness": 51.32,
+      "extraversion": 50.98,
+      "agreeableness": 51.96,
+      "neuroticism": 52.44
+    },
+    "29-1141.04": {
+      "openness": 48.52,
+      "conscientiousness": 50.97,
+      "extraversion": 51.95,
+      "agreeableness": 51.83,
+      "neuroticism": 52.3
+    },
+    "29-1151.00": {
+      "openness": 50.56,
+      "conscientiousness": 51.63,
+      "extraversion": 51.25,
+      "agreeableness": 50.82,
+      "neuroticism": 53.11
+    },
+    "29-1161.00": {
+      "openness": 49.55,
+      "conscientiousness": 50.99,
+      "extraversion": 51.02,
+      "agreeableness": 51.51,
+      "neuroticism": 51.12
+    },
+    "29-1171.00": {
+      "openness": 49.27,
+      "conscientiousness": 51.15,
+      "extraversion": 50.72,
+      "agreeableness": 52.03,
+      "neuroticism": 51.64
+    },
+    "29-1181.00": {
+      "openness": 51.77,
+      "conscientiousness": 50.54,
+      "extraversion": 51.4,
+      "agreeableness": 54.35,
+      "neuroticism": 53.3
+    },
+    "29-1211.00": {
+      "openness": 52.79,
+      "conscientiousness": 51.97,
+      "extraversion": 48.45,
+      "agreeableness": 50.67,
+      "neuroticism": 51.35
+    },
+    "29-1212.00": {
+      "openness": 52.79,
+      "conscientiousness": 51.97,
+      "extraversion": 48.45,
+      "agreeableness": 50.67,
+      "neuroticism": 51.35
+    },
+    "29-1213.00": {
+      "openness": 52.79,
+      "conscientiousness": 51.97,
+      "extraversion": 48.45,
+      "agreeableness": 50.67,
+      "neuroticism": 51.35
+    },
+    "29-1214.00": {
+      "openness": 52.79,
+      "conscientiousness": 51.97,
+      "extraversion": 48.45,
+      "agreeableness": 50.67,
+      "neuroticism": 51.35
+    },
+    "29-1215.00": {
+      "openness": 51.78,
+      "conscientiousness": 51.75,
+      "extraversion": 48.36,
+      "agreeableness": 51.56,
+      "neuroticism": 50.84
+    },
+    "29-1216.00": {
+      "openness": 52.11,
+      "conscientiousness": 50.31,
+      "extraversion": 47.99,
+      "agreeableness": 51.15,
+      "neuroticism": 50.93
+    },
+    "29-1217.00": {
+      "openness": 52.79,
+      "conscientiousness": 51.97,
+      "extraversion": 48.45,
+      "agreeableness": 50.67,
+      "neuroticism": 51.35
+    },
+    "29-1218.00": {
+      "openness": 52.79,
+      "conscientiousness": 51.97,
+      "extraversion": 48.45,
+      "agreeableness": 50.67,
+      "neuroticism": 51.35
+    },
+    "29-1221.00": {
+      "openness": 52.79,
+      "conscientiousness": 51.97,
+      "extraversion": 48.45,
+      "agreeableness": 50.67,
+      "neuroticism": 51.35
+    },
+    "29-1222.00": {
+      "openness": 52.77,
+      "conscientiousness": 49.71,
+      "extraversion": 47.85,
+      "agreeableness": 50.51,
+      "neuroticism": 51.23
+    },
+    "29-1223.00": {
+      "openness": 52.79,
+      "conscientiousness": 51.97,
+      "extraversion": 48.45,
+      "agreeableness": 50.67,
+      "neuroticism": 51.35
+    },
+    "29-1224.00": {
+      "openness": 51.52,
+      "conscientiousness": 50.64,
+      "extraversion": 49.64,
+      "agreeableness": 52.01,
+      "neuroticism": 52.05
+    },
+    "29-1229.01": {
+      "openness": 52.77,
+      "conscientiousness": 49.71,
+      "extraversion": 47.85,
+      "agreeableness": 50.51,
+      "neuroticism": 51.23
+    },
+    "29-1229.02": {
+      "openness": 50.77,
+      "conscientiousness": 51.52,
+      "extraversion": 48.26,
+      "agreeableness": 52.45,
+      "neuroticism": 50.32
+    },
+    "29-1229.03": {
+      "openness": 52.79,
+      "conscientiousness": 51.97,
+      "extraversion": 48.45,
+      "agreeableness": 50.67,
+      "neuroticism": 51.35
+    },
+    "29-1229.04": {
+      "openness": 51.35,
+      "conscientiousness": 51.22,
+      "extraversion": 49.86,
+      "agreeableness": 51.55,
+      "neuroticism": 52.5
+    },
+    "29-1229.05": {
+      "openness": 51.78,
+      "conscientiousness": 51.75,
+      "extraversion": 48.36,
+      "agreeableness": 51.56,
+      "neuroticism": 50.84
+    },
+    "29-1229.06": {
+      "openness": 51.5,
+      "conscientiousness": 50.52,
+      "extraversion": 51.09,
+      "agreeableness": 50.31,
+      "neuroticism": 50.28
+    },
+    "29-1241.00": {
+      "openness": 52.79,
+      "conscientiousness": 51.97,
+      "extraversion": 48.45,
+      "agreeableness": 50.67,
+      "neuroticism": 51.35
+    },
+    "29-1242.00": {
+      "openness": 52.79,
+      "conscientiousness": 51.97,
+      "extraversion": 48.45,
+      "agreeableness": 50.67,
+      "neuroticism": 51.35
+    },
+    "29-1243.00": {
+      "openness": 52.79,
+      "conscientiousness": 51.97,
+      "extraversion": 48.45,
+      "agreeableness": 50.67,
+      "neuroticism": 51.35
+    },
+    "29-1292.00": {
+      "openness": 50.04,
+      "conscientiousness": 52.15,
+      "extraversion": 52.47,
+      "agreeableness": 51.42,
+      "neuroticism": 50.47
+    },
+    "29-1299.01": {
+      "openness": 50.46,
+      "conscientiousness": 49.13,
+      "extraversion": 52.19,
+      "agreeableness": 52.26,
+      "neuroticism": 49.27
+    },
+    "29-2011.00": {
+      "openness": 51.4,
+      "conscientiousness": 48.81,
+      "extraversion": 48.51,
+      "agreeableness": 50.26,
+      "neuroticism": 50.33
+    },
+    "29-2011.01": {
+      "openness": 52.76,
+      "conscientiousness": 47.45,
+      "extraversion": 47.25,
+      "agreeableness": 50.34,
+      "neuroticism": 51.12
+    },
+    "29-2011.02": {
+      "openness": 50.88,
+      "conscientiousness": 48.23,
+      "extraversion": 47.32,
+      "agreeableness": 49.37,
+      "neuroticism": 49.42
+    },
+    "29-2011.04": {
+      "openness": 52.76,
+      "conscientiousness": 47.45,
+      "extraversion": 47.25,
+      "agreeableness": 50.34,
+      "neuroticism": 51.12
+    },
+    "29-2012.00": {
+      "openness": 51.26,
+      "conscientiousness": 48.55,
+      "extraversion": 48.06,
+      "agreeableness": 50.26,
+      "neuroticism": 50.99
+    },
+    "29-2012.01": {
+      "openness": 51.26,
+      "conscientiousness": 48.55,
+      "extraversion": 48.06,
+      "agreeableness": 50.26,
+      "neuroticism": 50.99
+    },
+    "29-2031.00": {
+      "openness": 48.47,
+      "conscientiousness": 49.09,
+      "extraversion": 48.94,
+      "agreeableness": 51.87,
+      "neuroticism": 52.71
+    },
+    "29-2032.00": {
+      "openness": 53.3,
+      "conscientiousness": 50.87,
+      "extraversion": 51.52,
+      "agreeableness": 53.48,
+      "neuroticism": 52.09
+    },
+    "29-2033.00": {
+      "openness": 50.88,
+      "conscientiousness": 49.98,
+      "extraversion": 50.23,
+      "agreeableness": 52.67,
+      "neuroticism": 52.4
+    },
+    "29-2034.00": {
+      "openness": 50.88,
+      "conscientiousness": 49.98,
+      "extraversion": 50.23,
+      "agreeableness": 52.67,
+      "neuroticism": 52.4
+    },
+    "29-2035.00": {
+      "openness": 53.3,
+      "conscientiousness": 50.87,
+      "extraversion": 51.52,
+      "agreeableness": 53.48,
+      "neuroticism": 52.09
+    },
+    "29-2036.00": {
+      "openness": 53.3,
+      "conscientiousness": 50.87,
+      "extraversion": 51.52,
+      "agreeableness": 53.48,
+      "neuroticism": 52.09
+    },
+    "29-2042.00": {
+      "openness": 51.16,
+      "conscientiousness": 50.59,
+      "extraversion": 49.43,
+      "agreeableness": 50.11,
+      "neuroticism": 48.9
+    },
+    "29-2043.00": {
+      "openness": 51.16,
+      "conscientiousness": 50.59,
+      "extraversion": 49.43,
+      "agreeableness": 50.11,
+      "neuroticism": 48.9
+    },
+    "29-2051.00": {
+      "openness": 47.11,
+      "conscientiousness": 50.74,
+      "extraversion": 49.58,
+      "agreeableness": 49.85,
+      "neuroticism": 51.58
+    },
+    "29-2052.00": {
+      "openness": 46.31,
+      "conscientiousness": 50.23,
+      "extraversion": 49.98,
+      "agreeableness": 51.8,
+      "neuroticism": 52.21
+    },
+    "29-2053.00": {
+      "openness": 51.51,
+      "conscientiousness": 49.97,
+      "extraversion": 52.29,
+      "agreeableness": 52.95,
+      "neuroticism": 51.5
+    },
+    "29-2055.00": {
+      "openness": 50.55,
+      "conscientiousness": 50.52,
+      "extraversion": 50.23,
+      "agreeableness": 50.77,
+      "neuroticism": 53.25
+    },
+    "29-2061.00": {
+      "openness": 50.22,
+      "conscientiousness": 49.51,
+      "extraversion": 51.98,
+      "agreeableness": 52.8,
+      "neuroticism": 52.54
+    },
+    "29-2081.00": {
+      "openness": 48.22,
+      "conscientiousness": 51.29,
+      "extraversion": 51.31,
+      "agreeableness": 49.38,
+      "neuroticism": 51.31
+    },
+    "29-2091.00": {
+      "openness": 49.15,
+      "conscientiousness": 51.04,
+      "extraversion": 49.23,
+      "agreeableness": 50.77,
+      "neuroticism": 52.95
+    },
+    "29-2092.00": {
+      "openness": 49.15,
+      "conscientiousness": 51.04,
+      "extraversion": 49.23,
+      "agreeableness": 50.77,
+      "neuroticism": 52.95
+    },
+    "29-2099.01": {
+      "openness": 53.3,
+      "conscientiousness": 50.87,
+      "extraversion": 51.52,
+      "agreeableness": 53.48,
+      "neuroticism": 52.09
+    },
+    "29-9021.00": {
+      "openness": 52.05,
+      "conscientiousness": 49.8,
+      "extraversion": 50.28,
+      "agreeableness": 51.19,
+      "neuroticism": 48.5
+    },
+    "29-9091.00": {
+      "openness": 51.6,
+      "conscientiousness": 50.67,
+      "extraversion": 51.4,
+      "agreeableness": 52.95,
+      "neuroticism": 52.88
+    },
+    "29-9092.00": {
+      "openness": 52.76,
+      "conscientiousness": 47.45,
+      "extraversion": 47.25,
+      "agreeableness": 50.34,
+      "neuroticism": 51.12
+    },
+    "29-9093.00": {
+      "openness": 50.12,
+      "conscientiousness": 50.26,
+      "extraversion": 50.31,
+      "agreeableness": 51.47,
+      "neuroticism": 53.35
+    },
+    "29-9099.01": {
+      "openness": 48.55,
+      "conscientiousness": 50.61,
+      "extraversion": 52.93,
+      "agreeableness": 51.69,
+      "neuroticism": 52.15
+    },
+    "31-1121.00": {
+      "openness": 50.06,
+      "conscientiousness": 49.77,
+      "extraversion": 51.86,
+      "agreeableness": 52.63,
+      "neuroticism": 50.91
+    },
+    "31-1122.00": {
+      "openness": 50.06,
+      "conscientiousness": 49.77,
+      "extraversion": 51.86,
+      "agreeableness": 52.63,
+      "neuroticism": 50.91
+    },
+    "31-1131.00": {
+      "openness": 49.26,
+      "conscientiousness": 49.74,
+      "extraversion": 50.48,
+      "agreeableness": 52.85,
+      "neuroticism": 53.57
+    },
+    "31-1132.00": {
+      "openness": 47.15,
+      "conscientiousness": 49.7,
+      "extraversion": 51.31,
+      "agreeableness": 50.75,
+      "neuroticism": 53.43
+    },
+    "31-1133.00": {
+      "openness": 49.26,
+      "conscientiousness": 49.74,
+      "extraversion": 50.48,
+      "agreeableness": 52.85,
+      "neuroticism": 53.57
+    },
+    "31-2011.00": {
+      "openness": 52.24,
+      "conscientiousness": 50.08,
+      "extraversion": 52.51,
+      "agreeableness": 53.11,
+      "neuroticism": 51.8
+    },
+    "31-2012.00": {
+      "openness": 53.3,
+      "conscientiousness": 50.87,
+      "extraversion": 51.52,
+      "agreeableness": 53.48,
+      "neuroticism": 52.09
+    },
+    "31-2021.00": {
+      "openness": 51.33,
+      "conscientiousness": 49.69,
+      "extraversion": 52.48,
+      "agreeableness": 51.9,
+      "neuroticism": 50.19
+    },
+    "31-2022.00": {
+      "openness": 50.46,
+      "conscientiousness": 49.13,
+      "extraversion": 52.19,
+      "agreeableness": 52.26,
+      "neuroticism": 49.27
+    },
+    "31-9011.00": {
+      "openness": 49.55,
+      "conscientiousness": 49.88,
+      "extraversion": 53.03,
+      "agreeableness": 50.82,
+      "neuroticism": 50.69
+    },
+    "31-9091.00": {
+      "openness": 50.04,
+      "conscientiousness": 52.15,
+      "extraversion": 52.47,
+      "agreeableness": 51.42,
+      "neuroticism": 50.47
+    },
+    "31-9092.00": {
+      "openness": 52.63,
+      "conscientiousness": 51.94,
+      "extraversion": 51.52,
+      "agreeableness": 49.68,
+      "neuroticism": 53.78
+    },
+    "31-9093.00": {
+      "openness": 49.59,
+      "conscientiousness": 49.44,
+      "extraversion": 50.43,
+      "agreeableness": 51.4,
+      "neuroticism": 53.77
+    },
+    "31-9096.00": {
+      "openness": 49.54,
+      "conscientiousness": 48.63,
+      "extraversion": 47.64,
+      "agreeableness": 52.73,
+      "neuroticism": 54.23
+    },
+    "31-9097.00": {
+      "openness": 47.15,
+      "conscientiousness": 49.7,
+      "extraversion": 51.31,
+      "agreeableness": 50.75,
+      "neuroticism": 53.43
+    },
+    "31-9099.01": {
+      "openness": 51.77,
+      "conscientiousness": 50.54,
+      "extraversion": 51.4,
+      "agreeableness": 54.35,
+      "neuroticism": 53.3
+    },
+    "33-1011.00": {
+      "openness": 51.84,
+      "conscientiousness": 49.59,
+      "extraversion": 49.85,
+      "agreeableness": 50.24,
+      "neuroticism": 48.36
+    },
+    "33-1012.00": {
+      "openness": 50.38,
+      "conscientiousness": 51.27,
+      "extraversion": 50.5,
+      "agreeableness": 48.81,
+      "neuroticism": 47.09
+    },
+    "33-1021.00": {
+      "openness": 51.86,
+      "conscientiousness": 50.71,
+      "extraversion": 50.5,
+      "agreeableness": 49.59,
+      "neuroticism": 47.53
+    },
+    "33-1091.00": {
+      "openness": 50,
+      "conscientiousness": 50.18,
+      "extraversion": 47.85,
+      "agreeableness": 47.63,
+      "neuroticism": 49.08
+    },
+    "33-1099.00": {
+      "openness": 49.49,
+      "conscientiousness": 48.91,
+      "extraversion": 47.44,
+      "agreeableness": 46.02,
+      "neuroticism": 46.18
+    },
+    "33-2011.00": {
+      "openness": 49.41,
+      "conscientiousness": 49.45,
+      "extraversion": 47.64,
+      "agreeableness": 47.89,
+      "neuroticism": 46.45
+    },
+    "33-2021.00": {
+      "openness": 50.54,
+      "conscientiousness": 48.92,
+      "extraversion": 46.49,
+      "agreeableness": 48.43,
+      "neuroticism": 48.01
+    },
+    "33-2022.00": {
+      "openness": 49.16,
+      "conscientiousness": 48.65,
+      "extraversion": 46.77,
+      "agreeableness": 49.23,
+      "neuroticism": 47.98
+    },
+    "33-3011.00": {
+      "openness": 48.98,
+      "conscientiousness": 52.15,
+      "extraversion": 51.04,
+      "agreeableness": 49.84,
+      "neuroticism": 52.08
+    },
+    "33-3012.00": {
+      "openness": 50.37,
+      "conscientiousness": 50.13,
+      "extraversion": 50.65,
+      "agreeableness": 50.03,
+      "neuroticism": 49.89
+    },
+    "33-3021.00": {
+      "openness": 48.93,
+      "conscientiousness": 51.42,
+      "extraversion": 50.45,
+      "agreeableness": 49.27,
+      "neuroticism": 49.78
+    },
+    "33-3021.02": {
+      "openness": 48.88,
+      "conscientiousness": 50.7,
+      "extraversion": 49.87,
+      "agreeableness": 48.69,
+      "neuroticism": 47.48
+    },
+    "33-3021.06": {
+      "openness": 52.17,
+      "conscientiousness": 49.64,
+      "extraversion": 51.87,
+      "agreeableness": 48.9,
+      "neuroticism": 51.83
+    },
+    "33-3051.00": {
+      "openness": 48.86,
+      "conscientiousness": 51.27,
+      "extraversion": 50.23,
+      "agreeableness": 48.49,
+      "neuroticism": 48.76
+    },
+    "33-3051.04": {
+      "openness": 48.5,
+      "conscientiousness": 49.45,
+      "extraversion": 50.19,
+      "agreeableness": 49.17,
+      "neuroticism": 49.08
+    },
+    "33-3052.00": {
+      "openness": 48.71,
+      "conscientiousness": 50.95,
+      "extraversion": 49.78,
+      "agreeableness": 46.95,
+      "neuroticism": 46.71
+    },
+    "33-9021.00": {
+      "openness": 49.69,
+      "conscientiousness": 50.86,
+      "extraversion": 50.64,
+      "agreeableness": 48.6,
+      "neuroticism": 49.53
+    },
+    "33-9031.00": {
+      "openness": 48.67,
+      "conscientiousness": 49.55,
+      "extraversion": 49.63,
+      "agreeableness": 49.44,
+      "neuroticism": 49.81
+    },
+    "33-9032.00": {
+      "openness": 50,
+      "conscientiousness": 50.18,
+      "extraversion": 47.85,
+      "agreeableness": 47.63,
+      "neuroticism": 49.08
+    },
+    "33-9091.00": {
+      "openness": 48.98,
+      "conscientiousness": 51.22,
+      "extraversion": 48.46,
+      "agreeableness": 48.05,
+      "neuroticism": 49.16
+    },
+    "33-9093.00": {
+      "openness": 49.3,
+      "conscientiousness": 49.79,
+      "extraversion": 47.94,
+      "agreeableness": 48.68,
+      "neuroticism": 49.07
+    },
+    "33-9094.00": {
+      "openness": 48.36,
+      "conscientiousness": 49.14,
+      "extraversion": 53.85,
+      "agreeableness": 51.68,
+      "neuroticism": 55.17
+    },
+    "35-1011.00": {
+      "openness": 47.94,
+      "conscientiousness": 51.68,
+      "extraversion": 49.75,
+      "agreeableness": 48.9,
+      "neuroticism": 51.39
+    },
+    "35-1012.00": {
+      "openness": 50.82,
+      "conscientiousness": 48.15,
+      "extraversion": 52.84,
+      "agreeableness": 49.32,
+      "neuroticism": 52.69
+    },
+    "35-2011.00": {
+      "openness": 47.11,
+      "conscientiousness": 50.74,
+      "extraversion": 49.58,
+      "agreeableness": 49.85,
+      "neuroticism": 51.58
+    },
+    "35-2012.00": {
+      "openness": 47.94,
+      "conscientiousness": 51.68,
+      "extraversion": 49.75,
+      "agreeableness": 48.9,
+      "neuroticism": 51.39
+    },
+    "35-2013.00": {
+      "openness": 47.94,
+      "conscientiousness": 51.68,
+      "extraversion": 49.75,
+      "agreeableness": 48.9,
+      "neuroticism": 51.39
+    },
+    "35-2014.00": {
+      "openness": 47.94,
+      "conscientiousness": 51.68,
+      "extraversion": 49.75,
+      "agreeableness": 48.9,
+      "neuroticism": 51.39
+    },
+    "35-2015.00": {
+      "openness": 47.11,
+      "conscientiousness": 50.74,
+      "extraversion": 49.58,
+      "agreeableness": 49.85,
+      "neuroticism": 51.58
+    },
+    "35-2021.00": {
+      "openness": 45.3,
+      "conscientiousness": 49.69,
+      "extraversion": 48.79,
+      "agreeableness": 52.04,
+      "neuroticism": 52.68
+    },
+    "35-3023.00": {
+      "openness": 51.36,
+      "conscientiousness": 46.72,
+      "extraversion": 51.38,
+      "agreeableness": 48.82,
+      "neuroticism": 54.78
+    },
+    "35-3031.00": {
+      "openness": 51.36,
+      "conscientiousness": 46.72,
+      "extraversion": 51.38,
+      "agreeableness": 48.82,
+      "neuroticism": 54.78
+    },
+    "35-3041.00": {
+      "openness": 51.36,
+      "conscientiousness": 46.72,
+      "extraversion": 51.38,
+      "agreeableness": 48.82,
+      "neuroticism": 54.78
+    },
+    "35-9021.00": {
+      "openness": 45.3,
+      "conscientiousness": 49.69,
+      "extraversion": 48.79,
+      "agreeableness": 52.04,
+      "neuroticism": 52.68
+    },
+    "35-9031.00": {
+      "openness": 48.98,
+      "conscientiousness": 48.26,
+      "extraversion": 51.16,
+      "agreeableness": 50.05,
+      "neuroticism": 52.5
+    },
+    "35-9099.00": {
+      "openness": 51.36,
+      "conscientiousness": 46.72,
+      "extraversion": 51.38,
+      "agreeableness": 48.82,
+      "neuroticism": 54.78
+    },
+    "37-1011.00": {
+      "openness": 47.02,
+      "conscientiousness": 50.98,
+      "extraversion": 51.05,
+      "agreeableness": 51.2,
+      "neuroticism": 49.39
+    },
+    "37-1012.00": {
+      "openness": 52.42,
+      "conscientiousness": 48.3,
+      "extraversion": 48.82,
+      "agreeableness": 51.14,
+      "neuroticism": 52.63
+    },
+    "37-2011.00": {
+      "openness": 46.22,
+      "conscientiousness": 50.48,
+      "extraversion": 49.08,
+      "agreeableness": 51.02,
+      "neuroticism": 51.41
+    },
+    "37-2012.00": {
+      "openness": 45.45,
+      "conscientiousness": 50,
+      "extraversion": 49.22,
+      "agreeableness": 51.48,
+      "neuroticism": 52.52
+    },
+    "37-3011.00": {
+      "openness": 49.32,
+      "conscientiousness": 48.72,
+      "extraversion": 47.03,
+      "agreeableness": 50.53,
+      "neuroticism": 50.16
+    },
+    "37-3013.00": {
+      "openness": 51.3,
+      "conscientiousness": 48.57,
+      "extraversion": 47.67,
+      "agreeableness": 52.08,
+      "neuroticism": 52.25
+    },
+    "39-1013.00": {
+      "openness": 51.44,
+      "conscientiousness": 50.05,
+      "extraversion": 54.44,
+      "agreeableness": 49.9,
+      "neuroticism": 49.49
+    },
+    "39-1014.00": {
+      "openness": 50.67,
+      "conscientiousness": 50.01,
+      "extraversion": 53.62,
+      "agreeableness": 49.86,
+      "neuroticism": 49.48
+    },
+    "39-2011.00": {
+      "openness": 49.54,
+      "conscientiousness": 48.63,
+      "extraversion": 47.64,
+      "agreeableness": 52.73,
+      "neuroticism": 54.23
+    },
+    "39-2021.00": {
+      "openness": 49.54,
+      "conscientiousness": 48.63,
+      "extraversion": 47.64,
+      "agreeableness": 52.73,
+      "neuroticism": 54.23
+    },
+    "39-3021.00": {
+      "openness": 54.07,
+      "conscientiousness": 47.74,
+      "extraversion": 45.95,
+      "agreeableness": 50.43,
+      "neuroticism": 50.4
+    },
+    "39-3031.00": {
+      "openness": 47.66,
+      "conscientiousness": 48.16,
+      "extraversion": 50.31,
+      "agreeableness": 51.26,
+      "neuroticism": 51.46
+    },
+    "39-3091.00": {
+      "openness": 48.06,
+      "conscientiousness": 49.03,
+      "extraversion": 49.66,
+      "agreeableness": 50.53,
+      "neuroticism": 51.74
+    },
+    "39-3092.00": {
+      "openness": 52.49,
+      "conscientiousness": 49.14,
+      "extraversion": 49.25,
+      "agreeableness": 48.95,
+      "neuroticism": 52.69
+    },
+    "39-3093.00": {
+      "openness": 48.75,
+      "conscientiousness": 49.34,
+      "extraversion": 51.7,
+      "agreeableness": 50.06,
+      "neuroticism": 50.74
+    },
+    "39-5011.00": {
+      "openness": 46.9,
+      "conscientiousness": 51.29,
+      "extraversion": 54.68,
+      "agreeableness": 51.03,
+      "neuroticism": 51.81
+    },
+    "39-5012.00": {
+      "openness": 47.53,
+      "conscientiousness": 50.89,
+      "extraversion": 52.9,
+      "agreeableness": 50.88,
+      "neuroticism": 51.3
+    },
+    "39-5091.00": {
+      "openness": 50.56,
+      "conscientiousness": 49.88,
+      "extraversion": 51.56,
+      "agreeableness": 49.17,
+      "neuroticism": 52.4
+    },
+    "39-5092.00": {
+      "openness": 48.64,
+      "conscientiousness": 50.62,
+      "extraversion": 53.87,
+      "agreeableness": 49.38,
+      "neuroticism": 52.11
+    },
+    "39-5093.00": {
+      "openness": 46.9,
+      "conscientiousness": 51.29,
+      "extraversion": 54.68,
+      "agreeableness": 51.03,
+      "neuroticism": 51.81
+    },
+    "39-5094.00": {
+      "openness": 48.64,
+      "conscientiousness": 50.62,
+      "extraversion": 53.87,
+      "agreeableness": 49.38,
+      "neuroticism": 52.11
+    },
+    "39-7011.00": {
+      "openness": 50.3,
+      "conscientiousness": 48.68,
+      "extraversion": 53.03,
+      "agreeableness": 50.11,
+      "neuroticism": 51.04
+    },
+    "39-7012.00": {
+      "openness": 50.34,
+      "conscientiousness": 48.48,
+      "extraversion": 52.68,
+      "agreeableness": 50.19,
+      "neuroticism": 51.95
+    },
+    "39-9011.00": {
+      "openness": 49.18,
+      "conscientiousness": 49.81,
+      "extraversion": 54.32,
+      "agreeableness": 53.03,
+      "neuroticism": 52.06
+    },
+    "39-9011.01": {
+      "openness": 48.36,
+      "conscientiousness": 49.14,
+      "extraversion": 53.85,
+      "agreeableness": 51.68,
+      "neuroticism": 55.17
+    },
+    "39-9031.00": {
+      "openness": 50.13,
+      "conscientiousness": 49.51,
+      "extraversion": 53.05,
+      "agreeableness": 50.7,
+      "neuroticism": 49.25
+    },
+    "39-9032.00": {
+      "openness": 49.92,
+      "conscientiousness": 49.01,
+      "extraversion": 51.03,
+      "agreeableness": 49.9,
+      "neuroticism": 50.65
+    },
+    "39-9041.00": {
+      "openness": 50.22,
+      "conscientiousness": 48.87,
+      "extraversion": 53.04,
+      "agreeableness": 50.03,
+      "neuroticism": 49.41
+    },
+    "41-1011.00": {
+      "openness": 47.29,
+      "conscientiousness": 52.46,
+      "extraversion": 52.22,
+      "agreeableness": 48.9,
+      "neuroticism": 48.76
+    },
+    "41-1012.00": {
+      "openness": 47.29,
+      "conscientiousness": 52.46,
+      "extraversion": 52.22,
+      "agreeableness": 48.9,
+      "neuroticism": 48.76
+    },
+    "41-2011.00": {
+      "openness": 47.15,
+      "conscientiousness": 47.89,
+      "extraversion": 49.49,
+      "agreeableness": 52.58,
+      "neuroticism": 51.7
+    },
+    "41-2012.00": {
+      "openness": 47.15,
+      "conscientiousness": 47.89,
+      "extraversion": 49.49,
+      "agreeableness": 52.58,
+      "neuroticism": 51.7
+    },
+    "41-2021.00": {
+      "openness": 45.58,
+      "conscientiousness": 49.29,
+      "extraversion": 51.04,
+      "agreeableness": 50.43,
+      "neuroticism": 53.18
+    },
+    "41-2022.00": {
+      "openness": 45.65,
+      "conscientiousness": 49.74,
+      "extraversion": 50.37,
+      "agreeableness": 51.59,
+      "neuroticism": 52.53
+    },
+    "41-2031.00": {
+      "openness": 45.65,
+      "conscientiousness": 49.74,
+      "extraversion": 50.37,
+      "agreeableness": 51.59,
+      "neuroticism": 52.53
+    },
+    "41-3021.00": {
+      "openness": 47.96,
+      "conscientiousness": 49.08,
+      "extraversion": 51.64,
+      "agreeableness": 50.92,
+      "neuroticism": 50.58
+    },
+    "41-3041.00": {
+      "openness": 48.45,
+      "conscientiousness": 48.25,
+      "extraversion": 53.95,
+      "agreeableness": 50.35,
+      "neuroticism": 51.76
+    },
+    "41-3091.00": {
+      "openness": 50.77,
+      "conscientiousness": 49.46,
+      "extraversion": 53.31,
+      "agreeableness": 48.91,
+      "neuroticism": 51.77
+    },
+    "41-4011.00": {
+      "openness": 50.77,
+      "conscientiousness": 49.46,
+      "extraversion": 53.31,
+      "agreeableness": 48.91,
+      "neuroticism": 51.77
+    },
+    "41-4011.07": {
+      "openness": 49.78,
+      "conscientiousness": 49.28,
+      "extraversion": 49.59,
+      "agreeableness": 48.64,
+      "neuroticism": 49.64
+    },
+    "41-4012.00": {
+      "openness": 50.77,
+      "conscientiousness": 49.46,
+      "extraversion": 53.31,
+      "agreeableness": 48.91,
+      "neuroticism": 51.77
+    },
+    "41-9011.00": {
+      "openness": 46.84,
+      "conscientiousness": 50.91,
+      "extraversion": 51.89,
+      "agreeableness": 52.31,
+      "neuroticism": 52.27
+    },
+    "41-9021.00": {
+      "openness": 49.26,
+      "conscientiousness": 48.46,
+      "extraversion": 52.59,
+      "agreeableness": 47.31,
+      "neuroticism": 47.31
+    },
+    "41-9022.00": {
+      "openness": 49.26,
+      "conscientiousness": 48.46,
+      "extraversion": 52.59,
+      "agreeableness": 47.31,
+      "neuroticism": 47.31
+    },
+    "41-9041.00": {
+      "openness": 48.54,
+      "conscientiousness": 50.31,
+      "extraversion": 52.38,
+      "agreeableness": 50.6,
+      "neuroticism": 52.52
+    },
+    "41-9091.00": {
+      "openness": 46.84,
+      "conscientiousness": 50.91,
+      "extraversion": 51.89,
+      "agreeableness": 52.31,
+      "neuroticism": 52.27
+    },
+    "41-9099.00": {
+      "openness": 45.65,
+      "conscientiousness": 49.74,
+      "extraversion": 50.37,
+      "agreeableness": 51.59,
+      "neuroticism": 52.53
+    },
+    "43-1011.00": {
+      "openness": 49.75,
+      "conscientiousness": 51.44,
+      "extraversion": 52.2,
+      "agreeableness": 48.54,
+      "neuroticism": 49.05
+    },
+    "43-2011.00": {
+      "openness": 47.99,
+      "conscientiousness": 49.72,
+      "extraversion": 51.69,
+      "agreeableness": 50.75,
+      "neuroticism": 52.9
+    },
+    "43-2021.00": {
+      "openness": 48.83,
+      "conscientiousness": 49.44,
+      "extraversion": 51.83,
+      "agreeableness": 51.84,
+      "neuroticism": 52.42
+    },
+    "43-3011.00": {
+      "openness": 48.03,
+      "conscientiousness": 51.08,
+      "extraversion": 51.88,
+      "agreeableness": 51.09,
+      "neuroticism": 52.08
+    },
+    "43-3021.00": {
+      "openness": 45.58,
+      "conscientiousness": 51.82,
+      "extraversion": 51.07,
+      "agreeableness": 51.42,
+      "neuroticism": 51.83
+    },
+    "43-3031.00": {
+      "openness": 46.44,
+      "conscientiousness": 52.08,
+      "extraversion": 51.23,
+      "agreeableness": 51.31,
+      "neuroticism": 51.19
+    },
+    "43-3041.00": {
+      "openness": 51.44,
+      "conscientiousness": 50.05,
+      "extraversion": 54.44,
+      "agreeableness": 49.9,
+      "neuroticism": 49.49
+    },
+    "43-3051.00": {
+      "openness": 46.85,
+      "conscientiousness": 51.06,
+      "extraversion": 51.3,
+      "agreeableness": 51.05,
+      "neuroticism": 51.76
+    },
+    "43-3061.00": {
+      "openness": 49.32,
+      "conscientiousness": 50.59,
+      "extraversion": 51.56,
+      "agreeableness": 50.02,
+      "neuroticism": 52.08
+    },
+    "43-3071.00": {
+      "openness": 48.34,
+      "conscientiousness": 49.58,
+      "extraversion": 53.3,
+      "agreeableness": 50.84,
+      "neuroticism": 53.34
+    },
+    "43-4021.00": {
+      "openness": 47.66,
+      "conscientiousness": 50.65,
+      "extraversion": 51.73,
+      "agreeableness": 51.3,
+      "neuroticism": 52.75
+    },
+    "43-4031.00": {
+      "openness": 48.33,
+      "conscientiousness": 51.57,
+      "extraversion": 51.52,
+      "agreeableness": 50.73,
+      "neuroticism": 52.69
+    },
+    "43-4041.00": {
+      "openness": 47.68,
+      "conscientiousness": 51.96,
+      "extraversion": 53.44,
+      "agreeableness": 50,
+      "neuroticism": 50.65
+    },
+    "43-4051.00": {
+      "openness": 48.8,
+      "conscientiousness": 49.59,
+      "extraversion": 52.22,
+      "agreeableness": 50.15,
+      "neuroticism": 51.31
+    },
+    "43-4061.00": {
+      "openness": 48.61,
+      "conscientiousness": 49.4,
+      "extraversion": 48.02,
+      "agreeableness": 49.73,
+      "neuroticism": 49.06
+    },
+    "43-4071.00": {
+      "openness": 49.19,
+      "conscientiousness": 49.28,
+      "extraversion": 49.22,
+      "agreeableness": 52.55,
+      "neuroticism": 53.08
+    },
+    "43-4081.00": {
+      "openness": 48.19,
+      "conscientiousness": 50.03,
+      "extraversion": 51.65,
+      "agreeableness": 50.6,
+      "neuroticism": 52.39
+    },
+    "43-4111.00": {
+      "openness": 48.83,
+      "conscientiousness": 49.04,
+      "extraversion": 51.93,
+      "agreeableness": 50.16,
+      "neuroticism": 51.07
+    },
+    "43-4121.00": {
+      "openness": 49.19,
+      "conscientiousness": 49.28,
+      "extraversion": 49.22,
+      "agreeableness": 52.55,
+      "neuroticism": 53.08
+    },
+    "43-4131.00": {
+      "openness": 47.68,
+      "conscientiousness": 51.96,
+      "extraversion": 53.44,
+      "agreeableness": 50,
+      "neuroticism": 50.65
+    },
+    "43-4141.00": {
+      "openness": 48.01,
+      "conscientiousness": 50.77,
+      "extraversion": 53.37,
+      "agreeableness": 50.42,
+      "neuroticism": 52
+    },
+    "43-4151.00": {
+      "openness": 45.56,
+      "conscientiousness": 51.18,
+      "extraversion": 51.51,
+      "agreeableness": 51.06,
+      "neuroticism": 52.12
+    },
+    "43-4161.00": {
+      "openness": 48.63,
+      "conscientiousness": 50.7,
+      "extraversion": 52.5,
+      "agreeableness": 51.31,
+      "neuroticism": 51.46
+    },
+    "43-4171.00": {
+      "openness": 48.19,
+      "conscientiousness": 50.03,
+      "extraversion": 51.65,
+      "agreeableness": 50.6,
+      "neuroticism": 52.39
+    },
+    "43-4181.00": {
+      "openness": 47.8,
+      "conscientiousness": 48.07,
+      "extraversion": 51.72,
+      "agreeableness": 51.47,
+      "neuroticism": 51.73
+    },
+    "43-5011.00": {
+      "openness": 48.68,
+      "conscientiousness": 50.36,
+      "extraversion": 50.41,
+      "agreeableness": 48.33,
+      "neuroticism": 49.13
+    },
+    "43-5011.01": {
+      "openness": 48.68,
+      "conscientiousness": 50.36,
+      "extraversion": 50.41,
+      "agreeableness": 48.33,
+      "neuroticism": 49.13
+    },
+    "43-5021.00": {
+      "openness": 46.45,
+      "conscientiousness": 47.69,
+      "extraversion": 46.73,
+      "agreeableness": 48.02,
+      "neuroticism": 48.83
+    },
+    "43-5031.00": {
+      "openness": 50.06,
+      "conscientiousness": 49.77,
+      "extraversion": 51.86,
+      "agreeableness": 52.63,
+      "neuroticism": 50.91
+    },
+    "43-5032.00": {
+      "openness": 48.98,
+      "conscientiousness": 51.22,
+      "extraversion": 48.46,
+      "agreeableness": 48.05,
+      "neuroticism": 49.16
+    },
+    "43-5051.00": {
+      "openness": 48.34,
+      "conscientiousness": 49.58,
+      "extraversion": 53.3,
+      "agreeableness": 50.84,
+      "neuroticism": 53.34
+    },
+    "43-5052.00": {
+      "openness": 47.45,
+      "conscientiousness": 46.88,
+      "extraversion": 47.09,
+      "agreeableness": 48.97,
+      "neuroticism": 51.29
+    },
+    "43-5053.00": {
+      "openness": 47.45,
+      "conscientiousness": 46.88,
+      "extraversion": 47.09,
+      "agreeableness": 48.97,
+      "neuroticism": 51.29
+    },
+    "43-5061.00": {
+      "openness": 49.07,
+      "conscientiousness": 50.84,
+      "extraversion": 49.35,
+      "agreeableness": 49.26,
+      "neuroticism": 49.97
+    },
+    "43-5071.00": {
+      "openness": 47.93,
+      "conscientiousness": 50.91,
+      "extraversion": 48.34,
+      "agreeableness": 48.64,
+      "neuroticism": 50.22
+    },
+    "43-5111.00": {
+      "openness": 47.8,
+      "conscientiousness": 49.89,
+      "extraversion": 48.31,
+      "agreeableness": 49.53,
+      "neuroticism": 51.03
+    },
+    "43-6011.00": {
+      "openness": 48.44,
+      "conscientiousness": 50.49,
+      "extraversion": 51.73,
+      "agreeableness": 51.06,
+      "neuroticism": 52.76
+    },
+    "43-6012.00": {
+      "openness": 47.22,
+      "conscientiousness": 51.5,
+      "extraversion": 51.18,
+      "agreeableness": 51.26,
+      "neuroticism": 52.62
+    },
+    "43-6013.00": {
+      "openness": 46.55,
+      "conscientiousness": 50.58,
+      "extraversion": 51.39,
+      "agreeableness": 51.84,
+      "neuroticism": 52.68
+    },
+    "43-6014.00": {
+      "openness": 46.58,
+      "conscientiousness": 50.92,
+      "extraversion": 51.66,
+      "agreeableness": 52.14,
+      "neuroticism": 53.23
+    },
+    "43-9021.00": {
+      "openness": 47.34,
+      "conscientiousness": 51.27,
+      "extraversion": 49.87,
+      "agreeableness": 51.87,
+      "neuroticism": 52.73
+    },
+    "43-9022.00": {
+      "openness": 47.52,
+      "conscientiousness": 51.13,
+      "extraversion": 50.94,
+      "agreeableness": 51.74,
+      "neuroticism": 53.02
+    },
+    "43-9031.00": {
+      "openness": 51.28,
+      "conscientiousness": 47.09,
+      "extraversion": 49.77,
+      "agreeableness": 50.45,
+      "neuroticism": 53.69
+    },
+    "43-9041.00": {
+      "openness": 48.93,
+      "conscientiousness": 50.35,
+      "extraversion": 49.24,
+      "agreeableness": 49.01,
+      "neuroticism": 50.39
+    },
+    "43-9051.00": {
+      "openness": 47.45,
+      "conscientiousness": 46.88,
+      "extraversion": 47.09,
+      "agreeableness": 48.97,
+      "neuroticism": 51.29
+    },
+    "43-9061.00": {
+      "openness": 49.46,
+      "conscientiousness": 49.37,
+      "extraversion": 50.16,
+      "agreeableness": 50.36,
+      "neuroticism": 52.2
+    },
+    "43-9071.00": {
+      "openness": 47.58,
+      "conscientiousness": 48.1,
+      "extraversion": 48.17,
+      "agreeableness": 49.53,
+      "neuroticism": 51.73
+    },
+    "43-9081.00": {
+      "openness": 51.07,
+      "conscientiousness": 47.36,
+      "extraversion": 50.45,
+      "agreeableness": 48.78,
+      "neuroticism": 52.64
+    },
+    "43-9111.00": {
+      "openness": 50.61,
+      "conscientiousness": 48.47,
+      "extraversion": 47.95,
+      "agreeableness": 51.45,
+      "neuroticism": 51.65
+    },
+    "43-9199.00": {
+      "openness": 52.82,
+      "conscientiousness": 51.69,
+      "extraversion": 51.29,
+      "agreeableness": 48.7,
+      "neuroticism": 49.95
+    },
+    "45-1011.00": {
+      "openness": 48.6,
+      "conscientiousness": 50.01,
+      "extraversion": 46.97,
+      "agreeableness": 50.69,
+      "neuroticism": 48.9
+    },
+    "45-2011.00": {
+      "openness": 49.16,
+      "conscientiousness": 50.03,
+      "extraversion": 51.41,
+      "agreeableness": 50.22,
+      "neuroticism": 50.32
+    },
+    "45-2021.00": {
+      "openness": 48.36,
+      "conscientiousness": 50.04,
+      "extraversion": 48.03,
+      "agreeableness": 52.55,
+      "neuroticism": 52.36
+    },
+    "45-2041.00": {
+      "openness": 47.27,
+      "conscientiousness": 50.29,
+      "extraversion": 48.48,
+      "agreeableness": 50.46,
+      "neuroticism": 51.09
+    },
+    "45-2091.00": {
+      "openness": 46.64,
+      "conscientiousness": 49.73,
+      "extraversion": 45.38,
+      "agreeableness": 48.61,
+      "neuroticism": 46.01
+    },
+    "45-2092.00": {
+      "openness": 46.57,
+      "conscientiousness": 49.11,
+      "extraversion": 47.8,
+      "agreeableness": 51.08,
+      "neuroticism": 51.24
+    },
+    "45-2093.00": {
+      "openness": 48.36,
+      "conscientiousness": 50.04,
+      "extraversion": 48.03,
+      "agreeableness": 52.55,
+      "neuroticism": 52.36
+    },
+    "45-3031.00": {
+      "openness": 47.77,
+      "conscientiousness": 50.36,
+      "extraversion": 47.21,
+      "agreeableness": 46.7,
+      "neuroticism": 45.86
+    },
+    "45-4011.00": {
+      "openness": 46.98,
+      "conscientiousness": 48.42,
+      "extraversion": 45.41,
+      "agreeableness": 49.41,
+      "neuroticism": 46.58
+    },
+    "45-4021.00": {
+      "openness": 46.64,
+      "conscientiousness": 49.73,
+      "extraversion": 45.38,
+      "agreeableness": 48.61,
+      "neuroticism": 46.01
+    },
+    "45-4022.00": {
+      "openness": 46.64,
+      "conscientiousness": 49.73,
+      "extraversion": 45.38,
+      "agreeableness": 48.61,
+      "neuroticism": 46.01
+    },
+    "45-4023.00": {
+      "openness": 47.98,
+      "conscientiousness": 50.33,
+      "extraversion": 48.94,
+      "agreeableness": 49.73,
+      "neuroticism": 51.57
+    },
+    "47-1011.00": {
+      "openness": 49.63,
+      "conscientiousness": 50.94,
+      "extraversion": 47.88,
+      "agreeableness": 47.2,
+      "neuroticism": 46.74
+    },
+    "47-1011.03": {
+      "openness": 49.36,
+      "conscientiousness": 49.02,
+      "extraversion": 45.08,
+      "agreeableness": 47.15,
+      "neuroticism": 44.13
+    },
+    "47-2011.00": {
+      "openness": 49.83,
+      "conscientiousness": 50.35,
+      "extraversion": 43.75,
+      "agreeableness": 46.87,
+      "neuroticism": 46.21
+    },
+    "47-2031.00": {
+      "openness": 48.47,
+      "conscientiousness": 49.95,
+      "extraversion": 44.41,
+      "agreeableness": 47.17,
+      "neuroticism": 46.77
+    },
+    "47-2044.00": {
+      "openness": 50.29,
+      "conscientiousness": 50.65,
+      "extraversion": 47.29,
+      "agreeableness": 46.35,
+      "neuroticism": 44.33
+    },
+    "47-2061.00": {
+      "openness": 47.7,
+      "conscientiousness": 50.21,
+      "extraversion": 46.24,
+      "agreeableness": 48.46,
+      "neuroticism": 44.44
+    },
+    "47-2071.00": {
+      "openness": 47.7,
+      "conscientiousness": 50.21,
+      "extraversion": 46.24,
+      "agreeableness": 48.46,
+      "neuroticism": 44.44
+    },
+    "47-2072.00": {
+      "openness": 47.7,
+      "conscientiousness": 50.21,
+      "extraversion": 46.24,
+      "agreeableness": 48.46,
+      "neuroticism": 44.44
+    },
+    "47-2073.00": {
+      "openness": 47.7,
+      "conscientiousness": 50.21,
+      "extraversion": 46.24,
+      "agreeableness": 48.46,
+      "neuroticism": 44.44
+    },
+    "47-2111.00": {
+      "openness": 48.42,
+      "conscientiousness": 47.38,
+      "extraversion": 42.87,
+      "agreeableness": 47.95,
+      "neuroticism": 43.94
+    },
+    "47-2121.00": {
+      "openness": 48.88,
+      "conscientiousness": 50.47,
+      "extraversion": 44.19,
+      "agreeableness": 47.38,
+      "neuroticism": 47.33
+    },
+    "47-2141.00": {
+      "openness": 46.77,
+      "conscientiousness": 48.98,
+      "extraversion": 49.3,
+      "agreeableness": 48.31,
+      "neuroticism": 49.95
+    },
+    "47-2142.00": {
+      "openness": 46.97,
+      "conscientiousness": 48.7,
+      "extraversion": 48.37,
+      "agreeableness": 49.63,
+      "neuroticism": 50.65
+    },
+    "47-2151.00": {
+      "openness": 46.94,
+      "conscientiousness": 49.35,
+      "extraversion": 46.26,
+      "agreeableness": 46.44,
+      "neuroticism": 47.23
+    },
+    "47-2152.00": {
+      "openness": 47.47,
+      "conscientiousness": 48.93,
+      "extraversion": 45.09,
+      "agreeableness": 47.16,
+      "neuroticism": 46.3
+    },
+    "47-2152.04": {
+      "openness": 48.42,
+      "conscientiousness": 47.38,
+      "extraversion": 42.87,
+      "agreeableness": 47.95,
+      "neuroticism": 43.94
+    },
+    "47-2211.00": {
+      "openness": 49.83,
+      "conscientiousness": 50.35,
+      "extraversion": 43.75,
+      "agreeableness": 46.87,
+      "neuroticism": 46.21
+    },
+    "47-2221.00": {
+      "openness": 49.83,
+      "conscientiousness": 50.35,
+      "extraversion": 43.75,
+      "agreeableness": 46.87,
+      "neuroticism": 46.21
+    },
+    "47-2231.00": {
+      "openness": 48.42,
+      "conscientiousness": 47.38,
+      "extraversion": 42.87,
+      "agreeableness": 47.95,
+      "neuroticism": 43.94
+    },
+    "47-3012.00": {
+      "openness": 48.88,
+      "conscientiousness": 50.47,
+      "extraversion": 44.19,
+      "agreeableness": 47.38,
+      "neuroticism": 47.33
+    },
+    "47-3013.00": {
+      "openness": 48.42,
+      "conscientiousness": 47.38,
+      "extraversion": 42.87,
+      "agreeableness": 47.95,
+      "neuroticism": 43.94
+    },
+    "47-3014.00": {
+      "openness": 46.56,
+      "conscientiousness": 49.07,
+      "extraversion": 49.26,
+      "agreeableness": 48.4,
+      "neuroticism": 50.39
+    },
+    "47-3015.00": {
+      "openness": 46.94,
+      "conscientiousness": 49.35,
+      "extraversion": 46.26,
+      "agreeableness": 46.44,
+      "neuroticism": 47.23
+    },
+    "47-4011.00": {
+      "openness": 50.54,
+      "conscientiousness": 48.92,
+      "extraversion": 46.49,
+      "agreeableness": 48.43,
+      "neuroticism": 48.01
+    },
+    "47-4011.01": {
+      "openness": 50.54,
+      "conscientiousness": 48.92,
+      "extraversion": 46.49,
+      "agreeableness": 48.43,
+      "neuroticism": 48.01
+    },
+    "47-4021.00": {
+      "openness": 49.69,
+      "conscientiousness": 48.53,
+      "extraversion": 43.87,
+      "agreeableness": 49,
+      "neuroticism": 45
+    },
+    "47-4031.00": {
+      "openness": 48.88,
+      "conscientiousness": 50.47,
+      "extraversion": 44.19,
+      "agreeableness": 47.38,
+      "neuroticism": 47.33
+    },
+    "47-4051.00": {
+      "openness": 49.12,
+      "conscientiousness": 49.56,
+      "extraversion": 46.37,
+      "agreeableness": 48.45,
+      "neuroticism": 46.22
+    },
+    "47-4061.00": {
+      "openness": 50.54,
+      "conscientiousness": 48.92,
+      "extraversion": 46.49,
+      "agreeableness": 48.43,
+      "neuroticism": 48.01
+    },
+    "47-4071.00": {
+      "openness": 48.74,
+      "conscientiousness": 49.14,
+      "extraversion": 46.38,
+      "agreeableness": 47.44,
+      "neuroticism": 47.62
+    },
+    "47-4091.00": {
+      "openness": 47.7,
+      "conscientiousness": 50.21,
+      "extraversion": 46.24,
+      "agreeableness": 48.46,
+      "neuroticism": 44.44
+    },
+    "47-4099.03": {
+      "openness": 49.48,
+      "conscientiousness": 50.27,
+      "extraversion": 45.52,
+      "agreeableness": 47.03,
+      "neuroticism": 46.08
+    },
+    "47-5022.00": {
+      "openness": 47.7,
+      "conscientiousness": 50.21,
+      "extraversion": 46.24,
+      "agreeableness": 48.46,
+      "neuroticism": 44.44
+    },
+    "47-5041.00": {
+      "openness": 47.7,
+      "conscientiousness": 50.21,
+      "extraversion": 46.24,
+      "agreeableness": 48.46,
+      "neuroticism": 44.44
+    },
+    "47-5044.00": {
+      "openness": 47.7,
+      "conscientiousness": 50.21,
+      "extraversion": 46.24,
+      "agreeableness": 48.46,
+      "neuroticism": 44.44
+    },
+    "49-1011.00": {
+      "openness": 49.58,
+      "conscientiousness": 50.6,
+      "extraversion": 47.52,
+      "agreeableness": 47.75,
+      "neuroticism": 46.89
+    },
+    "49-2011.00": {
+      "openness": 50.1,
+      "conscientiousness": 46.72,
+      "extraversion": 45.9,
+      "agreeableness": 49.31,
+      "neuroticism": 46.08
+    },
+    "49-2091.00": {
+      "openness": 50.14,
+      "conscientiousness": 49.05,
+      "extraversion": 45.89,
+      "agreeableness": 48.13,
+      "neuroticism": 45.71
+    },
+    "49-2092.00": {
+      "openness": 49.8,
+      "conscientiousness": 47.55,
+      "extraversion": 44.67,
+      "agreeableness": 48.57,
+      "neuroticism": 45.04
+    },
+    "49-2093.00": {
+      "openness": 50.1,
+      "conscientiousness": 46.72,
+      "extraversion": 45.9,
+      "agreeableness": 49.31,
+      "neuroticism": 46.08
+    },
+    "49-2094.00": {
+      "openness": 49.8,
+      "conscientiousness": 47.55,
+      "extraversion": 44.67,
+      "agreeableness": 48.57,
+      "neuroticism": 45.04
+    },
+    "49-2095.00": {
+      "openness": 48.42,
+      "conscientiousness": 47.38,
+      "extraversion": 42.87,
+      "agreeableness": 47.95,
+      "neuroticism": 43.94
+    },
+    "49-2096.00": {
+      "openness": 48.5,
+      "conscientiousness": 48.11,
+      "extraversion": 45.32,
+      "agreeableness": 49.44,
+      "neuroticism": 47.16
+    },
+    "49-2098.00": {
+      "openness": 48.74,
+      "conscientiousness": 49.14,
+      "extraversion": 46.38,
+      "agreeableness": 47.44,
+      "neuroticism": 47.62
+    },
+    "49-3011.00": {
+      "openness": 50.14,
+      "conscientiousness": 49.05,
+      "extraversion": 45.89,
+      "agreeableness": 48.13,
+      "neuroticism": 45.71
+    },
+    "49-3021.00": {
+      "openness": 49.03,
+      "conscientiousness": 49.05,
+      "extraversion": 44.92,
+      "agreeableness": 48.57,
+      "neuroticism": 46.24
+    },
+    "49-3023.00": {
+      "openness": 49.03,
+      "conscientiousness": 49.05,
+      "extraversion": 44.92,
+      "agreeableness": 48.57,
+      "neuroticism": 46.24
+    },
+    "49-3031.00": {
+      "openness": 49.14,
+      "conscientiousness": 49.38,
+      "extraversion": 45.01,
+      "agreeableness": 47.97,
+      "neuroticism": 46.41
+    },
+    "49-3041.00": {
+      "openness": 46.94,
+      "conscientiousness": 49.35,
+      "extraversion": 46.26,
+      "agreeableness": 46.44,
+      "neuroticism": 47.23
+    },
+    "49-3043.00": {
+      "openness": 49.69,
+      "conscientiousness": 48.53,
+      "extraversion": 43.87,
+      "agreeableness": 49,
+      "neuroticism": 45
+    },
+    "49-3052.00": {
+      "openness": 49.03,
+      "conscientiousness": 49.05,
+      "extraversion": 44.92,
+      "agreeableness": 48.57,
+      "neuroticism": 46.24
+    },
+    "49-3053.00": {
+      "openness": 49.69,
+      "conscientiousness": 48.53,
+      "extraversion": 43.87,
+      "agreeableness": 49,
+      "neuroticism": 45
+    },
+    "49-3091.00": {
+      "openness": 46.15,
+      "conscientiousness": 49.77,
+      "extraversion": 47.47,
+      "agreeableness": 48.32,
+      "neuroticism": 50.82
+    },
+    "49-3092.00": {
+      "openness": 49.03,
+      "conscientiousness": 49.05,
+      "extraversion": 44.92,
+      "agreeableness": 48.57,
+      "neuroticism": 46.24
+    },
+    "49-3093.00": {
+      "openness": 49.03,
+      "conscientiousness": 49.05,
+      "extraversion": 44.92,
+      "agreeableness": 48.57,
+      "neuroticism": 46.24
+    },
+    "49-9011.00": {
+      "openness": 48.8,
+      "conscientiousness": 48.95,
+      "extraversion": 43.98,
+      "agreeableness": 47.86,
+      "neuroticism": 46.62
+    },
+    "49-9012.00": {
+      "openness": 48.42,
+      "conscientiousness": 47.38,
+      "extraversion": 42.87,
+      "agreeableness": 47.95,
+      "neuroticism": 43.94
+    },
+    "49-9021.00": {
+      "openness": 49.07,
+      "conscientiousness": 50.09,
+      "extraversion": 44.64,
+      "agreeableness": 47.38,
+      "neuroticism": 46.95
+    },
+    "49-9031.00": {
+      "openness": 49.56,
+      "conscientiousness": 48.57,
+      "extraversion": 44.65,
+      "agreeableness": 48.56,
+      "neuroticism": 46.14
+    },
+    "49-9041.00": {
+      "openness": 49.69,
+      "conscientiousness": 48.53,
+      "extraversion": 43.87,
+      "agreeableness": 49,
+      "neuroticism": 45
+    },
+    "49-9051.00": {
+      "openness": 49.36,
+      "conscientiousness": 49.02,
+      "extraversion": 45.08,
+      "agreeableness": 47.15,
+      "neuroticism": 44.13
+    },
+    "49-9061.00": {
+      "openness": 50.1,
+      "conscientiousness": 46.72,
+      "extraversion": 45.9,
+      "agreeableness": 49.31,
+      "neuroticism": 46.08
+    },
+    "49-9062.00": {
+      "openness": 52.16,
+      "conscientiousness": 47.86,
+      "extraversion": 43.5,
+      "agreeableness": 50.55,
+      "neuroticism": 46.22
+    },
+    "49-9063.00": {
+      "openness": 45.7,
+      "conscientiousness": 49.07,
+      "extraversion": 46.2,
+      "agreeableness": 50,
+      "neuroticism": 50.4
+    },
+    "49-9071.00": {
+      "openness": 46.98,
+      "conscientiousness": 50.95,
+      "extraversion": 48.93,
+      "agreeableness": 50.57,
+      "neuroticism": 50.3
+    },
+    "49-9081.00": {
+      "openness": 49.69,
+      "conscientiousness": 48.53,
+      "extraversion": 43.87,
+      "agreeableness": 49,
+      "neuroticism": 45
+    },
+    "49-9091.00": {
+      "openness": 50.1,
+      "conscientiousness": 46.72,
+      "extraversion": 45.9,
+      "agreeableness": 49.31,
+      "neuroticism": 46.08
+    },
+    "49-9092.00": {
+      "openness": 50.29,
+      "conscientiousness": 50.65,
+      "extraversion": 47.29,
+      "agreeableness": 46.35,
+      "neuroticism": 44.33
+    },
+    "49-9094.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "49-9095.00": {
+      "openness": 47.96,
+      "conscientiousness": 49.75,
+      "extraversion": 45.03,
+      "agreeableness": 46.92,
+      "neuroticism": 46.92
+    },
+    "49-9097.00": {
+      "openness": 49.87,
+      "conscientiousness": 48.95,
+      "extraversion": 46.95,
+      "agreeableness": 48.6,
+      "neuroticism": 47.75
+    },
+    "49-9099.01": {
+      "openness": 49.83,
+      "conscientiousness": 49.39,
+      "extraversion": 45.38,
+      "agreeableness": 49.02,
+      "neuroticism": 46.52
+    },
+    "51-1011.00": {
+      "openness": 49.29,
+      "conscientiousness": 50.4,
+      "extraversion": 46.38,
+      "agreeableness": 47.53,
+      "neuroticism": 46.26
+    },
+    "51-2022.00": {
+      "openness": 45.7,
+      "conscientiousness": 49.07,
+      "extraversion": 46.2,
+      "agreeableness": 50,
+      "neuroticism": 50.4
+    },
+    "51-2023.00": {
+      "openness": 48.79,
+      "conscientiousness": 48.4,
+      "extraversion": 45.37,
+      "agreeableness": 49,
+      "neuroticism": 46.85
+    },
+    "51-2041.00": {
+      "openness": 47.99,
+      "conscientiousness": 49.54,
+      "extraversion": 45.05,
+      "agreeableness": 47.69,
+      "neuroticism": 47.46
+    },
+    "51-2092.00": {
+      "openness": 46.15,
+      "conscientiousness": 49.77,
+      "extraversion": 47.47,
+      "agreeableness": 48.32,
+      "neuroticism": 50.82
+    },
+    "51-2099.00": {
+      "openness": 46.15,
+      "conscientiousness": 49.77,
+      "extraversion": 47.47,
+      "agreeableness": 48.32,
+      "neuroticism": 50.82
+    },
+    "51-3011.00": {
+      "openness": 47.55,
+      "conscientiousness": 51.08,
+      "extraversion": 49.88,
+      "agreeableness": 49.42,
+      "neuroticism": 51.98
+    },
+    "51-3021.00": {
+      "openness": 46.27,
+      "conscientiousness": 50.33,
+      "extraversion": 49.61,
+      "agreeableness": 50.39,
+      "neuroticism": 51.67
+    },
+    "51-3022.00": {
+      "openness": 46.9,
+      "conscientiousness": 50.92,
+      "extraversion": 48.84,
+      "agreeableness": 49.18,
+      "neuroticism": 50.82
+    },
+    "51-3023.00": {
+      "openness": 46.9,
+      "conscientiousness": 50.92,
+      "extraversion": 48.84,
+      "agreeableness": 49.18,
+      "neuroticism": 50.82
+    },
+    "51-4041.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-4061.00": {
+      "openness": 51.82,
+      "conscientiousness": 47.44,
+      "extraversion": 47.55,
+      "agreeableness": 49.22,
+      "neuroticism": 49.71
+    },
+    "51-4062.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-4071.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-4081.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-4111.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-4121.00": {
+      "openness": 48,
+      "conscientiousness": 48.51,
+      "extraversion": 43.93,
+      "agreeableness": 47.89,
+      "neuroticism": 45.36
+    },
+    "51-4122.00": {
+      "openness": 46.85,
+      "conscientiousness": 48.79,
+      "extraversion": 45.06,
+      "agreeableness": 48.95,
+      "neuroticism": 47.88
+    },
+    "51-4193.00": {
+      "openness": 46.98,
+      "conscientiousness": 48.9,
+      "extraversion": 49.33,
+      "agreeableness": 48.23,
+      "neuroticism": 49.51
+    },
+    "51-4199.00": {
+      "openness": 46.15,
+      "conscientiousness": 49.77,
+      "extraversion": 47.47,
+      "agreeableness": 48.32,
+      "neuroticism": 50.82
+    },
+    "51-5111.00": {
+      "openness": 47.32,
+      "conscientiousness": 48.41,
+      "extraversion": 48.76,
+      "agreeableness": 49.12,
+      "neuroticism": 51.82
+    },
+    "51-5112.00": {
+      "openness": 47.58,
+      "conscientiousness": 48.1,
+      "extraversion": 48.17,
+      "agreeableness": 49.53,
+      "neuroticism": 51.73
+    },
+    "51-6011.00": {
+      "openness": 47.38,
+      "conscientiousness": 48.33,
+      "extraversion": 47.48,
+      "agreeableness": 50.85,
+      "neuroticism": 50.91
+    },
+    "51-6031.00": {
+      "openness": 44.99,
+      "conscientiousness": 51.52,
+      "extraversion": 49.07,
+      "agreeableness": 52.17,
+      "neuroticism": 51.76
+    },
+    "51-6041.00": {
+      "openness": 47.06,
+      "conscientiousness": 50.07,
+      "extraversion": 48.17,
+      "agreeableness": 52.09,
+      "neuroticism": 50.95
+    },
+    "51-6051.00": {
+      "openness": 46.03,
+      "conscientiousness": 50.8,
+      "extraversion": 48.62,
+      "agreeableness": 52.13,
+      "neuroticism": 51.36
+    },
+    "51-6052.00": {
+      "openness": 47.06,
+      "conscientiousness": 50.77,
+      "extraversion": 50.15,
+      "agreeableness": 52.22,
+      "neuroticism": 49.99
+    },
+    "51-6062.00": {
+      "openness": 46.43,
+      "conscientiousness": 51.95,
+      "extraversion": 48.69,
+      "agreeableness": 53.7,
+      "neuroticism": 51.8
+    },
+    "51-6092.00": {
+      "openness": 46.43,
+      "conscientiousness": 51.95,
+      "extraversion": 48.69,
+      "agreeableness": 53.7,
+      "neuroticism": 51.8
+    },
+    "51-6099.00": {
+      "openness": 49.43,
+      "conscientiousness": 49.13,
+      "extraversion": 48.49,
+      "agreeableness": 50.28,
+      "neuroticism": 51.45
+    },
+    "51-7011.00": {
+      "openness": 49.41,
+      "conscientiousness": 50.27,
+      "extraversion": 44.95,
+      "agreeableness": 47.59,
+      "neuroticism": 47.81
+    },
+    "51-7021.00": {
+      "openness": 47.69,
+      "conscientiousness": 50.04,
+      "extraversion": 47.46,
+      "agreeableness": 49.64,
+      "neuroticism": 50.41
+    },
+    "51-7031.00": {
+      "openness": 49.93,
+      "conscientiousness": 50.08,
+      "extraversion": 45.7,
+      "agreeableness": 47.8,
+      "neuroticism": 48.29
+    },
+    "51-7032.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-7099.00": {
+      "openness": 49.93,
+      "conscientiousness": 50.08,
+      "extraversion": 45.7,
+      "agreeableness": 47.8,
+      "neuroticism": 48.29
+    },
+    "51-8013.04": {
+      "openness": 50.99,
+      "conscientiousness": 47.59,
+      "extraversion": 46.04,
+      "agreeableness": 48.01,
+      "neuroticism": 45.14
+    },
+    "51-8021.00": {
+      "openness": 53.01,
+      "conscientiousness": 49.34,
+      "extraversion": 44.45,
+      "agreeableness": 49.01,
+      "neuroticism": 45.47
+    },
+    "51-9031.00": {
+      "openness": 46.75,
+      "conscientiousness": 51.01,
+      "extraversion": 48.43,
+      "agreeableness": 52.9,
+      "neuroticism": 51.38
+    },
+    "51-9061.00": {
+      "openness": 47.86,
+      "conscientiousness": 49.51,
+      "extraversion": 47.06,
+      "agreeableness": 49.92,
+      "neuroticism": 52.02
+    },
+    "51-9071.00": {
+      "openness": 50.54,
+      "conscientiousness": 48.61,
+      "extraversion": 49.39,
+      "agreeableness": 49.2,
+      "neuroticism": 52.16
+    },
+    "51-9071.06": {
+      "openness": 47.54,
+      "conscientiousness": 50.06,
+      "extraversion": 48.36,
+      "agreeableness": 48.66,
+      "neuroticism": 50.61
+    },
+    "51-9081.00": {
+      "openness": 49.15,
+      "conscientiousness": 51.04,
+      "extraversion": 49.23,
+      "agreeableness": 50.77,
+      "neuroticism": 52.95
+    },
+    "51-9082.00": {
+      "openness": 49.15,
+      "conscientiousness": 51.04,
+      "extraversion": 49.23,
+      "agreeableness": 50.77,
+      "neuroticism": 52.95
+    },
+    "51-9083.00": {
+      "openness": 48.22,
+      "conscientiousness": 51.29,
+      "extraversion": 51.31,
+      "agreeableness": 49.38,
+      "neuroticism": 51.31
+    },
+    "51-9123.00": {
+      "openness": 48.5,
+      "conscientiousness": 50.08,
+      "extraversion": 46.94,
+      "agreeableness": 49.95,
+      "neuroticism": 49.62
+    },
+    "51-9124.00": {
+      "openness": 46.77,
+      "conscientiousness": 48.98,
+      "extraversion": 49.3,
+      "agreeableness": 48.31,
+      "neuroticism": 49.95
+    },
+    "51-9141.00": {
+      "openness": 45.7,
+      "conscientiousness": 49.07,
+      "extraversion": 46.2,
+      "agreeableness": 50,
+      "neuroticism": 50.4
+    },
+    "51-9151.00": {
+      "openness": 53.38,
+      "conscientiousness": 48.4,
+      "extraversion": 52.52,
+      "agreeableness": 51.44,
+      "neuroticism": 52.45
+    },
+    "51-9161.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-9162.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-9191.00": {
+      "openness": 46.15,
+      "conscientiousness": 49.77,
+      "extraversion": 47.47,
+      "agreeableness": 48.32,
+      "neuroticism": 50.82
+    },
+    "51-9194.00": {
+      "openness": 50.94,
+      "conscientiousness": 47.44,
+      "extraversion": 48.98,
+      "agreeableness": 50.15,
+      "neuroticism": 52.76
+    },
+    "51-9195.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-9195.04": {
+      "openness": 57.65,
+      "conscientiousness": 46.12,
+      "extraversion": 50.61,
+      "agreeableness": 51.39,
+      "neuroticism": 54.81
+    },
+    "51-9195.05": {
+      "openness": 57.65,
+      "conscientiousness": 46.12,
+      "extraversion": 50.61,
+      "agreeableness": 51.39,
+      "neuroticism": 54.81
+    },
+    "51-9197.00": {
+      "openness": 49.03,
+      "conscientiousness": 49.05,
+      "extraversion": 44.92,
+      "agreeableness": 48.57,
+      "neuroticism": 46.24
+    },
+    "51-9199.00": {
+      "openness": 47.84,
+      "conscientiousness": 47.79,
+      "extraversion": 47.58,
+      "agreeableness": 49.95,
+      "neuroticism": 51.65
+    },
+    "53-1041.00": {
+      "openness": 48.98,
+      "conscientiousness": 51.22,
+      "extraversion": 48.46,
+      "agreeableness": 48.05,
+      "neuroticism": 49.16
+    },
+    "53-1042.00": {
+      "openness": 50.29,
+      "conscientiousness": 50.65,
+      "extraversion": 47.29,
+      "agreeableness": 46.35,
+      "neuroticism": 44.33
+    },
+    "53-1042.01": {
+      "openness": 50.14,
+      "conscientiousness": 50.53,
+      "extraversion": 47.23,
+      "agreeableness": 47.71,
+      "neuroticism": 47.14
+    },
+    "53-1043.00": {
+      "openness": 50.29,
+      "conscientiousness": 50.65,
+      "extraversion": 47.29,
+      "agreeableness": 46.35,
+      "neuroticism": 44.33
+    },
+    "53-1044.00": {
+      "openness": 47.82,
+      "conscientiousness": 49.99,
+      "extraversion": 49.82,
+      "agreeableness": 49.46,
+      "neuroticism": 51.28
+    },
+    "53-2011.00": {
+      "openness": 51.07,
+      "conscientiousness": 50.72,
+      "extraversion": 46.68,
+      "agreeableness": 47.71,
+      "neuroticism": 44.48
+    },
+    "53-2012.00": {
+      "openness": 51.07,
+      "conscientiousness": 50.72,
+      "extraversion": 46.68,
+      "agreeableness": 47.71,
+      "neuroticism": 44.48
+    },
+    "53-2021.00": {
+      "openness": 49.56,
+      "conscientiousness": 51.29,
+      "extraversion": 48.41,
+      "agreeableness": 47.54,
+      "neuroticism": 47.44
+    },
+    "53-2022.00": {
+      "openness": 50.67,
+      "conscientiousness": 50.39,
+      "extraversion": 47.55,
+      "agreeableness": 46.6,
+      "neuroticism": 45.23
+    },
+    "53-2031.00": {
+      "openness": 47.82,
+      "conscientiousness": 49.99,
+      "extraversion": 49.82,
+      "agreeableness": 49.46,
+      "neuroticism": 51.28
+    },
+    "53-3011.00": {
+      "openness": 48.3,
+      "conscientiousness": 49.55,
+      "extraversion": 47.89,
+      "agreeableness": 48.59,
+      "neuroticism": 47.63
+    },
+    "53-3031.00": {
+      "openness": 46.17,
+      "conscientiousness": 49.17,
+      "extraversion": 46,
+      "agreeableness": 47.24,
+      "neuroticism": 45.58
+    },
+    "53-3032.00": {
+      "openness": 46.91,
+      "conscientiousness": 49.84,
+      "extraversion": 45.63,
+      "agreeableness": 47.42,
+      "neuroticism": 44.8
+    },
+    "53-3033.00": {
+      "openness": 46.17,
+      "conscientiousness": 49.17,
+      "extraversion": 46,
+      "agreeableness": 47.24,
+      "neuroticism": 45.58
+    },
+    "53-3051.00": {
+      "openness": 45.3,
+      "conscientiousness": 48.68,
+      "extraversion": 47.73,
+      "agreeableness": 48.09,
+      "neuroticism": 47.8
+    },
+    "53-3052.00": {
+      "openness": 46.83,
+      "conscientiousness": 48.91,
+      "extraversion": 50.79,
+      "agreeableness": 49.89,
+      "neuroticism": 51.48
+    },
+    "53-3053.00": {
+      "openness": 45.37,
+      "conscientiousness": 48.59,
+      "extraversion": 47.05,
+      "agreeableness": 47.58,
+      "neuroticism": 47.08
+    },
+    "53-3054.00": {
+      "openness": 45.88,
+      "conscientiousness": 49.01,
+      "extraversion": 46.57,
+      "agreeableness": 47.52,
+      "neuroticism": 46.32
+    },
+    "53-4011.00": {
+      "openness": 49.26,
+      "conscientiousness": 49.7,
+      "extraversion": 45.09,
+      "agreeableness": 47.37,
+      "neuroticism": 46.58
+    },
+    "53-4013.00": {
+      "openness": 50.54,
+      "conscientiousness": 48.92,
+      "extraversion": 46.49,
+      "agreeableness": 48.43,
+      "neuroticism": 48.01
+    },
+    "53-4022.00": {
+      "openness": 49.76,
+      "conscientiousness": 50.07,
+      "extraversion": 47.48,
+      "agreeableness": 48.24,
+      "neuroticism": 48.58
+    },
+    "53-4031.00": {
+      "openness": 48.98,
+      "conscientiousness": 51.22,
+      "extraversion": 48.46,
+      "agreeableness": 48.05,
+      "neuroticism": 49.16
+    },
+    "53-4041.00": {
+      "openness": 45.3,
+      "conscientiousness": 48.68,
+      "extraversion": 47.73,
+      "agreeableness": 48.09,
+      "neuroticism": 47.8
+    },
+    "53-5011.00": {
+      "openness": 48.37,
+      "conscientiousness": 50.67,
+      "extraversion": 46.92,
+      "agreeableness": 46.35,
+      "neuroticism": 45.71
+    },
+    "53-5021.00": {
+      "openness": 48.97,
+      "conscientiousness": 50.99,
+      "extraversion": 46.64,
+      "agreeableness": 46,
+      "neuroticism": 45.56
+    },
+    "53-5022.00": {
+      "openness": 48.37,
+      "conscientiousness": 50.67,
+      "extraversion": 46.92,
+      "agreeableness": 46.35,
+      "neuroticism": 45.71
+    },
+    "53-5031.00": {
+      "openness": 51.69,
+      "conscientiousness": 50.53,
+      "extraversion": 45.42,
+      "agreeableness": 47.77,
+      "neuroticism": 44.89
+    },
+    "53-6011.00": {
+      "openness": 50.29,
+      "conscientiousness": 50.65,
+      "extraversion": 47.29,
+      "agreeableness": 46.35,
+      "neuroticism": 44.33
+    },
+    "53-6021.00": {
+      "openness": 45.44,
+      "conscientiousness": 48.5,
+      "extraversion": 46.36,
+      "agreeableness": 47.06,
+      "neuroticism": 46.36
+    },
+    "53-6031.00": {
+      "openness": 47.97,
+      "conscientiousness": 49.45,
+      "extraversion": 45.28,
+      "agreeableness": 48,
+      "neuroticism": 45.52
+    },
+    "53-6032.00": {
+      "openness": 46.91,
+      "conscientiousness": 49.84,
+      "extraversion": 45.63,
+      "agreeableness": 47.42,
+      "neuroticism": 44.8
+    },
+    "53-6051.00": {
+      "openness": 48.69,
+      "conscientiousness": 49.99,
+      "extraversion": 47.56,
+      "agreeableness": 48.7,
+      "neuroticism": 49.39
+    },
+    "53-6051.01": {
+      "openness": 49.27,
+      "conscientiousness": 49.95,
+      "extraversion": 47.3,
+      "agreeableness": 48.26,
+      "neuroticism": 48.63
+    },
+    "53-6051.07": {
+      "openness": 48.56,
+      "conscientiousness": 49.61,
+      "extraversion": 46.08,
+      "agreeableness": 48.64,
+      "neuroticism": 49.3
+    },
+    "53-6061.00": {
+      "openness": 48.14,
+      "conscientiousness": 49.12,
+      "extraversion": 51.89,
+      "agreeableness": 49.91,
+      "neuroticism": 51.52
+    },
+    "53-6099.00": {
+      "openness": 46.02,
+      "conscientiousness": 50.43,
+      "extraversion": 45.8,
+      "agreeableness": 47.73,
+      "neuroticism": 46.4
+    },
+    "53-7021.00": {
+      "openness": 46.02,
+      "conscientiousness": 50.43,
+      "extraversion": 45.8,
+      "agreeableness": 47.73,
+      "neuroticism": 46.4
+    },
+    "53-7031.00": {
+      "openness": 47.7,
+      "conscientiousness": 50.21,
+      "extraversion": 46.24,
+      "agreeableness": 48.46,
+      "neuroticism": 44.44
+    },
+    "53-7041.00": {
+      "openness": 46.02,
+      "conscientiousness": 50.43,
+      "extraversion": 45.8,
+      "agreeableness": 47.73,
+      "neuroticism": 46.4
+    },
+    "53-7051.00": {
+      "openness": 46.91,
+      "conscientiousness": 49.84,
+      "extraversion": 45.63,
+      "agreeableness": 47.42,
+      "neuroticism": 44.8
+    },
+    "53-7061.00": {
+      "openness": 45.45,
+      "conscientiousness": 50,
+      "extraversion": 49.22,
+      "agreeableness": 51.48,
+      "neuroticism": 52.52
+    },
+    "53-7065.00": {
+      "openness": 46.88,
+      "conscientiousness": 50.6,
+      "extraversion": 48.23,
+      "agreeableness": 49.23,
+      "neuroticism": 51.27
+    },
+    "53-7071.00": {
+      "openness": 48.98,
+      "conscientiousness": 51.22,
+      "extraversion": 48.46,
+      "agreeableness": 48.05,
+      "neuroticism": 49.16
+    },
+    "53-7081.00": {
+      "openness": 46.91,
+      "conscientiousness": 49.84,
+      "extraversion": 45.63,
+      "agreeableness": 47.42,
+      "neuroticism": 44.8
+    }
   }
 }

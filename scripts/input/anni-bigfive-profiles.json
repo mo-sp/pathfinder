@@ -1,0 +1,3174 @@
+{
+  "source": {
+    "citation": "Anni, K., Vainik, U., & Mõttus, R. (2024). Personality Profiles of 263 Occupations. Journal of Applied Psychology.",
+    "doi": "10.1037/apl0001249",
+    "osf": "https://osf.io/m9sw3/",
+    "table": "S6 — Big Five personality profiles, weighted n=50",
+    "scale": "T-scores (mean=50, SD=10) across all jobs"
+  },
+  "dimensions": [
+    "neuroticism",
+    "extraversion",
+    "openness",
+    "agreeableness",
+    "conscientiousness"
+  ],
+  "profiles": [
+    {
+      "iscoCode": "0",
+      "name": "Armed Forces Occupations",
+      "sampleSize": 240,
+      "scores": {
+        "neuroticism": 45.68,
+        "extraversion": 47.81,
+        "openness": 51.15,
+        "agreeableness": 45.81,
+        "conscientiousness": 51.02
+      }
+    },
+    {
+      "iscoCode": "1000",
+      "name": "Managers",
+      "sampleSize": 1000,
+      "scores": {
+        "neuroticism": 45.34,
+        "extraversion": 50.41,
+        "openness": 52.26,
+        "agreeableness": 47.33,
+        "conscientiousness": 51.2
+      }
+    },
+    {
+      "iscoCode": "100x",
+      "name": "Self-empolyed/Sole Proprietors",
+      "sampleSize": 69,
+      "scores": {
+        "neuroticism": 46.11,
+        "extraversion": 48.64,
+        "openness": 48.53,
+        "agreeableness": 48.09,
+        "conscientiousness": 50.5
+      }
+    },
+    {
+      "iscoCode": "101x",
+      "name": "Unspecified Heads of Department",
+      "sampleSize": 1000,
+      "scores": {
+        "neuroticism": 47.4,
+        "extraversion": 51.12,
+        "openness": 51.44,
+        "agreeableness": 48.16,
+        "conscientiousness": 51.17
+      }
+    },
+    {
+      "iscoCode": "102x",
+      "name": "Self-employed/Entrepreneurs",
+      "sampleSize": 610,
+      "scores": {
+        "neuroticism": 46.49,
+        "extraversion": 50.49,
+        "openness": 51.8,
+        "agreeableness": 46.32,
+        "conscientiousness": 49.97
+      }
+    },
+    {
+      "iscoCode": "103x",
+      "name": "Unspecified Board Members",
+      "sampleSize": 626,
+      "scores": {
+        "neuroticism": 44.91,
+        "extraversion": 50.07,
+        "openness": 51.56,
+        "agreeableness": 46.43,
+        "conscientiousness": 50.48
+      }
+    },
+    {
+      "iscoCode": "104x",
+      "name": "Unspecified Team Leaders",
+      "sampleSize": 360,
+      "scores": {
+        "neuroticism": 48.19,
+        "extraversion": 51.29,
+        "openness": 52.26,
+        "agreeableness": 48.56,
+        "conscientiousness": 50.47
+      }
+    },
+    {
+      "iscoCode": "105x",
+      "name": "Unspecified Deputy Managers",
+      "sampleSize": 161,
+      "scores": {
+        "neuroticism": 48.49,
+        "extraversion": 50.83,
+        "openness": 50.62,
+        "agreeableness": 49.32,
+        "conscientiousness": 53.0
+      }
+    },
+    {
+      "iscoCode": "106x",
+      "name": "Maintenance Managers/Advisers Not Elsewhere Classified",
+      "sampleSize": 147,
+      "scores": {
+        "neuroticism": 48.36,
+        "extraversion": 48.39,
+        "openness": 50.21,
+        "agreeableness": 48.4,
+        "conscientiousness": 49.71
+      }
+    },
+    {
+      "iscoCode": "1112",
+      "name": "Senior Government Officials",
+      "sampleSize": 207,
+      "scores": {
+        "neuroticism": 46.71,
+        "extraversion": 51.14,
+        "openness": 51.87,
+        "agreeableness": 48.93,
+        "conscientiousness": 51.83
+      }
+    },
+    {
+      "iscoCode": "1211",
+      "name": "Finance Managers",
+      "sampleSize": 393,
+      "scores": {
+        "neuroticism": 47.02,
+        "extraversion": 50.73,
+        "openness": 50.83,
+        "agreeableness": 48.91,
+        "conscientiousness": 53.78
+      }
+    },
+    {
+      "iscoCode": "1212",
+      "name": "Human Resource Managers",
+      "sampleSize": 362,
+      "scores": {
+        "neuroticism": 49.33,
+        "extraversion": 55.59,
+        "openness": 51.05,
+        "agreeableness": 50.29,
+        "conscientiousness": 52.61
+      }
+    },
+    {
+      "iscoCode": "1219",
+      "name": "Business Services and Administration Managers Not Elsewhere Classified",
+      "sampleSize": 255,
+      "scores": {
+        "neuroticism": 46.76,
+        "extraversion": 51.37,
+        "openness": 49.5,
+        "agreeableness": 46.83,
+        "conscientiousness": 50.64
+      }
+    },
+    {
+      "iscoCode": "1221",
+      "name": "Sales and Marketing Managers",
+      "sampleSize": 1000,
+      "scores": {
+        "neuroticism": 47.76,
+        "extraversion": 53.58,
+        "openness": 50.5,
+        "agreeableness": 46.75,
+        "conscientiousness": 50.58
+      }
+    },
+    {
+      "iscoCode": "1222",
+      "name": "Advertising and Public Relations Managers",
+      "sampleSize": 136,
+      "scores": {
+        "neuroticism": 51.46,
+        "extraversion": 55.86,
+        "openness": 55.32,
+        "agreeableness": 48.55,
+        "conscientiousness": 48.72
+      }
+    },
+    {
+      "iscoCode": "1223",
+      "name": "Research and Development Managers",
+      "sampleSize": 315,
+      "scores": {
+        "neuroticism": 47.2,
+        "extraversion": 50.68,
+        "openness": 54.52,
+        "agreeableness": 47.07,
+        "conscientiousness": 50.93
+      }
+    },
+    {
+      "iscoCode": "1321",
+      "name": "Manufacturing Managers",
+      "sampleSize": 491,
+      "scores": {
+        "neuroticism": 45.42,
+        "extraversion": 47.15,
+        "openness": 50.81,
+        "agreeableness": 46.88,
+        "conscientiousness": 51.23
+      }
+    },
+    {
+      "iscoCode": "1323",
+      "name": "Construction Managers",
+      "sampleSize": 108,
+      "scores": {
+        "neuroticism": 45.53,
+        "extraversion": 48.22,
+        "openness": 50.55,
+        "agreeableness": 45.59,
+        "conscientiousness": 52.06
+      }
+    },
+    {
+      "iscoCode": "1324",
+      "name": "Supply, Distribution and Related Managers",
+      "sampleSize": 505,
+      "scores": {
+        "neuroticism": 47.94,
+        "extraversion": 49.21,
+        "openness": 49.04,
+        "agreeableness": 47.96,
+        "conscientiousness": 52.25
+      }
+    },
+    {
+      "iscoCode": "1330",
+      "name": "Information and Communications Technology Services Managers",
+      "sampleSize": 172,
+      "scores": {
+        "neuroticism": 45.91,
+        "extraversion": 48.62,
+        "openness": 56.73,
+        "agreeableness": 48.76,
+        "conscientiousness": 49.31
+      }
+    },
+    {
+      "iscoCode": "1341",
+      "name": "Child Care Services Managers",
+      "sampleSize": 97,
+      "scores": {
+        "neuroticism": 48.96,
+        "extraversion": 54.79,
+        "openness": 50.0,
+        "agreeableness": 54.38,
+        "conscientiousness": 50.49
+      }
+    },
+    {
+      "iscoCode": "1342",
+      "name": "Health Services Managers",
+      "sampleSize": 127,
+      "scores": {
+        "neuroticism": 46.62,
+        "extraversion": 52.04,
+        "openness": 50.58,
+        "agreeableness": 51.43,
+        "conscientiousness": 52.2
+      }
+    },
+    {
+      "iscoCode": "1344",
+      "name": "Social Welfare Managers",
+      "sampleSize": 44,
+      "scores": {
+        "neuroticism": 49.67,
+        "extraversion": 53.84,
+        "openness": 51.76,
+        "agreeableness": 52.39,
+        "conscientiousness": 51.55
+      }
+    },
+    {
+      "iscoCode": "1345",
+      "name": "Education Managers",
+      "sampleSize": 434,
+      "scores": {
+        "neuroticism": 48.53,
+        "extraversion": 53.58,
+        "openness": 52.34,
+        "agreeableness": 51.89,
+        "conscientiousness": 51.46
+      }
+    },
+    {
+      "iscoCode": "1349",
+      "name": "Professional Services Managers Not Elsewhere Classified",
+      "sampleSize": 266,
+      "scores": {
+        "neuroticism": 48.36,
+        "extraversion": 49.85,
+        "openness": 51.84,
+        "agreeableness": 50.24,
+        "conscientiousness": 49.59
+      }
+    },
+    {
+      "iscoCode": "1411",
+      "name": "Hotel Managers",
+      "sampleSize": 30,
+      "scores": {
+        "neuroticism": 49.75,
+        "extraversion": 53.5,
+        "openness": 51.12,
+        "agreeableness": 49.75,
+        "conscientiousness": 50.96
+      }
+    },
+    {
+      "iscoCode": "1412",
+      "name": "Restaurant Managers",
+      "sampleSize": 80,
+      "scores": {
+        "neuroticism": 50.6,
+        "extraversion": 54.31,
+        "openness": 50.28,
+        "agreeableness": 49.82,
+        "conscientiousness": 49.58
+      }
+    },
+    {
+      "iscoCode": "1420",
+      "name": "Retail and Wholesale Trade Managers",
+      "sampleSize": 405,
+      "scores": {
+        "neuroticism": 48.76,
+        "extraversion": 52.22,
+        "openness": 47.29,
+        "agreeableness": 48.9,
+        "conscientiousness": 52.46
+      }
+    },
+    {
+      "iscoCode": "1431",
+      "name": "Sports, Recreation and Cultural Centre Managers",
+      "sampleSize": 84,
+      "scores": {
+        "neuroticism": 49.49,
+        "extraversion": 54.44,
+        "openness": 51.44,
+        "agreeableness": 49.9,
+        "conscientiousness": 50.05
+      }
+    },
+    {
+      "iscoCode": "1439",
+      "name": "Services Managers Not Elsewhere Classified",
+      "sampleSize": 219,
+      "scores": {
+        "neuroticism": 49.3,
+        "extraversion": 52.26,
+        "openness": 50.27,
+        "agreeableness": 48.63,
+        "conscientiousness": 52.16
+      }
+    },
+    {
+      "iscoCode": "200x",
+      "name": "Unspecified Project Managers",
+      "sampleSize": 1000,
+      "scores": {
+        "neuroticism": 48.23,
+        "extraversion": 51.18,
+        "openness": 51.79,
+        "agreeableness": 48.22,
+        "conscientiousness": 49.78
+      }
+    },
+    {
+      "iscoCode": "201x",
+      "name": "Unspecified Professionals",
+      "sampleSize": 982,
+      "scores": {
+        "neuroticism": 49.47,
+        "extraversion": 49.72,
+        "openness": 49.72,
+        "agreeableness": 51.0,
+        "conscientiousness": 49.96
+      }
+    },
+    {
+      "iscoCode": "202x",
+      "name": "Unspecified Analysts",
+      "sampleSize": 353,
+      "scores": {
+        "neuroticism": 51.41,
+        "extraversion": 49.56,
+        "openness": 52.24,
+        "agreeableness": 50.79,
+        "conscientiousness": 50.82
+      }
+    },
+    {
+      "iscoCode": "203x",
+      "name": "Unspecified Consultants",
+      "sampleSize": 444,
+      "scores": {
+        "neuroticism": 50.05,
+        "extraversion": 50.81,
+        "openness": 51.15,
+        "agreeableness": 50.12,
+        "conscientiousness": 50.14
+      }
+    },
+    {
+      "iscoCode": "204x",
+      "name": "Unspecified Advisors",
+      "sampleSize": 345,
+      "scores": {
+        "neuroticism": 49.42,
+        "extraversion": 50.45,
+        "openness": 52.88,
+        "agreeableness": 49.75,
+        "conscientiousness": 49.88
+      }
+    },
+    {
+      "iscoCode": "205x",
+      "name": "Unspecified Product Managers",
+      "sampleSize": 322,
+      "scores": {
+        "neuroticism": 48.61,
+        "extraversion": 51.13,
+        "openness": 52.14,
+        "agreeableness": 47.92,
+        "conscientiousness": 49.64
+      }
+    },
+    {
+      "iscoCode": "206x",
+      "name": "Unspecified Quality Specialists",
+      "sampleSize": 128,
+      "scores": {
+        "neuroticism": 52.42,
+        "extraversion": 49.28,
+        "openness": 50.97,
+        "agreeableness": 50.24,
+        "conscientiousness": 49.26
+      }
+    },
+    {
+      "iscoCode": "2113",
+      "name": "Chemists",
+      "sampleSize": 79,
+      "scores": {
+        "neuroticism": 50.19,
+        "extraversion": 47.82,
+        "openness": 51.67,
+        "agreeableness": 50.7,
+        "conscientiousness": 48.8
+      }
+    },
+    {
+      "iscoCode": "2120",
+      "name": "Mathematicians, Actuaries and Statisticians",
+      "sampleSize": 106,
+      "scores": {
+        "neuroticism": 50.52,
+        "extraversion": 46.98,
+        "openness": 53.57,
+        "agreeableness": 50.28,
+        "conscientiousness": 47.45
+      }
+    },
+    {
+      "iscoCode": "2131",
+      "name": "Biologists, Botanists, Zoologists and Related Professionals",
+      "sampleSize": 57,
+      "scores": {
+        "neuroticism": 51.12,
+        "extraversion": 47.25,
+        "openness": 52.76,
+        "agreeableness": 50.34,
+        "conscientiousness": 47.45
+      }
+    },
+    {
+      "iscoCode": "2132",
+      "name": "Farming, Forestry and Fisheries Advisers (Agronomists only)",
+      "sampleSize": 126,
+      "scores": {
+        "neuroticism": 47.61,
+        "extraversion": 48.45,
+        "openness": 49.5,
+        "agreeableness": 51.09,
+        "conscientiousness": 48.62
+      }
+    },
+    {
+      "iscoCode": "2133",
+      "name": "Environmental Protection Professionals",
+      "sampleSize": 162,
+      "scores": {
+        "neuroticism": 49.83,
+        "extraversion": 49.9,
+        "openness": 52.31,
+        "agreeableness": 50.53,
+        "conscientiousness": 46.9
+      }
+    },
+    {
+      "iscoCode": "2140",
+      "name": "(Unspecified) Engineering Professionals",
+      "sampleSize": 391,
+      "scores": {
+        "neuroticism": 46.63,
+        "extraversion": 43.48,
+        "openness": 53.02,
+        "agreeableness": 49.13,
+        "conscientiousness": 48.75
+      }
+    },
+    {
+      "iscoCode": "2141",
+      "name": "Industrial and Production Engineers",
+      "sampleSize": 135,
+      "scores": {
+        "neuroticism": 48.3,
+        "extraversion": 47.42,
+        "openness": 51.51,
+        "agreeableness": 49.28,
+        "conscientiousness": 49.4
+      }
+    },
+    {
+      "iscoCode": "2142",
+      "name": "Civil Engineers",
+      "sampleSize": 196,
+      "scores": {
+        "neuroticism": 46.65,
+        "extraversion": 46.38,
+        "openness": 51.32,
+        "agreeableness": 48.52,
+        "conscientiousness": 49.92
+      }
+    },
+    {
+      "iscoCode": "2144",
+      "name": "Mechanical Engineers",
+      "sampleSize": 59,
+      "scores": {
+        "neuroticism": 45.47,
+        "extraversion": 44.45,
+        "openness": 53.01,
+        "agreeableness": 49.01,
+        "conscientiousness": 49.34
+      }
+    },
+    {
+      "iscoCode": "2145",
+      "name": "Chemical Engineers",
+      "sampleSize": 36,
+      "scores": {
+        "neuroticism": 48.17,
+        "extraversion": 46.73,
+        "openness": 50.37,
+        "agreeableness": 49.7,
+        "conscientiousness": 50.1
+      }
+    },
+    {
+      "iscoCode": "2149",
+      "name": "Engineering Professionals Not Elsewhere Classified",
+      "sampleSize": 115,
+      "scores": {
+        "neuroticism": 48.03,
+        "extraversion": 46.88,
+        "openness": 49.97,
+        "agreeableness": 49.03,
+        "conscientiousness": 50.26
+      }
+    },
+    {
+      "iscoCode": "2151",
+      "name": "Electrical Engineers",
+      "sampleSize": 83,
+      "scores": {
+        "neuroticism": 46.15,
+        "extraversion": 43.09,
+        "openness": 52.33,
+        "agreeableness": 48.16,
+        "conscientiousness": 47.84
+      }
+    },
+    {
+      "iscoCode": "2152",
+      "name": "Electronics Engineers",
+      "sampleSize": 50,
+      "scores": {
+        "neuroticism": 44.41,
+        "extraversion": 40.11,
+        "openness": 54.36,
+        "agreeableness": 52.06,
+        "conscientiousness": 45.46
+      }
+    },
+    {
+      "iscoCode": "2161",
+      "name": "Building Architects",
+      "sampleSize": 324,
+      "scores": {
+        "neuroticism": 51.51,
+        "extraversion": 49.25,
+        "openness": 53.63,
+        "agreeableness": 49.7,
+        "conscientiousness": 48.58
+      }
+    },
+    {
+      "iscoCode": "2162",
+      "name": "Landscape Architects",
+      "sampleSize": 27,
+      "scores": {
+        "neuroticism": 53.0,
+        "extraversion": 49.97,
+        "openness": 53.54,
+        "agreeableness": 50.21,
+        "conscientiousness": 48.04
+      }
+    },
+    {
+      "iscoCode": "2163",
+      "name": "Product and Garment Designers",
+      "sampleSize": 213,
+      "scores": {
+        "neuroticism": 53.51,
+        "extraversion": 51.31,
+        "openness": 54.93,
+        "agreeableness": 50.09,
+        "conscientiousness": 47.44
+      }
+    },
+    {
+      "iscoCode": "2164",
+      "name": "Town and Traffic Planners",
+      "sampleSize": 31,
+      "scores": {
+        "neuroticism": 52.33,
+        "extraversion": 50.57,
+        "openness": 53.0,
+        "agreeableness": 49.81,
+        "conscientiousness": 48.52
+      }
+    },
+    {
+      "iscoCode": "2165",
+      "name": "Cartographers and Surveyors",
+      "sampleSize": 155,
+      "scores": {
+        "neuroticism": 49.6,
+        "extraversion": 47.53,
+        "openness": 48.79,
+        "agreeableness": 50.36,
+        "conscientiousness": 48.82
+      }
+    },
+    {
+      "iscoCode": "2166",
+      "name": "Graphic and Multimedia Designers",
+      "sampleSize": 232,
+      "scores": {
+        "neuroticism": 55.56,
+        "extraversion": 50.77,
+        "openness": 55.24,
+        "agreeableness": 51.78,
+        "conscientiousness": 45.78
+      }
+    },
+    {
+      "iscoCode": "2200",
+      "name": "Health Professionals (unspecified)",
+      "sampleSize": 140,
+      "scores": {
+        "neuroticism": 50.75,
+        "extraversion": 50.91,
+        "openness": 46.5,
+        "agreeableness": 51.11,
+        "conscientiousness": 54.04
+      }
+    },
+    {
+      "iscoCode": "2210",
+      "name": "Medical Doctors (unspecified)",
+      "sampleSize": 564,
+      "scores": {
+        "neuroticism": 51.1,
+        "extraversion": 50.14,
+        "openness": 51.03,
+        "agreeableness": 51.82,
+        "conscientiousness": 51.55
+      }
+    },
+    {
+      "iscoCode": "2211",
+      "name": "Generalist Medical Practitioners",
+      "sampleSize": 114,
+      "scores": {
+        "neuroticism": 50.32,
+        "extraversion": 48.26,
+        "openness": 50.77,
+        "agreeableness": 52.45,
+        "conscientiousness": 51.52
+      }
+    },
+    {
+      "iscoCode": "2212",
+      "name": "Specialist Medical Practitioners",
+      "sampleSize": 345,
+      "scores": {
+        "neuroticism": 51.35,
+        "extraversion": 48.45,
+        "openness": 52.79,
+        "agreeableness": 50.67,
+        "conscientiousness": 51.97
+      }
+    },
+    {
+      "iscoCode": "2221",
+      "name": "Nursing Professionals",
+      "sampleSize": 1000,
+      "scores": {
+        "neuroticism": 52.44,
+        "extraversion": 50.98,
+        "openness": 48.49,
+        "agreeableness": 51.96,
+        "conscientiousness": 51.32
+      }
+    },
+    {
+      "iscoCode": "2222",
+      "name": "Midwifery Professionals",
+      "sampleSize": 131,
+      "scores": {
+        "neuroticism": 52.15,
+        "extraversion": 52.93,
+        "openness": 48.55,
+        "agreeableness": 51.69,
+        "conscientiousness": 50.61
+      }
+    },
+    {
+      "iscoCode": "2250",
+      "name": "Veterinarians",
+      "sampleSize": 138,
+      "scores": {
+        "neuroticism": 51.49,
+        "extraversion": 47.16,
+        "openness": 53.75,
+        "agreeableness": 50.39,
+        "conscientiousness": 49.23
+      }
+    },
+    {
+      "iscoCode": "2261",
+      "name": "Dentists",
+      "sampleSize": 222,
+      "scores": {
+        "neuroticism": 52.05,
+        "extraversion": 50.65,
+        "openness": 49.11,
+        "agreeableness": 51.26,
+        "conscientiousness": 53.19
+      }
+    },
+    {
+      "iscoCode": "2262",
+      "name": "Pharmacists",
+      "sampleSize": 354,
+      "scores": {
+        "neuroticism": 51.89,
+        "extraversion": 49.59,
+        "openness": 46.98,
+        "agreeableness": 52.01,
+        "conscientiousness": 50.72
+      }
+    },
+    {
+      "iscoCode": "2264",
+      "name": "Physiotherapists",
+      "sampleSize": 222,
+      "scores": {
+        "neuroticism": 53.66,
+        "extraversion": 51.27,
+        "openness": 49.91,
+        "agreeableness": 52.42,
+        "conscientiousness": 50.48
+      }
+    },
+    {
+      "iscoCode": "2266",
+      "name": "Audiologists and Speech Therapists",
+      "sampleSize": 122,
+      "scores": {
+        "neuroticism": 53.3,
+        "extraversion": 51.4,
+        "openness": 51.77,
+        "agreeableness": 54.35,
+        "conscientiousness": 50.54
+      }
+    },
+    {
+      "iscoCode": "2269",
+      "name": "Health Professionals Not Elsewhere Classified",
+      "sampleSize": 59,
+      "scores": {
+        "neuroticism": 52.09,
+        "extraversion": 51.52,
+        "openness": 53.3,
+        "agreeableness": 53.48,
+        "conscientiousness": 50.87
+      }
+    },
+    {
+      "iscoCode": "2300",
+      "name": "Unspecified Teachers",
+      "sampleSize": 1000,
+      "scores": {
+        "neuroticism": 51.54,
+        "extraversion": 52.14,
+        "openness": 51.33,
+        "agreeableness": 51.97,
+        "conscientiousness": 49.72
+      }
+    },
+    {
+      "iscoCode": "2310",
+      "name": "University and Higher Education Teachers",
+      "sampleSize": 1000,
+      "scores": {
+        "neuroticism": 49.78,
+        "extraversion": 48.32,
+        "openness": 56.01,
+        "agreeableness": 51.36,
+        "conscientiousness": 48.78
+      }
+    },
+    {
+      "iscoCode": "231x",
+      "name": "Research Professionals Not Elsewhere Classified",
+      "sampleSize": 70,
+      "scores": {
+        "neuroticism": 52.78,
+        "extraversion": 48.93,
+        "openness": 56.66,
+        "agreeableness": 51.88,
+        "conscientiousness": 48.19
+      }
+    },
+    {
+      "iscoCode": "2320",
+      "name": "Vocational Education Teachers",
+      "sampleSize": 105,
+      "scores": {
+        "neuroticism": 48.76,
+        "extraversion": 49.16,
+        "openness": 51.61,
+        "agreeableness": 50.89,
+        "conscientiousness": 51.05
+      }
+    },
+    {
+      "iscoCode": "2330",
+      "name": "Secondary Education Teachers",
+      "sampleSize": 45,
+      "scores": {
+        "neuroticism": 50.86,
+        "extraversion": 50.8,
+        "openness": 53.2,
+        "agreeableness": 52.23,
+        "conscientiousness": 49.35
+      }
+    },
+    {
+      "iscoCode": "2341",
+      "name": "Primary School Teachers",
+      "sampleSize": 258,
+      "scores": {
+        "neuroticism": 52.4,
+        "extraversion": 52.68,
+        "openness": 51.01,
+        "agreeableness": 53.29,
+        "conscientiousness": 48.73
+      }
+    },
+    {
+      "iscoCode": "2342",
+      "name": "Early Childhood Educators",
+      "sampleSize": 820,
+      "scores": {
+        "neuroticism": 52.76,
+        "extraversion": 53.57,
+        "openness": 47.85,
+        "agreeableness": 53.01,
+        "conscientiousness": 50.26
+      }
+    },
+    {
+      "iscoCode": "2350",
+      "name": "Other Language, Music, Arts Teachers (hobby schools, private tutition)",
+      "sampleSize": 117,
+      "scores": {
+        "neuroticism": 51.99,
+        "extraversion": 51.97,
+        "openness": 52.16,
+        "agreeableness": 51.71,
+        "conscientiousness": 48.94
+      }
+    },
+    {
+      "iscoCode": "2351",
+      "name": "Education Methods Specialists",
+      "sampleSize": 84,
+      "scores": {
+        "neuroticism": 51.52,
+        "extraversion": 52.21,
+        "openness": 53.98,
+        "agreeableness": 51.12,
+        "conscientiousness": 49.12
+      }
+    },
+    {
+      "iscoCode": "2352",
+      "name": "Special Needs Teachers",
+      "sampleSize": 186,
+      "scores": {
+        "neuroticism": 53.2,
+        "extraversion": 53.02,
+        "openness": 52.01,
+        "agreeableness": 53.43,
+        "conscientiousness": 49.7
+      }
+    },
+    {
+      "iscoCode": "2353",
+      "name": "Language Teachers",
+      "sampleSize": 87,
+      "scores": {
+        "neuroticism": 52.51,
+        "extraversion": 52.69,
+        "openness": 55.45,
+        "agreeableness": 53.52,
+        "conscientiousness": 49.07
+      }
+    },
+    {
+      "iscoCode": "2359",
+      "name": "Teaching Professionals Not Elsewhere Classified",
+      "sampleSize": 190,
+      "scores": {
+        "neuroticism": 51.62,
+        "extraversion": 54.61,
+        "openness": 52.16,
+        "agreeableness": 52.24,
+        "conscientiousness": 49.02
+      }
+    },
+    {
+      "iscoCode": "235x",
+      "name": "Teaching/Education Professionals Not Elsewhere Classified",
+      "sampleSize": 76,
+      "scores": {
+        "neuroticism": 49.21,
+        "extraversion": 50.7,
+        "openness": 52.83,
+        "agreeableness": 49.96,
+        "conscientiousness": 49.55
+      }
+    },
+    {
+      "iscoCode": "2411",
+      "name": "Accountants",
+      "sampleSize": 1000,
+      "scores": {
+        "neuroticism": 48.87,
+        "extraversion": 50.63,
+        "openness": 48.15,
+        "agreeableness": 51.36,
+        "conscientiousness": 52.8
+      }
+    },
+    {
+      "iscoCode": "2412",
+      "name": "Financial and Investment Advisers",
+      "sampleSize": 127,
+      "scores": {
+        "neuroticism": 48.55,
+        "extraversion": 52.0,
+        "openness": 50.29,
+        "agreeableness": 49.13,
+        "conscientiousness": 51.01
+      }
+    },
+    {
+      "iscoCode": "2413",
+      "name": "Financial Analysts",
+      "sampleSize": 113,
+      "scores": {
+        "neuroticism": 49.68,
+        "extraversion": 49.94,
+        "openness": 50.25,
+        "agreeableness": 51.14,
+        "conscientiousness": 52.33
+      }
+    },
+    {
+      "iscoCode": "2421",
+      "name": "Management and Organization Analysts",
+      "sampleSize": 383,
+      "scores": {
+        "neuroticism": 48.95,
+        "extraversion": 51.48,
+        "openness": 53.05,
+        "agreeableness": 49.75,
+        "conscientiousness": 51.39
+      }
+    },
+    {
+      "iscoCode": "2422",
+      "name": "Policy Administration Professionals",
+      "sampleSize": 206,
+      "scores": {
+        "neuroticism": 51.83,
+        "extraversion": 51.87,
+        "openness": 52.17,
+        "agreeableness": 48.9,
+        "conscientiousness": 49.64
+      }
+    },
+    {
+      "iscoCode": "2423",
+      "name": "Personnel and Careers Professionals",
+      "sampleSize": 327,
+      "scores": {
+        "neuroticism": 51.64,
+        "extraversion": 54.56,
+        "openness": 50.0,
+        "agreeableness": 51.58,
+        "conscientiousness": 51.14
+      }
+    },
+    {
+      "iscoCode": "2424",
+      "name": "Training and Staff Development Professionals",
+      "sampleSize": 216,
+      "scores": {
+        "neuroticism": 49.06,
+        "extraversion": 54.33,
+        "openness": 54.02,
+        "agreeableness": 50.86,
+        "conscientiousness": 48.45
+      }
+    },
+    {
+      "iscoCode": "2431",
+      "name": "Advertising and Marketing Professionals",
+      "sampleSize": 283,
+      "scores": {
+        "neuroticism": 52.27,
+        "extraversion": 53.93,
+        "openness": 52.51,
+        "agreeableness": 48.96,
+        "conscientiousness": 49.29
+      }
+    },
+    {
+      "iscoCode": "2432",
+      "name": "Public Relations Professionals",
+      "sampleSize": 172,
+      "scores": {
+        "neuroticism": 54.1,
+        "extraversion": 53.77,
+        "openness": 53.96,
+        "agreeableness": 49.31,
+        "conscientiousness": 48.15
+      }
+    },
+    {
+      "iscoCode": "2511",
+      "name": "Systems Analysts",
+      "sampleSize": 308,
+      "scores": {
+        "neuroticism": 48.34,
+        "extraversion": 49.14,
+        "openness": 53.11,
+        "agreeableness": 50.47,
+        "conscientiousness": 49.31
+      }
+    },
+    {
+      "iscoCode": "2512",
+      "name": "Software Developers",
+      "sampleSize": 876,
+      "scores": {
+        "neuroticism": 48.39,
+        "extraversion": 43.03,
+        "openness": 55.34,
+        "agreeableness": 50.5,
+        "conscientiousness": 46.46
+      }
+    },
+    {
+      "iscoCode": "2513",
+      "name": "Web and Multimedia Developers",
+      "sampleSize": 38,
+      "scores": {
+        "neuroticism": 51.41,
+        "extraversion": 44.28,
+        "openness": 55.69,
+        "agreeableness": 51.58,
+        "conscientiousness": 46.35
+      }
+    },
+    {
+      "iscoCode": "2519",
+      "name": "Software and Applications Developers and Analysts Not Elsewhere Classified (Software Testers)",
+      "sampleSize": 95,
+      "scores": {
+        "neuroticism": 52.35,
+        "extraversion": 45.59,
+        "openness": 54.47,
+        "agreeableness": 51.06,
+        "conscientiousness": 46.07
+      }
+    },
+    {
+      "iscoCode": "2521",
+      "name": "Database Designers and Administrators",
+      "sampleSize": 85,
+      "scores": {
+        "neuroticism": 50.11,
+        "extraversion": 45.79,
+        "openness": 50.97,
+        "agreeableness": 50.99,
+        "conscientiousness": 47.36
+      }
+    },
+    {
+      "iscoCode": "2522",
+      "name": "Systems Administrators",
+      "sampleSize": 403,
+      "scores": {
+        "neuroticism": 45.84,
+        "extraversion": 43.98,
+        "openness": 53.35,
+        "agreeableness": 48.93,
+        "conscientiousness": 46.83
+      }
+    },
+    {
+      "iscoCode": "2529",
+      "name": "Database and Network Professionals Not Elsewhere Classified",
+      "sampleSize": 30,
+      "scores": {
+        "neuroticism": 45.31,
+        "extraversion": 44.23,
+        "openness": 54.26,
+        "agreeableness": 49.45,
+        "conscientiousness": 47.75
+      }
+    },
+    {
+      "iscoCode": "2611",
+      "name": "Lawyers",
+      "sampleSize": 195,
+      "scores": {
+        "neuroticism": 49.54,
+        "extraversion": 50.27,
+        "openness": 53.49,
+        "agreeableness": 48.96,
+        "conscientiousness": 51.56
+      }
+    },
+    {
+      "iscoCode": "2612",
+      "name": "Judges",
+      "sampleSize": 75,
+      "scores": {
+        "neuroticism": 48.25,
+        "extraversion": 50.21,
+        "openness": 52.09,
+        "agreeableness": 48.87,
+        "conscientiousness": 50.74
+      }
+    },
+    {
+      "iscoCode": "2619",
+      "name": "Legal Professionals",
+      "sampleSize": 591,
+      "scores": {
+        "neuroticism": 49.95,
+        "extraversion": 51.29,
+        "openness": 52.82,
+        "agreeableness": 48.7,
+        "conscientiousness": 51.69
+      }
+    },
+    {
+      "iscoCode": "2621",
+      "name": "Archivists and Curators",
+      "sampleSize": 180,
+      "scores": {
+        "neuroticism": 53.59,
+        "extraversion": 50.0,
+        "openness": 51.63,
+        "agreeableness": 53.28,
+        "conscientiousness": 49.46
+      }
+    },
+    {
+      "iscoCode": "2622",
+      "name": "Librarians and Related Information Professionals",
+      "sampleSize": 328,
+      "scores": {
+        "neuroticism": 52.97,
+        "extraversion": 50.17,
+        "openness": 48.85,
+        "agreeableness": 53.37,
+        "conscientiousness": 47.9
+      }
+    },
+    {
+      "iscoCode": "2631",
+      "name": "Economists",
+      "sampleSize": 115,
+      "scores": {
+        "neuroticism": 49.49,
+        "extraversion": 49.44,
+        "openness": 50.06,
+        "agreeableness": 52.69,
+        "conscientiousness": 50.34
+      }
+    },
+    {
+      "iscoCode": "2634",
+      "name": "Psychologists",
+      "sampleSize": 245,
+      "scores": {
+        "neuroticism": 49.47,
+        "extraversion": 53.63,
+        "openness": 55.9,
+        "agreeableness": 55.18,
+        "conscientiousness": 47.09
+      }
+    },
+    {
+      "iscoCode": "2635",
+      "name": "Social Work and Counselling Professionals",
+      "sampleSize": 502,
+      "scores": {
+        "neuroticism": 51.51,
+        "extraversion": 53.49,
+        "openness": 51.18,
+        "agreeableness": 52.75,
+        "conscientiousness": 49.28
+      }
+    },
+    {
+      "iscoCode": "2636",
+      "name": "Religious Professionals",
+      "sampleSize": 29,
+      "scores": {
+        "neuroticism": 49.88,
+        "extraversion": 52.39,
+        "openness": 53.72,
+        "agreeableness": 53.67,
+        "conscientiousness": 48.54
+      }
+    },
+    {
+      "iscoCode": "2640",
+      "name": "Unspecified Editors (text, book etc.)",
+      "sampleSize": 124,
+      "scores": {
+        "neuroticism": 53.65,
+        "extraversion": 51.11,
+        "openness": 52.84,
+        "agreeableness": 50.99,
+        "conscientiousness": 46.76
+      }
+    },
+    {
+      "iscoCode": "2641",
+      "name": "Authors and Related Writers",
+      "sampleSize": 41,
+      "scores": {
+        "neuroticism": 53.47,
+        "extraversion": 49.81,
+        "openness": 55.39,
+        "agreeableness": 50.6,
+        "conscientiousness": 46.72
+      }
+    },
+    {
+      "iscoCode": "2642",
+      "name": "Journalists",
+      "sampleSize": 219,
+      "scores": {
+        "neuroticism": 53.45,
+        "extraversion": 52.14,
+        "openness": 54.82,
+        "agreeableness": 48.45,
+        "conscientiousness": 46.31
+      }
+    },
+    {
+      "iscoCode": "2643",
+      "name": "Translators, Interpreters and Other Linguists",
+      "sampleSize": 313,
+      "scores": {
+        "neuroticism": 54.82,
+        "extraversion": 48.46,
+        "openness": 53.59,
+        "agreeableness": 52.38,
+        "conscientiousness": 48.0
+      }
+    },
+    {
+      "iscoCode": "2651",
+      "name": "Visual Artists",
+      "sampleSize": 208,
+      "scores": {
+        "neuroticism": 54.81,
+        "extraversion": 50.61,
+        "openness": 57.65,
+        "agreeableness": 51.39,
+        "conscientiousness": 46.12
+      }
+    },
+    {
+      "iscoCode": "2652",
+      "name": "Musicians, Singers and Composers",
+      "sampleSize": 188,
+      "scores": {
+        "neuroticism": 53.13,
+        "extraversion": 51.58,
+        "openness": 53.77,
+        "agreeableness": 50.0,
+        "conscientiousness": 47.81
+      }
+    },
+    {
+      "iscoCode": "2654",
+      "name": "Film, Stage and Related Directors and Producers",
+      "sampleSize": 118,
+      "scores": {
+        "neuroticism": 52.43,
+        "extraversion": 52.33,
+        "openness": 54.82,
+        "agreeableness": 47.65,
+        "conscientiousness": 47.71
+      }
+    },
+    {
+      "iscoCode": "2655",
+      "name": "Actors",
+      "sampleSize": 63,
+      "scores": {
+        "neuroticism": 56.61,
+        "extraversion": 53.67,
+        "openness": 56.12,
+        "agreeableness": 49.97,
+        "conscientiousness": 46.81
+      }
+    },
+    {
+      "iscoCode": "300x",
+      "name": "Unspecified Associate Professionals",
+      "sampleSize": 916,
+      "scores": {
+        "neuroticism": 50.92,
+        "extraversion": 49.95,
+        "openness": 49.62,
+        "agreeableness": 50.69,
+        "conscientiousness": 50.46
+      }
+    },
+    {
+      "iscoCode": "301x",
+      "name": "Unspecified Technicians",
+      "sampleSize": 284,
+      "scores": {
+        "neuroticism": 46.83,
+        "extraversion": 45.56,
+        "openness": 49.8,
+        "agreeableness": 47.16,
+        "conscientiousness": 48.97
+      }
+    },
+    {
+      "iscoCode": "302x",
+      "name": "Unspecified Heads of Shifts",
+      "sampleSize": 166,
+      "scores": {
+        "neuroticism": 50.15,
+        "extraversion": 50.88,
+        "openness": 48.13,
+        "agreeableness": 49.97,
+        "conscientiousness": 51.92
+      }
+    },
+    {
+      "iscoCode": "303x",
+      "name": "Unspecified Coordinators",
+      "sampleSize": 168,
+      "scores": {
+        "neuroticism": 53.42,
+        "extraversion": 51.76,
+        "openness": 51.37,
+        "agreeableness": 50.93,
+        "conscientiousness": 49.06
+      }
+    },
+    {
+      "iscoCode": "304x",
+      "name": "Unspecified Laboratory Technicians/Assistants",
+      "sampleSize": 155,
+      "scores": {
+        "neuroticism": 51.44,
+        "extraversion": 47.35,
+        "openness": 48.97,
+        "agreeableness": 51.72,
+        "conscientiousness": 49.06
+      }
+    },
+    {
+      "iscoCode": "305x",
+      "name": "Unspecified Inspectors",
+      "sampleSize": 148,
+      "scores": {
+        "neuroticism": 48.85,
+        "extraversion": 49.54,
+        "openness": 47.85,
+        "agreeableness": 50.1,
+        "conscientiousness": 50.62
+      }
+    },
+    {
+      "iscoCode": "306x",
+      "name": "Unspecified Officials",
+      "sampleSize": 147,
+      "scores": {
+        "neuroticism": 49.5,
+        "extraversion": 50.51,
+        "openness": 48.55,
+        "agreeableness": 50.24,
+        "conscientiousness": 50.42
+      }
+    },
+    {
+      "iscoCode": "3112",
+      "name": "Civil Engineering Technicians",
+      "sampleSize": 370,
+      "scores": {
+        "neuroticism": 48.01,
+        "extraversion": 46.49,
+        "openness": 50.54,
+        "agreeableness": 48.43,
+        "conscientiousness": 48.92
+      }
+    },
+    {
+      "iscoCode": "3113",
+      "name": "Electrical Engineering Technicians",
+      "sampleSize": 128,
+      "scores": {
+        "neuroticism": 45.14,
+        "extraversion": 46.04,
+        "openness": 50.99,
+        "agreeableness": 48.01,
+        "conscientiousness": 47.59
+      }
+    },
+    {
+      "iscoCode": "3115",
+      "name": "Mechanical Engineering Technicians",
+      "sampleSize": 94,
+      "scores": {
+        "neuroticism": 46.58,
+        "extraversion": 45.09,
+        "openness": 49.26,
+        "agreeableness": 47.37,
+        "conscientiousness": 49.7
+      }
+    },
+    {
+      "iscoCode": "3118",
+      "name": "Draughtspersons",
+      "sampleSize": 77,
+      "scores": {
+        "neuroticism": 49.63,
+        "extraversion": 47.43,
+        "openness": 51.32,
+        "agreeableness": 47.62,
+        "conscientiousness": 47.5
+      }
+    },
+    {
+      "iscoCode": "3120",
+      "name": "Mining, Manufacturing and Construction Supervisors",
+      "sampleSize": 304,
+      "scores": {
+        "neuroticism": 44.5,
+        "extraversion": 47.82,
+        "openness": 49.46,
+        "agreeableness": 45.87,
+        "conscientiousness": 50.43
+      }
+    },
+    {
+      "iscoCode": "3122",
+      "name": "Manufacturing Supervisors",
+      "sampleSize": 130,
+      "scores": {
+        "neuroticism": 47.99,
+        "extraversion": 48.06,
+        "openness": 49.06,
+        "agreeableness": 47.83,
+        "conscientiousness": 51.45
+      }
+    },
+    {
+      "iscoCode": "3123",
+      "name": "Construction Supervisors",
+      "sampleSize": 79,
+      "scores": {
+        "neuroticism": 44.33,
+        "extraversion": 47.29,
+        "openness": 50.29,
+        "agreeableness": 46.35,
+        "conscientiousness": 50.65
+      }
+    },
+    {
+      "iscoCode": "3130",
+      "name": "Process Control Technicians",
+      "sampleSize": 88,
+      "scores": {
+        "neuroticism": 48.31,
+        "extraversion": 47.26,
+        "openness": 50.74,
+        "agreeableness": 50.11,
+        "conscientiousness": 48.33
+      }
+    },
+    {
+      "iscoCode": "3141",
+      "name": "Life Science Technicians (excluding Medical)",
+      "sampleSize": 35,
+      "scores": {
+        "neuroticism": 47.73,
+        "extraversion": 47.39,
+        "openness": 48.99,
+        "agreeableness": 48.4,
+        "conscientiousness": 49.02
+      }
+    },
+    {
+      "iscoCode": "3143",
+      "name": "Forestry Technicians",
+      "sampleSize": 56,
+      "scores": {
+        "neuroticism": 46.95,
+        "extraversion": 45.5,
+        "openness": 50.09,
+        "agreeableness": 48.84,
+        "conscientiousness": 49.03
+      }
+    },
+    {
+      "iscoCode": "3151",
+      "name": "Ships’ Engineers",
+      "sampleSize": 40,
+      "scores": {
+        "neuroticism": 44.31,
+        "extraversion": 46.4,
+        "openness": 50.37,
+        "agreeableness": 46.52,
+        "conscientiousness": 51.73
+      }
+    },
+    {
+      "iscoCode": "3152",
+      "name": "Ships’ Deck Officers and Pilots",
+      "sampleSize": 134,
+      "scores": {
+        "neuroticism": 45.56,
+        "extraversion": 46.64,
+        "openness": 48.97,
+        "agreeableness": 46.0,
+        "conscientiousness": 50.99
+      }
+    },
+    {
+      "iscoCode": "3153",
+      "name": "Aircraft Pilots and Related Associate Professionals",
+      "sampleSize": 42,
+      "scores": {
+        "neuroticism": 44.48,
+        "extraversion": 46.68,
+        "openness": 51.07,
+        "agreeableness": 47.71,
+        "conscientiousness": 50.72
+      }
+    },
+    {
+      "iscoCode": "3154",
+      "name": "Air Traffic Controllers",
+      "sampleSize": 26,
+      "scores": {
+        "neuroticism": 45.23,
+        "extraversion": 47.55,
+        "openness": 50.67,
+        "agreeableness": 46.6,
+        "conscientiousness": 50.39
+      }
+    },
+    {
+      "iscoCode": "3211",
+      "name": "Medical Imaging and Therapeutic Equipment Technicians",
+      "sampleSize": 77,
+      "scores": {
+        "neuroticism": 52.71,
+        "extraversion": 48.94,
+        "openness": 48.47,
+        "agreeableness": 51.87,
+        "conscientiousness": 49.09
+      }
+    },
+    {
+      "iscoCode": "3212",
+      "name": "Medical and Pathology Laboratory Technicians",
+      "sampleSize": 178,
+      "scores": {
+        "neuroticism": 54.12,
+        "extraversion": 49.55,
+        "openness": 52.02,
+        "agreeableness": 52.05,
+        "conscientiousness": 49.18
+      }
+    },
+    {
+      "iscoCode": "3214",
+      "name": "Medical and Dental Prosthetic Technicians",
+      "sampleSize": 61,
+      "scores": {
+        "neuroticism": 52.95,
+        "extraversion": 49.23,
+        "openness": 49.15,
+        "agreeableness": 50.77,
+        "conscientiousness": 51.04
+      }
+    },
+    {
+      "iscoCode": "3251",
+      "name": "Dental Assistants and Therapists",
+      "sampleSize": 25,
+      "scores": {
+        "neuroticism": 50.47,
+        "extraversion": 52.47,
+        "openness": 50.04,
+        "agreeableness": 51.42,
+        "conscientiousness": 52.15
+      }
+    },
+    {
+      "iscoCode": "3254",
+      "name": "Dispensing Opticians",
+      "sampleSize": 65,
+      "scores": {
+        "neuroticism": 51.31,
+        "extraversion": 51.31,
+        "openness": 48.22,
+        "agreeableness": 49.38,
+        "conscientiousness": 51.29
+      }
+    },
+    {
+      "iscoCode": "3255",
+      "name": "Physiotherapy Technicians and Assistants (Massagists)",
+      "sampleSize": 155,
+      "scores": {
+        "neuroticism": 49.27,
+        "extraversion": 52.19,
+        "openness": 50.46,
+        "agreeableness": 52.26,
+        "conscientiousness": 49.13
+      }
+    },
+    {
+      "iscoCode": "3256",
+      "name": "Medical Assistants",
+      "sampleSize": 73,
+      "scores": {
+        "neuroticism": 53.78,
+        "extraversion": 51.52,
+        "openness": 52.63,
+        "agreeableness": 49.68,
+        "conscientiousness": 51.94
+      }
+    },
+    {
+      "iscoCode": "3257",
+      "name": "Environmental and Occupational Health Inspectors and Associates",
+      "sampleSize": 77,
+      "scores": {
+        "neuroticism": 50.83,
+        "extraversion": 53.18,
+        "openness": 49.66,
+        "agreeableness": 51.01,
+        "conscientiousness": 50.52
+      }
+    },
+    {
+      "iscoCode": "3258",
+      "name": "Ambulance Workers",
+      "sampleSize": 43,
+      "scores": {
+        "neuroticism": 48.9,
+        "extraversion": 49.43,
+        "openness": 51.16,
+        "agreeableness": 50.11,
+        "conscientiousness": 50.59
+      }
+    },
+    {
+      "iscoCode": "3312",
+      "name": "Credit and Loans Officers",
+      "sampleSize": 94,
+      "scores": {
+        "neuroticism": 50.65,
+        "extraversion": 53.44,
+        "openness": 47.68,
+        "agreeableness": 50.0,
+        "conscientiousness": 51.96
+      }
+    },
+    {
+      "iscoCode": "3313",
+      "name": "Accounting Associate Professionals",
+      "sampleSize": 1000,
+      "scores": {
+        "neuroticism": 51.94,
+        "extraversion": 49.49,
+        "openness": 45.68,
+        "agreeableness": 52.31,
+        "conscientiousness": 51.02
+      }
+    },
+    {
+      "iscoCode": "3314",
+      "name": "Statistical, Mathematical and Related Associate Professionals",
+      "sampleSize": 50,
+      "scores": {
+        "neuroticism": 52.78,
+        "extraversion": 48.93,
+        "openness": 47.65,
+        "agreeableness": 52.61,
+        "conscientiousness": 49.48
+      }
+    },
+    {
+      "iscoCode": "3315",
+      "name": "Valuers and Loss Assessors",
+      "sampleSize": 85,
+      "scores": {
+        "neuroticism": 50.39,
+        "extraversion": 49.24,
+        "openness": 48.93,
+        "agreeableness": 49.01,
+        "conscientiousness": 50.35
+      }
+    },
+    {
+      "iscoCode": "3321",
+      "name": "Insurance Representatives",
+      "sampleSize": 82,
+      "scores": {
+        "neuroticism": 50.58,
+        "extraversion": 51.64,
+        "openness": 47.96,
+        "agreeableness": 50.92,
+        "conscientiousness": 49.08
+      }
+    },
+    {
+      "iscoCode": "3322",
+      "name": "Commercial Sales Representatives",
+      "sampleSize": 1000,
+      "scores": {
+        "neuroticism": 51.27,
+        "extraversion": 52.7,
+        "openness": 49.03,
+        "agreeableness": 48.85,
+        "conscientiousness": 49.63
+      }
+    },
+    {
+      "iscoCode": "3323",
+      "name": "Buyers",
+      "sampleSize": 334,
+      "scores": {
+        "neuroticism": 51.12,
+        "extraversion": 50.81,
+        "openness": 48.1,
+        "agreeableness": 49.54,
+        "conscientiousness": 51.14
+      }
+    },
+    {
+      "iscoCode": "3331",
+      "name": "Clearing and Forwarding Agents",
+      "sampleSize": 29,
+      "scores": {
+        "neuroticism": 49.09,
+        "extraversion": 52.36,
+        "openness": 48.38,
+        "agreeableness": 48.62,
+        "conscientiousness": 49.51
+      }
+    },
+    {
+      "iscoCode": "3332",
+      "name": "Conference and Event Planners",
+      "sampleSize": 29,
+      "scores": {
+        "neuroticism": 49.21,
+        "extraversion": 53.93,
+        "openness": 50.25,
+        "agreeableness": 48.72,
+        "conscientiousness": 49.6
+      }
+    },
+    {
+      "iscoCode": "3333",
+      "name": "Employment Agents and Contractors",
+      "sampleSize": 52,
+      "scores": {
+        "neuroticism": 50.52,
+        "extraversion": 54.15,
+        "openness": 48.63,
+        "agreeableness": 49.29,
+        "conscientiousness": 49.22
+      }
+    },
+    {
+      "iscoCode": "3334",
+      "name": "Real Estate Agents and Property Managers",
+      "sampleSize": 199,
+      "scores": {
+        "neuroticism": 47.31,
+        "extraversion": 52.59,
+        "openness": 49.26,
+        "agreeableness": 47.31,
+        "conscientiousness": 48.46
+      }
+    },
+    {
+      "iscoCode": "3341",
+      "name": "Office Supervisors",
+      "sampleSize": 380,
+      "scores": {
+        "neuroticism": 51.1,
+        "extraversion": 52.96,
+        "openness": 49.48,
+        "agreeableness": 50.16,
+        "conscientiousness": 51.53
+      }
+    },
+    {
+      "iscoCode": "3343",
+      "name": "Administrative and Executive Secretaries",
+      "sampleSize": 1000,
+      "scores": {
+        "neuroticism": 53.3,
+        "extraversion": 52.0,
+        "openness": 47.69,
+        "agreeableness": 51.61,
+        "conscientiousness": 50.99
+      }
+    },
+    {
+      "iscoCode": "3350",
+      "name": "Government Regulatory Associate Professionals (unspecified)",
+      "sampleSize": 96,
+      "scores": {
+        "neuroticism": 48.25,
+        "extraversion": 49.05,
+        "openness": 49.21,
+        "agreeableness": 49.48,
+        "conscientiousness": 50.17
+      }
+    },
+    {
+      "iscoCode": "3351",
+      "name": "Customs and Border Inspectors",
+      "sampleSize": 117,
+      "scores": {
+        "neuroticism": 49.06,
+        "extraversion": 48.02,
+        "openness": 48.61,
+        "agreeableness": 49.73,
+        "conscientiousness": 49.4
+      }
+    },
+    {
+      "iscoCode": "3355",
+      "name": "Police Inspectors and Detectives",
+      "sampleSize": 144,
+      "scores": {
+        "neuroticism": 47.48,
+        "extraversion": 49.87,
+        "openness": 48.88,
+        "agreeableness": 48.69,
+        "conscientiousness": 50.7
+      }
+    },
+    {
+      "iscoCode": "3359",
+      "name": "Government Regulatory Associate Professionals Not Elsewhere Classified",
+      "sampleSize": 86,
+      "scores": {
+        "neuroticism": 49.81,
+        "extraversion": 49.63,
+        "openness": 48.67,
+        "agreeableness": 49.44,
+        "conscientiousness": 49.55
+      }
+    },
+    {
+      "iscoCode": "3411",
+      "name": "Legal and Related Associate Professionals",
+      "sampleSize": 101,
+      "scores": {
+        "neuroticism": 52.08,
+        "extraversion": 51.04,
+        "openness": 48.98,
+        "agreeableness": 49.84,
+        "conscientiousness": 52.15
+      }
+    },
+    {
+      "iscoCode": "3412",
+      "name": "Social Work Associate Professionals",
+      "sampleSize": 381,
+      "scores": {
+        "neuroticism": 50.91,
+        "extraversion": 51.86,
+        "openness": 50.06,
+        "agreeableness": 52.63,
+        "conscientiousness": 49.77
+      }
+    },
+    {
+      "iscoCode": "3422",
+      "name": "Sports Coaches, Instructors and Officials",
+      "sampleSize": 213,
+      "scores": {
+        "neuroticism": 49.28,
+        "extraversion": 53.21,
+        "openness": 49.71,
+        "agreeableness": 49.88,
+        "conscientiousness": 50.35
+      }
+    },
+    {
+      "iscoCode": "3423",
+      "name": "Fitness and Recreation Instructors and Programme Leaders",
+      "sampleSize": 29,
+      "scores": {
+        "neuroticism": 49.2,
+        "extraversion": 53.74,
+        "openness": 50.22,
+        "agreeableness": 49.96,
+        "conscientiousness": 49.06
+      }
+    },
+    {
+      "iscoCode": "3431",
+      "name": "Photographers",
+      "sampleSize": 95,
+      "scores": {
+        "neuroticism": 52.45,
+        "extraversion": 52.52,
+        "openness": 53.38,
+        "agreeableness": 51.44,
+        "conscientiousness": 48.4
+      }
+    },
+    {
+      "iscoCode": "3432",
+      "name": "Interior Designers and Decorators",
+      "sampleSize": 61,
+      "scores": {
+        "neuroticism": 53.17,
+        "extraversion": 50.52,
+        "openness": 51.42,
+        "agreeableness": 50.81,
+        "conscientiousness": 50.75
+      }
+    },
+    {
+      "iscoCode": "3434",
+      "name": "Chefs",
+      "sampleSize": 115,
+      "scores": {
+        "neuroticism": 51.21,
+        "extraversion": 49.92,
+        "openness": 48.77,
+        "agreeableness": 47.95,
+        "conscientiousness": 52.62
+      }
+    },
+    {
+      "iscoCode": "3435",
+      "name": "Other Artistic and Cultural Associate Professionals",
+      "sampleSize": 123,
+      "scores": {
+        "neuroticism": 52.69,
+        "extraversion": 49.25,
+        "openness": 52.49,
+        "agreeableness": 48.95,
+        "conscientiousness": 49.14
+      }
+    },
+    {
+      "iscoCode": "3510",
+      "name": "Information and Communications Technology Operations Technicians",
+      "sampleSize": 230,
+      "scores": {
+        "neuroticism": 50.22,
+        "extraversion": 46.39,
+        "openness": 52.27,
+        "agreeableness": 50.52,
+        "conscientiousness": 48.26
+      }
+    },
+    {
+      "iscoCode": "3521",
+      "name": "Broadcasting and Audiovisual Technicians",
+      "sampleSize": 67,
+      "scores": {
+        "neuroticism": 50.4,
+        "extraversion": 45.95,
+        "openness": 54.07,
+        "agreeableness": 50.43,
+        "conscientiousness": 47.74
+      }
+    },
+    {
+      "iscoCode": "4000",
+      "name": "General and Keyboard Clerks (unspecified)",
+      "sampleSize": 112,
+      "scores": {
+        "neuroticism": 54.4,
+        "extraversion": 48.88,
+        "openness": 50.06,
+        "agreeableness": 51.82,
+        "conscientiousness": 51.3
+      }
+    },
+    {
+      "iscoCode": "4120",
+      "name": "Secretaries (general)",
+      "sampleSize": 407,
+      "scores": {
+        "neuroticism": 53.16,
+        "extraversion": 51.32,
+        "openness": 45.46,
+        "agreeableness": 52.67,
+        "conscientiousness": 50.85
+      }
+    },
+    {
+      "iscoCode": "4132",
+      "name": "Data Entry Clerks",
+      "sampleSize": 110,
+      "scores": {
+        "neuroticism": 52.73,
+        "extraversion": 49.87,
+        "openness": 47.34,
+        "agreeableness": 51.87,
+        "conscientiousness": 51.27
+      }
+    },
+    {
+      "iscoCode": "4200",
+      "name": "Unspecified Customer Services Clerks",
+      "sampleSize": 1000,
+      "scores": {
+        "neuroticism": 53.28,
+        "extraversion": 51.74,
+        "openness": 46.54,
+        "agreeableness": 50.94,
+        "conscientiousness": 49.61
+      }
+    },
+    {
+      "iscoCode": "4211",
+      "name": "Bank Tellers",
+      "sampleSize": 35,
+      "scores": {
+        "neuroticism": 53.34,
+        "extraversion": 53.3,
+        "openness": 48.34,
+        "agreeableness": 50.84,
+        "conscientiousness": 49.58
+      }
+    },
+    {
+      "iscoCode": "4214",
+      "name": "Debt Collectors and Related Workers",
+      "sampleSize": 30,
+      "scores": {
+        "neuroticism": 52.36,
+        "extraversion": 51.43,
+        "openness": 47.36,
+        "agreeableness": 50.54,
+        "conscientiousness": 50.27
+      }
+    },
+    {
+      "iscoCode": "4221",
+      "name": "Travel Consultants and Clerks",
+      "sampleSize": 89,
+      "scores": {
+        "neuroticism": 51.76,
+        "extraversion": 53.95,
+        "openness": 48.45,
+        "agreeableness": 50.35,
+        "conscientiousness": 48.25
+      }
+    },
+    {
+      "iscoCode": "4224",
+      "name": "Hotel Receptionists",
+      "sampleSize": 32,
+      "scores": {
+        "neuroticism": 52.57,
+        "extraversion": 51.84,
+        "openness": 48.75,
+        "agreeableness": 50.2,
+        "conscientiousness": 49.74
+      }
+    },
+    {
+      "iscoCode": "4225",
+      "name": "Inquiry Clerks",
+      "sampleSize": 574,
+      "scores": {
+        "neuroticism": 51.31,
+        "extraversion": 52.22,
+        "openness": 48.8,
+        "agreeableness": 50.15,
+        "conscientiousness": 49.59
+      }
+    },
+    {
+      "iscoCode": "4226",
+      "name": "Receptionists (general)",
+      "sampleSize": 339,
+      "scores": {
+        "neuroticism": 52.2,
+        "extraversion": 51.45,
+        "openness": 47.63,
+        "agreeableness": 51.0,
+        "conscientiousness": 50.31
+      }
+    },
+    {
+      "iscoCode": "4227",
+      "name": "Survey and Market Research Interviewers",
+      "sampleSize": 26,
+      "scores": {
+        "neuroticism": 51.07,
+        "extraversion": 51.93,
+        "openness": 48.83,
+        "agreeableness": 50.16,
+        "conscientiousness": 49.04
+      }
+    },
+    {
+      "iscoCode": "4311",
+      "name": "Accounting and Bookkeeping Clerks",
+      "sampleSize": 182,
+      "scores": {
+        "neuroticism": 51.71,
+        "extraversion": 52.65,
+        "openness": 45.47,
+        "agreeableness": 50.53,
+        "conscientiousness": 52.62
+      }
+    },
+    {
+      "iscoCode": "4313",
+      "name": "Payroll Clerks",
+      "sampleSize": 27,
+      "scores": {
+        "neuroticism": 52.24,
+        "extraversion": 52.17,
+        "openness": 46.45,
+        "agreeableness": 51.04,
+        "conscientiousness": 51.87
+      }
+    },
+    {
+      "iscoCode": "4321",
+      "name": "Stock Clerks",
+      "sampleSize": 387,
+      "scores": {
+        "neuroticism": 51.27,
+        "extraversion": 48.23,
+        "openness": 46.88,
+        "agreeableness": 49.23,
+        "conscientiousness": 50.6
+      }
+    },
+    {
+      "iscoCode": "4323",
+      "name": "Transport Clerks",
+      "sampleSize": 389,
+      "scores": {
+        "neuroticism": 49.16,
+        "extraversion": 48.46,
+        "openness": 48.98,
+        "agreeableness": 48.05,
+        "conscientiousness": 51.22
+      }
+    },
+    {
+      "iscoCode": "4412",
+      "name": "Mail Carriers and Sorting Clerks",
+      "sampleSize": 135,
+      "scores": {
+        "neuroticism": 51.29,
+        "extraversion": 47.09,
+        "openness": 47.45,
+        "agreeableness": 48.97,
+        "conscientiousness": 46.88
+      }
+    },
+    {
+      "iscoCode": "4415",
+      "name": "Filing and Copying Clerks",
+      "sampleSize": 58,
+      "scores": {
+        "neuroticism": 52.57,
+        "extraversion": 48.44,
+        "openness": 46.75,
+        "agreeableness": 51.81,
+        "conscientiousness": 49.1
+      }
+    },
+    {
+      "iscoCode": "4416",
+      "name": "Personnel Clerks",
+      "sampleSize": 54,
+      "scores": {
+        "neuroticism": 51.28,
+        "extraversion": 50.44,
+        "openness": 47.25,
+        "agreeableness": 51.05,
+        "conscientiousness": 50.26
+      }
+    },
+    {
+      "iscoCode": "5111",
+      "name": "Travel Attendants and Travel Stewards",
+      "sampleSize": 67,
+      "scores": {
+        "neuroticism": 51.28,
+        "extraversion": 49.82,
+        "openness": 47.82,
+        "agreeableness": 49.46,
+        "conscientiousness": 49.99
+      }
+    },
+    {
+      "iscoCode": "5113",
+      "name": "Travel Guides",
+      "sampleSize": 63,
+      "scores": {
+        "neuroticism": 52.15,
+        "extraversion": 51.41,
+        "openness": 52.23,
+        "agreeableness": 50.02,
+        "conscientiousness": 48.72
+      }
+    },
+    {
+      "iscoCode": "5120",
+      "name": "Cook",
+      "sampleSize": 514,
+      "scores": {
+        "neuroticism": 51.58,
+        "extraversion": 49.58,
+        "openness": 47.11,
+        "agreeableness": 49.85,
+        "conscientiousness": 50.74
+      }
+    },
+    {
+      "iscoCode": "5131",
+      "name": "Waiters",
+      "sampleSize": 216,
+      "scores": {
+        "neuroticism": 54.78,
+        "extraversion": 51.38,
+        "openness": 51.36,
+        "agreeableness": 48.82,
+        "conscientiousness": 46.72
+      }
+    },
+    {
+      "iscoCode": "5141",
+      "name": "Hairdressers",
+      "sampleSize": 317,
+      "scores": {
+        "neuroticism": 51.81,
+        "extraversion": 54.68,
+        "openness": 46.9,
+        "agreeableness": 51.03,
+        "conscientiousness": 51.29
+      }
+    },
+    {
+      "iscoCode": "5142",
+      "name": "Beauticians and Related Workers",
+      "sampleSize": 371,
+      "scores": {
+        "neuroticism": 52.11,
+        "extraversion": 53.87,
+        "openness": 48.64,
+        "agreeableness": 49.38,
+        "conscientiousness": 50.62
+      }
+    },
+    {
+      "iscoCode": "5151",
+      "name": "Cleaning and Housekeeping Supervisors in Offices, Hotels and Other Establishments",
+      "sampleSize": 324,
+      "scores": {
+        "neuroticism": 49.39,
+        "extraversion": 51.05,
+        "openness": 47.02,
+        "agreeableness": 51.2,
+        "conscientiousness": 50.98
+      }
+    },
+    {
+      "iscoCode": "5153",
+      "name": "Building Caretakers",
+      "sampleSize": 85,
+      "scores": {
+        "neuroticism": 50.3,
+        "extraversion": 48.93,
+        "openness": 46.98,
+        "agreeableness": 50.57,
+        "conscientiousness": 50.95
+      }
+    },
+    {
+      "iscoCode": "5164",
+      "name": "Pet Groomers and Animal Care Workers",
+      "sampleSize": 97,
+      "scores": {
+        "neuroticism": 54.23,
+        "extraversion": 47.64,
+        "openness": 49.54,
+        "agreeableness": 52.73,
+        "conscientiousness": 48.63
+      }
+    },
+    {
+      "iscoCode": "5165",
+      "name": "Driving Instructors",
+      "sampleSize": 42,
+      "scores": {
+        "neuroticism": 50.94,
+        "extraversion": 48.74,
+        "openness": 48.39,
+        "agreeableness": 49.77,
+        "conscientiousness": 47.91
+      }
+    },
+    {
+      "iscoCode": "520x",
+      "name": "Unspecified Sales Workers",
+      "sampleSize": 36,
+      "scores": {
+        "neuroticism": 51.0,
+        "extraversion": 51.57,
+        "openness": 46.04,
+        "agreeableness": 49.38,
+        "conscientiousness": 49.96
+      }
+    },
+    {
+      "iscoCode": "5211",
+      "name": "Stall and Market Salespersons",
+      "sampleSize": 85,
+      "scores": {
+        "neuroticism": 52.27,
+        "extraversion": 51.89,
+        "openness": 46.84,
+        "agreeableness": 52.31,
+        "conscientiousness": 50.91
+      }
+    },
+    {
+      "iscoCode": "5223",
+      "name": "Shop Sales Assistants",
+      "sampleSize": 580,
+      "scores": {
+        "neuroticism": 52.53,
+        "extraversion": 50.37,
+        "openness": 45.65,
+        "agreeableness": 51.59,
+        "conscientiousness": 49.74
+      }
+    },
+    {
+      "iscoCode": "5230",
+      "name": "Cashiers and Ticket Clerks",
+      "sampleSize": 102,
+      "scores": {
+        "neuroticism": 51.7,
+        "extraversion": 49.49,
+        "openness": 47.15,
+        "agreeableness": 52.58,
+        "conscientiousness": 47.89
+      }
+    },
+    {
+      "iscoCode": "5244",
+      "name": "Contact Centre Salespersons",
+      "sampleSize": 53,
+      "scores": {
+        "neuroticism": 53.93,
+        "extraversion": 51.79,
+        "openness": 47.6,
+        "agreeableness": 51.05,
+        "conscientiousness": 49.1
+      }
+    },
+    {
+      "iscoCode": "5249",
+      "name": "Sales Workers Not Elsewhere Classified",
+      "sampleSize": 316,
+      "scores": {
+        "neuroticism": 53.18,
+        "extraversion": 51.04,
+        "openness": 45.58,
+        "agreeableness": 50.43,
+        "conscientiousness": 49.29
+      }
+    },
+    {
+      "iscoCode": "5311",
+      "name": "Child Care Workers",
+      "sampleSize": 186,
+      "scores": {
+        "neuroticism": 55.17,
+        "extraversion": 53.85,
+        "openness": 48.36,
+        "agreeableness": 51.68,
+        "conscientiousness": 49.14
+      }
+    },
+    {
+      "iscoCode": "5312",
+      "name": "Teachers’ Aides",
+      "sampleSize": 450,
+      "scores": {
+        "neuroticism": 53.09,
+        "extraversion": 52.86,
+        "openness": 45.49,
+        "agreeableness": 53.45,
+        "conscientiousness": 50.19
+      }
+    },
+    {
+      "iscoCode": "5321",
+      "name": "Health Care Assistants",
+      "sampleSize": 684,
+      "scores": {
+        "neuroticism": 53.57,
+        "extraversion": 50.48,
+        "openness": 49.26,
+        "agreeableness": 52.85,
+        "conscientiousness": 49.74
+      }
+    },
+    {
+      "iscoCode": "5329",
+      "name": "Personal Care Workers in Health Services Not Elsewhere Classified",
+      "sampleSize": 136,
+      "scores": {
+        "neuroticism": 53.43,
+        "extraversion": 51.31,
+        "openness": 47.15,
+        "agreeableness": 50.75,
+        "conscientiousness": 49.7
+      }
+    },
+    {
+      "iscoCode": "5411",
+      "name": "Firefighters",
+      "sampleSize": 102,
+      "scores": {
+        "neuroticism": 46.18,
+        "extraversion": 47.44,
+        "openness": 49.49,
+        "agreeableness": 46.02,
+        "conscientiousness": 48.91
+      }
+    },
+    {
+      "iscoCode": "5412",
+      "name": "Police Officers",
+      "sampleSize": 260,
+      "scores": {
+        "neuroticism": 46.71,
+        "extraversion": 49.78,
+        "openness": 48.71,
+        "agreeableness": 46.95,
+        "conscientiousness": 50.95
+      }
+    },
+    {
+      "iscoCode": "5413",
+      "name": "Prison Guards",
+      "sampleSize": 26,
+      "scores": {
+        "neuroticism": 47.6,
+        "extraversion": 48.22,
+        "openness": 49.49,
+        "agreeableness": 47.29,
+        "conscientiousness": 49.48
+      }
+    },
+    {
+      "iscoCode": "5414",
+      "name": "Security Guards",
+      "sampleSize": 164,
+      "scores": {
+        "neuroticism": 49.08,
+        "extraversion": 47.85,
+        "openness": 50.0,
+        "agreeableness": 47.63,
+        "conscientiousness": 50.18
+      }
+    },
+    {
+      "iscoCode": "6113",
+      "name": "Gardeners; Horticultural and Nursery Growers",
+      "sampleSize": 148,
+      "scores": {
+        "neuroticism": 52.25,
+        "extraversion": 47.67,
+        "openness": 51.3,
+        "agreeableness": 52.08,
+        "conscientiousness": 48.57
+      }
+    },
+    {
+      "iscoCode": "6121",
+      "name": "Livestock and Dairy Producers",
+      "sampleSize": 121,
+      "scores": {
+        "neuroticism": 50.49,
+        "extraversion": 48.42,
+        "openness": 47.17,
+        "agreeableness": 52.38,
+        "conscientiousness": 51.45
+      }
+    },
+    {
+      "iscoCode": "6130",
+      "name": "Mixed Crop and Animal Producers",
+      "sampleSize": 197,
+      "scores": {
+        "neuroticism": 49.27,
+        "extraversion": 46.99,
+        "openness": 48.54,
+        "agreeableness": 50.85,
+        "conscientiousness": 49.55
+      }
+    },
+    {
+      "iscoCode": "6210",
+      "name": "Forestry and Related Workers",
+      "sampleSize": 65,
+      "scores": {
+        "neuroticism": 47.16,
+        "extraversion": 45.44,
+        "openness": 47.32,
+        "agreeableness": 50.2,
+        "conscientiousness": 47.11
+      }
+    },
+    {
+      "iscoCode": "700x",
+      "name": "Unspecified Craftsmen/Skilled Workers",
+      "sampleSize": 198,
+      "scores": {
+        "neuroticism": 47.49,
+        "extraversion": 47.58,
+        "openness": 48.33,
+        "agreeableness": 48.87,
+        "conscientiousness": 48.92
+      }
+    },
+    {
+      "iscoCode": "7111",
+      "name": "House Builders",
+      "sampleSize": 579,
+      "scores": {
+        "neuroticism": 46.21,
+        "extraversion": 44.63,
+        "openness": 48.06,
+        "agreeableness": 46.95,
+        "conscientiousness": 49.44
+      }
+    },
+    {
+      "iscoCode": "7115",
+      "name": "Carpenters and Joiners",
+      "sampleSize": 79,
+      "scores": {
+        "neuroticism": 47.33,
+        "extraversion": 44.19,
+        "openness": 48.88,
+        "agreeableness": 47.38,
+        "conscientiousness": 50.47
+      }
+    },
+    {
+      "iscoCode": "7120",
+      "name": "Building Finishers and Related Trades Workers (unspecified)",
+      "sampleSize": 140,
+      "scores": {
+        "neuroticism": 48.89,
+        "extraversion": 47.19,
+        "openness": 49.1,
+        "agreeableness": 46.33,
+        "conscientiousness": 50.02
+      }
+    },
+    {
+      "iscoCode": "7126",
+      "name": "Plumbers and Pipe Fitters",
+      "sampleSize": 50,
+      "scores": {
+        "neuroticism": 47.23,
+        "extraversion": 46.26,
+        "openness": 46.94,
+        "agreeableness": 46.44,
+        "conscientiousness": 49.35
+      }
+    },
+    {
+      "iscoCode": "7131",
+      "name": "Painters and Related Workers",
+      "sampleSize": 70,
+      "scores": {
+        "neuroticism": 50.39,
+        "extraversion": 49.26,
+        "openness": 46.56,
+        "agreeableness": 48.4,
+        "conscientiousness": 49.07
+      }
+    },
+    {
+      "iscoCode": "7132",
+      "name": "Spray Painters and Varnishers",
+      "sampleSize": 36,
+      "scores": {
+        "neuroticism": 49.51,
+        "extraversion": 49.33,
+        "openness": 46.98,
+        "agreeableness": 48.23,
+        "conscientiousness": 48.9
+      }
+    },
+    {
+      "iscoCode": "7210",
+      "name": "Sheet and Structural Metal Workers, Moulders and Welders, and Related Workers",
+      "sampleSize": 42,
+      "scores": {
+        "neuroticism": 45.89,
+        "extraversion": 43.29,
+        "openness": 49.78,
+        "agreeableness": 47.33,
+        "conscientiousness": 49.03
+      }
+    },
+    {
+      "iscoCode": "7212",
+      "name": "Welders and Flame Cutters",
+      "sampleSize": 80,
+      "scores": {
+        "neuroticism": 45.36,
+        "extraversion": 43.93,
+        "openness": 48.0,
+        "agreeableness": 47.89,
+        "conscientiousness": 48.51
+      }
+    },
+    {
+      "iscoCode": "7213",
+      "name": "Sheet Metal Workers",
+      "sampleSize": 34,
+      "scores": {
+        "neuroticism": 46.21,
+        "extraversion": 43.75,
+        "openness": 49.83,
+        "agreeableness": 46.87,
+        "conscientiousness": 50.35
+      }
+    },
+    {
+      "iscoCode": "7222",
+      "name": "Toolmakers and Related Workers",
+      "sampleSize": 87,
+      "scores": {
+        "neuroticism": 45.91,
+        "extraversion": 43.78,
+        "openness": 48.71,
+        "agreeableness": 48.34,
+        "conscientiousness": 47.44
+      }
+    },
+    {
+      "iscoCode": "7230",
+      "name": "Machinery Mechanics and Repairers",
+      "sampleSize": 132,
+      "scores": {
+        "neuroticism": 45.16,
+        "extraversion": 44.36,
+        "openness": 50.3,
+        "agreeableness": 47.54,
+        "conscientiousness": 48.73
+      }
+    },
+    {
+      "iscoCode": "7231",
+      "name": "Motor Vehicle Mechanics and Repairers",
+      "sampleSize": 89,
+      "scores": {
+        "neuroticism": 46.24,
+        "extraversion": 44.92,
+        "openness": 49.03,
+        "agreeableness": 48.57,
+        "conscientiousness": 49.05
+      }
+    },
+    {
+      "iscoCode": "7310",
+      "name": "Handicraft Workers",
+      "sampleSize": 80,
+      "scores": {
+        "neuroticism": 53.54,
+        "extraversion": 49.67,
+        "openness": 49.1,
+        "agreeableness": 50.27,
+        "conscientiousness": 49.37
+      }
+    },
+    {
+      "iscoCode": "7321",
+      "name": "Pre-press Technicians",
+      "sampleSize": 37,
+      "scores": {
+        "neuroticism": 51.82,
+        "extraversion": 48.76,
+        "openness": 47.32,
+        "agreeableness": 49.12,
+        "conscientiousness": 48.41
+      }
+    },
+    {
+      "iscoCode": "7322",
+      "name": "Printers",
+      "sampleSize": 48,
+      "scores": {
+        "neuroticism": 51.65,
+        "extraversion": 47.58,
+        "openness": 47.84,
+        "agreeableness": 49.95,
+        "conscientiousness": 47.79
+      }
+    },
+    {
+      "iscoCode": "7411",
+      "name": "Building and Related Electricians",
+      "sampleSize": 201,
+      "scores": {
+        "neuroticism": 43.94,
+        "extraversion": 42.87,
+        "openness": 48.42,
+        "agreeableness": 47.95,
+        "conscientiousness": 47.38
+      }
+    },
+    {
+      "iscoCode": "7412",
+      "name": "Automotive Electricians",
+      "sampleSize": 94,
+      "scores": {
+        "neuroticism": 45.0,
+        "extraversion": 43.87,
+        "openness": 49.69,
+        "agreeableness": 49.0,
+        "conscientiousness": 48.53
+      }
+    },
+    {
+      "iscoCode": "7421",
+      "name": "Electronics Mechanics and Servicers",
+      "sampleSize": 109,
+      "scores": {
+        "neuroticism": 46.08,
+        "extraversion": 45.9,
+        "openness": 50.1,
+        "agreeableness": 49.31,
+        "conscientiousness": 46.72
+      }
+    },
+    {
+      "iscoCode": "7511",
+      "name": "Butchers",
+      "sampleSize": 40,
+      "scores": {
+        "neuroticism": 50.82,
+        "extraversion": 48.84,
+        "openness": 46.9,
+        "agreeableness": 49.18,
+        "conscientiousness": 50.92
+      }
+    },
+    {
+      "iscoCode": "7512",
+      "name": "Bakers, Pastry-cooks and Confectionery Makers",
+      "sampleSize": 202,
+      "scores": {
+        "neuroticism": 52.75,
+        "extraversion": 49.83,
+        "openness": 46.32,
+        "agreeableness": 50.89,
+        "conscientiousness": 49.55
+      }
+    },
+    {
+      "iscoCode": "7520",
+      "name": "Wood Treaters, Cabinet-makers and Related Trades Workers",
+      "sampleSize": 67,
+      "scores": {
+        "neuroticism": 48.41,
+        "extraversion": 46.96,
+        "openness": 45.98,
+        "agreeableness": 48.86,
+        "conscientiousness": 50.14
+      }
+    },
+    {
+      "iscoCode": "7522",
+      "name": "Cabinet-makers and Related Workers",
+      "sampleSize": 224,
+      "scores": {
+        "neuroticism": 48.29,
+        "extraversion": 45.7,
+        "openness": 49.93,
+        "agreeableness": 47.8,
+        "conscientiousness": 50.08
+      }
+    },
+    {
+      "iscoCode": "7531",
+      "name": "Tailors, Dressmakers, Furriers and Hatters",
+      "sampleSize": 90,
+      "scores": {
+        "neuroticism": 49.99,
+        "extraversion": 50.15,
+        "openness": 47.06,
+        "agreeableness": 52.22,
+        "conscientiousness": 50.77
+      }
+    },
+    {
+      "iscoCode": "7532",
+      "name": "Garment and Related Patternmakers and Cutters",
+      "sampleSize": 68,
+      "scores": {
+        "neuroticism": 51.8,
+        "extraversion": 48.69,
+        "openness": 46.43,
+        "agreeableness": 53.7,
+        "conscientiousness": 51.95
+      }
+    },
+    {
+      "iscoCode": "7533",
+      "name": "Sewing, Embroidery and Related Workers",
+      "sampleSize": 291,
+      "scores": {
+        "neuroticism": 51.76,
+        "extraversion": 49.07,
+        "openness": 44.99,
+        "agreeableness": 52.17,
+        "conscientiousness": 51.52
+      }
+    },
+    {
+      "iscoCode": "7536",
+      "name": "Shoemakers and Related Workers",
+      "sampleSize": 27,
+      "scores": {
+        "neuroticism": 50.95,
+        "extraversion": 48.17,
+        "openness": 47.06,
+        "agreeableness": 52.09,
+        "conscientiousness": 50.07
+      }
+    },
+    {
+      "iscoCode": "7543",
+      "name": "Product Graders and Testers (excluding Foods and Beverages)",
+      "sampleSize": 78,
+      "scores": {
+        "neuroticism": 52.02,
+        "extraversion": 47.06,
+        "openness": 47.86,
+        "agreeableness": 49.92,
+        "conscientiousness": 49.51
+      }
+    },
+    {
+      "iscoCode": "800x",
+      "name": "Unspecified Operators",
+      "sampleSize": 130,
+      "scores": {
+        "neuroticism": 50.14,
+        "extraversion": 46.29,
+        "openness": 47.62,
+        "agreeableness": 47.5,
+        "conscientiousness": 49.78
+      }
+    },
+    {
+      "iscoCode": "8100",
+      "name": "Stationary Plant and Machine Operators",
+      "sampleSize": 537,
+      "scores": {
+        "neuroticism": 48.44,
+        "extraversion": 46.1,
+        "openness": 48.09,
+        "agreeableness": 49.1,
+        "conscientiousness": 49.51
+      }
+    },
+    {
+      "iscoCode": "8212",
+      "name": "Electrical and Electronic Equipment Assemblers",
+      "sampleSize": 115,
+      "scores": {
+        "neuroticism": 50.4,
+        "extraversion": 46.2,
+        "openness": 45.7,
+        "agreeableness": 50.0,
+        "conscientiousness": 49.07
+      }
+    },
+    {
+      "iscoCode": "8219",
+      "name": "Assemblers Not Elsewhere Classified",
+      "sampleSize": 181,
+      "scores": {
+        "neuroticism": 50.82,
+        "extraversion": 47.47,
+        "openness": 46.15,
+        "agreeableness": 48.32,
+        "conscientiousness": 49.77
+      }
+    },
+    {
+      "iscoCode": "8322",
+      "name": "Car, Taxi and Van Drivers",
+      "sampleSize": 513,
+      "scores": {
+        "neuroticism": 46.36,
+        "extraversion": 46.36,
+        "openness": 45.44,
+        "agreeableness": 47.06,
+        "conscientiousness": 48.5
+      }
+    },
+    {
+      "iscoCode": "8331",
+      "name": "Bus and Tram Drivers",
+      "sampleSize": 221,
+      "scores": {
+        "neuroticism": 47.8,
+        "extraversion": 47.73,
+        "openness": 45.3,
+        "agreeableness": 48.09,
+        "conscientiousness": 48.68
+      }
+    },
+    {
+      "iscoCode": "8332",
+      "name": "Heavy Truck and Lorry Drivers",
+      "sampleSize": 126,
+      "scores": {
+        "neuroticism": 44.8,
+        "extraversion": 45.63,
+        "openness": 46.91,
+        "agreeableness": 47.42,
+        "conscientiousness": 49.84
+      }
+    },
+    {
+      "iscoCode": "8341",
+      "name": "Mobile Farm and Forestry Plant Operators",
+      "sampleSize": 136,
+      "scores": {
+        "neuroticism": 46.01,
+        "extraversion": 45.38,
+        "openness": 46.64,
+        "agreeableness": 48.61,
+        "conscientiousness": 49.73
+      }
+    },
+    {
+      "iscoCode": "8342",
+      "name": "Earthmoving and Related Plant Operators",
+      "sampleSize": 101,
+      "scores": {
+        "neuroticism": 44.44,
+        "extraversion": 46.24,
+        "openness": 47.7,
+        "agreeableness": 48.46,
+        "conscientiousness": 50.21
+      }
+    },
+    {
+      "iscoCode": "8343",
+      "name": "Crane, Hoist and Related Plant Operators",
+      "sampleSize": 48,
+      "scores": {
+        "neuroticism": 46.4,
+        "extraversion": 45.8,
+        "openness": 46.02,
+        "agreeableness": 47.73,
+        "conscientiousness": 50.43
+      }
+    },
+    {
+      "iscoCode": "8350",
+      "name": "Ships’ Deck Crews and Related Workers",
+      "sampleSize": 40,
+      "scores": {
+        "neuroticism": 45.86,
+        "extraversion": 47.21,
+        "openness": 47.77,
+        "agreeableness": 46.7,
+        "conscientiousness": 50.36
+      }
+    },
+    {
+      "iscoCode": "9000",
+      "name": "Elementary Occupations",
+      "sampleSize": 163,
+      "scores": {
+        "neuroticism": 52.2,
+        "extraversion": 48.02,
+        "openness": 46.76,
+        "agreeableness": 50.24,
+        "conscientiousness": 48.35
+      }
+    },
+    {
+      "iscoCode": "9112",
+      "name": "Domestic, Hotel and Office Cleaners and Helpers",
+      "sampleSize": 530,
+      "scores": {
+        "neuroticism": 52.52,
+        "extraversion": 49.22,
+        "openness": 45.45,
+        "agreeableness": 51.48,
+        "conscientiousness": 50.0
+      }
+    },
+    {
+      "iscoCode": "9214",
+      "name": "Garden and Horticultural Labourers",
+      "sampleSize": 26,
+      "scores": {
+        "neuroticism": 51.24,
+        "extraversion": 47.8,
+        "openness": 46.57,
+        "agreeableness": 51.08,
+        "conscientiousness": 49.11
+      }
+    },
+    {
+      "iscoCode": "9320",
+      "name": "Manufacturing Labourers",
+      "sampleSize": 502,
+      "scores": {
+        "neuroticism": 51.37,
+        "extraversion": 48.14,
+        "openness": 45.21,
+        "agreeableness": 50.26,
+        "conscientiousness": 49.83
+      }
+    },
+    {
+      "iscoCode": "9330",
+      "name": "Transport and Storage Labourers",
+      "sampleSize": 64,
+      "scores": {
+        "neuroticism": 51.77,
+        "extraversion": 48.16,
+        "openness": 45.79,
+        "agreeableness": 49.54,
+        "conscientiousness": 49.42
+      }
+    },
+    {
+      "iscoCode": "9412",
+      "name": "Kitchen Helpers",
+      "sampleSize": 72,
+      "scores": {
+        "neuroticism": 52.68,
+        "extraversion": 48.79,
+        "openness": 45.3,
+        "agreeableness": 52.04,
+        "conscientiousness": 49.69
+      }
+    },
+    {
+      "iscoCode": "9629",
+      "name": "Elementary Workers Not Elsewhere Classified",
+      "sampleSize": 185,
+      "scores": {
+        "neuroticism": 50.91,
+        "extraversion": 47.48,
+        "openness": 47.38,
+        "agreeableness": 50.85,
+        "conscientiousness": 48.33
+      }
+    }
+  ]
+}
