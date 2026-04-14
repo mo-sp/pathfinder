@@ -55,7 +55,6 @@
 **Branches:** `feat/bigfive-anni-real-data` (diese PR)
 
 **Offene Beobachtungen / TODOs für folgende Sessions:**
-- **Follow-up an Kätlin Anni**, weil sie explizit gebeten hat "we'd be happy to hear how the project develops over time." Netter Status nach Deploy mit Live-Link. Nicht blockierend, aber soziale Pflicht.
 - **141 unpaarige O\*NET-Codes** — bleiben ohne Big-Five-Daten. Option wenn's stört: Name-Matching-Fallback à la `build-esco-german.mjs` Jaccard. Heute: kein Handlungsdruck, 85% Coverage ist schon gut.
 - **Residualised-Variante (S11–S14) als v2.** Kontrolliert für Alter/Geschlecht; zeigt "reine" berufliche Persönlichkeitsunterschiede statt konfundierter Rohprofile. Interessante Iteration wenn Coverage zu stark schwankt.
 - **Layer-4-Daten unvollständig** — 44 Berufe ohne Skills/Abilities/Knowledge-Maps (Session 16 TODO, unverändert).
