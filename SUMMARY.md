@@ -5,6 +5,85 @@
 
 ---
 
+### Session 18 – 2026-04-14
+**Focus:** Der UX-Batzen für "kann es Freunden geben" — offizielle deutsche Berufsbezeichnungen aus der KldB 2010 (Bundesagentur), kategorialer Ausbildungs-Filter statt numerischem jobZone-Cap, und als kleine Schwester noch eine Such- und Sichtbarkeits-UX auf der Ergebnisseite. Zwei PRs: (1) KldB-Mapping inkl. UI-Umbau, (2) Suchfeld + "Alle Berufe zeigen"-Toggle.
+
+**Meta / process notes:**
+- **Entscheidung gegen 2j/3j-Granularität beim Ausbildungsfilter.** Ursprüngliche Session-Idee des Users war *"2-jährige IHK, 3-jährig, ohne Ausbildung, Studium"* — das hätte BERUFENET-API-Calls pro Beruf gebraucht (Ausbildungsdauer ist nicht in KldB-Systematik). User hat nach Abwägung *"weiß man ja was gemeint ist"* entschieden: die vier KldB-Anforderungsniveaus 1-4 (Helfer / Fachkraft / Spezialist / Experte) reichen. Spart ~800 API-Calls und den ganzen Auth-Flow; Upgrade auf 2j/3j-Trennung bleibt als klar abgegrenzte Follow-up-PR machbar wenn je nötig.
+- **Dreifacher Qualitäts-Nachschlag am Build-Skript.** Erste Version machte viele Miss-Classifications (Registered Nurses → Lehrkräfte, Family Medicine Physicians → Medizinisch-technische Laborberufe). Ursache: der ONET↔ESCO-Crosswalk hat eine `Type of Match`-Spalte (exactMatch/closeMatch/narrow/broad) die wir zunächst ignorierten. Nachschlag 1: pro O\*NET nur die Einträge des besten verfügbaren Match-Tiers behalten — schlagartig viele Qualitätssprünge (Nurses → Gesundheits-Aufsichtskräfte, Physicians → Ärzte ohne Spezialisierung). Nachschlag 2: Vote-Count pro KldB-Kandidat über mehrere ISCO-Routen — half bei Mehrfach-Treffern. Nachschlag 3: stem-basiertes Token-Overlap zwischen `title.de` und KldB-Kandidatnamen (5-char-Prefix, robust genug um "Zimmerer" auf "Zimmerei" zu matchen statt auf "Fassadenbau"). Erst nach allen drei kam "Zimmerer/Zimmerin → Berufe in der Zimmerei" zuverlässig raus.
+- **Ehrlichkeits-Korrektur vom User nötig** beim "900 Berufe rüber geholt" — nicht 100% korrekt: 490 exactMatch / 274 closeMatch / 55 narrowMatch / 85 broadMatch. Der broadMatch-Tier ist der Rest-Rausch-Topf. Ehrlich kommuniziert + als Memory-Note fürs Polishing abgelegt (`project_kldb_data_quality.md`).
+- **Frage-Formulierung richtungsneutral.** User-Feedback: "Wie viel Ausbildung bist du bereit zu investieren?" schließt Menschen aus die schon mit Ausbildung/Studium fertig sind und jetzt nach Qualifikation filtern wollen. Auf *"Welches Ausbildungsniveau passt zu dir – schon erreicht oder geplant?"* umgeschrieben. Beide Zielgruppen abgedeckt.
+- **"Alle Berufe zeigen"-Toggle evolviert von Debug zu Feature.** Erster Gedanke war: User hat "Helfer"-Filter + nur 1 sichtbarer Beruf, weil das Pre-Existing-fitScore-0-Filter die Liste leerrasiert. Fix: Checkbox-Toggle. Diskussion dann: ist das nur fürs Debugging? User-seitiger Insight: Anti-Matches sind valide Selbstkenntnis ("ich bin ganz klar kein Politiker"). Label umformuliert auf *"Alle Berufe zeigen – auch die, die nicht zu dir passen"*, bleibt als legitimes Transparenz-Feature drin.
+- **Suchfunktion als erstes echtes Archetyp-Check-Tool.** User hatte es initial als "merken wir uns für später" eingestuft, nach Sichtung der 38 Helfer-Berufe dann aber als direkter Mehrwert für die bevorstehenden Scoring-Validierungs-Sessions gesehen: *"dass man gezielt schauen kann wie man in bestimmten berufen abschneided"*. Als separate kleine PR gezogen damit die große KldB-PR sauber merged werden kann.
+- **Duplikate-Bug beim Such-Debugging entdeckt.** Beim Test der Suche sind Cluster sichtbar geworden: 20+ O\*NET-Codes für medizinische Spezialitäten (Cardiologists, Dermatologists, Neurologists …) haben alle `title.de = "Facharzt/Fachärztin"` und mappen alle auf KldB 81414 "Kinder- und Jugendmedizin" (erste alphabetische — Stem-Overlap identisch zwischen allen Facharzt-Kategorien). Dasselbe bei Carpenters vs Helpers-Carpenters (beide "Zimmerer/Zimmerin"). Quick-Fix mit EN-Titel als Disambiguator probiert, vom User zurecht verworfen ("non-english speaker könnten verwirrt sein"). Richtige Lösung: DE-Titel-Override-Map für generische Cluster — klar als eigene Session markiert, Memory-Note geschrieben (`project_occupation_titles_followup.md`).
+
+**What was done — `feat/kldb-occupation-mapping`:**
+
+*Daten-Akquise (alles in `data-raw/kldb/`, gitignored):*
+- `systematisches-verzeichnis.xlsx` (225 KB, Bundesagentur) — 1300 KldB-5d-Berufsgattungen mit Langbezeichnungen + Hierarchie 1-5 Stellen
+- `umsteigeschluessel-kldb-isco.xlsx` (203 KB, Bundesagentur) — 1523 KldB-5d↔ISCO-08-4d Paare mit Schwerpunkt-Flag (1300 primäre, 223 sekundäre)
+
+*Neuer Extractor (`scripts/extract-kldb.py`, Python stdlib-only):*
+- Parst beide xlsx-Dateien via zipfile+ElementTree (kein openpyxl dep), schreibt `scripts/input/kldb-data.json` mit {kldbClasses: [{code, name, anforderungsniveau}], kldbToIsco: [{kldb5d, isco4d, schwerpunkt, eindeutig}]}. Anforderungsniveau = Position 5 des KldB-Codes (1=Helfer, 2=Fachkraft, 3=Spezialist, 4=Experte).
+
+*Neues Build-Script (`scripts/build-kldb-mapping.mjs`):*
+- Reuses ESCO-Infrastruktur von `build-bigfive-profiles.mjs` (tabiya-occupations.csv + ESCO↔O\*NET-crosswalk, both auto-downloaded).
+- Kette: O\*NET → ESCO-URI → ISCO-08-4d → KldB-5d-Kandidaten. Pro O\*NET werden Kandidaten gesammelt, Deduplikat pro kldb5d mit Vote-Count über ISCO-Routen.
+- Match-Type-Tier-Filter: wenn exactMatch-Einträge vorhanden, ignoriere closeMatch/narrow/broad; sonst fallende Priorität. Halbiert den Rausch.
+- Tiebreaker-Chain (lexikographisch, lower wins): [|Anf − preferredAnf|, schwerpunktPenalty, −votes, −stemOverlap(title.de, kldb.name)]. `preferredAnf` aus O\*NET jobZone via {1:1, 2:2, 3:2, 4:3, 5:4}. stemOverlap = 5-char-Prefix-Jaccard über Tokens ≥ 4 Zeichen.
+- Für O\*NET ohne KldB-Partner (22 Codes, meist US-specific): Fallback `trainingCategory` aus jobZone-preferredAnf, `kldbCode/kldbName = null`.
+- Schreibt `src/data/kldb-occupation-mapping.json` mit `{meta, mappings: {[onetCode]: {kldbCode, kldbName, anforderungsniveau, trainingCategory}}}`.
+
+*Ergebnis der Pipeline:*
+- **901 / 923 O\*NET-Codes** mit KldB-Name gemappt, 22 fallback-only.
+- Match-Tier: 490 exactMatch, 274 closeMatch, 55 narrowMatch, 85 broadMatch.
+- Anforderungsniveau-Distanz zum jobZone-Ziel: 672 perfekt, 212 1-off, 17 2-off.
+- Verteilung trainingCategory: 258 studies, 195 specialist, 432 apprenticeship, 38 none.
+
+*Code-Seite:*
+- `Occupation` Type erweitert um optionale `kldbCode | kldbName | anforderungsniveau | trainingCategory` (+ neuer String-Union-Type `TrainingCategory`).
+- `store.ts` fetchOccupations lädt jetzt parallel O\*NET + KldB-Mapping und overlay'd beim Load — ein merged Occupation-Shape für downstream consumers. Keine zweite Lookup-Table im Runtime.
+- `matcher.ts` Hard-Filter geändert: `occ.anforderungsniveau ≤ EDUCATION_TO_MAX_ANF[userValues.education]` statt `occ.jobZone ≤ userValues.education`. Mapping: {1:1, 2:2, 3:3, 4:4, 5:4} — Stufe 5 kollabiert auf 4 ("Egal = alles erlaubt"). Occupations ohne Anforderungsniveau fallen durch.
+- `values-items.json` Education-Frage umformuliert: Text "Welches Ausbildungsniveau passt zu dir – schon erreicht oder geplant?" + Labels {Ohne / Ausbildung / Meister·Techniker·Bachelor / Master·Promotion / Egal}.
+- `ResultsPage.vue` Display-Helpers `displayTitle()` + `occupationSubtitle()` + `stripKldbSuffix()`: primärer Titel bleibt `title.de` wenn vorhanden (konkrete Namen wie "Zimmerer/Zimmerin"), Fallback-Kette auf `kldbName` → `title.en`. KldB-Klassifikation als Subtitle wenn meaningful anders (strippt den Anf-Suffix " - fachlich/komplex/hoch komplex").
+
+*Tests:* 210 → 211 (+1)
+- `hard-filters occupations whose Anforderungsniveau exceeds education willingness` — Test auf neuer Semantik, Fixtures auf `anforderungsniveau` umgezogen.
+- `keeps occupations without Anforderungsniveau when filtering` — Regression gegen die 22 Fallback-Codes ohne Anforderungsniveau.
+- `education=5 (egal) lets every Anforderungsniveau through` — neu, deckt den Kollaps der 5→4-Mapping ab.
+- Die übrigen 208 unverändert grün.
+
+**What was done — `feat/occupation-search`:**
+
+*Feature:*
+- Such-Input oben über der Ergebnisliste, v-model auf `searchQuery`. Tokenisierung: lowercase + NFKD-Diakritika-Stripping + Split auf Whitespace. AND-Semantik — alle Tokens müssen als Substring im Haystack vorkommen.
+- Haystack pro Beruf: `title.de + title.en + kldbName + onetCode`, normalisiert. "zimmer" findet sowohl "Zimmerer" als auch "Zimmerin"; "arzt" findet "Facharzt" und "Zahnarzt"; Teil-O\*NET-Codes wie "47-2031" matchen.
+- Wenn Suche aktiv: `rankedResults` zeigt ALLE Treffer mit echtem Rank (aus vollem sortierten `activeResults`), bypassed den fitScore-0-Filter. `visibleResults` bypassed die Pagination. "Mehr anzeigen"-Button verschwindet. Weak-Matches-Toggle wird ausgeblendet weil irrelevant.
+- `×`-Button rechts im Such-Feld zum Clear. Treffer-Count (`"N Treffer"`) neben dem Feld.
+
+*Code (ResultsPage.vue only):*
+- 3 neue Refs: `searchQuery`, `showWeakMatches`, (bestehender) `visibleCount`. 4 neue computed: `searchTokens`, `isSearching`, `weakMatchCount`, `rankedResults`/`visibleResults`/`canShowMore` erweitert. 2 neue helpers: `normalize()` und `searchMatches()`. 1 neues function: `clearSearch()`.
+- Template: Such-Input-Div über dem Weak-Matches-Toggle. Weak-Matches-Toggle bekommt `v-if="!isSearching && …"` damit es bei aktiver Suche verschwindet.
+
+*Tests:* 211 unverändert.
+- Kein neuer Test: die Suchlogik ist reine Template-/Computed-Kombinatorik ohne testbare Pure-Function-Grenzen, und der bestehende ResultsPage-Test deckt den Grundaufbau bereits. Browser-Test war das Akzeptanzgate.
+
+**Branches:** `feat/kldb-occupation-mapping` (merged, commit `4dab1f6`) und `feat/occupation-search` (diese PR).
+
+**Offene Beobachtungen / TODOs für folgende Sessions:**
+- **Generische title.de-Cluster**. Medizinische Spezialisten (20+ Codes als "Facharzt/Fachärztin"), Helper-Varianten ("Zimmerer/Zimmerin" für Carpenter UND Helpers-Carpenters), Software-Rollen (Programmers vs Developers vs QA). Fix: DE-Titel-Override-Map, siehe `project_occupation_titles_followup.md` in der Memory.
+- **Die 85 broadMatch-Mappings** sind der Rest-Rausch-Topf. Wenn der User zufriedener sein will: broadMatch-Kandidaten aus dem Display weglassen, Fallback auf jobZone-only.
+- **Die 22 Berufe ohne ESCO-Partner** könnten gehidden oder hand-gemappt werden. Liste in `project_kldb_data_quality.md`.
+- **BERUFENET-API für echte Ausbildungsdauer-Granularität (2j vs 3j)**, falls User später doch will.
+- **Homepage → Ergebnis-Shortcut** weiter offen (Session 17 parked, nicht angegangen in 18).
+- **Score-Delta Baseline-Labeling** — weiter offen.
+- **Skills-Items DE-Polish** — weiter offen.
+
+**Next steps — Session 19:**
+- Entweder Daten-Qualitäts-Sweep (DE-Titel-Overrides für medizinische Spezialitäten + Helper-Varianten) oder Scoring-Validierung mit Archetyp-Personas (jetzt mit Such-Tool direkt im UI). Beides hat jetzt gute Voraussetzungen.
+
+---
+
 ### Session 17 – 2026-04-14
 **Focus:** Echte Big-Five-Occupation-Daten aus Anni, Vainik & Mõttus (2024) einbauen. Die Mock-Datei von Session 11 hatte 43 erfundene T-Score-Profile als Platzhalter, mit `meta.mock=true` und dem Kommentar "Real data pending author approval". Approval kam heute per Mail von Kätlin Anni — sogar explizit mit Segen *"enabling exactly these kinds of applications is one of the main reasons we made the data publicly available."* Eine PR.
 
