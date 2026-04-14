@@ -85,7 +85,7 @@
 ---
 
 ### Session 17 – 2026-04-14
-**Focus:** Echte Big-Five-Occupation-Daten aus Anni, Vainik & Mõttus (2024) einbauen. Die Mock-Datei von Session 11 hatte 43 erfundene T-Score-Profile als Platzhalter, mit `meta.mock=true` und dem Kommentar "Real data pending author approval". Approval kam heute per Mail von Kätlin Anni — sogar explizit mit Segen *"enabling exactly these kinds of applications is one of the main reasons we made the data publicly available."* Eine PR.
+**Focus:** Echte Big-Five-Occupation-Daten aus Anni, Vainik & Mõttus (2024) einbauen. Die Mock-Datei von Session 11 hatte 43 erfundene T-Score-Profile als Platzhalter, mit `meta.mock=true` und dem Kommentar "Real data pending author approval". Data-use-Approval kam heute per Mail vom Erstautor der Studie — explizit positiv-framed, weil derartige Anwendungen laut Autor genau der Grund für die Publikation der Daten waren. Eine PR.
 
 **Meta / process notes:**
 - **Dreifacher Wäge-Halt vor dem Code**, per User-Bitte. (1) Welcher Score-Variant aus den 14 Excel-Sheets — S6 (`B5 profiles weighted n=50`) ist die gelabelte Hauptreferenz, Shrinkage zum Populationsmittel für kleine Berufe; Alternativen S11-S14 sind residualised/smoothed Varianten, interessant aber v2. (2) X-Aggregat-Codes wie `101x`, `200x` aus Anni's Tabelle — sind *keine* echten ISCO-Codes, sondern von den Autoren geprägte Labels für Respondenten deren Selbstbezeichnung mehrere 4d-Gruppen überspannt → skip. (3) Bei mehreren ISCO-Treffern pro O\*NET-Code: ungewichteter Mittelwert der T-Scores (die einzelnen ISCO-Profile sind schon N-gewichtet innerhalb ihrer Gruppe).
@@ -189,7 +189,7 @@
 - **Layer-4-Daten unvollständig für einige Berufe.** 44 von 923 Occupations (~5%) haben keine Skills/Abilities/Knowledge-Maps (die gleichen die auch WorkContext fehlen). Diese kriegen aktuell `skillsBonus = null` und erscheinen in den Ergebnissen mit dem "Keine Daten"-Badge im Panel. Option: (a) händisch/geschätzt nachmappen, (b) entfernen, (c) ausblenden (am billigsten). User tendiert zu (a) oder (c).
 - **Homepage → Ergebnis-Shortcut.** Wenn ein Test abgeschlossen ist und der User zur Homepage navigiert, gibt es aktuell keinen sichtbaren Weg zurück zum Ergebnis außer manuell `/ergebnis` in die URL tippen. Ein "Zu deinem Ergebnis"-Button auf der Homepage wenn `store.results` hydriert/vorhanden ist wäre das kleinste Fix. UX, kein Bug.
 - **Skills-Items DE-Polish** — Translator-Tag `"v1 — polish pass pending"` steht weiter.
-- **Big Five Anni-Daten** — author@ut.ee immer noch ausstehend.
+- **Big Five Anni-Daten** — Rückmeldung der Autoren immer noch ausstehend.
 
 **Next steps — Session 17:**
 - Eines der vier Kernthemen oben angehen. Mein Vorschlag der Reihenfolge: (1) Layer-4-Lücken schließen oder ausblenden (quick-win), (2) DE-Occupation-Mapping + Education-Kategorien (größerer UX-Impact), (3) Prozent-Anzeige polieren, (4) weitere Scoring-Tuning-Runden mit Archetyp-Personas jetzt wo die Kalibrierung ehrlich ist.
@@ -268,7 +268,7 @@
 - **Score-Delta-Baseline ist kontextlos.** In jeder View wird Delta gegen raw `riasecCorrelation` gerechnet, nicht gegen den Score der vorherigen View. Heißt: User klickt "+ Werte" und sieht `−18`, meint aber gegenüber dem 88-Bigfive-Score würde das nur `−2` sein. UX-Frage, kein Bug — ein Label wie *"vs. Nur Interessen"* neben dem Delta würde Klarheit schaffen.
 - **Scoring-Validierungs-Sitzung selbst noch offen.** Die Infrastruktur steht, aber eigentliches Tuning (SKILLS_ALPHA, BIG_FIVE_ALPHA, VALUES_DIMENSION_WEIGHT, evtl. Baseline-Shift) ist noch nicht durchgearbeitet.
 - **Flaky-inactive-Pfad-Test.** Siehe Meta-Notes oben; User-Browser-Test deckt das ab. Falls das irgendwann als dauerhaft getesteter Pfad gebraucht wird, müsste ein Seeded-Random dazu.
-- **Anni et al. real Big Five Daten** — weiterhin ausstehend bei author@ut.ee.
+- **Anni et al. real Big Five Daten** — weiterhin ausstehend bei den Autoren.
 - **DE-Polish der 120 Skills-Items** — Translator-Tag `"v1 — polish pass pending"` steht noch.
 
 **Next steps — Session 16:**
@@ -512,7 +512,7 @@
 - **Scoring validation** — values changes look partially but not universally logical. After Layer 4, dedicate sessions to tracing the combined scoring math against known occupations.
 - **44 occupations without workContext** — 879/923 have Work Context data; the 44 without get 0 soft penalty (treated as neutral). Minor, all have jobZone.
 - **Dimensions without O*NET backing** — income/meaning, security/freedom, mobility from PROJECT_PLAN.md deferred. Can be added when external data is sourced or heuristics designed.
-- **Anni et al. real Big Five data** — still pending author reply (katlin.anni@ut.ee).
+- **Anni et al. real Big Five data** — still pending author reply.
 - **Layer 4: Fähigkeiten-Selbsteinschätzung** — next depth layer per PROJECT_PLAN.md.
 
 **Next steps — Session 13:**
@@ -561,7 +561,7 @@
 - `feat/bigfive-reranking` — this PR
 
 **Known issues / TODOs:**
-- **Anni et al. real data**: 263 ISCO-08 groups with empirical T-scores. Author approval pending (katlin.anni@ut.ee). Build script `scripts/build-bigfive-profiles.mjs` needed for ISCO→O*NET mapping at scale (ESCO API for the ~860 O*NET codes without direct ISCO crosswalk entries).
+- **Anni et al. real data**: 263 ISCO-08 groups with empirical T-scores. Author approval pending. Build script `scripts/build-bigfive-profiles.mjs` needed for ISCO→O*NET mapping at scale (ESCO API for the ~860 O*NET codes without direct ISCO crosswalk entries).
 - **Coverage**: only 43/923 occupations have Big Five profiles with mock data. Most occupations show no delta badge. Real data will cover ~263 ISCO groups → significantly more O*NET codes.
 - **Translation polish** of 50 IPIP items (deferred from Session 10).
 - **PROJECT_PLAN.md label fix**: still reads "BFI-2-S", should say "IPIP Big Five Factor Markers, 50 items (Goldberg 1992)".
