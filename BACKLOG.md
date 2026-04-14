@@ -57,6 +57,15 @@ Likely next 1–2 sessions.
   filter/relabel irrelevant ones.
 - **Skills-Items DE-polish** — `translator: "v1 — polish pass pending"` in
   `src/data/skills-items.json` still open.
+- **DE-title quality pass 2 — non-duplicate codes.** Session 19 curated 249
+  overrides but only for codes that sat in a duplicate cluster. The
+  remaining ~640 ESCO-raw labels haven't been line-reviewed. During PR
+  review @mo-sp spotted `43-5071 Shipping/Receiving/Inventory Clerks` →
+  "Warenlagerverwalter" (stale/ungebräuchlich; `Fachkraft für Lagerlogistik`
+  would be the current IHK-Ausbildungsberuf name). Likely more of the same
+  kind across logistics, trade, and technical roles. Fix: enumerate the
+  non-override codes, eyeball each `title.de` against BERUFENET, patch via
+  the same override file.
 
 ## UX polish
 
