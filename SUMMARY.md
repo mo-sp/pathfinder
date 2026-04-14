@@ -5,6 +5,59 @@
 
 ---
 
+### Session 19 – 2026-04-14
+**Focus:** Daten-Qualitäts-Sweep für die generischen `title.de`-Cluster, die in Session 18 beim Suchfeld-Test aufgefallen waren — 107 Cluster mit 249 O\*NET-Codes fallen bei ESCO auf denselben deutschen Titel (10× „Facharzt/Fachärztin", alle Helper-\*-Codes auf die Haupt-Handwerk-Bezeichnung, etc.). Eine PR mit kuratierter Override-Map, die jeden betroffenen Code auf einen eindeutigen deutschen Titel setzt.
+
+**Meta / process notes:**
+- **Scope breiter als in BACKLOG vermerkt.** BACKLOG sprach von "medical specialties + Helper-variants"; tatsächliches Enumerate ergab 107 Cluster, 249 Codes — ~27 % aller Berufe mit DE-Titel. Full sweep statt Top-Impact-Pass, damit kein Rest-Rausch im UI bleibt.
+- **BACKLOG-Hinweis war architektonisch ungenau.** Stand "rerun `build-kldb-mapping.mjs`", aber `title.de` kommt aus `build-esco-german.mjs` (ESCO preferredLabel-API), nicht aus dem KldB-Builder. Korrekter Ort für den Override-Hook: am Ende der ESCO-Build-Pipeline.
+- **Drei Collisions durch eigene Overrides gefangen** vor dem Merge. Build-Skript hat nach der ersten Override-Runde 2 neue Duplikate produziert (43-4121 Library Assistants kollidiert mit 25-4031 Library Technicians; 33-3021 Detectives kollidiert mit 33-3021.02 Police Identification). Mit "Bibliothekshilfskraft" bzw. "Kommissar Kriminalpolizei" gelöst. Check war ein sechszeiliges Node-Snippet das am Ende 0 Dups bestätigt hat.
+- **Gender-Pair-Inkonsistenz vom User im Retest entdeckt.** 5 Overrides waren nur männlich formuliert (4 Bauhelfer/Helfer-Einträge + Bahn- und Verkehrspolizist, letzterer zusätzlich keine M/F-Paarung sondern zwei distinkte Jobnamen). Zweiter Commit fixt alle 5 auf die Xe/Xin-Form.
+- **KldB-Rebuild war verlockend, aber zu riskant für die PR.** Da die Facharzt-Codes jetzt distinkte `title.de` haben, sollte der Stem-Overlap-Tie-Breaker in `build-kldb-mapping.mjs` jedem Facharzt seinen korrekten KldB-5d-Untertitel geben (statt der aktuellen "alle → Kinder- und Jugendmedizin"). Rebuild getestet: ~7 Verbesserungen (Anästhesiologie, Neurologie, Psychiatrie, Allgemeinmedizin landen auf der jeweils richtigen KldB-Klasse), aber ~7 neue Regressionen (Sportmedizin → "Führungskräfte Pferdewirtschaft", Radiologe → "Ergotherapie", Pathologe → "Pharmakologie"). Ursache: KldB 2010 hat nur ~5 Facharzt-5d-Klassen (Kinder/Jugend, Anästhesie, Neurologie/Psychiatrie, Pharmakologie, "ohne Spezialisierung"); für Kardiologie/Dermatologie/Urologie etc. existiert keine eigene Klasse, der Tie-Break erfindet dann absurde Matches. Rebuild zurückgerollt, als klarer BACKLOG-Punkt mit Fix-Idee dokumentiert (ISCO-Fallback auf "ohne Spezialisierung"-Klasse wenn stemOverlap=0).
+- **Anwendungsentwickler-Frage war kein Backlog-Kandidat.** User fragte nach meiner fachlichen Einschätzung zum O\*NET-Split 15-1251 (Programmers) vs 15-1252 (Software Developers) und wie der deutsche IHK-Anwendungsentwickler dazu steht. Ich hatte das vorschnell als Feature-Idee geparkt; dritter Commit entfernt den Eintrag wieder. Meine fachliche Position: der Split ist ehrlich und informationstragend (Programmer = Umsetzung nach Vorgabe, Developer = Konzeption/Architektur), nicht zusammenlegungswürdig; IHK-Anwendungsentwickler sitzt real zwischen beiden und ein Profil das stark auf einem der beiden scort liefert echtes Signal.
+- **Ausbildungsberuf-Titel inkonsistent** fällt dem User im Retest auf (manche Codes haben IHK-Namen wie MFA/Rechtsanwaltsfachangestellte/Kfz-Mechatroniker, andere beschreibende Namen). Kommt aus ESCO — ESCO liefert für ca. die Hälfte der Codes direkt den deutschen Ausbildungsberuf-Label, für den Rest generisches Deutsch. Overrides folgen demselben Muster. "Systematisch auf IHK-Namen vereinheitlichen" wäre eine separate Design-Entscheidung, kein Bug.
+
+**What was done — `feat/de-title-overrides`:**
+
+*Enumerate der Duplikat-Cluster:*
+- Ein sechszeiliges Node-Snippet über `src/data/onet-occupations.json` gruppiert nach `title.de` → 107 Duplikat-Cluster, 249 Codes. Top: 10× Facharzt/Fachärztin, 4× Optometrist, 4× Allgemeinmediziner, danach 24 Cluster à 3 Codes und 80 Cluster à 2.
+
+*Neue Override-Datei (`scripts/input/title-overrides-de.mjs`):*
+- ES-Module, exports `{ [onetCode: string]: string }`. 249 Einträge, gruppiert per Cluster in Quell-Reihenfolge, mit engl. Originaltitel als Inline-Kommentar hinter jedem Eintrag. Kuratierungs-Konvention im Header-Kommentar dokumentiert: medizinische Fachärzte als "Facharzt für X / Fachärztin für X" (oder umgangssprachlich Kinderarzt/Augenarzt wo natürlicher), Helper-Codes als "Bauhelfer …handwerk / Bauhelferin …handwerk", sonst BERUFENET-/KldB-nahe DE-Titel in M/F-Paar-Form.
+- Drei Collision-Fixes: 43-4121 → "Bibliothekshilfskraft", 33-3021.00 → "Kommissar Kriminalpolizei / Kommissarin Kriminalpolizei", 33-3052 → "Bahn- und Verkehrspolizist/Bahn- und Verkehrspolizistin".
+- Nach User-Feedback gender-pair-fix auf 5 Entries (47-3011/47-3012/47-3013/47-3014/33-3052).
+
+*Build-Hook (`scripts/build-esco-german.mjs`):*
+- Am Ende der Pipeline nach dem ESCO-Label-Apply: zweite Schleife die pro Occupation prüft ob der Override-Key existiert und dann `occ.title.de` damit überschreibt. Zählt wie viele Overrides gegriffen haben (214 von 249 — die übrigen 35 waren identisch zum ESCO-Label, also no-op).
+- `withGerman`-Zähler von "incrementiert im ESCO-Loop" auf "einmaliger `.filter(o => o.title.de).length` am Ende" umgezogen — Korrekter beim Zusammenspiel von ESCO-Labels und Overrides.
+
+*Ergebnis nach Rebuild:*
+- **0 Duplikate** in `title.de` (von 107 Clustern / 249 Codes).
+- **889 Codes mit DE-Titel**, **889 distinkte DE-Titel**.
+- `src/data/onet-occupations.json` gepatcht, `src/data/kldb-occupation-mapping.json` bewusst unverändert (siehe KldB-Rebuild-Note oben).
+
+*BACKLOG-Updates:*
+- "Data-quality sweep for generic `title.de` clusters" aus "Up next" entfernt (shippt hier).
+- Neu unter "Data quality": KldB-Subtitle-Bug für medizinische Spezialitäten (mit Fix-Idee) + andere Subtitle-Mismatches die der User im Retest mit entdeckt hat (47-2061 Construction Laborers → "Sprengtechnik", 33-9094 School Bus Monitors → "Kinderbetreuung").
+- Neu unter "Ideas": KI-gefährdete Berufe als Feature-Idee (Source-Optionen + offene Design-Fragen skizziert).
+
+*Tests: 211 unverändert.*
+- Overrides sind reine Daten-Patches ohne neue Code-Pfade. `npm run type-check`, `npm run lint`, `npm run build`, `npm test` alle grün.
+- Bundle-Size unverändert.
+
+**Branches:** `feat/de-title-overrides` (3 Commits: Override-Apparat, Gender-Pair-Fixes + BACKLOG-Erweiterungen, BACKLOG-Rollback des Anwendungsentwickler-Eintrags)
+
+**Offene Beobachtungen / TODOs für folgende Sessions:**
+- **KldB-Subtitle für medizinische Spezialitäten** bleibt falsch (alle 10 Facharzt-Codes kriegen noch den alten Kinder- und Jugendmedizin-Subtitle aus der nicht rebuilten `kldb-occupation-mapping.json`). Fix erfordert Per-ISCO-Fallback im KldB-Builder. BACKLOG.
+- **Andere Subtitle-Mismatches** (47-2061 → Sprengtechnik, 33-9094 → Kinderbetreuung) — selbes Muster, derselbe Fix.
+- **IHK-Ausbildungsberuf-Cross-Reference** wäre eine saubere UX-Option für Codes wie 15-1251/15-1252 (Zusatzzeile „In Deutschland oft als *Anwendungsentwickler (IHK)* zusammengefasst"). Nicht umgesetzt, wartet auf User-Entscheidung ob's nötig ist.
+- **End-to-end Scoring-Validierung mit Archetyp-Personas**, **Homepage → Ergebnis-Shortcut**, **Skills-Items-Polish** — alles weiter offen, siehe BACKLOG.
+
+**Next steps — Session 20:**
+- Nach User-Präferenz entweder den KldB-Subtitle-Fix angehen (ISCO-Fallback), die Scoring-Validierung mit jetzt sauber benannten Berufen, oder die in Session 19 parkierte Phase-1-Fragen-Überarbeitung (RIASEC-Items komisch/langweilig/verwirrend übersetzt, User will rewriten, Scope aber vor Start noch diskutieren — insb. ob einzelne Items durch DE-passendere Anker ersetzt werden dürfen).
+
+---
+
 ### Session 18 – 2026-04-14
 **Focus:** Der UX-Batzen für "kann es Freunden geben" — offizielle deutsche Berufsbezeichnungen aus der KldB 2010 (Bundesagentur), kategorialer Ausbildungs-Filter statt numerischem jobZone-Cap, und als kleine Schwester noch eine Such- und Sichtbarkeits-UX auf der Ergebnisseite. Zwei PRs: (1) KldB-Mapping inkl. UI-Umbau, (2) Suchfeld + "Alle Berufe zeigen"-Toggle.
 
