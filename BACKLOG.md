@@ -30,7 +30,7 @@ Likely next 1–2 sessions.
   `VALUES_DIMENSION_WEIGHT` (0.05) against consistent signals.
 - **Homepage → Ergebnis-Shortcut** — when `store.results` is hydrated, show a
   "Zu deinem Ergebnis"-Button on `/`. Tracked since Session 16, parked
-  Session 18. Quick-win (~30 min).
+  Session 18.
 
 ## Data quality
 
@@ -71,16 +71,8 @@ Likely next 1–2 sessions.
   currently still get small positive bonuses on avg-complexity occupations;
   Session 15/16 calibration sorted most of this, edge cases may remain.
 
-## Social / out-of-repo
-
-- **Status-Mail an Kätlin Anni** with the live project link — she asked in
-  her approval email (Session 17) to hear how the project develops.
-
 ## Tech debt
 
-- **Flaky "inactive"-Pfad-Test** removed in Session 15 (per-session shuffle
-  made it non-deterministic). Seeded-Random would fix it if the path needs
-  permanent coverage.
 - **Bundle size** — `onet-occupations-*.js` is 3.8 MB raw / 658 KB gzip. Code
   chunking is lazy-loaded so initial TTI isn't hit, but reducing the payload
   by dropping unused O\*NET fields (descriptions we don't render, etc.) would
