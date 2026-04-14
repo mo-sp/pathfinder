@@ -36,6 +36,13 @@ export interface WorkContext {
   routine: number
 }
 
+/**
+ * German training-requirement category derived from the KldB 2010
+ * Anforderungsniveau (last digit of the 5-digit KldB code): 1=Helfer,
+ * 2=Fachkraft, 3=Spezialist, 4=Experte.
+ */
+export type TrainingCategory = 'none' | 'apprenticeship' | 'specialist' | 'studies'
+
 export interface Occupation {
   /** O*NET-SOC code, e.g. "15-1252.00". */
   onetCode: string
@@ -53,6 +60,17 @@ export interface Occupation {
   riasecProfile: RIASECProfile
   /** O*NET Job Zone 1-5 (education/training level). */
   jobZone?: number
+  /** KldB 2010 5-digit code (Fassung 2020), e.g. "43123". Null for ~2% of the
+   * corpus that has no ISCO crosswalk partner. */
+  kldbCode?: string | null
+  /** Official German occupation class name from KldB 2010. Preferred display
+   * title when available; falls back to `title.de` or `title.en`. */
+  kldbName?: string | null
+  /** KldB Anforderungsniveau 1-4. Either from the matched KldB class or
+   * derived from jobZone when KldB mapping is missing. */
+  anforderungsniveau?: number
+  /** Coarse training-requirement bucket for the Ausbildungs-Filter UI. */
+  trainingCategory?: TrainingCategory
   /** O*NET Work Context values on the CX scale (1-5). */
   workContext?: WorkContext
   /** O*NET Skills map (35 items), keyed by Element ID. */

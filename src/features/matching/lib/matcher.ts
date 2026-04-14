@@ -14,6 +14,14 @@ const BIG_FIVE_ALPHA = 0.3
 const VALUES_DIMENSION_WEIGHT = 0.05
 
 /**
+ * User's education willingness (1-5 Likert) → max allowed KldB
+ * Anforderungsniveau (1-4). Level 4 and 5 collapse to Anf 4 — Level 5 is the
+ * "egal, alles" option where the filter disengages. Occupations whose
+ * anforderungsniveau exceeds this cap are hard-filtered before scoring.
+ */
+const EDUCATION_TO_MAX_ANF: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 4, 5: 4 }
+
+/**
  * Skills bonus magnitude. The normalized gap (match − floor)/(1 − floor)
  * ∈ [0, 1] maps to bonus ∈ [-SKILLS_ALPHA/2, +SKILLS_ALPHA/2]. With
  * SKILLS_ALPHA = 0.5 the bonus swings ±0.25. A perfectly matched skills
@@ -144,10 +152,10 @@ function computeSkillsMatch(
  * becomes `riasecCorrelation × modifier`, shifting matched personalities
  * up and mismatched ones down without ever zeroing out RIASEC fit.
  *
- * When a values profile is provided, occupations whose jobZone exceeds
- * the user's education willingness are hard-filtered. Remaining
- * occupations receive soft penalties for mismatched work-context
- * preferences, subtracted from fitScore.
+ * When a values profile is provided, occupations whose KldB
+ * Anforderungsniveau exceeds the user's education willingness are
+ * hard-filtered. Remaining occupations receive soft penalties for mismatched
+ * work-context preferences, subtracted from fitScore.
  *
  * When a skills profile is provided, each occupation with skills data
  * gets a weighted similarity score `match`. Piecewise-linear bonus with
@@ -169,11 +177,14 @@ export function matchOccupations(
   const useValues = !!userValues
   const useSkills = !!userSkills
 
-  // Hard filter: eliminate occupations that exceed education willingness
+  // Hard filter: eliminate occupations whose training requirement exceeds
+  // the user's willingness. Driven by KldB Anforderungsniveau (Layer 3 data
+  // source); occupations without an Anforderungsniveau pass through.
   const eligible = useValues
     ? occupations.filter((occ) => {
-        if (occ.jobZone == null) return true
-        return occ.jobZone <= userValues.education
+        if (occ.anforderungsniveau == null) return true
+        const maxAnf = EDUCATION_TO_MAX_ANF[userValues.education] ?? 4
+        return occ.anforderungsniveau <= maxAnf
       })
     : occupations
 

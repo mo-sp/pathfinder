@@ -12,24 +12,24 @@
       "dimension": "education",
       "filterType": "hard",
       "text": {
-        "de": "Wie viel Ausbildung oder Studium bist du bereit zu investieren?",
-        "en": "How much education or training are you willing to invest?"
+        "de": "Welches Ausbildungsniveau passt zu dir – schon erreicht oder geplant?",
+        "en": "Which training level fits you – already achieved or planned?"
       },
       "scale": "likert5",
       "labels": {
         "de": [
-          "Keine bis wenig (kurze Einarbeitung)",
-          "Etwas (z.\u202fB. ~2 Jahre Ausbildung)",
-          "Mittel (z.\u202fB. ~3 Jahre Lehre)",
-          "Viel (z.\u202fB. Bachelor, ~4 Jahre)",
-          "Sehr viel (z.\u202fB. Master/Promotion, 5+ Jahre)"
+          "Ohne Ausbildung / Helfer",
+          "Ausbildung (2–3 Jahre)",
+          "Meister, Techniker oder Bachelor",
+          "Master oder Promotion",
+          "Egal – alle Stufen"
         ],
         "en": [
-          "Little or none (brief on-the-job training)",
-          "Some (e.g. ~2 years vocational)",
-          "Medium (e.g. ~3 years apprenticeship)",
-          "Considerable (e.g. bachelor's degree, ~4 years)",
-          "Extensive (e.g. master's/PhD, 5+ years)"
+          "No formal training / entry-level",
+          "Vocational training (2–3 years)",
+          "Master craftsman, technician or bachelor's",
+          "Master's or PhD",
+          "No preference – all levels"
         ]
       }
     },
