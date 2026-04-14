@@ -57,12 +57,6 @@ Likely next 1–2 sessions.
   filter/relabel irrelevant ones.
 - **Skills-Items DE-polish** — `translator: "v1 — polish pass pending"` in
   `src/data/skills-items.json` still open.
-- **Anwendungsprogrammierer vs. Softwareentwickler vs. Anwendungsentwickler
-  (IHK)** — O\*NET splits 15-1251 (Computer Programmers) and 15-1252 (Software
-  Developers), but the German IHK-Ausbildungsberuf "Anwendungsentwickler" sits
-  between both. Not a bug, but worth noting when users ask: none of the three
-  cards perfectly matches the Ausbildung. Idea: add an editorial "Hinweis"
-  line for 15-1251/15-1252 that cross-references the Ausbildungsberuf.
 
 ## UX polish
 
