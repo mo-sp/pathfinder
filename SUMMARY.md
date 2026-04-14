@@ -5,6 +5,68 @@
 
 ---
 
+### Session 17 – 2026-04-14
+**Focus:** Echte Big-Five-Occupation-Daten aus Anni, Vainik & Mõttus (2024) einbauen. Die Mock-Datei von Session 11 hatte 43 erfundene T-Score-Profile als Platzhalter, mit `meta.mock=true` und dem Kommentar "Real data pending author approval". Approval kam heute per Mail von Kätlin Anni — sogar explizit mit Segen *"enabling exactly these kinds of applications is one of the main reasons we made the data publicly available."* Eine PR.
+
+**Meta / process notes:**
+- **Dreifacher Wäge-Halt vor dem Code**, per User-Bitte. (1) Welcher Score-Variant aus den 14 Excel-Sheets — S6 (`B5 profiles weighted n=50`) ist die gelabelte Hauptreferenz, Shrinkage zum Populationsmittel für kleine Berufe; Alternativen S11-S14 sind residualised/smoothed Varianten, interessant aber v2. (2) X-Aggregat-Codes wie `101x`, `200x` aus Anni's Tabelle — sind *keine* echten ISCO-Codes, sondern von den Autoren geprägte Labels für Respondenten deren Selbstbezeichnung mehrere 4d-Gruppen überspannt → skip. (3) Bei mehreren ISCO-Treffern pro O\*NET-Code: ungewichteter Mittelwert der T-Scores (die einzelnen ISCO-Profile sind schon N-gewichtet innerhalb ihrer Gruppe).
+- **Plot-Twist beim Anni-eigenen Crosswalk-XLSX (`ONET_ESCO crosswalk.xlsx`).** Schien zuerst ein Shortcut zu sein — die Autoren haben "ihren" Crosswalk mitgeliefert, also vielleicht mit direkter ISCO→O\*NET-Ableitung. Beim Unzip und Inspect stellte sich raus: ist eine 1:1-Kopie des offiziellen ESCO-Crosswalks (4271 Zeilen inkl. Meta-Headers, entspricht unseren 4253 gemappten Zeilen nach Skip). Sheet "Sheet1" ist leer. Keine eigene Ableitung, keine Abkürzung. Wir mussten die ISCO→O\*NET-Chain selbst bauen wie geplant.
+- **ESCO-Portal will Email + T&C** — kein Direktlink zum Bulk-CSV. Workaround: tabiya-tech mirrort die komplette ESCO v1.1.1 auf GitHub (`tabiya-open-dataset/tabiya-esco-v1.1.1/csv/occupations.csv`), schema-kompatibel mit `ISCOGROUPCODE` Spalte direkt pro ESCO-Occupation. 2.6 MB, CC BY 4.0, direkter Raw-URL. Baut `scripts/build-bigfive-profiles.mjs` ohne neue Deps, ohne 4000 API-Calls.
+- **Zwei-Script-Pipeline statt einem.** Python-Extractor für die XLSX (stdlib-only, keine `openpyxl` oder `xlsx`-Dep) schreibt einen committeten JSON-Snapshot in `scripts/input/`; der Node-Build liest reinen JSON + zwei CSVs. Das hält das Runtime stackless (no XLSX parser npm dep) und macht den Extract-Schritt dokumentierbar und reproduzierbar, aber nur dann ausführbar wenn Anni-XLSX lokal in `data-raw/osf-anni/` liegt — konsistent mit dem existierenden Pattern von `build-esco-german.mjs`.
+- **Schema 100% kompatibel mit Mock-Datei.** Session 11 hatte die Struktur vorbereitet (OCEAN-Keys, T-Score-Range, `meta.mock`-Flag). Null Codeänderung in Matcher, Store, Types — nur die JSON selbst tauscht. `meta.mock` wird von keinem Code gelesen, ist reine Dokumentation.
+
+**What was done — `feat/bigfive-anni-real-data`:**
+
+*Daten-Akquise (alles in `data-raw/`, gitignored):*
+- `data-raw/osf-anni/supplementary-tables.xlsx` (949 KB) — Anni's Supplementary Tables mit S1-S14
+- `data-raw/osf-anni/onet-esco-crosswalk-anni.xlsx` (633 KB) — kam mit, aber redundant zu `onet-esco-crosswalk.csv`
+- `data-raw/osf-anni/supplementary-material.pdf` + `calculateJobMeansForDomains.R` — Referenz
+- `data-raw/esco/tabiya-occupations.csv` (2.6 MB, auto-downloaded) — ESCO v1.1.1 Occupations mit ISCOGROUPCODE
+
+*Neuer Extractor (`scripts/extract-anni-s6.py`, Python stdlib-only):*
+- Unzipped `supplementary-tables.xlsx`, parst Shared-Strings + Sheet2 (S2 ISCO-Code-Index) + Sheet6 (S6 Profiles).
+- Join S6 (keyed by name) onto S2 (hat `4d_code` + `4d_name`) per exaktem Namens-Match. 263/263 Rows matchten clean, null Missing.
+- Schreibt `scripts/input/anni-bigfive-profiles.json` (committed) mit `{source, dimensions, profiles: [{iscoCode, name, sampleSize, scores}]}`. One-off-Script, wird bei XLSX-Refresh re-run.
+
+*Neues Build-Script (`scripts/build-bigfive-profiles.mjs`):*
+- Lädt Anni-Profile, filtert 26 X-Aggregat-Codes raus → 237 echte ISCO-4d-Gruppen.
+- Lädt `tabiya-occupations.csv` → Map von 3007 `escoUri → iscoGroupCode`.
+- Lädt `onet-esco-crosswalk.csv` → 4253 O\*NET↔ESCO-Pairs (skip der 14 Meta-Rows oben via relax_column_count + regex-match auf O\*NET-Format `NN-NNNN.NN`).
+- Für jede Crosswalk-Zeile: ISCO-Code resolven — wenn ESCO-URI direkt `.../esco/isco/C####` ist, inline parsen; sonst über tabiya-Map. 4 URIs waren unresolvable (0.09%, ignoriert).
+- Pro O\*NET-Code: Set aller beitragenden ISCO-Codes sammeln, Anni-Profile avaraged ungewichtet über die 5 OCEAN-Dimensionen, auf 2 Dezimalstellen gerundet.
+- Schreibt `src/data/bigfive-occupation-profiles.json` mit `meta.mock=false`, Citation, DOI, OSF-Link, CC-BY-4.0-License, korrektem `iscoMapping`-String.
+
+*Coverage-Ergebnis:*
+- **782 / 923 O\*NET-Codes** (84.7 %) haben jetzt echte Big-Five-Profile — vs. 43 / 923 mit Mock (4.7 %). **18× Coverage-Sprung.**
+- T-Score-Range in der Output-JSON: min 40.1, max 57.6, mean 49.8 — sauber gegen Populationsmittel 50 zentriert, erwartbar komprimiert durch Shrinkage (Berufe streuen konservativer als Individuen).
+- Plausibilitäts-Spotchecks: Software Devs O 53.7 / E 45.8 (curious + introverted ✓), CEOs erhöht allround / reduziert N (selection effect ✓), Nurse Practitioners A 52.0 (care ✓).
+- 141 O\*NET-Codes bleiben ohne Profil — entweder kein ESCO-Crosswalk-Partner, oder Partner gehört zu einer ISCO-Gruppe außerhalb Anni's 263.
+
+*Browser-Test bestätigt:*
+- Beispiel vom User: `11-3131.00 Training and Development Managers` → Persönlichkeit ×1.20 Modifier (Near-Max des [0.7, 1.3]-Korridors), Delta +14, Top-Rank-Shift.
+- Explain-Panel zeigt bei fast allen Top-Berufen Big-Five-Pill statt "Keine Daten" — vorher war "Keine Daten" die Mehrheit.
+- Keine Console-Errors, Rankings fühlen sich sinnvoll an.
+
+*Tests: 210 → 210 (unverändert).*
+- Keine neuen Tests nötig: Matcher/Store/Typen unverändert, existierende Tests nutzen Fixtures statt der Mock-JSON.
+- Alle 210 bleiben grün; type-check, lint, build grün.
+- Bundle `bigfive-occupation-profiles-*.js`: 5 KB → 94.82 KB (gzip 11.33 KB), lazy-loaded, kein Initial-Bundle-Impact.
+
+**Branches:** `feat/bigfive-anni-real-data` (diese PR)
+
+**Offene Beobachtungen / TODOs für folgende Sessions:**
+- **Follow-up an Kätlin Anni**, weil sie explizit gebeten hat "we'd be happy to hear how the project develops over time." Netter Status nach Deploy mit Live-Link. Nicht blockierend, aber soziale Pflicht.
+- **141 unpaarige O\*NET-Codes** — bleiben ohne Big-Five-Daten. Option wenn's stört: Name-Matching-Fallback à la `build-esco-german.mjs` Jaccard. Heute: kein Handlungsdruck, 85% Coverage ist schon gut.
+- **Residualised-Variante (S11–S14) als v2.** Kontrolliert für Alter/Geschlecht; zeigt "reine" berufliche Persönlichkeitsunterschiede statt konfundierter Rohprofile. Interessante Iteration wenn Coverage zu stark schwankt.
+- **Layer-4-Daten unvollständig** — 44 Berufe ohne Skills/Abilities/Knowledge-Maps (Session 16 TODO, unverändert).
+- **Prozent-Anzeige im Breakdown**, **DE-Mapping der US-Occupations**, **Ausbildungs-Filter-Kategorien**, **Homepage-Shortcut zum Ergebnis** — alles von Session 16 übertragen, unverändert.
+- **Skills-Items DE-Polish** — Translator-Tag `"v1 — polish pass pending"` weiter offen.
+
+**Next steps — Session 18:**
+- User-Entscheidung welche der Sessions-16/17-TODOs anzugehen. Naheliegend nach dem Coverage-Sprung: konsistente End-to-End-Scoring-Validierung (jetzt haben ALLE 4 Layers echte Daten über die meisten Berufe). Oder UX-Pflege der offenen Baustellen.
+
+---
+
 ### Session 16 – 2026-04-13
 **Focus:** Skills-Bonus-Kalibrierung zu Ende bringen. Der asymmetrische Match aus Session 15 hat Überqualifikation gefixt, aber im Gegenzug die Baseline für den zentrierten Bonus verschoben — ein all-1er User bekam leichte *positive* Boni auf durchschnittlich-komplexen Berufen, statt den erwarteten Malus. Eine PR, zwei Commits (erster: Floor-Only-Calibration, zweiter: Neutral-Anchor + Farb-UX nachgezogen nach dem ersten Browser-Test).
 
