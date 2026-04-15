@@ -40,11 +40,24 @@
 
 *Tests: 211 unverändert.* Reine Daten-Änderung, keine Code-Pfade. `npm run type-check`, `npm run lint`, `npm run build`, `npm test` alle grün.
 
-**Branches:** `feat/riasec-items-de-polish`
+**Follow-up PR — `feat/values-items-wording-polish` (Phase 3 polish):**
+
+Nach Phase-1-Merge noch ein Schnell-Review der 8 Werte-Items (Phase 3, custom PathFinder, O\*NET Work Context mapping). Phase 2 (IPIP-50 Big Five) bewusst **nicht angefasst** — validierte Ostendorf-Übersetzung, Item-Redundanz ist psychometrisches Design für Cronbach-α, nicht Dubletten.
+
+- `val-education-01` Frage: "…passt zu dir – schon erreicht oder geplant?" → **"Welchen Ausbildungsabschluss hast du oder möchtest du erreichen?"** · Label 1: "Ohne Ausbildung / Helfer" → **"Ohne formale Ausbildung / Hilfstätigkeit"** (KldB-Jargon raus)
+- `val-physical-01` Frage: "…ist für dich in Ordnung?" → **"…passt zu dir im Beruf?"** (passiv-resignierter Ton raus)
+- `val-public-01` Frage: "Möchtest du direkt mit Kunden oder der Öffentlichkeit arbeiten?" → **"Möchtest du im Beruf viel Kontakt zu fremden Menschen (Kunden, Gäste, Publikum) haben?"** (grenzt auf UX-Ebene klarer gegen `val-social-01` Kollegen-Kontakt ab)
+
+*Streichen von `val-public-01` wurde erwogen* (User hatte Dublette-Verdacht), aber abgelehnt — die Dimension ist in 9 Dateien verankert (ValueDimension union, Occupation type, values scoring array, matcher penalty, i18n, 5 test fixtures, 923 onet-occupations Einträge, build script) und trägt echtes Signal (Back-Office ≈ 2 vs. Außendienst ≈ 4.7). Wording-Fix statt Architektur-Change.
+
+EN-Feld ebenfalls gefixt (custom items, nicht attribution-anchored). Tests 211/211 unverändert.
+
+**Branches:** `feat/riasec-items-de-polish` · `feat/values-items-wording-polish`
 
 **Offene Beobachtungen / TODOs:**
 - **Archetyp-Revalidation mit neuen Items** — die End-to-end Scoring-Validation im BACKLOG sollte mit den geschärften Phase-1-Items wiederholt werden, insbesondere wegen der A-Coverage-Verschiebung.
-- **KldB-Subtitle-Fix** bleibt offen · **Homepage → Ergebnis-Shortcut** bleibt offen · **Skills-Items DE-polish** bleibt offen — alles weiter im BACKLOG.
+- **Phase 4 / Skills-Items DE-polish** — 120 Items, Kategorie-für-Kategorie-Durchgang wie bei RIASEC. Scope-technisch eine eigene Session wert. Bleibt im BACKLOG.
+- **KldB-Subtitle-Fix** bleibt offen · **Homepage → Ergebnis-Shortcut** bleibt offen.
 
 ---
 

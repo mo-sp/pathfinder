@@ -12,20 +12,20 @@
       "dimension": "education",
       "filterType": "hard",
       "text": {
-        "de": "Welches Ausbildungsniveau passt zu dir – schon erreicht oder geplant?",
-        "en": "Which training level fits you – already achieved or planned?"
+        "de": "Welchen Ausbildungsabschluss hast du oder möchtest du erreichen?",
+        "en": "Which training level have you reached or do you want to reach?"
       },
       "scale": "likert5",
       "labels": {
         "de": [
-          "Ohne Ausbildung / Helfer",
+          "Ohne formale Ausbildung / Hilfstätigkeit",
           "Ausbildung (2–3 Jahre)",
           "Meister, Techniker oder Bachelor",
           "Master oder Promotion",
           "Egal – alle Stufen"
         ],
         "en": [
-          "No formal training / entry-level",
+          "No formal training / assistant work",
           "Vocational training (2–3 years)",
           "Master craftsman, technician or bachelor's",
           "Master's or PhD",
@@ -116,8 +116,8 @@
       "layer": "values",
       "dimension": "physicalDemands",
       "text": {
-        "de": "Wie viel körperliche Arbeit ist für dich in Ordnung?",
-        "en": "How much physical work is okay for you?"
+        "de": "Wie viel körperliche Arbeit passt zu dir im Beruf?",
+        "en": "How much physical work suits you in your job?"
       },
       "scale": "likert5",
       "labels": {
@@ -168,8 +168,8 @@
       "layer": "values",
       "dimension": "publicContact",
       "text": {
-        "de": "Möchtest du direkt mit Kunden oder der Öffentlichkeit arbeiten?",
-        "en": "Do you want to work directly with customers or the public?"
+        "de": "Möchtest du im Beruf viel Kontakt zu fremden Menschen (Kunden, Gäste, Publikum) haben?",
+        "en": "Do you want a lot of contact with strangers (customers, guests, public) in your job?"
       },
       "scale": "likert5",
       "labels": {
