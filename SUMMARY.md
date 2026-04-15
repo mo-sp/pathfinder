@@ -48,7 +48,7 @@ Nach Phase-1-Merge noch ein Schnell-Review der 8 Werte-Items (Phase 3, custom Pa
 - `val-physical-01` Frage: "…ist für dich in Ordnung?" → **"…passt zu dir im Beruf?"** (passiv-resignierter Ton raus)
 - `val-public-01` Frage: "Möchtest du direkt mit Kunden oder der Öffentlichkeit arbeiten?" → **"Möchtest du im Beruf viel Kontakt zu fremden Menschen (Kunden, Gäste, Publikum) haben?"** (grenzt auf UX-Ebene klarer gegen `val-social-01` Kollegen-Kontakt ab)
 
-*Streichen von `val-public-01` wurde erwogen* (User hatte Dublette-Verdacht), aber abgelehnt — die Dimension ist in 9 Dateien verankert (ValueDimension union, Occupation type, values scoring array, matcher penalty, i18n, 5 test fixtures, 923 onet-occupations Einträge, build script) und trägt echtes Signal (Back-Office ≈ 2 vs. Außendienst ≈ 4.7). Wording-Fix statt Architektur-Change.
+*Streichen von `val-public-01` wurde erwogen* (@mo-sp hatte Dublette-Verdacht), aber abgelehnt — die Dimension ist in 9 Dateien verankert (ValueDimension union, Occupation type, values scoring array, matcher penalty, i18n, 5 test fixtures, 923 onet-occupations Einträge, build script) und trägt echtes Signal (Back-Office ≈ 2 vs. Außendienst ≈ 4.7). Wording-Fix statt Architektur-Change.
 
 EN-Feld ebenfalls gefixt (custom items, nicht attribution-anchored). Tests 211/211 unverändert.
 
