@@ -5,6 +5,45 @@
 
 ---
 
+### Session 21 – 2026-04-15
+**Focus:** Phase-4-Skills-Items-Polish — O\*NET 29.2 Content Model mit 120 Items (35 skills / 52 abilities / 33 knowledge) für das deutsche Publikum. Sub-Kategorie für Sub-Kategorie mit @mo-sp durchgegangen wie Phase 1 in Session 20, danach Live-Test mit ernsthaften Antworten und parallel Description-Polish Item für Item.
+
+**Meta / process notes:**
+- **Scoring-safe wie Phase 1.** `store.ts:36-120` matcht über `id`, Item-Texte fließen nirgends ins Scoring. Item-IDs und EN-Felder bleiben als O\*NET-Attribution-Anker unberührt.
+- **Cross-Subcategory-Label-Kollisionen entschärft.** "Mathematik" (skill `2.A.1.e` vs knowledge `2.C.4.a`) und "Mündliches Verständnis"/"Sprachverstehen" (Comprehension vs Speech Recognition) liefen im UI als Zwillinge — via Verb-Rename und Re-Scope (akustisches Parsen vs inhaltliches Verstehen) aufgelöst.
+- **O\*NET-US-Anchor für "English Language" kulturell lokalisiert.** `2.C.7.a` "English Language" → **"Deutsche Sprache"** als Content-Swap wie die 15 RIASEC-Fälle: O\*NET-Berufsprofile messen Landessprach-Beherrschung, nicht Englisch-spezifisch. Ein DE-Anwalt mit 3/5 Englisch würde sonst gegen US-Anwalts-Profile (4.5/5) unterbewertet trotz exzellenter DE-Kompetenz. Fremdsprachen-Item `2.C.7.b` holt Englisch explizit als Beispiel rein. EN-Feld verbatim, `translationNotes` dokumentiert den Swap.
+- **Live-Test mit ernsthaften Antworten.** @mo-sp hat die Änderungen nicht nur abstrakt beurteilt, sondern parallel den kompletten Assessment-Flow durchgespielt und Item für Item angeschaut. Dabei sind 25 Description-Polishes on-the-fly entstanden (Clunky-Übersetzungen, verlorene EN-Nuancen, Genus-/Präpositions-Holpersteine). Wesentlich dichter am tatsächlichen User-Lesefluss als ein reiner Label-Review.
+
+**What was done — `feat/skills-items-de-polish`:**
+
+*17 Label-Umbenennungen:*
+- skills: `2.A.1.e` Mathematik → Mathematik anwenden · `2.B.1.e` Unterweisen → Anleiten · `2.B.3.b` Technologieentwicklung → Technische Lösungen entwerfen · `2.B.5.c` Ressourcenmanagement → Material- und Ausrüstungsmanagement
+- abilities: `1.A.1.b.6` Informationsordnung → Informationen strukturieren · `1.A.1.b.7` Kategorienflexibilität → Flexibles Kategorisieren · `1.A.1.e.1` Wahrnehmungsintegration → Schnelles Erfassen · `1.A.1.e.2` Gestalterkennung → Verdeckte Muster erkennen · `1.A.2.a.1` Arm-Hand-Ruhe → Ruhige Hand · `1.A.2.b.2` Mehrgliedrige Koordination → Koordination mehrerer Gliedmaßen · `1.A.2.c.3` Gliedmaßenschnelligkeit → Schnelle Arm- und Beinbewegung · `1.A.3.c.1` Beweglichkeit → Statische Beweglichkeit · `1.A.4.b.4` Sprachverstehen → Gesprochenes erkennen
+- knowledge: `2.C.2.b` Lebensmittelproduktion → Landwirtschaft und Lebensmittelproduktion · `2.C.5.b` Therapie und Beratung → Therapie und psychosoziale Beratung · `2.C.6` Pädagogik und Didaktik → Bildung und Ausbildung · `2.C.8.b` Recht und Verwaltung → Recht und Staat
+
+*1 Content-Swap (kulturelle Lokalisation):*
+- `2.C.7.a` Englische Sprache → **Deutsche Sprache** (DE-Landessprache statt US-Englisch als Native-Item). Description parallel umgezogen, `2.C.7.b` Foreign Language nennt Englisch jetzt als Beispiel.
+
+*25 Description-Polishes (live mit @mo-sp):*
+- skills: `2.B.1.d` Negotiation ("Differenzen beilegen" ergänzt), `2.B.4.h` Systems Evaluation (festlegen → erkennen, Verbesserungen ableiten)
+- abilities: `1.A.1.f.2` Visualization (Bewegung → Drehung/Neuanordnung), `1.A.1.e.2` Flexibility of Closure (Material → ablenkende Reize), `1.A.1.b.7` Category Flexibility (entwickeln *oder* anwenden ergänzt), `1.A.4.b.4` Speech Recognition (akustisches Parsen statt Verstehen — grenzt gegen Oral Comprehension ab), `1.A.1.a.1` Oral Comprehension ("was jemand in Worten und Sätzen sagt"), `1.A.1.a.2` Written Comprehension (parallel), `1.A.3.c.4` Gross Body Equilibrium ("instabile Lage" → "wenn der Stand unsicher ist"), `1.A.1.b.5` Inductive Reasoning (loser Anhang → zwei gleichwertige Fähigkeiten)
+- knowledge: `2.C.7.e` Philosophy (Grundsätze/Bräuche/Denkweisen ergänzt), `2.C.10` Transportation (Kosten-Nutzen-Abwägung → Vor-/Nachteile), `2.C.5.b` Therapy (Beschwerden statt Störungen, Berufs- und Lebensberatung), `2.C.1.e` Customer Service (aktiv erkennen, Qualitätsstandards statt Servicestandards), `2.C.5.a` Medicine (Fehlbildungen, Symptome, Behandlungsalternativen ergänzt), `2.C.3.c` Design (Prinzipien + Baupläne ergänzt), `2.C.8.a` Public Safety (Doppelliste entzerrt, "kommunal/Land/Bund"-Ebenen ergänzt), `2.C.3.d` Building (Bau → Neubau), `2.C.1.f` Personnel (betriebliche Zusatzleistungen, Personalverwaltungssoftware, Tarifverhandlungen), `2.C.9.a` Telecommunications (Übertragungstechnik + Rundfunk statt generischer "Übertragung"), `2.C.2.a` Production (Verteilung + Effizienz ergänzt), `2.C.9.b` Communications (Nominal → Verb-basiert), `2.C.1.a` Administration (Personalplanung ergänzt, Ressourcenzuteilung gestrichen wegen Überlapp mit Koordination)
+
+*Metadaten-Update:* `translator: v2 (2026-04-15) — polish pass complete`, `translationNotes` erweitert um Cultural-Localization-Note zum Englisch→Deutsch-Swap.
+
+*Tests: 211/211 unverändert.* Reine Daten-Änderung, keine Code-Pfade. Type-check, lint, build, test alle grün.
+
+**Branch:** `feat/skills-items-de-polish`
+
+**Offene Beobachtungen aus dem Live-Test (für die nächste Runde):**
+- **Score-Kalibrierung schlägt ein.** Top-1 des Real-Tests kam auf 51 von 100; @mo-sp's tatsächlicher Beruf Software Developer landete bei -17. Klassisches Signal für Archetyp/Weight-Miskalibrierung — steht im BACKLOG als "End-to-end scoring validation".
+- **Rang 15 "Aufsichtskräfte" ohne DE-Titel** (nur O\*NET 19-1023.00 sichtbar). Data-Quality-Gap, gehört zum DE-Title-Pass-2.
+- **KldB-Subtitle-Drift jenseits Medizin.** Agraringenieur → "Papierverarbeitung und Verpackungstechnik", Bioingenieur → "Sprengtechnik", Naturschutz-Wissenschaftler → "Reiseleiter/Fremdenführer". Gleiches stemOverlap-Muster wie bei Medizin-Subtitles.
+- **Share-Feature-Idee:** Top-20 als Copy-Button oder Bild-Download zum Teilen mit Freunden. Nicht im BACKLOG, als nächste Session im Gespräch.
+- **"Test neu starten"-Button unten im Ergebnis** entfernen — verwechselt sich beim Lazy-Loading mit einem "Nach oben"-Knopf und ist redundant (selber Button sitzt schon oben). Optional durch "Nach oben" ersetzen.
+
+---
+
 ### Session 20 – 2026-04-15
 **Focus:** Semantische Überarbeitung der 60 Phase-1 RIASEC-Items (O\*NET Interest Profiler Short Form) für das deutsche Publikum. Ziel: datierte, US-spezifische und redundante Formulierungen austauschen, ohne die Scoring-Qualität zu verlieren. Dimension-für-Dimension mit @mo-sp durchgegangen.
 

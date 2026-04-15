@@ -55,8 +55,17 @@ Likely next 1–2 sessions.
 - **DE-Occupation filter** — the 923 O\*NET codes include many US-specific
   roles that aren't relevant for the DE labour market. Coverage check +
   filter/relabel irrelevant ones.
-- **Skills-Items DE-polish** — `translator: "v1 — polish pass pending"` in
-  `src/data/skills-items.json` still open.
+- **KldB subtitle drift — non-medical edition.** Session 21 real-user test
+  surfaced the same stem-overlap-picks-weird-thing pattern outside medicine:
+  Agraringenieur → "Papierverarbeitung und Verpackungstechnik", Bioingenieur
+  → "Sprengtechnik", Naturschutz-Wissenschaftler → "Reiseleiter/Fremdenführer".
+  Same fix family as the medical subtitle bug — enumerate ISCO groups where
+  the tie-breaker produces semantically distant classes, add per-group
+  fallback to "ohne Spezialisierung" or suppress the subtitle.
+- **Rank-15 occupation without DE title** surfaced in Session 21 live test:
+  only `O*NET 19-1023.00` (Life Scientists, All Other) rendered. Either the
+  ESCO label or the override is missing for that code — fix in the Session-19
+  override file.
 - **DE-title quality pass 2 — non-duplicate codes.** Session 19 curated 249
   overrides but only for codes that sat in a duplicate cluster. The
   remaining ~640 ESCO-raw labels haven't been line-reviewed. During PR
@@ -79,6 +88,10 @@ Likely next 1–2 sessions.
 - **Education 2-year vs 3-year split** — v1 uses the 4 KldB Anforderungsniveaus.
   Upgrade to true Ausbildungsdauer granularity would need BERUFENET-API per
   Ausbildungsberuf (~800 calls at build time). Only pursue if users ask.
+- **"Test neu starten"-Button unten im Ergebnis entfernen.** Session-21
+  live test: verwechselt sich im Lazy-Loading-Kontext leicht mit einem
+  "Nach oben"-Scroll-Button und ist redundant mit dem selben Button oben.
+  Entfernen; optional durch einen Scroll-to-Top-Button ersetzen.
 
 ## Scoring
 
@@ -91,6 +104,11 @@ Likely next 1–2 sessions.
 
 ## Ideas
 
+- **Top-20-Ergebnis teilen.** Copy-Button für die Top-20-Berufsliste als Text
+  und/oder Download als Bild, damit @mo-sp und Test-User das Ergebnis an
+  Freunde schicken können. Offene Fragen: welches Format (Markdown, plain,
+  JSON, Image), ob Score-Werte mitgeschickt werden, Branding/Link zurück
+  zur App.
 - **AI-at-risk flag per occupation** — show whether a role is likely to be
   heavily affected by current AI capability (automation/augmentation). Source
   options: Frey & Osborne 2013, Brynjolfsson/Mitchell 2023, WEF Future of

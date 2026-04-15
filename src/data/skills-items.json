@@ -8,8 +8,8 @@
     "abilities": 52,
     "knowledge": 33
   },
-  "translator": "claude-manual, v1 (2026-04-12) — polish pass pending",
-  "translationNotes": "German translations are first-pass. Short labels favor established psychometric/professional German terms over literal word-for-word. Descriptions are paraphrased idiomatically rather than translated verbatim.",
+  "translator": "claude-manual, v2 (2026-04-15) — polish pass complete",
+  "translationNotes": "German translations are polished for a lay audience. Short labels favor plain, actionable German (often verb-led) over academic psychometric compounds. Descriptions are paraphrased idiomatically rather than translated verbatim. Cross-subcategory label collisions (skill vs knowledge 'Mathematik', oral comprehension vs speech recognition) disambiguated. Cultural localization: O*NET's 'English Language' item (native-language proficiency) is rendered as 'Deutsche Sprache' for the DE audience, since O*NET's occupation profiles measure domestic-language fluency; the 'Foreign Language' item now explicitly includes English as an example. EN field is preserved verbatim as O*NET attribution anchor.",
   "items": [
     {
       "id": "sk-skills-2.A.1.a",
@@ -60,7 +60,7 @@
       "layer": "skills",
       "subCategory": "skills",
       "onetElementId": "2.A.1.e",
-      "text": { "en": "Mathematics", "de": "Mathematik" },
+      "text": { "en": "Mathematics", "de": "Mathematik anwenden" },
       "description": {
         "en": "Using mathematics to solve problems.",
         "de": "Mathematische Methoden zur Lösung von Problemen einsetzen."
@@ -162,7 +162,7 @@
       "text": { "en": "Negotiation", "de": "Verhandlungsgeschick" },
       "description": {
         "en": "Bringing others together and trying to reconcile differences.",
-        "de": "Parteien zusammenbringen und zwischen unterschiedlichen Positionen vermitteln."
+        "de": "Parteien zusammenbringen, zwischen unterschiedlichen Positionen vermitteln und Differenzen beilegen."
       }
     },
     {
@@ -170,7 +170,7 @@
       "layer": "skills",
       "subCategory": "skills",
       "onetElementId": "2.B.1.e",
-      "text": { "en": "Instructing", "de": "Unterweisen" },
+      "text": { "en": "Instructing", "de": "Anleiten" },
       "description": {
         "en": "Teaching others how to do something.",
         "de": "Anderen beibringen, wie etwas gemacht wird."
@@ -214,7 +214,7 @@
       "layer": "skills",
       "subCategory": "skills",
       "onetElementId": "2.B.3.b",
-      "text": { "en": "Technology Design", "de": "Technologieentwicklung" },
+      "text": { "en": "Technology Design", "de": "Technische Lösungen entwerfen" },
       "description": {
         "en": "Generating or adapting equipment and technology to serve user needs.",
         "de": "Geräte und Technologien entwickeln oder anpassen, um Nutzerbedürfnisse zu erfüllen."
@@ -349,7 +349,7 @@
       "text": { "en": "Systems Evaluation", "de": "Systembewertung" },
       "description": {
         "en": "Identifying measures or indicators of system performance and the actions needed to improve or correct performance, relative to the goals of the system.",
-        "de": "Kennzahlen für die Systemleistung festlegen und nötige Maßnahmen zur Verbesserung bestimmen."
+        "de": "Kennzahlen zur Bewertung der Systemleistung erkennen und daraus Verbesserungsmaßnahmen ableiten."
       }
     },
     {
@@ -379,7 +379,7 @@
       "layer": "skills",
       "subCategory": "skills",
       "onetElementId": "2.B.5.c",
-      "text": { "en": "Management of Material Resources", "de": "Ressourcenmanagement" },
+      "text": { "en": "Management of Material Resources", "de": "Material- und Ausrüstungsmanagement" },
       "description": {
         "en": "Obtaining and seeing to the appropriate use of equipment, facilities, and materials needed to do certain work.",
         "de": "Ausrüstung, Räume und Materialien beschaffen und für deren sachgerechte Nutzung sorgen."
@@ -404,7 +404,7 @@
       "text": { "en": "Oral Comprehension", "de": "Mündliches Verständnis" },
       "description": {
         "en": "The ability to listen to and understand information and ideas presented through spoken words and sentences.",
-        "de": "Die Fähigkeit, gesprochene Informationen und Gedanken zu hören und zu verstehen."
+        "de": "Die Fähigkeit zu verstehen, was jemand in Worten und Sätzen sagt."
       }
     },
     {
@@ -415,7 +415,7 @@
       "text": { "en": "Written Comprehension", "de": "Schriftliches Verständnis" },
       "description": {
         "en": "The ability to read and understand information and ideas presented in writing.",
-        "de": "Die Fähigkeit, schriftlich dargestellte Informationen und Gedanken zu lesen und zu verstehen."
+        "de": "Die Fähigkeit zu verstehen, was in Worten und Sätzen geschrieben steht."
       }
     },
     {
@@ -492,7 +492,7 @@
       "text": { "en": "Inductive Reasoning", "de": "Induktives Denken" },
       "description": {
         "en": "The ability to combine pieces of information to form general rules or conclusions (includes finding a relationship among seemingly unrelated events).",
-        "de": "Die Fähigkeit, aus Einzelinformationen allgemeine Regeln oder Schlüsse abzuleiten, auch bei scheinbar unzusammenhängenden Ereignissen."
+        "de": "Die Fähigkeit, aus einzelnen Informationen allgemeine Regeln abzuleiten und Zusammenhänge zwischen scheinbar unverbundenen Ereignissen zu erkennen."
       }
     },
     {
@@ -500,7 +500,7 @@
       "layer": "skills",
       "subCategory": "abilities",
       "onetElementId": "1.A.1.b.6",
-      "text": { "en": "Information Ordering", "de": "Informationsordnung" },
+      "text": { "en": "Information Ordering", "de": "Informationen strukturieren" },
       "description": {
         "en": "The ability to arrange things or actions in a certain order or pattern according to a specific rule or set of rules (e.g., patterns of numbers, letters, words, pictures, mathematical operations).",
         "de": "Die Fähigkeit, Dinge oder Handlungen nach festgelegten Regeln in eine bestimmte Reihenfolge oder ein Muster zu bringen."
@@ -511,10 +511,10 @@
       "layer": "skills",
       "subCategory": "abilities",
       "onetElementId": "1.A.1.b.7",
-      "text": { "en": "Category Flexibility", "de": "Kategorienflexibilität" },
+      "text": { "en": "Category Flexibility", "de": "Flexibles Kategorisieren" },
       "description": {
         "en": "The ability to generate or use different sets of rules for combining or grouping things in different ways.",
-        "de": "Die Fähigkeit, verschiedene Regelsätze zu nutzen, um Dinge auf unterschiedliche Weise zu gruppieren."
+        "de": "Die Fähigkeit, unterschiedliche Ordnungskriterien zu entwickeln oder anzuwenden, um Dinge auf verschiedene Weise zu gruppieren oder zu kombinieren."
       }
     },
     {
@@ -555,7 +555,7 @@
       "layer": "skills",
       "subCategory": "abilities",
       "onetElementId": "1.A.1.e.1",
-      "text": { "en": "Speed of Closure", "de": "Wahrnehmungsintegration" },
+      "text": { "en": "Speed of Closure", "de": "Schnelles Erfassen" },
       "description": {
         "en": "The ability to quickly make sense of, combine, and organize information into meaningful patterns.",
         "de": "Die Fähigkeit, Informationen rasch zu ordnen und zu sinnvollen Mustern zusammenzufügen."
@@ -566,10 +566,10 @@
       "layer": "skills",
       "subCategory": "abilities",
       "onetElementId": "1.A.1.e.2",
-      "text": { "en": "Flexibility of Closure", "de": "Gestalterkennung" },
+      "text": { "en": "Flexibility of Closure", "de": "Verdeckte Muster erkennen" },
       "description": {
         "en": "The ability to identify or detect a known pattern (a figure, object, word, or sound) that is hidden in other distracting material.",
-        "de": "Die Fähigkeit, ein bekanntes Muster zu erkennen, auch wenn es von störendem Material überlagert ist."
+        "de": "Die Fähigkeit, ein bekanntes Muster auch dann zu erkennen, wenn es von ablenkenden Reizen verdeckt wird."
       }
     },
     {
@@ -602,7 +602,7 @@
       "text": { "en": "Visualization", "de": "Räumliches Vorstellungsvermögen" },
       "description": {
         "en": "The ability to imagine how something will look after it is moved around or when its parts are moved or rearranged.",
-        "de": "Die Fähigkeit, sich vorzustellen, wie etwas nach einer Bewegung oder Umordnung seiner Teile aussieht."
+        "de": "Die Fähigkeit, sich vorzustellen, wie ein Objekt nach einer Drehung oder Neuanordnung seiner Teile aussieht."
       }
     },
     {
@@ -632,7 +632,7 @@
       "layer": "skills",
       "subCategory": "abilities",
       "onetElementId": "1.A.2.a.1",
-      "text": { "en": "Arm-Hand Steadiness", "de": "Arm-Hand-Ruhe" },
+      "text": { "en": "Arm-Hand Steadiness", "de": "Ruhige Hand" },
       "description": {
         "en": "The ability to keep your hand and arm steady while moving your arm or while holding your arm and hand in one position.",
         "de": "Die Fähigkeit, Hand und Arm bei Bewegung oder in einer festen Position ruhig zu halten."
@@ -676,7 +676,7 @@
       "layer": "skills",
       "subCategory": "abilities",
       "onetElementId": "1.A.2.b.2",
-      "text": { "en": "Multilimb Coordination", "de": "Mehrgliedrige Koordination" },
+      "text": { "en": "Multilimb Coordination", "de": "Koordination mehrerer Gliedmaßen" },
       "description": {
         "en": "The ability to coordinate two or more limbs (for example, two arms, two legs, or one leg and one arm) while sitting, standing, or lying down. It does not involve performing the activities while the whole body is in motion.",
         "de": "Die Fähigkeit, mehrere Gliedmaßen im Sitzen, Stehen oder Liegen koordiniert einzusetzen."
@@ -731,7 +731,7 @@
       "layer": "skills",
       "subCategory": "abilities",
       "onetElementId": "1.A.2.c.3",
-      "text": { "en": "Speed of Limb Movement", "de": "Gliedmaßenschnelligkeit" },
+      "text": { "en": "Speed of Limb Movement", "de": "Schnelle Arm- und Beinbewegung" },
       "description": {
         "en": "The ability to quickly move the arms and legs.",
         "de": "Die Fähigkeit, Arme und Beine schnell zu bewegen."
@@ -797,7 +797,7 @@
       "layer": "skills",
       "subCategory": "abilities",
       "onetElementId": "1.A.3.c.1",
-      "text": { "en": "Extent Flexibility", "de": "Beweglichkeit" },
+      "text": { "en": "Extent Flexibility", "de": "Statische Beweglichkeit" },
       "description": {
         "en": "The ability to bend, stretch, twist, or reach with your body, arms, and/or legs.",
         "de": "Die Fähigkeit, sich mit Körper, Armen oder Beinen zu beugen, zu strecken oder zu drehen."
@@ -833,7 +833,7 @@
       "text": { "en": "Gross Body Equilibrium", "de": "Körpergleichgewicht" },
       "description": {
         "en": "The ability to keep or regain your body balance or stay upright when in an unstable position.",
-        "de": "Die Fähigkeit, in instabilen Lagen das Gleichgewicht zu halten oder wiederzuerlangen."
+        "de": "Die Fähigkeit, das Gleichgewicht zu halten oder wiederzuerlangen, wenn der Stand unsicher ist."
       }
     },
     {
@@ -951,10 +951,10 @@
       "layer": "skills",
       "subCategory": "abilities",
       "onetElementId": "1.A.4.b.4",
-      "text": { "en": "Speech Recognition", "de": "Sprachverstehen" },
+      "text": { "en": "Speech Recognition", "de": "Gesprochenes erkennen" },
       "description": {
         "en": "The ability to identify and understand the speech of another person.",
-        "de": "Die Fähigkeit, die Sprache einer anderen Person zu erkennen und zu verstehen."
+        "de": "Die Fähigkeit, gesprochene Worte akustisch klar zu erkennen, auch bei Hintergrundgeräuschen oder undeutlicher Aussprache."
       }
     },
     {
@@ -976,7 +976,7 @@
       "text": { "en": "Administration and Management", "de": "Unternehmensführung" },
       "description": {
         "en": "Knowledge of business and management principles involved in strategic planning, resource allocation, human resources modeling, leadership technique, production methods, and coordination of people and resources.",
-        "de": "Kenntnisse zu strategischer Planung, Ressourceneinsatz, Führungstechniken, Produktionsmethoden und Koordination von Menschen und Mitteln."
+        "de": "Kenntnisse zu strategischer Planung, Personalplanung, Führungstechniken, Produktionsmethoden und Koordination von Menschen und Ressourcen."
       }
     },
     {
@@ -1020,7 +1020,7 @@
       "text": { "en": "Customer and Personal Service", "de": "Kundenservice" },
       "description": {
         "en": "Knowledge of principles and processes for providing customer and personal services. This includes customer needs assessment, meeting quality standards for services, and evaluation of customer satisfaction.",
-        "de": "Kenntnisse zu Kundenbedürfnissen, Servicestandards und der Bewertung von Kundenzufriedenheit."
+        "de": "Kenntnisse zum Erkennen von Kundenbedürfnissen, zu Qualitätsstandards im Service und zur Bewertung von Kundenzufriedenheit."
       }
     },
     {
@@ -1031,7 +1031,7 @@
       "text": { "en": "Personnel and Human Resources", "de": "Personalwesen" },
       "description": {
         "en": "Knowledge of principles and procedures for personnel recruitment, selection, training, compensation and benefits, labor relations and negotiation, and personnel information systems.",
-        "de": "Kenntnisse zu Personalauswahl, Weiterbildung, Vergütung, Arbeitsbeziehungen und Personalsystemen."
+        "de": "Kenntnisse zu Personalauswahl, Weiterbildung, Vergütung und betrieblichen Zusatzleistungen, Tarifverhandlungen und Personalverwaltungssoftware."
       }
     },
     {
@@ -1042,7 +1042,7 @@
       "text": { "en": "Production and Processing", "de": "Produktion und Fertigung" },
       "description": {
         "en": "Knowledge of raw materials, production processes, quality control, costs, and other techniques for maximizing the effective manufacture and distribution of goods.",
-        "de": "Kenntnisse zu Rohstoffen, Produktionsprozessen, Qualitätskontrolle und Kosten in der Warenherstellung."
+        "de": "Kenntnisse zu Rohstoffen, Produktionsprozessen, Qualitätskontrolle und Kosten — sowie zu Methoden, um Herstellung und Verteilung von Waren effizient zu gestalten."
       }
     },
     {
@@ -1050,7 +1050,7 @@
       "layer": "skills",
       "subCategory": "knowledge",
       "onetElementId": "2.C.2.b",
-      "text": { "en": "Food Production", "de": "Lebensmittelproduktion" },
+      "text": { "en": "Food Production", "de": "Landwirtschaft und Lebensmittelproduktion" },
       "description": {
         "en": "Knowledge of techniques and equipment for planting, growing, and harvesting food products (both plant and animal) for consumption, including storage/handling techniques.",
         "de": "Kenntnisse zu Anbau, Aufzucht, Ernte und Lagerung pflanzlicher und tierischer Lebensmittel."
@@ -1086,7 +1086,7 @@
       "text": { "en": "Design", "de": "Konstruktion und Design" },
       "description": {
         "en": "Knowledge of design techniques, tools, and principles involved in production of precision technical plans, blueprints, drawings, and models.",
-        "de": "Kenntnisse zu Techniken und Werkzeugen für präzise technische Pläne, Zeichnungen und Modelle."
+        "de": "Kenntnisse zu Techniken, Werkzeugen und Prinzipien für die Erstellung präziser technischer Pläne, Baupläne, Zeichnungen und Modelle."
       }
     },
     {
@@ -1097,7 +1097,7 @@
       "text": { "en": "Building and Construction", "de": "Bauwesen" },
       "description": {
         "en": "Knowledge of materials, methods, and the tools involved in the construction or repair of houses, buildings, or other structures such as highways and roads.",
-        "de": "Kenntnisse zu Materialien, Methoden und Werkzeugen für Bau und Instandsetzung von Gebäuden und Verkehrswegen."
+        "de": "Kenntnisse zu Materialien, Methoden und Werkzeugen für den Neubau und die Instandsetzung von Gebäuden und Verkehrswegen."
       }
     },
     {
@@ -1196,7 +1196,7 @@
       "text": { "en": "Medicine and Dentistry", "de": "Medizin und Zahnmedizin" },
       "description": {
         "en": "Knowledge of the information and techniques needed to diagnose and treat human injuries, diseases, and deformities. This includes symptoms, treatment alternatives, drug properties and interactions, and preventive health-care measures.",
-        "de": "Kenntnisse zur Diagnose und Behandlung von Verletzungen und Krankheiten, einschließlich Medikamenten und Prävention."
+        "de": "Kenntnisse zur Diagnose und Behandlung von Verletzungen, Krankheiten und Fehlbildungen — inklusive Symptomen, Behandlungsalternativen, Wirkung von Medikamenten und Maßnahmen zur Vorbeugung."
       }
     },
     {
@@ -1204,10 +1204,10 @@
       "layer": "skills",
       "subCategory": "knowledge",
       "onetElementId": "2.C.5.b",
-      "text": { "en": "Therapy and Counseling", "de": "Therapie und Beratung" },
+      "text": { "en": "Therapy and Counseling", "de": "Therapie und psychosoziale Beratung" },
       "description": {
         "en": "Knowledge of principles, methods, and procedures for diagnosis, treatment, and rehabilitation of physical and mental dysfunctions, and for career counseling and guidance.",
-        "de": "Kenntnisse zu Diagnostik, Behandlung und Rehabilitation körperlicher und psychischer Störungen sowie zur Berufsberatung."
+        "de": "Kenntnisse zu Diagnostik, Behandlung und Rehabilitation körperlicher und psychischer Beschwerden sowie zur Berufs- und Lebensberatung."
       }
     },
     {
@@ -1215,7 +1215,7 @@
       "layer": "skills",
       "subCategory": "knowledge",
       "onetElementId": "2.C.6",
-      "text": { "en": "Education and Training", "de": "Pädagogik und Didaktik" },
+      "text": { "en": "Education and Training", "de": "Bildung und Ausbildung" },
       "description": {
         "en": "Knowledge of principles and methods for curriculum and training design, teaching and instruction for individuals and groups, and the measurement of training effects.",
         "de": "Kenntnisse zu Lehrplanentwicklung, Unterricht, Schulung von Einzelnen und Gruppen sowie Lernerfolgsmessung."
@@ -1226,10 +1226,10 @@
       "layer": "skills",
       "subCategory": "knowledge",
       "onetElementId": "2.C.7.a",
-      "text": { "en": "English Language", "de": "Englische Sprache" },
+      "text": { "en": "English Language", "de": "Deutsche Sprache" },
       "description": {
         "en": "Knowledge of the structure and content of the English language including the meaning and spelling of words, and rules of composition and grammar.",
-        "de": "Kenntnisse zu Aufbau und Inhalt der englischen Sprache: Wortbedeutung, Rechtschreibung, Grammatik und Stil."
+        "de": "Kenntnisse zu Aufbau und Inhalt der deutschen Sprache: Wortbedeutung, Rechtschreibung, Grammatik und Stil."
       }
     },
     {
@@ -1240,7 +1240,7 @@
       "text": { "en": "Foreign Language", "de": "Fremdsprachen" },
       "description": {
         "en": "Knowledge of the structure and content of a foreign (non-English) language including the meaning and spelling of words, rules of composition and grammar, and pronunciation.",
-        "de": "Kenntnisse zu Aufbau und Inhalt einer Fremdsprache: Wortbedeutung, Rechtschreibung, Grammatik und Aussprache."
+        "de": "Kenntnisse zu Aufbau und Inhalt einer Fremdsprache (z. B. Englisch, Französisch, Spanisch): Wortbedeutung, Rechtschreibung, Grammatik und Aussprache."
       }
     },
     {
@@ -1273,7 +1273,7 @@
       "text": { "en": "Philosophy and Theology", "de": "Philosophie und Theologie" },
       "description": {
         "en": "Knowledge of different philosophical systems and religions. This includes their basic principles, values, ethics, ways of thinking, customs, practices, and their impact on human culture.",
-        "de": "Kenntnisse zu philosophischen Systemen und Religionen, ihren Werten, Ethik und kulturellen Wirkungen."
+        "de": "Kenntnisse zu philosophischen Systemen und Religionen — ihren Grundsätzen, Werten, Denkweisen, Bräuchen und ihrer Wirkung auf die Kultur."
       }
     },
     {
@@ -1284,7 +1284,7 @@
       "text": { "en": "Public Safety and Security", "de": "Öffentliche Sicherheit" },
       "description": {
         "en": "Knowledge of relevant equipment, policies, procedures, and strategies to promote effective local, state, or national security operations for the protection of people, data, property, and institutions.",
-        "de": "Kenntnisse zu Ausrüstung, Richtlinien und Strategien zum Schutz von Menschen, Daten, Eigentum und Institutionen."
+        "de": "Kenntnisse zu Ausrüstung, Vorschriften und Verfahren, mit denen Sicherheit auf kommunaler, Landes- und Bundesebene gewährleistet wird — zum Schutz von Menschen, Daten, Eigentum und Institutionen."
       }
     },
     {
@@ -1292,7 +1292,7 @@
       "layer": "skills",
       "subCategory": "knowledge",
       "onetElementId": "2.C.8.b",
-      "text": { "en": "Law and Government", "de": "Recht und Verwaltung" },
+      "text": { "en": "Law and Government", "de": "Recht und Staat" },
       "description": {
         "en": "Knowledge of laws, legal codes, court procedures, precedents, government regulations, executive orders, agency rules, and the democratic political process.",
         "de": "Kenntnisse zu Gesetzen, Gerichtsverfahren, Behördenvorschriften und dem demokratischen politischen Prozess."
@@ -1306,7 +1306,7 @@
       "text": { "en": "Telecommunications", "de": "Telekommunikation" },
       "description": {
         "en": "Knowledge of transmission, broadcasting, switching, control, and operation of telecommunications systems.",
-        "de": "Kenntnisse zu Übertragung, Vermittlung, Steuerung und Betrieb von Telekommunikationssystemen."
+        "de": "Kenntnisse zu Übertragungstechnik, Rundfunk, Vermittlung, Steuerung und Betrieb von Telekommunikationssystemen."
       }
     },
     {
@@ -1317,7 +1317,7 @@
       "text": { "en": "Communications and Media", "de": "Kommunikation und Medien" },
       "description": {
         "en": "Knowledge of media production, communication, and dissemination techniques and methods. This includes alternative ways to inform and entertain via written, oral, and visual media.",
-        "de": "Kenntnisse zu Medienproduktion und -verbreitung in Schrift, Bild und Ton zur Information und Unterhaltung."
+        "de": "Kenntnisse zum Erstellen und Verbreiten von Medieninhalten — über Text, Bild oder Ton, um zu informieren oder zu unterhalten."
       }
     },
     {
@@ -1328,7 +1328,7 @@
       "text": { "en": "Transportation", "de": "Transport und Verkehr" },
       "description": {
         "en": "Knowledge of principles and methods for moving people or goods by air, rail, sea, or road, including the relative costs and benefits.",
-        "de": "Kenntnisse zu Methoden des Personen- und Gütertransports per Luft, Schiene, See oder Straße inklusive Kosten-Nutzen-Abwägung."
+        "de": "Kenntnisse zu Methoden des Personen- und Gütertransports per Luft, Schiene, See oder Straße sowie der Vor- und Nachteile der verschiedenen Transportwege."
       }
     }
   ]
