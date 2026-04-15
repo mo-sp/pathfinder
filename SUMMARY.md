@@ -5,6 +5,49 @@
 
 ---
 
+### Session 20 – 2026-04-15
+**Focus:** Semantische Überarbeitung der 60 Phase-1 RIASEC-Items (O\*NET Interest Profiler Short Form) für das deutsche Publikum. Ziel: datierte, US-spezifische und redundante Formulierungen austauschen, ohne die Scoring-Qualität zu verlieren. Dimension-für-Dimension mit @mo-sp durchgegangen.
+
+**Meta / process notes:**
+- **Scoring-Safety vor Start verifiziert.** `riasec.ts:26-28` aggregiert nur pro Dimension (Summe Likert × Pearson gegen Occupation-Profile). Item-IDs und Item-Texte fließen nirgends ins Matching. Content-Swaps sind sicher, solange die Facet-Coverage innerhalb der Dimension erhalten bleibt — kein Risiko für die `onet-occupations`-Kalibrierung.
+- **EN-Feld bewusst unverändert** als O\*NET-Attribution-Anker gegen die Developer-License. Nur `text.de` angefasst. Folge: bei den 15 Content-Swaps divergiert EN vs DE semantisch — im neuen `attribution`-Feld explizit erklärt.
+- **Gender-Policy:** keine `:in`-Formen (@mo-sp-Präferenz), stattdessen männliche/weibliche/neutrale Einzelformen. Einmal selber `Tänzer:in`/`LKW-Fahrer:in` verwendet und dann korrigiert.
+- **Dimension-für-Dimension-Review statt Big-Bang-Diff.** Jede Dimension einzeln vorgeschlagen (Tabelle: Jetzt / Vorschlag / Begründung), @mo-sp hat Zeile für Zeile Go/Nein/Gegenvorschlag gegeben. Mehrere Runden Gegenvorschläge (Fotografie statt Band-Singen, Pflege statt Gebärdensprache, Immobilien statt Bekleidungsgeschäft, politisches Amt statt Vertragsverhandlung). Im Browser-Test nochmal zwei Last-Mile-Fixes (Sekretariat statt "für ein Büro", Lieferwagen statt Lastwagen, Mandanten-Rückroll).
+
+**What was done — `feat/riasec-items-de-polish`:**
+
+*15 Content-Swaps (Aktivität ausgetauscht, Facet-Coverage erhalten):*
+- R-04 Fischzucht → Bauernhof/Felder · R-10 Waldbrände → Feuerwehr
+- I-05 Blutproben → Tierverhalten im Feld · I-09 Zuckerersatz → Archäologische Funde
+- A-03 Musik komponieren → Mode entwerfen · A-06 Bühnenbilder → Innenausstattung · A-07 Drehbücher → Tattoos/Illustrationen · A-09 Band-Singen → Fotografie
+- S-06 Kindersport → Obdachlose/Notlagen · S-07 Gebärdensprache → Pflege
+- E-03 Friseursalon → Event/Messe · E-06 Verträge verhandeln → politisches Amt · E-10 Bekleidungsgeschäft → Immobilien
+- C-05 Warenein-/ausgang → Kundendaten-Datenbank · C-09 Bestandslisten → Sekretariat/Termine
+
+*19 Wording-Fixes (gleiche Facette, schärferes DE):*
+- R: r-01 Küchenschränke → Möbel · r-03 konkretisiert (Waschmaschinen/Kühlschränke) · r-06 Lastwagen → Lieferwagen · r-08 Schlösser → "Als Schlüsseldienst" (Doppeldeutigkeit raus) · r-09 generisch → Fabrik-Kontext
+- I: i-02 Genitiv-Stapel raus · i-04 Artikel-Fix · i-06 "Im Labor" ergänzt (Drift Richtung R verhindern) · i-07 Bürokraten-DE entschärft
+- A: a-04 enger auf "Stift/Pinsel" · a-08 US-Tanz-Beispiele raus
+- S: s-04 Reha konkretisiert (Genesung begleiten) · s-08 "mithelfen" → "leiten" (Original "help conduct")
+- E: e-08 Mode → Produktlinie · e-09 Kaufhaus → Verkaufsgespräch
+- C: c-01 Tabellenkalkulation → Tabellen · c-04 Taschenrechner → Rechnungen prüfen · c-06 Löhne/Angestellte → Gehälter/Mitarbeiter · c-07 Handheld → digital · c-10 Post stempeln → sortieren/weiterleiten
+
+*Attribution-Update:*
+- `source` → "Adapted from O*NET Interest Profiler Short Form (v1) — items culturally localized for the German audience"
+- `attribution` erweitert um Modifications-Hinweis (15 replaced / 19 reworded by PathFinder, O\*NET nicht verantwortlich für DE-Adaption, EN-Text verbatim erhalten).
+
+*Coverage-Notiz A-Dimension:* 3 Musik-Items auf 1 reduziert (nur a-02 Instrument bleibt), dafür 3 Design-Items reingekommen (Mode, Innenraum, Tattoo/Illustration). Bewusst — Design ist zeitgemäßes A-Feld. Falls Archetyp-Kalibrierung später schiefgeht, hier zuerst nachsehen.
+
+*Tests: 211 unverändert.* Reine Daten-Änderung, keine Code-Pfade. `npm run type-check`, `npm run lint`, `npm run build`, `npm test` alle grün.
+
+**Branches:** `feat/riasec-items-de-polish`
+
+**Offene Beobachtungen / TODOs:**
+- **Archetyp-Revalidation mit neuen Items** — die End-to-end Scoring-Validation im BACKLOG sollte mit den geschärften Phase-1-Items wiederholt werden, insbesondere wegen der A-Coverage-Verschiebung.
+- **KldB-Subtitle-Fix** bleibt offen · **Homepage → Ergebnis-Shortcut** bleibt offen · **Skills-Items DE-polish** bleibt offen — alles weiter im BACKLOG.
+
+---
+
 ### Session 19 – 2026-04-14
 **Focus:** Daten-Qualitäts-Sweep für die generischen `title.de`-Cluster, die in Session 18 beim Suchfeld-Test aufgefallen waren — 107 Cluster mit 249 O\*NET-Codes fallen bei ESCO auf denselben deutschen Titel (10× „Facharzt/Fachärztin", alle Helper-\*-Codes auf die Haupt-Handwerk-Bezeichnung, etc.). Eine PR mit kuratierter Override-Map, die jeden betroffenen Code auf einen eindeutigen deutschen Titel setzt.
 
