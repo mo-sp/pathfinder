@@ -84,11 +84,11 @@ export interface Occupation {
 
 export interface MatchResult {
   occupation: Occupation
-  /** Combined score: min(riasecCorrelation × bigFiveModifier, 1) − valuesPenalty + skillsBonus. */
+  /** Combined score: riasecCorrelation + bigFiveModifier − valuesPenalty + skillsBonus. */
   fitScore: number
   /** Raw Pearson correlation between user and occupation RIASEC profiles, -1 to 1. */
   riasecCorrelation: number
-  /** Big Five personality modifier, typically 0.7–1.3. null when occupation has no Big Five profile. */
+  /** Additive Big Five adjustment in [−0.3, +0.3] (α × bfSimilarity). null when occupation has no Big Five profile. */
   bigFiveModifier: number | null
   /** Values penalty subtracted from fitScore, 0–0.35. null when values not provided. */
   valuesPenalty: number | null

@@ -7,7 +7,7 @@ import {
   type SkillsProfile,
 } from '@features/scoring/lib/skills'
 
-/** Strength of the Big Five modifier. 0.3 → modifier range [0.7, 1.3]. */
+/** Strength of the Big Five adjustment. 0.3 → additive adjustment in [−0.3, +0.3]. */
 const BIG_FIVE_ALPHA = 0.3
 
 /** Weight per soft values dimension. 7 dims × 0.05 = max 0.35 total penalty. */
@@ -147,10 +147,13 @@ function computeSkillsMatch(
  * and O*NET's 1-7 OI values compare directly).
  *
  * When a user Big Five profile and occupation Big Five lookup are
- * provided, each occupation that has a Big Five target profile gets a
- * modifier: `1 + α × pearson(userBigFive, occBigFive)`. The fitScore
- * becomes `riasecCorrelation × modifier`, shifting matched personalities
- * up and mismatched ones down without ever zeroing out RIASEC fit.
+ * provided, each occupation that has a Big Five target profile gets an
+ * additive adjustment: `α × pearson(userBigFive, occBigFive)` ∈ [−α, +α].
+ * The fitScore becomes `riasecCorrelation + adjustment`, shifting matched
+ * personalities up and mismatched ones down. Additive (not multiplicative)
+ * so a matching personality never amplifies a negative RIASEC base, and a
+ * mismatched one never rescues it by dampening magnitude — the signs
+ * behave intuitively across the full RIASEC range [−1, +1].
  *
  * When a values profile is provided, occupations whose KldB
  * Anforderungsniveau exceeds the user's education willingness are
@@ -201,8 +204,8 @@ export function matchOccupations(
         const userBfVector = BIG_FIVE_DIMENSIONS.map((d) => userBigFive[d])
         const occBfVector = BIG_FIVE_DIMENSIONS.map((d) => occBigFive[d])
         const similarity = pearsonCorrelation(userBfVector, occBfVector)
-        bigFiveModifier = 1 + BIG_FIVE_ALPHA * similarity
-        fitScore = Math.min(riasecCorrelation * bigFiveModifier, 1)
+        bigFiveModifier = BIG_FIVE_ALPHA * similarity
+        fitScore = riasecCorrelation + bigFiveModifier
       }
     }
 

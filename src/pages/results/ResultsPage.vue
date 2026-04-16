@@ -86,13 +86,13 @@ const riasecOnlyRanked = computed(() =>
     .map((r, i) => ({ ...r, rank: i + 1 })),
 )
 
-// RIASEC + Big Five: sort by riasec × bigFiveModifier, no values penalty/filter.
+// RIASEC + Big Five: sort by riasec + bigFiveModifier, no values penalty/filter.
 // For occupations without Big Five data, falls back to riasecCorrelation.
 const bigfiveRanked = computed(() =>
   [...store.results]
     .map((r) => {
       const score = r.bigFiveModifier != null
-        ? Math.min(r.riasecCorrelation * r.bigFiveModifier, 1)
+        ? r.riasecCorrelation + r.bigFiveModifier
         : r.riasecCorrelation
       return { ...r, fitScore: score }
     })
@@ -107,7 +107,7 @@ const valuesRanked = computed(() =>
   [...store.results]
     .map((r) => {
       let fit = r.riasecCorrelation
-      if (r.bigFiveModifier != null) fit = Math.min(fit * r.bigFiveModifier, 1)
+      if (r.bigFiveModifier != null) fit += r.bigFiveModifier
       if (r.valuesPenalty != null) fit -= r.valuesPenalty
       return { ...r, fitScore: fit }
     })
@@ -228,7 +228,7 @@ function scoreDelta(result: { riasecCorrelation: number; fitScore: number; bigFi
   if (viewMode.value === 'riasec') return null
   if (viewMode.value === 'bigfive') {
     if (result.bigFiveModifier == null) return null
-    const bfScore = Math.min(result.riasecCorrelation * result.bigFiveModifier, 1)
+    const bfScore = result.riasecCorrelation + result.bigFiveModifier
     return Math.round(bfScore * 100) - Math.round(result.riasecCorrelation * 100)
   }
   // values / skills view: total delta from RIASEC baseline
@@ -388,9 +388,12 @@ function stageForRiasec(v: number): Stage {
   return 'poor'
 }
 function stageForBigFive(v: number): Stage {
-  if (v > 1.1) return 'strong'
-  if (v >= 0.95) return 'moderate'
-  if (v >= 0.9) return 'weak'
+  // Additive adjustment in [−0.3, +0.3]. Mirrors the prior multiplicative
+  // thresholds shifted to the additive scale (×1.1 → +0.1, ×0.95 → −0.05,
+  // ×0.9 → −0.1). Sign of the adjustment drives the tone.
+  if (v > 0.1) return 'strong'
+  if (v >= -0.05) return 'moderate'
+  if (v >= -0.1) return 'weak'
   return 'poor'
 }
 function stageForValues(penalty: number): Stage {
@@ -496,7 +499,7 @@ function scoreBreakdown(result: {
       'bigfive',
       result.bigFiveModifier != null,
       result.bigFiveModifier != null ? stageForBigFive(result.bigFiveModifier) : null,
-      result.bigFiveModifier != null ? `×${result.bigFiveModifier.toFixed(2)}` : '',
+      result.bigFiveModifier != null ? formatSigned(result.bigFiveModifier) : '',
     ),
   )
   rows.push(
@@ -534,8 +537,9 @@ function scoreFormula(result: {
   let rhs: number
 
   if (factorInActiveView('bigfive', mode) && result.bigFiveModifier != null) {
-    parts.push(`min(${r.toFixed(2)} × ${result.bigFiveModifier.toFixed(2)}, 1.00)`)
-    rhs = Math.min(r * result.bigFiveModifier, 1)
+    const bf = result.bigFiveModifier
+    parts.push(`${r.toFixed(2)} ${bf >= 0 ? '+' : '−'} ${Math.abs(bf).toFixed(2)}`)
+    rhs = r + bf
   } else {
     parts.push(r.toFixed(2))
     rhs = r

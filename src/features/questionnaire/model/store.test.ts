@@ -794,7 +794,7 @@ describe('questionnaire store', () => {
 
       const mapped = withBigFive.filter((r) => r.bigFiveModifier !== null)
       expect(mapped.length).toBeGreaterThan(0)
-      const withShift = mapped.filter((r) => Math.abs(r.bigFiveModifier! - 1.0) > 0.001)
+      const withShift = mapped.filter((r) => Math.abs(r.bigFiveModifier!) > 0.001)
       expect(withShift.length).toBeGreaterThan(0)
 
       const unmapped = withBigFive.filter((r) => r.bigFiveModifier === null)
