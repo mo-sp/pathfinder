@@ -262,6 +262,19 @@ describe('matchOccupations', () => {
       expect(results[0].valuesPenalty).toBeNull()
     })
 
+    it('returns valuesPenalty: null when occupation has no workContext', () => {
+      // Regression for a display bug: occupations without workContext used to
+      // get penalty = 0, which the UI rendered as "perfect match". Values
+      // layer should abstain (null) instead, matching the skills-layer
+      // convention for missing occupation data.
+      const noWc: Occupation = occupation('88-0000.00', { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 })
+      const userProfile: RIASECProfile = { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }
+      const values: ValuesProfile = { ...neutralValues, education: 5 }
+      const results = matchOccupations(userProfile, [noWc], 20, null, null, values)
+      expect(results[0].valuesPenalty).toBeNull()
+      expect(results[0].fitScore).toBe(results[0].riasecCorrelation)
+    })
+
     it('penalty is 0 for perfectly matching preferences', () => {
       const userProfile: RIASECProfile = { R: 7, I: 2, A: 2, S: 2, E: 2, C: 3 }
       // Preferences that match outdoorJob: outdoor, physical, low contact, moderate autonomy
