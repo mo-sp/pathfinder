@@ -90,6 +90,16 @@ Likely next 1–2 sessions.
 
 ## UX polish
 
+- **Concrete examples on every question** — many items (especially Skills /
+  Abilities / Knowledge and Values) are abstract enough that users,
+  particularly students or first-time career-assessment takers, may not be
+  sure what's meant. Add a short example per item that clarifies the intended
+  construct without over-narrowing it (e.g. "Mündliches Verständnis —
+  Beispiel: einem Kollegen in einer Besprechung zuhören und den Auftrag
+  korrekt umsetzen"). Scope: all 60 RIASEC + 50 Big Five + 120 Skills + 8
+  Values items (≈ 238 examples). Keep examples neutral and broad enough that
+  they don't steer the answer. Non-blocking but important before friends-test
+  push.
 - **Prozent-Anzeige in Skills-Sub-Kategorien** — raw percent (e.g. "Fähigkeiten
   47%") is meaningless for a non-test audience. Replace with label bands like
   "Eher grundlegend / Solide / Stark ausgeprägt". Non-blocking, useful for
