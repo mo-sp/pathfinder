@@ -123,6 +123,32 @@ Likely next 1–2 sessions.
   after the archetype test whether this is actually needed. Same family as
   the RIASEC long-form note above.
 
+- **Values penalty masquerades as "perfect match" when occupation has no
+  workContext data.** `computeValuesPenalty` returns 0 (not null) when
+  `workContext` is missing — the UI then stages this as "Rahmenbedingungen
+  passen fast perfekt" with a "−0.00" value, which reads as a perfect
+  match instead of "no data". Spotted on 15-2051 Datenwissenschaftler
+  (one of the 29 codes still without O\*NET survey data after the 30.2
+  upgrade). Skills layer gets this right ("Keine Daten für diesen Beruf"),
+  values layer should do the same. Fix: return null from the penalty
+  function when `workContext` is missing, mirror skills staging for the
+  "noData" branch.
+- **Skills stage vs value inconsistency for the median user.** An all-3s
+  user has a skillsBonus of exactly +0.00 by design (the piecewise bonus
+  is anchored to 0 at the median), but the stage text reads "Solide
+  Überschneidung bei den Fähigkeiten" — a "moderate match" label on a
+  zero value. Either the staging should recognise "effectively zero" as
+  its own neutral band, or the copy should acknowledge "median answers
+  → no bonus either way". Spotted during PR 2a browser test.
+- **Values layer is penalty-only, can never award a bonus.** Current
+  design: `valuesPenalty ∈ [0, 0.35]`, subtracted from fitScore. Users
+  who match an occupation's workContext perfectly get 0 penalty (the
+  best outcome) but never a positive boost. Feels asymmetric next to
+  Big Five (±0.3) and Skills (±0.25). Option: centre values at 0 with
+  a signed contribution, e.g. bonus = (0.175 − penalty) so a perfect
+  match gives +0.175 and a max-mismatch gives −0.175. Revisit during
+  archetype-persona calibration.
+
 ## Ideas
 
 - **Top-20-Ergebnis teilen.** Copy-Button für die Top-20-Berufsliste als Text
