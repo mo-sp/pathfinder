@@ -101,25 +101,27 @@ Likely next 1–2 sessions.
 - **Baseline-shift for skills bonus** at occupation-level — all-zero users
   currently still get small positive bonuses on avg-complexity occupations;
   Session 15/16 calibration sorted most of this, edge cases may remain.
-- **RIASEC Short vs. Long Form / Item-Redesign.** Session 22 Beobachtung: ein
-  einzelner Ausreißer in einer Dimension (z.B. C=38 % bei Dev-Tester) kippt die
-  Pearson-Korrelation fast allein, weil die 60-Item-Short-Form pro Dimension nur
-  10 Items hat. Optionen: (a) O\*NET Long Form (180 Items) für dickere Per-Dim-
-  Signale, (b) einzelne Dimensionen mit zusätzlichen dimensionsspezifischen Items
-  schärfen (z.B. C-Items jenseits Büro-/Verwaltungs-Stereotyp), (c) Robust-Norm
-  gegen Ausreißer (Spearman statt Pearson, oder Per-Dim-Winsorisierung). Nicht
-  vor dem Archetyp-Test angehen — erst sehen ob die Kombi aus 4 Layern reicht.
-- **C-Dimension-Items sind klerikal-lastig.** 8 von 10 Phase-1-C-Items messen
-  Büro-/Admin-/Buchhaltungs-Tätigkeiten (Tabellen, Rechnungen, Post, Gehälter,
-  Mietzahlungen, Sekretariat, Lager, Kundendaten). Dev-typisches Conventional
-  (nach Regeln arbeiten, strukturierte Dokumentation, Qualitätskontrolle,
-  Syntax-Disziplin) fehlt. O\*NET-Occupation-C-Score (Dev: 5.5/7) speist sich
-  aus einem breiteren Konstrukt, aber unsere 10 Items decken nur das klerikale
-  Cluster. Fix-Ideen (Content-Swaps): c-08 Mietzahlungen → "nach festen Vorgaben
-  arbeiten", c-10 Post sortieren → "Qualitätsstandards prüfen", c-02 Formulare
-  Korrektur → "Texte/Dokumente auf Fehler überprüfen" (breiter). Erst nach
-  Archetyp-Test entscheiden ob nötig. Gehört zur gleichen Familie wie der
-  RIASEC-Long-Form-Punkt.
+- **RIASEC short vs. long form / item redesign.** Session 22 observation: a
+  single outlier in one dimension (e.g. C=38 % on @mo-sp's real test) can
+  swing the Pearson correlation almost single-handedly, because the 60-item
+  short form only has 10 items per dimension. Options: (a) O\*NET long form
+  (180 items) for thicker per-dim signals, (b) sharpen individual dimensions
+  with dimension-specific items (e.g. C-items beyond the clerical stereotype),
+  (c) robustify the aggregation (Spearman instead of Pearson, or per-dim
+  winsorisation against outliers). Do not pursue before the archetype test —
+  first see whether the combined 4-layer stack compensates.
+- **C-dimension items are clerical-heavy.** 8 of 10 Phase-1 C-items measure
+  office / admin / bookkeeping activity (spreadsheets, invoices, mail,
+  payroll, rent collection, front-desk work, inventory, customer databases).
+  Dev-flavoured Conventional (working to strict rules, structured
+  documentation, quality control, syntax discipline) is absent. The O\*NET
+  occupation-level C score (Dev: 5.5/7) draws on a broader construct, but
+  our 10 items only cover the clerical cluster. Fix ideas (content swaps):
+  c-08 rent payments → "work strictly to fixed procedures", c-10 sorting
+  mail → "check work against quality standards", c-02 proofreading forms →
+  "systematically check texts or documents for errors" (broader). Decide
+  after the archetype test whether this is actually needed. Same family as
+  the RIASEC long-form note above.
 
 ## Ideas
 
