@@ -118,12 +118,12 @@ describe('matchOccupations', () => {
 
     it('boosts fitScore for matching personality', () => {
       // Use a profile that's similar but not identical to softwareDev's RIASEC,
-      // so riasecCorrelation < 1.0 and the cap at 1.0 doesn't hide the boost.
+      // so the adjustment doesn't get swallowed by ranking ties.
       const userProfile: RIASECProfile = { R: 2, I: 5, A: 4, S: 2, E: 3, C: 4 }
       const results = matchOccupations(userProfile, [softwareDev], 20, introvertedAnalytical, occProfiles)
       const dev = results.find(r => r.occupation.onetCode === '15-1252.00')!
       expect(dev.bigFiveModifier).not.toBeNull()
-      expect(dev.bigFiveModifier!).toBeGreaterThan(1)
+      expect(dev.bigFiveModifier!).toBeGreaterThan(0)
       expect(dev.fitScore).toBeGreaterThan(dev.riasecCorrelation)
     })
 
@@ -131,7 +131,7 @@ describe('matchOccupations', () => {
       const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
       const results = matchOccupations(userProfile, [softwareDev], 20, creativeExtrovert, occProfiles)
       const dev = results.find(r => r.occupation.onetCode === '15-1252.00')!
-      expect(dev.bigFiveModifier!).toBeLessThan(1)
+      expect(dev.bigFiveModifier!).toBeLessThan(0)
       expect(dev.fitScore).toBeLessThan(dev.riasecCorrelation)
     })
 
@@ -143,19 +143,19 @@ describe('matchOccupations', () => {
       expect(carp.fitScore).toBe(carp.riasecCorrelation)
     })
 
-    it('modifier stays within [0.7, 1.3] range (α = 0.3)', () => {
+    it('adjustment stays within [−0.3, +0.3] range (α = 0.3)', () => {
       // Perfect match: user profile identical shape to occupation profile
       const perfectMatch: BigFiveProfile = { openness: 58, conscientiousness: 55, extraversion: 42, agreeableness: 48, neuroticism: 46 }
       const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
       const results = matchOccupations(userProfile, [softwareDev], 20, perfectMatch, occProfiles)
       const dev = results[0]
-      expect(dev.bigFiveModifier!).toBeCloseTo(1.3, 1)
+      expect(dev.bigFiveModifier!).toBeCloseTo(0.3, 1)
 
       // Anti-match: flip the occupation profile (high→low, low→high)
       const antiMatch: BigFiveProfile = { openness: 42, conscientiousness: 45, extraversion: 58, agreeableness: 52, neuroticism: 54 }
       const results2 = matchOccupations(userProfile, [softwareDev], 20, antiMatch, occProfiles)
       const dev2 = results2[0]
-      expect(dev2.bigFiveModifier!).toBeCloseTo(0.7, 1)
+      expect(dev2.bigFiveModifier!).toBeCloseTo(-0.3, 1)
     })
 
     it('re-ranks occupations with equal RIASEC fit based on personality match', () => {
@@ -310,8 +310,8 @@ describe('matchOccupations', () => {
       // Has both modifier and penalty
       expect(r.bigFiveModifier).not.toBeNull()
       expect(r.valuesPenalty).not.toBeNull()
-      // fitScore = min(riasec * bf, 1) - penalty
-      expect(r.fitScore).toBeLessThan(Math.min(r.riasecCorrelation * r.bigFiveModifier!, 1))
+      // fitScore = riasec + bfAdj - valuesPenalty
+      expect(r.fitScore).toBeCloseTo(r.riasecCorrelation + r.bigFiveModifier! - r.valuesPenalty!, 6)
     })
   })
 
