@@ -222,6 +222,18 @@ export default {
   '15-1241.00': 'Netzwerkarchitekt/Netzwerkarchitektin', // Computer Network Architects
   '15-1299.08': 'IT-Systemarchitekt/IT-Systemarchitektin', // Computer Systems Engineers/Architects
 
+  // === Standalone: Blockchain Engineer (no DE label from ESCO) ===
+  '15-1299.07': 'Blockchain-Entwickler/Blockchain-Entwicklerin', // Blockchain Engineers
+
+  // === Standalone: Politiker (ESCO label "Regierungsmitglied" is too narrow — cabinet-only) ===
+  '11-1031.00': 'Politiker/Politikerin', // Legislators — MPs, council members, elected officials
+
+  // === Standalone: broader label for the service + recreation supervisor cluster ===
+  '39-1014.00': 'Leiter/Leiterin Gastronomie und Freizeit', // First-Line Supervisors of Personal Service and Entertainment and Recreation Workers
+
+  // === Standalone: German aviation-idiomatic label replaces "Purser/Purserette" ===
+  '53-1044.00': 'Leitender Flugbegleiter / Leitende Flugbegleiterin', // First-Line Supervisors of Passenger Attendants
+
   // === Cluster: "Datenbankadministrator" (2) ===
   '15-1242.00': 'Datenbankadministrator/Datenbankadministratorin', // Database Administrators
   '15-1243.00': 'Datenbankarchitekt/Datenbankarchitektin', // Database Architects

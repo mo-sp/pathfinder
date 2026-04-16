@@ -26,6 +26,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { spawnSync } from 'node:child_process'
+import curatedProfiles from './input/curated-occupation-profiles.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
@@ -213,9 +214,43 @@ function build() {
 
   occupations.sort((a, b) => a.onetCode.localeCompare(b.onetCode))
 
+  // Apply PathFinder-curated profile overrides for occupations where O*NET
+  // has no survey data. Each field is applied ONLY when the corresponding
+  // field is missing from the raw O*NET data — the moment a future O*NET
+  // release ships real data for one of these codes, the override becomes
+  // a no-op and the real data wins. See curated-occupation-profiles.mjs
+  // for the rationale and scale semantics.
+  let curatedApplied = { workContext: 0, skills: 0, abilities: 0, knowledge: 0 }
+  for (const occ of occupations) {
+    const curated = curatedProfiles[occ.onetCode]
+    if (!curated) continue
+    if (!occ.workContext && curated.workContext) {
+      occ.workContext = curated.workContext
+      curatedApplied.workContext++
+    }
+    if (!occ.skills && curated.skills) {
+      occ.skills = curated.skills
+      curatedApplied.skills++
+    }
+    if (!occ.abilities && curated.abilities) {
+      occ.abilities = curated.abilities
+      curatedApplied.abilities++
+    }
+    if (!occ.knowledge && curated.knowledge) {
+      occ.knowledge = curated.knowledge
+      curatedApplied.knowledge++
+    }
+    if (curated._source) occ.dataSource = curated._source
+  }
+
   mkdirSync(dirname(OUT_PATH), { recursive: true })
   writeFileSync(OUT_PATH, JSON.stringify(occupations, null, 2) + '\n')
   console.log(`Wrote ${occupations.length} occupations → ${OUT_PATH}`)
+  console.log(`  curated overlay applied (only where O*NET data missing):`)
+  console.log(`    workContext: +${curatedApplied.workContext}`)
+  console.log(`    skills:      +${curatedApplied.skills}`)
+  console.log(`    abilities:   +${curatedApplied.abilities}`)
+  console.log(`    knowledge:   +${curatedApplied.knowledge}`)
 
   // Stats
   const withJobZone = occupations.filter((o) => o.jobZone != null).length

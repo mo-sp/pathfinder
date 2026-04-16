@@ -80,6 +80,10 @@ export interface Occupation {
   /** O*NET Knowledge map (33 items), keyed by Element ID. */
   knowledge?: OccupationSkillMap
   brightOutlook?: boolean
+  /** Provenance marker. Absent for O*NET survey data; set to
+   * "pathfinder-curated-YYYY-MM" for hand-authored profiles on codes
+   * where O*NET has no data. See scripts/input/curated-occupation-profiles.mjs. */
+  dataSource?: string
 }
 
 export interface MatchResult {
