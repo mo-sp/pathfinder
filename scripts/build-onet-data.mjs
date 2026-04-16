@@ -3,13 +3,13 @@
  * Build src/data/onet-occupations.json from the O*NET database.
  *
  * Reads:
- *   data-raw/db_29_2_text/Interests.txt
- *   data-raw/db_29_2_text/Occupation Data.txt
- *   data-raw/db_29_2_text/Job Zones.txt
- *   data-raw/db_29_2_text/Work Context.txt
- *   data-raw/db_29_2_text/Skills.txt
- *   data-raw/db_29_2_text/Abilities.txt
- *   data-raw/db_29_2_text/Knowledge.txt
+ *   data-raw/db_30_2_text/Interests.txt
+ *   data-raw/db_30_2_text/Occupation Data.txt
+ *   data-raw/db_30_2_text/Job Zones.txt
+ *   data-raw/db_30_2_text/Work Context.txt
+ *   data-raw/db_30_2_text/Skills.txt
+ *   data-raw/db_30_2_text/Abilities.txt
+ *   data-raw/db_30_2_text/Knowledge.txt
  *
  * Writes:
  *   src/data/onet-occupations.json
@@ -20,7 +20,7 @@
  *
  * Usage:
  *   node scripts/build-onet-data.mjs
- *   ONET_DB_VERSION=29_2 node scripts/build-onet-data.mjs
+ *   ONET_DB_VERSION=30_2 node scripts/build-onet-data.mjs
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
@@ -29,7 +29,7 @@ import { spawnSync } from 'node:child_process'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
-const VERSION = process.env.ONET_DB_VERSION ?? '29_2'
+const VERSION = process.env.ONET_DB_VERSION ?? '30_2'
 const RAW_DIR = join(ROOT, 'data-raw')
 const DB_DIR = join(RAW_DIR, `db_${VERSION}_text`)
 const ZIP_PATH = join(RAW_DIR, `db_${VERSION}_text.zip`)
