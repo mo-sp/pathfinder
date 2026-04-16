@@ -39,14 +39,17 @@ function norm(value: number): number {
 /**
  * Compute the soft values penalty for one occupation. Each dimension
  * contributes abs(userNorm - occNorm) × WEIGHT. Missing occupation
- * data skips that dimension (no penalty for unknowns).
+ * data skips that dimension (no penalty for unknowns). Returns null
+ * when the occupation has no workContext at all — callers then abstain
+ * from the values layer for that occupation (same pattern as skills)
+ * rather than displaying a misleading "perfect match" / 0 penalty.
  */
 function computeValuesPenalty(
   userValues: ValuesProfile,
   occupation: Occupation,
-): number {
+): number | null {
   const wc = occupation.workContext
-  if (!wc) return 0
+  if (!wc) return null
 
   let penalty = 0
 
@@ -212,7 +215,7 @@ export function matchOccupations(
     let valuesPenalty: number | null = null
     if (useValues) {
       valuesPenalty = computeValuesPenalty(userValues, occupation)
-      fitScore -= valuesPenalty
+      if (valuesPenalty != null) fitScore -= valuesPenalty
     }
 
     let skillsMatch: number | null = null
