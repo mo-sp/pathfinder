@@ -30,6 +30,16 @@
  *   publicContact:         1 = Never, 5 = Every day
  *   routine:               1 = Not at all important, 5 = Extremely important
  *
+ * Skills / abilities / knowledge entries use O*NET's native (level, importance)
+ * pair keyed by O*NET Element ID, matching the shape produced by build-onet-data
+ * for survey-data codes:
+ *   l = level      0-7 on the O*NET LV scale (how advanced the requirement is)
+ *   i = importance 1-5 on the O*NET IM scale (how central the item is to the role)
+ * A complete profile lists all 35 skills + 52 abilities + 33 knowledge items,
+ * so the resulting match-scoring is comparable to O*NET-surveyed occupations
+ * (same floor / neutral / max denominators). Partial profiles are allowed but
+ * shift those denominators — prefer complete coverage.
+ *
  * Curation notes live in the per-entry `_notes` field. The `_source` field
  * marks each profile as PathFinder-curated so downstream consumers can tell
  * it apart from O*NET survey data if they need to.
@@ -92,8 +102,79 @@ export default {
 
   '15-1299.07': { // Blockchain Engineers
     _source: SRC,
-    _notes: 'Blockchain engineers: like Software Developers — very indoor, moderate contact, low public contact, high autonomy over architectural decisions, moderate routine.',
+    _notes:
+      'Blockchain engineers: like Software Developers — very indoor, moderate contact, low public contact, high autonomy over architectural decisions, moderate routine. ' +
+      'Skills/abilities/knowledge curated against two anchors: 15-1252 Software Developer (primary engineer base) + 15-1212 Info Security Analyst (security/crypto slice, minus the operational/compliance parts). ' +
+      'Deltas vs. SwDev: higher on Math/Cryptography (protocol work, tokenomics), Programming level (low-level EVM/Rust), Complex Problem-Solving and System Design (protocol architecture), Telecommunications (P2P/gossip), Engineering-Technology (distributed systems), Economics/Accounting (DeFi intersects finance seriously). ' +
+      'Lower on Customer Service (less formalized than product companies, GitHub/Discord rather than tickets), Time/Personnel Management (OSS/startup cadence), German Language (international English-heavy community). Knowledge of Administration / Office / Public Safety / Sales stays close to SwDev.',
     workContext: { indoor: 4.8, outdoor: 1.1, contactWithOthers: 3.2, teamwork: 3.7, standing: 1.4, walking: 1.3, autonomy: 4.3, publicContact: 1.8, routine: 2.6 },
+    skills: {
+      '2.A.1.a': { l: 4.3, i: 3.5 }, '2.A.1.b': { l: 3.9, i: 3.4 },
+      '2.A.1.c': { l: 3.8, i: 3.4 }, '2.A.1.d': { l: 3.6, i: 3.1 },
+      '2.A.1.e': { l: 4.0, i: 3.5 }, '2.A.1.f': { l: 2.0, i: 2.1 },
+      '2.A.2.a': { l: 4.1, i: 4.0 }, '2.A.2.b': { l: 4.0, i: 3.8 },
+      '2.A.2.c': { l: 3.3, i: 2.9 }, '2.A.2.d': { l: 3.5, i: 3.0 },
+      '2.B.1.a': { l: 2.9, i: 2.6 }, '2.B.1.b': { l: 3.1, i: 3.0 },
+      '2.B.1.c': { l: 3.1, i: 2.8 }, '2.B.1.d': { l: 2.6, i: 2.3 },
+      '2.B.1.e': { l: 2.9, i: 2.6 }, '2.B.1.f': { l: 2.3, i: 2.2 },
+      '2.B.2.i': { l: 3.9, i: 3.8 }, '2.B.3.a': { l: 3.0, i: 3.2 },
+      '2.B.3.b': { l: 4.0, i: 3.8 }, '2.B.3.c': { l: 1.6, i: 2.0 },
+      '2.B.3.d': { l: 0.8, i: 1.8 }, '2.B.3.e': { l: 4.3, i: 4.3 },
+      '2.B.3.g': { l: 2.8, i: 2.8 }, '2.B.3.h': { l: 1.6, i: 1.9 },
+      '2.B.3.j': { l: 0.3, i: 1.3 }, '2.B.3.k': { l: 2.6, i: 2.7 },
+      '2.B.3.l': { l: 0.3, i: 1.1 }, '2.B.3.m': { l: 3.3, i: 3.2 },
+      '2.B.4.e': { l: 3.8, i: 3.6 }, '2.B.4.g': { l: 4.0, i: 3.6 },
+      '2.B.4.h': { l: 4.1, i: 3.5 }, '2.B.5.a': { l: 3.1, i: 3.0 },
+      '2.B.5.b': { l: 1.0, i: 1.8 }, '2.B.5.c': { l: 1.0, i: 1.6 },
+      '2.B.5.d': { l: 2.3, i: 2.1 },
+    },
+    abilities: {
+      '1.A.1.a.1': { l: 4.1, i: 3.8 }, '1.A.1.a.2': { l: 4.4, i: 3.8 },
+      '1.A.1.a.3': { l: 4.1, i: 3.8 }, '1.A.1.a.4': { l: 4.0, i: 3.7 },
+      '1.A.1.b.1': { l: 3.6, i: 3.3 }, '1.A.1.b.2': { l: 3.6, i: 3.2 },
+      '1.A.1.b.3': { l: 4.0, i: 3.9 }, '1.A.1.b.4': { l: 4.1, i: 3.9 },
+      '1.A.1.b.5': { l: 3.9, i: 3.5 }, '1.A.1.b.6': { l: 3.9, i: 3.6 },
+      '1.A.1.b.7': { l: 3.8, i: 3.5 }, '1.A.1.c.1': { l: 3.8, i: 3.2 },
+      '1.A.1.c.2': { l: 3.0, i: 2.6 }, '1.A.1.d.1': { l: 2.3, i: 2.3 },
+      '1.A.1.e.1': { l: 2.5, i: 2.6 }, '1.A.1.e.2': { l: 3.0, i: 3.0 },
+      '1.A.1.e.3': { l: 2.8, i: 2.6 }, '1.A.1.f.1': { l: 0.0, i: 1.0 },
+      '1.A.1.f.2': { l: 2.4, i: 2.4 }, '1.A.1.g.1': { l: 3.2, i: 3.2 },
+      '1.A.1.g.2': { l: 1.9, i: 2.0 }, '1.A.2.a.1': { l: 1.3, i: 1.8 },
+      '1.A.2.a.2': { l: 0.9, i: 1.6 }, '1.A.2.a.3': { l: 1.1, i: 1.8 },
+      '1.A.2.b.1': { l: 0.9, i: 1.5 }, '1.A.2.b.2': { l: 0.0, i: 1.0 },
+      '1.A.2.b.3': { l: 0.3, i: 1.1 }, '1.A.2.b.4': { l: 0.0, i: 1.0 },
+      '1.A.2.c.1': { l: 0.0, i: 1.0 }, '1.A.2.c.2': { l: 1.5, i: 1.8 },
+      '1.A.2.c.3': { l: 0.0, i: 1.0 }, '1.A.3.a.1': { l: 0.0, i: 1.0 },
+      '1.A.3.a.2': { l: 0.0, i: 1.0 }, '1.A.3.a.3': { l: 0.5, i: 1.4 },
+      '1.A.3.a.4': { l: 1.3, i: 1.9 }, '1.A.3.b.1': { l: 0.0, i: 1.0 },
+      '1.A.3.c.1': { l: 0.0, i: 1.0 }, '1.A.3.c.2': { l: 0.0, i: 1.0 },
+      '1.A.3.c.3': { l: 0.0, i: 1.0 }, '1.A.3.c.4': { l: 0.0, i: 1.0 },
+      '1.A.4.a.1': { l: 3.8, i: 3.8 }, '1.A.4.a.2': { l: 2.4, i: 2.4 },
+      '1.A.4.a.3': { l: 2.0, i: 2.0 }, '1.A.4.a.4': { l: 0.0, i: 1.0 },
+      '1.A.4.a.5': { l: 0.0, i: 1.0 }, '1.A.4.a.6': { l: 0.8, i: 1.5 },
+      '1.A.4.a.7': { l: 0.0, i: 1.0 }, '1.A.4.b.1': { l: 1.4, i: 1.8 },
+      '1.A.4.b.2': { l: 1.4, i: 1.8 }, '1.A.4.b.3': { l: 0.0, i: 1.0 },
+      '1.A.4.b.4': { l: 3.3, i: 3.4 }, '1.A.4.b.5': { l: 3.3, i: 3.0 },
+    },
+    knowledge: {
+      '2.C.1.a': { l: 2.5, i: 2.2 }, '2.C.1.b': { l: 2.2, i: 2.0 },
+      '2.C.1.c': { l: 3.8, i: 3.5 }, '2.C.1.d': { l: 2.0, i: 2.1 },
+      '2.C.1.e': { l: 3.6, i: 3.1 }, '2.C.1.f': { l: 2.4, i: 2.3 },
+      '2.C.2.a': { l: 2.0, i: 2.3 }, '2.C.2.b': { l: 0.2, i: 1.1 },
+      '2.C.3.a': { l: 6.3, i: 4.8 }, '2.C.3.b': { l: 3.5, i: 3.0 },
+      '2.C.3.c': { l: 3.0, i: 2.7 }, '2.C.3.d': { l: 0.2, i: 1.1 },
+      '2.C.3.e': { l: 0.7, i: 1.4 }, '2.C.4.a': { l: 4.7, i: 3.8 },
+      '2.C.4.b': { l: 0.4, i: 1.3 }, '2.C.4.c': { l: 0.3, i: 1.2 },
+      '2.C.4.d': { l: 0.2, i: 1.1 }, '2.C.4.e': { l: 1.1, i: 1.6 },
+      '2.C.4.f': { l: 0.8, i: 1.4 }, '2.C.4.g': { l: 0.5, i: 1.3 },
+      '2.C.5.a': { l: 0.0, i: 1.0 }, '2.C.5.b': { l: 0.2, i: 1.0 },
+      '2.C.6':   { l: 3.8, i: 3.0 }, '2.C.7.a': { l: 3.4, i: 3.2 },
+      '2.C.7.b': { l: 2.0, i: 2.2 }, '2.C.7.c': { l: 0.0, i: 1.0 },
+      '2.C.7.d': { l: 0.1, i: 1.1 }, '2.C.7.e': { l: 0.5, i: 1.2 },
+      '2.C.8.a': { l: 1.8, i: 2.5 }, '2.C.8.b': { l: 2.2, i: 2.3 },
+      '2.C.9.a': { l: 3.5, i: 3.2 }, '2.C.9.b': { l: 1.1, i: 1.7 },
+      '2.C.10':  { l: 1.1, i: 1.7 },
+    },
   },
 
   '15-2051.00': { // Datenwissenschaftler / Data Scientists
