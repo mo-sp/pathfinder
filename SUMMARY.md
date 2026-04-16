@@ -5,6 +5,69 @@
 
 ---
 
+### Session 22 – 2026-04-16
+**Focus:** Preparing end-to-end scoring validation. Fixed a math bug in the Big-Five adjustment, bumped the O\*NET database to the current production release (30.2), hand-curated the `workContext` layer for every occupation O\*NET hasn't surveyed yet, and cleaned up a handful of display and language inconsistencies surfaced by the browser test. Four shipped PRs plus a BACKLOG cleanup.
+
+**Meta / process notes:**
+- **Math-bug root cause: Big-Five applied multiplicatively on a signed RIASEC base.** `fitScore = riasecCorrelation × (1 + α·bfSim)` works when RIASEC is positive, but inverts the sign logic when it's negative — a *good* personality match made a negative RIASEC base *more* negative, a mismatched personality *rescued* it by dampening magnitude. @mo-sp's real test showed his actual occupation (15-1252 Software Developer) at rank 410 with fitScore −0.17, displayed as "−17/100". Switching to additive (`fitScore = riasec + α·bfSim`) makes BF sign-agnostic — a good personality always pulls the score up, a bad one always pulls it down, regardless of RIASEC direction.
+- **Negative display values are desired, not a bug.** @mo-sp kept the "−17/100" display intentionally: shows the user where they are *not* a fit, useful for debugging and honest self-knowledge. No `max(0, …)` clamp.
+- **Three-ring investigation instead of guessing at calibration.** Before touching α/β/γ the plan was: (A) instrument & reproduce (@mo-sp already had the breakdown panel), (B) diagnose root cause per layer, (C) only then tune. Ring A surfaced the math bug directly, so ring B was partly obviated for the first problem — but the layer-wise analysis also surfaced two other issues: missing skills data for 44 codes (14 % of our Tier-A tech roles) and a display bug rendering "no values data" as "perfect match".
+- **O\*NET version pinning.** `build-onet-data.mjs` was already parameterised via `ONET_DB_VERSION`; bumping the default from `29_2` to `30_2` was a one-line change. All downstream builds (ESCO German titles, KldB mapping, Big Five profiles) re-run cleanly off the regenerated `onet-occupations.json` — none of those scripts depend on the raw O\*NET file layout.
+- **15 of 44 no-skills codes filled by 30.2 upgrade, 29 remained.** Including the flagship 15-1252 Software Developer. O\*NET ran the survey in 2025 for several codes that were split in 2018-2019. The 29 still-missing ones are new specialties (Blockchain, Pentest, Forensik, Multimedia, Data Scientist), physician specialties (Kardiologie, Orthopädie, Kinderchirurgie), EMT/paramedics, and niche operational roles.
+- **No cloning for data gaps — per @mo-sp preference.** Cloning 15-1251 Computer Programmer onto 15-1252 Software Developer would bury the genuine differences in scope. Instead: manual curation with reasoning, clearly marked as `dataSource: "pathfinder-curated-YYYY-MM"`. Memory-recorded as a durable preference.
+- **Future-proof conditional override.** The build step applies each curated field *only* when the raw O\*NET data is missing. The moment a future O\*NET release ships real survey data for one of these codes, the override becomes a no-op and the real data wins. No manual retirement of entries needed.
+- **Dimension-by-dimension review with @mo-sp for the 29 curated workContext profiles.** Mirrored the session-20 RIASEC item process: I drafted, presented in thematic batches (desk workers, clinical medicine, active/mixed, operational/physical), @mo-sp reviewed each occupation's 9 dimensions with go/counter-proposal per cell. Representative adjustments: Politiker autonomy 4.5→3.3 (party discipline), Pentester team/contact lowered (solo work), Rettungssanitäter indoor/outdoor swapped (ambulance ≠ climate-controlled office), Kremationstechniker public contact dropped (furnace operator, not family liaison), Taxifahrer outdoor 2.8→1.8 (climate-controlled cabin reads as indoor).
+- **Documentation convention correction.** PR #45's body and BACKLOG additions slipped into German; CLAUDE.md calls for English across all written artifacts outside the app UI. @mo-sp noticed after merge; retroactively edited PR title/body and opened a cleanup PR (#46) for the BACKLOG entries I had introduced. Memory-recorded as feedback to prevent recurrence. The historical German drift in SUMMARY.md session entries is not a license to continue — this entry is English.
+
+**What shipped:**
+
+*`feat/bigfive-additive-modifier`:*
+- `matcher.ts` formula: `min(riasec × (1+α·bfSim), 1)` → `riasec + α·bfSim`. Field name `bigFiveModifier` kept to avoid a drive-by rename across six files; only semantics (range, sign) updated in types comment and display layer.
+- `ResultsPage.vue`: breakdown row renders `+0.06` instead of `×1.19`, formula line `r + a` instead of `min(r × m, 1.00)`. `stageForBigFive` thresholds shifted from multiplicative `[1.1, 0.95, 0.9]` to additive `[0.1, −0.05, −0.1]` — same semantic bands.
+- Tests: modifier comparisons vs. 1.0 → vs. 0.0; expected bounds ±0.3 instead of 0.7/1.3.
+- Observed effect: @mo-sp's Dev rank moved from 410 (fitScore −0.17) to 266 (+0.04). Still mid-pack — the weak RIASEC basis and missing skills data remained, fixed separately.
+
+*`fix/backlog-english-entries`:*
+- Rewrote the two BACKLOG entries introduced in the prior PR (RIASEC short-vs-long form, C-items clerical-heavy) from German to English. Historical German-flavoured lines in the rest of BACKLOG.md untouched — cleanup pass is a separate concern.
+
+*`feat/fill-missing-skills-profiles`:*
+- Bumped O\*NET database default from 29.2 (Feb 2025) to 30.2 (the current production release as of April 2026). Same 1017 raw codes / 923 in corpus — no list churn. 15 newly-filled layer-4 profiles, most notably 15-1252 Software Developers (the reference code for tech testers). Bundle grew +9 KB gzip.
+- Other gains: 15-1299.05 IT Security Engineers, 25-2056 Special Ed Teachers Elem, 25-3031 Substitute Teachers, 29-1214 Emergency Medicine Physicians, 53-3051/53 Bus/Shuttle Drivers, and a handful of manager/security-supervisor codes.
+- Three display/calibration observations parked in BACKLOG for later: values-penalty rendering "perfect match" when workContext missing; skills stage "Solide Überschneidung" paired with a 0 bonus on median-user answers; values layer is penalty-only with no symmetric positive bonus like BF/Skills.
+
+*`feat/curate-missing-occupation-profiles`:*
+- New override file `scripts/input/curated-occupation-profiles.mjs` with workContext profiles for the 29 codes O\*NET hasn't surveyed. Each entry carries 9 workContext values on the CX scale, a `_source: "pathfinder-curated-2026-04"` tag, and `_notes` explaining the reasoning. `build-onet-data.mjs` applies each field conditionally — real O\*NET data always wins when it ships.
+- `Occupation` type extended with optional `dataSource` field so downstream consumers can tell curated from O\*NET-survey data.
+- Display fix bundled: `computeValuesPenalty` now returns `null` (not `0`) when `workContext` is missing; matcher guards the subtraction; UI falls through to the existing `"Keine Daten für diesen Beruf"` branch instead of staging "−0.00 passt fast perfekt". Regression test included.
+- Four title overrides surfaced during the dimension review: `11-1031` Regierungsmitglied → Politiker/Politikerin (O\*NET scope is legislators, not cabinet), `15-1299.07` Blockchain Engineers → Blockchain-Entwickler/Blockchain-Entwicklerin (was rendering the English label), `39-1014` Bewirtungsmanager → Leiter/Leiterin Gastronomie und Freizeit (broader scope matches the supervisor role), `53-1044` Purser/Purserette → Leitender Flugbegleiter / Leitende Flugbegleiterin (German aviation idiom).
+
+*Tests: 211 → 212 (+1).* One new regression test for `valuesPenalty: null` on missing workContext. All type-check, lint, build green across all four branches.
+
+**Branches (merge-commit order on main):** `feat/bigfive-additive-modifier` · `fix/backlog-english-entries` · `feat/fill-missing-skills-profiles` · `feat/curate-missing-occupation-profiles`
+
+**Coverage after the session:**
+
+| | Before session 22 | After |
+|---|---|---|
+| Occupations | 923 | 923 |
+| workContext | 894 | 923 (+29 curated) |
+| Skills / Abilities / Knowledge | 879 | 894 (+15 via 30.2) |
+| title.de | 889 | 890 (+1 Blockchain) |
+| Title overrides applied | 214 | 218 (+4: Politiker, Blockchain, Gastro/Freizeit, Flugbegleitung) |
+| Tests passing | 211 | 212 |
+
+**Open for next sessions:**
+- **PR 2c — Skills / Abilities / Knowledge curation for tier-A codes.** 29 codes still missing layer-4 data. Top-20 items per code for the ten highest-priority ones (Data Scientist, 4 emerging IT specialties, 3 Facharzt specialties, 2 sanitäter tiers). ~200 values. Dimension-by-dimension review like this session's batches A-D.
+- **Phase B — Archetype-persona test.** The whole calibration point. Once layer-4 curation is done, @mo-sp runs 5 tests "as if I were X" (Software Dev, teacher, nurse, craft, designer covering RIASEC dimensions and Anforderungsniveaus), we check top-20 results, and decide whether to tune `SKILLS_ALPHA` / values dimension weights / RIASEC-C item content. The session-20 A-coverage shift and the session-22 C-item clerical observation both point toward possible calibration drift that the archetype test would surface concretely.
+- **Parked display / scoring notes (BACKLOG):**
+  - Skills stage label vs. value inconsistency for median (all-3s) users — "Solide Überschneidung" paired with "+0.00".
+  - Values layer is penalty-only (`[0, 0.35]`). Could mirror BF/Skills with a symmetric `[−0.175, +0.175]`.
+  - RIASEC short-form outlier sensitivity — a single low C tanked @mo-sp's Dev correlation to −0.17. Options: long-form, robust aggregation, per-dim content sharpening.
+  - C-dimension item content is clerical-heavy (8/10 items are office/bookkeeping). Dev-flavoured Conventional (syntax discipline, quality control, documentation) is not represented. Decide after archetype test.
+- **Data-quality BACKLOG items untouched:** KldB subtitle drift (medical + non-medical), 33 remaining codes without DE title (Session 19 pass-2), 22 O\*NET-orphan codes, 17 Anforderungsniveau-2-away codes.
+
+---
+
 ### Session 21 – 2026-04-15
 **Focus:** Phase-4-Skills-Items-Polish — O\*NET 29.2 Content Model mit 120 Items (35 skills / 52 abilities / 33 knowledge) für das deutsche Publikum. Sub-Kategorie für Sub-Kategorie mit @mo-sp durchgegangen wie Phase 1 in Session 20, danach Live-Test mit ernsthaften Antworten und parallel Description-Polish Item für Item.
 
