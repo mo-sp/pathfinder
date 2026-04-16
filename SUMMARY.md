@@ -5,6 +5,50 @@
 
 ---
 
+### Session 23 – 2026-04-16
+**Focus:** Starting PR 2c — Skills / Abilities / Knowledge curation for the 29 O\*NET-survey-less tier-A codes. Replanned the approach up front, then shipped four full 120-item profiles (Blockchain-Entwickler, Datenwissenschaftler, Rettungssanitäter, Notfallsanitäter) on a single branch with a checkpoint commit after each.
+
+**Meta / process notes:**
+- **Replanned the Top-20 × 10-codes approach before starting.** The session-22 "PR 2c" plan was "top-20 items per code for the ten highest-priority ones (~200 values)". Re-reading the matcher confirmed the idea was sloppy: the scoring iterates over exactly the items listed in the occupation's map, so curating only the top-20 means the other 100 items contribute nothing for that code (vs. all 120 for O\*NET-surveyed codes). That introduces asymmetry in the bonus math (lower `floor`, more volatile bonus range for curated codes) and bakes a subjective item-selection into the scoring. Replanned to three options — (A) scope-reduce to 10 codes but full 120 per code, (B) importance-floor curation across all 29 at ~40-50 items, (C) keep Top-20. Picked (A): full symmetry with surveyed codes, and the 19 long-tail codes (Taxi, Flugzeugtankwart, Kremationstechniker …) have near-zero probability of ever hitting a top-20 result, so abstaining on them is a non-loss.
+- **First code choice was wrong — caught before drafting.** Initially proposed 15-1252 Software Developer as the warm-up. Only after pulling the anchor data did I notice SwDev is *not* in the 29-codes list — it was one of the 15 that O\*NET 30.2 filled in session 22. Switched to 15-1299.07 Blockchain-Entwickler as the dry-run candidate (directly anchored to the freshly-filled SwDev + InfoSec Analyst), then 15-2051 Datenwissenschaftler, then 29-2042/29-2043 RS+NotSan as a pair.
+- **Review cadence: framing → Skills → Abilities → Knowledge, with Pass 1 / Pass 2 split per sub-category.** Each code starts with a short mental model and anchor-positioning paragraph ("DS applies methods, doesn't invent them; codes at SwDev level, signature skill is Inductive Reasoning"), then three markdown tables — one per sub-category — with my proposed `(l, i)`, all anchor columns side-by-side, and a delta/comment column. Items with proposed `i ≥ 3.0` go in Pass 1 (detailed per-row review); items with `i < 3.0` go in Pass 2 (skim, flag ausreißer). Ergonomic: each sub-category took ~5 minutes of @mo-sp's review time per code. 120-item profile per session is realistic; the pair (RS + NotSan) in one session worked because they're a tier progression, not structurally different.
+- **Four-anchor triangulation for the Data Scientist.** Single-anchor codes (Blockchain ≈ SwDev + InfoSec) are simple. DS genuinely sits between 15-2041 Statisticians (math depth), 15-2031 Operations Research Analysts (business-to-model translation), 15-1221 Research Scientists (methodological rigour), and 15-1252 Software Developers (coding/pipelines) — no single anchor dominates. The four-column reference table gave @mo-sp enough context to judge "80 % Stat on Math, at SwDev on Programmieren, between anchors on Requirements Analysis" without me having to re-justify each cell.
+- **Pair-curation for RS + NotSan is a natural unit.** The two are an ability-tier progression, not independent occupations. Shared table (both codes' values next to three anchors, delta-annotation per row) let @mo-sp review the *difference* rather than twice the absolute values. Physical / emergency-response / transport / patient-service items are identical between tiers; the clinical-depth / decision-authority / pharmacology items lift.
+- **Sanity-check after each code.** Ran the skills-match math against canonical user archetypes (all-1s / median / tech-archetype / all-5s for Blockchain/DS; medical-emergency archetype for RS/NotSan) and compared `floor / neutral / bonus` against the reference anchors. Every curated code's floor/neutral sat within 0.01 of its primary anchor's — structural calibration is consistent with the O\*NET-surveyed corpus, so curated codes don't warp the bonus denominators.
+- **Subtitle vs primary-display clarification mid-session.** @mo-sp flagged rank 508 showing "Berufe in der Informatik (ohne Spezialisierung)" for 15-1299.07. Turned out to be the KldB-subtitle, not the primary title — primary is "Blockchain-Entwickler/Blockchain-Entwicklerin" from the session-19 override. The KldB class 43103 is a catch-all because KldB 2010 has no Blockchain-specific class; same pattern-family as the medical-subtitle bug already in BACKLOG. No fix in this session.
+- **Spotted an O\*NET-items data bug for Fremdsprachen across all 894 surveyed codes.** Session 21 relabelled `2.C.7.a` English Language → Deutsche Sprache as a cultural-localization content swap, but the occupation-level `(l, i)` values for `2.C.7.b` Fremdsprachen were not recalibrated. For tech/international roles (SwDev 0.3/1.1) this systematically underweights English — reality is closer to 4.0/3.5. Logged to BACKLOG with a per-code-override fix idea; not touching in-session to avoid a double-correction when the system-wide fix lands. For all four curated codes this session, kept Fremdsprachen values in line with their anchors so the profiles stay consistent with the rest of the corpus until the global fix.
+- **BACKLOG addition for UX polish.** @mo-sp flagged that the 238 questionnaire items (60 RIASEC + 50 Big Five + 120 Skills + 8 Values) are abstract enough that first-time test-takers, especially students, may be unsure what's meant. Adding a concrete example per item would help. Entered as UX-polish BACKLOG item before the friends-test push.
+
+**What shipped — `feat/curate-skills-tier-a` (4 commits):**
+
+*`0453bef` — 15-1299.07 Blockchain-Entwickler:* 120 items (35 S / 52 A / 33 K) curated against SwDev (primary) + InfoSec Analyst (crypto/security slice). Deltas vs SwDev: + Math/Programming/Complex-Problem-Solving/System-Design/Telecom/Engineering-Tech/Economics, − Customer Service / Time&Personnel Management / German Language. Tech-archetype sanity: bonus +0.135 (vs SwDev's +0.079). Floor/neutral track SwDev within 0.015. First commit opened the branch.
+
+*`85e97a8` — 15-2051 Datenwissenschaftler:* 120 items against four anchors (Stat / OpsRes / Rscr / SwDev). Positioning: applies stats methods, codes at SwDev level, signature skill Inductive Reasoning from data. Deltas: + Finance/Marketing/Behavioral-Sciences/Communications/Media/Law, − Administration/Telecommunications/Customer-Service-vs-SwDev. Tech-archetype sanity: +0.147 (between Stat's +0.163 and SwDev's +0.079). Floor/neutral triangulate cleanly — DS floor is within 0.001 of Stat, neutral between Stat and SwDev.
+
+*`fec5b96` — 29-2042 RS + 29-2043 NotSan (pair):* 2 × 120 items against RN / LPN / Firefighter. RS positioned at LPN-tier clinically plus Firefighter-level physical; NotSan is a clinical upgrade on RS approaching RN on Medicine/Biology/Psychology/Therapy and Judgment/Complex-Problem-Solving, plus team-lead. Physical / transport / service items identical between tiers. Medical-emergency archetype sanity: RS floor/neutral (0.595/0.986) match LPN's (0.598/0.979); NotSan (0.560/0.972) matches RN (0.562/0.960). BACKLOG additions (Fremdsprachen data-gap, UX-polish examples-per-item) bundled.
+
+*SUMMARY commit (this file) rides with the final PR.*
+
+**Coverage after the session:**
+
+| | Before session 23 | After |
+|---|---|---|
+| Occupations | 923 | 923 |
+| workContext | 923 | 923 |
+| Skills / Abilities / Knowledge | 894 | 898 (+4 curated) |
+| Title overrides applied | 218 | 218 |
+| Tests passing | 212 | 212 |
+
+**Branches (merge order on main):** `feat/curate-skills-tier-a` (4 commits → 1 PR).
+
+**Open for next sessions:**
+- **PR 2c continuation — 6 more priority codes to curate:** 15-1299.04 ethischer Hacker (Pentester), 15-1299.06 IT-Forensik-Experte, 15-1255 Multimedia-Designer, 29-1212 Kardiologie, 29-1242 Orthopäde, 29-1243 Kinderchirurg. Each ~30-45 min review. IT-Forensik and Pentester can re-use Blockchain's tech-anchor setup; the three Facharzt codes share anchor RN/Internist/Surgeon. Likely 3-4 more sessions to finish.
+- **Systemic 2.C.7.b Fremdsprachen fix** before the archetype validation — logged to BACKLOG. Per-code-override layer that bumps the value for tech / research / international-business occupations; current values systematically underweight English for the German audience.
+- **Phase B archetype-persona test** still downstream — unchanged from session 22's plan. Once the 10 priority codes are curated, run 5 persona tests and decide whether to tune SKILLS\_ALPHA / values weights / RIASEC-C items.
+- **UX-polish — example per questionnaire item.** New BACKLOG entry from this session. Non-blocking but important before friends-test push.
+
+---
+
 ### Session 22 – 2026-04-16
 **Focus:** Preparing end-to-end scoring validation. Fixed a math bug in the Big-Five adjustment, bumped the O\*NET database to the current production release (30.2), hand-curated the `workContext` layer for every occupation O\*NET hasn't surveyed yet, and cleaned up a handful of display and language inconsistencies surfaced by the browser test. Four shipped PRs plus a BACKLOG cleanup.
 

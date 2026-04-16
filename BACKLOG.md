@@ -28,6 +28,18 @@ Likely next 1–2 sessions.
 
 ## Data quality
 
+- **Knowledge item 2.C.7.b Fremdsprachen is systematically under-weighted
+  for tech/international roles.** Session 21 relabelled `2.C.7.a` English
+  Language → Deutsche Sprache as a cultural-localization content swap, but
+  the O\*NET occupation-level (level, importance) values were not
+  recalibrated. For the German audience, "Fremdsprache" is de-facto English
+  and much more important for tech/international roles than O\*NET's US
+  "Foreign Language" values suggest (SwDev 0.3/1.1 reads as "irrelevant" —
+  reality is closer to 4.0/3.5). Affects all 894 O\*NET-surveyed codes, not
+  just curated ones. Fix idea: a per-code override layer that bumps 2.C.7.b
+  for tech/research/international-business occupations; keep 2.C.7.a as-is
+  since it already reads as native-language competency. Spotted during
+  15-1299.07 Blockchain-Entwickler curation (Session 23).
 - **KldB subtitle for medical specialties is wrong.** KldB 2010 has only a
   handful of 5d physician classes (81404 Ärzte ohne Spez., 81414 Kinder- und
   Jugendmedizin, 81454 Anästhesiologie, 81464 Neurologie/Psychiatrie,
@@ -78,6 +90,16 @@ Likely next 1–2 sessions.
 
 ## UX polish
 
+- **Concrete examples on every question** — many items (especially Skills /
+  Abilities / Knowledge and Values) are abstract enough that users,
+  particularly students or first-time career-assessment takers, may not be
+  sure what's meant. Add a short example per item that clarifies the intended
+  construct without over-narrowing it (e.g. "Mündliches Verständnis —
+  Beispiel: einem Kollegen in einer Besprechung zuhören und den Auftrag
+  korrekt umsetzen"). Scope: all 60 RIASEC + 50 Big Five + 120 Skills + 8
+  Values items (≈ 238 examples). Keep examples neutral and broad enough that
+  they don't steer the answer. Non-blocking but important before friends-test
+  push.
 - **Prozent-Anzeige in Skills-Sub-Kategorien** — raw percent (e.g. "Fähigkeiten
   47%") is meaningless for a non-test audience. Replace with label bands like
   "Eher grundlegend / Solide / Stark ausgeprägt". Non-blocking, useful for
