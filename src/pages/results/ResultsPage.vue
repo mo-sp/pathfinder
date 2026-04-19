@@ -890,6 +890,14 @@ onBeforeUnmount(() => {
         {{ hardFilteredCount }} Berufe aufgrund deiner Ausbildungspräferenz ausgeblendet.
       </p>
 
+      <p
+        v-if="showToggle && viewMode !== 'riasec'"
+        class="mt-2 text-xs text-slate-500"
+      >
+        <span class="font-mono">±</span>
+        zeigt die Veränderung gegenüber „Nur Interessen".
+      </p>
+
       <div
         v-if="!hasDirection"
         class="mt-6 rounded-lg border border-amber-800/60 bg-amber-950/40 p-6"
@@ -984,6 +992,7 @@ onBeforeUnmount(() => {
                     :class="scoreDelta(result)! > 0
                       ? 'bg-emerald-950/60 text-emerald-400'
                       : 'bg-red-950/60 text-red-400'"
+                    :title="`Veränderung gegenüber „Nur Interessen“: ${scoreDelta(result)! > 0 ? '+' : ''}${scoreDelta(result)}`"
                   >
                     {{ scoreDelta(result)! > 0 ? '+' : '' }}{{ scoreDelta(result) }}
                   </span>
