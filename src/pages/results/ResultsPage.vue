@@ -199,13 +199,23 @@ function displayFitScore(v: number): number {
   return Math.min(v, 1)
 }
 
-// KldB class names carry an Anforderungsniveau suffix (" - Helfer-/Anlerntätigkeiten",
-// " - fachlich ausgerichtete Tätigkeiten", etc.) that adds noise next to the
-// trainingCategory pill. Strip it for display — the category conveys the same info.
+// KldB class names end with an Anforderungsniveau suffix (redundant next to
+// the trainingCategory pill), but interior " - " separators carry real
+// specialization info (e.g. "Trainer - Fitness und Gymnastik", "Führungskräfte
+// - Informatik") that must survive. Only strip the four well-known suffixes.
+const KLDB_ANFORDERUNG_SUFFIXES = [
+  ' - Helfer-/Anlerntätigkeiten',
+  ' - fachlich ausgerichtete Tätigkeiten',
+  ' - komplexe Spezialistentätigkeiten',
+  ' - hoch komplexe Tätigkeiten',
+] as const
+
 function stripKldbSuffix(name: string | null | undefined): string | null {
   if (!name) return null
-  const idx = name.indexOf(' - ')
-  return (idx >= 0 ? name.slice(0, idx) : name).trim()
+  for (const suffix of KLDB_ANFORDERUNG_SUFFIXES) {
+    if (name.endsWith(suffix)) return name.slice(0, -suffix.length).trim()
+  }
+  return name.trim()
 }
 
 // Primary display name: prefer the ESCO/O*NET German title (concrete names like
