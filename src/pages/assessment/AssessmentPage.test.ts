@@ -3,12 +3,14 @@
  * Component-level tests for AssessmentPage.
  *
  * Highest-value test in this file: the setup-time fresh-start guard from
- * PR #17 (`if (store.isComplete) store.reset()` at the top of script
- * setup). It runs before the first render so a user navigating to /test
- * after a completed run never sees a flash of the old "last question"
- * state. The other tests cover Likert interaction, the Zurück disabled
- * boundary, the "Schicht neu starten" layer-scoped reset path, the
- * progress display, and the completion → router.push('/ergebnis') flow.
+ * PR #17. It runs before the first render so a user navigating to /test
+ * after a completed layer never sees a flash of the old "last question"
+ * state. Current behaviour: advance to the next incomplete layer if one
+ * exists (so the header's "Zum Test" link on a mid-funnel user continues
+ * the progressive funnel), and only fall back to resetCurrentLayer when
+ * every layer is already done. The other tests cover Likert interaction,
+ * the Zurück disabled boundary, the "Schicht neu starten" layer-scoped
+ * reset path, the progress display, and completion → /ergebnis.
  */
 import 'fake-indexeddb/auto'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -46,26 +48,61 @@ describe('AssessmentPage', () => {
   })
 
   describe('setup-time fresh-start guard (PR #17 regression check)', () => {
-    it('mounting with a complete layer resets only that layer, not the whole session', () => {
+    it('mounting with RIASEC complete advances to Big Five without clearing RIASEC', () => {
       const store = useQuestionnaireStore()
-      // Seed a fully-complete run via the public answer() API — same code
-      // path the user goes through, no internal state hacks.
-      for (let i = 0; i < store.total; i += 1) store.answer(4)
+      // Seed a complete RIASEC layer via the public answer() API.
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(4)
+      expect(store.riasecIsComplete).toBe(true)
+      expect(store.currentLayer).toBe('riasec')
+      const completedId = store.sessionId
+      const riasecAnswersSnapshot = [...store.riasecAnswers]
+
+      const wrapper = mountWith(makeRouter())
+
+      // RIASEC answers are preserved — the user's completed Phase-1 work
+      // is NOT thrown away. Instead the store advances to the next
+      // incomplete layer (bigfive) so `/test` resumes the progressive
+      // funnel.
+      expect(store.currentLayer).toBe('bigfive')
+      expect(store.riasecAnswers).toEqual(riasecAnswersSnapshot)
+      expect(store.riasecIsComplete).toBe(true)
+      expect(store.sessionId).toBe(completedId)
+      // The rendered question count reflects the Big Five layer (50).
+      expect(wrapper.text()).toContain('Frage 1 von 50')
+    })
+
+    it('mounting with every layer complete falls back to resetting the current layer', () => {
+      const store = useQuestionnaireStore()
+      // Fill every layer end-to-end via the layer-aware answer() API.
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(4)
+      store.startBigFiveLayer()
+      for (let i = 0; i < store.bigfiveTotal; i += 1) store.answer(4)
+      store.startValuesLayer()
+      for (let i = 0; i < store.valuesTotal; i += 1) store.answer(4)
+      store.startSkillsLayer()
+      // Skills layer sits on an interstitial after sub-category 1; dismiss
+      // it programmatically between sub-categories so the whole layer
+      // completes.
+      for (let i = 0; i < store.skillsTotal; i += 1) {
+        if (store.skillsInterstitialPending) store.dismissSkillsInterstitial()
+        store.answer(4)
+      }
+      if (store.skillsInterstitialPending) store.dismissSkillsInterstitial()
+      expect(store.skillsIsComplete).toBe(true)
       expect(store.isComplete).toBe(true)
       const completedId = store.sessionId
 
       const wrapper = mountWith(makeRouter())
 
-      // The guard `if (store.isComplete) store.resetCurrentLayer()` runs
-      // in script setup, before render. By the time mount() returns,
-      // answers must be empty, currentIndex back to 0, and "Frage 1 von
-      // 60" must be in the DOM. sessionId is preserved because
-      // resetCurrentLayer treats this as a within-session re-run.
-      expect(store.isComplete).toBe(false)
-      expect(store.answers).toEqual([])
-      expect(store.currentIndex).toBe(0)
+      // With no later layer to advance into, the guard falls back to
+      // resetting the current (skills) layer so the user can redo it.
+      expect(store.currentLayer).toBe('skills')
+      expect(store.skillsIsComplete).toBe(false)
+      expect(store.skillsAnswers).toEqual([])
       expect(store.sessionId).toBe(completedId)
-      expect(wrapper.text()).toContain('Frage 1 von 60')
+      // Skills layer uses a sub-category indicator, not the generic
+      // "Frage X von Y" count.
+      expect(wrapper.text()).toContain('Fähigkeiten (1/35)')
     })
 
     it('mounting with an in-progress session preserves state and does NOT reset', () => {
