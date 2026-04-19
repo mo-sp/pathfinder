@@ -68,9 +68,11 @@ const messages = {
       knowledge: '33 Fragen zu deinem Wissen',
     },
     skillsBand: {
-      basic: 'Eher grundlegend',
-      solid: 'Solide',
-      strong: 'Stark ausgeprägt',
+      none: 'Kaum vorhanden',
+      basics: 'Grundlagen',
+      average: 'Durchschnittlich',
+      advanced: 'Fortgeschritten',
+      expert: 'Expertise',
     },
     skillsInterstitial: {
       done: {

@@ -88,18 +88,21 @@ export function averageToPercent(avg: number): number {
   return Math.round(((avg - 1) / 4) * 100)
 }
 
-export type SkillsBand = 'basic' | 'solid' | 'strong'
+export type SkillsBand = 'none' | 'basics' | 'average' | 'advanced' | 'expert'
 
 /**
- * Map a 0-100 percent onto one of three qualitative bands used as the
- * human-readable label next to the sub-category bar. Thirds on the percent
- * axis correspond to Likert averages < 2.33, < 3.67, and >= 3.67 — roughly
- * "mostly 1-2 answers / around the neutral 3 / mostly 4-5 answers".
+ * Map a 0-100 percent onto one of five qualitative bands used as the
+ * human-readable label next to the sub-category bar. Fifths on the percent
+ * axis (0-20 / 20-40 / 40-60 / 60-80 / 80-100) align with the 5-point
+ * Likert anchors so a user who answered "3" consistently lands in the
+ * middle band.
  */
 export function percentToBand(percent: number): SkillsBand {
-  if (percent < 34) return 'basic'
-  if (percent < 67) return 'solid'
-  return 'strong'
+  if (percent < 20) return 'none'
+  if (percent < 40) return 'basics'
+  if (percent < 60) return 'average'
+  if (percent < 80) return 'advanced'
+  return 'expert'
 }
 
 /**

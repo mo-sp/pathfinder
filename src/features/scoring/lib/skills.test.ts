@@ -110,14 +110,17 @@ describe('averageToPercent', () => {
 })
 
 describe('percentToBand', () => {
-  it('maps thirds of the percent axis to the three bands', () => {
-    expect(percentToBand(0)).toBe('basic')
-    expect(percentToBand(33)).toBe('basic')
-    expect(percentToBand(34)).toBe('solid')
-    expect(percentToBand(50)).toBe('solid')
-    expect(percentToBand(66)).toBe('solid')
-    expect(percentToBand(67)).toBe('strong')
-    expect(percentToBand(100)).toBe('strong')
+  it('maps fifths of the percent axis to the five bands', () => {
+    expect(percentToBand(0)).toBe('none')
+    expect(percentToBand(19)).toBe('none')
+    expect(percentToBand(20)).toBe('basics')
+    expect(percentToBand(39)).toBe('basics')
+    expect(percentToBand(40)).toBe('average')
+    expect(percentToBand(59)).toBe('average')
+    expect(percentToBand(60)).toBe('advanced')
+    expect(percentToBand(79)).toBe('advanced')
+    expect(percentToBand(80)).toBe('expert')
+    expect(percentToBand(100)).toBe('expert')
   })
 })
 
