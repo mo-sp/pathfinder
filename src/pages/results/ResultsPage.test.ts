@@ -12,9 +12,7 @@
  *     entry has fitScore > 0 (the natural cap that replaced the old hard
  *     20-result limit), and entries with fitScore ≤ 0 never appear.
  *
- * Plus the boundary cases: incomplete-session interstitial, the
- * "Test neu starten" path that resets the store AND navigates to /test
- * (the bug from Session 4 that left the user on the interstitial).
+ * Plus the boundary cases: incomplete-session interstitial.
  */
 import 'fake-indexeddb/auto'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -286,38 +284,6 @@ describe('ResultsPage', () => {
       // Toggle buttons visible
       expect(wrapper.text()).toContain('Nur Interessen')
       expect(wrapper.text()).toContain('+ Persönlichkeit')
-    })
-  })
-
-  describe('restart from results page', () => {
-    it('"Test neu starten" calls store.reset() AND navigates to /test', async () => {
-      const router = makeRouter()
-      const pushSpy = vi.spyOn(router, 'push').mockResolvedValue(undefined)
-
-      await seedDirectionalSession()
-      const store = useQuestionnaireStore()
-      const beforeId = store.sessionId
-
-      const wrapper = mountWith(router)
-
-      const restartButton = wrapper
-        .findAll('button')
-        .find((b) => b.text().includes('Test neu starten'))
-      expect(restartButton).toBeDefined()
-      await restartButton!.trigger('click')
-
-      // Both halves of the restart() handler must run: the reset clears
-      // state and re-rolls the sessionId, AND the navigation kicks in.
-      // Without the navigate, the user would land back on the
-      // "noch nicht abgeschlossen" interstitial because isComplete just
-      // flipped to false in place — that was the bug from Session 4
-      // that the explicit router.push fixed.
-      expect(store.answers).toEqual([])
-      expect(store.sessionId).not.toBe(beforeId)
-
-      await vi.waitFor(() => {
-        expect(pushSpy).toHaveBeenCalledWith('/test')
-      })
     })
   })
 

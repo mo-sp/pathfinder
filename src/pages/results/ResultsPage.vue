@@ -316,15 +316,6 @@ const skillsSummary = computed(() => {
   }))
 })
 
-// Restart from the Results page must also navigate back to /test. Otherwise
-// store.reset() clears the answers but leaves the user on /ergebnis, where
-// the "noch nicht abgeschlossen" interstitial immediately renders because
-// isComplete flips to false.
-async function restart(): Promise<void> {
-  store.reset()
-  await router.push('/test')
-}
-
 /**
  * Promote the user into the Big Five layer and send them back to /test.
  * Kept as a separate action from `startBigFiveLayer` alone so the page is
@@ -1065,16 +1056,6 @@ onBeforeUnmount(() => {
           </div>
         </template>
       </template>
-
-      <div class="mt-10 flex justify-center">
-        <button
-          type="button"
-          class="text-sm text-slate-400 underline hover:text-slate-100"
-          @click="restart"
-        >
-          Test neu starten
-        </button>
-      </div>
     </template>
   </section>
 </template>

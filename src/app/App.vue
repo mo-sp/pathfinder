@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+import ScrollToTop from '@shared/ui/ScrollToTop.vue'
 import { useQuestionnaireStore } from '@features/questionnaire/model/store'
 
 const store = useQuestionnaireStore()
@@ -53,5 +54,7 @@ onMounted(() => {
         <p>PathFinder ist Open Source. Keine Logins, keine Tracker.</p>
       </div>
     </footer>
+
+    <ScrollToTop />
   </div>
 </template>
