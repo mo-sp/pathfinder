@@ -2,6 +2,7 @@
 import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import type { AssessmentLayer } from '@entities/assessment/model/types'
 import { useQuestionnaireStore } from '@features/questionnaire/model/store'
 
 const store = useQuestionnaireStore()
@@ -12,14 +13,27 @@ const { t } = useI18n()
 // (e.g. via the header's "Zum Test" link, or a direct reload of /test
 // with both layers complete in Dexie) would otherwise drop the user on
 // the last question of the finished layer — `hydrate()` clamps the
-// per-layer index to total-1 for complete layers. Reset here so the
-// fresh-start rule matches the HomePage CTA. In-progress layers keep
-// their state and resume at the next unanswered question. Runs in
-// setup() — before the first render — so there is no flash of the stale
-// "complete" state. This relies on the layer-aware `isComplete` alias:
-// when the user is mid-Big Five it returns false and the reset is
-// skipped, so the Verfeinern-CTA path from /ergebnis continues cleanly.
-if (store.isComplete) store.resetCurrentLayer()
+// per-layer index to total-1 for complete layers. If there is a later
+// layer that is still incomplete, switch into it so the user continues
+// the progressive funnel instead of redoing finished work. Only when
+// every layer is already done do we fall back to resetting the current
+// layer (the user is asking for a re-run). Runs in setup() — before the
+// first render — so there is no flash of stale "complete" state.
+if (store.isComplete) {
+  const layerOrder: AssessmentLayer[] = ['riasec', 'bigfive', 'values', 'skills']
+  const isLayerComplete: Record<AssessmentLayer, boolean> = {
+    riasec: store.riasecIsComplete,
+    bigfive: store.bigfiveIsComplete,
+    values: store.valuesIsComplete,
+    skills: store.skillsIsComplete,
+  }
+  const nextIncomplete = layerOrder.find((l) => !isLayerComplete[l]) ?? null
+  if (nextIncomplete) {
+    store.currentLayer = nextIncomplete
+  } else {
+    store.resetCurrentLayer()
+  }
+}
 
 // Prefetch the lazy occupations chunk while the user answers so results
 // can render instantly on completion. Fire-and-forget: a failure here just
