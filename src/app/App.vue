@@ -1,5 +1,17 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+import { useQuestionnaireStore } from '@features/questionnaire/model/store'
+
+const store = useQuestionnaireStore()
+
+// Hydrate on app mount so the header shortcut below also appears on `/`
+// after a full-page reload. hydrate() is idempotent; main.ts already
+// triggers it for /test and /ergebnis, and this extra call short-circuits
+// via its own `hydrated` guard.
+onMounted(() => {
+  void store.hydrate()
+})
 </script>
 
 <template>
@@ -15,6 +27,13 @@ import { RouterLink, RouterView } from 'vue-router'
         <nav class="flex gap-4 text-sm text-slate-400">
           <RouterLink to="/" class="hover:text-indigo-400">Startseite</RouterLink>
           <RouterLink to="/test" class="hover:text-indigo-400">Zum Test</RouterLink>
+          <RouterLink
+            v-if="store.riasecIsComplete"
+            to="/ergebnis"
+            class="hover:text-indigo-400"
+          >
+            Zum Ergebnis
+          </RouterLink>
         </nav>
       </div>
     </header>
