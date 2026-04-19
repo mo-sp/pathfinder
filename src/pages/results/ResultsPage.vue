@@ -14,6 +14,7 @@ import { VALUES_DIMENSIONS } from '@features/scoring/lib/values'
 import {
   SKILLS_SUB_CATEGORIES,
   averageToPercent,
+  percentToBand,
   subCategoryAverages,
 } from '@features/scoring/lib/skills'
 import { RiasecHexagon } from '@widgets/riasec-chart'
@@ -307,13 +308,17 @@ const hardFilteredCount = computed(() => {
 const skillsSummary = computed(() => {
   if (!store.skillsIsComplete) return []
   const avgs = subCategoryAverages(store.skillsProfile)
-  return SKILLS_SUB_CATEGORIES.map((sub) => ({
-    sub,
-    label: t(`skillsSubCategory.${sub}`),
-    description: t(`skillsSubCategoryDescription.${sub}`),
-    average: avgs[sub],
-    percent: averageToPercent(avgs[sub]),
-  }))
+  return SKILLS_SUB_CATEGORIES.map((sub) => {
+    const percent = averageToPercent(avgs[sub])
+    return {
+      sub,
+      label: t(`skillsSubCategory.${sub}`),
+      description: t(`skillsSubCategoryDescription.${sub}`),
+      average: avgs[sub],
+      percent,
+      bandLabel: t(`skillsBand.${percentToBand(percent)}`),
+    }
+  })
 })
 
 /**
@@ -787,7 +792,10 @@ onBeforeUnmount(() => {
             >
               <dt class="flex items-baseline justify-between gap-3">
                 <span class="text-sm font-semibold text-slate-100">{{ entry.label }}</span>
-                <span class="font-mono text-sm text-indigo-400">{{ entry.percent }} %</span>
+                <span class="flex items-baseline gap-2">
+                  <span class="text-sm font-medium text-indigo-400">{{ entry.bandLabel }}</span>
+                  <span class="font-mono text-xs text-slate-500">{{ entry.percent }} %</span>
+                </span>
               </dt>
               <dd class="mt-2">
                 <div class="h-2 w-full overflow-hidden rounded-full bg-slate-800">

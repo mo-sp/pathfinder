@@ -88,6 +88,23 @@ export function averageToPercent(avg: number): number {
   return Math.round(((avg - 1) / 4) * 100)
 }
 
+export type SkillsBand = 'none' | 'basics' | 'average' | 'advanced' | 'expert'
+
+/**
+ * Map a 0-100 percent onto one of five qualitative bands used as the
+ * human-readable label next to the sub-category bar. Fifths on the percent
+ * axis (0-20 / 20-40 / 40-60 / 60-80 / 80-100) align with the 5-point
+ * Likert anchors so a user who answered "3" consistently lands in the
+ * middle band.
+ */
+export function percentToBand(percent: number): SkillsBand {
+  if (percent < 20) return 'none'
+  if (percent < 40) return 'basics'
+  if (percent < 60) return 'average'
+  if (percent < 80) return 'advanced'
+  return 'expert'
+}
+
 /**
  * Total number of answers across all three sub-categories. Used for
  * completion / progress computations in the store.

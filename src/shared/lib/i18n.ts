@@ -67,6 +67,13 @@ const messages = {
       abilities: '52 Fragen zu deinen Talenten',
       knowledge: '33 Fragen zu deinem Wissen',
     },
+    skillsBand: {
+      none: 'Kaum vorhanden',
+      basics: 'Grundlagen',
+      average: 'Durchschnittlich',
+      advanced: 'Fortgeschritten',
+      expert: 'Expertise',
+    },
     skillsInterstitial: {
       done: {
         skills: 'Fähigkeiten abgeschlossen',
