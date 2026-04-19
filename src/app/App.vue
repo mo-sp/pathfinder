@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import ScrollToTop from '@shared/ui/ScrollToTop.vue'
 </script>
 
 <template>
@@ -34,5 +35,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <p>PathFinder ist Open Source. Keine Logins, keine Tracker.</p>
       </div>
     </footer>
+
+    <ScrollToTop />
   </div>
 </template>
