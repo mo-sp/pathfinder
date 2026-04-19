@@ -17,7 +17,7 @@
   "mappings": {
     "11-1011.00": {
       "kldbCode": "71104",
-      "kldbName": "Geschäftsführer/innen und Vorstände - hoch komplexe Tätigkeiten",
+      "kldbName": "Geschäftsführer und Vorstände - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -29,7 +29,7 @@
     },
     "11-1021.00": {
       "kldbCode": "71104",
-      "kldbName": "Geschäftsführer/innen und Vorstände - hoch komplexe Tätigkeiten",
+      "kldbName": "Geschäftsführer und Vorstände - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -107,7 +107,7 @@
     },
     "11-3031.03": {
       "kldbCode": "72124",
-      "kldbName": "Anlageberater/innen und sonstige Finanzdienstleistungsberufe - hoch komplexe Tätigkeiten",
+      "kldbName": "Anlageberater und sonstige Finanzdienstleistungsberufe - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -233,13 +233,13 @@
     },
     "11-9071.00": {
       "kldbCode": "63124",
-      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager/innen - hoch komplexe Tätigkeiten",
+      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "11-9072.00": {
       "kldbCode": "63124",
-      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager/innen - hoch komplexe Tätigkeiten",
+      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -306,13 +306,13 @@
     },
     "11-9179.01": {
       "kldbCode": "63124",
-      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager/innen - hoch komplexe Tätigkeiten",
+      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "11-9179.02": {
       "kldbCode": "63124",
-      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager/innen - hoch komplexe Tätigkeiten",
+      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -495,7 +495,7 @@
     },
     "13-1131.00": {
       "kldbCode": "63123",
-      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager/innen - komplexe Spezialistentätigkeiten",
+      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -579,13 +579,13 @@
     },
     "13-2051.00": {
       "kldbCode": "72124",
-      "kldbName": "Anlageberater/innen und sonstige Finanzdienstleistungsberufe - hoch komplexe Tätigkeiten",
+      "kldbName": "Anlageberater und sonstige Finanzdienstleistungsberufe - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "13-2052.00": {
       "kldbCode": "72124",
-      "kldbName": "Anlageberater/innen und sonstige Finanzdienstleistungsberufe - hoch komplexe Tätigkeiten",
+      "kldbName": "Anlageberater und sonstige Finanzdienstleistungsberufe - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -597,7 +597,7 @@
     },
     "13-2054.00": {
       "kldbCode": "72124",
-      "kldbName": "Anlageberater/innen und sonstige Finanzdienstleistungsberufe - hoch komplexe Tätigkeiten",
+      "kldbName": "Anlageberater und sonstige Finanzdienstleistungsberufe - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1096,19 +1096,19 @@
     },
     "17-3011.00": {
       "kldbCode": "27212",
-      "kldbName": "Technische Zeichner/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Technische Zeichner - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "17-3012.00": {
       "kldbCode": "27212",
-      "kldbName": "Technische Zeichner/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Technische Zeichner - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "17-3013.00": {
       "kldbCode": "27212",
-      "kldbName": "Technische Zeichner/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Technische Zeichner - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -1270,7 +1270,7 @@
     },
     "19-1031.03": {
       "kldbCode": "63143",
-      "kldbName": "Reiseleiter/innen und Fremdenführer/innen - komplexe Spezialistentätigkeiten",
+      "kldbName": "Reiseleiter und Fremdenführer - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -1654,7 +1654,7 @@
     },
     "23-1021.00": {
       "kldbCode": "73154",
-      "kldbName": "Richter/innen - hoch komplexe Tätigkeiten",
+      "kldbName": "Richter - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1667,7 +1667,7 @@
     },
     "23-1023.00": {
       "kldbCode": "73154",
-      "kldbName": "Richter/innen - hoch komplexe Tätigkeiten",
+      "kldbName": "Richter - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1859,7 +1859,7 @@
     },
     "25-1124.00": {
       "kldbCode": "84454",
-      "kldbName": "(Fremd-)Sprachenlehrer/innen - hoch komplexe Tätigkeiten",
+      "kldbName": "(Fremd-)Sprachenlehrer - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1913,7 +1913,7 @@
     },
     "25-2022.00": {
       "kldbCode": "84454",
-      "kldbName": "(Fremd-)Sprachenlehrer/innen - hoch komplexe Tätigkeiten",
+      "kldbName": "(Fremd-)Sprachenlehrer - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2124,7 +2124,7 @@
     },
     "27-2011.00": {
       "kldbCode": "94214",
-      "kldbName": "Schauspieler/innen - hoch komplexe Tätigkeiten",
+      "kldbName": "Schauspieler - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2154,19 +2154,19 @@
     },
     "27-2021.00": {
       "kldbCode": "94243",
-      "kldbName": "Athleten/Athletinnen und Berufssportler/innen - komplexe Spezialistentätigkeiten",
+      "kldbName": "Athleten/Athletinnen und Berufssportler - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "27-2022.00": {
       "kldbCode": "84503",
-      "kldbName": "Sportlehrer/innen (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "kldbName": "Sportlehrer (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "27-2023.00": {
       "kldbCode": "63122",
-      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2244,7 +2244,7 @@
     },
     "27-3091.00": {
       "kldbCode": "71423",
-      "kldbName": "Dolmetscher/innen und Übersetzer/innen - komplexe Spezialistentätigkeiten",
+      "kldbName": "Dolmetscher und Übersetzer - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -2256,7 +2256,7 @@
     },
     "27-4011.00": {
       "kldbCode": "82332",
-      "kldbName": "Tätowierer/innen und Piercer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Tätowierer und Piercer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2274,7 +2274,7 @@
     },
     "27-4015.00": {
       "kldbCode": "82332",
-      "kldbName": "Tätowierer/innen und Piercer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Tätowierer und Piercer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2340,7 +2340,7 @@
     },
     "29-1051.00": {
       "kldbCode": "81804",
-      "kldbName": "Apotheker/innen, Pharmazeuten/Pharmazeutinnen - hoch komplexe Tätigkeiten",
+      "kldbName": "Apotheker, Pharmazeuten/Pharmazeutinnen - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2406,7 +2406,7 @@
     },
     "29-1128.00": {
       "kldbCode": "84553",
-      "kldbName": "Trainer/innen - Fitness und Gymnastik - komplexe Spezialistentätigkeiten",
+      "kldbName": "Trainer - Fitness und Gymnastik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -3153,7 +3153,7 @@
     },
     "35-3011.00": {
       "kldbCode": "63322",
-      "kldbName": "Barkeeper/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Barkeeper - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3165,7 +3165,7 @@
     },
     "35-3023.01": {
       "kldbCode": "63322",
-      "kldbName": "Barkeeper/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Barkeeper - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3256,7 +3256,7 @@
     },
     "39-1014.00": {
       "kldbCode": "63122",
-      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3299,7 +3299,7 @@
     },
     "39-3031.00": {
       "kldbCode": "62112",
-      "kldbName": "Kassierer/innen und Kartenverkäufer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Kassierer und Kartenverkäufer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3311,7 +3311,7 @@
     },
     "39-3092.00": {
       "kldbCode": "82332",
-      "kldbName": "Tätowierer/innen und Piercer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Tätowierer und Piercer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3395,13 +3395,13 @@
     },
     "39-7011.00": {
       "kldbCode": "63142",
-      "kldbName": "Reiseleiter/innen und Fremdenführer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Reiseleiter und Fremdenführer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "39-7012.00": {
       "kldbCode": "63142",
-      "kldbName": "Reiseleiter/innen und Fremdenführer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Reiseleiter und Fremdenführer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3419,13 +3419,13 @@
     },
     "39-9031.00": {
       "kldbCode": "63122",
-      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "39-9032.00": {
       "kldbCode": "84553",
-      "kldbName": "Trainer/innen - Fitness und Gymnastik - komplexe Spezialistentätigkeiten",
+      "kldbName": "Trainer - Fitness und Gymnastik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -3449,13 +3449,13 @@
     },
     "41-2011.00": {
       "kldbCode": "62112",
-      "kldbName": "Kassierer/innen und Kartenverkäufer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Kassierer und Kartenverkäufer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "41-2012.00": {
       "kldbCode": "62112",
-      "kldbName": "Kassierer/innen und Kartenverkäufer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Kassierer und Kartenverkäufer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3599,7 +3599,7 @@
     },
     "43-3031.00": {
       "kldbCode": "72122",
-      "kldbName": "Anlageberater/innen und sonstige Finanzdienstleistungsberufe - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Anlageberater und sonstige Finanzdienstleistungsberufe - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3629,7 +3629,7 @@
     },
     "43-4011.00": {
       "kldbCode": "72122",
-      "kldbName": "Anlageberater/innen und sonstige Finanzdienstleistungsberufe - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Anlageberater und sonstige Finanzdienstleistungsberufe - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3689,7 +3689,7 @@
     },
     "43-4131.00": {
       "kldbCode": "72122",
-      "kldbName": "Anlageberater/innen und sonstige Finanzdienstleistungsberufe - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Anlageberater und sonstige Finanzdienstleistungsberufe - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3737,7 +3737,7 @@
     },
     "43-5021.00": {
       "kldbCode": "52182",
-      "kldbName": "Fahrzeugführer/innen im Straßenverkehr (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Fahrzeugführer im Straßenverkehr (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3893,13 +3893,13 @@
     },
     "45-2041.00": {
       "kldbCode": "29152",
-      "kldbName": "Nahrungsmittel- und Getränkekoster/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Nahrungsmittel- und Getränkekoster - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "45-2091.00": {
       "kldbCode": "52512",
-      "kldbName": "Führer/innen von land- und forstwirtschaftlichen Maschinen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Führer von land- und forstwirtschaftlichen Maschinen - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3929,13 +3929,13 @@
     },
     "45-4021.00": {
       "kldbCode": "52512",
-      "kldbName": "Führer/innen von land- und forstwirtschaftlichen Maschinen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Führer von land- und forstwirtschaftlichen Maschinen - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "45-4022.00": {
       "kldbCode": "52512",
-      "kldbName": "Führer/innen von land- und forstwirtschaftlichen Maschinen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Führer von land- und forstwirtschaftlichen Maschinen - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4146,7 +4146,7 @@
     },
     "47-3011.00": {
       "kldbCode": "32212",
-      "kldbName": "Pflasterer/Pflasterinnen und Steinsetzer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Pflasterer/Pflasterinnen und Steinsetzer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4212,7 +4212,7 @@
     },
     "47-4051.00": {
       "kldbCode": "51212",
-      "kldbName": "Straßen- und Tunnelwärter/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Straßen- und Tunnelwärter - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4411,7 +4411,7 @@
     },
     "49-3031.00": {
       "kldbCode": "25112",
-      "kldbName": "Maschinen- und Gerätezusammensetzer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Maschinen- und Gerätezusammensetzer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4429,7 +4429,7 @@
     },
     "49-3043.00": {
       "kldbCode": "25112",
-      "kldbName": "Maschinen- und Gerätezusammensetzer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Maschinen- und Gerätezusammensetzer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4624,7 +4624,7 @@
     },
     "51-2011.00": {
       "kldbCode": "25112",
-      "kldbName": "Maschinen- und Gerätezusammensetzer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Maschinen- und Gerätezusammensetzer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5028,7 +5028,7 @@
     },
     "51-8021.00": {
       "kldbCode": "25122",
-      "kldbName": "Maschinen- und Anlagenführer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Maschinen- und Anlagenführer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5101,7 +5101,7 @@
     },
     "51-9032.00": {
       "kldbCode": "25122",
-      "kldbName": "Maschinen- und Anlagenführer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Maschinen- und Anlagenführer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5293,13 +5293,13 @@
     },
     "53-2011.00": {
       "kldbCode": "52313",
-      "kldbName": "Piloten/Pilotinnen und Verkehrsflugzeugführer/innen - komplexe Spezialistentätigkeiten",
+      "kldbName": "Piloten/Pilotinnen und Verkehrsflugzeugführer - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "53-2012.00": {
       "kldbCode": "52313",
-      "kldbName": "Piloten/Pilotinnen und Verkehrsflugzeugführer/innen - komplexe Spezialistentätigkeiten",
+      "kldbName": "Piloten/Pilotinnen und Verkehrsflugzeugführer - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -5329,49 +5329,49 @@
     },
     "53-3031.00": {
       "kldbCode": "52112",
-      "kldbName": "Berufskraftfahrer/innen (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Berufskraftfahrer (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-3032.00": {
       "kldbCode": "52122",
-      "kldbName": "Berufskraftfahrer/innen (Güterverkehr/LKW) - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Berufskraftfahrer (Güterverkehr/LKW) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-3033.00": {
       "kldbCode": "52112",
-      "kldbName": "Berufskraftfahrer/innen (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Berufskraftfahrer (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-3051.00": {
       "kldbCode": "52132",
-      "kldbName": "Bus- und Straßenbahnfahrer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Bus- und Straßenbahnfahrer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-3052.00": {
       "kldbCode": "52132",
-      "kldbName": "Bus- und Straßenbahnfahrer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Bus- und Straßenbahnfahrer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-3053.00": {
       "kldbCode": "52132",
-      "kldbName": "Bus- und Straßenbahnfahrer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Bus- und Straßenbahnfahrer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-3054.00": {
       "kldbCode": "52112",
-      "kldbName": "Berufskraftfahrer/innen (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Berufskraftfahrer (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-4011.00": {
       "kldbCode": "52202",
-      "kldbName": "Triebfahrzeugführer/innen im Eisenbahnverkehr (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Triebfahrzeugführer im Eisenbahnverkehr (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5395,13 +5395,13 @@
     },
     "53-4041.00": {
       "kldbCode": "52132",
-      "kldbName": "Bus- und Straßenbahnfahrer/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Bus- und Straßenbahnfahrer - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-5011.00": {
       "kldbCode": "52422",
-      "kldbName": "Schiffsführer/innen in Binnenschifffahrt und Hafenverkehr - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Schiffsführer in Binnenschifffahrt und Hafenverkehr - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5413,7 +5413,7 @@
     },
     "53-5022.00": {
       "kldbCode": "52422",
-      "kldbName": "Schiffsführer/innen in Binnenschifffahrt und Hafenverkehr - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Schiffsführer in Binnenschifffahrt und Hafenverkehr - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5431,7 +5431,7 @@
     },
     "53-6021.00": {
       "kldbCode": "52112",
-      "kldbName": "Berufskraftfahrer/innen (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Berufskraftfahrer (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5443,7 +5443,7 @@
     },
     "53-6032.00": {
       "kldbCode": "52122",
-      "kldbName": "Berufskraftfahrer/innen (Güterverkehr/LKW) - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Berufskraftfahrer (Güterverkehr/LKW) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5487,7 +5487,7 @@
     },
     "53-7021.00": {
       "kldbCode": "51242",
-      "kldbName": "Wasserstraßen- und Brückenwärter/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Wasserstraßen- und Brückenwärter - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5499,13 +5499,13 @@
     },
     "53-7041.00": {
       "kldbCode": "51242",
-      "kldbName": "Wasserstraßen- und Brückenwärter/innen - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Wasserstraßen- und Brückenwärter - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-7051.00": {
       "kldbCode": "52122",
-      "kldbName": "Berufskraftfahrer/innen (Güterverkehr/LKW) - fachlich ausgerichtete Tätigkeiten",
+      "kldbName": "Berufskraftfahrer (Güterverkehr/LKW) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
