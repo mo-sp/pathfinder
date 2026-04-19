@@ -6,6 +6,7 @@ import {
   averageToPercent,
   computeSkillsProfile,
   emptySkillsProfile,
+  percentToBand,
   subCategoryAverages,
   totalAnswers,
 } from './skills'
@@ -105,6 +106,18 @@ describe('averageToPercent', () => {
 
   it('handles the empty-sub-category zero', () => {
     expect(averageToPercent(0)).toBe(0)
+  })
+})
+
+describe('percentToBand', () => {
+  it('maps thirds of the percent axis to the three bands', () => {
+    expect(percentToBand(0)).toBe('basic')
+    expect(percentToBand(33)).toBe('basic')
+    expect(percentToBand(34)).toBe('solid')
+    expect(percentToBand(50)).toBe('solid')
+    expect(percentToBand(66)).toBe('solid')
+    expect(percentToBand(67)).toBe('strong')
+    expect(percentToBand(100)).toBe('strong')
   })
 })
 
