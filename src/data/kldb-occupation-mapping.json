@@ -22,8 +22,8 @@
       "trainingCategory": "studies"
     },
     "11-1011.03": {
-      "kldbCode": "61394",
-      "kldbName": "Führungskräfte - Immobilienwirtschaft und Facility-Management",
+      "kldbCode": "71104",
+      "kldbName": "Geschäftsführer und Vorstände - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -82,8 +82,8 @@
       "trainingCategory": "studies"
     },
     "11-3013.01": {
-      "kldbCode": "61394",
-      "kldbName": "Führungskräfte - Immobilienwirtschaft und Facility-Management",
+      "kldbCode": "53124",
+      "kldbName": "Berufe in Arbeitssicherheit und Sicherheitstechnik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -136,8 +136,8 @@
       "trainingCategory": "specialist"
     },
     "11-3051.04": {
-      "kldbCode": "61394",
-      "kldbName": "Führungskräfte - Immobilienwirtschaft und Facility-Management",
+      "kldbCode": "41393",
+      "kldbName": "Aufsichtskräfte - Chemie",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -336,13 +336,13 @@
     },
     "11-9199.09": {
       "kldbCode": "61394",
-      "kldbName": "Führungskräfte - Immobilienwirtschaft und Facility-Management",
+      "kldbName": null,
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "11-9199.10": {
       "kldbCode": "61394",
-      "kldbName": "Führungskräfte - Immobilienwirtschaft und Facility-Management",
+      "kldbName": null,
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -464,8 +464,8 @@
       "trainingCategory": "studies"
     },
     "13-1081.01": {
-      "kldbCode": "21124",
-      "kldbName": "Berufe in der Sprengtechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "51624",
+      "kldbName": "Speditions- und Logistikkaufleute - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -476,8 +476,8 @@
       "trainingCategory": "studies"
     },
     "13-1082.00": {
-      "kldbCode": "61394",
-      "kldbName": "Führungskräfte - Immobilienwirtschaft und Facility-Management",
+      "kldbCode": "71393",
+      "kldbName": "Aufsichtskräfte - Unternehmensorganisation und -strategie",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -903,8 +903,8 @@
       "trainingCategory": "studies"
     },
     "17-2031.00": {
-      "kldbCode": "21124",
-      "kldbName": "Berufe in der Sprengtechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "26324",
+      "kldbName": "Berufe in der Mikrosystemtechnik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -987,8 +987,8 @@
       "trainingCategory": "studies"
     },
     "17-2112.02": {
-      "kldbCode": "21124",
-      "kldbName": "Berufe in der Sprengtechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "25194",
+      "kldbName": "Führungskräfte - Maschinenbau- und Betriebstechnik",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1005,8 +1005,8 @@
       "trainingCategory": "specialist"
     },
     "17-2131.00": {
-      "kldbCode": "21124",
-      "kldbName": "Berufe in der Sprengtechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "25194",
+      "kldbName": "Führungskräfte - Maschinenbau- und Betriebstechnik",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1035,8 +1035,8 @@
       "trainingCategory": "studies"
     },
     "17-2161.00": {
-      "kldbCode": "21124",
-      "kldbName": "Berufe in der Sprengtechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "41404",
+      "kldbName": "Berufe in der Physik (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1065,32 +1065,32 @@
       "trainingCategory": "studies"
     },
     "17-2199.07": {
-      "kldbCode": "21124",
-      "kldbName": "Berufe in der Sprengtechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "26324",
+      "kldbName": "Berufe in der Mikrosystemtechnik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "17-2199.08": {
-      "kldbCode": "21124",
-      "kldbName": "Berufe in der Sprengtechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "26124",
+      "kldbName": "Berufe in der Automatisierungstechnik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "17-2199.09": {
-      "kldbCode": "21124",
-      "kldbName": "Berufe in der Sprengtechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "26324",
+      "kldbName": "Berufe in der Mikrosystemtechnik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "17-2199.10": {
       "kldbCode": "21124",
-      "kldbName": "Berufe in der Sprengtechnik - hoch komplexe Tätigkeiten",
+      "kldbName": null,
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "17-2199.11": {
       "kldbCode": "21124",
-      "kldbName": "Berufe in der Sprengtechnik - hoch komplexe Tätigkeiten",
+      "kldbName": null,
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1155,8 +1155,8 @@
       "trainingCategory": "apprenticeship"
     },
     "17-3026.01": {
-      "kldbCode": "21124",
-      "kldbName": "Berufe in der Sprengtechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "26123",
+      "kldbName": "Berufe in der Automatisierungstechnik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1317,8 +1317,8 @@
       "trainingCategory": "specialist"
     },
     "19-2032.00": {
-      "kldbCode": "21124",
-      "kldbName": "Berufe in der Sprengtechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "41303",
+      "kldbName": "Berufe in der Chemie (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2328,7 +2328,7 @@
     },
     "29-1031.00": {
       "kldbCode": "41204",
-      "kldbName": "Berufe in der Biologie (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
+      "kldbName": null,
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2537,8 +2537,8 @@
       "trainingCategory": "studies"
     },
     "29-1222.00": {
-      "kldbCode": "41204",
-      "kldbName": "Berufe in der Biologie (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
+      "kldbCode": "81404",
+      "kldbName": "Ärzte/Ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2555,8 +2555,8 @@
       "trainingCategory": "studies"
     },
     "29-1229.01": {
-      "kldbCode": "41204",
-      "kldbName": "Berufe in der Biologie (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
+      "kldbCode": "81404",
+      "kldbName": "Ärzte/Ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2646,7 +2646,7 @@
     },
     "29-2011.02": {
       "kldbCode": "41204",
-      "kldbName": "Berufe in der Biologie (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
+      "kldbName": null,
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2815,7 +2815,7 @@
     },
     "29-9092.00": {
       "kldbCode": "41204",
-      "kldbName": "Berufe in der Biologie (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
+      "kldbName": null,
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -4536,8 +4536,8 @@
       "trainingCategory": "apprenticeship"
     },
     "49-9062.00": {
-      "kldbCode": "21124",
-      "kldbName": "Berufe in der Sprengtechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "26122",
+      "kldbName": "Berufe in der Automatisierungstechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
