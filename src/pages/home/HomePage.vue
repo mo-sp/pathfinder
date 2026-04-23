@@ -61,7 +61,7 @@ function start(): void {
         <p class="mt-1 text-xs text-slate-400">
           Selbsteinschätzung – Fähigkeiten, Talente &amp; Wissen (O*NET)
         </p>
-        <p class="mt-2 text-xs text-slate-500">120 Fragen · ~15 Min</p>
+        <p class="mt-2 text-xs text-slate-500">121 Fragen · ~15 Min</p>
       </div>
     </div>
 
@@ -84,8 +84,8 @@ function start(): void {
       </p>
       <p class="mt-3 text-sm">
         Aktueller Stand: RIASEC-Test mit 60 Items, Big-Five-Persönlichkeitsprofil
-        mit 50 Items, Werte-Schicht mit 8 Items und Fähigkeiten-Schicht mit 120
-        Items (35 Fähigkeiten + 52 Talente + 33 Wissensgebiete).
+        mit 50 Items, Werte-Schicht mit 8 Items und Fähigkeiten-Schicht mit 121
+        Items (35 Fähigkeiten + 52 Talente + 34 Wissensgebiete).
       </p>
     </div>
   </section>

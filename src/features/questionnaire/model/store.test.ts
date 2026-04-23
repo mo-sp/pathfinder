@@ -901,7 +901,7 @@ describe('questionnaire store', () => {
       const store = useQuestionnaireStore()
       expect(store.skillsAnswers).toEqual([])
       expect(store.skillsIsComplete).toBe(false)
-      expect(store.skillsTotal).toBe(120)
+      expect(store.skillsTotal).toBe(121)
       expect(store.currentLayer).toBe('riasec')
       expect(store.skillsInterstitialPending).toBe(false)
     })
@@ -977,16 +977,16 @@ describe('questionnaire store', () => {
       expect(store.currentIndex).toBe(34)
     })
 
-    it('completing all 120 skills items sets skillsIsComplete and no pending flag', () => {
+    it('completing all 121 skills items sets skillsIsComplete and no pending flag', () => {
       const store = useQuestionnaireStore()
       store.startSkillsLayer()
       for (let i = 0; i < 35; i += 1) store.answer(3)
       store.dismissSkillsInterstitial()
       for (let i = 0; i < 52; i += 1) store.answer(3)
       store.dismissSkillsInterstitial()
-      for (let i = 0; i < 33; i += 1) store.answer(3)
+      for (let i = 0; i < 34; i += 1) store.answer(3)
       expect(store.skillsIsComplete).toBe(true)
-      expect(store.skillsAnswers).toHaveLength(120)
+      expect(store.skillsAnswers).toHaveLength(121)
       expect(store.skillsInterstitialPending).toBe(false)
     })
 
@@ -1027,7 +1027,7 @@ describe('questionnaire store', () => {
       store.dismissSkillsInterstitial()
       for (let i = 0; i < 52; i += 1) store.answer(3)
       store.dismissSkillsInterstitial()
-      for (let i = 0; i < 33; i += 1) store.answer(3)
+      for (let i = 0; i < 34; i += 1) store.answer(3)
       expect(store.skillsIsComplete).toBe(true)
       const withSkills = store.results.filter((r) => r.skillsMatch !== null)
       expect(withSkills.length).toBeGreaterThan(0)

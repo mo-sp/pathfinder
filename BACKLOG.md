@@ -25,18 +25,6 @@ Likely next 1–2 sessions.
 
 ## Data quality
 
-- **Knowledge item 2.C.7.b Fremdsprachen is systematically under-weighted
-  for tech/international roles.** Session 21 relabelled `2.C.7.a` English
-  Language → Deutsche Sprache as a cultural-localization content swap, but
-  the O\*NET occupation-level (level, importance) values were not
-  recalibrated. For the German audience, "Fremdsprache" is de-facto English
-  and much more important for tech/international roles than O\*NET's US
-  "Foreign Language" values suggest (SwDev 0.3/1.1 reads as "irrelevant" —
-  reality is closer to 4.0/3.5). Affects all 894 O\*NET-surveyed codes, not
-  just curated ones. Fix idea: a per-code override layer that bumps 2.C.7.b
-  for tech/research/international-business occupations; keep 2.C.7.a as-is
-  since it already reads as native-language competency. Spotted during
-  15-1299.07 Blockchain-Entwickler curation (Session 23).
 - **KldB subtitle for medical specialties is wrong.** KldB 2010 has only a
   handful of 5d physician classes (81404 Ärzte ohne Spez., 81414 Kinder- und
   Jugendmedizin, 81454 Anästhesiologie, 81464 Neurologie/Psychiatrie,
@@ -158,6 +146,41 @@ Likely next 1–2 sessions.
   zero value. Either the staging should recognise "effectively zero" as
   its own neutral band, or the copy should acknowledge "median answers
   → no bonus either way". Spotted during PR 2a browser test.
+- **Skills Likert labels are asymmetrically positive — primes wrong
+  baseline intuition.** Skills sub-category uses "Gar nicht / Grundkenntnisse
+  / Solide / Sehr gut / Experte", which reads as "2 = baseline, 3 = above
+  baseline". Mathematically 3 is the midpoint (`userNorm = (v-1)/4`, so
+  3 → 0.5 = neutral). Result: users rating "everything Solide + languages
+  Experte" expect a meaningful bonus from the all-3 baseline, but the math
+  gives ~0 from the 3s plus ~0.01 from the three language spikes. Abilities
+  sub-category gets this right ("Durchschnittlich" at 3). Fix options: (a)
+  relabel Skills 3 → "Durchschnittlich" or "Mittel" to align with Abilities,
+  (b) relabel 2 → something less baseline-flavoured than "Grundkenntnisse"
+  (e.g. "Anfänger"), (c) recalibrate math so 2 = neutral (much bigger
+  change, cascades through all tests and archetype calibration — not
+  recommended). Smallest coherent fix: (a) + (b). Spotted during the
+  Englisch-split smoke test, when all-3s + Sprachen=5 produced +0.01
+  skills bonus and @mo-sp expected larger because the 3s felt
+  above-baseline to him.
+- **Contribution badge colour thresholds ignore sign on Big Five and
+  Values.** Results page shows Big-Five +0.08 and Values −0.09 both in
+  grey. Per `stageForBigFive` at ResultsPage.vue:396 a +0.08 is 'moderate'
+  (grey) and per `stageForValues` a penalty of 0.09 is 'weak' (should
+  render red). Either `stageForValues` threshold is off, or the
+  stage → colour-class mapping doesn't colour 'weak' red for values.
+  Fix: align the Big Five / Values badge thresholds with the Skills
+  delta-label logic (any positive = green, any negative = red, with
+  magnitude bands for intensity). Spotted during Englisch-split smoke
+  test.
+- **Per-sub-category reset for Skills layer (Layer 4).** Current
+  "Test wiederholen" re-does the whole 121-item Skills layer (~15 min).
+  When iterating on a single sub-category — e.g. re-answering Wissen
+  to retest language-item changes — re-doing the other 87 items is
+  pure tax. UI: three separate "Wiederholen"-buttons per sub-category
+  on the Results page, or a dropdown on the main reset button. Scope
+  decision open: Skills-only (where sub-categories exist) or also
+  per-layer on the other three layers. @mo-sp request during
+  Englisch-split smoke test.
 - **Values layer is penalty-only, can never award a bonus.** Current
   design: `valuesPenalty ∈ [0, 0.35]`, subtracted from fitScore. Users
   who match an occupation's workContext perfectly get 0 penalty (the
@@ -174,11 +197,23 @@ Likely next 1–2 sessions.
   Freunde schicken können. Offene Fragen: welches Format (Markdown, plain,
   JSON, Image), ob Score-Werte mitgeschickt werden, Branding/Link zurück
   zur App.
-- **AI-at-risk flag per occupation** — show whether a role is likely to be
-  heavily affected by current AI capability (automation/augmentation). Source
-  options: Frey & Osborne 2013, Brynjolfsson/Mitchell 2023, WEF Future of
-  Jobs, or an opinionated curated flag. Open design questions: binary vs.
-  multi-level, what timeframe, how to frame without fatalism. Discuss scope
+- **AI-impact per occupation — two-sided: automation risk + augmentation
+  uplift.** Not just "likely to be replaced" but also "AI lifts the
+  practical fit of this role for users whose weak dimensions it
+  complements". The two-sided frame also resolves the earlier "how to
+  avoid fatalism" open question — risk and uplift co-exist per
+  occupation. Source options for the risk side: Frey & Osborne 2013,
+  Brynjolfsson/Mitchell 2023, WEF Future of Jobs, or an opinionated
+  curated flag. Uplift side is new design: per-occupation tags for which
+  dimensions AI currently offloads (e.g. SwDev → AI covers much of the
+  C/detail-discipline load, so a low-C user's realistic fit exceeds their
+  raw profile). Could surface as a signed fit modifier, or just as a
+  displayed hint next to the score. Real case behind the uplift idea:
+  @mo-sp is low-C and AI tooling has massively expanded what he can
+  produce as a developer — pattern, not just hypothesis. Open questions:
+  binary vs. multi-level on each side, timeframe, per-dimension vs.
+  per-skill granularity for the uplift, whether to combine into a single
+  signed "AI delta" or show both dimensions separately. Discuss scope
   before building.
 
 ## Tech debt

@@ -45,10 +45,10 @@ describe('HomePage', () => {
   it('renders the title and the CTA with the live total question count', () => {
     const wrapper = mountHomePage()
     expect(wrapper.text()).toContain('Finde deinen Weg.')
-    // 60 + 50 + 8 + 120 = 238 items across all 4 layers. Asserting the
+    // 60 + 50 + 8 + 121 = 239 items across all 4 layers. Asserting the
     // full-scope total guards against a regression to the old PoC subsets
     // of any individual layer.
-    expect(wrapper.text()).toContain('Test starten (238 Fragen gesamt)')
+    expect(wrapper.text()).toContain('Test starten (239 Fragen gesamt)')
   })
 
   it('clicking "Test starten" calls store.reset() — the homepage fresh-start path', async () => {
