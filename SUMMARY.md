@@ -5,6 +5,39 @@
 
 ---
 
+### Session 25 – 2026-04-23
+**Focus:** Schicht-4-UX-Pack auf der Ergebnisseite: per-Unterkategorie-Retake und eine Likert-Skala-Rebalance, damit Position 3 in allen drei Sub-Categories als Mitte lesbar ist. One PR, three commits on `feat/skills-per-subcat-retake`.
+
+**Meta / process notes:**
+- **Bundle decision mid-session.** Started as a single-topic PR (per-sub-category retake). Halfway through, @mo-sp asked to fold in the Likert-label rebalance that had been sitting in BACKLOG — "passt thematisch". Agreed it's the same Phase-4-polish cluster, but kept them as separate commits on the same branch so the PR description stays legible. Added a third small docs commit for a scroll-to-layer follow-up idea that surfaced at the end.
+- **Two process corrections taken on the chin.** (a) Jumped into implementing the label change before getting @mo-sp's label-text approval — should have proposed options first. (b) Tried to batch the label edit into commit #1 without having committed the approved retake work — @mo-sp correctly wanted the retake approval captured in its own commit first, then a separate discussion about labels, then a separate commit for labels. Both corrections are about preserving auditability between "approved change" and "next exploratory change".
+- **Partial-retake boundary nuance.** The Zwischenscreen flag (`skillsInterstitialPending`) is set on the answer handler when `skillsCurrentIndex` hits index 34 (last skill) or 86 (last ability). Without guarding, a user who retakes only "Fähigkeiten" would briefly flash the Zwischenscreen and leave a stale pending flag in Dexie — next hydrate would resurrect the stale interstitial. Fix: when a boundary answer already takes `skillsAnswers.length` to `skillsTotal`, skip setting the flag entirely. `selectAnswer` sees `isComplete` and navigates to /ergebnis. Unit-tested.
+- **Label-text brainstorm.** Original proposal was plain "Sehr schwach / Schwach / Durchschnittlich / Stark / Sehr stark" for all three sub-categories. @mo-sp: "klingt zutreffend, aber etwas langweilig". Offered two alternatives (B: Selbst-Perspektive "Kann ich… / Kenne ich…", C: Lernstufen "Anfänger → Profi"); @mo-sp picked B. Final scale keeps `abilities` unchanged (already symmetric), swaps `skills` to "Kann ich nicht / Eher schwach / Durchschnittlich / Eher stark / Kann ich richtig gut" and `knowledge` to "Kenne ich nicht / Oberflächlich / Durchschnittlich / Fundiert / Tiefes Fachwissen". Position 3 is "Durchschnittlich" across all three — that constraint is non-negotiable because any other midpoint word (Solide, Routiniert, Mittelmaß) either tips the baseline back toward "above average" (same bug we were fixing) or introduces a pejorative read.
+
+**What shipped (single PR, 3 commits on `feat/skills-per-subcat-retake`):**
+
+*commit 1 — per-sub-category skills retake:* replaces the single "Fähigkeiten-Test wiederholen" button under the Wissen card with three per-sub-category links. Each link's handler calls the new `store.repeatSkillsSubCategory(sub)` action that drops only that sub-category's answers, reshuffles that slice of `skillsOrder`, resets `skillsCurrentIndex` to the slice's first index (0 / 35 / 87), and switches `currentLayer` to skills. `answerSkillsQuestion` now skips setting `skillsInterstitialPending` when the answer completes the layer (partial retake — other sub-categories still hold their answers). Four new Vitest cases cover the three slice resets + the skip-interstitial-on-completion behavior. Retires the BACKLOG entry from the Englisch-split smoke test.
+
+*commit 2 — Likert-label rebalance:* `src/shared/lib/i18n.ts`. Skills and knowledge moved to symmetric scales anchored on "Durchschnittlich" at 3. Abilities unchanged. Retires the matching BACKLOG entry ("Skills Likert labels are asymmetrically positive").
+
+*commit 3 — docs:* this SUMMARY entry, plus a new BACKLOG note to scroll `/ergebnis` to the just-finished layer's section on layer-completion navigation (currently always lands at top of page).
+
+**Coverage after the session:**
+
+| | Before session 25 | After |
+|---|---|---|
+| Tests passing | 213 | 217 |
+| Phase-4 retake granularity | full 121-item layer only | per-sub-category |
+| Likert midpoint (skills + knowledge) | 2 reads as "baseline" | 3 reads as "Durchschnittlich" |
+
+**Branch:** `feat/skills-per-subcat-retake` (3 commits → 1 PR).
+
+**Open for next sessions:**
+- **Scroll-to-completed-layer on /ergebnis** — logged to BACKLOG this session.
+- **End-to-end scoring validation with archetype personas** — still parked, unchanged priority. Now that the three-sub-category retake exists it's cheaper to iterate on a single skill bar between archetype runs without re-answering the other 87 items.
+
+---
+
 ### Session 24 – 2026-04-19
 **Focus:** Small-PR UX/data-quality pack. @mo-sp was busy and asked for an "implement-everything-up-front, test-and-PR sequentially" batch mode. Shipped six PRs covering header navigation, scroll-to-top, skills label bands, score-delta labeling, a rank-15 DE-title gap, and a de-gendering pass on the KldB subtitles that also repaired `stripKldbSuffix`.
 

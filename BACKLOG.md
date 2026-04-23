@@ -86,6 +86,16 @@ Likely next 1–2 sessions.
 
 ## UX polish
 
+- **Scroll to the just-finished layer on /ergebnis, not to the top.**
+  Finishing Big Five / Werte / Fähigkeiten always lands the user at the
+  top of the page, so they have to scroll past the RIASEC hexagon every
+  time to see what changed. Better: after `router.push('/ergebnis')` from
+  a layer completion, scroll to that layer's section (Persönlichkeit /
+  Werte & Rahmenbedingungen / Fähigkeiten-Talente-Wissen). Anchor
+  implementation: section `id` per block + `scrollIntoView` in
+  `onMounted`, triggered only when `router.currentRoute.query.focus=<layer>`
+  or similar. Keep top-of-page as the default for direct /ergebnis loads.
+  @mo-sp request 2026-04-23.
 - **Concrete examples on every question** — many items (especially Skills /
   Abilities / Knowledge and Values) are abstract enough that users,
   particularly students or first-time career-assessment takers, may not be
