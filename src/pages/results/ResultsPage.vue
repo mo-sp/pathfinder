@@ -426,11 +426,13 @@ function stageForSkills(bonus: number): Stage {
   return 'poor'
 }
 
-const TONE_BY_STAGE: Record<FactorKey, Record<Stage, FactorTone>> = {
-  riasec: { strong: 'positive', moderate: 'positive', weak: 'neutral', poor: 'negative' },
-  bigfive: { strong: 'positive', moderate: 'neutral', weak: 'negative', poor: 'negative' },
-  values: { strong: 'positive', moderate: 'neutral', weak: 'negative', poor: 'negative' },
-  skills: { strong: 'positive', moderate: 'positive', weak: 'negative', poor: 'negative' },
+// Tone is sign-based, not stage-based: any positive contribution renders
+// green, any negative red. Only an effectively-zero contribution (rounds
+// to ±0.00 at toFixed(2)) stays neutral grey. Missing-data rows fall back
+// to neutral via the state branch in mkRow.
+function toneForSignedValue(v: number): FactorTone {
+  if (Math.abs(v) < 0.005) return 'neutral'
+  return v > 0 ? 'positive' : 'negative'
 }
 
 function formatSigned(n: number, digits = 2): string {
@@ -464,6 +466,7 @@ function scoreBreakdown(result: {
     key: FactorKey,
     hasValue: boolean,
     stage: Stage | null,
+    signedValue: number | null,
     valueText: string,
   ): FactorRow => {
     const complete = factorLayerComplete(key)
@@ -473,11 +476,9 @@ function scoreBreakdown(result: {
     else if (!factorInActiveView(key, mode)) state = 'inactive'
     else state = 'active'
 
-    const tone = state === 'active' && stage
-      ? TONE_BY_STAGE[key][stage]
-      : state === 'inactive' && stage
-        ? TONE_BY_STAGE[key][stage]
-        : 'neutral'
+    const tone = (state === 'active' || state === 'inactive') && signedValue != null
+      ? toneForSignedValue(signedValue)
+      : 'neutral'
 
     let text: string
     if (state === 'notScored') text = t('explainPanel.notScored')
@@ -503,6 +504,7 @@ function scoreBreakdown(result: {
       'riasec',
       true,
       stageForRiasec(result.riasecCorrelation),
+      result.riasecCorrelation,
       formatSigned(result.riasecCorrelation),
     ),
   )
@@ -511,6 +513,7 @@ function scoreBreakdown(result: {
       'bigfive',
       result.bigFiveModifier != null,
       result.bigFiveModifier != null ? stageForBigFive(result.bigFiveModifier) : null,
+      result.bigFiveModifier,
       result.bigFiveModifier != null ? formatSigned(result.bigFiveModifier) : '',
     ),
   )
@@ -519,6 +522,7 @@ function scoreBreakdown(result: {
       'values',
       result.valuesPenalty != null,
       result.valuesPenalty != null ? stageForValues(result.valuesPenalty) : null,
+      result.valuesPenalty != null ? -result.valuesPenalty : null,
       result.valuesPenalty != null ? `−${result.valuesPenalty.toFixed(2)}` : '',
     ),
   )
@@ -527,6 +531,7 @@ function scoreBreakdown(result: {
       'skills',
       result.skillsMatch != null && result.skillsBonus != null,
       result.skillsBonus != null ? stageForSkills(result.skillsBonus) : null,
+      result.skillsBonus,
       result.skillsBonus != null ? formatSigned(result.skillsBonus) : '',
     ),
   )
