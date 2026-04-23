@@ -2,14 +2,14 @@
   "source": "O*NET 29.2 Content Model — Skills, Abilities, Knowledge",
   "sourceUrl": "https://www.onetcenter.org/",
   "license": "CC BY 4.0",
-  "itemCount": 120,
+  "itemCount": 121,
   "subcategoryCounts": {
     "skills": 35,
     "abilities": 52,
-    "knowledge": 33
+    "knowledge": 34
   },
-  "translator": "claude-manual, v2 (2026-04-15) — polish pass complete",
-  "translationNotes": "German translations are polished for a lay audience. Short labels favor plain, actionable German (often verb-led) over academic psychometric compounds. Descriptions are paraphrased idiomatically rather than translated verbatim. Cross-subcategory label collisions (skill vs knowledge 'Mathematik', oral comprehension vs speech recognition) disambiguated. Cultural localization: O*NET's 'English Language' item (native-language proficiency) is rendered as 'Deutsche Sprache' for the DE audience, since O*NET's occupation profiles measure domestic-language fluency; the 'Foreign Language' item now explicitly includes English as an example. EN field is preserved verbatim as O*NET attribution anchor.",
+  "translator": "claude-manual, v3 (2026-04-23) — Englisch split from Fremdsprachen",
+  "translationNotes": "German translations are polished for a lay audience. Short labels favor plain, actionable German (often verb-led) over academic psychometric compounds. Descriptions are paraphrased idiomatically rather than translated verbatim. Cross-subcategory label collisions (skill vs knowledge 'Mathematik', oral comprehension vs speech recognition) disambiguated. Cultural localization: O*NET's 'English Language' item (native-language proficiency for US audiences) is rendered as 'Deutsche Sprache' for DE audiences. O*NET's 'Foreign Language' item is rendered as 'Weitere Fremdsprachen' (explicitly non-English) because English in the DE market is a de-facto separate construct, captured by a new 'Englisch' item with DE-labour-market-calibrated occupation values. EN field is preserved verbatim as O*NET attribution anchor for the two O*NET-sourced items; the 'Englisch' item is PathFinder-authored and carries a custom Element ID '2.C.7.eng'.",
   "items": [
     {
       "id": "sk-skills-2.A.1.a",
@@ -1233,14 +1233,25 @@
       }
     },
     {
+      "id": "sk-knowledge-2.C.7.eng",
+      "layer": "skills",
+      "subCategory": "knowledge",
+      "onetElementId": "2.C.7.eng",
+      "text": { "en": "English (as foreign language)", "de": "Englisch" },
+      "description": {
+        "en": "Knowledge of English as a foreign language for a German-based speaker: reading technical documents, participating in meetings, writing emails, and communicating with international colleagues or customers.",
+        "de": "Englischkenntnisse: Fachtexte und Dokumentation lesen, in Meetings mitreden, E-Mails schreiben, mit internationalen Kollegen oder Kund:innen kommunizieren."
+      }
+    },
+    {
       "id": "sk-knowledge-2.C.7.b",
       "layer": "skills",
       "subCategory": "knowledge",
       "onetElementId": "2.C.7.b",
-      "text": { "en": "Foreign Language", "de": "Fremdsprachen" },
+      "text": { "en": "Other Foreign Languages", "de": "Weitere Fremdsprachen" },
       "description": {
-        "en": "Knowledge of the structure and content of a foreign (non-English) language including the meaning and spelling of words, rules of composition and grammar, and pronunciation.",
-        "de": "Kenntnisse zu Aufbau und Inhalt einer Fremdsprache (z. B. Englisch, Französisch, Spanisch): Wortbedeutung, Rechtschreibung, Grammatik und Aussprache."
+        "en": "Knowledge of a foreign language other than English (e.g. French, Spanish, Italian, Turkish, Mandarin): meaning and spelling of words, rules of composition and grammar, and pronunciation.",
+        "de": "Kenntnisse einer Fremdsprache außer Englisch (z. B. Französisch, Spanisch, Italienisch, Türkisch, Mandarin): Wortbedeutung, Rechtschreibung, Grammatik und Aussprache."
       }
     },
     {

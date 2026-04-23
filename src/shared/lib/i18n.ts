@@ -65,7 +65,7 @@ const messages = {
     skillsSubCategoryCountText: {
       skills: '35 Fragen zu deinen Fähigkeiten',
       abilities: '52 Fragen zu deinen Talenten',
-      knowledge: '33 Fragen zu deinem Wissen',
+      knowledge: '34 Fragen zu deinem Wissen',
     },
     skillsBand: {
       none: 'Kaum vorhanden',

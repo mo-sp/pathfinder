@@ -25,18 +25,6 @@ Likely next 1–2 sessions.
 
 ## Data quality
 
-- **Knowledge item 2.C.7.b Fremdsprachen is systematically under-weighted
-  for tech/international roles.** Session 21 relabelled `2.C.7.a` English
-  Language → Deutsche Sprache as a cultural-localization content swap, but
-  the O\*NET occupation-level (level, importance) values were not
-  recalibrated. For the German audience, "Fremdsprache" is de-facto English
-  and much more important for tech/international roles than O\*NET's US
-  "Foreign Language" values suggest (SwDev 0.3/1.1 reads as "irrelevant" —
-  reality is closer to 4.0/3.5). Affects all 894 O\*NET-surveyed codes, not
-  just curated ones. Fix idea: a per-code override layer that bumps 2.C.7.b
-  for tech/research/international-business occupations; keep 2.C.7.a as-is
-  since it already reads as native-language competency. Spotted during
-  15-1299.07 Blockchain-Entwickler curation (Session 23).
 - **KldB subtitle for medical specialties is wrong.** KldB 2010 has only a
   handful of 5d physician classes (81404 Ärzte ohne Spez., 81414 Kinder- und
   Jugendmedizin, 81454 Anästhesiologie, 81464 Neurologie/Psychiatrie,
@@ -174,11 +162,23 @@ Likely next 1–2 sessions.
   Freunde schicken können. Offene Fragen: welches Format (Markdown, plain,
   JSON, Image), ob Score-Werte mitgeschickt werden, Branding/Link zurück
   zur App.
-- **AI-at-risk flag per occupation** — show whether a role is likely to be
-  heavily affected by current AI capability (automation/augmentation). Source
-  options: Frey & Osborne 2013, Brynjolfsson/Mitchell 2023, WEF Future of
-  Jobs, or an opinionated curated flag. Open design questions: binary vs.
-  multi-level, what timeframe, how to frame without fatalism. Discuss scope
+- **AI-impact per occupation — two-sided: automation risk + augmentation
+  uplift.** Not just "likely to be replaced" but also "AI lifts the
+  practical fit of this role for users whose weak dimensions it
+  complements". The two-sided frame also resolves the earlier "how to
+  avoid fatalism" open question — risk and uplift co-exist per
+  occupation. Source options for the risk side: Frey & Osborne 2013,
+  Brynjolfsson/Mitchell 2023, WEF Future of Jobs, or an opinionated
+  curated flag. Uplift side is new design: per-occupation tags for which
+  dimensions AI currently offloads (e.g. SwDev → AI covers much of the
+  C/detail-discipline load, so a low-C user's realistic fit exceeds their
+  raw profile). Could surface as a signed fit modifier, or just as a
+  displayed hint next to the score. Real case behind the uplift idea:
+  @mo-sp is low-C and AI tooling has massively expanded what he can
+  produce as a developer — pattern, not just hypothesis. Open questions:
+  binary vs. multi-level on each side, timeframe, per-dimension vs.
+  per-skill granularity for the uplift, whether to combine into a single
+  signed "AI delta" or show both dimensions separately. Discuss scope
   before building.
 
 ## Tech debt

@@ -792,7 +792,7 @@ onBeforeUnmount(() => {
             Deine Fähigkeiten, Talente & Wissen
           </h2>
           <p class="mt-2 text-sm text-slate-400">
-            Deine Selbsteinschätzung zu 120 Kompetenzen aus der O*NET-Taxonomie.
+            Deine Selbsteinschätzung zu 121 Kompetenzen aus der O*NET-Taxonomie.
           </p>
           <dl class="mt-6 space-y-3">
             <div

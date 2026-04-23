@@ -17,7 +17,7 @@ export const SKILLS_SUB_CATEGORIES: readonly SkillsSubCategory[] = [
 export const SKILLS_SUB_CATEGORY_COUNTS: Readonly<Record<SkillsSubCategory, number>> = {
   skills: 35,
   abilities: 52,
-  knowledge: 33,
+  knowledge: 34,
 }
 
 /**
