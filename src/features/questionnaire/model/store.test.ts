@@ -1018,6 +1018,80 @@ describe('questionnaire store', () => {
       expect(store2.skillsPendingNextSubCategory).toBe('abilities')
     })
 
+    it('repeatSkillsSubCategory("skills") clears only skills answers and starts at index 0', () => {
+      const store = useQuestionnaireStore()
+      store.startSkillsLayer()
+      for (let i = 0; i < 35; i += 1) store.answer(3)
+      store.dismissSkillsInterstitial()
+      for (let i = 0; i < 52; i += 1) store.answer(4)
+      store.dismissSkillsInterstitial()
+      for (let i = 0; i < 34; i += 1) store.answer(5)
+      expect(store.skillsIsComplete).toBe(true)
+
+      store.repeatSkillsSubCategory('skills')
+
+      expect(store.currentLayer).toBe('skills')
+      expect(store.skillsAnswers).toHaveLength(52 + 34)
+      expect(store.skillsIsComplete).toBe(false)
+      expect(store.currentIndex).toBe(0)
+      expect(store.skillsCurrentSubCategory).toBe('skills')
+      expect(store.skillsInterstitialPending).toBe(false)
+    })
+
+    it('repeatSkillsSubCategory("abilities") clears only abilities and starts at index 35', () => {
+      const store = useQuestionnaireStore()
+      store.startSkillsLayer()
+      for (let i = 0; i < 35; i += 1) store.answer(3)
+      store.dismissSkillsInterstitial()
+      for (let i = 0; i < 52; i += 1) store.answer(4)
+      store.dismissSkillsInterstitial()
+      for (let i = 0; i < 34; i += 1) store.answer(5)
+
+      store.repeatSkillsSubCategory('abilities')
+
+      expect(store.skillsAnswers).toHaveLength(35 + 34)
+      expect(store.currentIndex).toBe(35)
+      expect(store.skillsCurrentSubCategory).toBe('abilities')
+      // Remaining answers belong only to skills and knowledge
+      expect(store.skillsAnswers.every((a) => a.value === 3 || a.value === 5)).toBe(true)
+    })
+
+    it('repeatSkillsSubCategory("knowledge") clears only knowledge and starts at index 87', () => {
+      const store = useQuestionnaireStore()
+      store.startSkillsLayer()
+      for (let i = 0; i < 35; i += 1) store.answer(3)
+      store.dismissSkillsInterstitial()
+      for (let i = 0; i < 52; i += 1) store.answer(4)
+      store.dismissSkillsInterstitial()
+      for (let i = 0; i < 34; i += 1) store.answer(5)
+
+      store.repeatSkillsSubCategory('knowledge')
+
+      expect(store.skillsAnswers).toHaveLength(35 + 52)
+      expect(store.currentIndex).toBe(35 + 52)
+      expect(store.skillsCurrentSubCategory).toBe('knowledge')
+    })
+
+    it('finishing a partial sub-category retake skips the Zwischenscreen', () => {
+      // Seed a complete skills layer, then retake only "skills" (sub 1).
+      // Answering the 35th item used to set skillsInterstitialPending and
+      // leave the user on a stale Zwischenscreen. The boundary handler
+      // now skips the flag when skillsAnswers already covers the layer.
+      const store = useQuestionnaireStore()
+      store.startSkillsLayer()
+      for (let i = 0; i < 35; i += 1) store.answer(3)
+      store.dismissSkillsInterstitial()
+      for (let i = 0; i < 52; i += 1) store.answer(4)
+      store.dismissSkillsInterstitial()
+      for (let i = 0; i < 34; i += 1) store.answer(5)
+
+      store.repeatSkillsSubCategory('skills')
+      for (let i = 0; i < 35; i += 1) store.answer(2)
+
+      expect(store.skillsIsComplete).toBe(true)
+      expect(store.skillsInterstitialPending).toBe(false)
+    })
+
     it('results include skillsMatch when skills complete', async () => {
       const store = useQuestionnaireStore()
       for (let i = 0; i < store.riasecTotal; i += 1) store.answer((i % 5) + 1)

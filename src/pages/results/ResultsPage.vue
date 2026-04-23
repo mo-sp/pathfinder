@@ -4,6 +4,7 @@ import { RouterLink, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import type { AssessmentLayer } from '@entities/assessment/model/types'
 import type { Occupation } from '@entities/occupation/model/types'
+import type { SkillsSubCategory } from '@entities/question/model/types'
 import { useQuestionnaireStore } from '@features/questionnaire/model/store'
 import {
   hasProfileDirection,
@@ -354,6 +355,11 @@ async function refineWithSkills(): Promise<void> {
 
 async function repeatLayer(layer: AssessmentLayer): Promise<void> {
   store.repeatLayer(layer)
+  await router.push('/test')
+}
+
+async function repeatSkillsSub(sub: SkillsSubCategory): Promise<void> {
+  store.repeatSkillsSubCategory(sub)
   await router.push('/test')
 }
 
@@ -818,13 +824,15 @@ onBeforeUnmount(() => {
               </dd>
             </div>
           </dl>
-          <div class="mt-4 flex justify-end">
+          <div class="mt-4 flex flex-wrap justify-end gap-x-4 gap-y-2">
             <button
+              v-for="entry in skillsSummary"
+              :key="entry.sub"
               type="button"
               class="text-sm text-slate-400 underline hover:text-slate-100"
-              @click="repeatLayer('skills')"
+              @click="repeatSkillsSub(entry.sub)"
             >
-              Fähigkeiten-Test wiederholen
+              {{ entry.label }} wiederholen
             </button>
           </div>
         </div>
