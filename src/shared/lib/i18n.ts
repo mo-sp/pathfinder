@@ -150,11 +150,11 @@ const messages = {
       },
       skills: {
         skills: {
-          1: 'Gar nicht',
-          2: 'Grundkenntnisse',
-          3: 'Solide',
-          4: 'Sehr gut',
-          5: 'Experte',
+          1: 'Kann ich nicht',
+          2: 'Eher schwach',
+          3: 'Durchschnittlich',
+          4: 'Eher stark',
+          5: 'Kann ich richtig gut',
         },
         abilities: {
           1: 'Sehr schwach',
@@ -164,11 +164,11 @@ const messages = {
           5: 'Sehr stark',
         },
         knowledge: {
-          1: 'Kein Wissen',
-          2: 'Grundlagen',
-          3: 'Solide',
-          4: 'Fortgeschritten',
-          5: 'Expertenwissen',
+          1: 'Kenne ich nicht',
+          2: 'Oberflächlich',
+          3: 'Durchschnittlich',
+          4: 'Fundiert',
+          5: 'Tiefes Fachwissen',
         },
       },
     },

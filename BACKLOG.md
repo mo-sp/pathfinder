@@ -146,22 +146,6 @@ Likely next 1–2 sessions.
   zero value. Either the staging should recognise "effectively zero" as
   its own neutral band, or the copy should acknowledge "median answers
   → no bonus either way". Spotted during PR 2a browser test.
-- **Skills Likert labels are asymmetrically positive — primes wrong
-  baseline intuition.** Skills sub-category uses "Gar nicht / Grundkenntnisse
-  / Solide / Sehr gut / Experte", which reads as "2 = baseline, 3 = above
-  baseline". Mathematically 3 is the midpoint (`userNorm = (v-1)/4`, so
-  3 → 0.5 = neutral). Result: users rating "everything Solide + languages
-  Experte" expect a meaningful bonus from the all-3 baseline, but the math
-  gives ~0 from the 3s plus ~0.01 from the three language spikes. Abilities
-  sub-category gets this right ("Durchschnittlich" at 3). Fix options: (a)
-  relabel Skills 3 → "Durchschnittlich" or "Mittel" to align with Abilities,
-  (b) relabel 2 → something less baseline-flavoured than "Grundkenntnisse"
-  (e.g. "Anfänger"), (c) recalibrate math so 2 = neutral (much bigger
-  change, cascades through all tests and archetype calibration — not
-  recommended). Smallest coherent fix: (a) + (b). Spotted during the
-  Englisch-split smoke test, when all-3s + Sprachen=5 produced +0.01
-  skills bonus and @mo-sp expected larger because the 3s felt
-  above-baseline to him.
 - **Contribution badge colour thresholds ignore sign on Big Five and
   Values.** Results page shows Big-Five +0.08 and Values −0.09 both in
   grey. Per `stageForBigFive` at ResultsPage.vue:396 a +0.08 is 'moderate'
