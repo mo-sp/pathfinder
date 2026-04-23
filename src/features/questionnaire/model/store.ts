@@ -491,6 +491,12 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     }
     const boundaries = skillsBoundaries.value
     if (boundaries.includes(skillsCurrentIndex.value)) {
+      // Partial sub-category retake: the other sub-categories still hold
+      // their answers, so this boundary answer completes the layer and
+      // selectAnswer will navigate straight to /ergebnis. Skipping the
+      // Zwischenscreen here avoids it briefly flashing, and prevents a
+      // stale `pending` flag from persisting into the next session.
+      if (skillsAnswers.value.length >= skillsTotal.value) return
       skillsInterstitialPending.value = true
       return
     }
@@ -604,6 +610,36 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
   function repeatLayer(layer: AssessmentLayer): void {
     currentLayer.value = layer
     resetCurrentLayer()
+  }
+
+  /**
+   * Clear answers for a single skills sub-category and jump to its first
+   * item so the user can re-answer just that slice. The other two
+   * sub-categories keep their answers, so once this slice is done
+   * `skillsIsComplete` flips true again and AssessmentPage navigates back
+   * to /ergebnis — no Zwischenscreen, no forced walk through the rest.
+   */
+  function repeatSkillsSubCategory(sub: SkillsSubCategory): void {
+    const subItemIds = new Set(skillsBySubCategory[sub])
+    skillsAnswers.value = skillsAnswers.value.filter(
+      (a) => !subItemIds.has(a.questionId),
+    )
+    // Re-shuffle this sub-category's slice of the order array only, so the
+    // other sub-categories keep their current presentation order.
+    const offsets: Record<SkillsSubCategory, number> = {
+      skills: 0,
+      abilities: SKILLS_SUB_CATEGORY_COUNTS.skills,
+      knowledge:
+        SKILLS_SUB_CATEGORY_COUNTS.skills + SKILLS_SUB_CATEGORY_COUNTS.abilities,
+    }
+    const start = offsets[sub]
+    const fresh = shuffleOrder(skillsBySubCategory[sub])
+    const next = [...skillsOrder.value]
+    for (let i = 0; i < fresh.length; i += 1) next[start + i] = fresh[i]
+    skillsOrder.value = next
+    skillsInterstitialPending.value = false
+    skillsCurrentIndex.value = start
+    currentLayer.value = 'skills'
   }
 
   /**
@@ -920,6 +956,7 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     reset,
     resetCurrentLayer,
     repeatLayer,
+    repeatSkillsSubCategory,
     updateValuesAnswer,
     startBigFiveLayer,
     startValuesLayer,

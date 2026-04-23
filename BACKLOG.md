@@ -172,15 +172,6 @@ Likely next 1–2 sessions.
   delta-label logic (any positive = green, any negative = red, with
   magnitude bands for intensity). Spotted during Englisch-split smoke
   test.
-- **Per-sub-category reset for Skills layer (Layer 4).** Current
-  "Test wiederholen" re-does the whole 121-item Skills layer (~15 min).
-  When iterating on a single sub-category — e.g. re-answering Wissen
-  to retest language-item changes — re-doing the other 87 items is
-  pure tax. UI: three separate "Wiederholen"-buttons per sub-category
-  on the Results page, or a dropdown on the main reset button. Scope
-  decision open: Skills-only (where sub-categories exist) or also
-  per-layer on the other three layers. @mo-sp request during
-  Englisch-split smoke test.
 - **Values layer is penalty-only, can never award a bonus.** Current
   design: `valuesPenalty ∈ [0, 0.35]`, subtracted from fitScore. Users
   who match an occupation's workContext perfectly get 0 penalty (the
