@@ -128,6 +128,7 @@ const messages = {
         skills: {
           strong: 'Deine Fähigkeiten decken sich stark mit dem Berufsprofil.',
           moderate: 'Solide Überschneidung bei den Fähigkeiten.',
+          neutral: 'Fähigkeiten im Mittel – kein Einfluss auf den Score.',
           weak: 'Nur teilweise passende Fähigkeiten.',
           poor: 'Fähigkeiten passen kaum zum Profil.',
         },

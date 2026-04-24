@@ -389,7 +389,7 @@ function toggleExplanation(onetCode: string): void {
 
 type FactorTone = 'positive' | 'negative' | 'neutral'
 type FactorKey = 'riasec' | 'bigfive' | 'values' | 'skills'
-type Stage = 'strong' | 'moderate' | 'weak' | 'poor'
+type Stage = 'strong' | 'moderate' | 'neutral' | 'weak' | 'poor'
 type FactorState = 'active' | 'inactive' | 'notScored' | 'noData'
 
 type FactorRow = {
@@ -423,12 +423,11 @@ function stageForValues(penalty: number): Stage {
   if (penalty < 0.2) return 'weak'
   return 'poor'
 }
-// Skills staged by the signed skillsBonus in [−0.25, +0.25]. Binary
-// sign: any positive bonus reads green (strong/moderate), any negative
-// reads red (weak/poor). No neutral grey band — the piecewise bonus is
-// already calibrated around 0 at the median user, so a near-zero bonus
-// is information, not noise.
+// Skills staged by the signed skillsBonus in [−0.25, +0.25]. Effectively-
+// zero bonuses get their own 'neutral' band so a median user (piecewise
+// bonus anchored at 0) isn't told "Solide Überschneidung" on a 0.00 value.
 function stageForSkills(bonus: number): Stage {
+  if (Math.abs(bonus) < 0.005) return 'neutral'
   if (bonus >= 0.10) return 'strong'
   if (bonus >= 0) return 'moderate'
   if (bonus >= -0.10) return 'weak'
