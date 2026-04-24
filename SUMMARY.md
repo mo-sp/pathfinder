@@ -5,6 +5,47 @@
 
 ---
 
+### Session 30 – 2026-04-24
+**Focus:** Cluster-C batch 1 — DE-title quality pass 2. One PR on `fix/cluster-c-title-pass-batch-1` bundling 26 primary-null fills and 24 ESCO-raw corrections into a single thematic unit. Fifth session this calendar day; same-day chain after Sessions 26/27/28/29.
+
+**Meta / process notes:**
+- **Heuristic filter concentrated 637 un-reviewed titles into 108 candidates.** Session 19's original DE-title pass only overrode codes sitting in a duplicate cluster; the remaining 637 ESCO-raw `title.de` values were never line-reviewed. @mo-sp had walked all of them manually across Sessions 26-28 and surfaced ~18 specifics, but a systematic filter made sense as a safety-net. Seven tests (anglicism leak, length >70, `-arbeiter` suffix, `-bediensteter` suffix, `Maschinenbediener für X`, `-schwenker`, `-abnehmer`) flagged 108 rows. ~41 of those became fixes this session (18 already-known + 23 newly-surfaced); the rest were legitimate long DE compound nouns (Ingenieur Luft- und Raumfahrttechnik, Medizinisch-technischer Laborassistent, …) or etablierte Anglizismen explicitly judged ok (Controller, Web-Designer, IT-Netzwerk-Administrator).
+- **Several genuine data bugs surfaced only via the filter, not the browser.** Five real mapping errors that @mo-sp had missed during his manual walk: 49-3042.00 Mobile Heavy Equipment Mechanics titled "Berg- und Maschinenmann" (mining instead of construction equipment — wrong occupation entirely), 51-2031.00 Engine and Other Machine Assemblers titled "Fluggerätemechaniker für Gasturbinen-Triebwerke" (aircraft-specific instead of generic engine assembly — 49-3011.00 already holds aircraft mechanics), 51-4041.00 Machinists titled "Zerspanungsmechaniker im Getriebebau" (generic Machinists narrowed to gearbox specialty), 51-8013.00 Power Plant Operators titled "Steuerer von Geothermiekraftwerken" (generic operators narrowed to geothermal — 51-8013.03/.04 hold biomass and hydro, 11-3051.02 / 49-9099.01 hold geothermal specifics), 29-2052.00 Pharmacy Technicians grammar error (feminine adjective "-technische" on masc noun "Assistent"). Pattern: the filter's "long-title" signal plus catalog-lookup for domain check caught drift that eye-scrolling past 100+ titles had missed.
+- **Collision-avoidance via catalog lookup on the proposed side too.** Two proposed replacements collided with existing overrides: "Diätassistent/Diätassistentin" for 29-1031.00 Dietitians was already held by 29-2051.00 Dietetic Technicians, and "Lehrkraft Sekundarstufe" for 25-2031.00 Secondary School Teachers collided with 25-2022.00 Middle School Teachers "Lehrkraft Sekundarstufe I". Remapped: 29-1031.00 → "Ernährungsberater/Ernährungsberaterin" (distinct from Diätassistent at the Assistenz tier), 25-2031.00 → "Lehrkraft Sekundarstufe II / Lehrerin Sekundarstufe II" (Grades 9-12 = Oberstufe, parallels 25-2022 Sek I cleanly). The "catalog-lookup before proposing" pattern from Session 27-29 now extends from "verify the target KldB exists" to "verify the proposed DE-title isn't already taken". Cheap — one node one-liner per candidate — avoided a duplicate-label regression.
+- **APN / Pflegeexperte gloss survived a re-review.** @mo-sp asked what APN meant; the 29-1171.00 Nurse Practitioners override exists with an explicit rationale comment ("DE-Äquivalent ist Advanced Practice Nurse, aber der APN-Zusatz stiftet mehr Verwirrung als er nützt"). After explanation, kept as-is. A useful reminder that some earlier decisions were deliberate trade-offs, not drift to clean up.
+- **Intentional null for Farm Labor Contractors.** 13-1074.00 was on the null-fill list but is genuinely US-taxonomy-specific (recruiting / housing / transporting migrant agricultural labor — no DE-market analog). Instead of inventing a label, left it null and added a BACKLOG entry for the planned DE-Occupation filter mechanism to pick it up. Concrete first customer for the filter moves that item from "idea" to "has a known first use".
+- **Browser-test-surfaced Cluster-A findings deferred to follow-up.** @mo-sp's post-test browse found five additional codes routed into semantically-distant KldB classes by the stem-overlap tiebreaker: three codes with "Sachverständige" in their DE-title dumped into 11123 Landwirtschaftliche Sachverständige (13-1032.00 Auto Damage Appraisers, 13-1041.04 Government Property Inspectors, 13-2023.00 Real Estate Appraisers), plus 33-3021.00 Detectives in 53152 Privatdetektive (should be 53223 Kriminaldienst), plus 33-3021.06 Intelligence Analysts in 71333 Wirtschaftsförderung (should also be 53223 Kriminaldienst). Logged to BACKLOG as a concrete Cluster-A batch-4 candidate with target candidates pre-verified via catalog lookup. Deliberately out of scope for this PR — cluster-C and cluster-A shouldn't share a PR.
+
+**What shipped — `fix/cluster-c-title-pass-batch-1` (1 PR):**
+
+*`scripts/input/title-overrides-de.mjs`*:
+- Modified 1 existing entry: 25-2031.00 "Lehrkraft Gymnasium und Realschule" → "Lehrkraft Sekundarstufe II / Lehrerin Sekundarstufe II".
+- Added new "Cluster-C batch 1: primary-null fills" block with 26 entries (27 nulls minus Farm Labor Contractors): Postdirektor, Projektleiter Altlastensanierung, Einkäufer, Fachangestellter für Medien- und Informationsdienste (FaMI), Vermessungsingenieur Landesvermessung, Mediator, Haushalts- und Landwirtschaftsberater, Audio- und Videotechniker, MTRA Strahlentherapie, Patientenfürsprecher, Endoskopie-Fachassistent, Ladendetektiv, Servicekraft Gastronomie, Oberkellner, Teamleiter Dienstleistungsberufe, Sachbearbeiter Einkauf, Trockenbauspachtler, Energiesanierer, Installateur Audio- und Videotechnik, Servicetechniker Windenergie, Helfer Instandhaltung, Geothermie-Techniker, Anreißer Metall- und Kunststoffbearbeitung, Biokraftstoff-Verfahrenstechniker, Verkehrstechniker, Förderbandbediener.
+- Added new "Cluster-C batch 1: ESCO-raw corrections" block with 23 entries: Risikoprüfer Versicherung (13-2053 was Underwriter), Risikoanalyst Finanzen (13-2054 was untranslated Anglicism), Quantitativer Finanzanalyst (13-2099.01 was "Investment Analyst" — wrong domain entirely), Bauzeichner (17-3011 was "CAD-Bediener"), Anthropologe und Archäologe (19-3091 added missing half), Bildungsreferent (25-9031 was "Instruktionsdesigner"), Casting Director w/ Fem-Form (27-2012.04), Kameramann/Kamerafrau (27-4031 was "Kameraschwenker"), Ernährungsberater (29-1031 was "Futtermittelwissenschaftler" — ESCO-side grossly wrong), PTA grammar fix (29-2052), Orthopädietechniker (29-2091 was veraltet "Orthopädist"), Fachkraft Blutentnahme (31-9097 was "Blutabnehmer"), Wertpapierhändler (41-3031 was "Warenmakler"), Postschalterangestellter (43-5051), Fachkraft für Lagerlogistik (43-5071), Land- und Baumaschinenmechatroniker (49-3042 was "Berg- und Maschinenmann"), Wartungsmonteur (49-9071 was "Gelegenheitsarbeiter"), Maschinen- und Motorenmonteur (51-2031), Maschinen- und Anlagenführer Metall-/Kunststofftechnik (51-4031), generic Zerspanungsmechaniker (51-4041), Formgießmaschinenführer typo-fix (51-4072), Modellmacher Bekleidung (51-6092 was Modelleur/Direktrice Stilbruch), Kraftwerker (51-8013).
+
+*`src/data/onet-occupations.json`*: 50 parallel `title.de` patches (coupled for idempotency — same pattern as Sessions 27-29; future `build-esco-german.mjs` reads the override file and produces identical JSON state).
+
+*`BACKLOG.md` housekeeping*: retired the standalone "Dietitians title.de is wrong" entry (fixed this session); consolidated the "DE-title quality pass 2" entry with Session-30 summary plus remaining tail (borderline -arbeiter/-bediensteter cluster, opportunistic sampling below the filter threshold); added concrete "DE-Occupation filter mechanism — execute" entry (with Farm Labor Contractors as first customer); added new Cluster-A entry for the Kriminaldienst + 11123-Landwirtschaft tiebreaker victims with pre-verified target candidates.
+
+**Coverage after the session:**
+
+| | Before session 30 | After |
+|---|---|---|
+| Codes with `title.de === null` | 27 | 1 (13-1074.00, intentionally — tagged for DE-Occupation filter) |
+| Manual `title-overrides-de.mjs` entries | 259 | 308 |
+| Session 26-28 browser flags handled | 18 / ~18 (with explicit stay-decisions for 5 BERUFENET-legit nischig terms) | all settled |
+| ESCO-raw cluster-C fixes surfaced by filter | 0 | 9 newly added beyond Session 26-28 |
+| Tests passing | 227 | 227 |
+
+**Branch:** `fix/cluster-c-title-pass-batch-1` (1 commit → 1 PR).
+
+**Open for next sessions (tracked in BACKLOG):**
+- **Cluster-A batch 4** — the 5 Kriminaldienst + 11123-Landwirtschaft tiebreaker victims surfaced this session (targets pre-verified; ~5-line override batch plus one coupled title fix).
+- **DE-Occupation filter mechanism** — execute with 13-1074.00 Farm Labor Contractors as first customer. New `scripts/input/excluded-occupations.mjs` file + build-pipeline wiring.
+- **Cluster-C tail** — opportunistic sampling below the filter threshold + the deferred -arbeiter/-bediensteter borderlines. Lower yield, handle when browser tests surface concrete complaints rather than as a dedicated pass.
+
+---
+
 ### Session 29 – 2026-04-24
 **Focus:** Two PRs, distinct work units bundled in one session. (1) UX polish from the BACKLOG: `/ergebnis` now scrolls to the just-finished layer instead of landing at top-of-page. (2) KldB overrides batch 3 — six container-abuse remaps paired with five `title.de` primary-null fills. Fourth session today; same-day chain after Sessions 26/27/28.
 

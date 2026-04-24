@@ -51,12 +51,24 @@ Likely next 1–2 sessions.
   in DE-title pass 2); the older scan findings still need a SOC-aware
   companion filter before another pass so false positives like "Bankkaufleute
   → Kreditprüfer" don't dominate the review list.
-- **Dietitians title.de is wrong at the ESCO level.** 29-1031.00 Dietitians
-  and Nutritionists is currently titled "Futtermittelwissenschaftler/
-  Futtermittelwissenschaftlerin" (animal-feed scientist), an ESCO-side
-  bug. Session 24 nulled the kldbName for this code to suppress the
-  further-compounded "Biologie" subtitle, but the primary title still reads
-  as animal-feed scientist. Fix during the broader DE-title quality pass.
+- **Cluster-A Kriminaldienst + 11123-Landwirtschaft tiebreaker victims.**
+  Session 30 browser test surfaced five codes wrongly routed by the
+  stem-overlap tiebreaker — "Sachverständige" in the DE-title pulled three
+  codes into 11123 Landwirtschaftliche Sachverständige (Anf 3), and the
+  Kriminaldienst codes landed in non-Kriminal classes. Fix candidates
+  (from `scripts/input/kldb-data.json` lookup): 13-1032.00 Insurance
+  Appraisers Auto Damage (11123 Landwirtschaft → 25213 Kfz-Technik komplex
+  or 72133 Versicherungskaufleute komplex — intersection call), 13-1041.04
+  Government Property Inspectors (11123 → 73203 öffentliche Verwaltung
+  komplex or 31163 Bausachverständige komplex), 13-2023.00 Real Estate
+  Appraisers (11123 → 61313 Immobilienvermarktung komplex or 31163
+  Bausachverständige komplex), 33-3021.00 Detectives and Criminal
+  Investigators (53152 Detektive → 53223 Kriminaldienst komplex — the
+  SOC-sibling .02 is already in 53222 so the class exists and is wired),
+  33-3021.06 Intelligence Analysts (71333 Wirtschaftsförderung → 53223
+  Kriminaldienst komplex + title fix "Mitarbeiter im Bereich
+  Informationsgewinnung" → "Kriminalanalyst/Kriminalanalystin").
+  Small and well-scoped — ~5-line override batch plus one coupled title.
 - **85 broadMatch KldB mappings** — residual noise tier. Options: (a) hide
   `broadMatch` from display and fall back to jobZone-only category, (b)
   accept. Build-script stat: `match tier of mapped codes: broadMatch`.
@@ -66,9 +78,6 @@ Likely next 1–2 sessions.
   hand-map, hide from corpus, accept.
 - **17 codes with Anforderungsniveau 2 steps away from jobZone** — biggest
   semantic drift. Build-script stat: `Anf distance: { '2': 17 }`.
-- **DE-Occupation filter** — the 923 O\*NET codes include many US-specific
-  roles that aren't relevant for the DE labour market. Coverage check +
-  filter/relabel irrelevant ones.
 - **KldB subtitle drift — non-medical edition.** Session 21 real-user test
   surfaced the same stem-overlap-picks-weird-thing pattern outside medicine:
   Agraringenieur → "Papierverarbeitung und Verpackungstechnik", Bioingenieur
@@ -76,37 +85,44 @@ Likely next 1–2 sessions.
   Same fix family as the medical subtitle bug — enumerate ISCO groups where
   the tie-breaker produces semantically distant classes, add per-group
   fallback to "ohne Spezialisierung" or suppress the subtitle.
-- **DE-title quality pass 2 — non-duplicate codes.** Session 19 curated 249
-  overrides but only for codes that sat in a duplicate cluster. The
-  remaining ~640 ESCO-raw labels haven't been line-reviewed. During PR
-  review @mo-sp spotted `43-5071 Shipping/Receiving/Inventory Clerks` →
-  "Warenlagerverwalter" (stale/ungebräuchlich; `Fachkraft für Lagerlogistik`
-  would be the current IHK-Ausbildungsberuf name). Likely more of the same
-  kind across logistics, trade, and technical roles. Fix: enumerate the
-  non-override codes, eyeball each `title.de` against BERUFENET, patch via
-  the same override file. Session 26 browser test added ~12 more hits to
-  the pile: Anschläger, Bügler, Gelegenheitsarbeiter, Zwirner, Zwicker,
-  Pfahlrammer, Blutabnehmer, Postschalterbediensteter, Kameraschwenker,
-  Underwriter, Warenmakler, Pflegeexperte, CAD-Bediener (= Technischer
-  Zeichner?), Instruktionsdesigner, "Lehrkraft Gymnasium und Realschule"
-  (awkward phrasing). Session 27 adds: 19-3091.00 Anthropologists and
-  Archeologists — title.de currently drops the Archäologe half of the
-  bundled SOC label, should become "Anthropologe/Archäologe" or similar.
-  Session 28 adds: 51-4031.00 "Maschinenbediener für Ständerbohrmaschine"
-  (awkward/ungebräuchliche Bezeichnung — cluster-C concern while the KldB
-  is defensible); 51-4072.00 "Fomgießmaschinenführer/Formgießmaschinen-
-  führerin" — masc form has a typo ("Fom" missing r), fem form spelled
-  correctly, one-char fix. Session 29 partially reduces the pile: 5
-  primary-null fills landed coupled with batch-3 KldB remaps (11-3051.02
-  Geothermal Production Managers, 17-2051.00 Civil Engineers, 17-2141.01
-  Fuel Cell Engineers, 29-2036.00 Medical Dosimetrists, 43-4111.00
-  Interviewers). Four primary-null remainders still pending — KldB was
-  already correct, only the title needs filling: 29-1124.00 Radiation
-  Therapists → "Strahlentherapeut/Strahlentherapeutin", 47-4099.03
-  Weatherization Installers → "Dämm-Monteur/Dämm-Monteurin" (or similar),
-  49-9081.00 Power Plant Operators (non-specific) → "Kraftwerker/
-  Kraftwerkerin", 49-9099.01 Geothermal Technicians → "Geothermie-
-  Techniker/Geothermie-Technikerin".
+- **DE-title quality pass 2 — residual tail after Session 30.** Session 30
+  shipped the cluster-C batch 1: all 27 primary-null fills (except
+  13-1074.00 Farm Labor Contractors, earmarked for the DE-Occupation
+  filter follow-up) + 23 ESCO-raw corrections covering most of the
+  Session 26-28 browser-test flags plus 9 filter-surfaced new ones
+  (Financial Risk Analyst/Investment Analyst → Risiko-/Quant-Analyst;
+  CAD-Bediener → Bauzeichner; Kameraschwenker → Kameramann; Orthopädist
+  → Orthopädietechniker; Berg- und Maschinenmann → Land- und
+  Baumaschinenmechatroniker; Zerspanungsmechaniker im Getriebebau →
+  generic; Maschinenbediener für Ständerbohrmaschine → Maschinen- und
+  Anlagenführer Metall-/Kunststofftechnik; Futtermittelwissenschaftler
+  → Ernährungsberater; Fom→Form typo; Pharma-Assistent grammar;
+  Schnitt-…-Direktrice → Modellmacher Bekleidung; Power Plant Operators
+  51-8013.00 generalisation). Also settled: the Session 26-28 BERUFENET-
+  legitimate-but-nischig terms (Anschläger, Bügler, Zwirner, Zwicker,
+  Pfahlrammer) explicitly kept as-is, and Pflegeexperte 29-1171.00 stays
+  as intentional APN gloss. Heuristic filter (anglicism / long / -arbeiter
+  / -bediensteter / für-X-bediener) identified 108 candidates out of the
+  637 un-reviewed titles; of those, ~23 became fixes, the rest are
+  legitimate long DE compound nouns or etablierte Anglizismen (Controller,
+  Web-Designer, Game-Designer). Still open: (i) a finer sampling pass
+  through the ~530+ titles below the filter threshold — lower-yield, do
+  opportunistically during future browser tests rather than as a
+  dedicated pass, (ii) the -arbeiter/-bediensteter cluster-decisions
+  where we kept BERUFENET-legit terms but didn't revisit the less-legit
+  ones (Transportarbeiter, Lagerarbeiter, Sägewerksfacharbeiter,
+  Vermietungsdienstmitarbeiter, Drainagearbeiter, Straßenunterhaltungs-
+  arbeiter, Deckarbeiter, Oberflächenbearbeiter, Gartenhilfsarbeiter,
+  Fabrikhilfsarbeiter, Bankbediensteter, Küchenbediensteter) — all
+  borderline, defer until a browser test surfaces a concrete complaint.
+- **DE-Occupation filter mechanism — execute.** The planned filter entry
+  moves from "idea" to "has a first customer": 13-1074.00 Farm Labor
+  Contractors was deliberately left with `title.de === null` in Session
+  30's cluster-C batch 1 because it's genuinely US-taxonomy-specific
+  (migrant labor brokerage) with no 1:1 DE equivalent. Needs a new
+  `scripts/input/excluded-occupations.mjs` list + wiring into the build
+  so excluded codes are dropped from the corpus (search, results,
+  scoring). Small PR; ~30-50 LOC plus tests.
 
 - **Audit the 131 seed entries in `scripts/input/kldb-overrides.mjs`.**
   The file was populated retrospectively in Session 26 to pin the existing
