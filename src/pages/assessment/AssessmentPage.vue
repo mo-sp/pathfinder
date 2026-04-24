@@ -48,6 +48,12 @@ onMounted(() => {
   })
 })
 
+function restartEverything(): void {
+  if (window.confirm('Alle bisherigen Antworten aus allen Teilen löschen und komplett von vorne beginnen?')) {
+    store.reset()
+  }
+}
+
 const likertOptions = [1, 2, 3, 4, 5] as const
 
 const text = computed(() => {
@@ -280,7 +286,14 @@ async function selectAnswer(value: number): Promise<void> {
           class="rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700"
           @click="store.resetCurrentLayer"
         >
-          Schicht neu starten
+          Nur diesen Teil neu
+        </button>
+        <button
+          type="button"
+          class="rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700"
+          @click="restartEverything"
+        >
+          Alles neu
         </button>
       </div>
     </div>
