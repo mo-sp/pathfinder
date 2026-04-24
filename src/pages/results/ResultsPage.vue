@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, onBeforeUnmount, ref } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
+import { computed, nextTick, onMounted, onBeforeUnmount, ref } from 'vue'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import type { AssessmentLayer } from '@entities/assessment/model/types'
 import type { Occupation } from '@entities/occupation/model/types'
@@ -24,7 +24,20 @@ import { stripKldbSuffix } from './stripKldbSuffix'
 
 const store = useQuestionnaireStore()
 const router = useRouter()
+const route = useRoute()
 const { t } = useI18n()
+
+// Layer-completion navigation from AssessmentPage sets ?focus=<layer>; on
+// direct /ergebnis loads the query is absent and the page stays at top.
+const FOCUSABLE_LAYERS: readonly AssessmentLayer[] = ['riasec', 'bigfive', 'values', 'skills']
+function focusTargetFromQuery(): AssessmentLayer | null {
+  const raw = route.query.focus
+  const value = Array.isArray(raw) ? raw[0] : raw
+  if (typeof value !== 'string') return null
+  return (FOCUSABLE_LAYERS as readonly string[]).includes(value)
+    ? (value as AssessmentLayer)
+    : null
+}
 
 // A user who answers uniformly (all 1s, all 3s, all 5s) ends up with a
 // flat profile. Pearson correlation's zero-variance guard then collapses
@@ -248,6 +261,20 @@ onMounted(() => {
   store.loadBigFiveProfiles().catch((err) => {
     console.error('Failed to load Big Five occupation profiles', err)
   })
+
+  // Scroll to the just-finished layer when AssessmentPage forwards us with
+  // ?focus=<layer>. `nextTick` waits for the v-if-gated layer blocks to
+  // render; `getElementById` returns null in jsdom tests (no layout), so
+  // the optional-chain silently no-ops there.
+  const focus = focusTargetFromQuery()
+  if (focus) {
+    nextTick(() => {
+      document.getElementById(`layer-${focus}`)?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      })
+    })
+  }
 })
 
 const riasecLegend = computed(() =>
@@ -595,7 +622,7 @@ onBeforeUnmount(() => {
     </div>
 
     <template v-else>
-      <div class="rounded-xl border border-slate-700/60 bg-slate-900/50 p-6">
+      <div id="layer-riasec" class="scroll-mt-6 rounded-xl border border-slate-700/60 bg-slate-900/50 p-6">
         <h1 class="text-3xl font-bold text-slate-100">Dein RIASEC-Profil</h1>
         <p class="mt-2 text-sm text-slate-400">
           Basierend auf {{ store.riasecTotal }} Items aus dem O*NET Interest Profiler
@@ -633,7 +660,7 @@ onBeforeUnmount(() => {
 
       <!-- Big Five block: either the completed profile + legend, or an
            invitation to start the refinement layer. -->
-      <div v-if="store.bigfiveIsComplete" class="mt-12 rounded-xl border border-slate-700/60 bg-slate-900/50 p-6">
+      <div v-if="store.bigfiveIsComplete" id="layer-bigfive" class="mt-12 scroll-mt-6 rounded-xl border border-slate-700/60 bg-slate-900/50 p-6">
         <h2 class="text-2xl font-semibold text-slate-100">
           Dein Persönlichkeitsprofil
         </h2>
@@ -696,7 +723,7 @@ onBeforeUnmount(() => {
            invitation to start the values layer. Only shown after Big Five
            is complete (values is the next step in the progressive funnel). -->
       <template v-if="store.bigfiveIsComplete">
-        <div v-if="store.valuesIsComplete" class="mt-12 rounded-xl border border-slate-700/60 bg-slate-900/50 p-6">
+        <div v-if="store.valuesIsComplete" id="layer-values" class="mt-12 scroll-mt-6 rounded-xl border border-slate-700/60 bg-slate-900/50 p-6">
           <h2 class="text-2xl font-semibold text-slate-100">
             Deine Werte & Rahmenbedingungen
           </h2>
@@ -780,7 +807,7 @@ onBeforeUnmount(() => {
            aggregate bars for Fähigkeiten / Talente / Wissen) or the CTA
            to start Layer 4. Only shown after Values is complete. -->
       <template v-if="store.valuesIsComplete">
-        <div v-if="store.skillsIsComplete" class="mt-12 rounded-xl border border-slate-700/60 bg-slate-900/50 p-6">
+        <div v-if="store.skillsIsComplete" id="layer-skills" class="mt-12 scroll-mt-6 rounded-xl border border-slate-700/60 bg-slate-900/50 p-6">
           <h2 class="text-2xl font-semibold text-slate-100">
             Deine Fähigkeiten, Talente & Wissen
           </h2>
