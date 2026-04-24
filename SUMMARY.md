@@ -5,6 +5,34 @@
 
 ---
 
+### Session 33 – 2026-04-25
+**Focus:** O*NET Interest Profiler modernization sweep — 13 RIASEC items touched across three browser-test-driven rounds on the same branch. One PR on `feat/onet-items-modernization-2026` with 3 data commits (SUMMARY here rides as the 4th). Third session this calendar day; same-day chain after Sessions 31/32.
+
+**Meta / process notes:**
+- **"Just pull from the Long Form" turned out to be a dead end.** @mo-sp opened with the premise that the O*NET IP Long Form (180 items) might contain more modern content we could re-select the best 60 from. Web-search corrected upfront: the Long Form was retired September 2018, AND — more importantly — both forms were authored in 1999, so the 180 items are just three times as many 1999-era items, no modern content hiding there. Re-selecting would also break the Rounds-et-al-2010 psychometric validation of the Short Form (multidimensional scaling + content-coverage judging produced the current 60). Redirected to "keep the 60-item structure, swap the stalest items per dimension for contemporary ones."
+- **Three-pass iterative refinement driven by browser test.** Commit 1 shipped 9 items from desk analysis. Browser-walk surfaced 3 more problematic items (R-03 "Waschmaschinen/Kühlschränke" datedness, C-02 "Dokumente Korrektur lesen" same, 2× "Geschäft leiten" duplication in E after the E-02 reword) → commit 2 with 4 more changes. Then @mo-sp reframed the E-02/E-05 trade: keep "gründen" somewhere in E, push it from E-05 to E-02 as e-commerce-flavored entrepreneurship, free up E-05 to carry Negotiation → commit 3 for the E-02 swap. Browser-test was the right gate: each pass surfaced things desk analysis missed, including the "leiten" count which only becomes visible when you see all E-items in a row.
+- **Explicit dimension-drift audit on request before PR.** @mo-sp asked to double-check that every modified item still targets its intended RIASEC dimension. Walked all 47 modified items (EN original vs current DE) — no dimension drift identified, but three nuances surfaced for transparency: R-10 "rescue people" has mild S-tint but stays O*NET-consistent (firefighter = R), I-08 "Data Science" walks the I/C boundary — kept safely at I via "patterns **find**" wording (hypothesis formation = I; "manage data structured" would have been C), A-07 Podcast is the biggest sub-theme jump from EN "Write scripts" (both clearly A, deliberate audio-gap fill since A was 7/10 visual pre-sweep).
+- **Attribution counts tracked through iterations.** Header started at "15 replaced / 19 reworded" from prior sessions. Each commit moved the counter (commit 1: 21/22; commit 2: 22/25; commit 3: 23/24 after E-02 reclassified from reword to replace). Final: 23 replaced + 24 reworded of 60 = 78% modified. Six-dimensional structure and 10-items-per-dimension balance unchanged — scoring pipeline untouched, no code changes needed.
+
+**What shipped — `feat/onet-items-modernization-2026` (1 PR):**
+
+*`src/data/onet-items.json`* — 13 items modified across 3 commits:
+
+*Commit 1 — primary modernization sweep (9 items):* R-02 "Ziegel/Fliesen" → "Auf einer Baustelle arbeiten"; R-05 "Elektronische Bauteile montieren" → "Computer-Hardware zusammenbauen und reparieren"; I-08 "Biologielabor" → "Mit statistischen Methoden Muster in großen Datensätzen finden" (Data Science); A-04 "Mit Stift/Pinsel zeichnen" → "Eigene Bilder zeichnen" (generalize, covers digital + analog, removes overlap with A-07); A-07 "Tattoos/Illustrationen" → "Podcasts oder Hörspiele aufnehmen und produzieren" (audio-gap fill); A-10 "Filme schneiden" → "Videos für YouTube/Streaming-Plattformen schneiden und veröffentlichen"; E-02 "Einzelhandelsgeschäft leiten" → "Einzelhandelsgeschäft oder Online-Shop leiten" (reworded, later replaced in commit 3); C-08 "Mietzahlungen erfassen" → "Datenschutz-Vorgaben prüfen und in Checklisten dokumentieren" (GDPR/Compliance); C-10 "Post sortieren und weiterleiten" → "Rechnungen und Belege in Buchhaltungssoftware prüfen und verbuchen".
+
+*Commit 2 — browser-test follow-ups (4 items):* R-03 "Waschmaschinen/Kühlschränke" → "Kaputte Alltagsgeräte reparieren und wieder in Gang bringen" (right-to-repair framing); C-02 "Dokumente/Formulare Korrektur lesen" → "Verträge und Dokumente sorgfältig auf Fehler prüfen"; E-04 "Abteilung leiten" → "Ein Team führen und bei schwierigen Entscheidungen vorangehen"; E-05 "Eigenes Unternehmen gründen" → "Verhandlungen mit Geschäftspartnern führen und Verträge abschließen" (reinstates Negotiation core that was displaced in an earlier session by E-06 Politik replacement).
+
+*Commit 3 — E-Entrepreneurship shuffle (1 item):* E-02 reclassified from reword to replace: "Einzelhandelsgeschäft oder Online-Shop leiten" → "Einen Onlineshop gründen" (reinstates Entrepreneurship in E-02 while E-05 carries Negotiation; reduces "leiten" duplication count in E from 3 to 1).
+
+*Attribution block updated each commit.* Final rationale list: e-commerce, data science, energy transition, audio/video content creation, negotiation, team leadership, data protection. English item text untouched throughout — only the DE text was modified.
+
+**Branch:** `feat/onet-items-modernization-2026` (3 data commits + 1 docs commit → 1 PR).
+
+**Open for next sessions (tracked in BACKLOG):**
+- **Option 2 from initial triage — parallel "Modern interests" layer** next to RIASEC feeding occupation matching without touching the validated score. Parked this session; worth revisiting once item-text modernization feels exhausted.
+
+---
+
 ### Session 32 – 2026-04-25
 **Focus:** Cluster-A batch 5 — what started as 2 codes from Session 21's BACKLOG entry grew via mid-session browser-test sweeps into a 16-code drift cleanup. One PR on `fix/cluster-a-batch-5-agrar-and-naturschutz` with 3 commits (data + expansion + docs). Second session this calendar day; same-day chain after Session 31.
 

@@ -223,6 +223,17 @@ Likely next 1–2 sessions.
   signed "AI delta" or show both dimensions separately. Discuss scope
   before building.
 
+- **"Modern interests" layer parallel to RIASEC.** Surfaced in Session 33
+  modernization triage as "Option 2". Re-wording items within the existing
+  60-item Holland structure hits a ceiling: the 1959 typology can't elegantly
+  host contemporary niches like sustainability focus, creator economy,
+  remote-first preference, or AI-native work styles. A parallel interests
+  block — independent of RIASEC score, feeding occupation matching only —
+  would let us add contemporary interests without distorting the validated
+  core. Open: how many items, how they plug into the matching weight, Likert
+  vs. single-choice tags, whether to surface as a separate step in the
+  assessment flow or bundle with RIASEC.
+
 ## Tech debt
 
 - **Bundle size** — `onet-occupations-*.js` is 3.8 MB raw / 658 KB gzip. Code
