@@ -191,4 +191,20 @@ export default {
   "47-5011.00": { kldbCode: "94512", kldbName: "Berufe in der Veranstaltungs- und Bühnentechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Bühnenmann: was Brunnenbau
   "49-2091.00": { kldbCode: "26332", kldbName: "Berufe in der Luftverkehrs-, Schiffs- und Fahrzeugelektronik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Avioniker: was Automatisierungstechnik (generic)
   "53-7065.00": { kldbCode: "51312", kldbName: "Berufe in der Lagerwirtschaft - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Lagerarbeiter: was technischer Luftverkehrsbetrieb
+
+  // Container-abuse overrides — batch 2 (2026-04-24).
+  // Remaining Session-26 browser-test (A) findings plus the older scan-based
+  // entries from BACKLOG. Reviewed with @mo-sp; each target verified against
+  // scripts/input/kldb-data.json (full KldB 2010 catalog).
+  "15-2041.01": { kldbCode: "41114", kldbName: "Berufe in der Statistik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Biometriker: was Mathematik (ohne Spez.) — same family as Statistiker 15-2041.00
+  "17-1021.00": { kldbCode: "31213", kldbName: "Berufe in der Vermessungstechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Katasteringenieur: was Baustoffherstellung
+  "19-2099.01": { kldbCode: "31213", kldbName: "Berufe in der Vermessungstechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Fernerkundungs-Wissenschaftler: was chemisch-technisches Labor (Geoinformatik 43144 only has Anf 4 tier, out of reach at current Anf 3)
+  "19-4099.03": { kldbCode: "31213", kldbName: "Berufe in der Vermessungstechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Fernerkundungstechniker: was chemisch-technisches Labor
+  "27-3042.00": { kldbCode: "92413", kldbName: "Redakteure/Redakteurinnen und Journalisten/Journalistinnen - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Technischer Redakteur: was Stenotypisten
+  "39-9041.00": { kldbCode: "83123", kldbName: "Berufe in der Sozialarbeit und Sozialpädagogik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Jugendarbeiter: was Verbraucherberatung
+  "43-9061.00": { kldbCode: "71402", kldbName: "Büro- und Sekretariatskräfte (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Bürokraft (allgemein): was Umweltschutzverwaltung
+  "47-5032.00": { kldbCode: "21122", kldbName: "Berufe in der Sprengtechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Sprengstoffarbeiter: was Chemie-/Pharmatechnik — Session-24 emptied 21122 of engineers, but the actual explosives-worker belongs here
+  "49-3021.00": { kldbCode: "25213", kldbName: "Berufe in der Kraftfahrzeugtechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Oldtimerrestaurator: was Kfz-Technik fachlich (Anf 2); bumped to specialist-tier since Oldtimer-Restaurierung is post-Ausbildung specialization
+  "51-9051.00": { kldbCode: "24112", kldbName: "Berufe in der Hüttentechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Koksofensteuerer: was Chemie-/Pharmatechnik — coke ovens are metallurgy, not pharma
+  "53-1044.00": { kldbCode: "51422", kldbName: "Servicefachkräfte im Luftverkehr - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Leitender Flugbegleiter: was Service Straße/Schiene
 }

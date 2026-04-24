@@ -36,29 +36,20 @@ Likely next 1–2 sessions.
   Fix idea: per-ISCO fallback in `build-kldb-mapping.mjs` — if the best KldB
   candidate has stemOverlap 0 with `title.de`, prefer the "ohne
   Spezialisierung" class for that ISCO group rather than inventing a match.
-- **Further semantic subtitle mismatches beyond the three Session-24 containers.**
-  Session 24's scan flagged 155+ KldB container classes with ≥ 2 suspicious
-  codes each; only 21124 Sprengtechnik (13 codes), 61394 Immo/Facility (6),
-  and 41204 Biologie (5 non-biologists) were cleaned up. Remaining clear-cut
-  cases include: 25212 Kraftfahrzeugtechnik with Oldtimer-Restaurator /
-  Pannendienstfahrer mislabelled; 24202 Metallbearbeitung with Maschinen-
-  bediener für Ständerbohrmaschine and Fomgießmaschinenführer (typo in
-  the data, too); 41312 Chemie-/Pharmatechnik with Sprengstoffarbeiter and
-  Koksofen-Steuerer. Also includes the older @mo-sp observations: 47-2061
-  Construction Laborers → "Sprengtechnik", 33-9094 School Bus Monitors →
-  "Kinderbetreuung". The stem-match heuristic used in Session 24 also needs
-  a SOC-aware companion filter so false positives like "Bankkaufleute →
-  Kreditprüfer" don't dominate the review list. Session 26 top-list browser
-  test added ~50 fresh specifics; Session 27 batch-1 PR resolved 15 of them
-  as explicit overrides (Bühnenmann, Justizwachtmeister, Beleuchtungstechniker,
-  Konstruktionsmechaniker Feinblechbau, Ordnungshüter→Verkehrsüberwachung +
-  title.de coupled, Sportler-mit-Behinderung, Lebensberater, Mitarbeiter-
-  Freizeitpark (null), Avioniker, Lagerarbeiter, Hochbauhelfer, Schadens-
-  regulierer, Notariatsmitarbeiter, Rechtsanwaltsfachangestellte, Historiker).
-  Still open from the browser pass: Leitender Flugbegleiter → Straßen-/
-  Schienenverkehr; the various Lehrkräfte-Kategorien that rendered on the
-  wrong Sekundar-/Berufs-/Primarstufe tier; plus the older scan findings
-  above.
+- **Further semantic subtitle mismatches beyond the three Session-24
+  containers.** Session 24's scan flagged 155+ KldB container classes with
+  ≥ 2 suspicious codes each; only 21124 Sprengtechnik (13 codes), 61394
+  Immo/Facility (6), and 41204 Biologie (5 non-biologists) were cleaned
+  up via remap. Session 26 top-list browser test added ~50 fresh specifics
+  and Sessions 27 + 28 addressed 26 of them as explicit overrides (batch 1:
+  15 codes; batch 2: 11 codes including the older BACKLOG-scan picks for
+  25212 Kraftfahrzeugtechnik/Oldtimerrestaurator and 41312 Chemie-Pharma/
+  Sprengstoffarbeiter + Koksofensteuerer). Still open: various Lehrkräfte-
+  Tier-Verwechslungen (probably mixed A/C — some are seed-pin target errors
+  on pinned Lehrkraft codes, some are awkward title.de phrasing that belong
+  in DE-title pass 2); the older scan findings still need a SOC-aware
+  companion filter before another pass so false positives like "Bankkaufleute
+  → Kreditprüfer" don't dominate the review list.
 - **Dietitians title.de is wrong at the ESCO level.** 29-1031.00 Dietitians
   and Nutritionists is currently titled "Futtermittelwissenschaftler/
   Futtermittelwissenschaftlerin" (animal-feed scientist), an ESCO-side
@@ -100,6 +91,11 @@ Likely next 1–2 sessions.
   (awkward phrasing). Session 27 adds: 19-3091.00 Anthropologists and
   Archeologists — title.de currently drops the Archäologe half of the
   bundled SOC label, should become "Anthropologe/Archäologe" or similar.
+  Session 28 adds: 51-4031.00 "Maschinenbediener für Ständerbohrmaschine"
+  (awkward/ungebräuchliche Bezeichnung — cluster-C concern while the KldB
+  is defensible); 51-4072.00 "Fomgießmaschinenführer/Formgießmaschinen-
+  führerin" — masc form has a typo ("Fom" missing r), fem form spelled
+  correctly, one-char fix.
 
 - **KldB class names that read like category descriptions, not job titles.**
   Roughly 8 classes in the current render surface are phrased as "Berufe in

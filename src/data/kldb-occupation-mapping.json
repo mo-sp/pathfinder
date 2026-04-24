@@ -830,8 +830,8 @@
       "trainingCategory": "studies"
     },
     "15-2041.01": {
-      "kldbCode": "41104",
-      "kldbName": "Berufe in der Mathematik (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
+      "kldbCode": "41114",
+      "kldbName": "Berufe in der Statistik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -872,8 +872,8 @@
       "trainingCategory": "studies"
     },
     "17-1021.00": {
-      "kldbCode": "21223",
-      "kldbName": "Berufe in der Baustoffherstellung - komplexe Spezialistentätigkeiten",
+      "kldbCode": "31213",
+      "kldbName": "Berufe in der Vermessungstechnik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -1359,8 +1359,8 @@
       "trainingCategory": "studies"
     },
     "19-2099.01": {
-      "kldbCode": "41323",
-      "kldbName": "Berufe im chemisch-technischen Laboratorium - komplexe Spezialistentätigkeiten",
+      "kldbCode": "31213",
+      "kldbName": "Berufe in der Vermessungstechnik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -1539,8 +1539,8 @@
       "trainingCategory": "apprenticeship"
     },
     "19-4099.03": {
-      "kldbCode": "41323",
-      "kldbName": "Berufe im chemisch-technischen Laboratorium - komplexe Spezialistentätigkeiten",
+      "kldbCode": "31213",
+      "kldbName": "Berufe in der Vermessungstechnik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -2225,8 +2225,8 @@
       "trainingCategory": "specialist"
     },
     "27-3042.00": {
-      "kldbCode": "71433",
-      "kldbName": "Steno- und Phonotypisten/-typistinnen - komplexe Spezialistentätigkeiten",
+      "kldbCode": "92413",
+      "kldbName": "Redakteure/Redakteurinnen und Journalisten/Journalistinnen - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -3430,8 +3430,8 @@
       "trainingCategory": "specialist"
     },
     "39-9041.00": {
-      "kldbCode": "83223",
-      "kldbName": "Berufe in der Verbraucherberatung - komplexe Spezialistentätigkeiten",
+      "kldbCode": "83123",
+      "kldbName": "Berufe in der Sozialarbeit und Sozialpädagogik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -3850,8 +3850,8 @@
       "trainingCategory": "apprenticeship"
     },
     "43-9061.00": {
-      "kldbCode": "42312",
-      "kldbName": "Berufe in der Umweltschutzverwaltung und -beratung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "71402",
+      "kldbName": "Büro- und Sekretariatskräfte (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4271,8 +4271,8 @@
       "trainingCategory": "apprenticeship"
     },
     "47-5032.00": {
-      "kldbCode": "41312",
-      "kldbName": "Berufe in der Chemie- und Pharmatechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "21122",
+      "kldbName": "Berufe in der Sprengtechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4392,10 +4392,10 @@
       "trainingCategory": "apprenticeship"
     },
     "49-3021.00": {
-      "kldbCode": "25212",
-      "kldbName": "Berufe in der Kraftfahrzeugtechnik - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "25213",
+      "kldbName": "Berufe in der Kraftfahrzeugtechnik - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "49-3022.00": {
       "kldbCode": "33342",
@@ -5112,8 +5112,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-9051.00": {
-      "kldbCode": "41312",
-      "kldbName": "Berufe in der Chemie- und Pharmatechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "24112",
+      "kldbName": "Berufe in der Hüttentechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5286,8 +5286,8 @@
       "trainingCategory": "specialist"
     },
     "53-1044.00": {
-      "kldbCode": "51412",
-      "kldbName": "Servicefachkräfte im Straßen- und Schienenverkehr - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "51422",
+      "kldbName": "Servicefachkräfte im Luftverkehr - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
