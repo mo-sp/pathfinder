@@ -63,7 +63,6 @@ export default {
   "17-3013.00": { kldbCode: "27212", kldbName: "Technische Zeichner - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Maschinenbauzeichner/Maschinenbauzeichnerin
   "17-3026.01": { kldbCode: "26123", kldbName: "Berufe in der Automatisierungstechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Nanotechnologie-Techniker/Nanotechnologie-Technikerin
   "19-1023.00": { kldbCode: "41293", kldbName: "Aufsichtskräfte - Biologie", anforderungsniveau: 3, trainingCategory: "specialist" }, // Zoologen und Wildtierbiologen
-  "19-1031.03": { kldbCode: "63143", kldbName: "Reiseleiter und Fremdenführer - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Wissenschaftler Natur- und Artenschutz/Wissenschaftlerin Natur- und Artenschutz
   "19-2032.00": { kldbCode: "41303", kldbName: "Berufe in der Chemie (ohne Spezialisierung) - komplexe Spezialistentätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Werkstoffwissenschaftler/Werkstoffwissenschaftlerin
   "21-1023.00": { kldbCode: "83124", kldbName: "Berufe in der Sozialarbeit und Sozialpädagogik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Sozialarbeiter Psychiatrie und Suchthilfe / Sozialarbeiterin Psychiatrie und Suchthilfe
   "23-1021.00": { kldbCode: "73154", kldbName: "Richter - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Friedensrichter/Friedensrichterin
@@ -236,4 +235,13 @@ export default {
   "29-1223.00": { kldbCode: "81464", kldbName: "Fachärzte/-ärztinnen in der Neurologie, Psychiatrie, Psychotherapie und psychosomatischen Medizin - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Psychiater: was Kinder- und Jugendmedizin — 81464 enthält Psychiatrie explizit
   "29-1229.03": { kldbCode: "81404", kldbName: "Ärzte/Ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Urologe: was Kinder- und Jugendmedizin — keine 5d-Klasse für Urologie, 81404 Fallback
   "29-1242.00": { kldbCode: "81404", kldbName: "Ärzte/Ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Orthopäde: was Kinder- und Jugendmedizin — keine 5d-Klasse für Orthopädie, 81404 Fallback (gleiches Muster wie 29-1222.00 Pathologe)
+
+  // Container-abuse overrides — batch 5 (2026-04-25).
+  // Two non-medical drift codes from Session 21's BACKLOG entry:
+  // Agraringenieur was routed to Papierverarbeitung via stem-overlap on
+  // "-technik"; Naturschutz-Wissenschaftler had been seed-pinned to
+  // Reiseleiter (drift, not intentional). Both are studies-tier roles
+  // that map cleanly onto existing KldB ohne-Spez/Ökologie classes.
+  "17-2021.00": { kldbCode: "11104", kldbName: "Berufe in der Landwirtschaft (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Agraringenieur: was Papierverarbeitung — keine eigene 5d-Klasse für Agraringenieurwesen, 11104 ist der ohne-Spez-Fallback (gleiches Muster wie 81404 für Ärzte ohne dedizierte Spezialisierung)
+  "19-1031.03": { kldbCode: "41234", kldbName: "Berufe in der Biologie (Ökologie) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Wissenschaftler Natur- und Artenschutz: was Reiseleiter (Anf 3 → 4 — Wissenschaftler = Studienberuf); 41234 ist die exakte Ökologie-Klasse für Naturschutzwissenschaftler
 }

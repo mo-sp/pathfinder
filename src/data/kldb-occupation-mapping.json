@@ -897,8 +897,8 @@
       "trainingCategory": "studies"
     },
     "17-2021.00": {
-      "kldbCode": "23124",
-      "kldbName": "Berufe in der Papierverarbeitung und Verpackungstechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "11104",
+      "kldbName": "Berufe in der Landwirtschaft (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1269,10 +1269,10 @@
       "trainingCategory": "studies"
     },
     "19-1031.03": {
-      "kldbCode": "63143",
-      "kldbName": "Reiseleiter und Fremdenführer - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "41234",
+      "kldbName": "Berufe in der Biologie (Ökologie) - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "19-1032.00": {
       "kldbCode": "41213",
