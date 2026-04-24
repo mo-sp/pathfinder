@@ -41,12 +41,13 @@ Likely next 1–2 sessions.
   ≥ 2 suspicious codes each; only 21124 Sprengtechnik (13 codes), 61394
   Immo/Facility (6), and 41204 Biologie (5 non-biologists) were cleaned
   up via remap. Session 26 top-list browser test added ~50 fresh specifics
-  and Sessions 27 + 28 addressed 26 of them as explicit overrides (batch 1:
-  15 codes; batch 2: 11 codes including the older BACKLOG-scan picks for
-  25212 Kraftfahrzeugtechnik/Oldtimerrestaurator and 41312 Chemie-Pharma/
-  Sprengstoffarbeiter + Koksofensteuerer). Still open: various Lehrkräfte-
-  Tier-Verwechslungen (probably mixed A/C — some are seed-pin target errors
-  on pinned Lehrkraft codes, some are awkward title.de phrasing that belong
+  and Sessions 27 + 28 + 29 addressed 32 of them as explicit overrides
+  (batch 1: 15 codes; batch 2: 11 codes; batch 3: 6 codes surfaced by the
+  Cluster-B primary-null investigation — Geothermal Production Managers,
+  Civil + Transportation Engineers, Fuel Cell Engineers, Medical
+  Dosimetrists, Interviewers). Still open: various Lehrkräfte-Tier-
+  Verwechslungen (probably mixed A/C — some are seed-pin target errors on
+  pinned Lehrkraft codes, some are awkward title.de phrasing that belong
   in DE-title pass 2); the older scan findings still need a SOC-aware
   companion filter before another pass so false positives like "Bankkaufleute
   → Kreditprüfer" don't dominate the review list.
@@ -95,20 +96,17 @@ Likely next 1–2 sessions.
   (awkward/ungebräuchliche Bezeichnung — cluster-C concern while the KldB
   is defensible); 51-4072.00 "Fomgießmaschinenführer/Formgießmaschinen-
   führerin" — masc form has a typo ("Fom" missing r), fem form spelled
-  correctly, one-char fix.
-
-- **KldB class names that read like category descriptions, not job titles.**
-  Roughly 8 classes in the current render surface are phrased as "Berufe in
-  der X" or "Lehrkräfte in der Y" — "Berufe in der Sprengtechnik", "Berufe
-  in der Isolierung", "Berufe in der Energie- und Kraftwerkstechnik",
-  "Medizinisch-technische Berufe in der Radiologie", "Technische Servicekräfte
-  in Wartung und Instandhaltung", "Lehrkräfte in der Sekundarstufe". Users
-  read them as descriptions of a field rather than an actual Berufsbezeichnung.
-  Separate from the container-abuse bucket — here the KldB class is
-  semantically correct, the label just doesn't render as a job. Options:
-  (a) strip the "Berufe in der " / "Lehrkräfte in der " prefix at render
-  time, (b) per-class rename overrides on the rendered subtitle, (c) accept.
-  Decide during the cluster-B PR.
+  correctly, one-char fix. Session 29 partially reduces the pile: 5
+  primary-null fills landed coupled with batch-3 KldB remaps (11-3051.02
+  Geothermal Production Managers, 17-2051.00 Civil Engineers, 17-2141.01
+  Fuel Cell Engineers, 29-2036.00 Medical Dosimetrists, 43-4111.00
+  Interviewers). Four primary-null remainders still pending — KldB was
+  already correct, only the title needs filling: 29-1124.00 Radiation
+  Therapists → "Strahlentherapeut/Strahlentherapeutin", 47-4099.03
+  Weatherization Installers → "Dämm-Monteur/Dämm-Monteurin" (or similar),
+  49-9081.00 Power Plant Operators (non-specific) → "Kraftwerker/
+  Kraftwerkerin", 49-9099.01 Geothermal Technicians → "Geothermie-
+  Techniker/Geothermie-Technikerin".
 
 - **Audit the 131 seed entries in `scripts/input/kldb-overrides.mjs`.**
   The file was populated retrospectively in Session 26 to pin the existing
@@ -125,16 +123,6 @@ Likely next 1–2 sessions.
 
 ## UX polish
 
-- **Scroll to the just-finished layer on /ergebnis, not to the top.**
-  Finishing Big Five / Werte / Fähigkeiten always lands the user at the
-  top of the page, so they have to scroll past the RIASEC hexagon every
-  time to see what changed. Better: after `router.push('/ergebnis')` from
-  a layer completion, scroll to that layer's section (Persönlichkeit /
-  Werte & Rahmenbedingungen / Fähigkeiten-Talente-Wissen). Anchor
-  implementation: section `id` per block + `scrollIntoView` in
-  `onMounted`, triggered only when `router.currentRoute.query.focus=<layer>`
-  or similar. Keep top-of-page as the default for direct /ergebnis loads.
-  @mo-sp request 2026-04-23.
 - **Concrete examples on every question** — many items (especially Skills /
   Abilities / Knowledge and Values) are abstract enough that users,
   particularly students or first-time career-assessment takers, may not be
@@ -178,16 +166,6 @@ Likely next 1–2 sessions.
   after the archetype test whether this is actually needed. Same family as
   the RIASEC long-form note above.
 
-- **Values penalty masquerades as "perfect match" when occupation has no
-  workContext data.** `computeValuesPenalty` returns 0 (not null) when
-  `workContext` is missing — the UI then stages this as "Rahmenbedingungen
-  passen fast perfekt" with a "−0.00" value, which reads as a perfect
-  match instead of "no data". Spotted on 15-2051 Datenwissenschaftler
-  (one of the 29 codes still without O\*NET survey data after the 30.2
-  upgrade). Skills layer gets this right ("Keine Daten für diesen Beruf"),
-  values layer should do the same. Fix: return null from the penalty
-  function when `workContext` is missing, mirror skills staging for the
-  "noData" branch.
 - **Skills stage vs value inconsistency for the median user.** An all-3s
   user has a skillsBonus of exactly +0.00 by design (the piecewise bonus
   is anchored to 0 at the median), but the stage text reads "Solide
