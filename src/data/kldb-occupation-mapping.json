@@ -379,8 +379,8 @@
       "trainingCategory": "specialist"
     },
     "13-1031.00": {
-      "kldbCode": "11123",
-      "kldbName": "Landwirtschaftliche Sachverständige - komplexe Spezialistentätigkeiten",
+      "kldbCode": "72133",
+      "kldbName": "Versicherungskaufleute - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -1437,8 +1437,8 @@
       "trainingCategory": "studies"
     },
     "19-3093.00": {
-      "kldbCode": "91214",
-      "kldbName": "Berufe in Philosophie, Religion und Ethik - hoch komplexe Tätigkeiten",
+      "kldbCode": "91224",
+      "kldbName": "Berufe in Geschichtswissenschaften - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1672,14 +1672,14 @@
       "trainingCategory": "studies"
     },
     "23-2011.00": {
-      "kldbCode": "53152",
-      "kldbName": "Detektive/Detektivinnen - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "73112",
+      "kldbName": "Assistenzkräfte in Rechtsanwaltskanzlei und Notariat - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "23-2093.00": {
-      "kldbCode": "53152",
-      "kldbName": "Detektive/Detektivinnen - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "73112",
+      "kldbName": "Assistenzkräfte in Rechtsanwaltskanzlei und Notariat - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -1966,8 +1966,8 @@
       "trainingCategory": "studies"
     },
     "25-2059.01": {
-      "kldbCode": "11394",
-      "kldbName": "Führungskräfte - Pferdewirtschaft",
+      "kldbCode": "84504",
+      "kldbName": "Sportlehrer (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1978,8 +1978,8 @@
       "trainingCategory": "studies"
     },
     "25-3021.00": {
-      "kldbCode": "83112",
-      "kldbName": "Berufe in der Kinderbetreuung und -erziehung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "83122",
+      "kldbName": "Berufe in der Sozialarbeit und Sozialpädagogik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2273,8 +2273,8 @@
       "trainingCategory": "apprenticeship"
     },
     "27-4015.00": {
-      "kldbCode": "82332",
-      "kldbName": "Tätowierer und Piercer - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "94512",
+      "kldbName": "Berufe in der Veranstaltungs- und Bühnentechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2989,8 +2989,8 @@
       "trainingCategory": "apprenticeship"
     },
     "33-3011.00": {
-      "kldbCode": "53152",
-      "kldbName": "Detektive/Detektivinnen - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "53242",
+      "kldbName": "Berufe im Justizvollzugsdienst - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3025,8 +3025,8 @@
       "trainingCategory": "specialist"
     },
     "33-3041.00": {
-      "kldbCode": "11732",
-      "kldbName": "Berufe in der Jagdwirtschaft und Wildhege - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "51512",
+      "kldbName": "Berufe in der Überwachung und Steuerung des Straßenverkehrsbetriebs - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3304,8 +3304,8 @@
       "trainingCategory": "apprenticeship"
     },
     "39-3091.00": {
-      "kldbCode": "53111",
-      "kldbName": "Berufe im Objekt-, Werte- und Personenschutz - Helfer-/Anlerntätigkeiten",
+      "kldbCode": null,
+      "kldbName": null,
       "anforderungsniveau": 1,
       "trainingCategory": "none"
     },
@@ -4018,8 +4018,8 @@
       "trainingCategory": "apprenticeship"
     },
     "47-2061.00": {
-      "kldbCode": "21122",
-      "kldbName": "Berufe in der Sprengtechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "32102",
+      "kldbName": "Berufe im Hochbau (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4127,8 +4127,8 @@
       "trainingCategory": "apprenticeship"
     },
     "47-2211.00": {
-      "kldbCode": "34202",
-      "kldbName": "Berufe in der Klempnerei (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "24412",
+      "kldbName": "Berufe im Metallbau - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4241,8 +4241,8 @@
       "trainingCategory": "apprenticeship"
     },
     "47-5011.00": {
-      "kldbCode": "32242",
-      "kldbName": "Berufe im Brunnenbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "94512",
+      "kldbName": "Berufe in der Veranstaltungs- und Bühnentechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4337,8 +4337,8 @@
       "trainingCategory": "apprenticeship"
     },
     "49-2091.00": {
-      "kldbCode": "26122",
-      "kldbName": "Berufe in der Automatisierungstechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "26332",
+      "kldbName": "Berufe in der Luftverkehrs-, Schiffs- und Fahrzeugelektronik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5540,8 +5540,8 @@
       "trainingCategory": "none"
     },
     "53-7065.00": {
-      "kldbCode": "51122",
-      "kldbName": "Berufe im technischen Luftverkehrsbetrieb - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "51312",
+      "kldbName": "Berufe in der Lagerwirtschaft - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },

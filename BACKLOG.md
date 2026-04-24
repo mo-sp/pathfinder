@@ -49,17 +49,15 @@ Likely next 1–2 sessions.
   "Kinderbetreuung". The stem-match heuristic used in Session 24 also needs
   a SOC-aware companion filter so false positives like "Bankkaufleute →
   Kreditprüfer" don't dominate the review list. Session 26 top-list browser
-  test added ~50 fresh specifics: Bühnenmann → Brunnenbau, Justizwachtmeister
-  → Detektive, Beleuchtungstechniker → Tätowierer, Konstruktionsmechaniker
-  Feinblechbau → Klempnerei, Leitender Flugbegleiter → Straßen-/Schienen­verkehr,
-  Ordnungshüter → Jagdwirtschaft, Sportler-mit-Behinderung → Pferdewirtschaft,
-  Lebensberater → Kinderbetreuung, Mitarbeiter-Freizeitpark → Objekt-/
-  Personenschutz, Avioniker → Automatisierung, Lagerarbeiter → Luftverkehr,
-  Hochbauhelfer → Sprengtechnik, Schadensregulierer → landwirtschaftliche
-  Sachverständige, Notariatsmitarbeiter / Rechtsanwaltfachangestellte →
-  Detektive, Historiker → Philosophie-/Religion-/Ethik, Lehrkräfte-Kategorien
-  auf Sekundar-/Berufs-/Primarstufe vertauscht. Route the clearest 15 into
-  the next follow-up PR as overrides; the rest need the scan infrastructure
+  test added ~50 fresh specifics; Session 27 batch-1 PR resolved 15 of them
+  as explicit overrides (Bühnenmann, Justizwachtmeister, Beleuchtungstechniker,
+  Konstruktionsmechaniker Feinblechbau, Ordnungshüter→Verkehrsüberwachung +
+  title.de coupled, Sportler-mit-Behinderung, Lebensberater, Mitarbeiter-
+  Freizeitpark (null), Avioniker, Lagerarbeiter, Hochbauhelfer, Schadens-
+  regulierer, Notariatsmitarbeiter, Rechtsanwaltsfachangestellte, Historiker).
+  Still open from the browser pass: Leitender Flugbegleiter → Straßen-/
+  Schienenverkehr; the various Lehrkräfte-Kategorien that rendered on the
+  wrong Sekundar-/Berufs-/Primarstufe tier; plus the older scan findings
   above.
 - **Dietitians title.de is wrong at the ESCO level.** 29-1031.00 Dietitians
   and Nutritionists is currently titled "Futtermittelwissenschaftler/
@@ -96,18 +94,12 @@ Likely next 1–2 sessions.
   non-override codes, eyeball each `title.de` against BERUFENET, patch via
   the same override file. Session 26 browser test added ~12 more hits to
   the pile: Anschläger, Bügler, Gelegenheitsarbeiter, Zwirner, Zwicker,
-  Pfahlrammer, Blutabnehmer, Postschalterbediensteter, Ordnungshüter
-  (synonym for Polizist in DE?), Kameraschwenker, Underwriter, Warenmakler,
-  Pflegeexperte, CAD-Bediener (= Technischer Zeichner?), Instruktionsdesigner,
-  "Lehrkraft Gymnasium und Realschule" (awkward phrasing).
-
-- **stripKldbSuffix allowlist misses "(sonstige spezifische Tätigkeitsangabe)".**
-  Session 24's known-suffix allowlist covers Helfer-/Anlerntätigkeiten,
-  fachlich ausgerichtete, komplexe Spezialisten-, hoch komplexe Tätigkeiten.
-  Session 26 browser test surfaced one specialization marker leaking into
-  the rendered subtitle — "(sonstige spezifische Tätigkeitsangabe)" on
-  KldB 52182 Fahrzeugführer im Straßenverkehr. One-line fix: extend the
-  allowlist. Bundle with the next subtitle-overrides PR.
+  Pfahlrammer, Blutabnehmer, Postschalterbediensteter, Kameraschwenker,
+  Underwriter, Warenmakler, Pflegeexperte, CAD-Bediener (= Technischer
+  Zeichner?), Instruktionsdesigner, "Lehrkraft Gymnasium und Realschule"
+  (awkward phrasing). Session 27 adds: 19-3091.00 Anthropologists and
+  Archeologists — title.de currently drops the Archäologe half of the
+  bundled SOC label, should become "Anthropologe/Archäologe" or similar.
 
 - **KldB class names that read like category descriptions, not job titles.**
   Roughly 8 classes in the current render surface are phrased as "Berufe in
@@ -122,16 +114,18 @@ Likely next 1–2 sessions.
   time, (b) per-class rename overrides on the rendered subtitle, (c) accept.
   Decide during the cluster-B PR.
 
-- **Audit the 132 seed entries in `scripts/input/kldb-overrides.mjs`.**
+- **Audit the 131 seed entries in `scripts/input/kldb-overrides.mjs`.**
   The file was populated retrospectively in Session 26 to pin the existing
   `kldb-occupation-mapping.json` state against a silent revert on rebuild.
   Each seed entry is either (i) an intentional Session-19 / Session-24
   manual fix worth keeping, or (ii) accumulated drift from title.de updates
   feeding into the stem-overlap tiebreaker that could be replaced by a
-  build-time improvement. The 7 "tiebreaker regressions from the compound-
-  noun substring fix" block at the tail is explicitly tagged; the other
-  132 need walking. Low priority — the file is stable as-is, this is
-  hygiene.
+  build-time improvement. Session 27 already found one seed that belonged
+  in category (ii) (27-4015.00 Beleuchtungstechniker was pinned to Tätowierer
+  — corrected and moved to the batch-1 block). The 7 "tiebreaker regressions"
+  block and the 15 "container-abuse batch-1" block at the tail are explicitly
+  tagged; the other 131 need walking. Low priority — the file is stable
+  as-is, this is hygiene.
 
 ## UX polish
 

@@ -382,6 +382,10 @@ export default {
   '33-3031.00': 'Jagd- und Fischereiaufseher/Jagd- und Fischereiaufseherin', // Fish and Game Wardens
   '45-3031.00': 'Berufsfischer und -jäger / Berufsfischerin und -jägerin', // Fishing and Hunting Workers
 
+  // 33-3041.00 replaces informal "Ordnungshüter" with the concrete DE role
+  // (O*NET description is parking enforcement, not general law enforcement).
+  '33-3041.00': 'Mitarbeiter Verkehrsüberwachung / Mitarbeiterin Verkehrsüberwachung', // Parking Enforcement Workers
+
   // === Cluster: "Polizist" (2) ===
   '33-3051.00': 'Polizeibeamter Streifendienst / Polizeibeamtin Streifendienst', // Police and Sheriff's Patrol Officers
   '33-3052.00': 'Bahn- und Verkehrspolizist/Bahn- und Verkehrspolizistin', // Transit and Railroad Police

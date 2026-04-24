@@ -5,6 +5,54 @@
 
 ---
 
+### Session 27 – 2026-04-24
+**Focus:** First follow-up PR on Session-26's browser-test findings. Batch-1 bundles the one-line (D) rendering fix (strip "(sonstige spezifische Tätigkeitsangabe)" from KldB subtitles) with 15 (A) container-abuse overrides, plus one coupled (C) title.de correction for Parking Enforcement Workers. One PR, one commit on `fix/kldb-subtitle-overrides-batch-1`.
+
+**Meta / process notes:**
+- **Carry-over after #61 merge, same calendar day.** Session 26 merged as PR #61 in the morning; this session picked up directly on the planned batch-1 follow-up. Session numbering follows work-unit, not calendar day.
+- **Extracted `stripKldbSuffix` to its own testable module.** Session 24 regressed on `stripKldbSuffix` silently because the function was defined inline in `ResultsPage.vue` with no direct unit test — the de-gendering PR broke it and only the PR-55/56 browser test caught the damage. Moved the function + its suffix constants into `src/pages/results/stripKldbSuffix.ts` and added `stripKldbSuffix.test.ts` with 6 cases covering all four Anforderungsniveau suffixes, the new parenthetical, the combined case where both appear on one class, interior " - " preservation (Trainer - Fitness/Gymnastik), null/empty input, and idempotency. Net effect: future regressions on the suffix/parenthetical logic fail at the unit-test level instead of shipping.
+- **Seed-block audit surfaced a wrongly-pinned entry.** Beleuchtungstechniker (27-4015.00) was in the Session-26 seed block pinned to `82332 Tätowierer und Piercer` — not a manual fix, just accumulated drift pinned by the Session-26 retroactive seed. Moved it out of the seed block and into the new batch-1 block with the correct target (94512 Veranstaltungs- und Bühnentechnik), with a trailing comment flagging the history. This is exactly the category-(ii) case that the BACKLOG "Audit the seed entries" item predicted.
+- **Coupled a (C) title.de correction with an (A) KldB fix.** 33-3041.00 Parking Enforcement Workers was titled "Ordnungshüter/Ordnungshüterin" — a misleading colloquial gloss (in DE "Ordnungshüter" reads as a broad synonym for Polizist, but the O*NET description is narrowly parking enforcement). Fixing only the KldB class (→ Berufe in der Überwachung und Steuerung des Straßenverkehrsbetriebs) without also fixing the title would have left the user reading "Ordnungshüter" next to a Verkehrsüberwachung subtitle — inconsistent. Bundled a one-line entry in `title-overrides-de.mjs` (→ "Mitarbeiter Verkehrsüberwachung / Mitarbeiterin Verkehrsüberwachung") and patched `onet-occupations.json` directly so the build is idempotent both with and without re-running `build-esco-german.mjs`. Same spirit as Session-24 stripKldbSuffix riding with de-gendering: when two clusters land on one occupation, a split PR is worse than the merge.
+- **Catalog lookup against `kldb-data.json` as a default research step.** For each (A) candidate I pulled the current wrong KldB via grep, looked at SOC-4/SOC-3 siblings for context, then checked the candidate target classes against `scripts/input/kldb-data.json` (full KldB-2010 catalog) to confirm the desired Anforderungsniveau tier actually exists. Three targets I'd initially proposed as `null` (Hochbauhelfer-Anf2, Avioniker-Anf2-fachlich, Bühnenmann-Anf2-fachlich) turned out to have clean tier-matched class codes in the catalog that just weren't being used by any O*NET mapping currently — so we pinned to real classes instead of suppressing. Catalog-lookup should become a default for all future override batches.
+- **Historiker was the "+1" on @mo-sp's review.** Initial proposal kept Historiker on 91214 "Philosophie, Religion und Ethik" since both are humanities and the current subtitle isn't dramatically wrong. @mo-sp asked whether a better class existed — catalog lookup immediately surfaced 91224 "Berufe in Geschichtswissenschaften - hoch komplexe Tätigkeiten" (Anf 4, same tier as current). Exact match, zero trade-off, added to the batch.
+- **Archäologe bundling noted but parked.** @mo-sp also asked why Archäologe isn't a distinct occupation in our corpus. Answer: O*NET's SOC taxonomy bundles it — 19-3091.00 is "Anthropologists and **Archeologists**" under a single code, and the German title drops the Archäologe half. Logged to BACKLOG under cluster (C) rather than fixing in this PR (title-only issue, belongs with the DE-title quality pass 2).
+
+**What shipped — `fix/kldb-subtitle-overrides-batch-1` (1 PR, 1 commit):**
+
+*`src/pages/results/stripKldbSuffix.ts` (new)* — extracted helper. `KLDB_ANFORDERUNG_SUFFIXES` (4 entries) + new `KLDB_SPECIFICATION_SUFFIX = ' (sonstige spezifische Tätigkeitsangabe)'`. Function strips the Anf suffix first (first-match wins), then the parenthetical if present, then trims.
+
+*`src/pages/results/stripKldbSuffix.test.ts` (new)* — 6 Vitest cases covering the full contract including the previously-uncovered interior-separator preservation and idempotency.
+
+*`src/pages/results/ResultsPage.vue`* — inline function and constant removed, import added. No other touchpoints.
+
+*`scripts/input/kldb-overrides.mjs`* — 27-4015.00 moved out of the seed block. New "Container-abuse overrides — batch 1" comment block at the tail with 15 entries: Bühnenmann (94512), Justizwachtmeister (53242), Konstruktionsmechaniker Feinblechbau (24412), Lebensberater (83122), Mitarbeiter Freizeitpark (null — no clean class), Avioniker (26332), Lagerarbeiter (51312), Hochbauhelfer (32102), Parking Enforcement Workers (51512 + title.de coupling), Sportlehrer für Menschen mit Behinderung (84504), Schadensregulierer (72133), Notariatsmitarbeiter (73112), Rechtsanwaltsfachangestellte (73112), Beleuchtungstechniker (94512 — corrected from its wrong seed pin), Historiker (91224). Each entry carries a `// <Beruf>: was <prior target>` comment. Total overrides on build: 153 (= 131 seed + 7 tiebreaker-regression + 15 batch-1).
+
+*`scripts/input/title-overrides-de.mjs`* — one entry for 33-3041.00 with a two-line header comment explaining the informal-gloss correction.
+
+*`src/data/onet-occupations.json`* — one value patched: 33-3041.00 `title.de` set to "Mitarbeiter Verkehrsüberwachung / Mitarbeiterin Verkehrsüberwachung". Idempotent with the override entry — any future rebuild produces the same value.
+
+*`src/data/kldb-occupation-mapping.json`* — regenerated with the 153 overrides applied. Idempotent on rebuild (byte-identical on `node scripts/build-kldb-mapping.mjs` twice).
+
+**Coverage after the session:**
+
+| | Before session 27 | After |
+|---|---|---|
+| `stripKldbSuffix` behaviour | 4 Anf suffixes, no parenthetical | 4 Anf suffixes + "(sonstige spezifische Tätigkeitsangabe)" |
+| `stripKldbSuffix` dedicated tests | 0 (indirect coverage only) | 6 |
+| Cluster-(A) container-abuse overrides | 3 class families (Session 24) + 0 (Session 26 browser-test candidates) | 3 + 15 (batch-1) |
+| Session-26 browser findings handled | 0 / ~70 | 17 (15 A + 1 C + 1 D) / ~70 |
+| Overrides applied on build | 139 | 153 |
+| Tests passing | 217 | 223 |
+
+**Branch:** `fix/kldb-subtitle-overrides-batch-1` (1 commit → 1 PR).
+
+**Open for next sessions (tracked in BACKLOG):**
+- **Batch-2 (A) overrides:** remaining browser findings (Leitender Flugbegleiter, Lehrkräfte-Kategorien-Tier-Verwechslungen) + the scan-based ~35 cases. Needs a SOC-aware companion filter for the scan.
+- **Cluster-(B) class-name rendering decision:** "Berufe in der X" / "Lehrkräfte in der Y" categorical-sounding names.
+- **DE-title quality pass 2:** ~14 pending browser-test hits plus the new Archäologe/Anthropologe bundling note for 19-3091.00.
+
+---
+
 ### Session 26 – 2026-04-24
 **Focus:** KldB-Subtitle build-pipeline hardening. Two coupled changes in `scripts/build-kldb-mapping.mjs` — a compound-noun fallback in the `stemsOverlap` tiebreaker so Session-24's Tiersitter regression gets fixed at the source, and a new `applyOverrides()` pass that loads per-O*NET-code pins from a fresh `scripts/input/kldb-overrides.mjs` so hand-curated KldB decisions from earlier sessions survive future rebuilds. One PR, one commit on `fix/kldb-subtitle-compound-noun-tiebreaker`.
 
