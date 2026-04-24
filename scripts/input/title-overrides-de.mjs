@@ -307,7 +307,7 @@ export default {
   '25-2032.00': 'Lehrkraft Berufsbildung Sekundarstufe II', // Career/Technical Education Teachers, Secondary School
 
   // === Cluster: "Lehrkraft Sekundarstufe" (2) ===
-  '25-2031.00': 'Lehrkraft Gymnasium und Realschule', // Secondary School Teachers
+  '25-2031.00': 'Lehrkraft Sekundarstufe II / Lehrerin Sekundarstufe II', // Secondary School Teachers (Grades 9-12 = Oberstufe; parallels 25-2022 Sek. I)
   '25-3031.00': 'Vertretungslehrkraft', // Substitute Teachers, Short-Term
 
   // === Cluster: "mobiler Sonderpädagoge" (2) ===
@@ -513,4 +513,68 @@ export default {
   '17-2141.01': 'Brennstoffzellen-Ingenieur / Brennstoffzellen-Ingenieurin', // Fuel Cell Engineers
   '29-2036.00': 'Medizinphysiker Dosimetrie / Medizinphysikerin Dosimetrie', // Medical Dosimetrists
   '43-4111.00': 'Interviewer/Interviewerin', // Interviewers, Except Eligibility and Loan
+
+  // === Cluster-C batch 1: primary-null fills (2026-04-24) ===
+  // 26 codes where title.de was null from ESCO. Mix of (i) codes with real
+  // DE-Ausbildungsberuf equivalents where ESCO had no mapped preferredLabel.de
+  // (MTRA Strahlentherapie, Patientenfuersprecher, Vermessungsingenieur, …)
+  // and (ii) genuinely US-taxonomy-specific roles where no 1:1 DE equivalent
+  // exists — best-effort nearest approximation. One code (13-1074.00 Farm
+  // Labor Contractors) deliberately left null, slated for removal via the
+  // planned DE-occupation filter (BACKLOG).
+  '11-9131.00': 'Postdirektor/Postdirektorin', // Postmasters and Mail Superintendents
+  '11-9199.11': 'Projektleiter Altlastensanierung / Projektleiterin Altlastensanierung', // Brownfield Redevelopment Specialists and Site Managers
+  '13-1022.00': 'Einkäufer/Einkäuferin', // Wholesale and Retail Buyers, Except Farm Products
+  '15-1299.03': 'Fachangestellter für Medien- und Informationsdienste / Fachangestellte für Medien- und Informationsdienste', // Document Management Specialists (FaMI, IHK-Ausbildungsberuf)
+  '17-1022.01': 'Vermessungsingenieur Landesvermessung / Vermessungsingenieurin Landesvermessung', // Geodetic Surveyors
+  '23-1022.00': 'Mediator/Mediatorin', // Arbitrators, Mediators, and Conciliators
+  '25-9021.00': 'Haushalts- und Landwirtschaftsberater/Haushalts- und Landwirtschaftsberaterin', // Farm and Home Management Educators
+  '27-4011.00': 'Audio- und Videotechniker/Audio- und Videotechnikerin', // Audio and Video Technicians
+  '29-1124.00': 'MTRA Strahlentherapie', // Radiation Therapists (konsistent mit 29-2034 "MTA Radiologie" / 29-2035 "MTA MRT")
+  '29-2099.08': 'Patientenfürsprecher/Patientenfürsprecherin', // Patient Representatives (gesetzlich in KH-Gesetzen verankert)
+  '31-9099.02': 'Endoskopie-Fachassistent/Endoskopie-Fachassistentin', // Endoscopy Technicians (DEGEA-Zertifikat)
+  '33-9099.02': 'Ladendetektiv/Ladendetektivin', // Retail Loss Prevention Specialists
+  '35-9011.00': 'Servicekraft Gastronomie', // Dining Room and Cafeteria Attendants and Bartender Helpers
+  '35-9031.00': 'Oberkellner/Oberkellnerin', // Hosts and Hostesses, Restaurant, Lounge, and Coffee Shop
+  '39-1022.00': 'Teamleiter Dienstleistungsberufe / Teamleiterin Dienstleistungsberufe', // First-Line Supervisors of Personal Service Workers
+  '43-3061.00': 'Sachbearbeiter Einkauf / Sachbearbeiterin Einkauf', // Procurement Clerks
+  '47-2082.00': 'Trockenbauspachtler/Trockenbauspachtlerin', // Tapers
+  '47-4099.03': 'Energiesanierer/Energiesaniererin', // Weatherization Installers and Technicians
+  '49-2097.00': 'Installateur Audio- und Videotechnik / Installateurin Audio- und Videotechnik', // Audiovisual Equipment Installers and Repairers
+  '49-9081.00': 'Servicetechniker Windenergie / Servicetechnikerin Windenergie', // Wind Turbine Service Technicians
+  '49-9098.00': 'Helfer Instandhaltung / Helferin Instandhaltung', // Helpers--Installation, Maintenance, and Repair Workers
+  '49-9099.01': 'Geothermie-Techniker/Geothermie-Technikerin', // Geothermal Technicians
+  '51-4192.00': 'Anreißer Metall- und Kunststoffbearbeitung / Anreißerin Metall- und Kunststoffbearbeitung', // Layout Workers, Metal and Plastic
+  '51-8099.01': 'Biokraftstoff-Verfahrenstechniker/Biokraftstoff-Verfahrenstechnikerin', // Biofuels Processing Technicians
+  '53-6041.00': 'Verkehrstechniker/Verkehrstechnikerin', // Traffic Technicians
+  '53-7011.00': 'Förderbandbediener/Förderbandbedienerin', // Conveyor Operators and Tenders
+
+  // === Cluster-C batch 1: ESCO-raw corrections (2026-04-24) ===
+  // 23 codes where ESCO's preferredLabel.de was wrong, too narrow, grammatically
+  // broken, or an un-translated Anglicism. Surfaced via Session-26-28 browser
+  // tests (18 codes) + a heuristic filter pass this session (5 additional).
+  // See SUMMARY session entry for per-code rationale.
+  '13-2053.00': 'Risikoprüfer Versicherung / Risikoprüferin Versicherung', // Insurance Underwriters: was "Underwriter im Versicherungswesen"
+  '13-2054.00': 'Risikoanalyst Finanzen / Risikoanalystin Finanzen', // Financial Risk Specialists: was "Financial Risk Analyst" (ESCO-raw)
+  '13-2099.01': 'Quantitativer Finanzanalyst / Quantitative Finanzanalystin', // Financial Quantitative Analysts: was "Investment Analyst" (wrong domain)
+  '17-3011.00': 'Bauzeichner/Bauzeichnerin', // Architectural and Civil Drafters: was "CAD-Bediener" (IHK-Ausbildungsberuf passt exakt)
+  '19-3091.00': 'Anthropologe und Archäologe / Anthropologin und Archäologin', // Anthropologists and Archeologists: Archäologe-Hälfte fehlte
+  '25-9031.00': 'Bildungsreferent/Bildungsreferentin', // Instructional Coordinators: was "Instruktionsdesigner"
+  '27-2012.04': 'Casting Director / Casting Directorin', // Talent Directors: ESCO hatte nur "Casting Director" ohne Fem-Form
+  '27-4031.00': 'Kameramann/Kamerafrau', // Camera Operators: was "Kameraschwenker"
+  '29-1031.00': 'Ernährungsberater/Ernährungsberaterin', // Dietitians and Nutritionists: war "Futtermittelwissenschaftler" (grob falsch). "Diätassistent" kollidiert mit 29-2051.00.
+  '29-2052.00': 'Pharmazeutisch-technischer Assistent / Pharmazeutisch-technische Assistentin', // Pharmacy Technicians: Grammatikfehler bei Mask-Form ("Pharmazeutisch-technische" statt "-technischer")
+  '29-2091.00': 'Orthopädietechniker/Orthopädietechnikerin', // Orthotists and Prosthetists: war "Orthopädist" (veraltet)
+  '31-9097.00': 'Fachkraft Blutentnahme', // Phlebotomists: war "Blutabnehmer" (colloquial). 31-9092.00 hält bereits MFA, "Fachkraft Blutentnahme" grenzt sauber ab.
+  '41-3031.00': 'Wertpapierhändler/Wertpapierhändlerin', // Securities/Commodities Sales Agents: war "Warenmakler"
+  '43-5051.00': 'Postschalterangestellter/Postschalterangestellte', // Postal Service Clerks: war "Postschalterbediensteter" (altmodisch). Kein moderner Ausbildungsberuf für diese enge Rolle.
+  '43-5071.00': 'Fachkraft für Lagerlogistik', // Shipping, Receiving, and Inventory Clerks: war "Warenlagerverwalter" (veraltet; Fachkraft für Lagerlogistik ist IHK-Ausbildungsberuf, genderneutral)
+  '49-3042.00': 'Land- und Baumaschinenmechatroniker/Land- und Baumaschinenmechatronikerin', // Mobile Heavy Equipment Mechanics: war "Berg- und Maschinenmann" (Bergbau-Domain, falsches Berufsfeld — IHK-Ausbildungsberuf passt exakt)
+  '49-9071.00': 'Wartungsmonteur/Wartungsmonteurin', // Maintenance and Repair Workers, General: war "Gelegenheitsarbeiter" (prekär-klingend)
+  '51-2031.00': 'Maschinen- und Motorenmonteur / Maschinen- und Motorenmonteurin', // Engine and Other Machine Assemblers: war "Fluggerätemechaniker für Gasturbinen-Triebwerke" (zu eng aircraft-fokussiert; 49-3011.00 hält Fluggerätemechaniker)
+  '51-4031.00': 'Maschinen- und Anlagenführer Metall- und Kunststofftechnik / Maschinen- und Anlagenführerin Metall- und Kunststofftechnik', // Cutting, Punching, and Press Machine Setters: war "Maschinenbediener für Ständerbohrmaschine" (viel zu eng; IHK-Ausbildungsberuf deckt das komplette SOC ab)
+  '51-4041.00': 'Zerspanungsmechaniker/Zerspanungsmechanikerin', // Machinists: war "Zerspanungsmechaniker im Getriebebau" (Spezialisierung entfernt, analog zur 51-8013-Generalisierung)
+  '51-4072.00': 'Formgießmaschinenführer/Formgießmaschinenführerin', // Molding, Coremaking, and Casting Machine: Typo-Fix "Fom" → "Form"
+  '51-6092.00': 'Modellmacher Bekleidung / Modellmacherin Bekleidung', // Fabric and Apparel Patternmakers: war "…Modelleur/…Direktrice" (Fem-Form-Stilbruch mit archaischem Begriff)
+  '51-8013.00': 'Kraftwerker/Kraftwerkerin', // Power Plant Operators: war "Steuerer von Geothermiekraftwerken" (Spezialisierung entfernt; .03/.04 halten Biomass/Hydro, 11-3051.02/49-9099.01 halten Geothermie)
 }
