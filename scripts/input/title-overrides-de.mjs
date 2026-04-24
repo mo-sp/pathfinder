@@ -584,4 +584,15 @@ export default {
   // gewinnung" obscures the role; "Kriminalanalyst" is the etablierter
   // BKA-/LKA-Begriff and matches the Kriminaldienst-Klasse.
   '33-3021.06': 'Kriminalanalyst/Kriminalanalystin', // Intelligence Analysts: war "Mitarbeiter im Bereich Informationsgewinnung"
+
+  // === Cluster-A batch 5 — coupled title fix (2026-04-25) ===
+  // 19-4012.00 sits correctly at KldB 11132 Berufe im landwirtschaftlich-
+  // technischen Laboratorium (the SOC content is lab-centric: collect
+  // samples, prepare specimens, maintain lab equipment, assist with
+  // experiments). The ESCO-raw "Agrartechniker" reads colloquially as
+  // production-/Maschinen-tech, not lab-tech. "Landwirtschaftlich-
+  // technischer Assistent" (LTA) is the established DE-Berufsbild
+  // (2-jährige Berufsfachschule, passt zur Anf-2-Klasse).
+  '19-4012.00': 'Landwirtschaftlich-technischer Assistent / Landwirtschaftlich-technische Assistentin', // Agricultural Technicians: war "Agrartechniker" (zu allgemein, suggeriert Maschinen-/Produktionstechnik)
+  '19-4099.01': 'Qualitätsprüfer/Qualitätsprüferin', // Quality Control Analysts: war "Labortechniker Schuhwarenqualitätskontrolle" (ESCO-Label hat sich auf Schuhwaren-Spezialisierung verengt; SOC-Description ist branchenneutral)
 }
