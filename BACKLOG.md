@@ -74,13 +74,6 @@ Likely next 1–2 sessions.
   hand-map, hide from corpus, accept.
 - **17 codes with Anforderungsniveau 2 steps away from jobZone** — biggest
   semantic drift. Build-script stat: `Anf distance: { '2': 17 }`.
-- **KldB subtitle drift — non-medical edition.** Session 21 real-user test
-  surfaced the same stem-overlap-picks-weird-thing pattern outside medicine:
-  Agraringenieur → "Papierverarbeitung und Verpackungstechnik", Bioingenieur
-  → "Sprengtechnik", Naturschutz-Wissenschaftler → "Reiseleiter/Fremdenführer".
-  Same fix family as the medical subtitle bug — enumerate ISCO groups where
-  the tie-breaker produces semantically distant classes, add per-group
-  fallback to "ohne Spezialisierung" or suppress the subtitle.
 - **DE-title quality pass 2 — residual tail after Session 30.** Session 30
   shipped the cluster-C batch 1: all 27 primary-null fills (except
   13-1074.00 Farm Labor Contractors, earmarked for the DE-Occupation
