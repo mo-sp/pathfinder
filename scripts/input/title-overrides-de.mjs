@@ -492,7 +492,7 @@ export default {
 
   // === Cluster: "Steuerer von Gasanlagen" (2) ===
   '51-8092.00': 'Anlagenfahrer Gasanlage / Anlagenfahrerin Gasanlage', // Gas Plant Operators
-  '53-7071.00': 'Verdichter-Operator Gas / Verdichter-Operatorin Gas', // Gas Compressor and Gas Pumping Station Operators
+  '53-7071.00': 'Anlagenfahrer Gasversorgung / Anlagenfahrerin Gasversorgung', // Gas Compressor and Gas Pumping Station Operators (batch 5: war "Verdichter-Operator Gas", nicht idiomatisch DE)
 
   // === Cluster: "Flugbegleiter" (2) ===
   '53-2031.00': 'Flugbegleiter/Flugbegleiterin', // Flight Attendants
@@ -595,4 +595,13 @@ export default {
   // (2-jährige Berufsfachschule, passt zur Anf-2-Klasse).
   '19-4012.00': 'Landwirtschaftlich-technischer Assistent / Landwirtschaftlich-technische Assistentin', // Agricultural Technicians: war "Agrartechniker" (zu allgemein, suggeriert Maschinen-/Produktionstechnik)
   '19-4099.01': 'Qualitätsprüfer/Qualitätsprüferin', // Quality Control Analysts: war "Labortechniker Schuhwarenqualitätskontrolle" (ESCO-Label hat sich auf Schuhwaren-Spezialisierung verengt; SOC-Description ist branchenneutral)
+  '11-3051.01': 'Qualitätsmanager/Qualitätsmanagerin', // Quality Control Systems Managers: war "Fachkraft für Qualitätssicherung und -management Bau" (Bau-Spezialisierung war ESCO-Drift, SOC ist branchenneutraler QS-Manager)
+  '15-1253.00': 'Softwaretester/Softwaretesterin', // Software Quality Assurance Analysts and Testers: war "Softwareprüfer" (klingt bürokratisch-altmodisch; "Softwaretester" ist der etablierte Berufsbild-Name in der DE-IT-Industrie)
+  '13-2022.00': 'Kunstsachverständiger/Kunstsachverständige', // Appraisers of Personal and Business Property: war "Sachwertspezialist" — ungebräuchlich; "Kunstsachverständiger" matcht KldB-Klasse und deckt jewelry/art/antiques/collectibles
+  '31-9094.00': 'Medizinische Schreibkraft', // Medical Transcriptionists: war "medizinische Schreibkraft" — Capitalize-Fix
+  '29-1141.03': 'Fachkrankenpfleger Intensivpflege / Fachkrankenpflegerin Intensivpflege', // Critical Care Nurses: war "Akademischer Krankenpfleger / Akademische Krankenschwester" — "akademisch" trifft das Berufsbild nicht; Intensivpflege-Fachkrankenpflege ist die etablierte DE-Bezeichnung
+  '19-3022.00': 'Marktforscher/Marktforscherin', // Survey Researchers: war "Interviewer im Bereich Umfragen" — Survey Researchers DESIGNen Umfragen (nicht nur durchführen); "Marktforscher" ist der DE-Berufsbild-Begriff
+  '43-4171.00': 'Empfangsmitarbeiter/Empfangsmitarbeiterin', // Receptionists and Information Clerks: war "Kundeninformationsfachkraft" — sperrig; "Empfangsmitarbeiter" deckt sowohl Receptionists als auch Information Clerks
+  '13-1199.04': 'Business Continuity Manager / Business Continuity Managerin', // Business Continuity Planners: war "Analytiker für IT-Notfallwiederherstellung" — BCM ist organisationsübergreifend (nicht nur IT); etablierter Anglizismus in DE-BCM-Kreisen
+  '43-5031.00': 'Disponent Notrufleitstelle / Disponentin Notrufleitstelle', // Public Safety Telecommunicators: war "Notruftelefonist" — Telefonist trifft die Disposition-/Koordinations-Komponente nicht; "Disponent Notrufleitstelle" ist DE-üblich
 }
