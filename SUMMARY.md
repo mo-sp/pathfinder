@@ -5,6 +5,59 @@
 
 ---
 
+### Session 29 – 2026-04-24
+**Focus:** Two PRs, distinct work units bundled in one session. (1) UX polish from the BACKLOG: `/ergebnis` now scrolls to the just-finished layer instead of landing at top-of-page. (2) KldB overrides batch 3 — six container-abuse remaps paired with five `title.de` primary-null fills. Fourth session today; same-day chain after Sessions 26/27/28.
+
+**Meta / process notes:**
+- **Cluster-B turned out to be a misdiagnosis.** Session 26's browser test clustered ~8 classes as "category phrases that don't read as job titles" and flagged them as a render-time problem (strip prefix / rename / accept). A focused investigation this session (pull every occupation where `title.de` is null AND `kldbName` starts with a category prefix) surfaced only 9 actual cases — and of those 9, roughly half were Cluster-A (wrong KldB container) and the other half Cluster-C (missing DE title). **Zero of the 9 are true rendering problems.** Stripping the "Berufe in der X" prefix from subtitles was also briefly considered for the ~400 occupations where the subtitle (not the primary title) uses the phrase, but @mo-sp rejected it: the wrapper doesn't add information but also doesn't hurt, and stripping doesn't raise its value. BACKLOG Cluster-B entry retired with a note.
+- **Bundled A+C for the 6 surfaced codes rather than splitting by cluster.** The Cluster-B investigation gave us 6 codes where both the KldB was wrong AND the `title.de` was null. Fixing only the KldB half (batch 3) without the title fills would have left the user seeing "Bauplanung und -überwachung (ohne Spezialisierung)" as the primary display for Civil Engineers — a less-wrong category phrase but still no actual job name. @mo-sp flagged this at the "soll ich KldB-Remap committen" review step: "sind die berufe auch schon auf deutsch hinzugefügt?" — correctly spotting that the KldB half alone is a half-measure on primary-null codes. Five `title.de` fills got coupled in; 17-2051.01 Transportation Engineers already had a title. Same coupling pattern as Session 27's Parking Enforcement Workers (`33-3041.00` KldB + `title.de` in one PR). Planned cluster-C sweep next session preserves its scope — the remaining ~13 Session-26/27/28 DE-title flags + the ~640 un-reviewed tail.
+- **Catalog-lookup pattern stayed load-bearing.** Every batch-3 target verified against `scripts/input/kldb-data.json` before proposing. Surfaced 91342 Markt- und Meinungsforschung fachlich (Anf 2) for Interviewers (43-4111.00) — a 5d class the tiebreaker never reaches because "Markt- und Meinungsforschung" stems don't overlap with "Interviewers, Except Eligibility and Loan" on any dimension. 31104/31134 Bauplanung variants for Civil/Transportation Engineers surfaced the same way; both were invisible via the current stem-overlap output but present in the catalog at the expected Anf-4 tier. Session 28's note ("catalog lookup earned its keep") compounds.
+- **Two small phrasing corrections at review time.** (a) Initial proposal for 43-4111.00 Interviewers was "Befrager/Befragerin" — @mo-sp swapped for "Interviewer/Interviewerin" (more colloquial in DE, "Befrager" reads behördlich). (b) For 29-2036.00 Medical Dosimetrists the pairing with "Medizinphysiker Dosimetrie / Medizinphysikerin Dosimetrie" at Anf-3 got a cross-check from @mo-sp — "medizinphysiker ist ok wenn es ein studienberuf ist." Verified: Medizinphysiker is a Studienberuf (typical path Master Physik/Medizinphysik + MPE-Anerkennung); Anf-3 specialist-tier covers Bachelor-level entrants and MTRA-mit-Zusatzausbildung, the label fits the tier.
+- **Browser-test HMR quirk worth remembering.** The `onet-occupations.json` chunk is loaded once per session via dynamic import + promise cache (`occupationsPromise`). Vite HMR swaps the module graph but doesn't invalidate already-resolved promises, so the browser still matches against the old JSON. @mo-sp hit this first ("finde nur Interviewer") — the "Interviewer" substring match was against the English title of the old data, not against the new `title.de`. Hard-reload (Cmd+Shift+R) fixed it. Not a code bug — just a reload-discipline note for future data-edit sessions.
+- **17-2051.01 Transportation Engineers pulled into batch-3 as a zero-cost bonus.** Not in the original 5 I'd surfaced, but became obvious via SOC-sibling lookup — same parent 17-2051 SOC-4 as Civil Engineers, same wrong Metallbau class. One-line addition to batch-3 with @mo-sp's blessing ("ja mitnehmen, aber zeige mir die konkreten änderungen vor dem commit"), target 31134 Bauplanung von Verkehrswegen und -anlagen hoch komplex. `title.de` already set, no title-fill needed.
+- **Branch hygiene — fresh main for both PRs.** Per the stacked-PR hygiene rule, scroll-to-layer branched from pulled-fresh `main`, batch-3 also branched from pulled-fresh `main` (which by then contained the scroll-to-layer merge). Parallel independent trees; any merge conflicts would have been ResultsPage.vue import-deduplication at worst, none actually occurred.
+
+**What shipped (2 PRs):**
+
+*`feat/scroll-to-layer-on-ergebnis` (1 PR, 1 commit):*
+- `src/pages/assessment/AssessmentPage.vue`: layer-completion push becomes `router.push({ path: '/ergebnis', query: { focus: store.currentLayer } })`. The "Ergebnisansicht" shortcut button + App.vue header link both omit the query (explicit-peek navigation stays at top-of-page, which is the user's mental model for those entry points).
+- `src/pages/results/ResultsPage.vue`: new `focusTargetFromQuery()` helper reads `route.query.focus` + validates against the four layer keys. In `onMounted`, after the occupations-prefetch, a `nextTick`-wrapped `getElementById(``layer-${focus}``)?.scrollIntoView({ behavior: 'smooth', block: 'start' })` fires. Four anchor IDs (`layer-riasec`, `layer-bigfive`, `layer-values`, `layer-skills`) added to each completed-state block with a `scroll-mt-6` class for breathing room. Optional-chain means jsdom tests (no layout) silently no-op.
+- Tests: 4 new cases in `ResultsPage.test.ts` (anchor IDs appear only after each layer is complete) and 1 updated + 1 new case in `AssessmentPage.test.ts` (completion push carries the focus query with the just-finished layer). Pre-existing test for the "Ergebnisansicht" peek shortcut stays unchanged — that button still pushes the bare string.
+- Retires BACKLOG UX-polish item "Scroll to the just-finished layer on /ergebnis, not to the top" (@mo-sp request from 2026-04-23).
+
+*`fix/kldb-subtitle-overrides-batch-3` (1 PR, 2 commits: data + docs):*
+- `scripts/input/kldb-overrides.mjs` new "Container-abuse overrides — batch 3" block with 6 entries:
+  - 11-3051.02 Geothermal Production Managers → 26234 Energie- und Kraftwerkstechnik hoch komplex (was Sprengtechnik). Matches the Anf-3 plant-operator siblings 51-8011/8012/8013 which already sit in the same domain at one tier lower.
+  - 17-2051.00 Civil Engineers → 31104 Bauplanung und -überwachung (ohne Spezialisierung) hoch komplex (was Metallbau). Core Bauingenieur role.
+  - 17-2051.01 Transportation Engineers → 31134 Bauplanung von Verkehrswegen und -anlagen hoch komplex (was Metallbau). Adjacent SOC-sibling caught via lookup.
+  - 17-2141.01 Fuel Cell Engineers → 25104 Maschinenbau- und Betriebstechnik (ohne Spezialisierung) hoch komplex (was Sprengtechnik). Matches parent 17-2141.00 Mechanical Engineers.
+  - 29-2036.00 Medical Dosimetrists → 81233 Medizinisch-technische Berufe in der Radiologie komplex (was Ergotherapie).
+  - 43-4111.00 Interviewers, Except Eligibility and Loan → 91342 Berufe in der Markt- und Meinungsforschung fachlich (was Auskunft und Kundeninformation).
+- `scripts/input/title-overrides-de.mjs` new "Primary-null fills paired with batch-3" block with 5 entries: Geothermal Production Managers → "Leiter Geothermiekraftwerk / Leiterin Geothermiekraftwerk", Civil Engineers → "Bauingenieur/Bauingenieurin", Fuel Cell Engineers → "Brennstoffzellen-Ingenieur / Brennstoffzellen-Ingenieurin", Medical Dosimetrists → "Medizinphysiker Dosimetrie / Medizinphysikerin Dosimetrie", Interviewers → "Interviewer/Interviewerin". 17-2051.01 already had "Verkehrsingenieur/Verkehrsingenieurin", no fill needed.
+- `src/data/onet-occupations.json` directly patched with the same 5 `title.de` values for build idempotency — a future `build-esco-german.mjs` run will read the override file and produce the same JSON state (same pattern as Session-27's Parking Enforcement Workers coupling).
+- `src/data/kldb-occupation-mapping.json` regenerated. Idempotent (`manual overrides applied: 170` = 131 seed + 7 tiebreaker-regression + 15 batch-1 + 11 batch-2 + 6 batch-3). Byte-identical on rebuild.
+- BACKLOG housekeeping: Values-penalty "perfect match" entry retired (already fixed in commit 5acce33 — matcher.ts returns null on missing workContext, ResultsPage.vue:505-508 already handles null with the noData staging branch); Cluster-B "KldB class names read like category descriptions" entry retired as a misdiagnosis; DE-title pass-2 entry updated to note the 5 primary-null fills done here and the 4 still-pending primary-null codes where only `title.de` needs filling (29-1124.00 Radiation Therapists, 47-4099.03 Weatherization Installers, 49-9081.00 Power Plant Operators non-specific, 49-9099.01 Geothermal Technicians); subtitle-mismatch entry updated to reflect the 32 Session-26 findings now covered (15 batch-1 + 11 batch-2 + 6 batch-3).
+
+**Coverage after the session:**
+
+| | Before session 29 | After |
+|---|---|---|
+| Layer-completion navigation to /ergebnis | always top-of-page | scrolls to just-finished layer via `?focus=<layer>` |
+| Session-26 browser findings handled | 28 / ~70 | 32 / ~70 (+ 5 coupled primary-null title fills) |
+| Cluster-(A) container-abuse overrides | 29 | 35 |
+| Primary-null codes (category phrase as display title) | 9 | 4 remaining (all pure cluster-C — KldB is correct, only the title needs filling) |
+| Overrides applied on build | 164 | 170 |
+| Tests passing | 223 | 227 |
+
+**Branches:** `feat/scroll-to-layer-on-ergebnis` (1 commit → 1 PR), `fix/kldb-subtitle-overrides-batch-3` (2 commits → 1 PR).
+
+**Open for next sessions (tracked in BACKLOG):**
+- **Full cluster-C pass.** Next session dedicated to the DE-title quality pass 2 — the 4 remaining primary-null fills from today's investigation, plus the ~18 specific flagged items (Anschläger, Bügler, Zwirner, Zwicker, Pfahlrammer, Blutabnehmer, Postschalterbediensteter, Kameraschwenker, Underwriter, Warenmakler, Pflegeexperte, CAD-Bediener, Instruktionsdesigner, Lehrkraft-Gymnasium-phrasing, Archäologe/Anthropologe split at 19-3091.00, Ständerbohrmaschinen-phrasing, Fomgießmaschinenführer typo, Dietitians at 29-1031.00), plus a sampling pass over the ~640 un-reviewed `title.de` tail.
+- **Lehrkräfte-Tier-Verwechslungen + scan-based (A) batch 4.** Still gated on the SOC-aware companion filter to keep false-positive review volume manageable.
+- **Seed overrides audit** (131 entries, low priority hygiene).
+
+---
+
 ### Session 28 – 2026-04-24
 **Focus:** Batch-2 of container-abuse subtitle overrides. Closes out the remaining Session-26 browser-test (A) findings and picks up the older scan-based BACKLOG entries for 25212 Kraftfahrzeugtechnik and 41312 Chemie-/Pharmatechnik. One PR, one commit on `fix/kldb-subtitle-overrides-batch-2`. Third session today; same-day chain after PRs #61 (Session 26 infra) and #62 (Session 27 batch-1).
 

@@ -501,4 +501,16 @@ export default {
   // === Cluster: "Lieferfahrer" (2) ===
   '53-3031.00': 'Verkaufsfahrer/Verkaufsfahrerin', // Driver/Sales Workers
   '53-3033.00': 'Lieferfahrer/Lieferfahrerin', // Light Truck Drivers
+
+  // Primary-null fills paired with the batch-3 KldB-override remap (2026-04-24).
+  // These five codes had title.de=null + a wrong KldB container class; the
+  // KldB side is fixed in kldb-overrides.mjs batch 3, and without a concrete
+  // DE title the primary display would still read as the (now correct)
+  // category phrase ("Bauplanung und -überwachung", "Markt- und
+  // Meinungsforschung", …) instead of a job name. Coupled here.
+  '11-3051.02': 'Leiter Geothermiekraftwerk / Leiterin Geothermiekraftwerk', // Geothermal Production Managers
+  '17-2051.00': 'Bauingenieur/Bauingenieurin', // Civil Engineers
+  '17-2141.01': 'Brennstoffzellen-Ingenieur / Brennstoffzellen-Ingenieurin', // Fuel Cell Engineers
+  '29-2036.00': 'Medizinphysiker Dosimetrie / Medizinphysikerin Dosimetrie', // Medical Dosimetrists
+  '43-4111.00': 'Interviewer/Interviewerin', // Interviewers, Except Eligibility and Loan
 }
