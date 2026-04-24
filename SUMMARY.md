@@ -5,6 +5,43 @@
 
 ---
 
+### Session 28 – 2026-04-24
+**Focus:** Batch-2 of container-abuse subtitle overrides. Closes out the remaining Session-26 browser-test (A) findings and picks up the older scan-based BACKLOG entries for 25212 Kraftfahrzeugtechnik and 41312 Chemie-/Pharmatechnik. One PR, one commit on `fix/kldb-subtitle-overrides-batch-2`. Third session today; same-day chain after PRs #61 (Session 26 infra) and #62 (Session 27 batch-1).
+
+**Meta / process notes:**
+- **Catalog-lookup pattern earned its keep.** The feedback memory saved last session — "consult the canonical catalog before proposing codes" — shaped the whole research phase. Every target was verified against `scripts/input/kldb-data.json` before proposing, and it surfaced several specific tier codes (31213 Vermessungstechnik komplex for Fernerkundung/Katasteringenieur, 83123 Sozialarbeit komplex for Jugendarbeiter, 92413 Redakteure/Journalisten komplex for Technischer Redakteur) that a grep over the current mapping output would have missed — those classes exist in KldB but aren't yet mapped to any O\*NET. Same mechanism that unlocked Historiker → 91224 Geschichtswissenschaften last session.
+- **Four BACKLOG candidates fell out after lookup** — worth logging so future-me doesn't re-flag them. (a) Pannendienstfahrer (49-3092.00) → 25212 Kfz-Technik fachlich is defensible; Pannendienstfahrer are driving-mechanic hybrids, the class fits. (b) Fomgießmaschinenführer (51-4072.00) is already correctly at 24132 industrielle Gießerei — the BACKLOG entry calling it a 24202 Metallbearbeitung mislabel was stale. (c) Ständerbohrmaschinen-Bediener (51-4031.00) sits in 24202 Metallbearbeitung ohne Spez. — the same bucket that Zerspanungsmechaniker is pinned to (both are spanende Bearbeitung); defensible, @mo-sp's concern was actually about the awkward title.de "Maschinenbediener für Ständerbohrmaschine", a cluster-C issue. (d) School Bus Monitor (33-9094.00) at 83111 Kinderbetreuung-Helfer is a reasonable fit for child-safety-on-bus supervision — @mo-sp flagged it as a naming concern, not a domain concern. (c) and (d) logged as cluster-(C) follow-ups; (b) required no action; (a) dropped entirely.
+- **Anf tier-bump for one case, bewusst.** Oldtimerrestaurator (49-3021.00) moved from Kfz-Technik fachlich (Anf 2) to Kfz-Technik komplexe Spezialistentätigkeiten (Anf 3). Oldtimer-Restaurierung ist post-Ausbildung-Spezialisierung — der Pill-Wechsel von "Ausbildung" zu "Weiterbildung/Studium" spiegelt die tatsächliche Rolle besser wider. Every other batch-2 entry preserved the current Anf tier.
+- **Semantic reversal on Sprengstoffarbeiter** — Session 24 emptied 21124 Sprengtechnik of *engineers* (Bio-/Nuklear-/Robotics etc. got dumped there by the tiebreaker and were remapped out). But the actual Sprengstoffarbeiter (47-5032.00 — explosives worker, mining/demolition) was incorrectly placed in 41312 Chemie-/Pharmatechnik and Session-24's cleanup was orthogonal to that error. Moved now to 21122 Sprengtechnik fachlich: that IS the correct place for the worker role which Session 24's cleanup had *distinguished* from the engineers that were wrongly routed there. Same container, different domain question.
+
+**What shipped — `fix/kldb-subtitle-overrides-batch-2` (1 PR, 1 commit):**
+
+*`scripts/input/kldb-overrides.mjs`* — new "Container-abuse overrides — batch 2" block at the tail with 11 entries:
+- **Browser-test (A) remnants (8):** Biometriker (15-2041.01 → 41114 Statistik hoch komplex, same family as Statistiker 15-2041.00), Katasteringenieur (17-1021.00 → 31213), Fernerkundungs-Wissenschaftler + -Techniker (19-2099.01 / 19-4099.03 → 31213 Vermessungstechnik komplex), Technischer Redakteur (27-3042.00 → 92413 Redakteure/Journalisten), Jugendarbeiter (39-9041.00 → 83123 Sozialarbeit komplex), Bürokraft allgemein (43-9061.00 → 71402 Büro-/Sekretariatskräfte fachlich), Leitender Flugbegleiter (53-1044.00 → 51422 Luftverkehr-Service fachlich).
+- **Scan-based BACKLOG picks (3):** Sprengstoffarbeiter (47-5032.00 → 21122 Sprengtechnik fachlich — the actual worker role, unlike Session-24's engineer evacuation), Oldtimerrestaurator (49-3021.00 → 25213 Kfz-Technik komplex, Anf bump 2→3), Koksofensteuerer (51-9051.00 → 24112 Hüttentechnik fachlich — coke ovens are metallurgy, not pharma).
+
+Total overrides applied on build: 164 (= 131 seed + 7 tiebreaker-regression + 15 batch-1 + 11 batch-2).
+
+*`src/data/kldb-occupation-mapping.json`* — regenerated. Idempotent on rebuild (byte-identical second run).
+
+**Coverage after the session:**
+
+| | Before session 28 | After |
+|---|---|---|
+| Session-26 browser findings handled | 17 / ~70 | 28 / ~70 |
+| Cluster-(A) container-abuse overrides | 18 | 29 |
+| Overrides applied on build | 153 | 164 |
+| Tests passing | 223 | 223 |
+
+**Branch:** `fix/kldb-subtitle-overrides-batch-2` (1 commit → 1 PR).
+
+**Open for next sessions (tracked in BACKLOG):**
+- **Cluster-(B) class-name rendering decision** — the largest remaining chunk of Session-26 browser findings ("Berufe in der X" descriptive-sounding classes).
+- **DE-title quality pass 2** — the longer-standing item. Session 28 adds two small entries (Ständerbohrmaschinen-Bediener awkward phrasing; Fom/Formgieß- masc/fem typo inconsistency at 51-4072.00) plus the existing Session 27 Archäologe and Session 26 ~14-name list.
+- **Scan-based (A) cleanup batch 3** — the remaining 155+ container classes from Session 24's scan; needs the SOC-aware companion filter first so false positives don't dominate the review list.
+
+---
+
 ### Session 27 – 2026-04-24
 **Focus:** First follow-up PR on Session-26's browser-test findings. Batch-1 bundles the one-line (D) rendering fix (strip "(sonstige spezifische Tätigkeitsangabe)" from KldB subtitles) with 15 (A) container-abuse overrides, plus one coupled (C) title.de correction for Parking Enforcement Workers. One PR, one commit on `fix/kldb-subtitle-overrides-batch-1`.
 
