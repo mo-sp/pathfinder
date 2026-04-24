@@ -81,14 +81,8 @@ export default {
   "29-1031.00": { kldbCode: "41204", kldbName: null, anforderungsniveau: 4, trainingCategory: "studies" }, // Futtermittelwissenschaftler/Futtermittelwissenschaftlerin
   "29-1051.00": { kldbCode: "81804", kldbName: "Apotheker, Pharmazeuten/Pharmazeutinnen - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Krankenhausapotheker/Krankenhausapothekerin
   "29-1128.00": { kldbCode: "84553", kldbName: "Trainer - Fitness und Gymnastik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Personal Trainer/Personal Trainerin
-  "29-1214.00": { kldbCode: "81414", kldbName: "Fachärzte/-ärztinnen in der Kinder- und Jugendmedizin - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Notfallmediziner/Notfallmedizinerin
-  "29-1217.00": { kldbCode: "81414", kldbName: "Fachärzte/-ärztinnen in der Kinder- und Jugendmedizin - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Facharzt für Neurologie / Fachärztin für Neurologie
-  "29-1218.00": { kldbCode: "81414", kldbName: "Fachärzte/-ärztinnen in der Kinder- und Jugendmedizin - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Frauenarzt/Frauenärztin
   "29-1222.00": { kldbCode: "81404", kldbName: "Ärzte/Ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Facharzt für Pathologie / Fachärztin für Pathologie
-  "29-1223.00": { kldbCode: "81414", kldbName: "Fachärzte/-ärztinnen in der Kinder- und Jugendmedizin - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Psychiater/Psychiaterin
   "29-1229.01": { kldbCode: "81404", kldbName: "Ärzte/Ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Facharzt für Allergologie und Immunologie / Fachärztin für Allergologie und Immunologie
-  "29-1229.03": { kldbCode: "81414", kldbName: "Fachärzte/-ärztinnen in der Kinder- und Jugendmedizin - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Urologe/Urologin
-  "29-1242.00": { kldbCode: "81414", kldbName: "Fachärzte/-ärztinnen in der Kinder- und Jugendmedizin - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Orthopäde/Orthopädin
   "29-2011.02": { kldbCode: "41204", kldbName: null, anforderungsniveau: 4, trainingCategory: "studies" }, // Zytologie-Assistent/Zytologie-Assistentin
   "29-2055.00": { kldbCode: "81102", kldbName: "Medizinische Fachangestellte (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Operationstechnischer Assistent / Operationstechnische Assistentin
   "29-9092.00": { kldbCode: "41204", kldbName: null, anforderungsniveau: 4, trainingCategory: "studies" }, // Genetischer Berater / Genetische Beraterin
@@ -219,4 +213,27 @@ export default {
   "17-2141.01": { kldbCode: "25104", kldbName: "Berufe in der Maschinenbau- und Betriebstechnik (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Fuel Cell Engineers: was Sprengtechnik — fuel cells are an energy-conversion mech-engineering topic, matches the parent 17-2141.00 (Mechanical Engineers) which already sits at 25104
   "29-2036.00": { kldbCode: "81233", kldbName: "Medizinisch-technische Berufe in der Radiologie - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Medical Dosimetrists: was Ergotherapie — dosimetry is radiation-therapy planning, sibling 29-2034 Radiologic Technologists sits in the same Radiologie family
   "43-4111.00": { kldbCode: "91342", kldbName: "Berufe in der Markt- und Meinungsforschung - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Interviewers, Except Eligibility and Loan: was Auskunft und Kundeninformation — survey/market-research interviewers, 91342 is the exact domain class
+
+  // Container-abuse overrides — batch 4 (2026-04-24).
+  // (1) Five tiebreaker victims surfaced during the Session-30 browser test:
+  // "Sachverständige" stem-overlap pulled three codes into 11123 Landwirt-
+  // schaftliche Sachverständige, the Kriminaldienst codes landed in non-
+  // Kriminal classes. (2) Six medical-specialty entries moved out of the
+  // seed block — they had been routed to 81414 Kinder- und Jugendmedizin
+  // via stem-overlap because KldB 2010 lacks a dedicated 5d class for
+  // most physician specialties (only 81414, 81454, 81464, 81814 exist).
+  // The 81404 "ohne Spezialisierung" fallback (already home to 29-1222
+  // Pathologie + 29-1229.01 Allergologie) is the right pattern;
+  // Neurologie/Psychiatrie additionally has its own 81464 class.
+  "13-1032.00": { kldbCode: "25213", kldbName: "Berufe in der Kraftfahrzeugtechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Kfz-Schadensgutachter: was Landwirtschaftliche Sachverständige — Kfz-Sachverständige sind technisch verankert (Kfz-Meister mit Sachverständigen-Bestellung), 25213 trifft die Fachexpertise
+  "13-1041.04": { kldbCode: "31163", kldbName: "Bausachverständige und Baukontrolleure/-kontrolleurinnen - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Inspekteur öffentliches Eigentum: was Landwirtschaftliche Sachverständige — Property-Inspektionen sind Bauinspektion, 31163 ist der Domain-Match
+  "13-2023.00": { kldbCode: "31163", kldbName: "Bausachverständige und Baukontrolleure/-kontrolleurinnen - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Immobiliengutachter: was Landwirtschaftliche Sachverständige — Immobilienbewertung ist Bausachverständige-Aufgabe, 61313 Immobilienvermarktung ist Sales nicht Gutachten
+  "33-3021.00": { kldbCode: "53223", kldbName: "Berufe im Kriminaldienst - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Kommissar Kriminalpolizei: was Privatdetektive (Anf 2 → 3 — Kommissar = gehobener Polizeidienst, Bachelor-Eingang); SOC-Sibling 33-3021.02 sitzt bereits in 53222 fachlich
+  "33-3021.06": { kldbCode: "53223", kldbName: "Berufe im Kriminaldienst - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Kriminalanalyst (title.de updated): was Wirtschaftsförderung — Intelligence Analysts arbeiten kriminalistisch-analytisch, gehobener Dienst
+  "29-1214.00": { kldbCode: "81404", kldbName: "Ärzte/Ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Notfallmediziner: was Kinder- und Jugendmedizin — keine 5d-Klasse für Notfallmedizin in KldB 2010, 81404 ist der korrekte Fallback
+  "29-1217.00": { kldbCode: "81464", kldbName: "Fachärzte/-ärztinnen in der Neurologie, Psychiatrie, Psychotherapie und psychosomatischen Medizin - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Facharzt Neurologie: was Kinder- und Jugendmedizin — 81464 ist die explizite Neurologie/Psychiatrie-Klasse
+  "29-1218.00": { kldbCode: "81404", kldbName: "Ärzte/Ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Frauenarzt: was Kinder- und Jugendmedizin — keine 5d-Klasse für Gynäkologie, 81404 Fallback
+  "29-1223.00": { kldbCode: "81464", kldbName: "Fachärzte/-ärztinnen in der Neurologie, Psychiatrie, Psychotherapie und psychosomatischen Medizin - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Psychiater: was Kinder- und Jugendmedizin — 81464 enthält Psychiatrie explizit
+  "29-1229.03": { kldbCode: "81404", kldbName: "Ärzte/Ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Urologe: was Kinder- und Jugendmedizin — keine 5d-Klasse für Urologie, 81404 Fallback
+  "29-1242.00": { kldbCode: "81404", kldbName: "Ärzte/Ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Orthopäde: was Kinder- und Jugendmedizin — keine 5d-Klasse für Orthopädie, 81404 Fallback (gleiches Muster wie 29-1222.00 Pathologe)
 }

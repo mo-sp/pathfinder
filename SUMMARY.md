@@ -5,6 +5,54 @@
 
 ---
 
+### Session 31 – 2026-04-25
+**Focus:** Cluster-A batch 4 — five tiebreaker victims surfaced by Session-30's browser test, bundled with six medical-specialty fallback corrections that share the same root cause. One PR on `fix/cluster-a-batch-4-and-medical-fallbacks` carrying 11 KldB remaps and one coupled `title.de` fix.
+
+**Meta / process notes:**
+- **Bundled cluster-A with the medical-specialty cleanup once the pattern surfaced.** @mo-sp's session-start dump was Cluster-A batch 4 (the 5 codes with Sachverständige/Detektive/Wirtschaftsförderung mismatches). Mid-research a second observation came in: 29-1242.00 Orthopäde was wrongly routed to 81414 Kinder- und Jugendmedizin — the textbook "specialty without a 5d class" case from the medical-subtitle BACKLOG entry. Catalog lookup against `kldb-data.json` showed five neighbouring entries in the seed block (29-1214 Notfallmediziner, 29-1217 Neurologie, 29-1218 Frauenarzt, 29-1223 Psychiater, 29-1229.03 Urologe) had the same wrong target. Same root cause as Pathologie/Allergologie which were already correctly seeded at 81404 — the remaining six were just untreated drift. @mo-sp green-lit the bundle ("ja mach gerne alles!") so all 11 entries shipped in one batch-4 block. Splitting cluster-A from medical-specialty into separate PRs would have been pure thematic taxonomy with no real downside avoided.
+- **Two intersection-call decisions surfaced upfront for review.** BACKLOG entry pre-flagged 13-1032.00 Kfz-Schadensgutachter as "intersection call" (25213 Kfz-Technik vs. 72133 Versicherungskaufleute). Recommendation made before editing: 25213 because the German Kfz-Sachverständiger profile is technically anchored (Kfz-Meister + Sachverständige-Bestellung), not insurance-clerk; 13-1031.00 Schadensregulierer already sits at 72133 fachlich, so a different class for the technical-spike role is defensible. @mo-sp approved without redirect. The other two pre-flagged options (13-1041.04 Government Property Inspectors and 13-2023.00 Real Estate Appraisers) both went to 31163 Bausachverständige rather than the alternates (73203 öffentliche Verwaltung / 61313 Immobilienvermarktung) because Bausachverständige captures the actual *Tätigkeit* (Bewertung/Inspektion physischer Immobilien); öffentliche Verwaltung is administrative not domain-expert, and Immobilienvermarktung is sales not appraisal. Pattern: when BACKLOG flags an intersection call, surface the recommendation + reasoning *before* the edit, not after.
+- **Anf-Bump 2 → 3 for 33-3021.00 Kommissar Kriminalpolizei.** Currently pinned to 53152 Privatdetektive at Anf 2 / `apprenticeship`. Kommissar = gehobener Polizeidienst, Bachelor-level entry — the right tier is Anf 3 / `specialist`. The override entry adjusts both `anforderungsniveau` and `trainingCategory`. SOC-sibling 33-3021.02 already sits in 53222 Kriminaldienst fachlich (Anf 2), so the Kriminaldienst-class hierarchy is wired and the .00 sliding into 53223 (Anf 3) follows that pattern.
+- **Catalog-lookup pattern remained load-bearing.** Each of the 11 targets (25213, 31163, 53223, 81404, 81464) verified against `scripts/input/kldb-data.json` for existence + Anf-tier match before proposing. 31163 Bausachverständige + 53223 Kriminaldienst + 81464 Neurologie/Psychiatrie all exist at the expected tier with clean names. The compounding feedback memory ("look up the canonical catalog before proposing codes") earned its keep again — none of these target classes are visible by grepping the current mapping output (no O*NET code currently maps to 31163 or 53223), they only exist in the catalog.
+- **Seed-block hygiene continued.** Six entries moved out of the seed block into the dedicated batch-4 block, following the Session-27 Beleuchtungstechniker pattern (entries that were not intentional manual fixes but accumulated drift get re-homed). Seed block is now 124 entries (was originally 131; –1 in Session 27, –6 here). The "Audit the 131 seed entries" BACKLOG item gets implicitly worked off whenever a batch like this surfaces drift candidates. 29-1222 Pathologie + 29-1229.01 Allergologie stayed in the seed block — they were already correct and represented intentional Session-19 fixes, not drift.
+- **Coupled title fix for 33-3021.06 followed the established pattern.** ESCO-raw was "Mitarbeiter im Bereich Informationsgewinnung" — administrative euphemism that doesn't surface in DE search. New title "Kriminalanalyst/Kriminalanalystin" is the etablierter BKA-/LKA-Begriff and matches the new 53223 Kriminaldienst container. Override entry in `title-overrides-de.mjs` + parallel patch to `onet-occupations.json` for build idempotency (same coupling pattern as Session 27 Parking Enforcement Workers, Session 29 batch-3 primary-null fills, Session 30 cluster-C batch 1).
+
+**What shipped — `fix/cluster-a-batch-4-and-medical-fallbacks` (1 PR):**
+
+*`scripts/input/kldb-overrides.mjs`*:
+- Removed 6 entries from the seed block: 29-1214.00, 29-1217.00, 29-1218.00, 29-1223.00, 29-1229.03, 29-1242.00 (all wrongly pinned to 81414 Kinder- und Jugendmedizin).
+- Added new "Container-abuse overrides — batch 4" block at tail with 11 entries:
+  - **Cluster-A tiebreaker victims (5):** 13-1032.00 Kfz-Schadensgutachter → 25213 Kfz-Technik komplex, 13-1041.04 Inspekteur öffentliches Eigentum → 31163 Bausachverständige komplex, 13-2023.00 Immobiliengutachter → 31163 Bausachverständige komplex, 33-3021.00 Kommissar Kriminalpolizei → 53223 Kriminaldienst komplex (Anf 2 → 3), 33-3021.06 Kriminalanalyst → 53223 Kriminaldienst komplex.
+  - **Medical specialty fallbacks (6):** 29-1214.00 Notfallmediziner → 81404 Ärzte ohne Spez., 29-1217.00 Neurologie → 81464 Neurologie/Psychiatrie, 29-1218.00 Frauenarzt → 81404 Ärzte ohne Spez., 29-1223.00 Psychiater → 81464 Neurologie/Psychiatrie, 29-1229.03 Urologe → 81404 Ärzte ohne Spez., 29-1242.00 Orthopäde → 81404 Ärzte ohne Spez.
+
+*`scripts/input/title-overrides-de.mjs`*:
+- New "Cluster-A batch 4 — coupled title fix" block: 33-3021.06 → "Kriminalanalyst/Kriminalanalystin".
+
+*`src/data/onet-occupations.json`*: 1 parallel `title.de` patch for 33-3021.06 (coupled for idempotency).
+
+*`src/data/kldb-occupation-mapping.json`*: regenerated. 11 codes changed. Build-script log: `manual overrides applied: 175` (= prior 170 − 6 from seed + 11 in batch 4). Idempotent on rebuild (byte-identical second run).
+
+*`BACKLOG.md` housekeeping*: retired the standalone Cluster-A "Kriminaldienst + 11123-Landwirtschaft tiebreaker victims" entry (shipped here); reframed the medical-subtitle entry to reflect the manual-override path Sessions 19/31 took (Pathologie, Allergologie, Notfallmedizin, Gynäkologie, Urologie, Orthopädie → 81404; Neurologie, Psychiatrie → 81464) and explicitly position the systematic per-ISCO fallback as the still-open systemic fix; added a small "physician-specialty fallback — opportunistic cleanup remaining" entry tracking the unflagged specialties (Kardiologie, Dermatologie, Radiologie, Sportmedizin, …).
+
+**Coverage after the session:**
+
+| | Before session 31 | After |
+|---|---|---|
+| Cluster-(A) container-abuse overrides | 35 (3 Session-24 families + 15 batch-1 + 11 batch-2 + 6 batch-3) | 40 (+ 5 batch-4 cluster-A) |
+| Medical-specialty wrongly-routed-to-Kinder/Jugend | 6 | 0 |
+| Seed-block entries pinned to wrong target | 6 | 0 (pulled out into batch 4) |
+| Overrides applied on build | 170 | 175 |
+| Tests passing | 227 | 227 |
+
+**Branch:** `fix/cluster-a-batch-4-and-medical-fallbacks` (1 commit → 1 PR).
+
+**Open for next sessions (tracked in BACKLOG):**
+- **DE-Occupation filter mechanism** — execute with 13-1074.00 Farm Labor Contractors as first customer.
+- **Systemic per-ISCO fallback in `build-kldb-mapping.mjs`** — would retire the manual-override pattern for the medical-specialty case (and similar zero-stem-overlap families). Carries weight now that 8 medical specialties + ~15 non-medical drift cases are individually pinned.
+- **Cluster-C tail** — opportunistic sampling below the filter threshold + the deferred -arbeiter/-bediensteter borderlines.
+- **Seed overrides audit** (124 remaining, low priority hygiene).
+
+---
+
 ### Session 30 – 2026-04-24
 **Focus:** Cluster-C batch 1 — DE-title quality pass 2. One PR on `fix/cluster-c-title-pass-batch-1` bundling 26 primary-null fills and 24 ESCO-raw corrections into a single thematic unit. Fifth session this calendar day; same-day chain after Sessions 26/27/28/29.
 

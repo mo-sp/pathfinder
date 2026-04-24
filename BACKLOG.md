@@ -25,17 +25,21 @@ Likely next 1–2 sessions.
 
 ## Data quality
 
-- **KldB subtitle for medical specialties is wrong.** KldB 2010 has only a
-  handful of 5d physician classes (81404 Ärzte ohne Spez., 81414 Kinder- und
-  Jugendmedizin, 81454 Anästhesiologie, 81464 Neurologie/Psychiatrie,
-  81814 Pharmakologie). Specialties without a matching class (Kardiologie,
-  Dermatologie, Urologie, Radiologie, Orthopädie, Allergologie, Pathologie,
-  Sportmedizin, …) currently get routed to arbitrary far-off classes via the
-  stem-overlap tie-breaker — a rebuild attempt in Session 19 sent Sportmedizin
-  to "Führungskräfte Pferdewirtschaft" and Radiologe to "Ergotherapie".
-  Fix idea: per-ISCO fallback in `build-kldb-mapping.mjs` — if the best KldB
-  candidate has stemOverlap 0 with `title.de`, prefer the "ohne
-  Spezialisierung" class for that ISCO group rather than inventing a match.
+- **KldB subtitle for medical specialties — systemic build-time fallback.**
+  KldB 2010 has only a handful of 5d physician classes (81404 Ärzte ohne
+  Spez., 81414 Kinder- und Jugendmedizin, 81454 Anästhesiologie, 81464
+  Neurologie/Psychiatrie, 81814 Pharmakologie). Specialties without a
+  matching 5d class get routed via stem-overlap tie-breaker to arbitrary
+  far-off classes (Session 19 sent Sportmedizin to "Führungskräfte
+  Pferdewirtschaft" and Radiologe to "Ergotherapie"). Sessions 19/31
+  manually pinned the surfaced cases (Pathologie, Allergologie,
+  Notfallmedizin, Gynäkologie, Urologie, Orthopädie → 81404; Neurologie,
+  Psychiatrie → 81464). Specialties not yet flagged (Kardiologie,
+  Dermatologie, Radiologie, Sportmedizin, …) still misroute by default.
+  Systemic fix idea: per-ISCO fallback in `build-kldb-mapping.mjs` — if
+  the best KldB candidate has stemOverlap 0 with `title.de`, prefer the
+  "ohne Spezialisierung" class for that ISCO group rather than inventing
+  a match. Would retire the manual-override approach for this domain.
 - **Further semantic subtitle mismatches beyond the three Session-24
   containers.** Session 24's scan flagged 155+ KldB container classes with
   ≥ 2 suspicious codes each; only 21124 Sprengtechnik (13 codes), 61394
@@ -51,24 +55,16 @@ Likely next 1–2 sessions.
   in DE-title pass 2); the older scan findings still need a SOC-aware
   companion filter before another pass so false positives like "Bankkaufleute
   → Kreditprüfer" don't dominate the review list.
-- **Cluster-A Kriminaldienst + 11123-Landwirtschaft tiebreaker victims.**
-  Session 30 browser test surfaced five codes wrongly routed by the
-  stem-overlap tiebreaker — "Sachverständige" in the DE-title pulled three
-  codes into 11123 Landwirtschaftliche Sachverständige (Anf 3), and the
-  Kriminaldienst codes landed in non-Kriminal classes. Fix candidates
-  (from `scripts/input/kldb-data.json` lookup): 13-1032.00 Insurance
-  Appraisers Auto Damage (11123 Landwirtschaft → 25213 Kfz-Technik komplex
-  or 72133 Versicherungskaufleute komplex — intersection call), 13-1041.04
-  Government Property Inspectors (11123 → 73203 öffentliche Verwaltung
-  komplex or 31163 Bausachverständige komplex), 13-2023.00 Real Estate
-  Appraisers (11123 → 61313 Immobilienvermarktung komplex or 31163
-  Bausachverständige komplex), 33-3021.00 Detectives and Criminal
-  Investigators (53152 Detektive → 53223 Kriminaldienst komplex — the
-  SOC-sibling .02 is already in 53222 so the class exists and is wired),
-  33-3021.06 Intelligence Analysts (71333 Wirtschaftsförderung → 53223
-  Kriminaldienst komplex + title fix "Mitarbeiter im Bereich
-  Informationsgewinnung" → "Kriminalanalyst/Kriminalanalystin").
-  Small and well-scoped — ~5-line override batch plus one coupled title.
+- **KldB physician-specialty fallback — opportunistic cleanup remaining.**
+  Session 31 cleaned up 6 entries that had been routed to 81414 Kinder-
+  und Jugendmedizin via stem-overlap (Notfallmediziner, Frauenarzt,
+  Urologe, Orthopäde → 81404 Ärzte ohne Spez.; Neurologie + Psychiater
+  → 81464). The same root cause from the medical-subtitle BACKLOG entry
+  above still applies to other physician specialties not yet flagged
+  (Kardiologie, Dermatologie, Radiologie, Pathologie-adjacent, Sportmedizin,
+  …). The "ohne 5d-Klasse → 81404 ohne Spez." fallback pattern works;
+  fix candidates can come opportunistically from browser tests rather
+  than as a dedicated pass.
 - **85 broadMatch KldB mappings** — residual noise tier. Options: (a) hide
   `broadMatch` from display and fall back to jobZone-only category, (b)
   accept. Build-script stat: `match tier of mapped codes: broadMatch`.
