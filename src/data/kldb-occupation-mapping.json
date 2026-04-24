@@ -148,8 +148,8 @@
       "trainingCategory": "studies"
     },
     "11-3061.00": {
-      "kldbCode": "51394",
-      "kldbName": "Führungskräfte - Lagerwirtschaft, Post und Zustellung, Güterumschlag",
+      "kldbCode": "51694",
+      "kldbName": "Führungskräfte - Verkehr und Logistik (kaufmännischer Bereich)",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -220,8 +220,8 @@
       "trainingCategory": "studies"
     },
     "11-9041.01": {
-      "kldbCode": "22104",
-      "kldbName": "Berufe in der Kunststoff- und Kautschukherstellung (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
+      "kldbCode": "41314",
+      "kldbName": "Berufe in der Chemie- und Pharmatechnik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -764,8 +764,8 @@
       "trainingCategory": "studies"
     },
     "15-1299.03": {
-      "kldbCode": "27294",
-      "kldbName": "Führungskräfte - Technisches Zeichnen, Konstruktion und Modellbau",
+      "kldbCode": "42394",
+      "kldbName": "Führungskräfte - Umweltmanagement und -beratung",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -945,14 +945,14 @@
       "trainingCategory": "studies"
     },
     "17-2072.00": {
-      "kldbCode": "26124",
-      "kldbName": "Berufe in der Automatisierungstechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "26334",
+      "kldbName": "Berufe in der Luftverkehrs-, Schiffs- und Fahrzeugelektronik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "17-2072.01": {
-      "kldbCode": "26383",
-      "kldbName": "Berufe in der Elektrotechnik (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "26333",
+      "kldbName": "Berufe in der Luftverkehrs-, Schiffs- und Fahrzeugelektronik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -1113,8 +1113,8 @@
       "trainingCategory": "apprenticeship"
     },
     "17-3021.00": {
-      "kldbCode": "23123",
-      "kldbName": "Berufe in der Papierverarbeitung und Verpackungstechnik - komplexe Spezialistentätigkeiten",
+      "kldbCode": "25133",
+      "kldbName": "Technische Servicekräfte in Wartung und Instandhaltung - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -1137,8 +1137,8 @@
       "trainingCategory": "apprenticeship"
     },
     "17-3024.01": {
-      "kldbCode": "26102",
-      "kldbName": "Berufe in der Mechatronik und Automatisierungstechnik (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "27182",
+      "kldbName": "Berufe in der technischen Forschung und Entwicklung (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -1149,8 +1149,8 @@
       "trainingCategory": "studies"
     },
     "17-3026.00": {
-      "kldbCode": "27302",
-      "kldbName": "Berufe in der technischen Produktionsplanung und -steuerung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "27182",
+      "kldbName": "Berufe in der technischen Forschung und Entwicklung (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -1173,8 +1173,8 @@
       "trainingCategory": "specialist"
     },
     "17-3028.00": {
-      "kldbCode": "22222",
-      "kldbName": "Berufe im Lacklaboratorium - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "41322",
+      "kldbName": "Berufe im chemisch-technischen Laboratorium - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -1185,8 +1185,8 @@
       "trainingCategory": "apprenticeship"
     },
     "17-3029.08": {
-      "kldbCode": "26102",
-      "kldbName": "Berufe in der Mechatronik und Automatisierungstechnik (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "27182",
+      "kldbName": "Berufe in der technischen Forschung und Entwicklung (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -1203,8 +1203,8 @@
       "trainingCategory": "studies"
     },
     "19-1012.00": {
-      "kldbCode": "41203",
-      "kldbName": "Berufe in der Biologie (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "27103",
+      "kldbName": "Berufe in der technischen Forschung und Entwicklung (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -1275,8 +1275,8 @@
       "trainingCategory": "specialist"
     },
     "19-1032.00": {
-      "kldbCode": "11713",
-      "kldbName": "Berufe in der Forstwirtschaft - komplexe Spezialistentätigkeiten",
+      "kldbCode": "41213",
+      "kldbName": "Berufe im biologisch-technischen Laboratorium - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -1467,8 +1467,8 @@
       "trainingCategory": "specialist"
     },
     "19-4013.00": {
-      "kldbCode": "22222",
-      "kldbName": "Berufe im Lacklaboratorium - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "41322",
+      "kldbName": "Berufe im chemisch-technischen Laboratorium - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -1503,20 +1503,20 @@
       "trainingCategory": "studies"
     },
     "19-4051.00": {
-      "kldbCode": "22222",
-      "kldbName": "Berufe im Lacklaboratorium - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "41322",
+      "kldbName": "Berufe im chemisch-technischen Laboratorium - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "19-4051.02": {
-      "kldbCode": "22222",
-      "kldbName": "Berufe im Lacklaboratorium - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "41322",
+      "kldbName": "Berufe im chemisch-technischen Laboratorium - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "19-4061.00": {
-      "kldbCode": "42134",
-      "kldbName": "Berufe in der Geografie - hoch komplexe Tätigkeiten",
+      "kldbCode": "91324",
+      "kldbName": "Berufe in der Soziologie - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1533,8 +1533,8 @@
       "trainingCategory": "apprenticeship"
     },
     "19-4099.01": {
-      "kldbCode": "26102",
-      "kldbName": "Berufe in der Mechatronik und Automatisierungstechnik (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "27182",
+      "kldbName": "Berufe in der technischen Forschung und Entwicklung (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -1714,8 +1714,8 @@
       "trainingCategory": "studies"
     },
     "25-1041.00": {
-      "kldbCode": "84214",
-      "kldbName": "Lehrkräfte für berufsbildende Fächer - hoch komplexe Tätigkeiten",
+      "kldbCode": "84304",
+      "kldbName": "Berufe in der Hochschullehre und -forschung - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2105,14 +2105,14 @@
       "trainingCategory": "specialist"
     },
     "27-1025.00": {
-      "kldbCode": "93213",
-      "kldbName": "Berufe in der Innenarchitektur - komplexe Spezialistentätigkeiten",
+      "kldbCode": "93233",
+      "kldbName": "Berufe in der Raumausstattung - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "27-1026.00": {
-      "kldbCode": "93212",
-      "kldbName": "Berufe in der Innenarchitektur - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "93222",
+      "kldbName": "Berufe im visuellen Marketing - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2147,8 +2147,8 @@
       "trainingCategory": "specialist"
     },
     "27-2012.05": {
-      "kldbCode": "94493",
-      "kldbName": "Aufsichtskräfte - Theater-, Film- und Fernsehproduktion",
+      "kldbCode": "94513",
+      "kldbName": "Berufe in der Veranstaltungs- und Bühnentechnik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -2387,14 +2387,14 @@
       "trainingCategory": "apprenticeship"
     },
     "29-1125.00": {
-      "kldbCode": "81723",
-      "kldbName": "Berufe in der Ergotherapie - komplexe Spezialistentätigkeiten",
+      "kldbCode": "81783",
+      "kldbName": "Berufe in der nicht ärztlichen Therapie und Heilkunde (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "29-1126.00": {
-      "kldbCode": "81722",
-      "kldbName": "Berufe in der Ergotherapie - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "81782",
+      "kldbName": "Berufe in der nicht ärztlichen Therapie und Heilkunde (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2549,8 +2549,8 @@
       "trainingCategory": "studies"
     },
     "29-1224.00": {
-      "kldbCode": "81724",
-      "kldbName": "Berufe in der Ergotherapie - hoch komplexe Tätigkeiten",
+      "kldbCode": "81784",
+      "kldbName": "Berufe in der nicht ärztlichen Therapie und Heilkunde (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2965,8 +2965,8 @@
       "trainingCategory": "studies"
     },
     "33-1091.00": {
-      "kldbCode": "53122",
-      "kldbName": "Berufe in Arbeitssicherheit und Sicherheitstechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "53112",
+      "kldbName": "Berufe im Objekt-, Werte- und Personenschutz - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3067,8 +3067,8 @@
       "trainingCategory": "apprenticeship"
     },
     "33-9032.00": {
-      "kldbCode": "53122",
-      "kldbName": "Berufe in Arbeitssicherheit und Sicherheitstechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "53112",
+      "kldbName": "Berufe im Objekt-, Werte- und Personenschutz - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3085,8 +3085,8 @@
       "trainingCategory": "apprenticeship"
     },
     "33-9093.00": {
-      "kldbCode": "53122",
-      "kldbName": "Berufe in Arbeitssicherheit und Sicherheitstechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "53112",
+      "kldbName": "Berufe im Objekt-, Werte- und Personenschutz - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3243,8 +3243,8 @@
       "trainingCategory": "apprenticeship"
     },
     "37-3013.00": {
-      "kldbCode": "11722",
-      "kldbName": "Berufe in der Natur- und Landschaftspflege - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "12122",
+      "kldbName": "Berufe in Baumschule, Staudengärtnerei und Zierpflanzenbau - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3268,14 +3268,14 @@
       "fromJobZone": true
     },
     "39-2011.00": {
-      "kldbCode": "11302",
-      "kldbName": "Berufe in der Pferdewirtschaft (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "11502",
+      "kldbName": "Berufe in der Tierpflege (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "39-2021.00": {
-      "kldbCode": "11302",
-      "kldbName": "Berufe in der Pferdewirtschaft (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "11502",
+      "kldbName": "Berufe in der Tierpflege (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3568,8 +3568,8 @@
       "trainingCategory": "none"
     },
     "43-1011.00": {
-      "kldbCode": "71393",
-      "kldbName": "Aufsichtskräfte - Unternehmensorganisation und -strategie",
+      "kldbCode": "71493",
+      "kldbName": "Aufsichtskräfte - Büro und Sekretariat",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -3700,8 +3700,8 @@
       "trainingCategory": "specialist"
     },
     "43-4151.00": {
-      "kldbCode": "51122",
-      "kldbName": "Berufe im technischen Luftverkehrsbetrieb - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "61122",
+      "kldbName": "Berufe im Vertrieb (außer Informations- und Kommunikationstechnologien) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4036,8 +4036,8 @@
       "trainingCategory": "apprenticeship"
     },
     "47-2073.00": {
-      "kldbCode": "32222",
-      "kldbName": "Berufe im Straßen- und Asphaltbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "52522",
+      "kldbName": "Führer/innen von Erdbewegungs- und verwandten Maschinen - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4205,8 +4205,8 @@
       "trainingCategory": "apprenticeship"
     },
     "47-4041.00": {
-      "kldbCode": "22103",
-      "kldbName": "Berufe in der Kunststoff- und Kautschukherstellung (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "22203",
+      "kldbName": "Berufe in der Farb- und Lacktechnik (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -4259,14 +4259,14 @@
       "trainingCategory": "apprenticeship"
     },
     "47-5022.00": {
-      "kldbCode": "32222",
-      "kldbName": "Berufe im Straßen- und Asphaltbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "52522",
+      "kldbName": "Führer/innen von Erdbewegungs- und verwandten Maschinen - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "47-5023.00": {
-      "kldbCode": "32242",
-      "kldbName": "Berufe im Brunnenbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "21212",
+      "kldbName": "Berufe in der Naturstein- und Mineralaufbereitung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4343,8 +4343,8 @@
       "trainingCategory": "apprenticeship"
     },
     "49-2092.00": {
-      "kldbCode": "26222",
-      "kldbName": "Berufe in der Elektromaschinentechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "26112",
+      "kldbName": "Berufe in der Mechatronik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4367,8 +4367,8 @@
       "trainingCategory": "apprenticeship"
     },
     "49-2096.00": {
-      "kldbCode": "26332",
-      "kldbName": "Berufe in der Luftverkehrs-, Schiffs- und Fahrzeugelektronik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "26302",
+      "kldbName": "Berufe in der Elektrotechnik (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4785,8 +4785,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-4061.00": {
-      "kldbCode": "27232",
-      "kldbName": "Berufe im Modellbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "24522",
+      "kldbName": "Berufe in der Werkzeugtechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4803,8 +4803,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-4072.00": {
-      "kldbCode": "24202",
-      "kldbName": "Berufe in der Metallbearbeitung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "24132",
+      "kldbName": "Berufe in der industriellen Gießerei - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4949,8 +4949,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-6092.00": {
-      "kldbCode": "28112",
-      "kldbName": "Berufe in der Textilgestaltung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "28212",
+      "kldbName": "Berufe im Modedesign - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4973,8 +4973,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-7031.00": {
-      "kldbCode": "22342",
-      "kldbName": "Berufe im Holz-, Möbel- und Innenausbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "27282",
+      "kldbName": "Technisches Zeichnen, Konstruktion und Modellbau (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5082,8 +5082,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-9022.00": {
-      "kldbCode": "21222",
-      "kldbName": "Berufe in der Baustoffherstellung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "21312",
+      "kldbName": "Berufe in der Glasherstellung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5196,8 +5196,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-9191.00": {
-      "kldbCode": "23122",
-      "kldbName": "Berufe in der Papierverarbeitung und Verpackungstechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "25122",
+      "kldbName": "Maschinen- und Anlagenführer/innen - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5220,8 +5220,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-9195.00": {
-      "kldbCode": "21422",
-      "kldbName": "Berufe in der Industriekeramik (Modelltechnik) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "93412",
+      "kldbName": "Berufe in der kunsthandwerklichen Keramikgestaltung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5262,8 +5262,8 @@
       "trainingCategory": "none"
     },
     "53-1041.00": {
-      "kldbCode": "51332",
-      "kldbName": "Berufe im Güter- und Warenumschlag - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "51532",
+      "kldbName": "Berufe in der Überwachung und Steuerung des Luftverkehrsbetriebs - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5424,8 +5424,8 @@
       "trainingCategory": "specialist"
     },
     "53-6011.00": {
-      "kldbCode": "31193",
-      "kldbName": "Aufsichtskräfte - Bauplanung und -überwachung, Architektur",
+      "kldbCode": "51293",
+      "kldbName": "Aufsichtskräfte - Überwachung und Wartung der Verkehrsinfrastruktur",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },

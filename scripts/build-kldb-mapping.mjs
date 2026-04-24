@@ -30,6 +30,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { spawnSync } from 'node:child_process'
 import { parse } from 'csv-parse/sync'
+import KLDB_OVERRIDES from './input/kldb-overrides.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
@@ -146,16 +147,27 @@ function tokenize(s) {
   return new Set(normalized.split(/\s+/).filter((w) => w.length >= 4))
 }
 
-// Shared-prefix stem match: treats "zimmerer" and "zimmerei" as the same
-// concept via the 5-char stem "zimme". Cheap approximation of German noun
-// stemming; robust enough to act as a tiebreaker without a full stemmer.
+// Shared-prefix stem match with a German compound-noun fallback:
+//   1. 5-char prefix match — "zimmerer" and "zimmerei" share stem "zimme".
+//   2. If no prefix hit: check whether one ≥6-char token contains the
+//      other's 4-char prefix as a substring. Catches "Tiersitter" vs
+//      "Tierpflege" (both contain "tier" but 5-char prefixes differ),
+//      "Softwareentwickler" vs "Software" etc. without needing a full
+//      German stemmer. Still only a tiebreaker, not a primary signal.
 function stemsOverlap(titleA, titleB) {
-  const stems = (set) => new Set([...set].map((t) => t.slice(0, 5)))
-  const a = stems(tokenize(titleA))
-  const b = stems(tokenize(titleB))
+  const a = tokenize(titleA)
+  const b = tokenize(titleB)
   if (a.size === 0 || b.size === 0) return 0
   let hits = 0
-  for (const t of a) if (b.has(t)) hits++
+  for (const ta of a) {
+    for (const tb of b) {
+      if (ta.slice(0, 5) === tb.slice(0, 5)) { hits++; break }
+      const stemA = ta.slice(0, 4)
+      const stemB = tb.slice(0, 4)
+      if ((ta.length >= 6 && tb.includes(stemA)) ||
+          (tb.length >= 6 && ta.includes(stemB))) { hits++; break }
+    }
+  }
   return hits / Math.min(a.size, b.size)
 }
 
@@ -277,6 +289,26 @@ function buildMappings(kldbByIsco, escoToIsco, crosswalk, onetMeta) {
   return { mappings, stats, matchTypeStats }
 }
 
+// Apply per-O*NET manual overrides from scripts/input/kldb-overrides.mjs.
+// Runs after primary mapping so overrides always win, independent of how
+// the ISCO crosswalk evolves or how the tiebreaker ranks candidates.
+function applyOverrides(mappings) {
+  let applied = 0
+  let missing = 0
+  for (const [code, override] of Object.entries(KLDB_OVERRIDES)) {
+    if (!mappings[code]) {
+      // Override for a code not present in the mapping (e.g. O*NET code
+      // removed upstream). Skip with a warning rather than injecting a
+      // stray entry.
+      missing++
+      continue
+    }
+    mappings[code] = { ...mappings[code], ...override }
+    applied++
+  }
+  return { applied, missing }
+}
+
 function main() {
   const { kldbByIsco, source } = loadKldb()
   const escoToIsco = loadEscoToIsco()
@@ -284,11 +316,13 @@ function main() {
   const onetMeta = loadOnetMeta()
 
   const { mappings, stats, matchTypeStats } = buildMappings(kldbByIsco, escoToIsco, crosswalk, onetMeta)
+  const overrideStats = applyOverrides(mappings)
 
   console.log(`\n${stats.mapped} / ${onetMeta.size} O*NET codes mapped to KldB, ${stats.fallback} jobZone-fallback only`)
   console.log(`  match tier of mapped codes:`, matchTypeStats)
   console.log(`  by training category:`, stats.byCategory)
   console.log(`  Anf distance from jobZone target (mapped only):`, stats.byAnfDistance)
+  console.log(`  manual overrides applied: ${overrideStats.applied}${overrideStats.missing ? ` (${overrideStats.missing} skipped — code not in mapping)` : ''}`)
 
   const output = {
     meta: {

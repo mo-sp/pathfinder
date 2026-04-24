@@ -48,7 +48,19 @@ Likely next 1–2 sessions.
   Construction Laborers → "Sprengtechnik", 33-9094 School Bus Monitors →
   "Kinderbetreuung". The stem-match heuristic used in Session 24 also needs
   a SOC-aware companion filter so false positives like "Bankkaufleute →
-  Kreditprüfer" don't dominate the review list.
+  Kreditprüfer" don't dominate the review list. Session 26 top-list browser
+  test added ~50 fresh specifics: Bühnenmann → Brunnenbau, Justizwachtmeister
+  → Detektive, Beleuchtungstechniker → Tätowierer, Konstruktionsmechaniker
+  Feinblechbau → Klempnerei, Leitender Flugbegleiter → Straßen-/Schienen­verkehr,
+  Ordnungshüter → Jagdwirtschaft, Sportler-mit-Behinderung → Pferdewirtschaft,
+  Lebensberater → Kinderbetreuung, Mitarbeiter-Freizeitpark → Objekt-/
+  Personenschutz, Avioniker → Automatisierung, Lagerarbeiter → Luftverkehr,
+  Hochbauhelfer → Sprengtechnik, Schadensregulierer → landwirtschaftliche
+  Sachverständige, Notariatsmitarbeiter / Rechtsanwaltfachangestellte →
+  Detektive, Historiker → Philosophie-/Religion-/Ethik, Lehrkräfte-Kategorien
+  auf Sekundar-/Berufs-/Primarstufe vertauscht. Route the clearest 15 into
+  the next follow-up PR as overrides; the rest need the scan infrastructure
+  above.
 - **Dietitians title.de is wrong at the ESCO level.** 29-1031.00 Dietitians
   and Nutritionists is currently titled "Futtermittelwissenschaftler/
   Futtermittelwissenschaftlerin" (animal-feed scientist), an ESCO-side
@@ -82,7 +94,44 @@ Likely next 1–2 sessions.
   would be the current IHK-Ausbildungsberuf name). Likely more of the same
   kind across logistics, trade, and technical roles. Fix: enumerate the
   non-override codes, eyeball each `title.de` against BERUFENET, patch via
-  the same override file.
+  the same override file. Session 26 browser test added ~12 more hits to
+  the pile: Anschläger, Bügler, Gelegenheitsarbeiter, Zwirner, Zwicker,
+  Pfahlrammer, Blutabnehmer, Postschalterbediensteter, Ordnungshüter
+  (synonym for Polizist in DE?), Kameraschwenker, Underwriter, Warenmakler,
+  Pflegeexperte, CAD-Bediener (= Technischer Zeichner?), Instruktionsdesigner,
+  "Lehrkraft Gymnasium und Realschule" (awkward phrasing).
+
+- **stripKldbSuffix allowlist misses "(sonstige spezifische Tätigkeitsangabe)".**
+  Session 24's known-suffix allowlist covers Helfer-/Anlerntätigkeiten,
+  fachlich ausgerichtete, komplexe Spezialisten-, hoch komplexe Tätigkeiten.
+  Session 26 browser test surfaced one specialization marker leaking into
+  the rendered subtitle — "(sonstige spezifische Tätigkeitsangabe)" on
+  KldB 52182 Fahrzeugführer im Straßenverkehr. One-line fix: extend the
+  allowlist. Bundle with the next subtitle-overrides PR.
+
+- **KldB class names that read like category descriptions, not job titles.**
+  Roughly 8 classes in the current render surface are phrased as "Berufe in
+  der X" or "Lehrkräfte in der Y" — "Berufe in der Sprengtechnik", "Berufe
+  in der Isolierung", "Berufe in der Energie- und Kraftwerkstechnik",
+  "Medizinisch-technische Berufe in der Radiologie", "Technische Servicekräfte
+  in Wartung und Instandhaltung", "Lehrkräfte in der Sekundarstufe". Users
+  read them as descriptions of a field rather than an actual Berufsbezeichnung.
+  Separate from the container-abuse bucket — here the KldB class is
+  semantically correct, the label just doesn't render as a job. Options:
+  (a) strip the "Berufe in der " / "Lehrkräfte in der " prefix at render
+  time, (b) per-class rename overrides on the rendered subtitle, (c) accept.
+  Decide during the cluster-B PR.
+
+- **Audit the 132 seed entries in `scripts/input/kldb-overrides.mjs`.**
+  The file was populated retrospectively in Session 26 to pin the existing
+  `kldb-occupation-mapping.json` state against a silent revert on rebuild.
+  Each seed entry is either (i) an intentional Session-19 / Session-24
+  manual fix worth keeping, or (ii) accumulated drift from title.de updates
+  feeding into the stem-overlap tiebreaker that could be replaced by a
+  build-time improvement. The 7 "tiebreaker regressions from the compound-
+  noun substring fix" block at the tail is explicitly tagged; the other
+  132 need walking. Low priority — the file is stable as-is, this is
+  hygiene.
 
 ## UX polish
 
