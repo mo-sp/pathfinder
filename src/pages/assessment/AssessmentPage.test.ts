@@ -361,12 +361,46 @@ describe('AssessmentPage', () => {
       // selectAnswer is async (store.answer → persist → router.push).
       // vi.waitFor polls until the spy fires or the default timeout
       // elapses, which is more robust than a fixed-tick flush against
-      // the mock router resolution timing.
+      // the mock router resolution timing. The `focus` query carries the
+      // just-finished layer so /ergebnis can scroll to that section.
       await vi.waitFor(() => {
-        expect(pushSpy).toHaveBeenCalledWith('/ergebnis')
+        expect(pushSpy).toHaveBeenCalledWith({
+          path: '/ergebnis',
+          query: { focus: 'riasec' },
+        })
       })
 
       expect(store.isComplete).toBe(true)
+    })
+
+    it('passes the just-finished layer as ?focus= query on completion', async () => {
+      const router = makeRouter()
+      const pushSpy = vi.spyOn(router, 'push').mockResolvedValue(undefined)
+
+      const store = useQuestionnaireStore()
+      // Complete RIASEC + all but the last Big Five question, so the
+      // final click finishes the bigfive layer with currentLayer='bigfive'.
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(3)
+      store.startBigFiveLayer()
+      for (let i = 0; i < store.bigfiveTotal - 1; i += 1) store.answer(3)
+      expect(store.isComplete).toBe(false)
+      expect(store.currentLayer).toBe('bigfive')
+
+      await store.loadOccupations()
+
+      const wrapper = mount(AssessmentPage, {
+        global: { plugins: [router, i18n] },
+      })
+
+      const likertButtons = wrapper.findAll('button').slice(0, 5)
+      await likertButtons[2]!.trigger('click')
+
+      await vi.waitFor(() => {
+        expect(pushSpy).toHaveBeenCalledWith({
+          path: '/ergebnis',
+          query: { focus: 'bigfive' },
+        })
+      })
     })
   })
 })

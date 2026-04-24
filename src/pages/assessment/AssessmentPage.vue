@@ -150,7 +150,12 @@ async function selectAnswer(value: number): Promise<void> {
   } catch (err) {
     console.error('Failed to persist assessment session', err)
   }
-  await router.push('/ergebnis')
+  // Layer-completion navigation carries `focus=<layer>` so /ergebnis can
+  // scroll to the just-finished section instead of landing at top of page
+  // (which sits past the RIASEC hexagon every time). The "Ergebnisansicht"
+  // shortcut + header link omit the query → top-of-page stays the default
+  // for explicit-peek navigation.
+  await router.push({ path: '/ergebnis', query: { focus: store.currentLayer } })
 }
 </script>
 

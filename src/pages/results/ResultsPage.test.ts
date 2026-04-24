@@ -344,6 +344,67 @@ describe('ResultsPage', () => {
     })
   })
 
+  describe('scroll-to-layer on /ergebnis (focus query param)', () => {
+    // The layer anchor IDs are the contract between AssessmentPage's
+    // layer-completion navigation (pushes ?focus=<layer>) and the
+    // scroll-into-view call in onMounted. Guard the IDs so a
+    // rename/removal of any layer block doesn't silently break the
+    // scroll target without a failing test.
+
+    it('RIASEC block always exposes id="layer-riasec" once the test is complete', async () => {
+      await seedDirectionalSession()
+      const wrapper = mountWith(makeRouter())
+      expect(wrapper.find('#layer-riasec').exists()).toBe(true)
+    })
+
+    it('Big Five block exposes id="layer-bigfive" only after bigfiveIsComplete flips', async () => {
+      await seedDirectionalSession()
+
+      // Before completion: CTA renders, no anchor on the CTA (focus only
+      // targets the completed block — an unfocus-able scroll target would
+      // just silently no-op anyway).
+      const wrapperBefore = mountWith(makeRouter())
+      expect(wrapperBefore.find('#layer-bigfive').exists()).toBe(false)
+
+      // After completion: anchor appears.
+      const store = useQuestionnaireStore()
+      store.startBigFiveLayer()
+      for (let i = 0; i < store.bigfiveTotal; i += 1) store.answer(3)
+      await store.loadBigFiveProfiles()
+
+      const wrapperAfter = mountWith(makeRouter())
+      expect(wrapperAfter.find('#layer-bigfive').exists()).toBe(true)
+    })
+
+    it('Values and Skills blocks expose their anchors once their respective layers complete', async () => {
+      await seedDirectionalSession()
+      const store = useQuestionnaireStore()
+      await store.loadBigFiveProfiles()
+
+      store.startBigFiveLayer()
+      for (let i = 0; i < store.bigfiveTotal; i += 1) store.answer(3)
+      store.startValuesLayer()
+      for (let i = 0; i < store.valuesTotal; i += 1) store.answer(3)
+
+      const wrapperValues = mountWith(makeRouter())
+      expect(wrapperValues.find('#layer-values').exists()).toBe(true)
+      // Skills not yet complete → no skills anchor.
+      expect(wrapperValues.find('#layer-skills').exists()).toBe(false)
+
+      store.startSkillsLayer()
+      // 121 answers with interstitial dismissal at the two sub-category
+      // boundaries (index 34 after the 35th skill, index 86 after the
+      // 52nd ability). Mirrors the real-user flow.
+      for (let i = 0; i < store.skillsTotal; i += 1) {
+        store.answer(3)
+        if (store.skillsInterstitialPending) store.dismissSkillsInterstitial()
+      }
+
+      const wrapperSkills = mountWith(makeRouter())
+      expect(wrapperSkills.find('#layer-skills').exists()).toBe(true)
+    })
+  })
+
   describe('explain panel', () => {
     it('renders one toggle button per visible result, collapsed by default', async () => {
       await seedDirectionalSession()
