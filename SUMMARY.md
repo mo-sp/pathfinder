@@ -5,6 +5,50 @@
 
 ---
 
+### Session 32 – 2026-04-25
+**Focus:** Cluster-A batch 5 — what started as 2 codes from Session 21's BACKLOG entry grew via mid-session browser-test sweeps into a 16-code drift cleanup. One PR on `fix/cluster-a-batch-5-agrar-and-naturschutz` with 3 commits (data + expansion + docs). Second session this calendar day; same-day chain after Session 31.
+
+**Meta / process notes:**
+- **Batch grew through three browser-test sweeps mid-session.** Session start scope was 2 codes (17-2021.00 Agraringenieur + 19-1031.03 Naturschutz-Wissenschaftler from BACKLOG's "non-medical edition" entry). After commit 1, @mo-sp surfaced 2 more on review (19-4012.00 Agrartechniker title + 19-4099.01 Quality Control Analysts). After commit 2, three more browser-walks added 14 codes covering everything from Verdichter-Operator-Gas to Boilermakers. Total: 16 codes. The growth was driven by the user actively browsing the data with the new patterns now visible — once "Sachverständige" stopped pulling 4 codes into Landwirtschaft, the next-worst tiebreaker victims became more obvious. Pattern: when a fix removes one tiebreaker-pollution pattern, expect the next-worst pattern to surface in the same browse session.
+- **All 14 round-3 targets verified against EN SOC descriptions before edit.** @mo-sp asked for explicit cross-check ("kannst du mit den englischen beschreibungen nochmal gegenprüfen dass wir überall korrekt sind?"). Walked each proposed KldB through the SOC description; surfaced two semantic compromises (94724 Kunstsachverständige doesn't perfectly cover "equipment" appraisal at 13-2022.00 but it's the best single class; 81342 Rettungsdienst captures the dominant DE Notruf-Disponent path even though SOC includes police/fire dispatch) and one decision point (29-1171.00 Pflegeexperte / Nurse Practitioners — APN's "graduate education" SOC-criterion conflicts with KldB's only Pflege studies-tier class being 81394 "Führungskräfte"). Cross-checking before edit would have caught a different bug than catalog-lookup-before-proposing — they're complementary checks.
+- **kldbName: null pattern used for the first time as a deliberate suppression.** 29-1171.00 Pflegeexperte got `kldbCode: "81394", kldbName: null, anforderungsniveau: 4, trainingCategory: "studies"` — the code anchors it semantically in Pflege studies-tier (Master Pflegewissenschaft), but the "Führungskräfte Pflege" subtitle would mislead since APN isn't primarily a leadership role. The Anf-Pill stays "Studium/Weiterbildung" (matches APN's graduate-education requirement), the wrong subtitle disappears. Same mechanism the seed block already uses for 11-9199.09/.10 Windpark-Leiter (kldbCode: 61394, kldbName: null) but newly applied as an active design choice rather than as legacy drift.
+- **Two seed-block entries pulled out (continuing the Session-27 pattern).** 53-7071.00 (was Straßenverkehr — clearly Drift, gas compressor station has nothing to do with traffic) and 43-6014.00 (was Hotelkaufleute — same Hotel-as-default-bucket pattern that 43-4171.00 Receptionists also fell into). Seed block now at 122 entries (was originally 131; –1 in Session 27, –6 in Session 31, –2 here). The "Audit the seed entries" BACKLOG item is implicitly working off whenever browser-test surfaces drift candidates that turn out to live in the seed block.
+- **Duplicate-key catch saved a regression.** The lint step caught a duplicate `'53-7071.00'` key in `title-overrides-de.mjs` — the existing override at line 495 (from a "Steuerer von Gasanlagen" cluster) was still intact when I added a new one in the batch-5 block. eslint-no-dupe-keys flagged it; consolidated into the existing entry (updated value, kept location). Without the lint check this would have shipped silently with whichever-was-last winning, depending on JS object-literal evaluation order.
+- **Color/threshold BACKLOG item retired as already-shipped.** @mo-sp asked whether the Big-Five/Values badge color-threshold bug (signed values rendering grey instead of red/green) was still open. Verification by grep: ResultsPage.vue:442 `toneForSignedValue` (sign-based: positive→green, negative→red, near-zero→grey) is now used at line 489 with `signedValue` derived from `bigFiveModifier` (signed) and `-valuesPenalty` (negated for sign-consistency). Bug fixed via prior PR. Updated reading-from-memory: a recent BACKLOG bullet may still describe an old state — verify the code, not the bullet.
+
+**What shipped — `fix/cluster-a-batch-5-agrar-and-naturschutz` (1 PR, 3 data commits + 1 docs):**
+
+*Commit 1 — initial 2-code batch:* 17-2021.00 Agraringenieur → 11104 Landwirtschaft ohne Spez. hoch komplex (was Papierverarbeitung); 19-1031.03 Naturschutz-Wissenschaftler → 41234 Biologie (Ökologie) hoch komplex (was Reiseleiter, seed-pinned drift, Anf 3 → 4).
+
+*Commit 2 — review-time follow-ups:* 19-4012.00 Agrartechniker title → "Landwirtschaftlich-technischer Assistent / -in" (KldB 11132 stays correct, just title was misleading); 19-4099.01 Quality Control Analysts → 27312 technische Qualitätssicherung fachlich (was technische F&E sonstige spezifische) + title "Schuhwarenqualitätskontrolle" → "Qualitätsprüfer".
+
+*Commit 3 — batch-5 expansion (14 codes):* 11-3051.01 Quality Control Systems Managers → 27314 technische QS hoch komplex (was Landtechnik, Anf 3 → 4) + "Qualitätsmanager"; 15-1253.00 Software QA Analysts → 43413 Softwareentwicklung komplex (was IT-Koordination) + "Softwaretester"; 13-2022.00 Sachwertspezialist → 94724 Kunstsachverständige hoch komplex (was Landwirtschaft, Anf 3 → 4); 53-7071.00 Verdichter-Operator → 26232 Energie-/Kraftwerkstechnik fachlich (was Straßenverkehr seed) + "Anlagenfahrer Gasversorgung"; 31-9094.00 medizinische Schreibkraft title-only Capitalize-Fix (KldB 73222 stays); 43-5061.00 Einkaufsdisponent → 71302 kaufm./tech. Betriebswirtschaft fachlich (was Hotelkaufleute); 29-1171.00 Pflegeexperte → 81394 Pflege studies (kldbName: null, was 81404 Ärzte — APN ist Pflege-Domain, not medicine); 29-1141.03 Critical Care Nurses → 81313 Fachkrankenpflege komplex (was Aufsichtskräfte) + "Fachkrankenpfleger Intensivpflege / -in"; 19-3022.00 Survey Researchers → 91344 Markt-/Meinungsforschung hoch komplex (was Mathematik) + "Marktforscher"; 43-6014.00 Sekretär → 71402 Büro/Sekretariat fachlich (was Hotelkaufleute seed); 43-4171.00 Receptionists → 71452 Auskunft/Kundeninformation fachlich (was Hotelservice) + "Empfangsmitarbeiter"; 13-1199.04 Business Continuity → 71314 Unternehmensorganisation/-planung hoch komplex (was IT-Koordination, Anf 3 → 4) + "Business Continuity Manager"; 29-2035.00 MRT → 81233 Radiologie komplex (was Ergotherapie); 43-5031.00 Public Safety Telecommunicators → 81342 Rettungsdienst fachlich (was Büro-Helfer Anf 1 → 2) + "Disponent Notrufleitstelle"; 17-2141.02 Automobilingenieur → 25214 Kfz-Technik hoch komplex (was Papierverarbeitung); 47-2011.00 Boilermakers → 34342 Anlagen-, Behälter- und Apparatebau fachlich (was Klempnerei — KldB-Klassen-Name matched title.de 1:1).
+
+*`src/data/onet-occupations.json`*: 11 parallel `title.de` patches for build idempotency.
+
+*`src/data/kldb-occupation-mapping.json`*: regenerated. Build-script log: `manual overrides applied: 190` (= prior 175 − 2 from seed + 17 added). Idempotent on rebuild.
+
+*`BACKLOG.md` housekeeping*: retired "KldB subtitle drift — non-medical edition" entry (all 3 listed cases handled — Bioingenieur in Session 24, Agraringenieur + Naturschutz in this session).
+
+**Coverage after the session:**
+
+| | Before session 32 | After |
+|---|---|---|
+| Cluster-(A) container-abuse overrides | 40 | 56 (+16 batch 5) |
+| Codes in seed block | 124 | 122 (–2 pulled into batch 5) |
+| Overrides applied on build | 175 | 190 |
+| Tests passing | 227 | 227 |
+
+**Branch:** `fix/cluster-a-batch-5-agrar-and-naturschutz` (3 data commits + 1 docs commit → 1 PR).
+
+**Open for next sessions (tracked in BACKLOG):**
+- **Systemic per-ISCO fallback in `build-kldb-mapping.mjs`** — would retire the manual-override pattern for the medical-/non-medical-specialty cases. Carries more weight now: 56 cluster-A overrides + the 7 tiebreaker-regression pins represent recurring drift that a build-time mechanism could absorb.
+- **DE-Occupation filter mechanism** — execute with 13-1074.00 Farm Labor Contractors as first customer.
+- **Cluster-C tail** — opportunistic sampling below the filter threshold + the deferred -arbeiter/-bediensteter borderlines.
+- **Seed overrides audit** (122 remaining, low priority hygiene).
+
+---
+
 ### Session 31 – 2026-04-25
 **Focus:** Cluster-A batch 4 — five tiebreaker victims surfaced by Session-30's browser test, bundled with six medical-specialty fallback corrections that share the same root cause. One PR on `fix/cluster-a-batch-4-and-medical-fallbacks` carrying 11 KldB remaps and one coupled `title.de` fix.
 
