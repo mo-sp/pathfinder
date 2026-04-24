@@ -20,6 +20,7 @@ import {
 } from '@features/scoring/lib/skills'
 import { RiasecHexagon } from '@widgets/riasec-chart'
 import { BigFiveBars } from '@widgets/bigfive-chart'
+import { stripKldbSuffix } from './stripKldbSuffix'
 
 const store = useQuestionnaireStore()
 const router = useRouter()
@@ -198,25 +199,6 @@ function showMore(): void {
 // Internal value stays raw for sorting + the debug formula line.
 function displayFitScore(v: number): number {
   return Math.min(v, 1)
-}
-
-// KldB class names end with an Anforderungsniveau suffix (redundant next to
-// the trainingCategory pill), but interior " - " separators carry real
-// specialization info (e.g. "Trainer - Fitness und Gymnastik", "Führungskräfte
-// - Informatik") that must survive. Only strip the four well-known suffixes.
-const KLDB_ANFORDERUNG_SUFFIXES = [
-  ' - Helfer-/Anlerntätigkeiten',
-  ' - fachlich ausgerichtete Tätigkeiten',
-  ' - komplexe Spezialistentätigkeiten',
-  ' - hoch komplexe Tätigkeiten',
-] as const
-
-function stripKldbSuffix(name: string | null | undefined): string | null {
-  if (!name) return null
-  for (const suffix of KLDB_ANFORDERUNG_SUFFIXES) {
-    if (name.endsWith(suffix)) return name.slice(0, -suffix.length).trim()
-  }
-  return name.trim()
 }
 
 // Primary display name: prefer the ESCO/O*NET German title (concrete names like

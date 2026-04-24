@@ -78,7 +78,6 @@ export default {
   "27-2023.00": { kldbCode: "63122", kldbName: "Sport- und Fitnesskaufleute, Sportmanager - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Schiedsrichter/Schiedsrichterin
   "27-3091.00": { kldbCode: "71423", kldbName: "Dolmetscher und Übersetzer - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Dolmetscher/Dolmetscherin
   "27-4011.00": { kldbCode: "82332", kldbName: "Tätowierer und Piercer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Audio and Video Technicians
-  "27-4015.00": { kldbCode: "82332", kldbName: "Tätowierer und Piercer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Beleuchtungstechniker/Beleuchtungstechnikerin
   "29-1031.00": { kldbCode: "41204", kldbName: null, anforderungsniveau: 4, trainingCategory: "studies" }, // Futtermittelwissenschaftler/Futtermittelwissenschaftlerin
   "29-1051.00": { kldbCode: "81804", kldbName: "Apotheker, Pharmazeuten/Pharmazeutinnen - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Krankenhausapotheker/Krankenhausapothekerin
   "29-1128.00": { kldbCode: "84553", kldbName: "Trainer - Fitness und Gymnastik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Personal Trainer/Personal Trainerin
@@ -170,4 +169,26 @@ export default {
   "51-3091.00": { kldbCode: "22312", kldbName: "Berufe in der Holztrocknung und -konservierung - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Bediener Holztrocknungsanlagen (literal)
   "51-4041.00": { kldbCode: "24202", kldbName: "Berufe in der Metallbearbeitung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Zerspanungsmechaniker (Zerspanen = spanend, not spanlos)
   "51-9195.04": { kldbCode: "21332", kldbName: "Berufe in der industriellen Glasbläserei - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Glasbläser (industrielle Glasbläserei, not Glasapparatebau)
+
+  // Container-abuse overrides — batch 1 (2026-04-24).
+  // Cases where the primary mapping routes a code to a container KldB class
+  // that has nothing to do with the occupation. Targets chosen against the
+  // KldB 2010 catalog + SOC-4/SOC-3 sibling lookup; reviewed with @mo-sp.
+  // Same mechanism-family as Session-24's Sprengtechnik/Immo-Facility/
+  // Biologie cleanup.
+  "13-1031.00": { kldbCode: "72133", kldbName: "Versicherungskaufleute - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Schadensregulierer: was Landwirtschaftliche Sachverständige
+  "19-3093.00": { kldbCode: "91224", kldbName: "Berufe in Geschichtswissenschaften - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Historiker: was Philosophie, Religion und Ethik — exact Geschichtswissenschaften class
+  "23-2011.00": { kldbCode: "73112", kldbName: "Assistenzkräfte in Rechtsanwaltskanzlei und Notariat - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Rechtsanwaltsfachangestellte: was Detektive
+  "23-2093.00": { kldbCode: "73112", kldbName: "Assistenzkräfte in Rechtsanwaltskanzlei und Notariat - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Notariatsmitarbeiter: was Detektive
+  "25-2059.01": { kldbCode: "84504", kldbName: "Sportlehrer (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Sportlehrer für Menschen mit Behinderung: was Führungskräfte Pferdewirtschaft
+  "25-3021.00": { kldbCode: "83122", kldbName: "Berufe in der Sozialarbeit und Sozialpädagogik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Lebensberater: was Kinderbetreuung und -erziehung
+  "27-4015.00": { kldbCode: "94512", kldbName: "Berufe in der Veranstaltungs- und Bühnentechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Beleuchtungstechniker: was Tätowierer (prior seed pin was not a manual fix — corrected here)
+  "33-3011.00": { kldbCode: "53242", kldbName: "Berufe im Justizvollzugsdienst - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Justizwachtmeister: was Detektive
+  "33-3041.00": { kldbCode: "51512", kldbName: "Berufe in der Überwachung und Steuerung des Straßenverkehrsbetriebs - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Parking Enforcement Workers: was Jagdwirtschaft; title.de also updated "Ordnungshüter" → "Mitarbeiter Verkehrsüberwachung"
+  "39-3091.00": { kldbCode: null, kldbName: null, anforderungsniveau: 1, trainingCategory: "none" }, // Mitarbeiter Freizeitpark: was Objekt-/Personenschutz-Helfer — no clean KldB class, suppress subtitle
+  "47-2061.00": { kldbCode: "32102", kldbName: "Berufe im Hochbau (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Hochbauhelfer: was Sprengtechnik
+  "47-2211.00": { kldbCode: "24412", kldbName: "Berufe im Metallbau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Konstruktionsmechaniker Feinblechbau: was Klempnerei
+  "47-5011.00": { kldbCode: "94512", kldbName: "Berufe in der Veranstaltungs- und Bühnentechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Bühnenmann: was Brunnenbau
+  "49-2091.00": { kldbCode: "26332", kldbName: "Berufe in der Luftverkehrs-, Schiffs- und Fahrzeugelektronik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Avioniker: was Automatisierungstechnik (generic)
+  "53-7065.00": { kldbCode: "51312", kldbName: "Berufe in der Lagerwirtschaft - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Lagerarbeiter: was technischer Luftverkehrsbetrieb
 }
