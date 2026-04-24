@@ -385,8 +385,8 @@
       "trainingCategory": "specialist"
     },
     "13-1032.00": {
-      "kldbCode": "11123",
-      "kldbName": "Landwirtschaftliche Sachverständige - komplexe Spezialistentätigkeiten",
+      "kldbCode": "25213",
+      "kldbName": "Berufe in der Kraftfahrzeugtechnik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -409,8 +409,8 @@
       "trainingCategory": "studies"
     },
     "13-1041.04": {
-      "kldbCode": "11123",
-      "kldbName": "Landwirtschaftliche Sachverständige - komplexe Spezialistentätigkeiten",
+      "kldbCode": "31163",
+      "kldbName": "Bausachverständige und Baukontrolleure/-kontrolleurinnen - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -560,8 +560,8 @@
       "trainingCategory": "specialist"
     },
     "13-2023.00": {
-      "kldbCode": "11123",
-      "kldbName": "Landwirtschaftliche Sachverständige - komplexe Spezialistentätigkeiten",
+      "kldbCode": "31163",
+      "kldbName": "Bausachverständige und Baukontrolleure/-kontrolleurinnen - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -764,8 +764,8 @@
       "trainingCategory": "studies"
     },
     "15-1299.03": {
-      "kldbCode": "42394",
-      "kldbName": "Führungskräfte - Umweltmanagement und -beratung",
+      "kldbCode": "73394",
+      "kldbName": "Führungskräfte - Medien-, Dokumentations- und Informationsdienste",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1425,8 +1425,8 @@
       "trainingCategory": "studies"
     },
     "19-3091.00": {
-      "kldbCode": "91264",
-      "kldbName": "Berufe in der Anthropologie und Ethnologie - hoch komplexe Tätigkeiten",
+      "kldbCode": "91234",
+      "kldbName": "Berufe in der Archäologie - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2501,8 +2501,8 @@
       "trainingCategory": "studies"
     },
     "29-1214.00": {
-      "kldbCode": "81414",
-      "kldbName": "Fachärzte/-ärztinnen in der Kinder- und Jugendmedizin - hoch komplexe Tätigkeiten",
+      "kldbCode": "81404",
+      "kldbName": "Ärzte/Ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2519,14 +2519,14 @@
       "trainingCategory": "studies"
     },
     "29-1217.00": {
-      "kldbCode": "81414",
-      "kldbName": "Fachärzte/-ärztinnen in der Kinder- und Jugendmedizin - hoch komplexe Tätigkeiten",
+      "kldbCode": "81464",
+      "kldbName": "Fachärzte/-ärztinnen in der Neurologie, Psychiatrie, Psychotherapie und psychosomatischen Medizin - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "29-1218.00": {
-      "kldbCode": "81414",
-      "kldbName": "Fachärzte/-ärztinnen in der Kinder- und Jugendmedizin - hoch komplexe Tätigkeiten",
+      "kldbCode": "81404",
+      "kldbName": "Ärzte/Ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2543,8 +2543,8 @@
       "trainingCategory": "studies"
     },
     "29-1223.00": {
-      "kldbCode": "81414",
-      "kldbName": "Fachärzte/-ärztinnen in der Kinder- und Jugendmedizin - hoch komplexe Tätigkeiten",
+      "kldbCode": "81464",
+      "kldbName": "Fachärzte/-ärztinnen in der Neurologie, Psychiatrie, Psychotherapie und psychosomatischen Medizin - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2567,8 +2567,8 @@
       "trainingCategory": "studies"
     },
     "29-1229.03": {
-      "kldbCode": "81414",
-      "kldbName": "Fachärzte/-ärztinnen in der Kinder- und Jugendmedizin - hoch komplexe Tätigkeiten",
+      "kldbCode": "81404",
+      "kldbName": "Ärzte/Ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2597,8 +2597,8 @@
       "trainingCategory": "studies"
     },
     "29-1242.00": {
-      "kldbCode": "81414",
-      "kldbName": "Fachärzte/-ärztinnen in der Kinder- und Jugendmedizin - hoch komplexe Tätigkeiten",
+      "kldbCode": "81404",
+      "kldbName": "Ärzte/Ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -3001,10 +3001,10 @@
       "trainingCategory": "apprenticeship"
     },
     "33-3021.00": {
-      "kldbCode": "53152",
-      "kldbName": "Detektive/Detektivinnen - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "53223",
+      "kldbName": "Berufe im Kriminaldienst - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "33-3021.02": {
       "kldbCode": "53222",
@@ -3013,8 +3013,8 @@
       "trainingCategory": "apprenticeship"
     },
     "33-3021.06": {
-      "kldbCode": "71333",
-      "kldbName": "Berufe in der Wirtschaftsförderung - komplexe Spezialistentätigkeiten",
+      "kldbCode": "53223",
+      "kldbName": "Berufe im Kriminaldienst - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -3490,8 +3490,8 @@
       "trainingCategory": "specialist"
     },
     "41-3031.00": {
-      "kldbCode": "51643",
-      "kldbName": "Luftverkehrskaufleute - komplexe Spezialistentätigkeiten",
+      "kldbCode": "61133",
+      "kldbName": "Handelsmakler/innen und Auktionatoren/Auktionatorinnen - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -4422,8 +4422,8 @@
       "trainingCategory": "apprenticeship"
     },
     "49-3042.00": {
-      "kldbCode": "25102",
-      "kldbName": "Berufe in der Maschinenbau- und Betriebstechnik (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "25222",
+      "kldbName": "Berufe in der Land- und Baumaschinentechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4803,8 +4803,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-4072.00": {
-      "kldbCode": "24132",
-      "kldbName": "Berufe in der industriellen Gießerei - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "24122",
+      "kldbName": "Berufe in der Metallumformung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },

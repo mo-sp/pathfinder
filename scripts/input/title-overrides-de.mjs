@@ -577,4 +577,11 @@ export default {
   '51-4072.00': 'Formgießmaschinenführer/Formgießmaschinenführerin', // Molding, Coremaking, and Casting Machine: Typo-Fix "Fom" → "Form"
   '51-6092.00': 'Modellmacher Bekleidung / Modellmacherin Bekleidung', // Fabric and Apparel Patternmakers: war "…Modelleur/…Direktrice" (Fem-Form-Stilbruch mit archaischem Begriff)
   '51-8013.00': 'Kraftwerker/Kraftwerkerin', // Power Plant Operators: war "Steuerer von Geothermiekraftwerken" (Spezialisierung entfernt; .03/.04 halten Biomass/Hydro, 11-3051.02/49-9099.01 halten Geothermie)
+
+  // === Cluster-A batch 4 — coupled title fix (2026-04-24) ===
+  // Paired with the kldb-overrides batch-4 remap of 33-3021.06 to 53223
+  // Kriminaldienst. The ESCO-raw "Mitarbeiter im Bereich Informations-
+  // gewinnung" obscures the role; "Kriminalanalyst" is the etablierter
+  // BKA-/LKA-Begriff and matches the Kriminaldienst-Klasse.
+  '33-3021.06': 'Kriminalanalyst/Kriminalanalystin', // Intelligence Analysts: war "Mitarbeiter im Bereich Informationsgewinnung"
 }
