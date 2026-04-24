@@ -5,6 +5,45 @@
 
 ---
 
+### Session 26 – 2026-04-24
+**Focus:** KldB-Subtitle build-pipeline hardening. Two coupled changes in `scripts/build-kldb-mapping.mjs` — a compound-noun fallback in the `stemsOverlap` tiebreaker so Session-24's Tiersitter regression gets fixed at the source, and a new `applyOverrides()` pass that loads per-O*NET-code pins from a fresh `scripts/input/kldb-overrides.mjs` so hand-curated KldB decisions from earlier sessions survive future rebuilds. One PR, one commit on `fix/kldb-subtitle-compound-noun-tiebreaker`.
+
+**Meta / process notes:**
+- **Carry-over session after Claude-account switch.** Session started in one account, @mo-sp's environment flipped mid-work, resumed in a new Claude session. All work lives on the sandbox host (git, `gh` authed as `mo-sp`) so the account swap is a no-op for the codebase — worth noting because the session-end handoff was the pasted chat tail, not a clean break. The pasted summary + a scan of the working-tree diff was enough to land cold; nothing was lost.
+- **Two mechanisms, one PR — why together.** The compound-noun tiebreaker fix (`tiersitter`/`tierpflege` both contain `tier` but differ at position 5, so the 5-char-prefix match missed) is small and narrow; on its own it would regress a handful of other codes where the looser substring matcher now picks the wrong side of a German compound. The overrides file pins those regressions back. Shipping the tiebreaker without the overrides layer would be a net regression; shipping overrides without the tiebreaker fix would leave the Tiersitter class of bugs unfixed. They're a pair.
+- **Overrides file is seeded retrospectively.** Before this PR, `kldb-occupation-mapping.json` was the only persistence layer for hand-curated decisions: Session 19's 249 DE-title overrides had downstream effects on stem-overlap rankings, Session 24's three container-class remaps (Sprengtechnik / Immo-Facility / Biologie) were hand-edited directly in the JSON, and title.de updates between those sessions had drifted the tiebreaker output. Any mechanical rebuild would have silently reverted all of it. The new `kldb-overrides.mjs` captures 132 such divergences plus 7 new tiebreaker-regression pins (139 overrides applied in the build log). File header flags the seed set as "behaviour-preserving, walk each entry in a follow-up audit to drop the ones that aren't intentional".
+- **Idempotency verified.** `node scripts/build-kldb-mapping.mjs` twice in a row produces a byte-identical JSON (confirmed via stash + re-diff, 0 lines of drift). Important baseline for future CI.
+- **Browser-test surfaced ~70 more findings — deliberately out of scope for this PR.** @mo-sp walked the top of the occupations list and flagged ~70 additional subtitle / title issues. Sorted into four clusters for three follow-up PRs: **(A)** ~50 container-class subtitle mismatches (Bühnenmann→Brunnenbau, Justizwachtmeister→Detektive, Beleuchtungstechniker→Tätowierer, Konstruktionsmechaniker Feinblechbau→Klempnerei, Leitender Flugbegleiter→Straßen/Schiene, Ordnungshüter→Jagdwirtschaft, Sportler-für-Menschen-mit-Behinderung→Pferdewirtschaft, Lebensberater→Kinderbetreuung, Fabrikhilfsarbeiter, Mitarbeiter Freizeitpark, Avioniker, Lagerarbeiter, Hochbauhelfer, Rechtsanwaltfachangestellt, Schadensregulierer, Historiker, Notariatsmitarbeiter, Lehrkräfte-Kategorien, usw.) — same family as Session-24 container-abuse; **(B)** ~8 KldB class names that read as category descriptions rather than job titles ("Berufe in der Sprengtechnik", "Berufe in der Isolierung", "Berufe in der Energie- und Kraftwerkstechnik", "Medizinisch-technische Berufe in der Radiologie", "Technische Servicekräfte in Wartung und Instandhaltung", "Lehrkräfte in der Sekundarstufe") — rendering concern, not an override question; **(C)** ~12 primary `title.de` values that are stale or foreign at the ESCO level (Anschläger, Bügler, Gelegenheitsarbeiter, Zwirner, Zwicker, Pfahlrammer, Blutabnehmer, Postschalterbediensteter, Ordnungshüter, Kameraschwenker, Underwriter, Warenmakler, Pflegeexperte, CAD-Bediener, Instruktionsdesigner, Lehrkraft-Gymnasium-und-Realschule) — same family as the existing "DE-title quality pass 2" BACKLOG item; **(D)** one rendering suffix the Session-24 `stripKldbSuffix` allowlist missed: "(sonstige spezifische Tätigkeitsangabe)" leaks into the rendered subtitle. All four clusters logged under Data quality in BACKLOG.
+- **Verification done, PR ready.** The five target checks @mo-sp wanted confirmed pre-PR all passed: Tiersitter + Tiertrainer render correctly via the tiebreaker fix; Statistiker + Zerspanung stay correct via tiebreaker-regression pins; a re-browse of Session-24 stichprobe codes confirms the container-class cleanups survived the infrastructure migration. Type-check / lint / 217 tests / Vite build all green.
+
+**What shipped — `fix/kldb-subtitle-compound-noun-tiebreaker` (1 PR, 1 commit):**
+
+*`scripts/build-kldb-mapping.mjs`* — two mechanical edits. (1) `stemsOverlap` gains a compound-noun substring fallback: if the 5-char-prefix check doesn't hit, check whether one token (≥6 chars) contains the other's 4-char prefix as a substring. Cheap German-stemmer approximation; still only a tiebreaker signal. (2) New `applyOverrides()` pass after `buildMappings()` loads `scripts/input/kldb-overrides.mjs` and merges each pin over the computed entry. Codes listed in overrides but absent from the mapping are skipped with a warning count. Build log now reports `manual overrides applied: N`.
+
+*`scripts/input/kldb-overrides.mjs` (new)* — 139 entries keyed by O*NET-SOC code, each shaped `{ kldbCode, kldbName, anforderungsniveau, trainingCategory }`. `kldbCode: null` + `kldbName: null` suppresses the subtitle row (UI falls back to the jobZone-derived training category only). File header documents the seed rationale. A trailing block of 7 entries is explicitly labelled as "tiebreaker regressions from the compound-noun substring fix (2026-04-23)": Statistiker (15-2041), Elektroniker Automatisierungstechnik (17-3023), Kraftfahrzeugbautechniker (17-3027.01), Weatherization Installers → Isolierung (47-4099.03), Bediener Holztrocknungsanlagen (51-3091), Zerspanungsmechaniker (51-4041), Glasbläser → industrielle Glasbläserei (51-9195.04).
+
+*`src/data/kldb-occupation-mapping.json`* — regenerated. 94 lines changed in each direction; the delta tracks the new tiebreaker output plus override application. Net behaviour: Tiersitter class of bugs fixed, Session-19 and Session-24 hand-decisions preserved, seven substring-regression codes pinned back to their correct pre-fix values.
+
+**Coverage after the session:**
+
+| | Before session 26 | After |
+|---|---|---|
+| Hand-curated KldB decisions | implicit in JSON only; silently revertable on rebuild | explicit in `kldb-overrides.mjs`, survive rebuilds |
+| Tiersitter / Tiertrainer subtitle | wrong container class | correct (fixed at the tiebreaker source) |
+| Compound-noun tiebreaker regressions | would have shipped as unnoticed drift | 7 explicit pins |
+| Build idempotency | unverified | byte-identical on rebuild |
+| Tests passing | 217 | 217 |
+
+**Branch:** `fix/kldb-subtitle-compound-noun-tiebreaker` (1 commit → 1 PR).
+
+**Open for next sessions (three follow-up PRs planned from the browser-test cluster):**
+- **(D) + ~15 (A) quick-wins:** add "(sonstige spezifische Tätigkeitsangabe)" to `stripKldbSuffix`' allowlist, bundled with a batch of the clearest container-abuse overrides (Bühnenmann, Justizwachtmeister, Konstruktionsmechaniker Feinblechbau, Lebensberater, Freizeitpark, Avioniker, Lagerarbeiter, Hochbauhelfer, Ordnungshüter, Sportler-mit-Behinderung, Schadensregulierer, Notariatsmitarbeiter, Rechtsanwaltfachangestellte, Historiker, Mitarbeiter-Freizeitpark).
+- **(B) class-name rendering pass:** decide whether "Berufe in der X" descriptive classes should be stripped / reworded / suppressed at render time. Probably a presentation decision, not data.
+- **(C) DE-title quality pass 2:** already logged in BACKLOG (Session 19 residue); this browser-test adds ~12 more hits to the pile.
+- **Overrides-file audit:** each of the 132 seed entries should be walked to decide whether it's an intentional fix or just pinned drift that could be replaced by a build-time improvement. Out of scope for the first follow-up PR.
+
+---
+
 ### Session 25 – 2026-04-23
 **Focus:** Schicht-4-UX-Pack auf der Ergebnisseite: per-Unterkategorie-Retake und eine Likert-Skala-Rebalance, damit Position 3 in allen drei Sub-Categories als Mitte lesbar ist. One PR, three commits on `feat/skills-per-subcat-retake`.
 
