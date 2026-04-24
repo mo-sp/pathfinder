@@ -207,4 +207,16 @@ export default {
   "49-3021.00": { kldbCode: "25213", kldbName: "Berufe in der Kraftfahrzeugtechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Oldtimerrestaurator: was Kfz-Technik fachlich (Anf 2); bumped to specialist-tier since Oldtimer-Restaurierung is post-Ausbildung specialization
   "51-9051.00": { kldbCode: "24112", kldbName: "Berufe in der Hüttentechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Koksofensteuerer: was Chemie-/Pharmatechnik — coke ovens are metallurgy, not pharma
   "53-1044.00": { kldbCode: "51422", kldbName: "Servicefachkräfte im Luftverkehr - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Leitender Flugbegleiter: was Service Straße/Schiene
+
+  // Container-abuse overrides — batch 3 (2026-04-24).
+  // Surfaced during the Cluster-B investigation (originally listed as
+  // "category-phrase as primary display") — catalog lookup showed each of
+  // these is in fact a wrong KldB mapping, not a rendering issue. Same
+  // SOC-sibling lookup + kldb-data.json verification as batches 1/2.
+  "11-3051.02": { kldbCode: "26234", kldbName: "Berufe in der Energie- und Kraftwerkstechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Geothermal Production Managers: was Sprengtechnik — geothermal plant operators (51-8011/8012/8013) all sit at 26233 Energie-/Kraftwerkstechnik komplex, the manager tier is 26234
+  "17-2051.00": { kldbCode: "31104", kldbName: "Berufe in der Bauplanung und -überwachung (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Civil Engineers: was Metallbau — core Bauingenieur role, the unspecialised planning-and-oversight class at hoch-komplex tier is the natural home
+  "17-2051.01": { kldbCode: "31134", kldbName: "Berufe in der Bauplanung von Verkehrswegen und -anlagen - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Transportation Engineers (Verkehrsingenieur): was Metallbau — transport-infrastructure planning class at same tier as Civil Engineers
+  "17-2141.01": { kldbCode: "25104", kldbName: "Berufe in der Maschinenbau- und Betriebstechnik (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Fuel Cell Engineers: was Sprengtechnik — fuel cells are an energy-conversion mech-engineering topic, matches the parent 17-2141.00 (Mechanical Engineers) which already sits at 25104
+  "29-2036.00": { kldbCode: "81233", kldbName: "Medizinisch-technische Berufe in der Radiologie - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Medical Dosimetrists: was Ergotherapie — dosimetry is radiation-therapy planning, sibling 29-2034 Radiologic Technologists sits in the same Radiologie family
+  "43-4111.00": { kldbCode: "91342", kldbName: "Berufe in der Markt- und Meinungsforschung - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Interviewers, Except Eligibility and Loan: was Auskunft und Kundeninformation — survey/market-research interviewers, 91342 is the exact domain class
 }

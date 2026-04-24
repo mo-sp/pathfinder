@@ -124,8 +124,8 @@
       "trainingCategory": "specialist"
     },
     "11-3051.02": {
-      "kldbCode": "21124",
-      "kldbName": "Berufe in der Sprengtechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "26234",
+      "kldbName": "Berufe in der Energie- und Kraftwerkstechnik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -915,14 +915,14 @@
       "trainingCategory": "studies"
     },
     "17-2051.00": {
-      "kldbCode": "24414",
-      "kldbName": "Berufe im Metallbau - hoch komplexe Tätigkeiten",
+      "kldbCode": "31104",
+      "kldbName": "Berufe in der Bauplanung und -überwachung (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "17-2051.01": {
-      "kldbCode": "24414",
-      "kldbName": "Berufe im Metallbau - hoch komplexe Tätigkeiten",
+      "kldbCode": "31134",
+      "kldbName": "Berufe in der Bauplanung von Verkehrswegen und -anlagen - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1017,8 +1017,8 @@
       "trainingCategory": "studies"
     },
     "17-2141.01": {
-      "kldbCode": "21124",
-      "kldbName": "Berufe in der Sprengtechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "25104",
+      "kldbName": "Berufe in der Maschinenbau- und Betriebstechnik (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2699,8 +2699,8 @@
       "trainingCategory": "specialist"
     },
     "29-2036.00": {
-      "kldbCode": "81723",
-      "kldbName": "Berufe in der Ergotherapie - komplexe Spezialistentätigkeiten",
+      "kldbCode": "81233",
+      "kldbName": "Medizinisch-technische Berufe in der Radiologie - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -3676,8 +3676,8 @@
       "trainingCategory": "apprenticeship"
     },
     "43-4111.00": {
-      "kldbCode": "71452",
-      "kldbName": "Berufe in der Auskunft und Kundeninformation - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "91342",
+      "kldbName": "Berufe in der Markt- und Meinungsforschung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
