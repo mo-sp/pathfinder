@@ -3574,10 +3574,10 @@
       "trainingCategory": "specialist"
     },
     "43-2011.00": {
-      "kldbCode": "71401",
-      "kldbName": "Büro- und Sekretariatskräfte (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
-      "anforderungsniveau": 1,
-      "trainingCategory": "none"
+      "kldbCode": "71452",
+      "kldbName": "Berufe in der Auskunft und Kundeninformation - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "43-2021.00": {
       "kldbCode": "92122",
@@ -3592,14 +3592,14 @@
       "trainingCategory": "apprenticeship"
     },
     "43-3021.00": {
-      "kldbCode": "61122",
-      "kldbName": "Berufe im Vertrieb (außer Informations- und Kommunikationstechnologien) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "72212",
+      "kldbName": "Berufe in der Buchhaltung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "43-3031.00": {
-      "kldbCode": "72122",
-      "kldbName": "Anlageberater und sonstige Finanzdienstleistungsberufe - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "72212",
+      "kldbName": "Berufe in der Buchhaltung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3616,8 +3616,8 @@
       "trainingCategory": "apprenticeship"
     },
     "43-3061.00": {
-      "kldbCode": "63212",
-      "kldbName": "Hotelkaufleute - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "61112",
+      "kldbName": "Berufe im Einkauf - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3634,14 +3634,14 @@
       "trainingCategory": "apprenticeship"
     },
     "43-4021.00": {
-      "kldbCode": "42312",
-      "kldbName": "Berufe in der Umweltschutzverwaltung und -beratung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "71402",
+      "kldbName": "Büro- und Sekretariatskräfte (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "43-4031.00": {
-      "kldbCode": "53232",
-      "kldbName": "Berufe im Gerichtsvollzug - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "73252",
+      "kldbName": "Berufe in der Justizverwaltung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3670,8 +3670,8 @@
       "trainingCategory": "apprenticeship"
     },
     "43-4081.00": {
-      "kldbCode": "71452",
-      "kldbName": "Berufe in der Auskunft und Kundeninformation - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "63212",
+      "kldbName": "Hotelkaufleute - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3682,8 +3682,8 @@
       "trainingCategory": "apprenticeship"
     },
     "43-4121.00": {
-      "kldbCode": "73312",
-      "kldbName": "Berufe im Archivwesen - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "73322",
+      "kldbName": "Berufe im Bibliothekswesen - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3694,10 +3694,10 @@
       "trainingCategory": "apprenticeship"
     },
     "43-4141.00": {
-      "kldbCode": "72113",
-      "kldbName": "Bankkaufleute - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "72112",
+      "kldbName": "Bankkaufleute - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "43-4151.00": {
       "kldbCode": "61122",
@@ -3724,16 +3724,16 @@
       "trainingCategory": "apprenticeship"
     },
     "43-5011.00": {
+      "kldbCode": "51622",
+      "kldbName": "Speditions- und Logistikkaufleute - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
+    },
+    "43-5011.01": {
       "kldbCode": "51623",
       "kldbName": "Speditions- und Logistikkaufleute - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
-    },
-    "43-5011.01": {
-      "kldbCode": "51332",
-      "kldbName": "Berufe im Güter- und Warenumschlag - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
     },
     "43-5021.00": {
       "kldbCode": "52182",
@@ -3748,8 +3748,8 @@
       "trainingCategory": "apprenticeship"
     },
     "43-5032.00": {
-      "kldbCode": "51122",
-      "kldbName": "Berufe im technischen Luftverkehrsbetrieb - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "51622",
+      "kldbName": "Speditions- und Logistikkaufleute - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3760,8 +3760,8 @@
       "trainingCategory": "none"
     },
     "43-5051.00": {
-      "kldbCode": "72112",
-      "kldbName": "Bankkaufleute - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "51322",
+      "kldbName": "Berufe für Post- und Zustelldienste - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3796,10 +3796,10 @@
       "trainingCategory": "apprenticeship"
     },
     "43-6011.00": {
-      "kldbCode": "63212",
-      "kldbName": "Hotelkaufleute - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "71403",
+      "kldbName": "Büro- und Sekretariatskräfte (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "43-6012.00": {
       "kldbCode": "73112",
@@ -3856,22 +3856,22 @@
       "trainingCategory": "apprenticeship"
     },
     "43-9071.00": {
-      "kldbCode": "42312",
-      "kldbName": "Berufe in der Umweltschutzverwaltung und -beratung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "71402",
+      "kldbName": "Büro- und Sekretariatskräfte (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "43-9081.00": {
-      "kldbCode": "23213",
-      "kldbName": "Berufe in der Digital- und Printmediengestaltung - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "71442",
+      "kldbName": "Kodierer/innen, Korrekturleser/innen und verwandte Bürokräfte - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "43-9111.00": {
-      "kldbCode": "91343",
-      "kldbName": "Berufe in der Markt- und Meinungsforschung - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "91342",
+      "kldbName": "Berufe in der Markt- und Meinungsforschung - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "45-1011.00": {
       "kldbCode": "11193",

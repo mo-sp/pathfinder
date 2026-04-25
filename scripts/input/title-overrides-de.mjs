@@ -120,7 +120,7 @@ export default {
   // === Cluster: "Büroassistent" (3) ===
   '43-4021.00': 'Sachbearbeiter Korrespondenz / Sachbearbeiterin Korrespondenz', // Correspondence Clerks
   '43-9061.00': 'Bürokraft (allgemein)', // Office Clerks, General
-  '43-9071.00': 'Bürogerätemitarbeiter/Bürogerätemitarbeiterin', // Office Machine Operators
+  '43-9071.00': 'Reprografiekraft', // Office Machine Operators (audit batch 9): war "Bürogerätemitarbeiter" (wortwörtliche Übersetzung) — "Reprografiekraft" ist DE-üblich für Kopierer-/Drucker-/Vervielfältigungs-Bediener
 
   // === Cluster: "Solartechniker" (3) ===
   '47-1011.03': 'Montageleiter Photovoltaik / Montageleiterin Photovoltaik', // Solar Energy Installation Managers
@@ -686,4 +686,13 @@ export default {
   '13-1199.05': 'Nachhaltigkeitsmanager/Nachhaltigkeitsmanagerin', // Sustainability Specialists: war "Programmkoordinator Umwelt" — ungewöhnliche Wortfügung; Nachhaltigkeitsmanager ist der etablierte DE-Begriff für die SOC-Rolle
   '13-2031.00': 'Budgetanalyst/Budgetanalystin', // Budget Analysts: war "Haushaltsanalyst" — klingt nach privatem Haushalt; Budgetanalyst ist etablierter DE-Begriff für öffentliche Haushalts-/Finanzplanung
   '13-2082.00': 'Steuerfachangestellter/Steuerfachangestellte', // Tax Preparers: war "Steuerberater" (geschützter DE-Titel für Kammerberuf, falsch für Tax-Preparer-Helper) — Steuerfachangestellte ist der 3-jährige IHK-Ausbildungsberuf, deckt einfache Steuererklärungs-Hilfstätigkeit
+
+  // === Audit batch 9 — SOC 43 Office and Administrative Support coupled title fixes (2026-04-25) ===
+  '43-3031.00': 'Buchhalter/Buchhalterin', // Bookkeeping/Accounting/Auditing Clerks: war "Steuersachbearbeiter" (impliziert Steuerrecht-Spezialisierung) — Buchhalter ist die direkte SOC-Übersetzung
+  '43-4011.00': 'Wertpapiersachbearbeiter/Wertpapiersachbearbeiterin', // Brokerage Clerks: war "Back-Office-Mitarbeiter im Maklergeschäft" (sperrige Konstruktion) — Wertpapiersachbearbeiter ist DE-üblich
+  '43-4061.00': 'Sachbearbeiter Sozialleistungen / Sachbearbeiterin Sozialleistungen', // Eligibility Interviewers Government Programs: war "Grenzschutzbeamter" (völlig falsches Berufsbild — KldB war bereits 73212 Sozialverwaltung, nur Title war Drift) — Sachbearbeiter Sozialleistungen passt zu KldB-Klasse
+  '43-4151.00': 'Auftragsbearbeiter/Auftragsbearbeiterin', // Order Clerks: war "Warenkommissionierer" (beschreibt physische Lagerarbeit) — SOC ist kaufmännische Auftragsbearbeitung; KldB 61122 Vertrieb fachlich bleibt
+  '43-4181.00': 'Reisebürokaufmann/-kauffrau', // Reservation and Transportation Ticket Agents: war "Fahrkartenverkäufer" (nur Fahrschein-Teil) — SOC umfasst Buchungen + Reservierungen für Reisen; KldB 63112 Tourismus bleibt
+  '43-5032.00': 'Disponent (Transport und Logistik) / Disponentin (Transport und Logistik)', // Dispatchers Except Police/Fire/Ambulance: war "Flugdienstberater" (Luftverkehrs-Spezialisierung) — Disponent ist der DE-übliche Begriff
+  '43-5111.00': 'Prüfer/Prüferin (Wiegen und Messen)', // Weighers/Measurers/Checkers/Samplers: war "Gewichte- und Maßekontrolleur" (wörtliche Übersetzung) — Prüfer ist die etablierte DE-Berufsbezeichnung
 }
