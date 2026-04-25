@@ -169,7 +169,7 @@ export default {
   "13-1031.00": { kldbCode: "72133", kldbName: "Versicherungskaufleute - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Schadensregulierer: was Landwirtschaftliche Sachverständige
   "19-3093.00": { kldbCode: "91224", kldbName: "Berufe in Geschichtswissenschaften - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Historiker: was Philosophie, Religion und Ethik — exact Geschichtswissenschaften class
   "23-2011.00": { kldbCode: "73112", kldbName: "Assistenzkräfte in Rechtsanwaltskanzlei und Notariat - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Rechtsanwaltsfachangestellte: was Detektive
-  "23-2093.00": { kldbCode: "73112", kldbName: "Assistenzkräfte in Rechtsanwaltskanzlei und Notariat - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Notariatsmitarbeiter: was Detektive
+  // 23-2093.00 Title Examiners pulled out of seed (was 73112 Anf 2) → batch-3 block (73113 Anf 3, eigenständige Spezialistentätigkeit)
   "25-2059.01": { kldbCode: "84504", kldbName: "Sportlehrer (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Sportlehrer für Menschen mit Behinderung: was Führungskräfte Pferdewirtschaft
   "25-3021.00": { kldbCode: "83122", kldbName: "Berufe in der Sozialarbeit und Sozialpädagogik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Lebensberater: was Kinderbetreuung und -erziehung
   "27-4015.00": { kldbCode: "94512", kldbName: "Berufe in der Veranstaltungs- und Bühnentechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Beleuchtungstechniker: was Tätowierer (prior seed pin was not a manual fix — corrected here)
@@ -316,4 +316,30 @@ export default {
   "33-2022.00": { kldbCode: "11712", kldbName: "Berufe in der Forstwirtschaft - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Forest Fire Inspectors: was Gewerbeaufsicht — Waldbrandinspektion gehört in Forstwirtschaft (analog zu 45-4021/45-4023 in batch 1); title bleibt "Forstwirtschaftskontrolleur" (Forstaufseher ist 19-4071-Title, vermeidet Duplikat)
   "33-9031.00": { kldbCode: "94342", kldbName: "Berufe im Bereich Glücks- und Wettspiel - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Gambling Surveillance Officers: was Gewerbeaufsicht (staatliche Betriebsprüfung, falsch) — Casino-Überwachung gehört in Glücksspiel-Domain
   "33-9092.00": { kldbCode: "53142", kldbName: "Berufe in der Badeaufsicht - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Lifeguards/Ski Patrol: was Jagdwirtschaft (Stem-Drift); 53142 trifft Lifeguards exakt; coupled mit title.de "Beamter der Küstenwache" → "Rettungsschwimmer"
+
+  // === Audit batch 3 — SOC 23+37+35 (2026-04-25) ===
+  // Mini-cleanup of the three smallest remaining SOC groups in one section.
+  // SOC 23 Legal (1 entry) — Title Examiners re-tiered Anf 2 → 3 in same
+  // Notariat-Assistenzkräfte family (eigenständige Grundbuch-Recherche, keine
+  // reine Assistenz). SOC 37 Building/Grounds (3 entries — 37-3011 is title-
+  // only, no KldB change) — two First-Line Supervisor Anf-2/Aufsichtskraft-3
+  // mismatches (Housekeeping, Landscaping) analogous to the SOC 33-1011/12/21
+  // pattern from batch 2; one Pesticide-Vegetation drift out of Holz-/
+  // Bautenschutz into Desinfektion/Schädlingsbekämpfung. SOC 35 Food Prep
+  // (5 entries — 35-2012 is title-only, no KldB change) — fast-food + private
+  // cooks mis-routed to Gastronomieservice or Aufsichtskräfte instead of Köche-
+  // Klassen; Short Order Cooks moved to Systemgastronomie; Hosts/Hostesses
+  // pulled out of Tourismuskaufleute (Reisebüro-Drift) into Gastronomieservice;
+  // 35-1012 First-Line Supervisor reconciliation: Anf 2 fachlich → Anf 3
+  // Aufsichtskräfte (agent flagged title only, but structurally First-Line
+  // Supervisor = Aufsichtskraft, analog SOC 33/37 supervisor reconciliations).
+  "23-2093.00": { kldbCode: "73113", kldbName: "Assistenzkräfte in Rechtsanwaltskanzlei und Notariat - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Title Examiners/Abstractors: war 73112 Anf 2 — Grundbuchrecherche/-analyse ist eigenständige Spezialistentätigkeit (Notarfachwirt-Tier), nicht reine Anwaltsassistenz
+  "37-1011.00": { kldbCode: "83293", kldbName: "Aufsichtskräfte - Hauswirtschaft und Verbraucherberatung", anforderungsniveau: 3, trainingCategory: "specialist" }, // First-Line Supervisors Housekeeping/Janitorial: war 83212 fachlich (Anf 2 → 3) — Supervisor ist Aufsichtskraft, nicht Fachkraft (analog 33-1091, 37-1012)
+  "37-1012.00": { kldbCode: "12193", kldbName: "Aufsichtskräfte - Gartenbau", anforderungsniveau: 3, trainingCategory: "specialist" }, // First-Line Supervisors Landscaping/Lawn/Groundskeeping: war 12102 Gartenbau fachlich (Anf 2 → 3) — Supervisor-Tier; coupled mit title.de "Produktionsleiter im Bereich Gartenbau" → "Vorarbeiter im Garten- und Landschaftsbau"
+  "37-3012.00": { kldbCode: "53342", kldbName: "Berufe in der Desinfektion und Schädlingsbekämpfung - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Pesticide Handlers Vegetation: was 33242 Holz- und Bautenschutz (Drift) — Pestizidausbringung auf Pflanzen ist Schädlingsbekämpfung-Domain (KldB hat keine reine Pflanzenschutz-Klasse); coupled mit title.de "Mitarbeiter für die Pestizidausbringung" → "Mitarbeiter im Pflanzenschutz"
+  "35-1012.00": { kldbCode: "63393", kldbName: "Aufsichtskräfte - Gastronomie und Systemgastronomie", anforderungsniveau: 3, trainingCategory: "specialist" }, // First-Line Supervisors of Food Prep/Serving: was 63312 Systemgastronomie fachlich (Anf 2 → 3) — Reconciliation: Agent flagged title only, but First-Line Supervisor = Aufsichtskraft (analog 37-1011/12, 33-1011/12/21); 63393 deckt Gastronomie+Systemgastronomie ab, breiter als SOC; coupled mit title.de "Schnellrestaurantteamleiter" → "Schichtleiter Gastronomie"
+  "35-2011.00": { kldbCode: "29301", kldbName: "Köche/Köchinnen (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Cooks Fast Food: war 63301 Gastronomieservice (Service ≠ Speisenzubereitung) — Fast-Food-Koch ist Köche-Helfer-Tier, nicht Service
+  "35-2013.00": { kldbCode: "29302", kldbName: "Köche/Köchinnen (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Cooks Private Household: war 29393 Aufsichtskräfte Speisenzubereitung Anf 3 — Privatkoch ist ausgebildeter Fachkoch, weder Aufsichtskraft (zu hoch) noch Helfer (Agent-Vorschlag 29301 zu niedrig); 29302 Anf 2 ist die Reconciliation-Mitte
+  "35-2015.00": { kldbCode: "63312", kldbName: "Berufe in der Systemgastronomie - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Cooks Short Order: war 63301 Gastronomieservice Helfer Anf 1 — Short-Order ist Systemgastronomie-Fachkraft (Imbiss/Diner-Tradition mit Ausbildung)
+  "35-9031.00": { kldbCode: "63302", kldbName: "Berufe im Gastronomieservice (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Hosts and Hostesses Restaurant: war 63112 Tourismuskaufleute (Reisebüro-Drift) — Restaurant-Empfang/Platzierung ist Gastronomieservice-Tier; title "Oberkellner" bleibt unverändert (Restaurantservice deckt Oberkellner und Empfangsmitarbeiter beide ab)
 }

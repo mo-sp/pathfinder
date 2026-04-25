@@ -1678,10 +1678,10 @@
       "trainingCategory": "apprenticeship"
     },
     "23-2093.00": {
-      "kldbCode": "73112",
-      "kldbName": "Assistenzkräfte in Rechtsanwaltskanzlei und Notariat - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "73113",
+      "kldbName": "Assistenzkräfte in Rechtsanwaltskanzlei und Notariat - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "25-1011.00": {
       "kldbCode": "84304",
@@ -3110,14 +3110,14 @@
       "trainingCategory": "specialist"
     },
     "35-1012.00": {
-      "kldbCode": "63312",
-      "kldbName": "Berufe in der Systemgastronomie - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "63393",
+      "kldbName": "Aufsichtskräfte - Gastronomie und Systemgastronomie",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "35-2011.00": {
-      "kldbCode": "63301",
-      "kldbName": "Berufe im Gastronomieservice (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
+      "kldbCode": "29301",
+      "kldbName": "Köche/Köchinnen (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
       "anforderungsniveau": 1,
       "trainingCategory": "none"
     },
@@ -3128,10 +3128,10 @@
       "trainingCategory": "apprenticeship"
     },
     "35-2013.00": {
-      "kldbCode": "29393",
-      "kldbName": "Aufsichtskräfte - Speisenzubereitung",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "29302",
+      "kldbName": "Köche/Köchinnen (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "35-2014.00": {
       "kldbCode": "29393",
@@ -3140,10 +3140,10 @@
       "trainingCategory": "specialist"
     },
     "35-2015.00": {
-      "kldbCode": "63301",
-      "kldbName": "Berufe im Gastronomieservice (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
-      "anforderungsniveau": 1,
-      "trainingCategory": "none"
+      "kldbCode": "63312",
+      "kldbName": "Berufe in der Systemgastronomie - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "35-2021.00": {
       "kldbCode": "29301",
@@ -3195,22 +3195,22 @@
       "trainingCategory": "none"
     },
     "35-9031.00": {
-      "kldbCode": "63112",
-      "kldbName": "Tourismuskaufleute - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "63302",
+      "kldbName": "Berufe im Gastronomieservice (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "37-1011.00": {
-      "kldbCode": "83212",
-      "kldbName": "Berufe in der Hauswirtschaft - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "83293",
+      "kldbName": "Aufsichtskräfte - Hauswirtschaft und Verbraucherberatung",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "37-1012.00": {
-      "kldbCode": "12102",
-      "kldbName": "Berufe im Gartenbau (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "12193",
+      "kldbName": "Aufsichtskräfte - Gartenbau",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "37-2011.00": {
       "kldbCode": "54112",
@@ -3231,14 +3231,14 @@
       "trainingCategory": "apprenticeship"
     },
     "37-3011.00": {
-      "kldbCode": "11722",
-      "kldbName": "Berufe in der Natur- und Landschaftspflege - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "12142",
+      "kldbName": "Berufe im Garten-, Landschafts- und Sportplatzbau - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "37-3012.00": {
-      "kldbCode": "33242",
-      "kldbName": "Berufe im Holz- und Bautenschutz - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "53342",
+      "kldbName": "Berufe in der Desinfektion und Schädlingsbekämpfung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
