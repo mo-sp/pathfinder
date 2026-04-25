@@ -73,10 +73,10 @@ export default {
   "25-4013.00": { kldbCode: "73314", kldbName: "Berufe im Archivwesen - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Museumstechniker und Restaurator / Museumstechnikerin und Restauratorin
   "27-2011.00": { kldbCode: "94214", kldbName: "Schauspieler - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Schauspieler/Schauspielerin
   "27-2021.00": { kldbCode: "94243", kldbName: "Athleten/Athletinnen und Berufssportler - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Berufssportler/Berufssportlerin
-  "27-2022.00": { kldbCode: "84503", kldbName: "Sportlehrer (ohne Spezialisierung) - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Lehrkraft für Sport Sekundarstufe
-  "27-2023.00": { kldbCode: "63122", kldbName: "Sport- und Fitnesskaufleute, Sportmanager - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Schiedsrichter/Schiedsrichterin
+  // 27-2022.00 Coaches and Scouts moved to batch-7 block (KldB unchanged at 84503, but title-coupled and reject-vs-agent context belongs in batch-7)
+  // 27-2023.00 Umpires/Referees pulled out of seed (was 63122 Sport-/Fitnesskaufleute — kaufmännisch, nicht sportlich) → batch-7 block (94243 Athleten/Berufssportler komplex Anf 3)
   "27-3091.00": { kldbCode: "71423", kldbName: "Dolmetscher und Übersetzer - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Dolmetscher/Dolmetscherin
-  "27-4011.00": { kldbCode: "82332", kldbName: "Tätowierer und Piercer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Audio and Video Technicians
+  // 27-4011.00 Audio and Video Technicians pulled out of seed (was 82332 Tätowierer und Piercer — drift) → batch-7 block (94532 Bild- und Tontechnik fachlich Anf 2)
   "29-1031.00": { kldbCode: "41204", kldbName: null, anforderungsniveau: 4, trainingCategory: "studies" }, // Futtermittelwissenschaftler/Futtermittelwissenschaftlerin
   "29-1051.00": { kldbCode: "81804", kldbName: "Apotheker, Pharmazeuten/Pharmazeutinnen - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Krankenhausapotheker/Krankenhausapothekerin
   "29-1128.00": { kldbCode: "84553", kldbName: "Trainer - Fitness und Gymnastik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Personal Trainer/Personal Trainerin
@@ -478,4 +478,54 @@ export default {
   "49-9064.00": { kldbCode: "24532", kldbName: "Berufe im Uhrmacherhandwerk - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Watch and Clock Repairers: war 21352 Glasapparatejustierung (Drift) — Reconciliation gegen agent's 24533 Anf 3 (Meister-Tier): Standard-Watch-Repairer ist Geselle-Tier (3,5-Jahre Lehre); 24532 Anf 2 passt
   "49-9092.00": { kldbCode: "24432", kldbName: "Industrietaucher/innen und andere Taucherberufe - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Commercial Divers: war 31193 Aufsichtskräfte Bauplanung Anf 3 (Drift "Bauleiter Unterwasserarbeiten") — agent left KldB null; catalog-pick 24432 deckt Berufstaucher; coupled mit title.de "Bauleiter Unterwasserarbeiten" → "Berufstaucher"
   "49-9097.00": { kldbCode: "51222", kldbName: "Berufe in der Überwachung und Wartung der Eisenbahninfrastruktur - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Signal and Track Switch Repairers: war 51112 Eisenbahnbetrieb (= Operations) — Signal-/Weichenwartung ist Infrastruktur-Wartung 51222; coupled mit title.de "Weichenwärter" (Betriebsberuf) → "Signaltechniker Eisenbahn"
+
+  // === Audit batch 7 — SOC 27 Arts/Design/Entertainment/Sports/Media (2026-04-25) ===
+  // Two seed pull-outs (27-2023 Umpires + 27-4011 Audio/Video Technicians;
+  // 27-2022 Coaches stays in seed since KldB unchanged, only title fixes).
+  // Multiple Anf-tier upgrades into hoch-komplex catalog-only classes
+  // (94224 Tänzer/Choreografen Anf 4 only, 94134 Dirigenten Anf 4 only,
+  // 92434 Autoren/Schriftsteller Anf 4 only) — these classes don't have
+  // sibling-tiers in KldB so the agent's Anf 4 picks are the only
+  // catalog options.
+  // Two reconciliations against agent suggestions:
+  // (1) 27-1022 Fashion Designers — agent suggested 28212 Anf 2 + Anf-bump 3,
+  //     resolved as 28213 Anf 3 (the Anf-3-sibling of the same Modedesign family).
+  // (2) 27-1012 Craft Artists — agent left KldB null; catalog-pick 93302
+  //     "Kunsthandwerk und bildende Kunst (ohne Spezialisierung) fachlich Anf 2"
+  //     covers the broad SOC scope (weaving, ceramics, metal, sculpture).
+  // (3) 27-2022 Coaches and Scouts — agent suggested 84543 Trainer Ballsport,
+  //     reject as too narrow (SOC = "Coaches AND Scouts" covers all sports +
+  //     Talent-Scouts); current 84503 Sportlehrer ohne Spezialisierung is the
+  //     correct broad catch-all (kept in seed, only title-only fix added).
+  // (4) 27-4012 Broadcast Technicians — agent suggested 26302 Elektrotechnik
+  //     ohne Spez. fachlich, reconciled to 94512 Veranstaltungs-/Bühnentechnik
+  //     fachlich (the KldB class for the real Ausbildungsberuf "Rundfunk- und
+  //     Veranstaltungstechniker"; collides with 27-4015 Lighting Technicians
+  //     but KldB is nominal — multiple SOCs may map to the same class).
+  // (5) 27-2012.04 Casting Director — agent flagged title; @mo-sp kept the
+  //     "Casting Director" wording (KldB 94493 → 94483 only, Aufsichtskraft
+  //     drift corrected to sonstige Theater/Film/TV-Produktion).
+  // Coupled KldB+title fixes: 27-1012, 27-1023, 27-1025, 27-1027, 27-4012,
+  //   27-4014. Title-only fixes (no KldB change): 27-2012, 27-2012.05,
+  //   27-2022, 27-3023.
+  "27-1011.00": { kldbCode: "23224", kldbName: "Berufe im Grafik-, Kommunikations- und Fotodesign - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Art Directors: war 94493 Aufsichtskräfte Theater/Film/TV — Art Director entwickelt visuelle Konzepte für Medien (Werbung, Print, Web), nicht Aufsichtskraft am Set
+  "27-1012.00": { kldbCode: "93302", kldbName: "Berufe in Kunsthandwerk und bildender Kunst (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Craft Artists: war 93422 Glas-/Keram-/Porzellanmalerei (zu eng) — 93302 ist die ohne-Spez-Klasse, deckt SOC-Scope (Weben, Töpfern, Schweißen, Skulptur); agent left KldB null, catalog-pick; coupled mit title.de "Kunstglaser" → "Kunsthandwerker"
+  "27-1022.00": { kldbCode: "28213", kldbName: "Berufe im Modedesign - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Fashion Designers: war 93102 Produkt-/Industriedesign — Modedesign hat eigene Klassen-Familie 28212/13/14; reconciliation gegen agent's 28212 Anf 2 + Anf-bump 3 → direkt 28213 (Anf-3-Sibling), entspricht FH/Designstudium-Tier
+  "27-1023.00": { kldbCode: "12202", kldbName: "Berufe in der Floristik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Floral Designers: war 61212 Groß-/Außenhandel (drift via "Fachverkäufer für Blumen"); coupled mit title.de "Fachverkäufer für Blumen und Pflanzen" → "Florist/Floristin"
+  "27-1025.00": { kldbCode: "93213", kldbName: "Berufe in der Innenarchitektur - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Interior Designers: war 93233 Raumausstattung (Handwerks-Tier statt Designplanung); coupled mit title.de "Raumgestalter" → "Innenarchitekt"
+  "27-1027.00": { kldbCode: "94403", kldbName: "Berufe in der Theater-, Film- und Fernsehproduktion (ohne Spezialisierung) - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Set and Exhibit Designers: war 93213 Innenarchitektur (Set-Designer ist Bühne/Film, nicht Innenarchitektur); coupled mit title.de "Kulissenbauer" (handwerklich) → "Szenenbildner" (kreativ-konzeptionell)
+  "27-2012.04": { kldbCode: "94483", kldbName: "Berufe in der Theater-, Film- und Fernsehproduktion (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Casting Directors: war 94493 Aufsichtskräfte (Casting Director ist fachliche Director-Rolle, keine Vorgesetztenfunktion); title bleibt "Casting Director" (per @mo-sp)
+  "27-2022.00": { kldbCode: "84503", kldbName: "Sportlehrer (ohne Spezialisierung) - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Coaches and Scouts: KldB unverändert (war bereits korrekt im seed) — Reject gegen agent's 84543 Ballsport (zu eng, SOC umfasst alle Sportarten + Talent-Scouts); 84503 ohne-Spez ist die richtige Catch-all-Klasse; coupled mit title.de "Lehrkraft für Sport Sekundarstufe" → "Sporttrainer" (Coaches sind Wettkampftrainer, keine Schul-Sportlehrer)
+  "27-2023.00": { kldbCode: "94243", kldbName: "Athleten/Athletinnen und Berufssportler - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Umpires/Referees: war 63122 Sport-/Fitnesskaufleute (kaufmännisch, nicht sportlich) — 94243 ist die Sportler-Klasse, deckt aktive Sport-Akteure incl. Schiedsrichter
+  "27-2031.00": { kldbCode: "94224", kldbName: "Tänzer/innen und Choreografen/Choreografinnen - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Dancers: war 94382 Moderation/Unterhaltung sonstige fachlich (Anf 2) — 94224 ist die exakte Tänzer-Klasse, KldB-only auf Anf 4 (kein Anf-3-Sibling im Katalog), Anf-bump nötig
+  "27-2032.00": { kldbCode: "94224", kldbName: "Tänzer/innen und Choreografen/Choreografinnen - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Choreographers: war 94382 Moderation/Unterhaltung sonstige fachlich — gleiche Klasse 94224 wie Tänzer, Anf 4 only
+  "27-2041.00": { kldbCode: "94134", kldbName: "Dirigenten/Dirigentinnen - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Music Directors and Composers: war 94183 Musik/Gesang/Dirigent sonstige Anf 3 — 94134 ist die explizite Dirigenten-Klasse, KldB-only auf Anf 4 (Hochschulausbildung Dirigieren); Title "Musikdirektor" bleibt (deckt SOC-Scope Director+Composer)
+  "27-2042.00": { kldbCode: "94183", kldbName: "Musik-, Gesangs- und Dirigententätigkeiten (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Musicians and Singers: war 94283 Schauspiel/Tanz/Bewegung sonstige (falsche Domain) — 94183 ist die Musik-Domain sonstige; 94114 Musiker hoch komplex existiert, aber nur auf Anf 4 (zu hoch für working musicians)
+  "27-3043.00": { kldbCode: "92434", kldbName: "Autoren/Autorinnen und Schriftsteller/innen - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Writers and Authors: war 92413 Redakteure/Journalisten Anf 3 (drift) — 92434 ist die Autoren-/Schriftsteller-Klasse, KldB-only auf Anf 4
+  "27-3043.05": { kldbCode: "92434", kldbName: "Autoren/Autorinnen und Schriftsteller/innen - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Poets/Lyricists/Creative Writers: war 92413 Redakteure/Journalisten — 92434 deckt Lyrik/Belletristik
+  "27-3092.00": { kldbCode: "71432", kldbName: "Steno- und Phonotypisten/-typistinnen - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Court Reporters/Captioners: war 63212 Hotelkaufleute (Drift) — Steno/Phono ist die exakte Klasse für Gerichtsstenografen
+  "27-4011.00": { kldbCode: "94532", kldbName: "Berufe in der Bild- und Tontechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Audio and Video Technicians: war 82332 Tätowierer (seed-Drift) — 94532 ist die Bild-/Tontechnik-Klasse
+  "27-4012.00": { kldbCode: "94512", kldbName: "Berufe in der Veranstaltungs- und Bühnentechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Broadcast Technicians: war 51182 Eisenbahn-/Luft-/Schiffstechnik sonstige (Drift) — Reconciliation gegen agent's 26302 Elektrotechnik ohne-Spez (zu generisch); 94512 ist die KldB-Klasse für den realen Ausbildungsberuf "Rundfunk- und Veranstaltungstechniker"; collides nominal mit 27-4015 Lighting Technicians, aber KldB-Klassen sind keine 1:1-Zuordnungen; coupled mit title.de "Informationselektroniker" → "Rundfunk- und Veranstaltungstechniker"
+  "27-4014.00": { kldbCode: "94532", kldbName: "Berufe in der Bild- und Tontechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Sound Engineering Technicians: war 94402 Theater/Film/TV ohne-Spez (zu eng auf Theater-Kontext) — 94532 ist die Bild-/Tontechnik-Klasse, deckt Tonstudio/Film/TV/Podcast; coupled mit title.de "Theatertechniker" → "Tontechniker"
+  "27-4032.00": { kldbCode: "94483", kldbName: "Berufe in der Theater-, Film- und Fernsehproduktion (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Film and Video Editors: war 94493 Aufsichtskräfte Theater/Film/TV — Editor ist fachliche Schnitt-Tätigkeit, keine Aufsichtskraft; 94483 sonstige fachlich-komplex passt
 }

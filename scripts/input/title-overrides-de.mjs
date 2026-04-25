@@ -666,4 +666,16 @@ export default {
   '49-9062.00': 'Medizintechniker/Medizintechnikerin', // Medical Equipment Repairers: war "Biomedizinischer Ingenieur" — Ingenieur impliziert Forschung/Entwicklung; SOC ist Reparatur/Wartung medizintechnischer Geräte = Medizintechniker (Anf 3, BMET-Tier)
   '49-9092.00': 'Berufstaucher/Berufstaucherin', // Commercial Divers: war "Bauleiter Unterwasserarbeiten" — Bauleiter ist Aufsichtskraft am Bau; Commercial Divers sind Berufstaucher (operative Unterwasserarbeit)
   '49-9097.00': 'Signaltechniker Eisenbahn / Signaltechnikerin Eisenbahn', // Signal and Track Switch Repairers: war "Weichenwärter" — Weichenwärter ist Betriebsberuf (stellt Weichen), nicht Wartungstechniker; Signaltechniker Eisenbahn passt zur Wartung von Signalanlagen
+
+  // === Audit batch 7 — SOC 27 Arts coupled title fixes (2026-04-25) ===
+  '27-1012.00': 'Kunsthandwerker/Kunsthandwerkerin', // Craft Artists: war "Kunstglaser" — zu eng (Glas-Spezialfall); SOC umfasst Weben, Töpfern, Metall, Skulptur, Bildhauerei
+  '27-1023.00': 'Florist/Floristin', // Floral Designers: war "Fachverkäufer für Blumen und Pflanzen" — beschreibt Verkäufer, nicht Gestalter; Florist ist der etablierte 3-jährige Ausbildungsberuf
+  '27-1025.00': 'Innenarchitekt/Innenarchitektin', // Interior Designers: war "Raumgestalter" — Raumgestalter ist Ausführungs-/Handwerks-Tier (Anf 2); SOC ist planerisch/konzeptionell (Anf 3) = Innenarchitekt (Architekturstudium)
+  '27-1027.00': 'Szenenbildner/Szenenbildnerin', // Set and Exhibit Designers: war "Kulissenbauer" — handwerklicher Ausführungsberuf; Set Designer ist kreativ-konzeptionell = Szenenbildner
+  '27-2012.00': 'Regisseur/Regisseurin', // Producers and Directors: war "Regieassistent" — Assistent ist nur die Assistentenstufe, SOC ist die Director-Hauptrolle; Regisseur ist der dominante DE-Beruf in dieser SOC (Producer-Rolle wird in DE oft personalunion mit Regie ausgeübt)
+  '27-2012.05': 'Produktionsleiter Medientechnik / Produktionsleiterin Medientechnik', // Media Technical Directors/Managers: war "Technischer Leiter für Bühne, Film und Fernsehen" — wörtliche Übersetzung; Produktionsleiter Medientechnik ist der etablierte DE-Begriff
+  '27-2022.00': 'Sporttrainer/Sporttrainerin', // Coaches and Scouts: war "Lehrkraft für Sport Sekundarstufe" — Sportlehrkraft an Schulen ist anderer Beruf; Coaches sind Wettkampftrainer (KldB 84503 Sportlehrer ohne Spezialisierung Anf 3 deckt das, ohne Anpassung)
+  '27-3023.00': 'Journalist/Journalistin', // News Analysts/Reporters/Journalists: war "Auslandskorrespondent" — Auslandskorrespondent ist enge Spezialisierung; SOC ist die breite Journalist-Hauptrolle
+  '27-4012.00': 'Rundfunk- und Veranstaltungstechniker / Rundfunk- und Veranstaltungstechnikerin', // Broadcast Technicians: war "Informationselektroniker" — Informationselektroniker ist Consumer-Electronics-Reparateur, nicht Broadcast-Operation; Rundfunk- und Veranstaltungstechniker ist der reale 3-Jahre-IHK-Ausbildungsberuf für Sendetechnik
+  '27-4014.00': 'Tontechniker/Tontechnikerin', // Sound Engineering Technicians: war "Theatertechniker" — Theater ist nur ein Anwendungsfeld; SOC umfasst Tonstudio, Film, TV, Podcasts, Live-Events; Tontechniker ist generischer
 }
