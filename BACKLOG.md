@@ -18,26 +18,31 @@ current PR. For what shipped when, see `SUMMARY.md`.
 
 Likely next 1–2 sessions.
 
-- **Audit batches 9-N — ~260 findings remaining.** Session 36 ran a
+- **Audit batches 11-N — ~212 findings remaining.** Session 36 ran a
   10-agent Sonnet coherence audit over all 923 occupations, persisted
   to `scripts/audit/findings-2026-04-25.json` (402 flagged, 578 flags).
   Batches 1+2 (SOC 21+45, SOC 31+33) walked 32 findings in Session 36;
   batches 3+4 (SOC 23+37+35, SOC 41+15) walked 31 findings in Session 37;
   batches 5+6 (SOC 25, SOC 49) walked 33 findings in Session 38;
-  batches 7+8 (SOC 27, SOC 13) walked 46 findings in Session 39.
-  142 findings applied total; ~260 remain. Workflow shifted Session 39
-  to **1 SOC major per section** (since SOC 27 + SOC 13 sit at 23 each,
-  pairing them would have doubled volume); pattern likely sticks for
-  remaining medium/big SOC groups. Next pairings: 43 Office (23) + 19
-  Sciences (27) for Session 40. Then 39 Personal Care (14) plus one of
-  the big four. The big four (29 Healthcare 43, 51 Production 43, 53
-  Transport 34, 47 Construction 31) each likely need a dedicated
-  section. Estimated 4-5 more sessions to complete. Per-batch pattern
-  remains: 60-80 % apply directly, 15-20 % modify mid-review (Anf-tier
-  reconciliations, alternative class picks), <5 % outright reject.
-  New sub-pattern from batch 8: occasional re-evaluation of earlier-
-  batch entries when later batches surface a sharper SOC reading
-  (13-1041.04 moved batch-4 → batch-8).
+  batches 7+8 (SOC 27, SOC 13) walked 46 findings in Session 39;
+  batches 9+10 (SOC 43, SOC 19) walked 50 findings in Session 40.
+  190 findings applied total; ~212 remain. The 1-SOC-major-per-section
+  pattern from Session 39 held cleanly across Session 40 (23+27 at
+  comparable per-section workload). Next pairings: 11 Management (24)
+  + 17 Architecture/Engineering (21) for Session 41, then 39 Personal
+  Care (14) possibly paired with one of the big four. The big four
+  (29 Healthcare 43, 51 Production 43, 53 Transport 34, 47 Construction
+  31) each likely need a dedicated section. Estimated 4 more sessions
+  to complete. Per-batch pattern remains: 60-80 % apply directly,
+  15-20 % modify mid-review (Anf-tier reconciliations, alternative
+  class picks, sibling-domain pivots when the current domain has no
+  Anf-down sibling), <5 % outright reject. Sub-patterns: occasional
+  re-evaluation of earlier-batch entries when later batches surface a
+  sharper SOC reading (13-1041.04 moved batch-4 → batch-8 in Session
+  39; 19-2099.01 moved within batches in Session 40 — first non-seed
+  batch entry re-pinned). Reconciliation density rose to 6 in batch
+  10 — heaviest so far — driven by research-tier roles where the
+  agent's KldB-class knowledge is shallower than its Anf-tier intuition.
 - **BigFive coverage gap — 169 / 923 occupations have no BigFive profile.**
   Originally framed as ~141 (the difference between Anni's 782-O*NET
   coverage and our 923 corpus); actual gap counting failed crosswalk
@@ -145,19 +150,6 @@ Likely next 1–2 sessions.
   the primary DE-label (likely Fischwirt) or rephrase ("Fischer und
   Jäger (Berufsausübung)"). Single override, one line in
   `title-overrides-de.mjs`.
-
-- **"Förster" search hits nothing — likely a Range Managers mis-mapping.**
-  @mo-sp searched for "Förster" on the results list during the
-  2026-04-25 browser test and got zero matches. Quick check: O*NET
-  "Range Managers" is currently labelled "Forstwirt/Forstwirtin" in DE —
-  but Range Managers manage rangeland (grazing), not forests, so that's
-  drift. The corpus has "Forstaufseher" (Forest and Conservation
-  Technicians) and "Forstwirtschaftskontrolleur" (Forest Fire Inspectors),
-  but no entry titled "Förster". Two-part fix: (i) correct the Range
-  Managers DE-title (true Range-Manager-Beruf is closer to
-  Weidewirtschaft / Naturschutzgebietsverwalter), (ii) confirm whether
-  19-1032.00 Foresters exists in the corpus and ensure it carries
-  "Förster/Försterin" so search resolves it.
 
 - **Audit the 131 seed entries in `scripts/input/kldb-overrides.mjs`.**
   The file was populated retrospectively in Session 26 to pin the existing

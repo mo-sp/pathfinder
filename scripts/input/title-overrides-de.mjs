@@ -275,7 +275,7 @@ export default {
   '29-1229.01': 'Facharzt für Allergologie und Immunologie / Fachärztin für Allergologie und Immunologie', // Allergists and Immunologists
 
   // === Cluster: "Fernerkundungstechniker" (2) ===
-  '19-2099.01': 'Fernerkundungs-Wissenschaftler/Fernerkundungs-Wissenschaftlerin', // Remote Sensing Scientists and Technologists
+  '19-2099.01': 'Fernerkundungswissenschaftler/Fernerkundungswissenschaftlerin', // Remote Sensing Scientists (audit batch 10): Hyphen-mid-compound ist non-standard German; closed compound ist korrekt
   '19-4099.03': 'Fernerkundungstechniker/Fernerkundungstechnikerin', // Remote Sensing Technicians
 
   // === Cluster: "Psychologe" (2) ===
@@ -695,4 +695,16 @@ export default {
   '43-4181.00': 'Reisebürokaufmann/-kauffrau', // Reservation and Transportation Ticket Agents: war "Fahrkartenverkäufer" (nur Fahrschein-Teil) — SOC umfasst Buchungen + Reservierungen für Reisen; KldB 63112 Tourismus bleibt
   '43-5032.00': 'Disponent (Transport und Logistik) / Disponentin (Transport und Logistik)', // Dispatchers Except Police/Fire/Ambulance: war "Flugdienstberater" (Luftverkehrs-Spezialisierung) — Disponent ist der DE-übliche Begriff
   '43-5111.00': 'Prüfer/Prüferin (Wiegen und Messen)', // Weighers/Measurers/Checkers/Samplers: war "Gewichte- und Maßekontrolleur" (wörtliche Übersetzung) — Prüfer ist die etablierte DE-Berufsbezeichnung
+
+  // === Audit batch 10 — SOC 19 Life, Physical, and Social Science coupled title fixes (2026-04-25) ===
+  '19-1011.00': 'Nutztierwissenschaftler/Nutztierwissenschaftlerin', // Animal Scientists: war "Biologe im Bereich Aquakultur" (Aquakultur ist Fischzucht — falsche Domain) — SOC ist Forschung an Nutztieren (Genetik/Ernährung/Reproduktion); Nutztierwissenschaftler ist DE-akademischer Begriff für die Domain
+  '19-1031.02': 'Landschaftsökologe/Landschaftsökologin', // Range Managers: war "Forstwirt" (Forst ≠ Range/Weide) — Range Mgmt ist Weide-/Grasland-Ökologie; Landschaftsökologe ist der nächste DE-Berufsbild-Match
+  '19-1032.00': 'Förster/Försterin', // Foresters: war "Botaniktechniker" (komplett anderes Berufsbild) — Foresters sind Forstmanager auf Spezialisten-Tier (Anf 3); "Förster" statt agent's "Forstwirt" (Forstwirt ist Geselle Anf 2); resolves BACKLOG-Wunsch nach Suchbarkeit "Förster"
+  '19-2021.00': 'Meteorologe/Meteorologin', // Atmospheric/Space/Weather Scientists: war "Klimatologe" (zu eng — nur Klima-Subdomain) — SOC umfasst Atmosphäre/Wetter/Space; Meteorologe ist breiter
+  '19-2041.01': 'Klimapolitik-Analyst/Klimapolitik-Analystin', // Climate Change Policy Analysts: war "Referent" (zu generisch) — Klimapolitik-Analyst ist die spezifische Berufsbezeichnung
+  '19-3051.00': 'Stadt- und Raumplaner/Stadt- und Raumplanerin', // Urban and Regional Planners: war "Referent für Regionalentwicklung" (Verwaltungs-Position-Bezeichnung, kein Beruf) — Stadt- und Raumplaner ist der etablierte DE-Berufstitel
+  '19-4013.00': 'Lebensmitteltechniker/Lebensmitteltechnikerin', // Food Science Technicians: war "Lebensmittelchemiker" (Hochschulberuf Anf 4 / Staatsexamen) — SOC ist Tech-Niveau (Anf 2 Lab-Standardtests); Lebensmitteltechniker ist der korrekte Tech-Tier-Beruf
+  '19-4044.00': 'Hydrologische Fachkraft', // Hydrologic Technicians: war "Hydrogeologe" (Hochschulberuf Anf 4) — SOC ist Tech-Hilfskraft (Datensammlung Anf 2-3); Hydrologische Fachkraft ist Tech-Tier-konform
+  '19-4061.00': 'Sozialwissenschaftlicher Assistent / Sozialwissenschaftliche Assistentin', // Social Science Research Assistants: war "Sozialarbeitswissenschaftler" (verwechselt Sozialwissenschaft mit Sozialarbeit) — Research Assistant in Sozialwissenschaften (Tech-Tier-Forschungshilfe)
+  '19-4092.00': 'Kriminaltechniker/Kriminaltechnikerin', // Forensic Science Technicians: war "Polizeibeamter im Ermittlungsdienst" (Polizeivollzugsdienst-Bezeichnung statt Lab-Tech) — Kriminaltechniker ist DE-Berufsbild für Forensik-Lab
 }

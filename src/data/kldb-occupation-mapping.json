@@ -1203,10 +1203,10 @@
       "trainingCategory": "studies"
     },
     "19-1012.00": {
-      "kldbCode": "27103",
-      "kldbName": "Berufe in der technischen Forschung und Entwicklung (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "41284",
+      "kldbName": "Berufe in der Biologie (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "19-1013.00": {
       "kldbCode": "11104",
@@ -1221,16 +1221,16 @@
       "trainingCategory": "studies"
     },
     "19-1022.00": {
-      "kldbCode": "41203",
-      "kldbName": "Berufe in der Biologie (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "41264",
+      "kldbName": "Berufe in der Biologie (Mikrobiologie) - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "19-1023.00": {
-      "kldbCode": "41293",
-      "kldbName": "Aufsichtskräfte - Biologie",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "41254",
+      "kldbName": "Berufe in der Biologie (Zoologie) - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "19-1029.01": {
       "kldbCode": "41204",
@@ -1263,8 +1263,8 @@
       "trainingCategory": "studies"
     },
     "19-1031.02": {
-      "kldbCode": "42314",
-      "kldbName": "Berufe in der Umweltschutzverwaltung und -beratung - hoch komplexe Tätigkeiten",
+      "kldbCode": "41234",
+      "kldbName": "Berufe in der Biologie (Ökologie) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1275,8 +1275,8 @@
       "trainingCategory": "studies"
     },
     "19-1032.00": {
-      "kldbCode": "41213",
-      "kldbName": "Berufe im biologisch-technischen Laboratorium - komplexe Spezialistentätigkeiten",
+      "kldbCode": "11713",
+      "kldbName": "Berufe in der Forstwirtschaft - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -1317,8 +1317,8 @@
       "trainingCategory": "specialist"
     },
     "19-2032.00": {
-      "kldbCode": "41303",
-      "kldbName": "Berufe in der Chemie (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "41304",
+      "kldbName": "Berufe in der Chemie (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1329,8 +1329,8 @@
       "trainingCategory": "studies"
     },
     "19-2041.01": {
-      "kldbCode": "72184",
-      "kldbName": "Berufe in Versicherungs- und Finanzdienstleistungen (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
+      "kldbCode": "42314",
+      "kldbName": "Berufe in der Umweltschutzverwaltung und -beratung - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1359,10 +1359,10 @@
       "trainingCategory": "studies"
     },
     "19-2099.01": {
-      "kldbCode": "31213",
-      "kldbName": "Berufe in der Vermessungstechnik - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "43144",
+      "kldbName": "Berufe in der Geoinformatik - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "19-3011.00": {
       "kldbCode": "91404",
@@ -1371,8 +1371,8 @@
       "trainingCategory": "studies"
     },
     "19-3011.01": {
-      "kldbCode": "72184",
-      "kldbName": "Berufe in Versicherungs- und Finanzdienstleistungen (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
+      "kldbCode": "42314",
+      "kldbName": "Berufe in der Umweltschutzverwaltung und -beratung - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1383,14 +1383,14 @@
       "trainingCategory": "studies"
     },
     "19-3032.00": {
-      "kldbCode": "71524",
-      "kldbName": "Berufe in der Personaldienstleistung - hoch komplexe Tätigkeiten",
+      "kldbCode": "81614",
+      "kldbName": "Berufe in der nicht klinischen Psychologie - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "19-3033.00": {
-      "kldbCode": "81614",
-      "kldbName": "Berufe in der nicht klinischen Psychologie - hoch komplexe Tätigkeiten",
+      "kldbCode": "81624",
+      "kldbName": "Berufe in der klinischen Psychologie - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1407,8 +1407,8 @@
       "trainingCategory": "studies"
     },
     "19-3039.03": {
-      "kldbCode": "81614",
-      "kldbName": "Berufe in der nicht klinischen Psychologie - hoch komplexe Tätigkeiten",
+      "kldbCode": "81624",
+      "kldbName": "Berufe in der klinischen Psychologie - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1419,14 +1419,14 @@
       "trainingCategory": "studies"
     },
     "19-3051.00": {
-      "kldbCode": "31114",
-      "kldbName": "Berufe in der Architektur - hoch komplexe Tätigkeiten",
+      "kldbCode": "31124",
+      "kldbName": "Berufe in der Stadt- und Raumplanung - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "19-3091.00": {
-      "kldbCode": "91234",
-      "kldbName": "Berufe in der Archäologie - hoch komplexe Tätigkeiten",
+      "kldbCode": "91264",
+      "kldbName": "Berufe in der Anthropologie und Ethnologie - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1461,8 +1461,8 @@
       "trainingCategory": "apprenticeship"
     },
     "19-4012.01": {
-      "kldbCode": "11103",
-      "kldbName": "Berufe in der Landwirtschaft (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "11113",
+      "kldbName": "Berufe in der Landtechnik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -1485,40 +1485,40 @@
       "trainingCategory": "apprenticeship"
     },
     "19-4042.00": {
-      "kldbCode": "42314",
-      "kldbName": "Berufe in der Umweltschutzverwaltung und -beratung - hoch komplexe Tätigkeiten",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "42203",
+      "kldbName": "Berufe in der Umweltschutztechnik (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "19-4043.00": {
-      "kldbCode": "41323",
-      "kldbName": "Berufe im chemisch-technischen Laboratorium - komplexe Spezialistentätigkeiten",
+      "kldbCode": "42113",
+      "kldbName": "Berufe in der Geotechnik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "19-4044.00": {
-      "kldbCode": "42124",
-      "kldbName": "Berufe in der Geologie - hoch komplexe Tätigkeiten",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "42113",
+      "kldbName": "Berufe in der Geotechnik - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "19-4051.00": {
-      "kldbCode": "41322",
-      "kldbName": "Berufe im chemisch-technischen Laboratorium - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "26233",
+      "kldbName": "Berufe in der Energie- und Kraftwerkstechnik - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "19-4051.02": {
-      "kldbCode": "41322",
-      "kldbName": "Berufe im chemisch-technischen Laboratorium - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "42333",
+      "kldbName": "Strahlenschutzbeauftragte - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "19-4061.00": {
-      "kldbCode": "91324",
-      "kldbName": "Berufe in der Soziologie - hoch komplexe Tätigkeiten",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "91343",
+      "kldbName": "Berufe in der Markt- und Meinungsforschung - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "19-4071.00": {
       "kldbCode": "11713",
@@ -1551,8 +1551,8 @@
       "trainingCategory": "specialist"
     },
     "19-5012.00": {
-      "kldbCode": "31102",
-      "kldbName": "Berufe in der Bauplanung und -überwachung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "53122",
+      "kldbName": "Berufe in Arbeitssicherheit und Sicherheitstechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3700,8 +3700,8 @@
       "trainingCategory": "apprenticeship"
     },
     "43-4151.00": {
-      "kldbCode": "61122",
-      "kldbName": "Berufe im Vertrieb (außer Informations- und Kommunikationstechnologien) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "51122",
+      "kldbName": "Berufe im technischen Luftverkehrsbetrieb - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
