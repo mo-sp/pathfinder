@@ -606,4 +606,12 @@ export default {
   '43-4171.00': 'Empfangsmitarbeiter/Empfangsmitarbeiterin', // Receptionists and Information Clerks: war "Kundeninformationsfachkraft" — sperrig; "Empfangsmitarbeiter" deckt sowohl Receptionists als auch Information Clerks
   '13-1199.04': 'Business Continuity Manager / Business Continuity Managerin', // Business Continuity Planners: war "Analytiker für IT-Notfallwiederherstellung" — BCM ist organisationsübergreifend (nicht nur IT); etablierter Anglizismus in DE-BCM-Kreisen
   '43-5031.00': 'Disponent Notrufleitstelle / Disponentin Notrufleitstelle', // Public Safety Telecommunicators: war "Notruftelefonist" — Telefonist trifft die Disposition-/Koordinations-Komponente nicht; "Disponent Notrufleitstelle" ist DE-üblich
+
+  // === Audit batch 1 — SOC 21+45 coupled title fixes (2026-04-25) ===
+  // From the 10-agent audit (full output in scripts/audit/findings-2026-04-25.json).
+  '21-2021.00': 'Gemeindereferent/Gemeindereferentin', // Directors of Religious Activities: war "Missionar" — zu eng, SOC umfasst Programm-Koordination und Religionspädagogik, nicht nur Mission
+  '45-1011.00': 'Aufsichtskraft Land- und Forstwirtschaft', // First-Line Supervisors Farming/Fishing/Forestry: war "Führungskraft für die Ernte aquatischer Organismen" — wörtliche Übersetzung, übergeneralisiert die Aquakultur-Nische auf die gesamte Supervisor-Klasse
+  '45-2041.00': 'Sortierer/Sortiererin landwirtschaftlicher Produkte', // Graders and Sorters of Agricultural Products: war "Milchkontrolleur" — zu eng (SOC umfasst alle Agrarprodukte nach Größe/Gewicht/Farbe/Zustand) und falsche Tätigkeit; Kontrolleur-Rolle sitzt bei 45-2011 Agricultural Inspectors
+  '45-2093.00': 'Tierwirt/Tierwirtin', // Farmworkers Farm/Ranch/Aquacultural Animals: war "Zuchtassistent Aquakultur" — zu eng; Tierwirt ist staatlich anerkannter Ausbildungsberuf (Rinder/Schafe/Geflügel/Aquakultur)
+  '45-4021.00': 'Forstwirt/Forstwirtin', // Fallers: war "Schrotsägenführer" — archaisch; Forstwirt ist 3-jähriger Ausbildungsberuf, deckt Bäume-Fällen mit Axt/Motorsäge ab. Helfer-Tier "Waldarbeiter" sitzt korrekt bei 45-4011 Forest and Conservation Workers (KldB 11711 Forstwirtschaft Helfer)
 }

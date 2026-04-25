@@ -107,7 +107,6 @@ export default {
   "45-2041.00": { kldbCode: "29152", kldbName: "Nahrungsmittel- und Getränkekoster - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Milchkontrolleur/Milchkontrolleurin
   "45-2091.00": { kldbCode: "52512", kldbName: "Führer von land- und forstwirtschaftlichen Maschinen - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Maschinenbediener für die landwirtschaftliche Produktion/Maschinenbedienerin für die landwirtschaftliche Produktion
   "45-2092.00": { kldbCode: "12101", kldbName: "Berufe im Gartenbau (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Gartenhilfsarbeiter/Gartenhilfsarbeiterin
-  "45-4021.00": { kldbCode: "52512", kldbName: "Führer von land- und forstwirtschaftlichen Maschinen - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Schrotsägenführer/Schrotsägenführerin
   "45-4022.00": { kldbCode: "52512", kldbName: "Führer von land- und forstwirtschaftlichen Maschinen - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Forstmaschinenführer/Forstmaschinenführerin
   "47-3011.00": { kldbCode: "32212", kldbName: "Pflasterer/Pflasterinnen und Steinsetzer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Bauhelfer Maurer- und Steinmetzhandwerk / Bauhelferin Maurer- und Steinmetzhandwerk
   "47-4051.00": { kldbCode: "51212", kldbName: "Straßen- und Tunnelwärter - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Straßenunterhaltungsarbeiter/Straßenunterhaltungsarbeiterin
@@ -258,4 +257,28 @@ export default {
   "43-5031.00": { kldbCode: "81342", kldbName: "Berufe im Rettungsdienst - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Public Safety Telecommunicators: was Büro-Helfer (Anf 1 → 2) — DE-Notrufdisponenten sind typisch Notfallsanitäter mit Leitstellen-Zusatz, 81342 ist die Heimat-Klasse; coupled mit title.de "Notruftelefonist" → "Disponent Notrufleitstelle"
   "17-2141.02": { kldbCode: "25214", kldbName: "Berufe in der Kraftfahrzeugtechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Automotive Engineers: was Papierverarbeitung — automotive engineering gehört in Kfz-Technik hoch komplex
   "47-2011.00": { kldbCode: "34342", kldbName: "Berufe im Anlagen-, Behälter- und Apparatebau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Boilermakers: was Klempnerei — KldB-Klassen-Name spiegelt title.de "Behälter- und Apparatebauer" 1:1
+
+  // === Audit batch 1 — SOC 21+45 (2026-04-25) ===
+  // First batch from the 10-agent KldB+title coherence audit (402 findings
+  // across 923 occupations; full output in scripts/audit/findings-2026-04-25.json).
+  // SOC 21 Community/Social Services: 6 entries — three Stem-Drift cases
+  // routed via "-berater" into Verbraucher-/Personaldienstleistung instead
+  // of Sozial-/Gesundheitsberatung; one Anf-2/3 mismatch (Sozialassistent);
+  // one religious-activities scope correction (Missionar → Gemeindereferent).
+  // SOC 45 Farming/Forestry/Fishing: 4 entries — Supervisor scope (Anf 2 → 3),
+  // animal-husbandry breadth (Pferde-only → Nutztier broadly), and two Forst
+  // entries that drifted into machine-operation/QS instead of Forstwirt-Domain.
+  // 45-4021 was pulled out of the seed block (52512 → 11712). 45-2041 stays
+  // in seed (29152 confirmed as nearest-class consensus); only its title was
+  // corrected (Milchkontrolleur → Sortierer landwirtschaftlicher Produkte).
+  "21-1012.00": { kldbCode: "83154", kldbName: "Berufe in der Sozial-, Erziehungs- und Suchtberatung - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Berufsberater: was Personaldienstleistung — Berufsberatung ist Sozial-/Bildungsberatung, nicht Personalvermittlung
+  "21-1015.00": { kldbCode: "83123", kldbName: "Berufe in der Sozialarbeit und Sozialpädagogik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Rehabilitationsberater: was Verbraucherberatung (Stem-Drift "-berater") — Reha-Beratung ist Sozialarbeit
+  "21-1091.00": { kldbCode: "82213", kldbName: "Berufe in der Gesundheitsberatung - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Health Education Specialists: was Wirtschaftsförderung (Stem-Drift) — Public Health gehört in Gesundheitsberatung
+  "21-1092.00": { kldbCode: "83123", kldbName: "Berufe in der Sozialarbeit und Sozialpädagogik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Bewährungshelfer: was Verbraucherberatung (Stem-Drift "-berater") — Bewährungshilfe ist Resozialisierungs-Sozialarbeit
+  "21-1093.00": { kldbCode: "83122", kldbName: "Berufe in der Sozialarbeit und Sozialpädagogik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Sozialassistent: war Anf 3 komplex — Sozialassistent ist 2-jährige schulische Ausbildung (Anf 2), nicht Spezialist
+  "21-2021.00": { kldbCode: "83323", kldbName: "Berufe in der Gemeindearbeit - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Directors of Religious Activities: was Angehörige geistlicher Orden — SOC umfasst Programm-Koordination/Bildungsarbeit, nicht nur Mission/Ordensleben; coupled mit title.de "Missionar" → "Gemeindereferent"
+  "45-1011.00": { kldbCode: "11193", kldbName: "Aufsichtskräfte - Landwirtschaft", anforderungsniveau: 3, trainingCategory: "specialist" }, // First-Line Supervisors Farming/Fishing/Forestry: was Landwirtschaft fachlich (Anf 2 → 3 — Supervisor-Rolle); coupled mit title.de "Führungskraft für die Ernte aquatischer Organismen" → "Aufsichtskraft Land- und Forstwirtschaft"
+  "45-2093.00": { kldbCode: "11212", kldbName: "Berufe in der Nutztierhaltung (außer Geflügelhaltung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Farmworkers Farm/Ranch/Aquacultural Animals: was Pferdewirtschaft (zu eng) — SOC umfasst alle Nutztiere; coupled mit title.de "Zuchtassistent Aquakultur" → "Tierwirt"
+  "45-4021.00": { kldbCode: "11712", kldbName: "Berufe in der Forstwirtschaft - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Fallers: was Führer land-/forstw. Maschinen (Seed-Drift) — Fallers fällen Bäume mit Axt/Säge, ist Forstwirt-Domain (3-jähriger Ausbildungsberuf); coupled mit title.de "Schrotsägenführer" → "Forstwirt"
+  "45-4023.00": { kldbCode: "11712", kldbName: "Berufe in der Forstwirtschaft - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Log Graders and Scalers: was technische QS — Holz klassifizieren ist forstwirtschaftliche Tätigkeit, nicht industrielle Qualitätssicherung
 }

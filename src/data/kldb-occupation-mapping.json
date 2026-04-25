@@ -1563,8 +1563,8 @@
       "trainingCategory": "studies"
     },
     "21-1012.00": {
-      "kldbCode": "71524",
-      "kldbName": "Berufe in der Personaldienstleistung - hoch komplexe Tätigkeiten",
+      "kldbCode": "83154",
+      "kldbName": "Berufe in der Sozial-, Erziehungs- und Suchtberatung - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1581,8 +1581,8 @@
       "trainingCategory": "studies"
     },
     "21-1015.00": {
-      "kldbCode": "83223",
-      "kldbName": "Berufe in der Verbraucherberatung - komplexe Spezialistentätigkeiten",
+      "kldbCode": "83123",
+      "kldbName": "Berufe in der Sozialarbeit und Sozialpädagogik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -1605,22 +1605,22 @@
       "trainingCategory": "studies"
     },
     "21-1091.00": {
-      "kldbCode": "71333",
-      "kldbName": "Berufe in der Wirtschaftsförderung - komplexe Spezialistentätigkeiten",
+      "kldbCode": "82213",
+      "kldbName": "Berufe in der Gesundheitsberatung - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "21-1092.00": {
-      "kldbCode": "83223",
-      "kldbName": "Berufe in der Verbraucherberatung - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
-    },
-    "21-1093.00": {
       "kldbCode": "83123",
       "kldbName": "Berufe in der Sozialarbeit und Sozialpädagogik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
+    },
+    "21-1093.00": {
+      "kldbCode": "83122",
+      "kldbName": "Berufe in der Sozialarbeit und Sozialpädagogik - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "21-1094.00": {
       "kldbCode": "82213",
@@ -1635,8 +1635,8 @@
       "trainingCategory": "studies"
     },
     "21-2021.00": {
-      "kldbCode": "83333",
-      "kldbName": "Angehörige geistlicher Orden und Mutterhäuser - komplexe Spezialistentätigkeiten",
+      "kldbCode": "83323",
+      "kldbName": "Berufe in der Gemeindearbeit - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -3874,10 +3874,10 @@
       "trainingCategory": "specialist"
     },
     "45-1011.00": {
-      "kldbCode": "11102",
-      "kldbName": "Berufe in der Landwirtschaft (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "11193",
+      "kldbName": "Aufsichtskräfte - Landwirtschaft",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "45-2011.00": {
       "kldbCode": "53312",
@@ -3910,8 +3910,8 @@
       "trainingCategory": "none"
     },
     "45-2093.00": {
-      "kldbCode": "11302",
-      "kldbName": "Berufe in der Pferdewirtschaft (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "11212",
+      "kldbName": "Berufe in der Nutztierhaltung (außer Geflügelhaltung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3928,8 +3928,8 @@
       "trainingCategory": "none"
     },
     "45-4021.00": {
-      "kldbCode": "52512",
-      "kldbName": "Führer von land- und forstwirtschaftlichen Maschinen - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "11712",
+      "kldbName": "Berufe in der Forstwirtschaft - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3940,8 +3940,8 @@
       "trainingCategory": "apprenticeship"
     },
     "45-4023.00": {
-      "kldbCode": "27312",
-      "kldbName": "Berufe in der technischen Qualitätssicherung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "11712",
+      "kldbName": "Berufe in der Forstwirtschaft - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
