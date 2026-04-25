@@ -48,10 +48,8 @@ onMounted(() => {
   })
 })
 
-function restartEverything(): void {
-  if (window.confirm('Alle bisherigen Antworten aus allen Teilen löschen und komplett von vorne beginnen?')) {
-    store.reset()
-  }
+function restartCurrentSubCategory(): void {
+  store.repeatSkillsSubCategory(store.skillsCurrentSubCategory)
 }
 
 const likertOptions = [1, 2, 3, 4, 5] as const
@@ -282,18 +280,19 @@ async function selectAnswer(value: number): Promise<void> {
           Ergebnisansicht
         </button>
         <button
+          v-if="store.currentLayer === 'skills'"
           type="button"
           class="rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700"
-          @click="store.resetCurrentLayer"
+          @click="restartCurrentSubCategory"
         >
           Nur diesen Teil neu
         </button>
         <button
           type="button"
           class="rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700"
-          @click="restartEverything"
+          @click="store.resetCurrentLayer"
         >
-          Alles neu
+          Schicht neu starten
         </button>
       </div>
     </div>
