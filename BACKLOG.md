@@ -75,9 +75,10 @@ Likely next 1–2 sessions.
 - **17 codes with Anforderungsniveau 2 steps away from jobZone** — biggest
   semantic drift. Build-script stat: `Anf distance: { '2': 17 }`.
 - **DE-title quality pass 2 — residual tail after Session 30.** Session 30
-  shipped the cluster-C batch 1: all 27 primary-null fills (except
-  13-1074.00 Farm Labor Contractors, earmarked for the DE-Occupation
-  filter follow-up) + 23 ESCO-raw corrections covering most of the
+  shipped the cluster-C batch 1: all 27 primary-null fills (13-1074.00
+  Farm Labor Contractors got an ad-hoc nearest-DE label in Session 34
+  rather than the previously-planned filter mechanism) + 23 ESCO-raw
+  corrections covering most of the
   Session 26-28 browser-test flags plus 9 filter-surfaced new ones
   (Financial Risk Analyst/Investment Analyst → Risiko-/Quant-Analyst;
   CAD-Bediener → Bauzeichner; Kameraschwenker → Kameramann; Orthopädist
@@ -104,14 +105,27 @@ Likely next 1–2 sessions.
   arbeiter, Deckarbeiter, Oberflächenbearbeiter, Gartenhilfsarbeiter,
   Fabrikhilfsarbeiter, Bankbediensteter, Küchenbediensteter) — all
   borderline, defer until a browser test surfaces a concrete complaint.
-- **DE-Occupation filter mechanism — execute.** The planned filter entry
-  moves from "idea" to "has a first customer": 13-1074.00 Farm Labor
-  Contractors was deliberately left with `title.de === null` in Session
-  30's cluster-C batch 1 because it's genuinely US-taxonomy-specific
-  (migrant labor brokerage) with no 1:1 DE equivalent. Needs a new
-  `scripts/input/excluded-occupations.mjs` list + wiring into the build
-  so excluded codes are dropped from the corpus (search, results,
-  scoring). Small PR; ~30-50 LOC plus tests.
+- **45-3031.00 "Berufsfischer und -jäger" DE-title is awkwardly compounded.**
+  Reads "Berufsfischer und -jäger / Berufsfischerin und -jägerin" —
+  surfaced 2026-04-25 friends-release browser test as feeling dated /
+  zusammengezogen. Real DE-Berufe split the SOC: Fischwirt (Aquakultur /
+  Marine) vs. Berufsjäger (Wildhege). Either pick the more-common one as
+  the primary DE-label (likely Fischwirt) or rephrase ("Fischer und
+  Jäger (Berufsausübung)"). Single override, one line in
+  `title-overrides-de.mjs`.
+
+- **"Förster" search hits nothing — likely a Range Managers mis-mapping.**
+  @mo-sp searched for "Förster" on the results list during the
+  2026-04-25 browser test and got zero matches. Quick check: O*NET
+  "Range Managers" is currently labelled "Forstwirt/Forstwirtin" in DE —
+  but Range Managers manage rangeland (grazing), not forests, so that's
+  drift. The corpus has "Forstaufseher" (Forest and Conservation
+  Technicians) and "Forstwirtschaftskontrolleur" (Forest Fire Inspectors),
+  but no entry titled "Förster". Two-part fix: (i) correct the Range
+  Managers DE-title (true Range-Manager-Beruf is closer to
+  Weidewirtschaft / Naturschutzgebietsverwalter), (ii) confirm whether
+  19-1032.00 Foresters exists in the corpus and ensure it carries
+  "Förster/Försterin" so search resolves it.
 
 - **Audit the 131 seed entries in `scripts/input/kldb-overrides.mjs`.**
   The file was populated retrospectively in Session 26 to pin the existing
@@ -158,52 +172,19 @@ Likely next 1–2 sessions.
   (c) robustify the aggregation (Spearman instead of Pearson, or per-dim
   winsorisation against outliers). Do not pursue before the archetype test —
   first see whether the combined 4-layer stack compensates.
-- **C-dimension items are clerical-heavy.** 8 of 10 Phase-1 C-items measure
-  office / admin / bookkeeping activity (spreadsheets, invoices, mail,
-  payroll, rent collection, front-desk work, inventory, customer databases).
-  Dev-flavoured Conventional (working to strict rules, structured
-  documentation, quality control, syntax discipline) is absent. The O\*NET
-  occupation-level C score (Dev: 5.5/7) draws on a broader construct, but
-  our 10 items only cover the clerical cluster. Fix ideas (content swaps):
-  c-08 rent payments → "work strictly to fixed procedures", c-10 sorting
-  mail → "check work against quality standards", c-02 proofreading forms →
-  "systematically check texts or documents for errors" (broader). Decide
-  after the archetype test whether this is actually needed. Same family as
-  the RIASEC long-form note above.
-
-- **Skills stage vs value inconsistency for the median user.** An all-3s
-  user has a skillsBonus of exactly +0.00 by design (the piecewise bonus
-  is anchored to 0 at the median), but the stage text reads "Solide
-  Überschneidung bei den Fähigkeiten" — a "moderate match" label on a
-  zero value. Either the staging should recognise "effectively zero" as
-  its own neutral band, or the copy should acknowledge "median answers
-  → no bonus either way". Spotted during PR 2a browser test.
-- **Contribution badge colour thresholds ignore sign on Big Five and
-  Values.** Results page shows Big-Five +0.08 and Values −0.09 both in
-  grey. Per `stageForBigFive` at ResultsPage.vue:396 a +0.08 is 'moderate'
-  (grey) and per `stageForValues` a penalty of 0.09 is 'weak' (should
-  render red). Either `stageForValues` threshold is off, or the
-  stage → colour-class mapping doesn't colour 'weak' red for values.
-  Fix: align the Big Five / Values badge thresholds with the Skills
-  delta-label logic (any positive = green, any negative = red, with
-  magnitude bands for intensity). Spotted during Englisch-split smoke
-  test.
-- **Values layer is penalty-only, can never award a bonus.** Current
-  design: `valuesPenalty ∈ [0, 0.35]`, subtracted from fitScore. Users
-  who match an occupation's workContext perfectly get 0 penalty (the
-  best outcome) but never a positive boost. Feels asymmetric next to
-  Big Five (±0.3) and Skills (±0.25). Option: centre values at 0 with
-  a signed contribution, e.g. bonus = (0.175 − penalty) so a perfect
-  match gives +0.175 and a max-mismatch gives −0.175. Revisit during
-  archetype-persona calibration.
+- **C-dimension items still under-represent dev-flavoured Conventional.**
+  Session 33's modernization sweep already broadened c-02 (proofreading
+  contracts), c-08 (data-protection checklists) and c-10 (accounting
+  software) along the lines this entry originally proposed, so the
+  pure-clerical density dropped from 8/10 to ≈5/10. Still under-covered
+  in the remaining 5 items: rule-bound work like quality control,
+  structured documentation, syntax/test discipline. Decide after the
+  archetype-persona test whether the current breadth is enough or
+  whether further swaps are warranted. Same family as the RIASEC
+  long-form note above.
 
 ## Ideas
 
-- **Top-20-Ergebnis teilen.** Copy-Button für die Top-20-Berufsliste als Text
-  und/oder Download als Bild, damit @mo-sp und Test-User das Ergebnis an
-  Freunde schicken können. Offene Fragen: welches Format (Markdown, plain,
-  JSON, Image), ob Score-Werte mitgeschickt werden, Branding/Link zurück
-  zur App.
 - **AI-impact per occupation — two-sided: automation risk + augmentation
   uplift.** Not just "likely to be replaced" but also "AI lifts the
   practical fit of this role for users whose weak dimensions it
