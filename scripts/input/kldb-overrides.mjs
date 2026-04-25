@@ -27,19 +27,19 @@
 
 export default {
   "11-1011.00": { kldbCode: "71104", kldbName: "Geschäftsführer und Vorstände - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Geschäftsführer/Geschäftsführerin
-  "11-1011.03": { kldbCode: "71104", kldbName: "Geschäftsführer und Vorstände - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Beauftragter für die soziale Verantwortung der Unternehmen/Beauftragte für die soziale Verantwortung der Unternehmen
+  // 11-1011.03 Chief Sustainability Officers pulled out of seed (was 71104 Geschäftsführer/Vorstände — Stabsrolle, kein Vorstand) → batch-11 block (71384 Unternehmensorg. sonstige Anf 4)
   "11-1021.00": { kldbCode: "71104", kldbName: "Geschäftsführer und Vorstände - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Leiter des operativen Geschäftsbereichs/Leiterin des operativen Geschäftsbereichs
   "11-3013.01": { kldbCode: "53124", kldbName: "Berufe in Arbeitssicherheit und Sicherheitstechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Leiter Sicherheit / Leiterin Sicherheit
   "11-3031.03": { kldbCode: "72124", kldbName: "Anlageberater und sonstige Finanzdienstleistungsberufe - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Investmentfondsmanager/Investmentfondsmanagerin
-  "11-3051.04": { kldbCode: "41393", kldbName: "Aufsichtskräfte - Chemie", anforderungsniveau: 4, trainingCategory: "studies" }, // Leiter Biomassekraftwerk / Leiterin Biomassekraftwerk
+  // 11-3051.04 Biomass Plant Managers pulled out of seed (was 41393 Aufsichtskräfte Chemie — Domain-Drift) → batch-11 block (26234 Energie/Kraftwerk Anf 4)
   "11-3111.00": { kldbCode: "71594", kldbName: "Führungskräfte - Personalwesen und -dienstleistung", anforderungsniveau: 4, trainingCategory: "studies" }, // Leiter Vergütung und Zusatzleistungen / Leiterin Vergütung und Zusatzleistungen
-  "11-9071.00": { kldbCode: "63124", kldbName: "Sport- und Fitnesskaufleute, Sportmanager - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Leiter einer Glücksspieleinrichtung/Leiterin einer Glücksspieleinrichtung
-  "11-9072.00": { kldbCode: "63124", kldbName: "Sport- und Fitnesskaufleute, Sportmanager - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Leiter einer Freizeiteinrichtung/Leiterin einer Freizeiteinrichtung
+  // 11-9071.00 Gambling Managers pulled out of seed (was 63124 Sport/Fitness — Drift; Glücksspiel-Domain 94342 catalog-only Anf 2 → sibling-domain-pivot to generic Führungskräfte) → batch-11 block (71394 Führungskräfte Unternehmensorganisation Anf 4)
+  // 11-9072.00 Entertainment & Recreation Managers pulled out of seed (was 63124 Sport/Fitness) → batch-11 block (63194 Führungskräfte Tourismus/Sport Anf 4)
   "11-9179.01": { kldbCode: "63124", kldbName: "Sport- und Fitnesskaufleute, Sportmanager - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Leiter einer Sporteinrichtung/Leiterin einer Sporteinrichtung
-  "11-9179.02": { kldbCode: "63124", kldbName: "Sport- und Fitnesskaufleute, Sportmanager - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Leiter eines Heilbades/Leiterin eines Heilbades
-  "11-9199.08": { kldbCode: "53122", kldbName: "Berufe in Arbeitssicherheit und Sicherheitstechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Leiter Diebstahlprävention / Leiterin Diebstahlprävention
+  // 11-9179.02 Spa Managers pulled out of seed (was 63124 Sport/Fitness — "Heilbad" verfehlte Spa-Lesart) → batch-11 block (63194 Führungskräfte Tourismus/Sport Anf 4)
+  // 11-9199.08 Loss Prevention Managers pulled out of seed (was 53122 Arbeitssicherheit Anf 2 — Manager-Tier verfehlt) → batch-11 block (53123 Arbeitssicherheit komplex Anf 3)
   "11-9199.09": { kldbCode: "61394", kldbName: null, anforderungsniveau: 4, trainingCategory: "studies" }, // Betriebsleiter Windpark / Betriebsleiterin Windpark
-  "11-9199.10": { kldbCode: "61394", kldbName: null, anforderungsniveau: 4, trainingCategory: "studies" }, // Projektleiter Windenergie / Projektleiterin Windenergie
+  // 11-9199.10 Wind Energy Project Managers pulled out of seed (was 61394 Immobilien — Drift) → batch-11 block (26244 Regenerative Energietechnik Anf 4)
   // 13-1081.01 Logistics Engineers pulled out of seed (was 51624 Speditions-/Logistikkaufleute — kaufmännisch-fokussiert; Logistics Engineers gestalten systemisch Transportnetzwerke) → batch-8 block (71384 Unternehmensorganisation sonstige hoch komplex Anf 4)
   // 13-1082.00 Project Management Specialists pulled out of seed (was 71393 Aufsichtskräfte — Tier-Mismatch zu Anf 4) → batch-8 block (71394 Führungskräfte Unternehmensorganisation Anf 4)
   // 13-1131.00 Fundraisers pulled out of seed (was 63123 Sport-/Fitnesskaufleute — Stem-Drift via "-kauf-") → batch-8 block (92113 Werbung/Marketing komplex Anf 3)
@@ -637,4 +637,58 @@ export default {
   "43-9071.00": { kldbCode: "71402", kldbName: "Büro- und Sekretariatskräfte (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Office Machine Operators: war 42312 Umweltschutzverwaltung (offensichtlich falsch) — 71402 generic Büro fachlich; coupled mit title.de "Bürogerätemitarbeiter" → "Reprografiekraft"
   "43-9081.00": { kldbCode: "71442", kldbName: "Kodierer/innen, Korrekturleser/innen und verwandte Bürokräfte - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Proofreaders and Copy Markers: war 23213 Digital-/Printmediengestaltung Anf 3 (zu kreativ-fokussiert) — 71442 Korrekturleser ist die Exact-Klasse; sibling-down Anf 3 → 2
   "43-9111.00": { kldbCode: "91342", kldbName: "Berufe in der Markt- und Meinungsforschung - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Statistical Assistants: war 91343 Markt-/Meinungsforschung komplex Anf 3 — Reconcile gegen agent's null; 91342 enthält Demoskopie-Statistik-Hilfskräfte, sibling-down Anf 3 → 2 ist klarer als zu generic 71402
+
+  // === Audit batch 11 — SOC 11 Management (2026-04-25) ===
+  // Plan-table walked all 24 SOC 11 findings. 22 KldB-changing entries below
+  // (14 Apply, 7 seed pull-outs, 2 Modify reconciliations, 1 title-only).
+  // Three reconciliations against agent picks: 11-9072 Recreation 63404 →
+  // 63194 (Tourismus/Sport sauberer als Veranstaltungsservice für Park/Rec
+  // Mgmt); 11-9199.01 RA Director 27194 → 71394 (Konsistenz mit
+  // 13-1041.07 RA Specialist in 71384/Unternehmensorg-Familie);
+  // 11-9071 Gambling Manager 63394 Gastronomie → 71394 generische
+  // Führungskräfte-Klasse (Glücksspiel-Domain 94342 catalog-only Anf 2,
+  // Casino-Mgmt ist nicht Restaurant-Mgmt; sibling-domain-pivot zu generic
+  // Director-Tier — vgl. 33-9031 Surveillance in 94342 als Tier-1-Counterpart).
+  // Sibling-Tier-Pattern weiter aktiv: 5 Anf-Bumps innerhalb gleicher Domain
+  // (11-2033 92203→92204; 11-3012 71393→71394; 11-9051 63313→63394 mit
+  // KldB+Anf-Drift; 11-9171 82402→82403; 11-9199.08 53122→53123).
+
+  // CSR/Sustainability — Stabsrolle, kein Vorstand
+  "11-1011.03": { kldbCode: "71384", kldbName: "Berufe in der Unternehmensorganisation und -strategie (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Chief Sustainability Officers: war 71104 Geschäftsführer/Vorstände (seed-Drift — CSO/Nachhaltigkeitsbeauftragter ist Stabsrolle, kein C-Suite); pulled out of seed; coupled mit title.de "Beauftragter f.d. soziale Verantwortung..." → "CSR-Manager/CSR-Managerin"
+
+  // Marketing/Werbung/PR — Werbung-und-Marketing-Familie
+  "11-2011.00": { kldbCode: "92194", kldbName: "Führungskräfte - Werbung und Marketing", anforderungsniveau: 4, trainingCategory: "studies" }, // Advertising and Promotions Managers: war 43294 IT-Vertrieb (Drift) — Werbeleitung ist Marketing/Werbung; coupled mit title.de "Werbeleiter" → "Werbemanager/Werbemanagerin"
+  "11-2021.00": { kldbCode: "92194", kldbName: "Führungskräfte - Werbung und Marketing", anforderungsniveau: 4, trainingCategory: "studies" }, // Marketing Managers: war 43294 IT-Vertrieb (Drift) — gleiche Werbung/Marketing-Familie wie 11-2011; coupled mit title.de "Führungskraft für Marketing" → "Marketingmanager/Marketingmanagerin"
+  "11-2022.00": { kldbCode: "61194", kldbName: "Führungskräfte - Einkauf und Vertrieb", anforderungsniveau: 4, trainingCategory: "studies" }, // Sales Managers: war 43294 IT-Vertrieb (Drift) — generischer Sales Manager gehört in 61194 Einkauf/Vertrieb, nicht IT-Sales-Spezialklasse
+  "11-2032.00": { kldbCode: "92294", kldbName: "Führungskräfte - Öffentlichkeitsarbeit", anforderungsniveau: 4, trainingCategory: "studies" }, // Public Relations Managers: war 23294 Technische Mediengestaltung (Drift) — PR ist Öffentlichkeitsarbeit
+  "11-2033.00": { kldbCode: "92204", kldbName: "Berufe in der Öffentlichkeitsarbeit - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Fundraising Managers: war 92203 Öffentlichkeit komplex Anf 3 — Manager-Tier (Studienabschluss + Budgetverantwortung); sibling-up 92203 → 92204
+
+  // Admin/Office — Unternehmensorganisations-Familie
+  "11-3012.00": { kldbCode: "71394", kldbName: "Führungskräfte - Unternehmensorganisation und -strategie", anforderungsniveau: 4, trainingCategory: "studies" }, // Administrative Services Managers: war 71393 Aufsichtskräfte Anf 3 (zu niedrig — General Manager Verwaltung ist Director-Tier); sibling-up 71393 → 71394; coupled mit title.de "Bibliotheksleiter" → "Verwaltungsleiter/Verwaltungsleiterin"
+
+  // Energy/Production — domänen-Drift-Korrekturen
+  "11-3051.04": { kldbCode: "26234", kldbName: "Berufe in der Energie- und Kraftwerkstechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Biomass Plant Managers: war 41393 Aufsichtskräfte Chemie (seed-Drift) — Biomasse-Kraftwerk ist Energie-Domain, sibling-Domain zu 11-3051.02 Geothermal (auch 26234) und 11-3051.06 Hydro (31144 Wasser); pulled out of seed
+  "11-3061.00": { kldbCode: "61194", kldbName: "Führungskräfte - Einkauf und Vertrieb", anforderungsniveau: 4, trainingCategory: "studies" }, // Purchasing Managers: war 51694 Verkehr/Logistik (Drift via "-leitung") — Einkauf gehört in 61194; coupled mit title.de "Einkaufsleiter" → "Einkaufsmanager/Einkaufsmanagerin"
+
+  // Education/Hospitality
+  "11-9033.00": { kldbCode: "84394", kldbName: "Führungskräfte - Hochschullehre und -forschung", anforderungsniveau: 4, trainingCategory: "studies" }, // Education Administrators Postsecondary: war 84194 Allgemeinbildende Schulen (Drift; SOC ist Postsecondary = Hochschule); coupled mit title.de "höhere Lehranstalt" → "Hochschulleiter/Hochschulleiterin"
+  "11-9051.00": { kldbCode: "63394", kldbName: "Führungskräfte - Gastronomie und Systemgastronomie", anforderungsniveau: 4, trainingCategory: "studies" }, // Food Service Managers: war 63313 Systemgastronomie komplex Anf 3 (Spezialist-Tier zu niedrig) — Restaurantmanager ist Director-Tier; sibling-up 63313 → 63394 mit Anf 3 → 4
+  "11-9071.00": { kldbCode: "71394", kldbName: "Führungskräfte - Unternehmensorganisation und -strategie", anforderungsniveau: 4, trainingCategory: "studies" }, // Gambling Managers: was seed 63124 Sport/Fitness (Drift) — Reconcile gegen agent's 63394 Gastronomie (Casino ≠ Restaurant); KldB hat keine Glücksspiel-Führungskräfte-Klasse (94342 catalog-only Anf 2), pivot zu 71394 generischer Director-Tier; pulled out of seed
+  "11-9072.00": { kldbCode: "63194", kldbName: "Führungskräfte - Tourismus und Sport", anforderungsniveau: 4, trainingCategory: "studies" }, // Entertainment & Recreation Managers: was seed 63124 Sport/Fitness — Reconcile gegen agent's 63404 Veranstaltungsservice (zu Event-spezifisch); 63194 Tourismus/Sport ist Director-Klasse für Park/Rec/Country-Club-Mgmt, parallel zu 11-9179.02 Spa und 11-9179.01 Sporteinrichtung-Seed; pulled out of seed
+
+  // Research/Engineering Director-Tier
+  "11-9121.01": { kldbCode: "27184", kldbName: "Berufe in der technischen Forschung und Entwicklung (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Clinical Research Coordinators: war 27194 Tech F&E Führungskräfte (Coordinator ist nicht Director-Tier) — 27184 Forschungs-Spezialist Anf 4 trifft Coordinator-Tier besser; KldB hat keine clinical-research-management-Klasse, 27184 ist nearest-tier Forschungs-Domain
+  "11-9121.02": { kldbCode: "31144", kldbName: "Berufe in der Wasserwirtschaft - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Water/Wastewater Engineers: war 71333 Wirtschaftsförderung Anf 3 (Drift) — Wasserwirtschaftsingenieur sitzt in Bau-/Umwelttechnik; KldB+Anf 3 → 4
+
+  // Public sector / facilities
+  "11-9131.00": { kldbCode: "51393", kldbName: "Aufsichtskräfte - Lagerwirtschaft, Post und Zustellung, Güterumschlag", anforderungsniveau: 3, trainingCategory: "specialist" }, // Postmasters and Mail Superintendents: war null Anf 2 (Lücke) — Aufsichts-Tier in Post/Lager-Domain; coupled mit title.de "Postdirektor" → "Poststellenleiter/Poststellenleiterin"
+  "11-9161.00": { kldbCode: "53184", kldbName: "Berufe in Objekt-, Personen-, Brandschutz, Arbeitssicherheit (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Emergency Management Directors: war 42334 Strahlenschutz (Drift) — Katastrophenschutz/Notfallmgmt ist Brandschutz/Sicherheits-Domain, nicht Strahlenschutz
+  "11-9171.00": { kldbCode: "82403", kldbName: "Berufe im Bestattungswesen - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Funeral Home Managers: war 82402 Bestattungswesen fachlich Anf 2 (Geselle-Tier) — Bestattermeister/Funeral Director ist Spezialisten-Tier; sibling-up 82402 → 82403 mit Anf 2 → 3
+  "11-9179.02": { kldbCode: "63194", kldbName: "Führungskräfte - Tourismus und Sport", anforderungsniveau: 4, trainingCategory: "studies" }, // Spa Managers: was seed 63124 Sport/Fitness — "Heilbad" verfehlte Spa-Lesart komplett; 63194 Tourismus/Sport ist Director-Klasse für Wellness/Spa-Mgmt; pulled out of seed; coupled mit title.de "Leiter eines Heilbades" → "Spa-Manager/Spa-Managerin"
+
+  // Compliance/Legal/Risk — Unternehmensorg-Familie konsistent zu 13-1041.07
+  "11-9199.01": { kldbCode: "71394", kldbName: "Führungskräfte - Unternehmensorganisation und -strategie", anforderungsniveau: 4, trainingCategory: "studies" }, // Regulatory Affairs Managers: war 73104 Rechtsberatung (Drift — RA ist Zulassungsmgmt, kein Anwalt) — Reconcile gegen agent's 27194 Tech F&E; 71394 hält RA-Familie konsistent zu 13-1041.07 RA Specialist (71384) als Director-Tier; coupled mit title.de "Leiter Regulatory Affairs" → "Zulassungsleiter/Zulassungsleiterin"
+  "11-9199.02": { kldbCode: "71384", kldbName: "Berufe in der Unternehmensorganisation und -strategie (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Compliance Managers: war 73104 Rechtsberatung (Drift) — Compliance-Mgmt ist Unternehmensorg-Senior-Specialist-Tier (Lead innerhalb Risk/Legal), 71384 statt 71394-Director-Tier
+  "11-9199.08": { kldbCode: "53123", kldbName: "Berufe in Arbeitssicherheit und Sicherheitstechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Loss Prevention Managers: was seed 53122 fachlich Anf 2 (zu niedrig — Manager plant/steuert Sicherheitsprogramme); sibling-up 53122 → 53123 mit Anf 2 → 3; pulled out of seed
+  "11-9199.10": { kldbCode: "26244", kldbName: "Berufe in der regenerativen Energietechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Wind Energy Project Managers: was seed 61394 Immobilien (Drift) — Windenergie-Projektmgmt gehört in regenerative Energietechnik; pulled out of seed
 }

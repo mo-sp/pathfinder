@@ -22,8 +22,8 @@
       "trainingCategory": "studies"
     },
     "11-1011.03": {
-      "kldbCode": "71104",
-      "kldbName": "Geschäftsführer und Vorstände - hoch komplexe Tätigkeiten",
+      "kldbCode": "71384",
+      "kldbName": "Berufe in der Unternehmensorganisation und -strategie (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -40,40 +40,40 @@
       "trainingCategory": "studies"
     },
     "11-2011.00": {
-      "kldbCode": "43294",
-      "kldbName": "Führungskräfte - IT-Systemanalyse, IT-Anwendungsberatung und IT-Vertrieb",
+      "kldbCode": "92194",
+      "kldbName": "Führungskräfte - Werbung und Marketing",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "11-2021.00": {
-      "kldbCode": "43294",
-      "kldbName": "Führungskräfte - IT-Systemanalyse, IT-Anwendungsberatung und IT-Vertrieb",
+      "kldbCode": "92194",
+      "kldbName": "Führungskräfte - Werbung und Marketing",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "11-2022.00": {
-      "kldbCode": "43294",
-      "kldbName": "Führungskräfte - IT-Systemanalyse, IT-Anwendungsberatung und IT-Vertrieb",
+      "kldbCode": "61194",
+      "kldbName": "Führungskräfte - Einkauf und Vertrieb",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "11-2032.00": {
-      "kldbCode": "23294",
-      "kldbName": "Führungskräfte - Technische Mediengestaltung",
+      "kldbCode": "92294",
+      "kldbName": "Führungskräfte - Öffentlichkeitsarbeit",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "11-2033.00": {
-      "kldbCode": "92203",
-      "kldbName": "Berufe in der Öffentlichkeitsarbeit - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "92204",
+      "kldbName": "Berufe in der Öffentlichkeitsarbeit - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "11-3012.00": {
-      "kldbCode": "71393",
-      "kldbName": "Aufsichtskräfte - Unternehmensorganisation und -strategie",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "71394",
+      "kldbName": "Führungskräfte - Unternehmensorganisation und -strategie",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "11-3013.00": {
       "kldbCode": "61394",
@@ -136,8 +136,8 @@
       "trainingCategory": "specialist"
     },
     "11-3051.04": {
-      "kldbCode": "41393",
-      "kldbName": "Aufsichtskräfte - Chemie",
+      "kldbCode": "26234",
+      "kldbName": "Berufe in der Energie- und Kraftwerkstechnik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -148,8 +148,8 @@
       "trainingCategory": "studies"
     },
     "11-3061.00": {
-      "kldbCode": "51694",
-      "kldbName": "Führungskräfte - Verkehr und Logistik (kaufmännischer Bereich)",
+      "kldbCode": "61194",
+      "kldbName": "Führungskräfte - Einkauf und Vertrieb",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -208,8 +208,8 @@
       "trainingCategory": "studies"
     },
     "11-9033.00": {
-      "kldbCode": "84194",
-      "kldbName": "Führungskräfte - Allgemeinbildende Schulen",
+      "kldbCode": "84394",
+      "kldbName": "Führungskräfte - Hochschullehre und -forschung",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -226,20 +226,20 @@
       "trainingCategory": "studies"
     },
     "11-9051.00": {
-      "kldbCode": "63313",
-      "kldbName": "Berufe in der Systemgastronomie - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "63394",
+      "kldbName": "Führungskräfte - Gastronomie und Systemgastronomie",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "11-9071.00": {
-      "kldbCode": "63124",
-      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - hoch komplexe Tätigkeiten",
+      "kldbCode": "71394",
+      "kldbName": "Führungskräfte - Unternehmensorganisation und -strategie",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "11-9072.00": {
-      "kldbCode": "63124",
-      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - hoch komplexe Tätigkeiten",
+      "kldbCode": "63194",
+      "kldbName": "Führungskräfte - Tourismus und Sport",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -262,22 +262,22 @@
       "trainingCategory": "studies"
     },
     "11-9121.01": {
-      "kldbCode": "27194",
-      "kldbName": "Führungskräfte - Technische Forschung und Entwicklung",
+      "kldbCode": "27184",
+      "kldbName": "Berufe in der technischen Forschung und Entwicklung (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "11-9121.02": {
-      "kldbCode": "71333",
-      "kldbName": "Berufe in der Wirtschaftsförderung - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "31144",
+      "kldbName": "Berufe in der Wasserwirtschaft - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "11-9131.00": {
-      "kldbCode": null,
-      "kldbName": null,
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship",
+      "kldbCode": "51393",
+      "kldbName": "Aufsichtskräfte - Lagerwirtschaft, Post und Zustellung, Güterumschlag",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist",
       "fromJobZone": true
     },
     "11-9141.00": {
@@ -293,16 +293,16 @@
       "trainingCategory": "specialist"
     },
     "11-9161.00": {
-      "kldbCode": "42334",
-      "kldbName": "Strahlenschutzbeauftragte - hoch komplexe Tätigkeiten",
+      "kldbCode": "53184",
+      "kldbName": "Berufe in Objekt-, Personen-, Brandschutz, Arbeitssicherheit (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "11-9171.00": {
-      "kldbCode": "82402",
-      "kldbName": "Berufe im Bestattungswesen - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "82403",
+      "kldbName": "Berufe im Bestattungswesen - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "11-9179.01": {
       "kldbCode": "63124",
@@ -311,28 +311,28 @@
       "trainingCategory": "studies"
     },
     "11-9179.02": {
-      "kldbCode": "63124",
-      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - hoch komplexe Tätigkeiten",
+      "kldbCode": "63194",
+      "kldbName": "Führungskräfte - Tourismus und Sport",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "11-9199.01": {
-      "kldbCode": "73104",
-      "kldbName": "Berufe in Rechtsberatung, -sprechung und -ordnung (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
+      "kldbCode": "71394",
+      "kldbName": "Führungskräfte - Unternehmensorganisation und -strategie",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "11-9199.02": {
-      "kldbCode": "73104",
-      "kldbName": "Berufe in Rechtsberatung, -sprechung und -ordnung (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
+      "kldbCode": "71384",
+      "kldbName": "Berufe in der Unternehmensorganisation und -strategie (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "11-9199.08": {
-      "kldbCode": "53122",
-      "kldbName": "Berufe in Arbeitssicherheit und Sicherheitstechnik - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "53123",
+      "kldbName": "Berufe in Arbeitssicherheit und Sicherheitstechnik - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "11-9199.09": {
       "kldbCode": "61394",
@@ -341,8 +341,8 @@
       "trainingCategory": "studies"
     },
     "11-9199.10": {
-      "kldbCode": "61394",
-      "kldbName": null,
+      "kldbCode": "26244",
+      "kldbName": "Berufe in der regenerativen Energietechnik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1197,8 +1197,8 @@
       "trainingCategory": "apprenticeship"
     },
     "19-1011.00": {
-      "kldbCode": "41204",
-      "kldbName": "Berufe in der Biologie (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
+      "kldbCode": "81504",
+      "kldbName": "Tierärzte/-ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
