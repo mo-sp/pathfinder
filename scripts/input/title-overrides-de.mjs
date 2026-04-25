@@ -514,17 +514,19 @@ export default {
   '29-2036.00': 'Medizinphysiker Dosimetrie / Medizinphysikerin Dosimetrie', // Medical Dosimetrists
   '43-4111.00': 'Interviewer/Interviewerin', // Interviewers, Except Eligibility and Loan
 
-  // === Cluster-C batch 1: primary-null fills (2026-04-24) ===
-  // 26 codes where title.de was null from ESCO. Mix of (i) codes with real
+  // === Cluster-C batch 1: primary-null fills (2026-04-24, extended 2026-04-25) ===
+  // 27 codes where title.de was null from ESCO. Mix of (i) codes with real
   // DE-Ausbildungsberuf equivalents where ESCO had no mapped preferredLabel.de
   // (MTRA Strahlentherapie, Patientenfuersprecher, Vermessungsingenieur, …)
   // and (ii) genuinely US-taxonomy-specific roles where no 1:1 DE equivalent
-  // exists — best-effort nearest approximation. One code (13-1074.00 Farm
-  // Labor Contractors) deliberately left null, slated for removal via the
-  // planned DE-occupation filter (BACKLOG).
+  // exists — best-effort nearest approximation (13-1074.00 Farm Labor
+  // Contractors falls in (ii); kept as a single-line approximation rather
+  // than the previously-planned filter mechanism, per browser-test scope
+  // call).
   '11-9131.00': 'Postdirektor/Postdirektorin', // Postmasters and Mail Superintendents
   '11-9199.11': 'Projektleiter Altlastensanierung / Projektleiterin Altlastensanierung', // Brownfield Redevelopment Specialists and Site Managers
   '13-1022.00': 'Einkäufer/Einkäuferin', // Wholesale and Retail Buyers, Except Farm Products
+  '13-1074.00': 'Saisonkräfte-Vermittler Landwirtschaft / Saisonkräfte-Vermittlerin Landwirtschaft', // Farm Labor Contractors (US-taxonomy, no 1:1 DE)
   '15-1299.03': 'Fachangestellter für Medien- und Informationsdienste / Fachangestellte für Medien- und Informationsdienste', // Document Management Specialists (FaMI, IHK-Ausbildungsberuf)
   '17-1022.01': 'Vermessungsingenieur Landesvermessung / Vermessungsingenieurin Landesvermessung', // Geodetic Surveyors
   '23-1022.00': 'Mediator/Mediatorin', // Arbitrators, Mediators, and Conciliators

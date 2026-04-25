@@ -230,6 +230,61 @@ function occupationSubtitle(o: Occupation): string | null {
   return cleaned
 }
 
+const SHARE_TOP_N = 20
+const SHARE_LANDING_URL = 'https://pathfinder-liard-phi.vercel.app'
+
+// Tri-state so the button label can flicker "Kopiert!" briefly without
+// inventing a toast layer for one feature.
+const shareState = ref<'idle' | 'copied' | 'failed'>('idle')
+
+function formatShareMarkdown(): string {
+  const top = rankedResults.value.slice(0, SHARE_TOP_N)
+  const lines: string[] = ['PathFinder · meine Top-' + top.length, '']
+  for (const r of top) {
+    const score = (displayFitScore(r.fitScore) * 100).toFixed(0)
+    lines.push(`${r.rank}. ${displayTitle(r.occupation)} · ${score}%`)
+  }
+  lines.push('', `Eigene Top-20: ${SHARE_LANDING_URL}`)
+  return lines.join('\n')
+}
+
+// `navigator.clipboard` requires a secure context — fails on the LAN HTTP
+// dev sandbox. Fall back to the legacy textarea+execCommand path so the
+// feature works there too.
+async function writeToClipboard(text: string): Promise<boolean> {
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text)
+      return true
+    }
+  } catch {
+    // fall through to legacy
+  }
+  const ta = document.createElement('textarea')
+  ta.value = text
+  ta.style.position = 'fixed'
+  ta.style.opacity = '0'
+  ta.setAttribute('readonly', '')
+  document.body.appendChild(ta)
+  ta.select()
+  let ok = false
+  try {
+    ok = document.execCommand('copy')
+  } catch {
+    ok = false
+  }
+  document.body.removeChild(ta)
+  return ok
+}
+
+async function shareTop20(): Promise<void> {
+  const ok = await writeToClipboard(formatShareMarkdown())
+  shareState.value = ok ? 'copied' : 'failed'
+  window.setTimeout(() => {
+    shareState.value = 'idle'
+  }, 2000)
+}
+
 /** Score delta: difference between the current view's fitScore and the RIASEC baseline. */
 function scoreDelta(result: { riasecCorrelation: number; fitScore: number; bigFiveModifier: number | null; valuesContribution: number | null; skillsBonus: number | null }): number | null {
   if (viewMode.value === 'riasec') return null
@@ -961,7 +1016,7 @@ onBeforeUnmount(() => {
             <div class="relative min-w-[16rem] flex-1">
               <input
                 v-model="searchQuery"
-                type="search"
+                type="text"
                 placeholder="Beruf suchen (z.B. Softwareentwickler, Zimmerer, Arzt)"
                 class="w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-1.5 pr-8 text-xs text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:outline-none"
               >
@@ -1000,6 +1055,19 @@ onBeforeUnmount(() => {
                 </span>
               </span>
             </label>
+          </div>
+
+          <div
+            v-if="!isSearching && rankedResults.length > 0"
+            class="mt-4 flex justify-end"
+          >
+            <button
+              type="button"
+              class="rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700"
+              @click="shareTop20"
+            >
+              {{ shareState === 'copied' ? 'In die Zwischenablage kopiert!' : shareState === 'failed' ? 'Kopieren fehlgeschlagen' : 'Top-20 zum Teilen kopieren' }}
+            </button>
           </div>
 
           <ol class="mt-6 space-y-3">

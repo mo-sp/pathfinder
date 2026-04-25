@@ -5,6 +5,43 @@
 
 ---
 
+### Session 34 – 2026-04-25
+**Focus:** Friends-release prep — three independent UX/scoring fixes (skills neutral stage, restart granularity, values symmetrize), one viral hook (Top-20 copy-to-clipboard), one stray search-input bug, plus a BACKLOG-spring-cleaning. Two PRs on `feat/friends-release-ux-batch` and `feat/top-20-share-and-backlog-admin`. Fourth session this calendar day.
+
+**Meta / process notes:**
+- **BACKLOG read drove session scope; @mo-sp's Friends-test framing pruned aggressively.** Started by walking BACKLOG against "what's blocking the friends-release smoke test." Of ~25 entries surfaced, four made the cut: skills stage copy bug, top-20 share, values penalty-only asymmetry, and a new restart-granularity finding @mo-sp surfaced mid-session ("nur diesen teil neu" inside Skills sub-categories). Archetype-persona calibration + the 238-item concrete-examples pass got explicitly deferred to dedicated sessions; Farm-Labor-Contractors got a one-line title.de override instead of the planned filter mechanism (no other null-titled customer remained). Fewer entries shipped than considered; the framing kept us from drifting into "while we're here" cleanup.
+- **Three iterative browser-test rounds for the values rebalancing.** Initial implementation used `centre = 0.175 = max_penalty/2` as the symmetric mathematical midpoint. Browser-test caught the calibration miss: with @mo-sp's "outdoor=5, others=3" profile, even Bibliothekar (indoor + high-routine job) showed +0.06 contribution. Math: 7-dim penalty for that mix is ≈0.115 — only environment + routine cleanly mismatch, the other 5 mid-mid dims contribute ~0; 0.175 minus 0.115 = +0.06 positive bonus on a clearly-wrong job. Root cause: real workContext-penalties cluster around 0.04–0.15, never the full [0, 0.35] range, so the mathematical midpoint sat above almost every empirical penalty. Lowered centre to 0.10 (closer to empirical median) — Bibliothekar now correctly reads −0.02; range becomes asymmetric [−0.25, +0.10] which fits the asymmetry of real-life workContext mismatch (penalty bites harder than match rewards). Provisional pending the archetype-persona session.
+- **Restart redesign rolled back after one browser test cycle.** First-pass UX added two buttons across all layers: "Nur diesen Teil neu" + "Alles neu" (with confirm). @mo-sp pushed back: layer-wide reset is one click from /home, the second button is over-invasive. Scoped down — "Nur diesen Teil neu" is now Skills-layer-only and resets just the current sub-category (Skills / Talente / Wissen) via the existing `repeatSkillsSubCategory(skillsCurrentSubCategory)` action; the others keep their original single button labelled "Schicht neu starten". Pattern: "what does this button do that the existing path doesn't already" is the question that kept asking itself.
+- **Values field rename `valuesPenalty` → `valuesContribution` was safe.** Concern was Dexie persistence — does an existing user's stored session still have the old field name? Verification: results are computed fresh on each load from raw answers, never persisted with field-named keys; Dexie holds questionnaire answers, not pre-computed match objects. So the rename touched matcher.ts, types.ts, ResultsPage.vue, three test files, and one test fixture — but not migration code. Saved an afternoon of "do we need a Dexie migration".
+- **Two specific data findings parked for later, not silently absorbed.** During values verification @mo-sp surfaced "Berufsfischer und -jäger" (45-3031.00) as awkwardly compounded and "Förster" search returning zero matches. The Förster lookup turned up a likely Range-Managers-mis-mapping (Range Managers should not be labelled "Forstwirt"). Both got dedicated BACKLOG entries with reproduction context and proposed fix paths instead of getting bundled into this PR — they're real but not friends-release-blockers.
+
+**What shipped — `feat/friends-release-ux-batch` (1 PR, 6 commits):**
+
+*`src/pages/results/ResultsPage.vue` + `src/shared/lib/i18n.ts`*: skills stage gains a `'neutral'` band for `|bonus| < 0.005`; new copy "Fähigkeiten im Mittel – kein Einfluss auf den Score." Median user no longer reads "Solide Überschneidung" on a 0.00 value.
+
+*`src/pages/assessment/AssessmentPage.vue`*: in Skills layer, adds "Nur diesen Teil neu" button (Sub-Cat reset) alongside the original "Schicht neu starten" (full-layer reset). Other layers keep their single button.
+
+*`src/features/matching/lib/matcher.ts` + `src/entities/occupation/model/types.ts` + `src/pages/results/ResultsPage.vue` + `src/shared/lib/i18n.ts` + 3 test files*: values layer symmetrized. Field renamed `valuesPenalty` → `valuesContribution`. New constant `VALUES_CONTRIBUTION_CENTRE = 0.10` (browser-test calibrated, not the original 0.175). `fitScore += contribution` instead of `−= penalty`. `stageForValues` re-tuned for the new asymmetric range [−0.25, +0.10] with neutral band. i18n thresholds rewritten to match symmetric semantics.
+
+**What shipped — `feat/top-20-share-and-backlog-admin` (1 PR, 5 commits):**
+
+*`src/pages/results/ResultsPage.vue`*: results-search input switched from `type="search"` to `type="text"` — the native browser × clear-button was rendering alongside the page's custom × overlay. Side-by-side double clear-buttons.
+
+*`src/pages/results/ResultsPage.vue`*: "Top-20 zum Teilen kopieren" button above the ranked list. Output is plain Markdown (title + score% + landing URL footer). Hidden during active search. `navigator.clipboard.writeText` with legacy `textarea + execCommand('copy')` fallback so the LAN HTTP dev sandbox works too. Brief inline "Kopiert!" feedback for 2 s, no toast layer. Image-download deliberately deferred — Markdown copy covers the messenger-share use case, the PNG variant adds a dependency for what is also browser-screenshottable.
+
+*`scripts/input/title-overrides-de.mjs` + `src/data/onet-occupations.json`*: 13-1074.00 Farm Labor Contractors gets a one-line nearest-DE title ("Saisonkräfte-Vermittler Landwirtschaft / Saisonkräfte-Vermittlerin Landwirtschaft") instead of remaining null.
+
+*`BACKLOG.md` housekeeping*: Five entries retired as shipped or verified-already-shipped (Skills stage vs value inconsistency, Contribution badge colour thresholds, Values layer penalty-only, Top-20-Ergebnis teilen, DE-Occupation filter mechanism). One entry (C-dimension clerical-heavy) rewritten to reflect Session 33's progress — c-02/c-08/c-10 already broadened the way that entry originally proposed; remaining gap is dev-flavoured C (rule-bound work, structured documentation, QC). DE-Title quality pass 2 entry edited to mention Farm-Labor-ad-hoc-fill. Two new entries added: 45-3031.00 Berufsfischer-und-Jäger DE-title rephrasing, and Förster-search-misses (with the Range-Managers-mis-mapping diagnostic).
+
+**Branches:** `feat/friends-release-ux-batch` (4 commits → PR shipped), `feat/top-20-share-and-backlog-admin` (5 commits → PR + this docs commit).
+
+**Open for next sessions (tracked in BACKLOG):**
+- **Archetype-persona scoring validation** — the Up-next entry. After it: justify or re-tune `VALUES_CONTRIBUTION_CENTRE = 0.10`, decide whether C-dimension still needs more dev-flavoured items, validate the full 4-layer stack against archetype profiles.
+- **Concrete examples on every question** — own session, ~238 examples across all four layers.
+- **45-3031.00 + Förster fixes** — small dedicated PR, single-file overrides.
+
+---
+
 ### Session 33 – 2026-04-25
 **Focus:** O*NET Interest Profiler modernization sweep — 13 RIASEC items touched across three browser-test-driven rounds on the same branch. One PR on `feat/onet-items-modernization-2026` with 3 data commits (SUMMARY here rides as the 4th). Third session this calendar day; same-day chain after Sessions 31/32.
 
