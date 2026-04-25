@@ -2057,14 +2057,14 @@
       "trainingCategory": "studies"
     },
     "27-1011.00": {
-      "kldbCode": "94493",
-      "kldbName": "Aufsichtskräfte - Theater-, Film- und Fernsehproduktion",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "23224",
+      "kldbName": "Berufe im Grafik-, Kommunikations- und Fotodesign - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "27-1012.00": {
-      "kldbCode": "93422",
-      "kldbName": "Berufe in der kunsthandwerklichen Glas-, Keram- und Porzellanmalerei - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "93302",
+      "kldbName": "Berufe in Kunsthandwerk und bildender Kunst (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2087,14 +2087,14 @@
       "trainingCategory": "specialist"
     },
     "27-1022.00": {
-      "kldbCode": "93102",
-      "kldbName": "Berufe im Produkt- und Industriedesign - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "28213",
+      "kldbName": "Berufe im Modedesign - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "27-1023.00": {
-      "kldbCode": "61212",
-      "kldbName": "Kaufleute im Groß- und Außenhandel - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "12202",
+      "kldbName": "Berufe in der Floristik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2105,8 +2105,8 @@
       "trainingCategory": "specialist"
     },
     "27-1025.00": {
-      "kldbCode": "93233",
-      "kldbName": "Berufe in der Raumausstattung - komplexe Spezialistentätigkeiten",
+      "kldbCode": "93213",
+      "kldbName": "Berufe in der Innenarchitektur - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -2117,8 +2117,8 @@
       "trainingCategory": "apprenticeship"
     },
     "27-1027.00": {
-      "kldbCode": "93213",
-      "kldbName": "Berufe in der Innenarchitektur - komplexe Spezialistentätigkeiten",
+      "kldbCode": "94403",
+      "kldbName": "Berufe in der Theater-, Film- und Fernsehproduktion (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -2141,14 +2141,14 @@
       "trainingCategory": "specialist"
     },
     "27-2012.04": {
-      "kldbCode": "94493",
-      "kldbName": "Aufsichtskräfte - Theater-, Film- und Fernsehproduktion",
+      "kldbCode": "94483",
+      "kldbName": "Berufe in der Theater-, Film- und Fernsehproduktion (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "27-2012.05": {
-      "kldbCode": "94513",
-      "kldbName": "Berufe in der Veranstaltungs- und Bühnentechnik - komplexe Spezialistentätigkeiten",
+      "kldbCode": "94403",
+      "kldbName": "Berufe in der Theater-, Film- und Fernsehproduktion (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -2165,32 +2165,32 @@
       "trainingCategory": "specialist"
     },
     "27-2023.00": {
-      "kldbCode": "63122",
-      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
-    },
-    "27-2031.00": {
-      "kldbCode": "94382",
-      "kldbName": "Berufe in Moderation und Unterhaltung (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
-    },
-    "27-2032.00": {
-      "kldbCode": "94382",
-      "kldbName": "Berufe in Moderation und Unterhaltung (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
-    },
-    "27-2041.00": {
-      "kldbCode": "94183",
-      "kldbName": "Musik-, Gesangs- und Dirigententätigkeiten (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "94243",
+      "kldbName": "Athleten/Athletinnen und Berufssportler - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
+    "27-2031.00": {
+      "kldbCode": "94224",
+      "kldbName": "Tänzer/innen und Choreografen/Choreografinnen - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
+    },
+    "27-2032.00": {
+      "kldbCode": "94224",
+      "kldbName": "Tänzer/innen und Choreografen/Choreografinnen - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
+    },
+    "27-2041.00": {
+      "kldbCode": "94134",
+      "kldbName": "Dirigenten/Dirigentinnen - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
+    },
     "27-2042.00": {
-      "kldbCode": "94283",
-      "kldbName": "Berufe in Schauspiel, Tanz und Bewegungskunst (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "94183",
+      "kldbName": "Musik-, Gesangs- und Dirigententätigkeiten (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -2231,16 +2231,16 @@
       "trainingCategory": "specialist"
     },
     "27-3043.00": {
-      "kldbCode": "92413",
-      "kldbName": "Redakteure/Redakteurinnen und Journalisten/Journalistinnen - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "92434",
+      "kldbName": "Autoren/Autorinnen und Schriftsteller/innen - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "27-3043.05": {
-      "kldbCode": "92413",
-      "kldbName": "Redakteure/Redakteurinnen und Journalisten/Journalistinnen - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "92434",
+      "kldbName": "Autoren/Autorinnen und Schriftsteller/innen - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "27-3091.00": {
       "kldbCode": "71423",
@@ -2249,26 +2249,26 @@
       "trainingCategory": "specialist"
     },
     "27-3092.00": {
-      "kldbCode": "63212",
-      "kldbName": "Hotelkaufleute - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "71432",
+      "kldbName": "Steno- und Phonotypisten/-typistinnen - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "27-4011.00": {
-      "kldbCode": "82332",
-      "kldbName": "Tätowierer und Piercer - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "94532",
+      "kldbName": "Berufe in der Bild- und Tontechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "27-4012.00": {
-      "kldbCode": "51182",
-      "kldbName": "Berufe im technischen Betrieb des Eisenbahn-, Luft- und Schiffsverkehrs (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "94512",
+      "kldbName": "Berufe in der Veranstaltungs- und Bühnentechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "27-4014.00": {
-      "kldbCode": "94402",
-      "kldbName": "Berufe in der Theater-, Film- und Fernsehproduktion (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "94532",
+      "kldbName": "Berufe in der Bild- und Tontechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2291,8 +2291,8 @@
       "trainingCategory": "apprenticeship"
     },
     "27-4032.00": {
-      "kldbCode": "94493",
-      "kldbName": "Aufsichtskräfte - Theater-, Film- und Fernsehproduktion",
+      "kldbCode": "94483",
+      "kldbName": "Berufe in der Theater-, Film- und Fernsehproduktion (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
