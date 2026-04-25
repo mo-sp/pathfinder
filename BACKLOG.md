@@ -18,10 +18,22 @@ current PR. For what shipped when, see `SUMMARY.md`.
 
 Likely next 1–2 sessions.
 
-- **End-to-end scoring validation with archetype-personas** — viable now that
-  all four layers have real data. Use the search feature added in Session 18
-  as the spot-check tool; tune `SKILLS_ALPHA` (0.5), `BIG_FIVE_ALPHA` (0.3),
-  `VALUES_DIMENSION_WEIGHT` (0.05) against consistent signals.
+- **BigFive coverage gap — ~141 / 923 occupations have no BigFive profile.**
+  Surfaced during the archetype-persona session 2026-04-25. The matcher
+  currently sets `bigFiveModifier = null` for occupations without a
+  BigFive profile — they get a free pass through the BigFive layer
+  regardless of how strong the user's personality preferences are. For
+  P13 (low-O Investigator) the 13-strongest research roles like Astronom
+  19-2011, Anthropologe 19-3091, Historiker 19-3093 (all bf=null in the
+  data) end up high in top-10 because they escape the low-O penalty
+  entirely, while their bf=present siblings (Mathematiker, Datenwiss)
+  get correctly penalised. Fix options: (a) per-ISCO-group mean
+  imputation from sibling occupations that *do* have data, (b) explicit
+  small penalty for missing data so users with strong personality
+  preferences don't get noise from undocumented occupations, (c) accept
+  as a known limit and document it. Affects mostly specialty/sub-codes
+  with .01-.99 suffixes (Astronomers, Historians, Anthropologists)
+  rather than mainstream occupations.
 
 ## Data quality
 
