@@ -14,13 +14,17 @@ const BIG_FIVE_ALPHA = 0.3
 const VALUES_DIMENSION_WEIGHT = 0.05
 
 /**
- * Centre point for the signed values contribution. With a max penalty of
- * 0.35, using 0.175 yields a symmetric swing in [−0.175, +0.175]: perfect
- * match → +0.175, max mismatch → −0.175. Median match (≈ 0.175 penalty)
- * contributes 0. Half of Big Five's ±0.3 span, consistent with the
- * instrument being softer than personality.
+ * Centre point for the signed values contribution. Browser-test calibrated:
+ * a mid-mid user (all values = 3) typically lands around 0.05–0.10 penalty
+ * for a real occupation, so a 0.175 mathematical-midpoint had everyone
+ * collecting positive contributions. 0.10 is closer to the empirical
+ * median, so a one-dimension mismatch (e.g. outdoor want vs indoor job)
+ * already drags the contribution slightly negative. Range becomes
+ * asymmetric [−0.25, +0.10] — penalty bites harder than bonus rewards,
+ * which fits the asymmetry of workContext-mismatch in real life.
+ * Provisional pending archetype-persona calibration session.
  */
-const VALUES_CONTRIBUTION_CENTRE = 0.175
+const VALUES_CONTRIBUTION_CENTRE = 0.10
 
 /**
  * User's education willingness (1-5 Likert) → max allowed KldB
@@ -225,11 +229,9 @@ export function matchOccupations(
     if (useValues) {
       const penalty = computeValuesPenalty(userValues, occupation)
       if (penalty != null) {
-        // Symmetrize: map penalty [0, 0.35] to a signed contribution
-        // centred at 0. Perfect match (penalty = 0) awards +0.175; a
-        // max mismatch gives a symmetric negative. Keeps Values in line
-        // with Big Five (±0.3) and Skills (±0.25) instead of being
-        // penalty-only.
+        // Map penalty [0, ~0.35] to a signed contribution centred at the
+        // empirical median penalty (see CENTRE doc). Perfect match awards
+        // +CENTRE; mismatch goes negative.
         valuesContribution = VALUES_CONTRIBUTION_CENTRE - penalty
         fitScore += valuesContribution
       }

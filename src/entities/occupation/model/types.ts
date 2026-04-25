@@ -94,7 +94,7 @@ export interface MatchResult {
   riasecCorrelation: number
   /** Additive Big Five adjustment in [−0.3, +0.3] (α × bfSimilarity). null when occupation has no Big Five profile. */
   bigFiveModifier: number | null
-  /** Signed values contribution added to fitScore, centred at 0: 0.175 − penalty ∈ [−0.175, +0.175]. null when values not provided. */
+  /** Signed values contribution added to fitScore: 0.10 − penalty ∈ [−0.25, +0.10] (asymmetric, penalty-heavier). null when values not provided. */
   valuesContribution: number | null
   /** Weighted similarity between user skills profile and occupation, 0-1. null when occupation has no skills data or user has no skills profile. */
   skillsMatch: number | null

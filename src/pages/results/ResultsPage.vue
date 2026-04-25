@@ -417,14 +417,15 @@ function stageForBigFive(v: number): Stage {
   if (v >= -0.1) return 'weak'
   return 'poor'
 }
-// Values staged on the signed contribution in [−0.175, +0.175]. Symmetric
-// around 0, with an explicit neutral band for effectively-zero so a median
-// match doesn't read as "perfectly aligned" or "poorly aligned" either.
+// Values staged on the signed contribution in [−0.25, +0.10]. Asymmetric
+// (penalty side is wider than bonus side because the centre sits at the
+// empirical median penalty, not the mathematical midpoint). Neutral band
+// for effectively-zero contributions.
 function stageForValues(contribution: number): Stage {
   if (Math.abs(contribution) < 0.005) return 'neutral'
-  if (contribution >= 0.1) return 'strong'
+  if (contribution >= 0.07) return 'strong'
   if (contribution > 0) return 'moderate'
-  if (contribution > -0.1) return 'weak'
+  if (contribution > -0.10) return 'weak'
   return 'poor'
 }
 // Skills staged by the signed skillsBonus in [−0.25, +0.25]. Effectively-

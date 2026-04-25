@@ -278,7 +278,7 @@ describe('matchOccupations', () => {
       expect(results[0].fitScore).toBe(results[0].riasecCorrelation)
     })
 
-    it('contribution tops out near +0.175 for perfectly matching preferences', () => {
+    it('contribution tops out near +0.10 for perfectly matching preferences', () => {
       const userProfile: RIASECProfile = { R: 7, I: 2, A: 2, S: 2, E: 2, C: 3 }
       // Preferences that match outdoorJob: outdoor, physical, low contact, moderate autonomy
       const perfectMatch: ValuesProfile = {
@@ -286,12 +286,12 @@ describe('matchOccupations', () => {
         physicalDemands: 5, autonomy: 3, publicContact: 2, routine: 3,
       }
       const results = matchOccupations(userProfile, [outdoorJob], 20, null, null, perfectMatch)
-      // contribution = 0.175 − penalty; perfect → penalty ≈ 0 → contribution ≈ +0.175
-      expect(results[0].valuesContribution!).toBeGreaterThan(0.125)
-      expect(results[0].valuesContribution!).toBeLessThanOrEqual(0.175)
+      // contribution = 0.10 − penalty; perfect → penalty ≈ 0 → contribution ≈ +0.10
+      expect(results[0].valuesContribution!).toBeGreaterThan(0.05)
+      expect(results[0].valuesContribution!).toBeLessThanOrEqual(0.10)
     })
 
-    it('contribution bottoms out near −0.175 on maximum mismatch', () => {
+    it('contribution bottoms out around −0.25 on maximum mismatch', () => {
       const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
       // Maximally mismatched: want outdoor+physical+solo vs indoor desk team job
       const maxMismatch: ValuesProfile = {
@@ -299,10 +299,10 @@ describe('matchOccupations', () => {
         physicalDemands: 5, autonomy: 1, publicContact: 1, routine: 5,
       }
       const results = matchOccupations(userProfile, [deskJob], 20, null, null, maxMismatch)
-      // contribution = 0.175 − penalty; max penalty ≈ 0.35 → contribution ≈ −0.175.
+      // contribution = 0.10 − penalty; max penalty ≈ 0.35 → contribution ≈ −0.25.
       // Allow small slack (penalty can edge past 0.35 in composite math).
-      expect(results[0].valuesContribution!).toBeLessThan(0)
-      expect(results[0].valuesContribution!).toBeGreaterThanOrEqual(-0.225)
+      expect(results[0].valuesContribution!).toBeLessThan(-0.10)
+      expect(results[0].valuesContribution!).toBeGreaterThanOrEqual(-0.30)
     })
 
     it('values re-rank occupations with similar RIASEC fit', () => {
