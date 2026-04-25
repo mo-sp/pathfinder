@@ -113,10 +113,10 @@ export default {
   "47-4071.00": { kldbCode: "32201", kldbName: "Berufe im Tiefbau (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Kanalbauer/Kanalbauerin
   "47-5044.00": { kldbCode: "32222", kldbName: "Berufe im Straßen- und Asphaltbau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Bergbau-Maschinenführer Untertage / Bergbau-Maschinenführerin Untertage
   "49-2094.00": { kldbCode: "26122", kldbName: "Berufe in der Automatisierungstechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Elektroniker Gewerbliche Geräte / Elektronikerin Gewerbliche Geräte
-  "49-3031.00": { kldbCode: "25112", kldbName: "Maschinen- und Gerätezusammensetzer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Kfz-Motorenbauer/Kfz-Motorenbauerin
-  "49-3043.00": { kldbCode: "25112", kldbName: "Maschinen- und Gerätezusammensetzer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Schienenfahrzeugmonteur/Schienenfahrzeugmonteurin
-  "49-9045.00": { kldbCode: "32122", kldbName: "Berufe im Maurerhandwerk - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Feuerfestbauer/Feuerfestbauerin
-  "49-9062.00": { kldbCode: "26122", kldbName: "Berufe in der Automatisierungstechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Biomedizinischer Ingenieur/Biomedizinische Ingenieurin
+  // 49-3031.00 Bus/Truck Mechanics pulled out of seed (was 25112 Maschinen-/Gerätezusammensetzer — zu fertigungs-fokussiert für Diagnostik/Reparatur) → batch-6 block (25212 Kfz-Technik fachlich)
+  // 49-3043.00 Rail Car Repairers pulled out of seed (was 25112 Maschinen-/Gerätezusammensetzer — generisch) → batch-6 block (51112 Eisenbahnbetrieb fachlich)
+  // 49-9045.00 Refractory Materials Repairers pulled out of seed (was 32122 Maurerhandwerk — Bauberuf, SOC explizit "Except Brickmasons") → batch-6 block (21412 Industriekeramik)
+  // 49-9062.00 Medical Equipment Repairers pulled out of seed (was 26122 Automatisierungstechnik Anf 4 — falsche Domain + zu hoher Tier) → batch-6 block (82503 Medizintechnik komplex Anf 3, Techniker-Tier)
   "51-2011.00": { kldbCode: "25112", kldbName: "Maschinen- und Gerätezusammensetzer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Flugzeugmonteur/Flugzeugmonteurin
   "51-3022.00": { kldbCode: "29201", kldbName: "Berufe in der Lebensmittelherstellung (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Fleischverarbeitungskraft
   "51-4021.00": { kldbCode: "24122", kldbName: "Berufe in der Metallumformung - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Maschinen- und Anlagenführer Strangpressen und Ziehen / Maschinen- und Anlagenführerin Strangpressen und Ziehen
@@ -194,7 +194,7 @@ export default {
   "39-9041.00": { kldbCode: "83123", kldbName: "Berufe in der Sozialarbeit und Sozialpädagogik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Jugendarbeiter: was Verbraucherberatung
   "43-9061.00": { kldbCode: "71402", kldbName: "Büro- und Sekretariatskräfte (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Bürokraft (allgemein): was Umweltschutzverwaltung
   "47-5032.00": { kldbCode: "21122", kldbName: "Berufe in der Sprengtechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Sprengstoffarbeiter: was Chemie-/Pharmatechnik — Session-24 emptied 21122 of engineers, but the actual explosives-worker belongs here
-  "49-3021.00": { kldbCode: "25213", kldbName: "Berufe in der Kraftfahrzeugtechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Oldtimerrestaurator: was Kfz-Technik fachlich (Anf 2); bumped to specialist-tier since Oldtimer-Restaurierung is post-Ausbildung specialization
+  // 49-3021.00 Automotive Body Repairers pulled out of seed (was 25213 Kfz-Technik komplex Anf 3 — bumped für Oldtimerrestaurator-Spezialisierung) → batch-6 block (25212 Anf 2, coupled-down zum neuen generischen Title "Karosserie- und Fahrzeugbaumechaniker" = IHK-Geselle-Tier)
   "51-9051.00": { kldbCode: "24112", kldbName: "Berufe in der Hüttentechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Koksofensteuerer: was Chemie-/Pharmatechnik — coke ovens are metallurgy, not pharma
   "53-1044.00": { kldbCode: "51422", kldbName: "Servicefachkräfte im Luftverkehr - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Leitender Flugbegleiter: was Service Straße/Schiene
 
@@ -424,4 +424,58 @@ export default {
   "25-4012.00": { kldbCode: "94704", kldbName: "Museumsberufe (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Curators: war 73314 Archivwesen — Kurator verwalten Museumssammlungen, eigene Klasse 94704 statt Archiv
   "25-9031.00": { kldbCode: "84404", kldbName: "Berufe in der Erwachsenenbildung (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Instructional Coordinators: war 84184 allgemeinbildend Sonstige — Bildungsreferenten/Curriculum-Spezialisten primär in Erwachsenenbildung/Corporate Training/VHS; Schul-Bezug ist nur ein Subset
   "25-9043.00": { kldbCode: "83132", kldbName: "Berufe in Heilerziehungspflege und Sonderpädagogik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Teaching Assistants Special Education: war 84183 Anf 3 — Schulbegleiter/Integrationshelfer haben Heilerziehungspfleger-Ausbildung Anf 2, nicht Lehrkräfte-Tier
+
+  // === Audit batch 6 — SOC 49 Maintenance/Repair (2026-04-25) ===
+  // 17 findings walked, 15 KldB changes (1 with Anf-bump), 11 title overrides.
+  // First-Line Supervisor pattern continued: 49-1011 re-tiered Anf 2 → 3
+  // (25212 Kfz-Technik Drift → 25193 Aufsichtskräfte Maschinenbau), coupled
+  // title fix "Produktionsleiter Feinwerkmechanik" → "Werkstattleiter
+  // Maschinenbau" (analog 33-1011/12, 37-1011/12, 35-1012, 41-1011/12 aus
+  // batches 2-4). Five seed pull-outs: 49-3031 (25112 → 25212 Kfz-Technik,
+  // Diagnostik/Reparatur statt generic Zusammensetzer), 49-3043 (25112 →
+  // 51112 Eisenbahnbetrieb, agent-pick — semantisch nicht perfekt aber
+  // näher als generischer Maschinenbau), 49-9045 (32122 Maurerhandwerk
+  // → 21412 Industriekeramik, SOC explizit "Except Brickmasons"), 49-9062
+  // (26122 Automatisierungstechnik Anf 4 → 82503 Medizintechnik Anf 3 —
+  // Reconciliation gegen agent's Anf 4 82504; Med-Equip-Repairer ist
+  // Techniker-Tier, kein Master/Diplom), 49-3021 (25213 Kfz-Technik
+  // komplex Anf 3 → 25212 Anf 2, coupled-down vom Oldtimer-Spezialisten-
+  // Bump zum generischen Karosseriebauer-Geselle-Tier).
+  // Two more reconciliations: 49-9064 Watch Repairers 24533 Anf 3 → 24532
+  // Anf 2 (Geselle-Tier statt agent's Meister-Tier; US-Watch-Repairer ist
+  // 18-month Lehre); 49-9092 Commercial Divers — agent left null, picked
+  // 24432 Industrietaucher Anf 2 from catalog (deckt Berufstaucher ab).
+  // Three KldB-only: 49-9061 Camera Repairers (26122 → 23312 Fototechnik),
+  // 49-3041 Farm Equipment (25102 → 25222 Land-/Baumaschinentechnik —
+  // Exact-Klasse-Match), 49-9021 HVACR (34232 Kältetechnik zu eng → 34212
+  // SHK = etablierter 3,5-Jahre-Anlagenmechaniker-Beruf).
+  // Three coupled KldB+title: 49-9011 Mechanical Door Repairers (24522
+  // Werkzeugtechnik → 26112 Mechatronik, "Reparateur Türmechanik" →
+  // "Monteur Tor- und Türtechnik"), 49-9097 Signal Repairers (51112
+  // Eisenbahnbetrieb → 51222 Wartung Eisenbahninfrastruktur,
+  // "Weichenwärter" = Betriebsberuf → "Signaltechniker Eisenbahn"),
+  // 49-2093 Transport-Electronics (26312 IT/TK → 26332 Luftverkehr/
+  // Schiffe/Fahrzeugelektronik, "Schiffselektrotechniker" zu eng →
+  // "Fahrzeugelektroniker (Mobile Systeme)").
+  // Two title-only (KldB stays/pinned via existing seed): 49-2095 Powerhouse
+  // Repairers ("Steuerer Stromversorgung" = grammatisch falsch →
+  // "Elektrotechniker Energieanlagen", KldB 26262 unverändert), 49-2094
+  // Industrial Electronics ("Elektroniker Gewerbliche Geräte" = kein
+  // etablierter Beruf → "Elektroniker für Betriebstechnik", seed 26122
+  // unverändert).
+  "49-1011.00": { kldbCode: "25193", kldbName: "Aufsichtskräfte - Maschinenbau- und Betriebstechnik", anforderungsniveau: 3, trainingCategory: "specialist" }, // First-Line Supervisors of Mechanics/Installers/Repairers: war 25212 Kfz-Technik Anf 2 — First-Line Supervisor = Aufsichtskraft Anf 3 (Maschinenbau-domain), nicht Kfz-spezifisch; coupled mit title.de "Produktionsleiter Feinwerkmechanik" → "Werkstattleiter Maschinenbau"
+  "49-2093.00": { kldbCode: "26332", kldbName: "Berufe in der Luftverkehrs-, Schiffs- und Fahrzeugelektronik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Electronics Installers/Repairers Transportation: war 26312 IT/TK-Technik (Drift) — SOC umfasst Züge/Schiffe/andere mobile Systeme; coupled mit title.de "Schiffselektrotechniker" → "Fahrzeugelektroniker (Mobile Systeme)"
+  "49-3021.00": { kldbCode: "25212", kldbName: "Berufe in der Kraftfahrzeugtechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Automotive Body Repairers: war 25213 Anf 3 (seed, Oldtimer-Spezialisten-Bump) — neuer generischer Title "Karosserie- und Fahrzeugbaumechaniker" ist 3,5-Jahre IHK-Geselle (Anf 2); pulled out of seed and coupled-down
+  "49-3031.00": { kldbCode: "25212", kldbName: "Berufe in der Kraftfahrzeugtechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Bus and Truck Mechanics: war 25112 Maschinen-/Gerätezusammensetzer (seed, generisch) — Diagnostik/Reparatur ist Kfz-Technik-Domain; coupled mit title.de "Kfz-Motorenbauer" → "Nutzfahrzeugmechatroniker"
+  "49-3041.00": { kldbCode: "25222", kldbName: "Berufe in der Land- und Baumaschinentechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Farm Equipment Mechanics: war 25102 Maschinenbau o.S. — 25222 ist Exact-Klasse für Landmaschinenmechatroniker
+  "49-3043.00": { kldbCode: "51112", kldbName: "Berufe im technischen Eisenbahnbetrieb - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Rail Car Repairers: war 25112 Maschinen-/Gerätezusammensetzer (seed, generisch) — agent-pick 51112 ist semantisch nicht perfekt (Eisenbahnbetrieb suggeriert Operations) aber näher am Bahn-Kontext als generischer Maschinenbau
+  "49-3053.00": { kldbCode: "25182", kldbName: "Berufe in der Maschinenbau- und Betriebstechnik (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Outdoor Power Equipment / Small Engine Mechanics: war 26222 Elektromaschinentechnik (passt zum alten title.de "Elektroniker für Maschinen und Antriebstechnik" = falscher Beruf für Rasenmäher-/Kettensägen-Reparatur); coupled mit title.de → "Motorgerätemechaniker"
+  "49-9011.00": { kldbCode: "26112", kldbName: "Berufe in der Mechatronik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Mechanical Door Repairers: war 24522 Werkzeugtechnik (Drift) — Automatiktüren/Garagentore sind Mechatronik (Antrieb+Elektronik+Steuerung); coupled mit title.de "Reparateur Türmechanik" → "Monteur Tor- und Türtechnik"
+  "49-9021.00": { kldbCode: "34212", kldbName: "Berufe in der Sanitär-, Heizungs- und Klimatechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // HVACR Mechanics: war 34232 Kältetechnik (zu eng auf Kälte) — SHK-Anlagenmechaniker ist der etablierte 3,5-Jahre-IHK-Beruf, deckt Heizung+Lüftung+Klima+Kälte
+  "49-9045.00": { kldbCode: "21412", kldbName: "Berufe in der Industriekeramik (Verfahrens- und Anlagentechnik) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Refractory Materials Repairers Except Brickmasons: war 32122 Maurerhandwerk (seed) — SOC explizit Bauberuf-ausgeschlossen; Industrieofen-Auskleidung ist Industriekeramik-Schnittstelle
+  "49-9061.00": { kldbCode: "23312", kldbName: "Berufe in der Fototechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Camera and Photographic Equipment Repairers: war 26122 Automatisierungstechnik (Drift) — Foto-/Kameratechnik ist Feinmechanik/Fototechnik
+  "49-9062.00": { kldbCode: "82503", kldbName: "Berufe in der Medizintechnik (ohne Spezialisierung) - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Medical Equipment Repairers: war 26122 Automatisierungstechnik Anf 4 (seed) — Reconciliation gegen agent's 82504 Anf 4: Med-Equip-Repairer ist BMET-Techniker-Tier (associate's degree / 3-jährige Fachschule), kein Master-Tier; 82503 Anf 3 passt; coupled mit title.de "Biomedizinischer Ingenieur" → "Medizintechniker"
+  "49-9064.00": { kldbCode: "24532", kldbName: "Berufe im Uhrmacherhandwerk - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Watch and Clock Repairers: war 21352 Glasapparatejustierung (Drift) — Reconciliation gegen agent's 24533 Anf 3 (Meister-Tier): Standard-Watch-Repairer ist Geselle-Tier (3,5-Jahre Lehre); 24532 Anf 2 passt
+  "49-9092.00": { kldbCode: "24432", kldbName: "Industrietaucher/innen und andere Taucherberufe - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Commercial Divers: war 31193 Aufsichtskräfte Bauplanung Anf 3 (Drift "Bauleiter Unterwasserarbeiten") — agent left KldB null; catalog-pick 24432 deckt Berufstaucher; coupled mit title.de "Bauleiter Unterwasserarbeiten" → "Berufstaucher"
+  "49-9097.00": { kldbCode: "51222", kldbName: "Berufe in der Überwachung und Wartung der Eisenbahninfrastruktur - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Signal and Track Switch Repairers: war 51112 Eisenbahnbetrieb (= Operations) — Signal-/Weichenwartung ist Infrastruktur-Wartung 51222; coupled mit title.de "Weichenwärter" (Betriebsberuf) → "Signaltechniker Eisenbahn"
 }
