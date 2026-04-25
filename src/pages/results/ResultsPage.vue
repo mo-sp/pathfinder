@@ -961,7 +961,7 @@ onBeforeUnmount(() => {
             <div class="relative min-w-[16rem] flex-1">
               <input
                 v-model="searchQuery"
-                type="search"
+                type="text"
                 placeholder="Beruf suchen (z.B. Softwareentwickler, Zimmerer, Arzt)"
                 class="w-full rounded-md border border-slate-700 bg-slate-900 px-3 py-1.5 pr-8 text-xs text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:outline-none"
               >
