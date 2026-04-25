@@ -354,10 +354,10 @@
       "fromJobZone": true
     },
     "13-1011.00": {
-      "kldbCode": "72183",
-      "kldbName": "Berufe in Versicherungs- und Finanzdienstleistungen (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "63124",
+      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "13-1021.00": {
       "kldbCode": "61113",
@@ -409,20 +409,20 @@
       "trainingCategory": "studies"
     },
     "13-1041.04": {
-      "kldbCode": "31163",
-      "kldbName": "Bausachverständige und Baukontrolleure/-kontrolleurinnen - komplexe Spezialistentätigkeiten",
+      "kldbCode": "53313",
+      "kldbName": "Berufe in der Gewerbeaufsicht - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "13-1041.06": {
-      "kldbCode": "73104",
-      "kldbName": "Berufe in Rechtsberatung, -sprechung und -ordnung (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
+      "kldbCode": "81484",
+      "kldbName": "Ärzte/Ärztinnen (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "13-1041.07": {
-      "kldbCode": "73104",
-      "kldbName": "Berufe in Rechtsberatung, -sprechung und -ordnung (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
+      "kldbCode": "71384",
+      "kldbName": "Berufe in der Unternehmensorganisation und -strategie (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -433,8 +433,8 @@
       "trainingCategory": "specialist"
     },
     "13-1051.00": {
-      "kldbCode": "72243",
-      "kldbName": "Berufe in Wirtschaftsprüfung - komplexe Spezialistentätigkeiten",
+      "kldbCode": "72223",
+      "kldbName": "Berufe in Kostenrechnung und Kalkulation - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -458,26 +458,26 @@
       "trainingCategory": "studies"
     },
     "13-1081.00": {
-      "kldbCode": "51624",
-      "kldbName": "Speditions- und Logistikkaufleute - hoch komplexe Tätigkeiten",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "51623",
+      "kldbName": "Speditions- und Logistikkaufleute - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "13-1081.01": {
-      "kldbCode": "51624",
-      "kldbName": "Speditions- und Logistikkaufleute - hoch komplexe Tätigkeiten",
+      "kldbCode": "71384",
+      "kldbName": "Berufe in der Unternehmensorganisation und -strategie (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "13-1081.02": {
-      "kldbCode": "51624",
-      "kldbName": "Speditions- und Logistikkaufleute - hoch komplexe Tätigkeiten",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "51623",
+      "kldbName": "Speditions- und Logistikkaufleute - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "13-1082.00": {
-      "kldbCode": "71393",
-      "kldbName": "Aufsichtskräfte - Unternehmensorganisation und -strategie",
+      "kldbCode": "71394",
+      "kldbName": "Führungskräfte - Unternehmensorganisation und -strategie",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -494,8 +494,8 @@
       "trainingCategory": "specialist"
     },
     "13-1131.00": {
-      "kldbCode": "63123",
-      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - komplexe Spezialistentätigkeiten",
+      "kldbCode": "92113",
+      "kldbName": "Berufe in Werbung und Marketing - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -506,8 +506,8 @@
       "trainingCategory": "studies"
     },
     "13-1151.00": {
-      "kldbCode": "84483",
-      "kldbName": "Lehrkräfte an außerschulischen Bildungseinrichtungen (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "71513",
+      "kldbName": "Berufe in der Personalentwicklung und -sachbearbeitung - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -536,16 +536,16 @@
       "trainingCategory": "studies"
     },
     "13-1199.06": {
-      "kldbCode": "92113",
-      "kldbName": "Berufe in Werbung und Marketing - komplexe Spezialistentätigkeiten",
+      "kldbCode": "61283",
+      "kldbName": "Kaufleute im Handel (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "13-1199.07": {
-      "kldbCode": "53122",
-      "kldbName": "Berufe in Arbeitssicherheit und Sicherheitstechnik - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "53183",
+      "kldbName": "Berufe in Objekt-, Personen-, Brandschutz, Arbeitssicherheit (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "13-2011.00": {
       "kldbCode": "72243",
@@ -602,16 +602,16 @@
       "trainingCategory": "studies"
     },
     "13-2061.00": {
-      "kldbCode": "72243",
-      "kldbName": "Berufe in Wirtschaftsprüfung - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "72244",
+      "kldbName": "Berufe in Wirtschaftsprüfung - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "13-2071.00": {
-      "kldbCode": "72113",
-      "kldbName": "Bankkaufleute - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "83154",
+      "kldbName": "Berufe in der Sozial-, Erziehungs- und Suchtberatung - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "13-2072.00": {
       "kldbCode": "72113",
@@ -620,16 +620,16 @@
       "trainingCategory": "specialist"
     },
     "13-2081.00": {
-      "kldbCode": "73232",
-      "kldbName": "Berufe in der Steuerverwaltung - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
-    },
-    "13-2082.00": {
-      "kldbCode": "72243",
-      "kldbName": "Berufe in Wirtschaftsprüfung - komplexe Spezialistentätigkeiten",
+      "kldbCode": "73233",
+      "kldbName": "Berufe in der Steuerverwaltung - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
+    },
+    "13-2082.00": {
+      "kldbCode": "72302",
+      "kldbName": "Berufe in der Steuerberatung - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "13-2099.01": {
       "kldbCode": "72144",

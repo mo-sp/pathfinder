@@ -187,11 +187,11 @@ export default {
   '39-4031.00': 'Bestattungsfachkraft', // Morticians, Undertakers, and Funeral Arrangers
 
   // === Cluster: "Schadensregulierer" (2) ===
-  '13-1031.00': 'Schadensregulierer/Schadensreguliererin', // Claims Adjusters, Examiners, and Investigators
+  '13-1031.00': 'Schadensachbearbeiter/Schadensachbearbeiterin', // Claims Adjusters, Examiners, and Investigators: war "Schadensregulierer" — kein etablierter Berufstitel; Schadensachbearbeiter ist die übliche DE-Berufsbezeichnung in Versicherungen
   '13-1032.00': 'Kfz-Schadensgutachter/Kfz-Schadensgutachterin', // Insurance Appraisers, Auto Damage
 
   // === Cluster: "Immobilienschätzer" (2) ===
-  '13-1041.04': 'Inspekteur öffentliches Eigentum / Inspekteurin öffentliches Eigentum', // Government Property Inspectors
+  '13-1041.04': 'Regierungsinspektor/Regierungsinspektorin', // Government Property Inspectors: war "Inspekteur öffentliches Eigentum" — konstruiertes Kompositum, kein DE-Beruf; Regierungsinspektor ist Beamten-Titel im gehobenen Dienst (passt zur SOC Vertrags-/Regelungs-Compliance)
   '13-2023.00': 'Immobiliengutachter/Immobiliengutachterin', // Appraisers and Assessors of Real Estate
 
   // === Cluster: "Unternehmensanalyst" (2) ===
@@ -526,7 +526,7 @@ export default {
   '11-9131.00': 'Postdirektor/Postdirektorin', // Postmasters and Mail Superintendents
   '11-9199.11': 'Projektleiter Altlastensanierung / Projektleiterin Altlastensanierung', // Brownfield Redevelopment Specialists and Site Managers
   '13-1022.00': 'Einkäufer/Einkäuferin', // Wholesale and Retail Buyers, Except Farm Products
-  '13-1074.00': 'Saisonkräfte-Vermittler Landwirtschaft / Saisonkräfte-Vermittlerin Landwirtschaft', // Farm Labor Contractors (US-taxonomy, no 1:1 DE)
+  '13-1074.00': 'Arbeitsvermittler Landwirtschaft / Arbeitsvermittlerin Landwirtschaft', // Farm Labor Contractors: war "Saisonkräfte-Vermittler Landwirtschaft" — konstruiertes Kompositum; Arbeitsvermittler ist der etablierte DE-Beruf, "Landwirtschaft" als Domain-Klammer (US-taxonomy, no 1:1 DE)
   // 15-1299.03 Document Management Specialists title moved to batch-4 block (FaMI ist Bibliotheks-/Archiv-Ausbildungsberuf, SOC ist Enterprise-DMS — siehe Audit batch 4)
   '17-1022.01': 'Vermessungsingenieur Landesvermessung / Vermessungsingenieurin Landesvermessung', // Geodetic Surveyors
   '23-1022.00': 'Mediator/Mediatorin', // Arbitrators, Mediators, and Conciliators
@@ -678,4 +678,12 @@ export default {
   '27-3023.00': 'Journalist/Journalistin', // News Analysts/Reporters/Journalists: war "Auslandskorrespondent" — Auslandskorrespondent ist enge Spezialisierung; SOC ist die breite Journalist-Hauptrolle
   '27-4012.00': 'Rundfunk- und Veranstaltungstechniker / Rundfunk- und Veranstaltungstechnikerin', // Broadcast Technicians: war "Informationselektroniker" — Informationselektroniker ist Consumer-Electronics-Reparateur, nicht Broadcast-Operation; Rundfunk- und Veranstaltungstechniker ist der reale 3-Jahre-IHK-Ausbildungsberuf für Sendetechnik
   '27-4014.00': 'Tontechniker/Tontechnikerin', // Sound Engineering Technicians: war "Theatertechniker" — Theater ist nur ein Anwendungsfeld; SOC umfasst Tonstudio, Film, TV, Podcasts, Live-Events; Tontechniker ist generischer
+
+  // === Audit batch 8 — SOC 13 Business and Financial Operations coupled title fixes (2026-04-25) ===
+  '13-1011.00': 'Künstler- und Sportleragent / Künstler- und Sportleragentin', // Agents/Business Managers Artists/Performers/Athletes: war "Künstleragent" (zu eng auf Künstler) — SOC umfasst Künstler+Performer+Athleten; broadened title
+  '13-1021.00': 'Einkäufer Agrarprodukte / Einkäuferin Agrarprodukte', // Buyers and Purchasing Agents Farm Products: war "Holzhändler" (zu eng auf Holz) — SOC umfasst Getreide/Tabak/Holz/etc.; Einkäufer Agrarprodukte deckt SOC-Scope
+  '13-1131.00': 'Fundraiser/Fundraiserin', // Fundraisers: war "Mitarbeiter im Bereich Fundraising" — klunky Umschreibung; Fundraiser ist die etablierte DE-Berufsbezeichnung
+  '13-1199.05': 'Nachhaltigkeitsmanager/Nachhaltigkeitsmanagerin', // Sustainability Specialists: war "Programmkoordinator Umwelt" — ungewöhnliche Wortfügung; Nachhaltigkeitsmanager ist der etablierte DE-Begriff für die SOC-Rolle
+  '13-2031.00': 'Budgetanalyst/Budgetanalystin', // Budget Analysts: war "Haushaltsanalyst" — klingt nach privatem Haushalt; Budgetanalyst ist etablierter DE-Begriff für öffentliche Haushalts-/Finanzplanung
+  '13-2082.00': 'Steuerfachangestellter/Steuerfachangestellte', // Tax Preparers: war "Steuerberater" (geschützter DE-Titel für Kammerberuf, falsch für Tax-Preparer-Helper) — Steuerfachangestellte ist der 3-jährige IHK-Ausbildungsberuf, deckt einfache Steuererklärungs-Hilfstätigkeit
 }
