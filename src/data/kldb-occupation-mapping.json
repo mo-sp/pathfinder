@@ -2838,8 +2838,8 @@
       "trainingCategory": "apprenticeship"
     },
     "31-1122.00": {
-      "kldbCode": "83122",
-      "kldbName": "Berufe in der Sozialarbeit und Sozialpädagogik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "83142",
+      "kldbName": "Berufe in der Haus- und Familienpflege - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2850,8 +2850,8 @@
       "trainingCategory": "none"
     },
     "31-1132.00": {
-      "kldbCode": "81341",
-      "kldbName": "Berufe im Rettungsdienst - Helfer-/Anlerntätigkeiten",
+      "kldbCode": "81301",
+      "kldbName": "Berufe in der Gesundheits- und Krankenpflege (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
       "anforderungsniveau": 1,
       "trainingCategory": "none"
     },
@@ -2862,20 +2862,20 @@
       "trainingCategory": "none"
     },
     "31-2011.00": {
-      "kldbCode": "81723",
-      "kldbName": "Berufe in der Ergotherapie - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "81722",
+      "kldbName": "Berufe in der Ergotherapie - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "31-2012.00": {
-      "kldbCode": "81723",
-      "kldbName": "Berufe in der Ergotherapie - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "81722",
+      "kldbName": "Berufe in der Ergotherapie - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "31-2021.00": {
-      "kldbCode": "81752",
-      "kldbName": "Berufe in der Heilkunde und Homöopathie - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "81712",
+      "kldbName": "Berufe in der Physiotherapie - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2904,10 +2904,10 @@
       "trainingCategory": "apprenticeship"
     },
     "31-9093.00": {
-      "kldbCode": "81341",
-      "kldbName": "Berufe im Rettungsdienst - Helfer-/Anlerntätigkeiten",
-      "anforderungsniveau": 1,
-      "trainingCategory": "none"
+      "kldbCode": "82502",
+      "kldbName": "Berufe in der Medizintechnik (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "31-9094.00": {
       "kldbCode": "73222",
@@ -2928,16 +2928,16 @@
       "trainingCategory": "apprenticeship"
     },
     "31-9097.00": {
-      "kldbCode": "81341",
-      "kldbName": "Berufe im Rettungsdienst - Helfer-/Anlerntätigkeiten",
-      "anforderungsniveau": 1,
-      "trainingCategory": "none"
+      "kldbCode": "81332",
+      "kldbName": "Berufe in der operations-/medizintechnischen Assistenz - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "31-9099.01": {
-      "kldbCode": "81733",
-      "kldbName": "Berufe in der Sprachtherapie - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "81782",
+      "kldbName": "Berufe in der nicht ärztlichen Therapie und Heilkunde (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "31-9099.02": {
       "kldbCode": null,
@@ -2947,28 +2947,28 @@
       "fromJobZone": true
     },
     "33-1011.00": {
-      "kldbCode": "27294",
-      "kldbName": "Führungskräfte - Technisches Zeichnen, Konstruktion und Modellbau",
+      "kldbCode": "53244",
+      "kldbName": "Berufe im Justizvollzugsdienst - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "33-1012.00": {
-      "kldbCode": "73294",
-      "kldbName": "Führungskräfte - Verwaltung",
+      "kldbCode": "53214",
+      "kldbName": "Berufe im Polizeivollzugsdienst - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "33-1021.00": {
-      "kldbCode": "27294",
-      "kldbName": "Führungskräfte - Technisches Zeichnen, Konstruktion und Modellbau",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "53133",
+      "kldbName": "Berufe im Brandschutz - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "33-1091.00": {
-      "kldbCode": "53112",
-      "kldbName": "Berufe im Objekt-, Werte- und Personenschutz - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "53193",
+      "kldbName": "Aufsichtskräfte - Objekt-, Personen-, Brandschutz, Arbeitssicherheit",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "33-2011.00": {
       "kldbCode": "53132",
@@ -2977,14 +2977,14 @@
       "trainingCategory": "apprenticeship"
     },
     "33-2021.00": {
-      "kldbCode": "31102",
-      "kldbName": "Berufe in der Bauplanung und -überwachung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "53132",
+      "kldbName": "Berufe im Brandschutz - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "33-2022.00": {
-      "kldbCode": "53312",
-      "kldbName": "Berufe in der Gewerbeaufsicht - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "11712",
+      "kldbName": "Berufe in der Forstwirtschaft - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3061,8 +3061,8 @@
       "trainingCategory": "apprenticeship"
     },
     "33-9031.00": {
-      "kldbCode": "53312",
-      "kldbName": "Berufe in der Gewerbeaufsicht - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "94342",
+      "kldbName": "Berufe im Bereich Glücks- und Wettspiel - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3079,8 +3079,8 @@
       "trainingCategory": "apprenticeship"
     },
     "33-9092.00": {
-      "kldbCode": "11732",
-      "kldbName": "Berufe in der Jagdwirtschaft und Wildhege - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "53142",
+      "kldbName": "Berufe in der Badeaufsicht - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },

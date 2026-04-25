@@ -614,4 +614,16 @@ export default {
   '45-2041.00': 'Sortierer/Sortiererin landwirtschaftlicher Produkte', // Graders and Sorters of Agricultural Products: war "Milchkontrolleur" — zu eng (SOC umfasst alle Agrarprodukte nach Größe/Gewicht/Farbe/Zustand) und falsche Tätigkeit; Kontrolleur-Rolle sitzt bei 45-2011 Agricultural Inspectors
   '45-2093.00': 'Tierwirt/Tierwirtin', // Farmworkers Farm/Ranch/Aquacultural Animals: war "Zuchtassistent Aquakultur" — zu eng; Tierwirt ist staatlich anerkannter Ausbildungsberuf (Rinder/Schafe/Geflügel/Aquakultur)
   '45-4021.00': 'Forstwirt/Forstwirtin', // Fallers: war "Schrotsägenführer" — archaisch; Forstwirt ist 3-jähriger Ausbildungsberuf, deckt Bäume-Fällen mit Axt/Motorsäge ab. Helfer-Tier "Waldarbeiter" sitzt korrekt bei 45-4011 Forest and Conservation Workers (KldB 11711 Forstwirtschaft Helfer)
+
+  // === Audit batch 2 — SOC 31+33 coupled title fixes (2026-04-25) ===
+  '31-1122.00': 'Alltagsbegleiter/Alltagsbegleiterin', // Personal Care Aides: war "Sozialbetreuer häusliche Betreuung" — Alltagsbegleiter ist etabliertes Berufsbild (§43b SGB XI Betreuungsassistent)
+  '31-1131.00': 'Pflegeassistent/Pflegeassistentin', // Nursing Assistants: war "Gesundheits- und Krankenpfleger/Krankenschwester" — Title impliziert die geschützte 3-jährige Ausbildung; Nursing Assistants sind Helfer-Tier (KldB 81301 Anf 1 stays correct)
+  '31-1132.00': 'Patientenbegleiter/Patientenbegleiterin', // Orderlies: war "Krankenträger" — archaisch; moderner Begriff für Patiententransport innerhalb Krankenhaus
+  '31-2021.00': 'Physiotherapieassistent/Physiotherapieassistentin', // PT Assistants: war "Therapeut Komplementärmedizin" — PT-Assistant assistiert Physiotherapeut, nicht Heilpraktiker (war auch falsche KldB)
+  '33-1011.00': 'Dienstgruppenleiter Justizvollzug / Dienstgruppenleiterin Justizvollzug', // First-Line Supervisors of Correctional Officers: war "Gefängnisdirektor" — Direktor ist Anstaltsleiter (höher als First-Line Supervisor); Dienstgruppenleiter trifft die mittlere Führungsebene
+  '33-1012.00': 'Polizeihauptkommissar/Polizeihauptkommissarin', // First-Line Supervisors of Police: war "Polizeipräsident" — Präsident ist Behördenleiter (z.B. PP Berlin); Polizeihauptkommissar ist die Standard-Dienstbezeichnung am Dienstgruppenleiter-Tier (gehobener Dienst)
+  '33-1021.00': 'Brandinspektor/Brandinspektorin', // First-Line Supervisors of Firefighters: war "Feuerwehrkommandant" — Kommandant ist in DE der Wehrleiter einer Freiwilligen Feuerwehr; Brandinspektor ist die Dienstbezeichnung am gehobenen-Dienst-/Zugführer-Tier in der Berufsfeuerwehr
+  '33-1091.00': 'Einsatzleiter Sicherheitsdienst / Einsatzleiterin Sicherheitsdienst', // First-Line Supervisors of Security Workers: war "Sicherheitspersonalmanager" — Kunstwort; Einsatzleiter trifft die operative Schichtleitung (Sicherheitsdienstleiter würde Firmen-CEO suggerieren)
+  '33-9092.00': 'Rettungsschwimmer/Rettungsschwimmerin', // Lifeguards/Ski Patrol: war "Beamter der Küstenwache" — wildly falsch; Lifeguards sind Rettungsschwimmer (Ski Patrol ist im DE-Kontext rare Nische)
+  '33-9094.00': 'Schulbusbegleiter/Schulbusbegleiterin', // School Bus Monitors: war "Schulbusbegleiter" — fehlende feminine Form ergänzt
 }
