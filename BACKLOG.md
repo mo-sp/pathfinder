@@ -18,31 +18,37 @@ current PR. For what shipped when, see `SUMMARY.md`.
 
 Likely next 1–2 sessions.
 
-- **Audit batches 11-N — ~212 findings remaining.** Session 36 ran a
+- **Audit batches 13-N — ~169 findings remaining.** Session 36 ran a
   10-agent Sonnet coherence audit over all 923 occupations, persisted
   to `scripts/audit/findings-2026-04-25.json` (402 flagged, 578 flags).
   Batches 1+2 (SOC 21+45, SOC 31+33) walked 32 findings in Session 36;
   batches 3+4 (SOC 23+37+35, SOC 41+15) walked 31 findings in Session 37;
   batches 5+6 (SOC 25, SOC 49) walked 33 findings in Session 38;
   batches 7+8 (SOC 27, SOC 13) walked 46 findings in Session 39;
-  batches 9+10 (SOC 43, SOC 19) walked 50 findings in Session 40.
-  190 findings applied total; ~212 remain. The 1-SOC-major-per-section
-  pattern from Session 39 held cleanly across Session 40 (23+27 at
-  comparable per-section workload). Next pairings: 11 Management (24)
-  + 17 Architecture/Engineering (21) for Session 41, then 39 Personal
-  Care (14) possibly paired with one of the big four. The big four
-  (29 Healthcare 43, 51 Production 43, 53 Transport 34, 47 Construction
-  31) each likely need a dedicated section. Estimated 4 more sessions
-  to complete. Per-batch pattern remains: 60-80 % apply directly,
-  15-20 % modify mid-review (Anf-tier reconciliations, alternative
-  class picks, sibling-domain pivots when the current domain has no
-  Anf-down sibling), <5 % outright reject. Sub-patterns: occasional
-  re-evaluation of earlier-batch entries when later batches surface a
-  sharper SOC reading (13-1041.04 moved batch-4 → batch-8 in Session
-  39; 19-2099.01 moved within batches in Session 40 — first non-seed
-  batch entry re-pinned). Reconciliation density rose to 6 in batch
-  10 — heaviest so far — driven by research-tier roles where the
-  agent's KldB-class knowledge is shallower than its Anf-tier intuition.
+  batches 9+10 (SOC 43, SOC 19) walked 50 findings in Session 40;
+  batches 11+12 (SOC 11, SOC 17) walked 45 findings in Session 41
+  inkl. 2 Rejects (17-2171 Petroleum already-correct, 17-2051 Civil
+  false-positive — heaviest false-positive density bisher). 233
+  findings applied total; ~169 remain. The 1-SOC-major-per-section
+  pattern continued to hold cleanly. Next pairings: 39 Personal Care
+  (14 — small) possibly paired with one of the big four to balance
+  load. The big four (29 Healthcare 43, 51 Production 43, 53 Transport
+  34, 47 Construction 31) each likely need a dedicated section.
+  Estimated 3-4 more sessions to complete. Per-batch pattern remains:
+  60-80 % apply directly, 15-20 % modify mid-review (Anf-tier
+  reconciliations, alternative class picks, sibling-domain pivots
+  when the current domain has no required-tier sibling — Session 41
+  added catalog-only-low-tier-domain pivot pattern at 11-9071 Casino
+  Manager), <5 % outright reject (rising to ~10 % in SOC 17). Sub-
+  patterns: occasional re-evaluation of earlier-batch entries when
+  later batches surface a sharper SOC reading (13-1041.04 moved
+  batch-4 → batch-8 in Session 39; 19-2099.01 moved within batches in
+  Session 40); Code-Anf-Widerspruch detection im Seed (19-2032 in
+  batch-10, 17-3026.01 in batch-12 — declared Anf doesn't match the
+  KldB code's actual Anf-tier); Modify-beyond-audit's-flag where
+  title-changes imply tier-shifts the agent didn't expliciten
+  (17-2051.02 in batch-12). Reconciliation density rose to 6 in
+  batch 10, then 3+4 in batches 11+12.
 - **BigFive coverage gap — 169 / 923 occupations have no BigFive profile.**
   Originally framed as ~141 (the difference between Anni's 782-O*NET
   coverage and our 923 corpus); actual gap counting failed crosswalk
