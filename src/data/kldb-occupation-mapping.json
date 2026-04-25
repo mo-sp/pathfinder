@@ -680,8 +680,8 @@
       "trainingCategory": "apprenticeship"
     },
     "15-1241.00": {
-      "kldbCode": "43103",
-      "kldbName": "Berufe in der Informatik (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "43313",
+      "kldbName": "Berufe in der IT-Netzwerktechnik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -722,8 +722,8 @@
       "trainingCategory": "specialist"
     },
     "15-1252.00": {
-      "kldbCode": "43123",
-      "kldbName": "Berufe in der technischen Informatik - komplexe Spezialistentätigkeiten",
+      "kldbCode": "43413",
+      "kldbName": "Berufe in der Softwareentwicklung - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -734,8 +734,8 @@
       "trainingCategory": "specialist"
     },
     "15-1254.00": {
-      "kldbCode": "43152",
-      "kldbName": "Berufe in der Medieninformatik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "43412",
+      "kldbName": "Berufe in der Softwareentwicklung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -746,8 +746,8 @@
       "trainingCategory": "specialist"
     },
     "15-1255.01": {
-      "kldbCode": "23223",
-      "kldbName": "Berufe im Grafik-, Kommunikations- und Fotodesign - komplexe Spezialistentätigkeiten",
+      "kldbCode": "43153",
+      "kldbName": "Berufe in der Medieninformatik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -758,16 +758,16 @@
       "trainingCategory": "specialist"
     },
     "15-1299.02": {
-      "kldbCode": "31214",
-      "kldbName": "Berufe in der Vermessungstechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "43144",
+      "kldbName": "Berufe in der Geoinformatik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "15-1299.03": {
-      "kldbCode": "73394",
-      "kldbName": "Führungskräfte - Medien-, Dokumentations- und Informationsdienste",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "43333",
+      "kldbName": "Berufe in der IT-Organisation - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "15-1299.04": {
       "kldbCode": "43383",
@@ -788,8 +788,8 @@
       "trainingCategory": "specialist"
     },
     "15-1299.07": {
-      "kldbCode": "43103",
-      "kldbName": "Berufe in der Informatik (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "43413",
+      "kldbName": "Berufe in der Softwareentwicklung - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -806,10 +806,10 @@
       "trainingCategory": "studies"
     },
     "15-2011.00": {
-      "kldbCode": "41103",
-      "kldbName": "Berufe in der Mathematik (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "41104",
+      "kldbName": "Berufe in der Mathematik (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "15-2021.00": {
       "kldbCode": "41104",
@@ -818,8 +818,8 @@
       "trainingCategory": "studies"
     },
     "15-2031.00": {
-      "kldbCode": "51624",
-      "kldbName": "Speditions- und Logistikkaufleute - hoch komplexe Tätigkeiten",
+      "kldbCode": "41104",
+      "kldbName": "Berufe in der Mathematik (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -848,10 +848,10 @@
       "trainingCategory": "studies"
     },
     "15-2051.02": {
-      "kldbCode": "81294",
-      "kldbName": "Führungskräfte - Medizinisches Laboratorium",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "43413",
+      "kldbName": "Berufe in der Softwareentwicklung - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "15-2099.01": {
       "kldbCode": "41203",
@@ -3436,16 +3436,16 @@
       "trainingCategory": "specialist"
     },
     "41-1011.00": {
-      "kldbCode": "61294",
-      "kldbName": "Führungskräfte - Handel",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "62193",
+      "kldbName": "Aufsichtskräfte - Verkauf",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "41-1012.00": {
-      "kldbCode": "61294",
-      "kldbName": "Führungskräfte - Handel",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "61123",
+      "kldbName": "Berufe im Vertrieb (außer Informations- und Kommunikationstechnologien) - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "41-2011.00": {
       "kldbCode": "62112",
@@ -3472,14 +3472,14 @@
       "trainingCategory": "apprenticeship"
     },
     "41-2031.00": {
-      "kldbCode": "61212",
-      "kldbName": "Kaufleute im Groß- und Außenhandel - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "62102",
+      "kldbName": "Berufe im Verkauf (ohne Produktspezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "41-3011.00": {
-      "kldbCode": "72183",
-      "kldbName": "Berufe in Versicherungs- und Finanzdienstleistungen (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "92113",
+      "kldbName": "Berufe in Werbung und Marketing - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -3508,16 +3508,16 @@
       "trainingCategory": "apprenticeship"
     },
     "41-4011.00": {
-      "kldbCode": "81883",
-      "kldbName": "Berufe in der Pharmazie (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "61122",
+      "kldbName": "Berufe im Vertrieb (außer Informations- und Kommunikationstechnologien) - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "41-4011.07": {
-      "kldbCode": "81883",
-      "kldbName": "Berufe in der Pharmazie (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "61122",
+      "kldbName": "Berufe im Vertrieb (außer Informations- und Kommunikationstechnologien) - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "41-4012.00": {
       "kldbCode": "61123",
@@ -3550,8 +3550,8 @@
       "trainingCategory": "apprenticeship"
     },
     "41-9031.00": {
-      "kldbCode": "81883",
-      "kldbName": "Berufe in der Pharmazie (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "61123",
+      "kldbName": "Berufe im Vertrieb (außer Informations- und Kommunikationstechnologien) - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },

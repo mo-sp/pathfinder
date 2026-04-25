@@ -527,7 +527,7 @@ export default {
   '11-9199.11': 'Projektleiter Altlastensanierung / Projektleiterin Altlastensanierung', // Brownfield Redevelopment Specialists and Site Managers
   '13-1022.00': 'Einkäufer/Einkäuferin', // Wholesale and Retail Buyers, Except Farm Products
   '13-1074.00': 'Saisonkräfte-Vermittler Landwirtschaft / Saisonkräfte-Vermittlerin Landwirtschaft', // Farm Labor Contractors (US-taxonomy, no 1:1 DE)
-  '15-1299.03': 'Fachangestellter für Medien- und Informationsdienste / Fachangestellte für Medien- und Informationsdienste', // Document Management Specialists (FaMI, IHK-Ausbildungsberuf)
+  // 15-1299.03 Document Management Specialists title moved to batch-4 block (FaMI ist Bibliotheks-/Archiv-Ausbildungsberuf, SOC ist Enterprise-DMS — siehe Audit batch 4)
   '17-1022.01': 'Vermessungsingenieur Landesvermessung / Vermessungsingenieurin Landesvermessung', // Geodetic Surveyors
   '23-1022.00': 'Mediator/Mediatorin', // Arbitrators, Mediators, and Conciliators
   '25-9021.00': 'Haushalts- und Landwirtschaftsberater/Haushalts- und Landwirtschaftsberaterin', // Farm and Home Management Educators
@@ -633,4 +633,14 @@ export default {
   '37-3012.00': 'Mitarbeiter im Pflanzenschutz / Mitarbeiterin im Pflanzenschutz', // Pesticide Handlers Vegetation: war "Mitarbeiter für die Pestizidausbringung" — sperrige Wort-für-Wort-Übersetzung; Pflanzenschutz ist der etablierte DE-Sektor-Begriff (signalisiert Pflanzen, nicht Tiere/Schädlingsbekämpfung)
   '35-1012.00': 'Schichtleiter Gastronomie / Schichtleiterin Gastronomie', // First-Line Supervisors of Food Prep/Serving: war "Schnellrestaurantteamleiter" — Kompositum-Klotz und zu eng (SOC umfasst Restaurants, Mensen, Cafeterien, nicht nur Schnellrestaurant); Schichtleiter Gastronomie deckt das KldB-63393-Spektrum ab
   '35-2012.00': 'Großküchenkoch/Großküchenköchin', // Cooks Institution and Cafeteria: war "Diätkoch" — Diätkoch ist Zusatzqualifikation, nicht der Standard für Mensa/Krankenhaus/Heim-Küche; Großküchenkoch ist alltagstauglich und deckt SOC-Scope (Gemeinschaftsverpflegung) ab
+
+  // === Audit batch 4 — SOC 41+15 coupled title fixes (2026-04-25) ===
+  '15-1232.00': 'IT-Support-Spezialist/IT-Support-Spezialistin', // Computer User Support Specialists: war "IT-Helpdesk-Manager" — Manager-Endung suggeriert Führung, SOC ist End-User-Support; Anf 2 bestätigt vom Audit
+  '15-1254.00': 'Web-Entwickler/Web-Entwicklerin', // Web Developers: war "Web-Designer" — zwei verschiedene Berufe (Developer programmiert, Designer gestaltet)
+  '15-1299.03': 'Dokumentenmanagement-Spezialist/Dokumentenmanagement-Spezialistin', // Document Management Specialists: war "Fachangestellter für Medien- und Informationsdienste" (FaMI ist 3-jähriger IHK-Ausbildungsberuf für Bibliothek/Archiv, Anf 2) — SOC ist Enterprise-DMS-Implementierer (SharePoint/OpenText/Documentum), IT-Spezialist Anf 3
+  '41-1011.00': 'Filialleiter Einzelhandel/Filialleiterin Einzelhandel', // First-Line Supervisors Retail Sales: war "Leiter eines Bekleidungsgeschäftes" — zu eng (SOC umfasst alle Einzelhandelsfilialen) und unidiomatisch für Aufsichtskraft-Tier
+  '41-1012.00': 'Teamleiter Vertrieb / Teamleiterin Vertrieb', // First-Line Supervisors Non-Retail Sales: war "Ladenmanager" — SOC ist B2B Non-Retail, kein "Laden"; Teamleiter Vertrieb ist eindeutige Anf-3-Mid-Tier-Bezeichnung (Vertriebsleiter wäre ambig zwischen Anf 3 und 4)
+  '41-4011.00': 'Technischer Vertriebsmitarbeiter / Technische Vertriebsmitarbeiterin', // Sales Reps Wholesale/Manufacturing Technical/Scientific Products: war "Fachkraft im Bereich Vertrieb" — sehr generisch; technischer Vertrieb ist der etablierte DE-Begriff
+  '41-9012.00': 'Model/Fotomodell', // Models: war "Modell für Künstler" — zu eng (impliziert Aktmodell), SOC umfasst Fashion-/Werbe-/Fitness-Models
+  '41-9021.00': 'Immobilienmakler/Immobilienmaklerin', // Real Estate Brokers: war "Immobilienhändler" — klingt nach privatem Trader; Immobilienmakler ist die etablierte Berufsbezeichnung
 }
