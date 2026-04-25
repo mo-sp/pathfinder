@@ -9,7 +9,7 @@
  * exists (so the header's "Zum Test" link on a mid-funnel user continues
  * the progressive funnel), and only fall back to resetCurrentLayer when
  * every layer is already done. The other tests cover Likert interaction,
- * the Zurück disabled boundary, the "Schicht neu starten" layer-scoped
+ * the Zurück disabled boundary, the "Nur diesen Teil neu" layer-scoped
  * reset path, the progress display, and completion → /ergebnis.
  */
 import 'fake-indexeddb/auto'
@@ -147,7 +147,7 @@ describe('AssessmentPage', () => {
       expect(store.currentIndex).toBe(0)
 
       // The 5 Likert buttons render in document order before Zurück and
-      // "Schicht neu starten", so findAll('button')[0..4] are values 1..5.
+      // "Nur diesen Teil neu", so findAll('button')[0..4] are values 1..5.
       const likertButtons = wrapper.findAll('button').slice(0, 5)
       expect(likertButtons).toHaveLength(5)
 
@@ -167,7 +167,7 @@ describe('AssessmentPage', () => {
       expect(zurueck.attributes('disabled')).toBeDefined()
     })
 
-    it('"Schicht neu starten" clears the current layer and keeps sessionId (within-session re-run)', async () => {
+    it('"Nur diesen Teil neu" clears the current layer and keeps sessionId (within-session re-run)', async () => {
       const store = useQuestionnaireStore()
       store.answer(4)
       store.answer(3)
@@ -175,7 +175,7 @@ describe('AssessmentPage', () => {
 
       const wrapper = mountWith(makeRouter())
       const schichtNeu = wrapper.findAll('button')[6]!
-      expect(schichtNeu.text()).toContain('Schicht neu starten')
+      expect(schichtNeu.text()).toContain('Nur diesen Teil neu')
       await schichtNeu.trigger('click')
 
       // Layer-scoped reset: RIASEC answers cleared, but sessionId stays
@@ -187,7 +187,7 @@ describe('AssessmentPage', () => {
       expect(store.sessionId).toBe(beforeId)
     })
 
-    it('"Schicht neu starten" in the Big Five layer preserves the completed RIASEC results', async () => {
+    it('"Nur diesen Teil neu" in the Big Five layer preserves the completed RIASEC results', async () => {
       const store = useQuestionnaireStore()
       // Full RIASEC run, then promote to Big Five and answer a few.
       for (let i = 0; i < store.riasecTotal; i += 1) store.answer(3)
@@ -201,7 +201,7 @@ describe('AssessmentPage', () => {
       const wrapper = mountWith(makeRouter())
       const schichtNeu = wrapper
         .findAll('button')
-        .find((b) => b.text().includes('Schicht neu starten'))
+        .find((b) => b.text().includes('Nur diesen Teil neu'))
       expect(schichtNeu).toBeDefined()
       await schichtNeu!.trigger('click')
 
