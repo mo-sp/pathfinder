@@ -626,4 +626,11 @@ export default {
   '33-1091.00': 'Einsatzleiter Sicherheitsdienst / Einsatzleiterin Sicherheitsdienst', // First-Line Supervisors of Security Workers: war "Sicherheitspersonalmanager" — Kunstwort; Einsatzleiter trifft die operative Schichtleitung (Sicherheitsdienstleiter würde Firmen-CEO suggerieren)
   '33-9092.00': 'Rettungsschwimmer/Rettungsschwimmerin', // Lifeguards/Ski Patrol: war "Beamter der Küstenwache" — wildly falsch; Lifeguards sind Rettungsschwimmer (Ski Patrol ist im DE-Kontext rare Nische)
   '33-9094.00': 'Schulbusbegleiter/Schulbusbegleiterin', // School Bus Monitors: war "Schulbusbegleiter" — fehlende feminine Form ergänzt
+
+  // === Audit batch 3 — SOC 23+37+35 coupled title fixes (2026-04-25) ===
+  '37-1012.00': 'Vorarbeiter im Garten- und Landschaftsbau / Vorarbeiterin im Garten- und Landschaftsbau', // First-Line Supervisors Landscaping/Lawn/Groundskeeping: war "Produktionsleiter im Bereich Gartenbau" — industriell-schief; Vorarbeiter ist der etablierte DE-Titel auf Aufsichtskraft-Tier im GaLaBau
+  '37-3011.00': 'Garten- und Landschaftspfleger/Garten- und Landschaftspflegerin', // Landscaping and Groundskeeping Workers: war "Rasenpfleger" — zu eng (SOC umfasst Bäume, Sträucher, Beete, allgemeine Pflege)
+  '37-3012.00': 'Mitarbeiter im Pflanzenschutz / Mitarbeiterin im Pflanzenschutz', // Pesticide Handlers Vegetation: war "Mitarbeiter für die Pestizidausbringung" — sperrige Wort-für-Wort-Übersetzung; Pflanzenschutz ist der etablierte DE-Sektor-Begriff (signalisiert Pflanzen, nicht Tiere/Schädlingsbekämpfung)
+  '35-1012.00': 'Schichtleiter Gastronomie / Schichtleiterin Gastronomie', // First-Line Supervisors of Food Prep/Serving: war "Schnellrestaurantteamleiter" — Kompositum-Klotz und zu eng (SOC umfasst Restaurants, Mensen, Cafeterien, nicht nur Schnellrestaurant); Schichtleiter Gastronomie deckt das KldB-63393-Spektrum ab
+  '35-2012.00': 'Großküchenkoch/Großküchenköchin', // Cooks Institution and Cafeteria: war "Diätkoch" — Diätkoch ist Zusatzqualifikation, nicht der Standard für Mensa/Krankenhaus/Heim-Küche; Großküchenkoch ist alltagstauglich und deckt SOC-Scope (Gemeinschaftsverpflegung) ab
 }
