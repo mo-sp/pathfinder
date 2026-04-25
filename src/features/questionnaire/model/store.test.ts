@@ -880,19 +880,19 @@ describe('questionnaire store', () => {
       expect(store2.valuesAnswers[1].value).toBe(2)
     })
 
-    it('results include valuesPenalty when values complete', async () => {
+    it('results include valuesContribution when values complete', async () => {
       const store = useQuestionnaireStore()
       // Complete RIASEC
       for (let i = 0; i < store.riasecTotal; i += 1) store.answer((i % 5) + 1)
       await store.loadOccupations()
-      // Complete values (all extreme answers to create penalties)
+      // Complete values (all extreme answers to create a signed contribution)
       store.startValuesLayer()
       for (let i = 0; i < store.valuesTotal; i += 1) store.answer(5)
       expect(store.valuesIsComplete).toBe(true)
 
-      // Results should have valuesPenalty populated
-      const withPenalty = store.results.filter((r) => r.valuesPenalty !== null)
-      expect(withPenalty.length).toBeGreaterThan(0)
+      // Results should have valuesContribution populated
+      const withContribution = store.results.filter((r) => r.valuesContribution !== null)
+      expect(withContribution.length).toBeGreaterThan(0)
     })
   })
 

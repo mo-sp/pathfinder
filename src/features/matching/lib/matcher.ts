@@ -14,6 +14,19 @@ const BIG_FIVE_ALPHA = 0.3
 const VALUES_DIMENSION_WEIGHT = 0.05
 
 /**
+ * Centre point for the signed values contribution. Browser-test calibrated:
+ * a mid-mid user (all values = 3) typically lands around 0.05–0.10 penalty
+ * for a real occupation, so a 0.175 mathematical-midpoint had everyone
+ * collecting positive contributions. 0.10 is closer to the empirical
+ * median, so a one-dimension mismatch (e.g. outdoor want vs indoor job)
+ * already drags the contribution slightly negative. Range becomes
+ * asymmetric [−0.25, +0.10] — penalty bites harder than bonus rewards,
+ * which fits the asymmetry of workContext-mismatch in real life.
+ * Provisional pending archetype-persona calibration session.
+ */
+const VALUES_CONTRIBUTION_CENTRE = 0.10
+
+/**
  * User's education willingness (1-5 Likert) → max allowed KldB
  * Anforderungsniveau (1-4). Level 4 and 5 collapse to Anf 4 — Level 5 is the
  * "egal, alles" option where the filter disengages. Occupations whose
@@ -212,10 +225,16 @@ export function matchOccupations(
       }
     }
 
-    let valuesPenalty: number | null = null
+    let valuesContribution: number | null = null
     if (useValues) {
-      valuesPenalty = computeValuesPenalty(userValues, occupation)
-      if (valuesPenalty != null) fitScore -= valuesPenalty
+      const penalty = computeValuesPenalty(userValues, occupation)
+      if (penalty != null) {
+        // Map penalty [0, ~0.35] to a signed contribution centred at the
+        // empirical median penalty (see CENTRE doc). Perfect match awards
+        // +CENTRE; mismatch goes negative.
+        valuesContribution = VALUES_CONTRIBUTION_CENTRE - penalty
+        fitScore += valuesContribution
+      }
     }
 
     let skillsMatch: number | null = null
@@ -246,7 +265,7 @@ export function matchOccupations(
       fitScore,
       riasecCorrelation,
       bigFiveModifier,
-      valuesPenalty,
+      valuesContribution,
       skillsMatch,
       skillsBonus,
       rank: 0,

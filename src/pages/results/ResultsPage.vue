@@ -124,7 +124,7 @@ const valuesRanked = computed(() =>
     .map((r) => {
       let fit = r.riasecCorrelation
       if (r.bigFiveModifier != null) fit += r.bigFiveModifier
-      if (r.valuesPenalty != null) fit -= r.valuesPenalty
+      if (r.valuesContribution != null) fit += r.valuesContribution
       return { ...r, fitScore: fit }
     })
     .sort((a, b) => b.fitScore - a.fitScore)
@@ -231,7 +231,7 @@ function occupationSubtitle(o: Occupation): string | null {
 }
 
 /** Score delta: difference between the current view's fitScore and the RIASEC baseline. */
-function scoreDelta(result: { riasecCorrelation: number; fitScore: number; bigFiveModifier: number | null; valuesPenalty: number | null; skillsBonus: number | null }): number | null {
+function scoreDelta(result: { riasecCorrelation: number; fitScore: number; bigFiveModifier: number | null; valuesContribution: number | null; skillsBonus: number | null }): number | null {
   if (viewMode.value === 'riasec') return null
   if (viewMode.value === 'bigfive') {
     if (result.bigFiveModifier == null) return null
@@ -241,7 +241,7 @@ function scoreDelta(result: { riasecCorrelation: number; fitScore: number; bigFi
   // values / skills view: total delta from RIASEC baseline
   if (
     result.bigFiveModifier == null &&
-    result.valuesPenalty == null &&
+    result.valuesContribution == null &&
     result.skillsBonus == null
   ) {
     return null
@@ -389,7 +389,7 @@ function toggleExplanation(onetCode: string): void {
 
 type FactorTone = 'positive' | 'negative' | 'neutral'
 type FactorKey = 'riasec' | 'bigfive' | 'values' | 'skills'
-type Stage = 'strong' | 'moderate' | 'weak' | 'poor'
+type Stage = 'strong' | 'moderate' | 'neutral' | 'weak' | 'poor'
 type FactorState = 'active' | 'inactive' | 'notScored' | 'noData'
 
 type FactorRow = {
@@ -417,18 +417,22 @@ function stageForBigFive(v: number): Stage {
   if (v >= -0.1) return 'weak'
   return 'poor'
 }
-function stageForValues(penalty: number): Stage {
-  if (penalty < 0.05) return 'strong'
-  if (penalty < 0.1) return 'moderate'
-  if (penalty < 0.2) return 'weak'
+// Values staged on the signed contribution in [−0.25, +0.10]. Asymmetric
+// (penalty side is wider than bonus side because the centre sits at the
+// empirical median penalty, not the mathematical midpoint). Neutral band
+// for effectively-zero contributions.
+function stageForValues(contribution: number): Stage {
+  if (Math.abs(contribution) < 0.005) return 'neutral'
+  if (contribution >= 0.07) return 'strong'
+  if (contribution > 0) return 'moderate'
+  if (contribution > -0.10) return 'weak'
   return 'poor'
 }
-// Skills staged by the signed skillsBonus in [−0.25, +0.25]. Binary
-// sign: any positive bonus reads green (strong/moderate), any negative
-// reads red (weak/poor). No neutral grey band — the piecewise bonus is
-// already calibrated around 0 at the median user, so a near-zero bonus
-// is information, not noise.
+// Skills staged by the signed skillsBonus in [−0.25, +0.25]. Effectively-
+// zero bonuses get their own 'neutral' band so a median user (piecewise
+// bonus anchored at 0) isn't told "Solide Überschneidung" on a 0.00 value.
 function stageForSkills(bonus: number): Stage {
+  if (Math.abs(bonus) < 0.005) return 'neutral'
   if (bonus >= 0.10) return 'strong'
   if (bonus >= 0) return 'moderate'
   if (bonus >= -0.10) return 'weak'
@@ -467,7 +471,7 @@ function factorLayerComplete(key: FactorKey): boolean {
 function scoreBreakdown(result: {
   riasecCorrelation: number
   bigFiveModifier: number | null
-  valuesPenalty: number | null
+  valuesContribution: number | null
   skillsMatch: number | null
   skillsBonus: number | null
 }, mode: ViewMode): FactorRow[] {
@@ -529,10 +533,10 @@ function scoreBreakdown(result: {
   rows.push(
     mkRow(
       'values',
-      result.valuesPenalty != null,
-      result.valuesPenalty != null ? stageForValues(result.valuesPenalty) : null,
-      result.valuesPenalty != null ? -result.valuesPenalty : null,
-      result.valuesPenalty != null ? `−${result.valuesPenalty.toFixed(2)}` : '',
+      result.valuesContribution != null,
+      result.valuesContribution != null ? stageForValues(result.valuesContribution) : null,
+      result.valuesContribution,
+      result.valuesContribution != null ? formatSigned(result.valuesContribution) : '',
     ),
   )
   rows.push(
@@ -555,7 +559,7 @@ function scoreBreakdown(result: {
 function scoreFormula(result: {
   riasecCorrelation: number
   bigFiveModifier: number | null
-  valuesPenalty: number | null
+  valuesContribution: number | null
   skillsBonus: number | null
 }, mode: ViewMode): string {
   const r = result.riasecCorrelation
@@ -570,9 +574,10 @@ function scoreFormula(result: {
     parts.push(r.toFixed(2))
     rhs = r
   }
-  if (factorInActiveView('values', mode) && result.valuesPenalty != null) {
-    parts.push(`− ${result.valuesPenalty.toFixed(2)}`)
-    rhs -= result.valuesPenalty
+  if (factorInActiveView('values', mode) && result.valuesContribution != null) {
+    const vc = result.valuesContribution
+    parts.push(`${vc >= 0 ? '+' : '−'} ${Math.abs(vc).toFixed(2)}`)
+    rhs += vc
   }
   if (factorInActiveView('skills', mode) && result.skillsBonus != null) {
     parts.push(`${result.skillsBonus >= 0 ? '+' : '−'} ${Math.abs(result.skillsBonus).toFixed(2)}`)
