@@ -88,14 +88,14 @@ export interface Occupation {
 
 export interface MatchResult {
   occupation: Occupation
-  /** Combined score: riasecCorrelation + bigFiveModifier − valuesPenalty + skillsBonus. */
+  /** Combined score: riasecCorrelation + bigFiveModifier + valuesContribution + skillsBonus. */
   fitScore: number
   /** Raw Pearson correlation between user and occupation RIASEC profiles, -1 to 1. */
   riasecCorrelation: number
   /** Additive Big Five adjustment in [−0.3, +0.3] (α × bfSimilarity). null when occupation has no Big Five profile. */
   bigFiveModifier: number | null
-  /** Values penalty subtracted from fitScore, 0–0.35. null when values not provided. */
-  valuesPenalty: number | null
+  /** Signed values contribution added to fitScore, centred at 0: 0.175 − penalty ∈ [−0.175, +0.175]. null when values not provided. */
+  valuesContribution: number | null
   /** Weighted similarity between user skills profile and occupation, 0-1. null when occupation has no skills data or user has no skills profile. */
   skillsMatch: number | null
   /** Skills bonus added to fitScore, range [-0.25, +0.25]. null when skillsMatch is null. */

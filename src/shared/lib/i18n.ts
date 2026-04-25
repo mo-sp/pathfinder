@@ -120,10 +120,11 @@ const messages = {
           poor: 'Persönlichkeit dämpft den Score deutlich.',
         },
         values: {
-          strong: 'Rahmenbedingungen passen fast perfekt.',
-          moderate: 'Leichte Abweichung bei den Rahmenbedingungen.',
-          weak: 'Deutliche Abweichung bei den Rahmenbedingungen.',
-          poor: 'Starke Abweichung bei den Rahmenbedingungen.',
+          strong: 'Rahmenbedingungen passen sehr gut – Score wird angehoben.',
+          moderate: 'Rahmenbedingungen passen überwiegend.',
+          neutral: 'Rahmenbedingungen im Mittel – kein Einfluss auf den Score.',
+          weak: 'Rahmenbedingungen dämpfen den Score leicht.',
+          poor: 'Rahmenbedingungen dämpfen den Score deutlich.',
         },
         skills: {
           strong: 'Deine Fähigkeiten decken sich stark mit dem Berufsprofil.',

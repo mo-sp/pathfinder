@@ -245,24 +245,27 @@ describe('matchOccupations', () => {
       expect(results).toHaveLength(3)
     })
 
-    it('applies soft penalties that reduce fitScore', () => {
+    it('applies a negative contribution that reduces fitScore on strong mismatch', () => {
       const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
-      // User who wants all-outdoor but deskJob is all-indoor → penalty
-      const outdoorPref: ValuesProfile = { ...neutralValues, education: 5, environment: 5 }
-      const results = matchOccupations(userProfile, [deskJob], 20, null, null, outdoorPref)
+      // Maximally mismatched against deskJob (indoor team desk work)
+      const maxMismatch: ValuesProfile = {
+        education: 5, environment: 5, socialInteraction: 1, teamwork: 1,
+        physicalDemands: 5, autonomy: 1, publicContact: 1, routine: 5,
+      }
+      const results = matchOccupations(userProfile, [deskJob], 20, null, null, maxMismatch)
       const desk = results[0]
-      expect(desk.valuesPenalty).not.toBeNull()
-      expect(desk.valuesPenalty!).toBeGreaterThan(0)
+      expect(desk.valuesContribution).not.toBeNull()
+      expect(desk.valuesContribution!).toBeLessThan(0)
       expect(desk.fitScore).toBeLessThan(desk.riasecCorrelation)
     })
 
-    it('returns valuesPenalty: null when values not provided', () => {
+    it('returns valuesContribution: null when values not provided', () => {
       const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
       const results = matchOccupations(userProfile, [deskJob])
-      expect(results[0].valuesPenalty).toBeNull()
+      expect(results[0].valuesContribution).toBeNull()
     })
 
-    it('returns valuesPenalty: null when occupation has no workContext', () => {
+    it('returns valuesContribution: null when occupation has no workContext', () => {
       // Regression for a display bug: occupations without workContext used to
       // get penalty = 0, which the UI rendered as "perfect match". Values
       // layer should abstain (null) instead, matching the skills-layer
@@ -271,11 +274,11 @@ describe('matchOccupations', () => {
       const userProfile: RIASECProfile = { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 }
       const values: ValuesProfile = { ...neutralValues, education: 5 }
       const results = matchOccupations(userProfile, [noWc], 20, null, null, values)
-      expect(results[0].valuesPenalty).toBeNull()
+      expect(results[0].valuesContribution).toBeNull()
       expect(results[0].fitScore).toBe(results[0].riasecCorrelation)
     })
 
-    it('penalty is 0 for perfectly matching preferences', () => {
+    it('contribution tops out near +0.175 for perfectly matching preferences', () => {
       const userProfile: RIASECProfile = { R: 7, I: 2, A: 2, S: 2, E: 2, C: 3 }
       // Preferences that match outdoorJob: outdoor, physical, low contact, moderate autonomy
       const perfectMatch: ValuesProfile = {
@@ -283,11 +286,12 @@ describe('matchOccupations', () => {
         physicalDemands: 5, autonomy: 3, publicContact: 2, routine: 3,
       }
       const results = matchOccupations(userProfile, [outdoorJob], 20, null, null, perfectMatch)
-      // Should be very small (near 0) but not necessarily exactly 0 due to composite math
-      expect(results[0].valuesPenalty!).toBeLessThan(0.05)
+      // contribution = 0.175 − penalty; perfect → penalty ≈ 0 → contribution ≈ +0.175
+      expect(results[0].valuesContribution!).toBeGreaterThan(0.125)
+      expect(results[0].valuesContribution!).toBeLessThanOrEqual(0.175)
     })
 
-    it('total penalty stays within expected max range (~0.35)', () => {
+    it('contribution bottoms out near −0.175 on maximum mismatch', () => {
       const userProfile: RIASECProfile = { R: 2, I: 6, A: 3, S: 2, E: 3, C: 5 }
       // Maximally mismatched: want outdoor+physical+solo vs indoor desk team job
       const maxMismatch: ValuesProfile = {
@@ -295,8 +299,10 @@ describe('matchOccupations', () => {
         physicalDemands: 5, autonomy: 1, publicContact: 1, routine: 5,
       }
       const results = matchOccupations(userProfile, [deskJob], 20, null, null, maxMismatch)
-      expect(results[0].valuesPenalty!).toBeLessThanOrEqual(0.4)
-      expect(results[0].valuesPenalty!).toBeGreaterThan(0)
+      // contribution = 0.175 − penalty; max penalty ≈ 0.35 → contribution ≈ −0.175.
+      // Allow small slack (penalty can edge past 0.35 in composite math).
+      expect(results[0].valuesContribution!).toBeLessThan(0)
+      expect(results[0].valuesContribution!).toBeGreaterThanOrEqual(-0.225)
     })
 
     it('values re-rank occupations with similar RIASEC fit', () => {
@@ -320,11 +326,11 @@ describe('matchOccupations', () => {
       const values: ValuesProfile = { ...neutralValues, education: 5, environment: 1 }
       const results = matchOccupations(userProfile, [deskJob], 20, userBf, occBfProfiles, values)
       const r = results[0]
-      // Has both modifier and penalty
+      // Has both modifier and contribution
       expect(r.bigFiveModifier).not.toBeNull()
-      expect(r.valuesPenalty).not.toBeNull()
-      // fitScore = riasec + bfAdj - valuesPenalty
-      expect(r.fitScore).toBeCloseTo(r.riasecCorrelation + r.bigFiveModifier! - r.valuesPenalty!, 6)
+      expect(r.valuesContribution).not.toBeNull()
+      // fitScore = riasec + bfAdj + valuesContribution (contribution is signed)
+      expect(r.fitScore).toBeCloseTo(r.riasecCorrelation + r.bigFiveModifier! + r.valuesContribution!, 6)
     })
   })
 
