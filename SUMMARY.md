@@ -5,6 +5,47 @@
 
 ---
 
+### Session 35 – 2026-04-25
+**Focus:** End-to-end scoring validation with 13 archetype personas across all 4 layers, surfacing one calibration finding (values layer too linear → quadratic extremity multiplier on per-dim penalty) and one data finding (BigFive coverage gap on ~141/923 occupations). Single PR on `feat/archetype-personas-and-values-strength`. Fifth session this calendar day.
+
+**Meta / process notes:**
+- **Persona design preceded test code, by request.** @mo-sp asked to see the persona profiles and expected outcomes *before* any test code was written, on the basis that a Vitest suite calibrated against bad personas only validates that the matcher behaves consistently — not that the personas themselves represent reasonable archetypes. Walked profiles + expected family bounds inline; @mo-sp redirected one parameter (negative-assertion ranks from >30 to >50, since 923 occupations make >30 too lenient) and approved. The pre-review caught an assumption gap that would have been a 16-test rewrite if surfaced post-hoc.
+- **Five test failures on first run, all test-side, no weights touched.** Initial run had P7 SwDev rank 39 (persona R=4 too high — canonical SwDev sits at R=3), P10 outdoor 3/10 in expected families (values too weak), P11 1/10 in indoor families (persona I=4 too high — pulled Computer/Math instead of Library/Office), P12 skillsBonus null (data gap, not bug — some occupations lack skills entirely), P13 5/10 in engineering (BigFive coverage gap). All five fixed by persona-tuning or assertion-bound adjustment, no scoring weights changed yet.
+- **The archetype-vs-tuning question got answered by the data.** With all five tests green @mo-sp asked: should `VALUES_CONTRIBUTION_CENTRE` be lowered to 0.08 for stronger values impact? Walked through the math: CENTRE shifts the bonus/penalty axis (lower CENTRE = harsher penalty + smaller reward, asymmetric strengthening but same total span); **`VALUES_DIMENSION_WEIGHT`** is the actual amplitude knob (currently 0.05 × 7 dims = 0.35 max swing). @mo-sp then proposed a non-linear shape: extreme answers (1 or 5) should be Mitbestimmer, mid-range (2/3/4) should stay soft. Implemented as quadratic strength multiplier `1 + ((v−3)/2)² × β` with β=1.5, gives ×1.0 / ×1.375 / ×2.5 for egal / eher / ganz answers — landed on β=1.5 as the balance point where extreme answers act as Mitbestimmer alongside Skills/BigFive (each ±0.25-0.30 swing) without becoming a Veto.
+- **Median user invariance preserved by construction.** All-3s user has strength = 1.0 on every dim by definition, so P12's top-10 was byte-identically unchanged before and after the multiplier. Spot-checked in dump output and codified in the suite via `|skillsBonus| < 0.05` / `|valuesContribution| < 0.10` per-result assertions on P12.
+- **Three test-side adjustments after the matcher change.** `matcher.test.ts` "max mismatch" range expanded from [≥−0.30] to [≥−0.60] (max penalty grows from ≈0.35 to ≈0.875 in worst case under quadratic strength). "Perfectly matching" test renamed to "closely matching" with bound `>0.02` instead of `>0.05` (residual mismatch on extreme dims now amplified ×2.5, so a near-perfect match no longer rounds to +0.08). `archetype-personas.test.ts` P13 spot-check expanded from top-5 to top-7 (engineering 17-2031 + 17-2112.01 sit at ranks 6/7 once quadratic shifts applied-quant 13-2099.01 and pure-math 15-2021 above them).
+- **BigFive coverage gap surfaced as a real data finding, not a calibration miss.** P13 (low-O Investigator) top-3 came back as Astronom 19-2011, Quant Finanz 13-2099.01, Anthropologe 19-3091. Investigation: 141/923 occupations have no BigFive profile in `bigfive-occupation-profiles.json`, so they escape the BigFive modifier entirely (`bigFiveModifier = null`). For a low-O user that means undocumented research-flavoured roles get a free pass against the low-O penalty while their bf-present siblings get correctly penalised. Mostly affects specialty/sub-codes (.01-.99 suffixes). Logged to BACKLOG with three fix options.
+- **Negative-assertion fortuitously already passes.** P10 (outdoor extreme) Bibliothekar test asserts not in top-50 — passes, but mostly because Bibliothekar's R is too low to compete on RIASEC alone, not because values penalises it. P11 same story for Naturschutz/Hochbauhelfer. Adding the "P10 vs indoor-twin reranks ≥5/30" differential test makes the values-layer-impact check explicit instead of incidental.
+
+**What shipped — `feat/archetype-personas-and-values-strength` (1 PR, 4 commits):**
+
+*`src/features/matching/lib/matcher.ts`*: new `VALUES_STRENGTH_BETA = 1.5` constant + `valuesStrength(v)` helper. `computeValuesPenalty` multiplies each dim's penalty by `valuesStrength(userValues[dim])`. CENTRE doc updated to reflect new range [≈−0.55, +0.10] for extreme users.
+
+*`src/features/matching/lib/matcher.test.ts`*: two range-bound tests adjusted for the new max-penalty span ("perfectly matching" → "closely matching", "−0.25 max" → "−0.50 max").
+
+*`src/features/matching/lib/archetype-personas.test.ts` (NEW)*: 409-line suite. 13 personas, 16 tests across 5 describe blocks (RIASEC dominants, mixed Holland codes, values-conflict + differential, median user, BigFive differentiator + differential). Direct profile injection (RIASEC / BigFive / Values) since Pearson is scale-invariant; Skills uses uniform base 3 + selective per-element overrides for archetype signature competencies. Occupations get the same `kldb-occupation-mapping.json` overlay the questionnaire store applies at runtime, so `anforderungsniveau` populates and the education hard-filter activates correctly.
+
+*`BACKLOG.md`*: retired the "End-to-end scoring validation with archetype-personas" Up-next entry (shipped this session). Added new Up-next entry for the BigFive coverage gap (~141/923 occupations missing) with three concrete fix options.
+
+**Coverage after the session:**
+
+| | Before | After |
+|---|---|---|
+| Tests passing | 227 | **243** (+16 archetype tests) |
+| Test files | 13 | 14 |
+| Values layer max swing (extreme user) | ±0.25 / +0.10 | **±0.55 / +0.10** |
+| Median user values impact | ±0.10 | unchanged (×1.0) |
+| Documented BigFive coverage gap | implicit | explicit BACKLOG entry |
+
+**Branch:** `feat/archetype-personas-and-values-strength` (3 code commits + 1 docs commit → 1 PR).
+
+**Open for next sessions (tracked in BACKLOG):**
+- **BigFive coverage gap fix** — pick (a) per-ISCO mean imputation, (b) explicit small penalty for missing data, or (c) accept and document. Affects specialty/sub-codes mostly.
+- **Concrete examples on every question** — own session, ~238 examples across all four layers.
+- **45-3031.00 + Förster fixes** — small dedicated PR, single-file overrides.
+
+---
+
 ### Session 34 – 2026-04-25
 **Focus:** Friends-release prep — three independent UX/scoring fixes (skills neutral stage, restart granularity, values symmetrize), one viral hook (Top-20 copy-to-clipboard), one stray search-input bug, plus a BACKLOG-spring-cleaning. Two PRs on `feat/friends-release-ux-batch` and `feat/top-20-share-and-backlog-admin`. Fourth session this calendar day.
 

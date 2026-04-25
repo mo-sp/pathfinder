@@ -14,15 +14,38 @@ const BIG_FIVE_ALPHA = 0.3
 const VALUES_DIMENSION_WEIGHT = 0.05
 
 /**
+ * Quadratic extremity-strength multiplier on the per-dimension penalty.
+ * `strength = 1 + ((userValue − 3) / 2)² × β` produces:
+ *   v=3 (egal)        → ×1.0  (no amplification — neutral users behave like before)
+ *   v=2 or 4 (eher)   → ×1.375
+ *   v=1 or 5 (ganz)   → ×2.5  (extreme answers act as Mitbestimmer alongside RIASEC/Skills)
+ *
+ * Rationale: a user choosing "always outdoor" expresses a much stronger
+ * preference than one choosing "rather outdoor", and a user choosing 3
+ * (egal) explicitly opts out — so penalties should grow non-linearly with
+ * how committed the user is, not just with the raw distance to occupation
+ * data. Archetype-persona session 2026-04-25 confirmed the asymmetry: P10
+ * outdoor extreme now correctly pulls 45-Agrar codes into top-10 and pushes
+ * indoor factory roles (Handziegelmacher) down; P12 median user is byte-
+ * identically unchanged because all 3s ⇒ multiplier ≡ 1.
+ */
+const VALUES_STRENGTH_BETA = 1.5
+
+function valuesStrength(userValue: number): number {
+  return 1 + ((userValue - 3) / 2) ** 2 * VALUES_STRENGTH_BETA
+}
+
+/**
  * Centre point for the signed values contribution. Browser-test calibrated:
  * a mid-mid user (all values = 3) typically lands around 0.05–0.10 penalty
  * for a real occupation, so a 0.175 mathematical-midpoint had everyone
  * collecting positive contributions. 0.10 is closer to the empirical
  * median, so a one-dimension mismatch (e.g. outdoor want vs indoor job)
- * already drags the contribution slightly negative. Range becomes
- * asymmetric [−0.25, +0.10] — penalty bites harder than bonus rewards,
- * which fits the asymmetry of workContext-mismatch in real life.
- * Provisional pending archetype-persona calibration session.
+ * already drags the contribution slightly negative. With the strength
+ * multiplier applied, range is [≈ −0.55, +0.10] for an extreme-opinion
+ * user with full mismatch; a typical extreme-opinion user lands around
+ * [−0.15, +0.05]. Penalty bites harder than bonus rewards, which fits the
+ * asymmetry of workContext-mismatch in real life.
  */
 const VALUES_CONTRIBUTION_CENTRE = 0.10
 
@@ -68,27 +91,27 @@ function computeValuesPenalty(
 
   // Environment: composite indoor/outdoor → 1 (very indoor) to 5 (very outdoor)
   const occEnv = Math.max(1, Math.min(5, (wc.outdoor - wc.indoor + 5) / 2))
-  penalty += Math.abs(norm(userValues.environment) - norm(occEnv)) * VALUES_DIMENSION_WEIGHT
+  penalty += Math.abs(norm(userValues.environment) - norm(occEnv)) * VALUES_DIMENSION_WEIGHT * valuesStrength(userValues.environment)
 
   // Social interaction → Contact With Others (1-5)
-  penalty += Math.abs(norm(userValues.socialInteraction) - norm(wc.contactWithOthers)) * VALUES_DIMENSION_WEIGHT
+  penalty += Math.abs(norm(userValues.socialInteraction) - norm(wc.contactWithOthers)) * VALUES_DIMENSION_WEIGHT * valuesStrength(userValues.socialInteraction)
 
   // Teamwork → Work With Team (1-5)
-  penalty += Math.abs(norm(userValues.teamwork) - norm(wc.teamwork)) * VALUES_DIMENSION_WEIGHT
+  penalty += Math.abs(norm(userValues.teamwork) - norm(wc.teamwork)) * VALUES_DIMENSION_WEIGHT * valuesStrength(userValues.teamwork)
 
   // Physical demands → avg(standing, walking) (1-5)
   const occPhysical = (wc.standing + wc.walking) / 2
-  penalty += Math.abs(norm(userValues.physicalDemands) - norm(occPhysical)) * VALUES_DIMENSION_WEIGHT
+  penalty += Math.abs(norm(userValues.physicalDemands) - norm(occPhysical)) * VALUES_DIMENSION_WEIGHT * valuesStrength(userValues.physicalDemands)
 
   // Autonomy → Freedom to Make Decisions (1-5)
-  penalty += Math.abs(norm(userValues.autonomy) - norm(wc.autonomy)) * VALUES_DIMENSION_WEIGHT
+  penalty += Math.abs(norm(userValues.autonomy) - norm(wc.autonomy)) * VALUES_DIMENSION_WEIGHT * valuesStrength(userValues.autonomy)
 
   // Public contact → Deal With Public (1-5)
-  penalty += Math.abs(norm(userValues.publicContact) - norm(wc.publicContact)) * VALUES_DIMENSION_WEIGHT
+  penalty += Math.abs(norm(userValues.publicContact) - norm(wc.publicContact)) * VALUES_DIMENSION_WEIGHT * valuesStrength(userValues.publicContact)
 
   // Routine: INVERTED — user 5 (variety) matches occupation LOW routine.
   // User 1 (routine) matches occupation HIGH routine.
-  penalty += Math.abs(norm(userValues.routine) - (1 - norm(wc.routine))) * VALUES_DIMENSION_WEIGHT
+  penalty += Math.abs(norm(userValues.routine) - (1 - norm(wc.routine))) * VALUES_DIMENSION_WEIGHT * valuesStrength(userValues.routine)
 
   return Math.round(penalty * 1000) / 1000
 }
