@@ -46,7 +46,7 @@ export default {
   "13-2051.00": { kldbCode: "72124", kldbName: "Anlageberater und sonstige Finanzdienstleistungsberufe - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Anlage- und Vermögensberater/Anlage- und Vermögensberaterin
   "13-2052.00": { kldbCode: "72124", kldbName: "Anlageberater und sonstige Finanzdienstleistungsberufe - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Finanzplaner/Finanzplanerin
   "13-2054.00": { kldbCode: "72124", kldbName: "Anlageberater und sonstige Finanzdienstleistungsberufe - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Financial Risk Analyst/Financial Risk Analystin
-  "15-2031.00": { kldbCode: "51624", kldbName: "Speditions- und Logistikkaufleute - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Operations-Research-Analyst/Operations-Research-Analystin
+  // 15-2031.00 Operations Research Analysts pulled out of seed (was 51624 Speditions-/Logistikkaufleute Anf 4 — stem-drift "Logistik") → batch-4 block (41104 Mathematik hoch komplex)
   "15-2051.01": { kldbCode: "71314", kldbName: "Berufe in der Unternehmensorganisation und -planung - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Business-Intelligence-Analyst/Business-Intelligence-Analystin
   "17-2031.00": { kldbCode: "26324", kldbName: "Berufe in der Mikrosystemtechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Bioingenieur/Bioingenieurin
   "17-2112.01": { kldbCode: "53124", kldbName: "Berufe in Arbeitssicherheit und Sicherheitstechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Ergonomie-Ingenieur/Ergonomie-Ingenieurin
@@ -342,4 +342,47 @@ export default {
   "35-2013.00": { kldbCode: "29302", kldbName: "Köche/Köchinnen (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Cooks Private Household: war 29393 Aufsichtskräfte Speisenzubereitung Anf 3 — Privatkoch ist ausgebildeter Fachkoch, weder Aufsichtskraft (zu hoch) noch Helfer (Agent-Vorschlag 29301 zu niedrig); 29302 Anf 2 ist die Reconciliation-Mitte
   "35-2015.00": { kldbCode: "63312", kldbName: "Berufe in der Systemgastronomie - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Cooks Short Order: war 63301 Gastronomieservice Helfer Anf 1 — Short-Order ist Systemgastronomie-Fachkraft (Imbiss/Diner-Tradition mit Ausbildung)
   "35-9031.00": { kldbCode: "63302", kldbName: "Berufe im Gastronomieservice (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Hosts and Hostesses Restaurant: war 63112 Tourismuskaufleute (Reisebüro-Drift) — Restaurant-Empfang/Platzierung ist Gastronomieservice-Tier; title "Oberkellner" bleibt unverändert (Restaurantservice deckt Oberkellner und Empfangsmitarbeiter beide ab)
+
+  // === Audit batch 4 — SOC 41+15 (2026-04-25) ===
+  // Largest batch so far (20 findings). SOC 15 Computer/Math (10 KldB
+  // changes, 1 title-only): four IT roles routed to wrong subdomain
+  // classes (Network Architects → IT-Netzwerktechnik, SwDev →
+  // Softwareentwicklung, Web Devs → Softwareentwicklung-fachlich, Game
+  // Designers → Medieninformatik); GIS moved out of Vermessungstechnik
+  // into Geoinformatik; Document Management Specialists pulled out of
+  // Führungskräfte-Mediendienste tier into IT-Organisation komplex
+  // (FaMI title was IHK-Ausbildungsberuf, SOC is Enterprise-DMS);
+  // Blockchain + Clinical Data Manager both → Softwareentwicklung
+  // komplex; Aktuar re-tiered Anf 3 → 4 (DAV-Ausbildung); Operations
+  // Research stem-drift "Logistik" → Mathematik (pulled out of seed).
+  // Reconciliation 15-1252 SwDev: agent suggested 43104 Informatik hoch
+  // komplex Anf 4, but 43413 Softwareentwicklung komplex Anf 3 is the
+  // exact-class match (no unnecessary Anf-4 bump).
+  // SOC 41 Sales (7 KldB changes, 2 title-only): two First-Line
+  // Supervisors re-tiered Führungskräfte Handel Anf 4 → Aufsichtskraft
+  // tier Anf 3 (analog SOC 33-1011/12, 37-1011/12, 35-1012); three
+  // Vertriebs-roles pulled out of 81883 Pharmazie (Stem-Drift "Vertrieb")
+  // into proper Vertrieb-Klassen; Retail Salespersons moved out of
+  // Groß-/Außenhandel (B2B) into Verkauf (Einzelhandel); Advertising
+  // Sales Agents pulled out of Versicherung-Drift into Werbung/Marketing.
+  // Note 41-1012 Non-Retail Supervisors: KldB lacks an "Aufsichtskräfte
+  // Vertrieb" class, so 61123 Vertrieb komplex Anf 3 is the nearest-tier
+  // fallback (Spezialist statt Aufsichtskraft).
+  "15-1241.00": { kldbCode: "43313", kldbName: "Berufe in der IT-Netzwerktechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Computer Network Architects: war 43103 Informatik (ohne Spez.) — Netzwerkarchitektur ist Netzwerktechnik-Spezialdomäne, nicht generische Informatik
+  "15-1252.00": { kldbCode: "43413", kldbName: "Berufe in der Softwareentwicklung - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Software Developers: war 43123 technische Informatik (= Hardware-nah, Drift) — 43413 Softwareentwicklung ist Exact-Klasse; Reconciliation gegen Agent's 43104 (Informatik hoch komplex Anf 4) — kein unnötiger Anf-4-Bump
+  "15-1254.00": { kldbCode: "43412", kldbName: "Berufe in der Softwareentwicklung - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Web Developers: war 43152 Medieninformatik fachlich — Web-Devs programmieren primär (kein Design); coupled mit title.de "Web-Designer" → "Web-Entwickler"
+  "15-1255.01": { kldbCode: "43153", kldbName: "Berufe in der Medieninformatik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Video Game Designers: war 23223 Grafik-/Kommunikations-/Fotodesign — Game Design ist Mechanik+Code+Spec, nicht reines Grafikdesign; Medieninformatik passt strukturell
+  "15-1299.02": { kldbCode: "43144", kldbName: "Berufe in der Geoinformatik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // GIS Technologists/Technicians: war 31214 Vermessungstechnik — SOC explizit "geographic information **systems**, software" → Geoinformatik
+  "15-1299.03": { kldbCode: "43333", kldbName: "Berufe in der IT-Organisation - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Document Management Specialists: war 73394 Führungskräfte Medien-/Doku-/Informationsdienste Anf 4 — SOC ist Enterprise-DMS-Implementierer (SharePoint/OpenText/etc.), IT-Spezialist Anf 3 (nicht Führungskraft); coupled mit title.de FaMI → "Dokumentenmanagement-Spezialist" (FaMI ist Bibliotheks-/Archiv-Ausbildungsberuf)
+  "15-1299.07": { kldbCode: "43413", kldbName: "Berufe in der Softwareentwicklung - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Blockchain Engineers: war 43103 Informatik (ohne Spez.) — Smart-Contract-Code ist Softwareentwicklung
+  "15-2011.00": { kldbCode: "41104", kldbName: "Berufe in der Mathematik (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Actuaries: war 41103 Mathematik komplex Anf 3 — Aktuar in DE braucht Mathestudium + DAV-Ausbildung (5 Jahre Praxis), klar Anf 4
+  "15-2031.00": { kldbCode: "41104", kldbName: "Berufe in der Mathematik (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Operations Research Analysts: was 51624 Speditions-/Logistikkaufleute (Stem-Drift "Logistik") — OR ist angewandte Mathematik/Statistik. Pulled out of seed.
+  "15-2051.02": { kldbCode: "43413", kldbName: "Berufe in der Softwareentwicklung - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Clinical Data Managers: war 81294 Führungskräfte Medizinisches Laboratorium Anf 4 — Clinical Data Manager ist DB-/Software-Rolle für klinische Studien (CDISC, OpenClinica), weder Lab-Führung noch Anf-4-hierarchisch
+  "41-1011.00": { kldbCode: "62193", kldbName: "Aufsichtskräfte - Verkauf", anforderungsniveau: 3, trainingCategory: "specialist" }, // First-Line Supervisors of Retail Sales: war 61294 Führungskräfte Handel Anf 4 — Reconciliation: Agent flagged title only, but First-Line Supervisor = Aufsichtskraft Anf 3 (analog 33-1011/12, 37-1011/12, 35-1012); coupled mit title.de "Leiter eines Bekleidungsgeschäftes" → "Filialleiter Einzelhandel" (SOC umfasst alle Einzelhandel, nicht nur Bekleidung)
+  "41-1012.00": { kldbCode: "61123", kldbName: "Berufe im Vertrieb (außer Informations- und Kommunikationstechnologien) - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // First-Line Supervisors of Non-Retail Sales: war 61294 Führungskräfte Handel Anf 4 — KldB hat keine "Aufsichtskräfte Vertrieb"-Klasse, 61123 Vertrieb komplex Anf 3 ist nearest-tier (Spezialist statt Aufsichtskraft); coupled mit title.de "Ladenmanager" → "Teamleiter Vertrieb" (SOC ist B2B Non-Retail, kein "Laden")
+  "41-2031.00": { kldbCode: "62102", kldbName: "Berufe im Verkauf (ohne Produktspezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Retail Salespersons: war 61212 Kaufleute Groß- und Außenhandel (= B2B) — Retail = Einzelhandel-Verkauf
+  "41-3011.00": { kldbCode: "92113", kldbName: "Berufe in Werbung und Marketing - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Advertising Sales Agents: war 72183 Versicherungs-/Finanzdienstleistungen (Stem-Drift "Verkäufer") — Anzeigenverkauf gehört in Werbung/Marketing
+  "41-4011.00": { kldbCode: "61122", kldbName: "Berufe im Vertrieb (außer Informations- und Kommunikationstechnologien) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Sales Reps Wholesale/Manufacturing Technical/Scientific Products: war 81883 Pharmazie (Stem-Drift "Vertrieb") — generischer Vertrieb-Außendienst Anf 2; coupled mit title.de "Fachkraft im Bereich Vertrieb" → "Technischer Vertriebsmitarbeiter"
+  "41-4011.07": { kldbCode: "61122", kldbName: "Berufe im Vertrieb (außer Informations- und Kommunikationstechnologien) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Solar Sales Reps: war 81883 Pharmazie (gleicher Stem-Drift); Solar-Außendienst-Kaufmann ist Anf 2 (Agent flagged Anf-Mismatch explizit)
+  "41-9031.00": { kldbCode: "61123", kldbName: "Berufe im Vertrieb (außer Informations- und Kommunikationstechnologien) - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Sales Engineers: war 81883 Pharmazie (Stem-Drift "Vertrieb") — Sales Engineers sind technischer Bachelor + Vertriebsspezialisten
 }
