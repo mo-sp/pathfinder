@@ -643,4 +643,14 @@ export default {
   '41-4011.00': 'Technischer Vertriebsmitarbeiter / Technische Vertriebsmitarbeiterin', // Sales Reps Wholesale/Manufacturing Technical/Scientific Products: war "Fachkraft im Bereich Vertrieb" — sehr generisch; technischer Vertrieb ist der etablierte DE-Begriff
   '41-9012.00': 'Model/Fotomodell', // Models: war "Modell für Künstler" — zu eng (impliziert Aktmodell), SOC umfasst Fashion-/Werbe-/Fitness-Models
   '41-9021.00': 'Immobilienmakler/Immobilienmaklerin', // Real Estate Brokers: war "Immobilienhändler" — klingt nach privatem Trader; Immobilienmakler ist die etablierte Berufsbezeichnung
+
+  // === Audit batch 5 — SOC 25 Education coupled title fixes (2026-04-25) ===
+  '25-1062.00': 'Hochschullehrkraft für Kultur- und Sozialwissenschaften', // Area, Ethnic, and Cultural Studies Teachers Postsec.: war "Hochschullehrkraft für Anthropologie" — zu eng, SOC umfasst Latino/Women's/Ethnic/Cultural Studies
+  '25-1064.00': 'Hochschullehrkraft für Geografie/Erdkunde', // Geography Teachers Postsecondary: war "Lehrkraft für Erdkunde/Geografie Sekundarstufe" — Postsecondary = Hochschule, nicht Sekundarstufe
+  '25-1121.00': 'Hochschullehrkraft Kunst, Drama und Musik', // Art, Drama, and Music Teachers Postsecondary: war "Kunsterzieher Sekundarstufe" — Postsec; SOC umfasst Kunst+Drama+Musik kombiniert
+  '25-1193.00': 'Hochschullehrkraft für Sportwissenschaft', // Recreation and Fitness Studies Teachers Postsec.: war "Ausbilder für Sportinstruktoren" — kein etablierter Beruf; Sportwissenschaft ist das DE-Hochschulfach
+  '25-1194.00': 'Lehrkraft für berufsbildende Fächer', // Career/Technical Education Teachers Postsec.: war "Lehrkraft für industriell gefertigte Kunst" (sinnloseübersetzung von Career/Technical Education); KldB 84213 bleibt
+  '25-2011.00': 'Erzieher/Erzieherin', // Preschool Teachers Except SpEd: war "Lehrkraft für Freinet-Schulen" (Reformpädagogik-Methode, kein Beruf); Erzieher ist der etablierte DE-Vorschul-/Kita-Beruf
+  '25-3011.00': 'Lehrkraft für Grundbildung und Alphabetisierung', // Adult Basic Ed / ESL: war "Lehrkraft für Erwachsenenalphabetisierung" — zu eng (SOC umfasst Alphabetisierung + ESL + Hauptschulabschluss-Nachholen)
+  '25-3021.00': 'Kursleiter/Kursleiterin Freizeitbildung', // Self-Enrichment Teachers: war "Lebensberater/Lebensberaterin" (Eso-Konnotation in DE — Tarot/Astrologie/Lebenshilfe-Praxis); Self-Enrichment = Hobby/VHS-Kurslehrer (Yoga, Töpfern, Foto, Bridge)
 }

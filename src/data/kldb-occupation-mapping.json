@@ -1774,8 +1774,8 @@
       "trainingCategory": "studies"
     },
     "25-1064.00": {
-      "kldbCode": "84124",
-      "kldbName": "Lehrkräfte in der Sekundarstufe - hoch komplexe Tätigkeiten",
+      "kldbCode": "84304",
+      "kldbName": "Berufe in der Hochschullehre und -forschung - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1840,8 +1840,8 @@
       "trainingCategory": "studies"
     },
     "25-1121.00": {
-      "kldbCode": "84124",
-      "kldbName": "Lehrkräfte in der Sekundarstufe - hoch komplexe Tätigkeiten",
+      "kldbCode": "84304",
+      "kldbName": "Berufe in der Hochschullehre und -forschung - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1852,14 +1852,14 @@
       "trainingCategory": "studies"
     },
     "25-1123.00": {
-      "kldbCode": "84124",
-      "kldbName": "Lehrkräfte in der Sekundarstufe - hoch komplexe Tätigkeiten",
+      "kldbCode": "84304",
+      "kldbName": "Berufe in der Hochschullehre und -forschung - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "25-1124.00": {
-      "kldbCode": "84454",
-      "kldbName": "(Fremd-)Sprachenlehrer - hoch komplexe Tätigkeiten",
+      "kldbCode": "84304",
+      "kldbName": "Berufe in der Hochschullehre und -forschung - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1882,8 +1882,8 @@
       "trainingCategory": "studies"
     },
     "25-1193.00": {
-      "kldbCode": "84224",
-      "kldbName": "Berufe in der betrieblichen Ausbildung und Betriebspädagogik - hoch komplexe Tätigkeiten",
+      "kldbCode": "84304",
+      "kldbName": "Berufe in der Hochschullehre und -forschung - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1912,8 +1912,8 @@
       "trainingCategory": "studies"
     },
     "25-2022.00": {
-      "kldbCode": "84454",
-      "kldbName": "(Fremd-)Sprachenlehrer - hoch komplexe Tätigkeiten",
+      "kldbCode": "84124",
+      "kldbName": "Lehrkräfte in der Sekundarstufe - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1972,22 +1972,22 @@
       "trainingCategory": "studies"
     },
     "25-3011.00": {
-      "kldbCode": "84134",
-      "kldbName": "Lehrkräfte an Förderschulen - hoch komplexe Tätigkeiten",
+      "kldbCode": "84404",
+      "kldbName": "Berufe in der Erwachsenenbildung (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "25-3021.00": {
-      "kldbCode": "83122",
-      "kldbName": "Berufe in der Sozialarbeit und Sozialpädagogik - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
-    },
-    "25-3031.00": {
-      "kldbCode": "84183",
-      "kldbName": "Lehrkräfte an allgemeinbildenden Schulen (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "84483",
+      "kldbName": "Lehrkräfte an außerschulischen Bildungseinrichtungen (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
+    },
+    "25-3031.00": {
+      "kldbCode": "84184",
+      "kldbName": "Lehrkräfte an allgemeinbildenden Schulen (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "25-3041.00": {
       "kldbCode": "84483",
@@ -2002,8 +2002,8 @@
       "trainingCategory": "studies"
     },
     "25-4012.00": {
-      "kldbCode": "73314",
-      "kldbName": "Berufe im Archivwesen - hoch komplexe Tätigkeiten",
+      "kldbCode": "94704",
+      "kldbName": "Museumsberufe (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2033,8 +2033,8 @@
       "fromJobZone": true
     },
     "25-9031.00": {
-      "kldbCode": "84184",
-      "kldbName": "Lehrkräfte an allgemeinbildenden Schulen (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
+      "kldbCode": "84404",
+      "kldbName": "Berufe in der Erwachsenenbildung (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2045,10 +2045,10 @@
       "trainingCategory": "specialist"
     },
     "25-9043.00": {
-      "kldbCode": "84183",
-      "kldbName": "Lehrkräfte an allgemeinbildenden Schulen (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "83132",
+      "kldbName": "Berufe in Heilerziehungspflege und Sonderpädagogik - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "25-9044.00": {
       "kldbCode": "84304",

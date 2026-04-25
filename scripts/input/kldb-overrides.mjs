@@ -67,9 +67,9 @@ export default {
   "21-1023.00": { kldbCode: "83124", kldbName: "Berufe in der Sozialarbeit und Sozialpädagogik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Sozialarbeiter Psychiatrie und Suchthilfe / Sozialarbeiterin Psychiatrie und Suchthilfe
   "23-1021.00": { kldbCode: "73154", kldbName: "Richter - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Friedensrichter/Friedensrichterin
   "23-1023.00": { kldbCode: "73154", kldbName: "Richter - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Richter/Richterin
-  "25-1123.00": { kldbCode: "84124", kldbName: "Lehrkräfte in der Sekundarstufe - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Hochschullehrkraft Anglistik
-  "25-1124.00": { kldbCode: "84454", kldbName: "(Fremd-)Sprachenlehrer - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Hochschullehrkraft Fremdsprachenphilologien
-  "25-2022.00": { kldbCode: "84454", kldbName: "(Fremd-)Sprachenlehrer - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Lehrkraft Sekundarstufe I
+  // 25-1123.00 English Teachers Postsecondary pulled out of seed (was 84124 Sekundarstufe — wrong tier, Postsecondary = Hochschule) → batch-5 block (84304 Hochschullehre Anf 4)
+  // 25-1124.00 Foreign Language Teachers Postsecondary pulled out of seed (was 84454 außerschulische Sprachenlehrer) → batch-5 block (84304 Hochschullehre Anf 4)
+  // 25-2022.00 Middle School Teachers pulled out of seed (was 84454 Sprachenlehrer — Sekundarstufe I deckt alle Fächer ab, nicht nur Sprachen) → batch-5 block (84124 Sekundarstufe Anf 4)
   "25-4013.00": { kldbCode: "73314", kldbName: "Berufe im Archivwesen - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Museumstechniker und Restaurator / Museumstechnikerin und Restauratorin
   "27-2011.00": { kldbCode: "94214", kldbName: "Schauspieler - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Schauspieler/Schauspielerin
   "27-2021.00": { kldbCode: "94243", kldbName: "Athleten/Athletinnen und Berufssportler - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Berufssportler/Berufssportlerin
@@ -171,7 +171,7 @@ export default {
   "23-2011.00": { kldbCode: "73112", kldbName: "Assistenzkräfte in Rechtsanwaltskanzlei und Notariat - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Rechtsanwaltsfachangestellte: was Detektive
   // 23-2093.00 Title Examiners pulled out of seed (was 73112 Anf 2) → batch-3 block (73113 Anf 3, eigenständige Spezialistentätigkeit)
   "25-2059.01": { kldbCode: "84504", kldbName: "Sportlehrer (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Sportlehrer für Menschen mit Behinderung: was Führungskräfte Pferdewirtschaft
-  "25-3021.00": { kldbCode: "83122", kldbName: "Berufe in der Sozialarbeit und Sozialpädagogik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Lebensberater: was Kinderbetreuung und -erziehung
+  // 25-3021.00 Self-Enrichment Teachers pulled out of seed (was 83122 Sozialarbeit/Sozialpädagogik Anf 2 — Sozialarbeit-Drift via "Lebensberater"-Title-Konnotation) → batch-5 block (84483 außerschulische Bildung Anf 3, Hobby/VHS-Kursleiter)
   "27-4015.00": { kldbCode: "94512", kldbName: "Berufe in der Veranstaltungs- und Bühnentechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Beleuchtungstechniker: was Tätowierer (prior seed pin was not a manual fix — corrected here)
   "33-3011.00": { kldbCode: "53242", kldbName: "Berufe im Justizvollzugsdienst - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Justizwachtmeister: was Detektive
   "33-3041.00": { kldbCode: "51512", kldbName: "Berufe in der Überwachung und Steuerung des Straßenverkehrsbetriebs - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Parking Enforcement Workers: was Jagdwirtschaft; title.de also updated "Ordnungshüter" → "Mitarbeiter Verkehrsüberwachung"
@@ -385,4 +385,43 @@ export default {
   "41-4011.00": { kldbCode: "61122", kldbName: "Berufe im Vertrieb (außer Informations- und Kommunikationstechnologien) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Sales Reps Wholesale/Manufacturing Technical/Scientific Products: war 81883 Pharmazie (Stem-Drift "Vertrieb") — generischer Vertrieb-Außendienst Anf 2; coupled mit title.de "Fachkraft im Bereich Vertrieb" → "Technischer Vertriebsmitarbeiter"
   "41-4011.07": { kldbCode: "61122", kldbName: "Berufe im Vertrieb (außer Informations- und Kommunikationstechnologien) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Solar Sales Reps: war 81883 Pharmazie (gleicher Stem-Drift); Solar-Außendienst-Kaufmann ist Anf 2 (Agent flagged Anf-Mismatch explizit)
   "41-9031.00": { kldbCode: "61123", kldbName: "Berufe im Vertrieb (außer Informations- und Kommunikationstechnologien) - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Sales Engineers: war 81883 Pharmazie (Stem-Drift "Vertrieb") — Sales Engineers sind technischer Bachelor + Vertriebsspezialisten
+
+  // === Audit batch 5 — SOC 25 Education (2026-04-25) ===
+  // 16 findings walked, 14 KldB+/-Anf changes applied, 1 reject, 1 Anf-only.
+  // Five "Postsecondary" SOC entries had been routed to Sekundarstufe-/
+  // Sprachenlehrer-/betriebliche-Ausbildung-Klassen — all pulled into 84304
+  // Hochschullehre und -forschung (Geography, Art/Drama/Music, English,
+  // Foreign Languages, Recreation/Fitness Studies). Three of these
+  // (25-1123, 25-1124, 25-2022) were seed-pinned and got pulled out (see
+  // commented entries in the seed block above). 25-2022 Middle School
+  // Teachers shifted from Sprachenlehrer-Drift to 84124 Sekundarstufe
+  // (Mittelschule deckt alle Fächer ab). Self-Enrichment Teachers moved
+  // out of Sozialarbeit-Drift into außerschulische Bildung (84483 Anf 3 —
+  // Hobby-/VHS-Kursleiter); coupled with title.de "Lebensberater"
+  // (Eso-Konnotation) → "Kursleiter Freizeitbildung". Adult Basic
+  // Education Instructors moved from Förderschule (84134) into
+  // Erwachsenenbildung (84404). Curators moved from Archivwesen (73314)
+  // into Museumsberufe (94704). Teaching Assistants Special Education
+  // dropped from 84183 Anf 3 into 83132 Heilerziehungspflege/
+  // Sonderpädagogik Anf 2 (Schulbegleiter-/Integrationshelfer-Tier).
+  // Substitute Teachers re-tiered Anf 3 → 4 (Lehramts-Norm). Instructional
+  // Coordinators moved from allgemeinbildende-Schulen-Drift into
+  // Erwachsenenbildung (84404 — Bildungsreferenten sind primär
+  // Curriculum-Spezialisten in Corporate Training und VHS).
+  // Reject: 25-9042 Teaching Assistants Regelschule — agent flagged Anf 3
+  // → 2, but KldB-841xx hat keine Anf-2-Klasse für allgemeinbildende
+  // Schulen; current 84183 Anf 3 ist nearest-tier defensibel.
+  "25-1062.00": { kldbCode: "84304", kldbName: "Berufe in der Hochschullehre und -forschung - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Area, Ethnic, and Cultural Studies Teachers Postsec.: KldB stays 84304 (already correct), pinned with title.de override "Anthropologie" → "Kultur- und Sozialwissenschaften" (siehe title-overrides batch 5)
+  "25-1064.00": { kldbCode: "84304", kldbName: "Berufe in der Hochschullehre und -forschung - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Geography Teachers Postsecondary: war 84124 Sekundarstufe — Postsecondary = Hochschule, nicht Sekundarstufe; coupled mit title.de "Erdkunde Sekundarstufe" → "Hochschullehrkraft für Geografie/Erdkunde"
+  "25-1121.00": { kldbCode: "84304", kldbName: "Berufe in der Hochschullehre und -forschung - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Art, Drama, and Music Teachers Postsecondary: war 84124 Sekundarstufe — Postsec; coupled mit title.de "Kunsterzieher Sekundarstufe" → "Hochschullehrkraft Kunst, Drama und Musik"
+  "25-1123.00": { kldbCode: "84304", kldbName: "Berufe in der Hochschullehre und -forschung - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // English Language and Literature Teachers Postsec.: war 84124 Sekundarstufe (seed) — Anglistik-Hochschullehre. Pulled out of seed.
+  "25-1124.00": { kldbCode: "84304", kldbName: "Berufe in der Hochschullehre und -forschung - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Foreign Language and Literature Teachers Postsec.: war 84454 (Fremd-)Sprachenlehrer (= außerschulisch, seed) — Postsec gehört in Hochschullehre. Pulled out of seed.
+  "25-1193.00": { kldbCode: "84304", kldbName: "Berufe in der Hochschullehre und -forschung - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Recreation and Fitness Studies Teachers Postsec.: war 84224 betriebliche Ausbildung — Sportwissenschaft-Hochschullehre, keine betriebl. Ausbildung; coupled mit title.de "Ausbilder für Sportinstruktoren" → "Hochschullehrkraft für Sportwissenschaft"
+  "25-2022.00": { kldbCode: "84124", kldbName: "Lehrkräfte in der Sekundarstufe - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Middle School Teachers (allg.): war 84454 Sprachenlehrer (seed, Sprachen-Drift) — Mittelschul-Lehrkräfte unterrichten alle Fächer, nicht nur Sprachen. Pulled out of seed.
+  "25-3011.00": { kldbCode: "84404", kldbName: "Berufe in der Erwachsenenbildung (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Adult Basic Ed / ESL Instructors: war 84134 Förderschulen — Erwachsenenbildung außerschulisch (BAMF-Integrationskurse, VHS-Alphabetisierung); coupled mit title.de "Erwachsenenalphabetisierung" → "Lehrkraft für Grundbildung und Alphabetisierung"
+  "25-3021.00": { kldbCode: "84483", kldbName: "Lehrkräfte an außerschulischen Bildungseinrichtungen (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Self-Enrichment Teachers: war 83122 Sozialarbeit/Sozialpädagogik — Hobby/VHS-Kursleiter (Yoga, Töpfern, Foto, Bridge), keine Sozialarbeit; coupled mit title.de "Lebensberater" (Eso-Konnotation) → "Kursleiter Freizeitbildung"
+  "25-3031.00": { kldbCode: "84184", kldbName: "Lehrkräfte an allgemeinbildenden Schulen (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Substitute Teachers Short-Term: war 84183 Anf 3 — Lehramts-2.-Staatsexamen ist Norm (Anf 4); Quereinsteiger sind Ausnahme
+  "25-4012.00": { kldbCode: "94704", kldbName: "Museumsberufe (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Curators: war 73314 Archivwesen — Kurator verwalten Museumssammlungen, eigene Klasse 94704 statt Archiv
+  "25-9031.00": { kldbCode: "84404", kldbName: "Berufe in der Erwachsenenbildung (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Instructional Coordinators: war 84184 allgemeinbildend Sonstige — Bildungsreferenten/Curriculum-Spezialisten primär in Erwachsenenbildung/Corporate Training/VHS; Schul-Bezug ist nur ein Subset
+  "25-9043.00": { kldbCode: "83132", kldbName: "Berufe in Heilerziehungspflege und Sonderpädagogik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Teaching Assistants Special Education: war 84183 Anf 3 — Schulbegleiter/Integrationshelfer haben Heilerziehungspfleger-Ausbildung Anf 2, nicht Lehrkräfte-Tier
 }
