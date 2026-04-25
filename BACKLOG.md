@@ -18,22 +18,35 @@ current PR. For what shipped when, see `SUMMARY.md`.
 
 Likely next 1–2 sessions.
 
-- **BigFive coverage gap — ~141 / 923 occupations have no BigFive profile.**
-  Surfaced during the archetype-persona session 2026-04-25. The matcher
-  currently sets `bigFiveModifier = null` for occupations without a
-  BigFive profile — they get a free pass through the BigFive layer
-  regardless of how strong the user's personality preferences are. For
-  P13 (low-O Investigator) the 13-strongest research roles like Astronom
-  19-2011, Anthropologe 19-3091, Historiker 19-3093 (all bf=null in the
-  data) end up high in top-10 because they escape the low-O penalty
-  entirely, while their bf=present siblings (Mathematiker, Datenwiss)
-  get correctly penalised. Fix options: (a) per-ISCO-group mean
-  imputation from sibling occupations that *do* have data, (b) explicit
-  small penalty for missing data so users with strong personality
-  preferences don't get noise from undocumented occupations, (c) accept
-  as a known limit and document it. Affects mostly specialty/sub-codes
-  with .01-.99 suffixes (Astronomers, Historians, Anthropologists)
-  rather than mainstream occupations.
+- **Audit batches 3-N — ~370 findings remaining.** Session 36 ran a
+  10-agent Sonnet coherence audit over all 923 occupations, persisted
+  to `scripts/audit/findings-2026-04-25.json` (402 flagged, 578 flags).
+  Batches 1+2 (SOC 21+45, SOC 31+33) walked 32 findings; ~370 remain.
+  Workflow: 2 SOC groups per section, 2 sections per session. Next
+  small-group pair candidates: 23 (1) + 37 (4) trivial; then 35 (6) +
+  41 (9), or 39 (14) + 31 (already done) + 33 (already done). Bigger
+  groups (29 Healthcare 43, 51 Production 43, 53 Transport 34, 47
+  Construction 31, 19 Sciences 27, 13 Business 23, 27 Arts 23, 43
+  Office 23) want larger session-budgets each. Estimated 5-7 more
+  sessions to complete. Per-batch pattern: 60-80 % apply directly,
+  15-20 % reject (current state defensible), 5-10 % modify mid-review.
+  Show plan-table with EN-original + DE-class-name before applying.
+- **BigFive coverage gap — 169 / 923 occupations have no BigFive profile.**
+  Originally framed as ~141 (the difference between Anni's 782-O*NET
+  coverage and our 923 corpus); actual gap counting failed crosswalk
+  resolutions is 169. Of those, 150 have a known ISCO-4d that lacks
+  Anni data (recoverable via 3d/2d sibling-imputation); 19 lack any
+  ESCO-crosswalk entry (recoverable only via SOC-sibling fallback or
+  hand-curation). Fix options: (a) per-ISCO-3d sibling-imputation in
+  `scripts/build-bigfive-profiles.mjs` (recovers ~129/169 = 76 %),
+  (b) cascade 4d → 3d → 2d → SOC-sibling (recovers ~155/169), (c) a +
+  hand-curate the 19 no-crosswalk codes via
+  `scripts/input/curated-occupation-profiles.mjs` (full coverage),
+  (d) runtime small-penalty for `bigFiveModifier === null` (no data
+  invented), (e) accept and document. Was queued for Session 36 but
+  pivoted to KldB coherence first (Session 36 BigFive-on-schiefer-
+  Basis-Argument). Foundation now significantly cleaner — pursue
+  after the audit pipeline winds down.
 
 ## Data quality
 
@@ -216,6 +229,31 @@ Likely next 1–2 sessions.
   signed "AI delta" or show both dimensions separately. Discuss scope
   before building.
 
+- **Hobbies/interests as bonus signal.** Currently the matcher captures
+  what users *can* do (Skills) and *value* (Values/Workcontext) but not
+  what they *enjoy doing in their spare time*. A hobby-to-occupation
+  bonus layer would catch real signal: "schwimmen" → bonus on
+  Rettungsschwimmer / Schwimmtrainer / Bademeister; "Heimwerken" →
+  bonus on handwerkliche Berufe; "Brettspiele" → bonus on Game-Designer
+  / Mathematik. Could be parallel to RIASEC or integrated with the
+  "Modern interests" idea below. Open: how many hobbies in the picker
+  (30-50?), how strong the bonus (±0.05? ±0.10?), whether to surface
+  as a separate flow step or bundle with Values. Discuss before
+  building. Shipped 2026-04-25 by @mo-sp idea.
+- **MBTI / 16personalities as Big-Five onboarding shortcut.** Many users
+  know their MBTI type (INFJ, ENTP, …) but not their Big-Five profile.
+  Don't add MBTI as a scoring layer — its dimensions overlap heavily
+  with Big Five (E/I = Extraversion, S/N ~ Openness, T/F ~ Agreeableness,
+  J/P ~ Conscientiousness) and it's psychometrically weaker (Test-
+  Retest reliability ~50 %). But: a UX shortcut where the user types
+  "INFJ" and we generate an approximated Big-Five profile would let
+  people skip the 50-item Big-Five test for a quick first run. Could
+  show a disclaimer "approximated from MBTI — answer the full Big-Five
+  test for higher accuracy." Open: which MBTI → Big-Five mapping
+  (research-backed averages exist, e.g. McCrae/Costa 1989), how to
+  surface in the assessment flow (skip-link on Big-Five intro?), and
+  whether to retain/discard the approximated profile if the user later
+  does the full test. Shipped 2026-04-25 by @mo-sp idea.
 - **"Modern interests" layer parallel to RIASEC.** Surfaced in Session 33
   modernization triage as "Option 2". Re-wording items within the existing
   60-item Holland structure hits a ceiling: the 1959 typology can't elegantly
