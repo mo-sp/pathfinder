@@ -18,23 +18,26 @@ current PR. For what shipped when, see `SUMMARY.md`.
 
 Likely next 1–2 sessions.
 
-- **Audit batches 7-N — ~307 findings remaining.** Session 36 ran a
+- **Audit batches 9-N — ~260 findings remaining.** Session 36 ran a
   10-agent Sonnet coherence audit over all 923 occupations, persisted
   to `scripts/audit/findings-2026-04-25.json` (402 flagged, 578 flags).
   Batches 1+2 (SOC 21+45, SOC 31+33) walked 32 findings in Session 36;
   batches 3+4 (SOC 23+37+35, SOC 41+15) walked 31 findings in Session 37;
-  batches 5+6 (SOC 25, SOC 49) walked 33 findings in Session 38.
-  96 findings applied total; ~307 remain. Workflow: 2 SOC groups per
-  section, 2 sections per session, plan-table with EN-original +
-  DE-class-name before applying. Small/medium-group queue (≤20 findings)
-  is exhausted apart from 39 Personal Care 14. Next sessions need to
-  pair larger groups: 27 Arts (23) + 13 Business (23) and 43 Office
-  (23) + 19 Sciences (27). The big four (29 Healthcare 43, 51
-  Production 43, 53 Transport 34, 47 Construction 31) will each
-  likely need a dedicated section. Estimated 4-5 more sessions to
-  complete. Per-batch pattern remains: 60-80 % apply directly, 15-20 %
-  modify mid-review (Anf-tier reconciliations, alternative class
-  picks), <5 % outright reject.
+  batches 5+6 (SOC 25, SOC 49) walked 33 findings in Session 38;
+  batches 7+8 (SOC 27, SOC 13) walked 46 findings in Session 39.
+  142 findings applied total; ~260 remain. Workflow shifted Session 39
+  to **1 SOC major per section** (since SOC 27 + SOC 13 sit at 23 each,
+  pairing them would have doubled volume); pattern likely sticks for
+  remaining medium/big SOC groups. Next pairings: 43 Office (23) + 19
+  Sciences (27) for Session 40. Then 39 Personal Care (14) plus one of
+  the big four. The big four (29 Healthcare 43, 51 Production 43, 53
+  Transport 34, 47 Construction 31) each likely need a dedicated
+  section. Estimated 4-5 more sessions to complete. Per-batch pattern
+  remains: 60-80 % apply directly, 15-20 % modify mid-review (Anf-tier
+  reconciliations, alternative class picks), <5 % outright reject.
+  New sub-pattern from batch 8: occasional re-evaluation of earlier-
+  batch entries when later batches surface a sharper SOC reading
+  (13-1041.04 moved batch-4 → batch-8).
 - **BigFive coverage gap — 169 / 923 occupations have no BigFive profile.**
   Originally framed as ~141 (the difference between Anni's 782-O*NET
   coverage and our 923 corpus); actual gap counting failed crosswalk
