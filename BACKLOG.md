@@ -18,31 +18,23 @@ current PR. For what shipped when, see `SUMMARY.md`.
 
 Likely next 1–2 sessions.
 
-- **Audit batches 5-N — ~340 findings remaining.** Session 36 ran a
+- **Audit batches 7-N — ~307 findings remaining.** Session 36 ran a
   10-agent Sonnet coherence audit over all 923 occupations, persisted
   to `scripts/audit/findings-2026-04-25.json` (402 flagged, 578 flags).
   Batches 1+2 (SOC 21+45, SOC 31+33) walked 32 findings in Session 36;
-  Batches 3+4 (SOC 23+37+35, SOC 41+15) walked 31 findings in Session 37.
-  63 findings applied total; ~340 remain. Workflow: 2 SOC groups per
+  batches 3+4 (SOC 23+37+35, SOC 41+15) walked 31 findings in Session 37;
+  batches 5+6 (SOC 25, SOC 49) walked 33 findings in Session 38.
+  96 findings applied total; ~307 remain. Workflow: 2 SOC groups per
   section, 2 sections per session, plan-table with EN-original +
-  DE-class-name before applying. Small-group queue is now exhausted
-  (only 39 Personal Care 14 remains at sub-20-finding size). Next
-  sessions need to pair larger groups: 25 Education 16 + 49 Maintenance
-  17 = 33 in one session; then move into 27 Arts (23) + 13 Business
-  (23) and 43 Office (23) + 19 Sciences (27). The big four (29
-  Healthcare 43, 51 Production 43, 53 Transport 34, 47 Construction 31)
-  will each likely need a dedicated section. Estimated 4-6 more
-  sessions to complete. Per-batch pattern: 60-80 % apply directly,
-  15-20 % modify mid-review (often Anf-tier reconciliations or
-  alternative class picks), <5 % outright reject.
-- **Anf-pill visibility on results list.** Surfaced in Session 37
-  Sektion 2 browser test — the compact results-list view shows only
-  title + O*NET code, the Anforderungsniveau pill and KldB subtitle
-  sit in the expanded/detail view. Audit-debugging would be easier
-  if the Anf-pill (or first-tier KldB-class name) lived directly
-  under the title in the list. UX tweak in `ResultsPage.vue`, no
-  scoring impact. Small dedicated PR or fold into the next batch
-  session.
+  DE-class-name before applying. Small/medium-group queue (≤20 findings)
+  is exhausted apart from 39 Personal Care 14. Next sessions need to
+  pair larger groups: 27 Arts (23) + 13 Business (23) and 43 Office
+  (23) + 19 Sciences (27). The big four (29 Healthcare 43, 51
+  Production 43, 53 Transport 34, 47 Construction 31) will each
+  likely need a dedicated section. Estimated 4-5 more sessions to
+  complete. Per-batch pattern remains: 60-80 % apply directly, 15-20 %
+  modify mid-review (Anf-tier reconciliations, alternative class
+  picks), <5 % outright reject.
 - **BigFive coverage gap — 169 / 923 occupations have no BigFive profile.**
   Originally framed as ~141 (the difference between Anni's 782-O*NET
   coverage and our 923 corpus); actual gap counting failed crosswalk

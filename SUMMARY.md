@@ -5,6 +5,53 @@
 
 ---
 
+### Session 38 – 2026-04-25
+**Focus:** Audit-pipeline batches 5 + 6 — two sections, 33 findings total from `scripts/audit/findings-2026-04-25.json` walked through the plan-table gate. Sektion 1 (SOC 25 Education = 16 findings) and Sektion 2 (SOC 49 Maintenance/Repair = 17 findings). Two PRs on `fix/audit-batch-5-soc25-edu` and `fix/audit-batch-6-soc49-maintenance`. Eighth session this calendar day, immediate continuation of Session 37's audit pipeline. Also rides the Anf-pill compact-list-view PR (`feat/results-anf-visibility`) that shipped between Session 37 and 38 without its own SUMMARY entry.
+
+**Meta / process notes:**
+- **Two new memory files codifying audit-batch procedure.** Mid-Sektion-1 browser test surfaced that `npm run build:esco` had not been run after editing `title-overrides-de.mjs` — only `build-kldb-mapping.mjs` had run, so KldB subtitles were correct but DE titles were stale. @mo-sp: "ich finde viele berufe garnicht dafür noch die alten zb lebensberater". Required a follow-up commit to regenerate `onet-occupations.json`. Saved as `feedback_override_build_pipeline.md` ("Override edits → run BOTH build scripts") so the rule persists across sessions. Also added `feedback_audit_batch_procedure.md` covering the end-to-end workflow (SOC grouping, per-section step sequence, seed pull-out pattern, batch-N block organization, plan-table vocabulary). Together with the existing `feedback_plan_table_format.md` from Session 37, the audit-pipeline procedure is now fully memory-encoded across 3 files.
+- **Sektion 2 lint surfaced a second pre-edit-grep gap.** Pre-edit grep had checked `kldb-overrides.mjs` for existing 49-* entries (found 6 seed entries) but skipped the same check on `title-overrides-de.mjs` — which has its own non-batch cluster-blocks. Lint then caught two duplicate keys (49-2094 in "Kundendiensttechniker" cluster, 49-9011 in "Schloss- und Schlüsselmacher" cluster). Cost an extra commit; updated `feedback_audit_batch_procedure.md` to require the grep across **both** files.
+- **Plan-table format codified rule held cleanly across both sections.** Sektion 1 had three discussion points pre-Apply (Adult Basic Ed Anf-tier choice, Vertretungslehrer Anf-bump judgement, Teaching Assistants Regelschule reject reasoning), all resolved in inline back-and-forth before any file edit. Sektion 2 had five (First-Line Supervisor coupled title, Med Equip Repairer Anf 3 vs 4, Watch Repairer Anf 2 vs 3 reconciliation, Oldtimer coupled-down to Anf 2, Rail Car agent-pick acceptance). All approved as-suggested ("passt alles wie du es vorschlägst") — the table format kept the choices explicit and the discussion focused.
+- **Five reconciliations against agent suggestions across the session.** Sektion 1: 25-9042 Teaching Assistants Regelschule reject (KldB-841xx hat keine Anf-2-Klasse für allgemeinbildende Schulen; current 84183 Anf 3 stays as nearest-tier). Sektion 2: (1) 49-9062 Med Equip Repairers — agent's 82504 Anf 4 → 82503 Anf 3 (BMET ist Techniker-Tier, nicht Master), (2) 49-9064 Watch Repairers — agent's 24533 Anf 3 → 24532 Anf 2 (Geselle-Tier, kein Meister), (3) 49-9092 Commercial Divers — agent left null, catalog-pick 24432 Industrietaucher, (4) 49-3021 Automotive Body Repairers — coupled-down vom Seed-Bump 25213 Anf 3 zu 25212 Anf 2 (mit neuem generischen Title gehört der Tier zurück auf Geselle-Niveau).
+- **Six seed pull-outs across the session, four First-Line-Supervisor pattern continuations.** Pulls: 25-1123, 25-1124, 25-2022, 25-3021 (batch-5); 49-3031, 49-3043, 49-9045, 49-9062, 49-3021 (batch-6). The First-Line-Supervisor → Aufsichtskraft Anf 3 pattern from batches 2-4 (33-1011/12/21, 37-1011/12, 35-1012, 41-1011/12) extended once more to 49-1011 (Mechanics/Installers/Repairers Supervisors). Five reconciliations away from agent KldBs and the seed-pull-out cadence are the steady-state of the audit pipeline now.
+- **Anf-pill compact-list visibility shipped as a separate small PR before this session.** Surfaced in Session 37 batch-4 browser test as a UX-improvement candidate. Single-line edit to `ResultsPage.vue` adding "Anforderungsniveau: N" to the result-row metadata line; merged as PR #77 between Session 37 and 38. No SUMMARY entry of its own — captured here.
+
+**What shipped — `feat/results-anf-visibility` (1 PR, merged before Session 38 work):**
+
+*`src/pages/results/ResultsPage.vue`*: 1-line addition to compact list-view metadata showing "Anforderungsniveau: N" alongside KldB subtitle + O*NET code. Speeds up audit-batch browser-testing where Anf is one of the three flag dimensions to verify.
+
+**What shipped — `fix/audit-batch-5-soc25-edu` (1 PR, merged):**
+
+*`scripts/input/kldb-overrides.mjs`*: 13 batch-5 entries net (4 seed pull-outs as comment-replacements, 13 new entries in batch-5 block). Five Postsecondary SOC entries → 84304 Hochschullehre (Geography, Art/Drama/Music, English, Foreign Languages, Recreation/Fitness Studies). 25-2022 Middle School Teachers shifted Sprachenlehrer → 84124 Sekundarstufe. 25-3011 Adult Basic Ed → 84404 Erwachsenenbildung. 25-3021 Self-Enrichment → 84483 außerschulisch Anf 3 (Hobby/VHS-Kursleiter). 25-4012 Curators → 94704 Museumsberufe. 25-9043 Teaching Assistants Special Ed → 83132 Heilerziehungspflege Anf 2. 25-3031 Substitute Teachers re-tiered Anf 3 → 4 (Lehramts-Norm). 25-9031 Instructional Coordinators → 84404 Erwachsenenbildung. One reject (25-9042 Teaching Assistants Regelschule).
+
+*`scripts/input/title-overrides-de.mjs`*: 8 batch-5 entries. 25-1062 → "Kultur- und Sozialwissenschaften" (was Anthropologie). 25-1064 → "Hochschullehrkraft für Geografie/Erdkunde". 25-1121 → "Hochschullehrkraft Kunst, Drama und Musik". 25-1193 → "Hochschullehrkraft für Sportwissenschaft". 25-1194 → "Lehrkraft für berufsbildende Fächer" (was "industriell gefertigte Kunst"). 25-2011 → "Erzieher" (was "Lehrkraft für Freinet-Schulen"). 25-3011 → "Lehrkraft für Grundbildung und Alphabetisierung". 25-3021 → "Kursleiter Freizeitbildung" (was "Lebensberater" — Eso-Konnotation).
+
+**What shipped — `fix/audit-batch-6-soc49-maintenance` (1 PR, this docs commit rides with it):**
+
+*`scripts/input/kldb-overrides.mjs`*: 15 batch-6 entries (5 seed pull-outs as comment-replacements, 15 new entries in batch-6 block). 49-1011 First-Line Supervisors 25212 Anf 2 → 25193 Aufsichtskräfte Maschinenbau Anf 3. 49-3031 Bus/Truck Mechanics 25112 → 25212 Kfz-Tech (seed pull-out). 49-3043 Rail Car Repairers 25112 → 51112 Eisenbahnbetrieb (seed pull-out). 49-9045 Refractory Materials Repairers 32122 Maurerhandwerk → 21412 Industriekeramik (seed pull-out, SOC explizit "Except Brickmasons"). 49-9062 Med Equip Repairers 26122 Anf 4 → 82503 Medizintechnik Anf 3 (seed pull-out + Anf reconciliation). 49-3021 Auto Body Repairers 25213 Anf 3 → 25212 Anf 2 (seed pull-out + coupled-down). 49-9064 Watch Repairers 21352 Glasapparatejustierung → 24532 Uhrmacherhandwerk Anf 2 (Anf reconciliation). 49-9092 Commercial Divers 31193 Bauplanung → 24432 Industrietaucher (catalog-pick). Plus 49-3053 Outdoor Power → 25182, 49-9011 Doors → 26112 Mechatronik, 49-9061 Cameras → 23312 Fototechnik, 49-9097 Signal Repairers → 51222 Eisenbahninfrastruktur-Wartung, 49-2093 Transport Electronics → 26332, 49-3041 Farm Equipment → 25222, 49-9021 HVACR → 34212 SHK.
+
+*`scripts/input/title-overrides-de.mjs`*: 11 batch-6 entries (2 of which displaced existing cluster-block entries for 49-2094 and 49-9011). 49-1011 → "Werkstattleiter Maschinenbau". 49-2093 → "Fahrzeugelektroniker (Mobile Systeme)". 49-2094 → "Elektroniker für Betriebstechnik" (was "Elektroniker Gewerbliche Geräte"). 49-2095 → "Elektrotechniker Energieanlagen" (was "Steuerer Stromversorgung"). 49-3021 → "Karosserie- und Fahrzeugbaumechaniker". 49-3031 → "Nutzfahrzeugmechatroniker". 49-3053 → "Motorgerätemechaniker". 49-9011 → "Monteur Tor- und Türtechnik". 49-9062 → "Medizintechniker". 49-9092 → "Berufstaucher". 49-9097 → "Signaltechniker Eisenbahn".
+
+**Coverage after the session:**
+
+| | Before | After |
+|---|---|---|
+| Audit findings applied | 63 / 402 | **96 / 402** (+16 batch 5, +17 batch 6) |
+| Audit findings remaining | ~340 | **~307** |
+| Manual KldB overrides applied on build | 239 | **258** (+9 batch 5 net, +10 batch 6 net) |
+| Codes in seed block | 119 | 110 (–4 batch 5, –5 batch 6) |
+| Title overrides total | ~74 | ~88 net (288 → 297 effective due to 2 cluster-block displacements) |
+| Tests passing | 243 | 243 (data-only changes) |
+| Audit-pipeline memory files | 1 | **3** (added override-build-pipeline + audit-batch-procedure) |
+
+**Branches:** `feat/results-anf-visibility` (1 PR merged precursor), `fix/audit-batch-5-soc25-edu` (2 commits → PR merged), `fix/audit-batch-6-soc49-maintenance` (1 code commit + this docs commit → PR opened).
+
+**Open for next sessions (tracked in BACKLOG):**
+- **Audit batches 7-N — ~307 findings remaining.** Smaller-group queue exhausted; the next pairings hit medium groups: 27 Arts (23) + 13 Business (23), then 43 Office (23) + 19 Sciences (27). The big four (29 Healthcare 43, 51 Production 43, 53 Transport 34, 47 Construction 31) plus 39 Personal Care (14) want dedicated sections. Estimated 4-5 more sessions.
+- **BigFive coverage gap fix** — still on hold, foundation continues to firm up (audit pipeline now ≈24 % through, base ist deutlich kohärenter als bei Session 36 als BigFive-Pause beschlossen wurde).
+
+---
+
 ### Session 37 – 2026-04-25
 **Focus:** Audit-pipeline batches 3 + 4 — two sections, 31 findings total from `scripts/audit/findings-2026-04-25.json` walked through the show-plan-then-apply gate. Sektion 1 (SOC 23+37+35 = 11 findings, smallest mini-cleanup) and Sektion 2 (SOC 41+15 = 20 findings, largest batch so far). Two PRs on `fix/audit-batch-3-soc23-37-35` and `fix/audit-batch-4-soc41-15`. Seventh session this calendar day, immediate continuation of Session 36's audit pipeline.
 
