@@ -53,7 +53,7 @@ export default {
   '11-9199.10': 'Projektleiter Windenergie / Projektleiterin Windenergie', // Wind Energy Development Managers
 
   // === Cluster: "Regulatory-Affairs-Manager" (3) ===
-  '11-9199.01': 'Leiter Regulatory Affairs / Leiterin Regulatory Affairs', // Regulatory Affairs Managers
+  '11-9199.01': 'Zulassungsleiter/Zulassungsleiterin', // Regulatory Affairs Managers — batch-11 in-place: war "Leiter Regulatory Affairs" (hybrider Anglizismus); Zulassungsleiter ist DE-übliche Bezeichnung für RA-Mgmt-Tier
   '11-9199.02': 'Compliance-Manager/Compliance-Managerin', // Compliance Managers
   '13-1041.07': 'Regulatory-Affairs-Spezialist/Regulatory-Affairs-Spezialistin', // Regulatory Affairs Specialists
 
@@ -523,7 +523,7 @@ export default {
   // Contractors falls in (ii); kept as a single-line approximation rather
   // than the previously-planned filter mechanism, per browser-test scope
   // call).
-  '11-9131.00': 'Postdirektor/Postdirektorin', // Postmasters and Mail Superintendents
+  '11-9131.00': 'Poststellenleiter/Poststellenleiterin', // Postmasters and Mail Superintendents — batch-11 in-place: war "Postdirektor" (bürokratischer Beamtentitel) — Poststellenleiter ist heute übliche Berufsbezeichnung
   '11-9199.11': 'Projektleiter Altlastensanierung / Projektleiterin Altlastensanierung', // Brownfield Redevelopment Specialists and Site Managers
   '13-1022.00': 'Einkäufer/Einkäuferin', // Wholesale and Retail Buyers, Except Farm Products
   '13-1074.00': 'Arbeitsvermittler Landwirtschaft / Arbeitsvermittlerin Landwirtschaft', // Farm Labor Contractors: war "Saisonkräfte-Vermittler Landwirtschaft" — konstruiertes Kompositum; Arbeitsvermittler ist der etablierte DE-Beruf, "Landwirtschaft" als Domain-Klammer (US-taxonomy, no 1:1 DE)
@@ -707,4 +707,16 @@ export default {
   '19-4044.00': 'Hydrologische Fachkraft', // Hydrologic Technicians: war "Hydrogeologe" (Hochschulberuf Anf 4) — SOC ist Tech-Hilfskraft (Datensammlung Anf 2-3); Hydrologische Fachkraft ist Tech-Tier-konform
   '19-4061.00': 'Sozialwissenschaftlicher Assistent / Sozialwissenschaftliche Assistentin', // Social Science Research Assistants: war "Sozialarbeitswissenschaftler" (verwechselt Sozialwissenschaft mit Sozialarbeit) — Research Assistant in Sozialwissenschaften (Tech-Tier-Forschungshilfe)
   '19-4092.00': 'Kriminaltechniker/Kriminaltechnikerin', // Forensic Science Technicians: war "Polizeibeamter im Ermittlungsdienst" (Polizeivollzugsdienst-Bezeichnung statt Lab-Tech) — Kriminaltechniker ist DE-Berufsbild für Forensik-Lab
+
+  // === Audit batch 11 — SOC 11 Management coupled title fixes (2026-04-25) ===
+  '11-1011.03': 'CSR-Manager/CSR-Managerin', // Chief Sustainability Officers: war "Beauftragter für die soziale Verantwortung der Unternehmen" (wörtliche Übersetzung) — CSR-Manager ist etablierte DE-Berufsbezeichnung
+  '11-2011.00': 'Werbemanager/Werbemanagerin', // Advertising and Promotions Managers: war "Werbeleiter" — auf "-manager"-Familie umgestellt parallel zu 11-2021 Marketingmanager und 11-3061 Einkaufsmanager
+  '11-2021.00': 'Marketingmanager/Marketingmanagerin', // Marketing Managers: war "Führungskraft für Marketing" (sperrige Umschreibung) — Marketingmanager ist DE-üblich
+  '11-3012.00': 'Verwaltungsleiter/Verwaltungsleiterin', // Administrative Services Managers: war "Bibliotheksleiter" (komplett falsches Berufsbild) — Verwaltungsleiter ist die direkte SOC-Übersetzung
+  '11-3061.00': 'Einkaufsmanager/Einkaufsmanagerin', // Purchasing Managers: war "Einkaufsleiter" — auf "-manager"-Familie umgestellt parallel zu 11-2011 Werbemanager und 11-2021 Marketingmanager
+  '11-9033.00': 'Hochschulleiter/Hochschulleiterin', // Education Administrators Postsecondary: war "Leiter einer höheren Lehranstalt" (veralteter österreichischer Begriff) — Hochschulleiter ist DE-Standard
+  // 11-9131.00 in-place modified at line ~526 (war "Postdirektor" → "Poststellenleiter")
+  '11-9151.00': 'Leiter sozialer Dienste / Leiterin sozialer Dienste', // Social and Community Service Managers: war "Manager im Bereich soziale Dienste" (sperrige Umschreibung) — Leiter sozialer Dienste ist DE-üblich; KldB 83193 bleibt korrekt
+  '11-9179.02': 'Spa-Manager/Spa-Managerin', // Spa Managers: war "Leiter eines Heilbades" (Heilbad = staatlich anerkanntes Kurbad ≠ Wellness-Spa) — Spa-Manager trifft SOC-Lesart
+  // 11-9199.01 in-place modified at line ~56 (war "Leiter Regulatory Affairs" → "Zulassungsleiter")
 }
