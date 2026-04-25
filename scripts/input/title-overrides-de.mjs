@@ -719,4 +719,10 @@ export default {
   '11-9151.00': 'Leiter sozialer Dienste / Leiterin sozialer Dienste', // Social and Community Service Managers: war "Manager im Bereich soziale Dienste" (sperrige Umschreibung) — Leiter sozialer Dienste ist DE-üblich; KldB 83193 bleibt korrekt
   '11-9179.02': 'Spa-Manager/Spa-Managerin', // Spa Managers: war "Leiter eines Heilbades" (Heilbad = staatlich anerkanntes Kurbad ≠ Wellness-Spa) — Spa-Manager trifft SOC-Lesart
   // 11-9199.01 in-place modified at line ~56 (war "Leiter Regulatory Affairs" → "Zulassungsleiter")
+
+  // === Audit batch 12 — SOC 17 Architecture and Engineering coupled title fixes (2026-04-25) ===
+  '17-2112.00': 'Wirtschaftsingenieur/Wirtschaftsingenieurin', // Industrial Engineers: war "Berechnungsingenieur" (beschreibt Structural Analysis Engineer, nicht Industrial Eng) — Wirtschaftsingenieur trifft SOC-Profil (Produktionssystemplanung/QS/Logistik)
+  '17-2121.00': 'Schiffbauingenieur/Schiffbauingenieurin', // Marine Engineers and Naval Architects: war "Zeichner Seefahrzeuge" (beschreibt Drafter, nicht Engineer) — Schiffbauingenieur ist DE-etablierter Begriff
+  '17-2199.03': 'Energieingenieur/Energieingenieurin', // Energy Engineers (.03): war "Energieanalyst" (analytische Funktion, nicht Engineering) — Energieingenieur trifft SOC-Profil; konsistent zu 11-9199.10 Wind Energy aus batch-11
+  '17-2051.02': 'Wasserbauingenieur/Wasserbauingenieurin', // Water/Wastewater Engineers: war "Wasserbautechniker" (Techniker-Tier statt Ingenieur-Tier) — Wasserbauingenieur konsistent zu batch-11's 11-9121.02 Ingenieur Wasserwirtschaft
 }

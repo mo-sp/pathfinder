@@ -48,11 +48,11 @@ export default {
   "13-2054.00": { kldbCode: "72124", kldbName: "Anlageberater und sonstige Finanzdienstleistungsberufe - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Financial Risk Analyst/Financial Risk Analystin
   // 15-2031.00 Operations Research Analysts pulled out of seed (was 51624 Speditions-/Logistikkaufleute Anf 4 — stem-drift "Logistik") → batch-4 block (41104 Mathematik hoch komplex)
   "15-2051.01": { kldbCode: "71314", kldbName: "Berufe in der Unternehmensorganisation und -planung - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Business-Intelligence-Analyst/Business-Intelligence-Analystin
-  "17-2031.00": { kldbCode: "26324", kldbName: "Berufe in der Mikrosystemtechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Bioingenieur/Bioingenieurin
+  // 17-2031.00 Bioengineers/Biomedical pulled out of seed (was 26324 Mikrosystemtechnik — Biomedical Eng ist Med-Tech/Bio-Wissenschaft, nicht Mikrosystem) → batch-12 block (27104 Tech F&E ohne-Spez. Anf 4)
   "17-2112.01": { kldbCode: "53124", kldbName: "Berufe in Arbeitssicherheit und Sicherheitstechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Ergonomie-Ingenieur/Ergonomie-Ingenieurin
-  "17-2112.02": { kldbCode: "25194", kldbName: "Führungskräfte - Maschinenbau- und Betriebstechnik", anforderungsniveau: 4, trainingCategory: "studies" }, // Qualitätsingenieur/Qualitätsingenieurin
-  "17-2131.00": { kldbCode: "25194", kldbName: "Führungskräfte - Maschinenbau- und Betriebstechnik", anforderungsniveau: 4, trainingCategory: "studies" }, // Werkstoffingenieur/Werkstoffingenieurin
-  "17-2161.00": { kldbCode: "41404", kldbName: "Berufe in der Physik (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Nuklearingenieur/Nuklearingenieurin
+  // 17-2112.02 Validation Engineers pulled out of seed (was 25194 Führungskräfte Maschinenbau — Validation ist QS, nicht Führung) → batch-12 block (27314 Tech QS Anf 4)
+  // 17-2131.00 Materials Engineers pulled out of seed (was 25194 Führungskräfte Maschinenbau — Werkstoffingenieure sind nicht Führung sondern Spezialisten) → batch-12 block (41424 Werkstofftechnik Anf 4)
+  // 17-2161.00 Nuclear Engineers pulled out of seed (was 41404 Physik — Nuklearingenieure sind Ingenieure, nicht Physiker) → batch-12 block (26234 Energie/Kraftwerktechnik Anf 4)
   "17-2199.07": { kldbCode: "26324", kldbName: "Berufe in der Mikrosystemtechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Ingenieur Photonik/Ingenieurin Photonik
   "17-2199.08": { kldbCode: "26124", kldbName: "Berufe in der Automatisierungstechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Ingenieur Robotik und Autonome Systeme/Ingenieurin Robotik und Autonome Systeme
   "17-2199.09": { kldbCode: "26324", kldbName: "Berufe in der Mikrosystemtechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Nanosystem-Ingenieur/Nanosystem-Ingenieurin
@@ -61,7 +61,7 @@ export default {
   "17-3011.00": { kldbCode: "27212", kldbName: "Technische Zeichner - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // CAD-Bediener/CAD-Bedienerin
   "17-3012.00": { kldbCode: "27212", kldbName: "Technische Zeichner - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Elektrozeichner/Elektrozeichnerin
   "17-3013.00": { kldbCode: "27212", kldbName: "Technische Zeichner - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Maschinenbauzeichner/Maschinenbauzeichnerin
-  "17-3026.01": { kldbCode: "26123", kldbName: "Berufe in der Automatisierungstechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Nanotechnologie-Techniker/Nanotechnologie-Technikerin
+  // 17-3026.01 Nanotech Technologists pulled out of seed (was 26123 Anf 4 — code-Anf-Widerspruch: 26123 ist Anf-3-Klasse) → batch-12 block (41423 Werkstofftechnik komplex Anf 3 löst Inkonsistenz)
   // 19-1023.00 Zoologists/Wildlife Biologists: pulled out of seed → batch-10 (KldB → 41254 Zoologie Anf 4)
   // 19-2032.00 Materials Scientists: pulled out of seed → batch-10 (KldB → 41304 canonical Anf-4 sibling; resolves Anf-4-declared / 41303-Anf-3 contradiction)
   "21-1023.00": { kldbCode: "83124", kldbName: "Berufe in der Sozialarbeit und Sozialpädagogik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Sozialarbeiter Psychiatrie und Suchthilfe / Sozialarbeiterin Psychiatrie und Suchthilfe
@@ -691,4 +691,55 @@ export default {
   "11-9199.02": { kldbCode: "71384", kldbName: "Berufe in der Unternehmensorganisation und -strategie (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Compliance Managers: war 73104 Rechtsberatung (Drift) — Compliance-Mgmt ist Unternehmensorg-Senior-Specialist-Tier (Lead innerhalb Risk/Legal), 71384 statt 71394-Director-Tier
   "11-9199.08": { kldbCode: "53123", kldbName: "Berufe in Arbeitssicherheit und Sicherheitstechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Loss Prevention Managers: was seed 53122 fachlich Anf 2 (zu niedrig — Manager plant/steuert Sicherheitsprogramme); sibling-up 53122 → 53123 mit Anf 2 → 3; pulled out of seed
   "11-9199.10": { kldbCode: "26244", kldbName: "Berufe in der regenerativen Energietechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Wind Energy Project Managers: was seed 61394 Immobilien (Drift) — Windenergie-Projektmgmt gehört in regenerative Energietechnik; pulled out of seed
+
+  // === Audit batch 12 — SOC 17 Architecture and Engineering (2026-04-25) ===
+  // Plan-table walked all 21 SOC 17 findings. 18 KldB-changing entries below
+  // (12 Apply, 5 seed pull-outs, 4 Modify reconciliations); 2 explicit Rejects
+  // not represented (17-2171 Petroleum — current 21114 already matches
+  // agent's suggestion; 17-2051 Civil — agent flagged anf-mismatch but own
+  // reasoning admits "current Anf 4 ist korrekt"). 4 coupled title overrides.
+  // Sibling-tier pattern continued: 17-2121 Marine triple-fix (KldB+title+Anf
+  // 3→4), 17-2199.03 Energy double-fix (KldB+Anf 3→4), 17-2051.02 Water
+  // pulled beyond audit's title-only flag to Anf 4 for engineer-tier
+  // consistency with batch-11's 11-9121.02 (31144 Wasserwirtschaft).
+  // Modify gegen agent's null on 17-3028 Calibration: 27312 Tech QS fachlich
+  // Anf 2 (KldB hat keine dedizierte Mess-/Eichwesen-Klasse, Kalibrierung
+  // ist QS-Disziplin; konsistent zu sibling 17-3029.01 NDT in 27313
+  // QS komplex Anf 3). Code-Anf-Widerspruch im Seed bei 17-3026.01 Nano-Tech
+  // (war 26123 Anf 4, aber 26123 ist Anf-3-Klasse) — pull-out + 41423
+  // Werkstofftechnik komplex Anf 3 löst Inkonsistenz (gleiches Pattern wie
+  // batch-10's 19-2032 Materials Scientists).
+
+  // Pulled out of seed
+  "17-2031.00": { kldbCode: "27104", kldbName: "Berufe in der technischen Forschung und Entwicklung (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Bioengineers/Biomedical Engineers: was seed 26324 Mikrosystemtechnik (Drift — Biomedical Eng ist Med-Tech/Bio-Wissenschaft); 27104 Tech F&E ohne-Spez. ist nearest-tier (KldB hat keine dedizierte Med-Tech-Eng-Klasse); pulled out of seed
+  "17-2112.02": { kldbCode: "27314", kldbName: "Berufe in der technischen Qualitätssicherung - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Validation Engineers: was seed 25194 Führungskräfte Maschinenbau (Validation ist QS, nicht Führung) — 27314 Tech QS hoch komplex ist Exact-Klasse; pulled out of seed
+  "17-2131.00": { kldbCode: "41424", kldbName: "Berufe in der Werkstofftechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Materials Engineers: was seed 25194 Führungskräfte Maschinenbau — Werkstoffingenieure sind in 41424 Werkstofftechnik (Physik/Materialwissenschaft); pulled out of seed
+  "17-2161.00": { kldbCode: "26234", kldbName: "Berufe in der Energie- und Kraftwerkstechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Nuclear Engineers: was seed 41404 Physik ohne-Spez. (zu generisch — Nuklearing. sind Ingenieure, nicht Physiker); 26234 Energie-/Kraftwerkstechnik konsistent zu 11-3051.04 Biomass und 11-3051.02 Geothermal; pulled out of seed
+  "17-3026.01": { kldbCode: "41423", kldbName: "Berufe in der Werkstofftechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Nanotechnology Engineering Technologists: was seed 26123 Anf 4 (code-Anf-Widerspruch — 26123 ist Anf-3-Klasse, gleicher Pattern wie 19-2032 in batch-10); 41423 Werkstofftechnik komplex Anf 3 löst Inkonsistenz; pulled out of seed; coupled title bleibt "Nanotechnologie-Techniker"
+
+  // Drift corrections — Hardware/Electronics
+  "17-2061.00": { kldbCode: "43124", kldbName: "Berufe in der technischen Informatik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Computer Hardware Engineers: war 26124 Automatisierungstechnik (Drift — Hardware-Eng gehört zu IT/tech. Informatik) — 43124 ist Exact-Klasse
+  "17-2072.00": { kldbCode: "26304", kldbName: "Berufe in der Elektrotechnik (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Electronics Engineers: war 26334 Luft-/Schiffs-/Fahrzeugelektronik (zu Branchen-spezifisch) — allgemeine Elektronikingenieure passen in 26304 Elektrotechnik ohne-Spez.
+
+  // Industrial/Manufacturing — Maschinenbau-ohne-Spez.-Familie statt Führungskräfte
+  "17-2112.00": { kldbCode: "25104", kldbName: "Berufe in der Maschinenbau- und Betriebstechnik (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Industrial Engineers: war 25194 Führungskräfte Maschinenbau (zu hoch — Industrial Eng sind Wirtschaftsing./Produktionsing., keine Führung); 25104 Maschinenbau ohne-Spez. ist Exact-Klasse; coupled mit title.de "Berechnungsingenieur" → "Wirtschaftsingenieur"
+  "17-2112.03": { kldbCode: "25104", kldbName: "Berufe in der Maschinenbau- und Betriebstechnik (ohne Spezialisierung) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Manufacturing Engineers: war 25194 Führungskräfte Maschinenbau — Fertigungsing. konstruieren/optimieren Fertigungssysteme = Maschinenbau-Spezialist, nicht Führung; sibling-Apply zu 17-2112.00
+
+  // Marine/Schiffbau — triple-fix (KldB+title+Anf)
+  "17-2121.00": { kldbCode: "25244", kldbName: "Berufe in der Schiffbautechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Marine Engineers and Naval Architects: war 51133 tech. Schiffsverkehrsbetrieb komplex Anf 3 (Drift — Schiffsverkehr ≠ Schiffbau-Konstruktion); 25244 Schiffbautechnik Anf 4 ist Engineer-Tier; KldB+Anf 3→4; coupled mit title.de "Zeichner Seefahrzeuge" → "Schiffbauingenieur"
+
+  // Energy/Mechatronics — Drift fixes
+  "17-2199.03": { kldbCode: "26244", kldbName: "Berufe in der regenerativen Energietechnik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Energy Engineers (.03 — distinct from .10/.11): war 21223 Baustoffherstellung Anf 3 (Drift) — Energy Eng arbeiten an Effizienz/Erneuerbar; 26244 konsistent zu 11-9199.10 in batch-11; KldB+Anf 3→4; coupled mit title.de "Energieanalyst" → "Energieingenieur"
+  "17-2199.05": { kldbCode: "26114", kldbName: "Berufe in der Mechatronik - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Mechatronics Engineers: war 23124 Papierverarbeitung (offensichtlich Drift) — 26114 Mechatronik ist Exact-Klasse
+
+  // Civil — water reconciliation beyond audit's title-only flag
+  "17-2051.02": { kldbCode: "31144", kldbName: "Berufe in der Wasserwirtschaft - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Water/Wastewater Engineers: war 31143 Wasserwirtschaft komplex Anf 3 (Audit nur title-flag) — Engineer-Title impliziert Anf 4; sibling-up 31143 → 31144 konsistent zu batch-11's 11-9121.02 Ingenieur Wasserwirtschaft (auch 31144); coupled mit title.de "Wasserbautechniker" → "Wasserbauingenieur"
+
+  // Technician-tier (Anf 2/3) — Drift + sibling-up
+  "17-3021.00": { kldbCode: "26123", kldbName: "Berufe in der Automatisierungstechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Aerospace Engineering Technicians: war 25133 tech. Servicekräfte Wartung (zu allgemein — Aerospace-Tech arbeiten mit Simulatoren/Systemen, nicht Wartung); 26123 Automatisierungstechnik komplex passt
+  "17-3022.00": { kldbCode: "31103", kldbName: "Berufe in der Bauplanung und -überwachung (ohne Spezialisierung) - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Civil Engineering Technologists: war 31102 fachlich Anf 2 — Technikerausbildung ist Spezialisten-Tier (Anf 3), nicht Apprenticeship; sibling-up 31102 → 31103
+  "17-3025.00": { kldbCode: "42203", kldbName: "Berufe in der Umweltschutztechnik (ohne Spezialisierung) - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Environmental Engineering Technicians: war 42314 Umweltschutzverwaltung Anf 4 (Verwaltung-Studienberuf, nicht Tech-Tier — Tech sind ausführende Prüftechniker); KldB+Anf 4→3; sibling-domain Verwaltung → Technik konsistent zu batch-10's 19-4042 Environmental Sci/Protection Tech (auch 42203)
+  "17-3028.00": { kldbCode: "27312", kldbName: "Berufe in der technischen Qualitätssicherung - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Calibration Technicians/Metrology Tech: war 41322 chem-tech. Lab (Drift — Kalibrierung ist physikalische Messtechnik, nicht Chemie); Modify gegen agent's null (KldB hat keine dedizierte Mess-/Eichwesen-Klasse) — 27312 Tech QS fachlich passt (Mess-/Eichwesen ist QS-Disziplin), konsistent zu sibling 17-3029.01 NDT in 27313
+  "17-3029.01": { kldbCode: "27313", kldbName: "Berufe in der technischen Qualitätssicherung - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // NDT Specialists (Non-Destructive Testing): war 27312 Tech QS fachlich Anf 2 (zu niedrig — NDT-Spezialisten sind zertifizierte Spezialisten, kein Apprenticeship-Tier); sibling-up 27312 → 27313 mit Anf 2→3
+  "17-3029.08": { kldbCode: "21363", kldbName: "Berufe in der Feinoptik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Photonics Technicians: war 27182 Tech F&E sonstige fachlich Anf 2 (zu generisch + zu niedrig) — Photonik-Tech installieren/warten optische Geräte = Feinoptik komplex; sibling-domain pivot + Anf-up 2→3
 }

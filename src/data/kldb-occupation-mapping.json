@@ -903,8 +903,8 @@
       "trainingCategory": "studies"
     },
     "17-2031.00": {
-      "kldbCode": "26324",
-      "kldbName": "Berufe in der Mikrosystemtechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "27104",
+      "kldbName": "Berufe in der technischen Forschung und Entwicklung (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -927,14 +927,14 @@
       "trainingCategory": "studies"
     },
     "17-2051.02": {
-      "kldbCode": "31143",
-      "kldbName": "Berufe in der Wasserwirtschaft - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "31144",
+      "kldbName": "Berufe in der Wasserwirtschaft - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "17-2061.00": {
-      "kldbCode": "26124",
-      "kldbName": "Berufe in der Automatisierungstechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "43124",
+      "kldbName": "Berufe in der technischen Informatik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -945,8 +945,8 @@
       "trainingCategory": "studies"
     },
     "17-2072.00": {
-      "kldbCode": "26334",
-      "kldbName": "Berufe in der Luftverkehrs-, Schiffs- und Fahrzeugelektronik - hoch komplexe Tätigkeiten",
+      "kldbCode": "26304",
+      "kldbName": "Berufe in der Elektrotechnik (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -975,8 +975,8 @@
       "trainingCategory": "studies"
     },
     "17-2112.00": {
-      "kldbCode": "25194",
-      "kldbName": "Führungskräfte - Maschinenbau- und Betriebstechnik",
+      "kldbCode": "25104",
+      "kldbName": "Berufe in der Maschinenbau- und Betriebstechnik (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -987,26 +987,26 @@
       "trainingCategory": "studies"
     },
     "17-2112.02": {
-      "kldbCode": "25194",
-      "kldbName": "Führungskräfte - Maschinenbau- und Betriebstechnik",
+      "kldbCode": "27314",
+      "kldbName": "Berufe in der technischen Qualitätssicherung - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "17-2112.03": {
-      "kldbCode": "25194",
-      "kldbName": "Führungskräfte - Maschinenbau- und Betriebstechnik",
+      "kldbCode": "25104",
+      "kldbName": "Berufe in der Maschinenbau- und Betriebstechnik (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "17-2121.00": {
-      "kldbCode": "51133",
-      "kldbName": "Berufe im technischen Schiffsverkehrsbetrieb - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "25244",
+      "kldbName": "Berufe in der Schiffbautechnik - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "17-2131.00": {
-      "kldbCode": "25194",
-      "kldbName": "Führungskräfte - Maschinenbau- und Betriebstechnik",
+      "kldbCode": "41424",
+      "kldbName": "Berufe in der Werkstofftechnik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1035,8 +1035,8 @@
       "trainingCategory": "studies"
     },
     "17-2161.00": {
-      "kldbCode": "41404",
-      "kldbName": "Berufe in der Physik (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
+      "kldbCode": "26234",
+      "kldbName": "Berufe in der Energie- und Kraftwerkstechnik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1047,14 +1047,14 @@
       "trainingCategory": "studies"
     },
     "17-2199.03": {
-      "kldbCode": "21223",
-      "kldbName": "Berufe in der Baustoffherstellung - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "26244",
+      "kldbName": "Berufe in der regenerativen Energietechnik - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "17-2199.05": {
-      "kldbCode": "23124",
-      "kldbName": "Berufe in der Papierverarbeitung und Verpackungstechnik - hoch komplexe Tätigkeiten",
+      "kldbCode": "26114",
+      "kldbName": "Berufe in der Mechatronik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -1113,16 +1113,16 @@
       "trainingCategory": "apprenticeship"
     },
     "17-3021.00": {
-      "kldbCode": "25133",
-      "kldbName": "Technische Servicekräfte in Wartung und Instandhaltung - komplexe Spezialistentätigkeiten",
+      "kldbCode": "26123",
+      "kldbName": "Berufe in der Automatisierungstechnik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "17-3022.00": {
-      "kldbCode": "31102",
-      "kldbName": "Berufe in der Bauplanung und -überwachung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "31103",
+      "kldbName": "Berufe in der Bauplanung und -überwachung (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "17-3023.00": {
       "kldbCode": "26123",
@@ -1143,10 +1143,10 @@
       "trainingCategory": "apprenticeship"
     },
     "17-3025.00": {
-      "kldbCode": "42314",
-      "kldbName": "Berufe in der Umweltschutzverwaltung und -beratung - hoch komplexe Tätigkeiten",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "42203",
+      "kldbName": "Berufe in der Umweltschutztechnik (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "17-3026.00": {
       "kldbCode": "27182",
@@ -1155,10 +1155,10 @@
       "trainingCategory": "apprenticeship"
     },
     "17-3026.01": {
-      "kldbCode": "26123",
-      "kldbName": "Berufe in der Automatisierungstechnik - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "41423",
+      "kldbName": "Berufe in der Werkstofftechnik - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "17-3027.00": {
       "kldbCode": "25103",
@@ -1173,22 +1173,22 @@
       "trainingCategory": "specialist"
     },
     "17-3028.00": {
-      "kldbCode": "41322",
-      "kldbName": "Berufe im chemisch-technischen Laboratorium - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
-    },
-    "17-3029.01": {
       "kldbCode": "27312",
       "kldbName": "Berufe in der technischen Qualitätssicherung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
+    "17-3029.01": {
+      "kldbCode": "27313",
+      "kldbName": "Berufe in der technischen Qualitätssicherung - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
+    },
     "17-3029.08": {
-      "kldbCode": "27182",
-      "kldbName": "Berufe in der technischen Forschung und Entwicklung (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "21363",
+      "kldbName": "Berufe in der Feinoptik - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "17-3031.00": {
       "kldbCode": "31212",
