@@ -1086,6 +1086,7 @@ onBeforeUnmount(() => {
                       {{ occupationSubtitle(result.occupation) }} ·
                     </span>
                     O*NET {{ result.occupation.onetCode }}
+                    <span v-if="result.occupation.anforderungsniveau != null"> · Anforderungsniveau: {{ result.occupation.anforderungsniveau }}</span>
                     <span v-if="!result.occupation.title.de && !result.occupation.kldbName"> · (Übersetzung folgt)</span>
                   </div>
                 </div>
