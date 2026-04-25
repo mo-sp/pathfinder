@@ -466,16 +466,16 @@ export default {
   '47-5041.00': 'Bergbau-Maschinenführer Kohleabbau / Bergbau-Maschinenführerin Kohleabbau', // Continuous Mining Machine Operators
   '47-5043.00': 'Ankerbohrer Bergbau / Ankerbohrerin Bergbau', // Roof Bolters, Mining
 
-  // === Cluster: "Kundendiensttechniker - Unterhaltungselektronik" (2) ===
-  '49-2094.00': 'Elektroniker Gewerbliche Geräte / Elektronikerin Gewerbliche Geräte', // Electrical and Electronics Repairers, Commercial and Industrial Equipment
+  // === Cluster: "Kundendiensttechniker - Unterhaltungselektronik" (1) ===
+  // 49-2094.00 moved to batch-6 ("Elektroniker für Betriebstechnik")
   '49-9061.00': 'Reparateur Foto- und Kameratechnik / Reparateurin Foto- und Kameratechnik', // Camera and Photographic Equipment Repairers
 
   // === Cluster: "Kraftfahrzeugmechatroniker Schwerpunkt Personenkraftwagentechnik" (2) ===
   '49-3023.00': 'Kfz-Mechatroniker Pkw / Kfz-Mechatronikerin Pkw', // Automotive Service Technicians and Mechanics
   '49-3052.00': 'Zweiradmechatroniker/Zweiradmechatronikerin', // Motorcycle Mechanics
 
-  // === Cluster: "Schloss- und Schlüsselmacher" (2) ===
-  '49-9011.00': 'Reparateur Türmechanik / Reparateurin Türmechanik', // Mechanical Door Repairers
+  // === Cluster: "Schloss- und Schlüsselmacher" (1) ===
+  // 49-9011.00 moved to batch-6 ("Monteur Tor- und Türtechnik")
   '49-9094.00': 'Schlüssel- und Tresorfachkraft', // Locksmiths and Safe Repairers
 
   // === Cluster: "Takler" (2) ===
@@ -653,4 +653,17 @@ export default {
   '25-2011.00': 'Erzieher/Erzieherin', // Preschool Teachers Except SpEd: war "Lehrkraft für Freinet-Schulen" (Reformpädagogik-Methode, kein Beruf); Erzieher ist der etablierte DE-Vorschul-/Kita-Beruf
   '25-3011.00': 'Lehrkraft für Grundbildung und Alphabetisierung', // Adult Basic Ed / ESL: war "Lehrkraft für Erwachsenenalphabetisierung" — zu eng (SOC umfasst Alphabetisierung + ESL + Hauptschulabschluss-Nachholen)
   '25-3021.00': 'Kursleiter/Kursleiterin Freizeitbildung', // Self-Enrichment Teachers: war "Lebensberater/Lebensberaterin" (Eso-Konnotation in DE — Tarot/Astrologie/Lebenshilfe-Praxis); Self-Enrichment = Hobby/VHS-Kurslehrer (Yoga, Töpfern, Foto, Bridge)
+
+  // === Audit batch 6 — SOC 49 Maintenance/Repair coupled title fixes (2026-04-25) ===
+  '49-1011.00': 'Werkstattleiter Maschinenbau / Werkstattleiterin Maschinenbau', // First-Line Supervisors of Mechanics/Installers/Repairers: war "Produktionsleiter Feinwerkmechanik" — zu eng (Feinwerk) und Produktionsleiter ist Industrie-Führung, nicht Aufsichtskraft-Tier; Werkstattleiter passt zum Aufsichtskraft-Pattern (analog 33-1011/12, 37-1011/12, 35-1012, 41-1011/12)
+  '49-2093.00': 'Fahrzeugelektroniker (Mobile Systeme) / Fahrzeugelektronikerin (Mobile Systeme)', // Electronics Installers/Repairers Transportation: war "Schiffselektrotechniker" — zu eng (SOC umfasst Züge, Schiffe, andere mobile Systeme), nicht nur Schiff
+  '49-2094.00': 'Elektroniker für Betriebstechnik / Elektronikerin für Betriebstechnik', // Industrial Electronics Repairers: war "Elektroniker Gewerbliche Geräte" — kein etablierter Ausbildungsberuf; Elektroniker für Betriebstechnik ist 3,5-Jahre IHK-Beruf für Industrie-/Gebäudeelektronik
+  '49-2095.00': 'Elektrotechniker Energieanlagen / Elektrotechnikerin Energieanlagen', // Powerhouse/Substation/Relay Repairers: war "Steuerer Stromversorgung" — "Steuerer" grammatisch falsch und ungebräuchlich
+  '49-3021.00': 'Karosserie- und Fahrzeugbaumechaniker / Karosserie- und Fahrzeugbaumechanikerin', // Automotive Body Repairers: war "Oldtimerrestaurator" — Oldtimer-Spezialisierung ist Nische, SOC umfasst alle Karosseriereparaturen; Karosserie- und Fahrzeugbaumechaniker ist der etablierte IHK-Ausbildungsberuf
+  '49-3031.00': 'Nutzfahrzeugmechatroniker/Nutzfahrzeugmechatronikerin', // Bus and Truck Mechanics and Diesel Engine Specialists: war "Kfz-Motorenbauer" — kein etablierter Ausbildungsberuf; Nutzfahrzeugmechatroniker ist staatlich anerkannter Ausbildungsberuf seit 2007
+  '49-3053.00': 'Motorgerätemechaniker/Motorgerätemechanikerin', // Outdoor Power Equipment / Small Engine Mechanics: war "Elektroniker für Maschinen und Antriebstechnik" — das ist ein Industrie-Elektronik-Beruf; SOC ist Rasenmäher-/Kettensägen-Mechaniker (Motorgerätemechaniker ist der etablierte Ausbildungsberuf seit 2007)
+  '49-9011.00': 'Monteur Tor- und Türtechnik / Monteurin Tor- und Türtechnik', // Mechanical Door Repairers: war "Reparateur Türmechanik" — ungebräuchlich; Monteur Tor- und Türtechnik trifft den Berufsbild (Automatiktüren, Garagentore, Industrietore)
+  '49-9062.00': 'Medizintechniker/Medizintechnikerin', // Medical Equipment Repairers: war "Biomedizinischer Ingenieur" — Ingenieur impliziert Forschung/Entwicklung; SOC ist Reparatur/Wartung medizintechnischer Geräte = Medizintechniker (Anf 3, BMET-Tier)
+  '49-9092.00': 'Berufstaucher/Berufstaucherin', // Commercial Divers: war "Bauleiter Unterwasserarbeiten" — Bauleiter ist Aufsichtskraft am Bau; Commercial Divers sind Berufstaucher (operative Unterwasserarbeit)
+  '49-9097.00': 'Signaltechniker Eisenbahn / Signaltechnikerin Eisenbahn', // Signal and Track Switch Repairers: war "Weichenwärter" — Weichenwärter ist Betriebsberuf (stellt Weichen), nicht Wartungstechniker; Signaltechniker Eisenbahn passt zur Wartung von Signalanlagen
 }

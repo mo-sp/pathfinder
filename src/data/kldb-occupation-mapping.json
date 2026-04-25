@@ -4313,10 +4313,10 @@
       "trainingCategory": "none"
     },
     "49-1011.00": {
-      "kldbCode": "25212",
-      "kldbName": "Berufe in der Kraftfahrzeugtechnik - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "25193",
+      "kldbName": "Aufsichtskräfte - Maschinenbau- und Betriebstechnik",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "49-2011.00": {
       "kldbCode": "26312",
@@ -4349,8 +4349,8 @@
       "trainingCategory": "apprenticeship"
     },
     "49-2093.00": {
-      "kldbCode": "26312",
-      "kldbName": "Berufe in der Informations- und Telekommunikationstechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "26332",
+      "kldbName": "Berufe in der Luftverkehrs-, Schiffs- und Fahrzeugelektronik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4392,10 +4392,10 @@
       "trainingCategory": "apprenticeship"
     },
     "49-3021.00": {
-      "kldbCode": "25213",
-      "kldbName": "Berufe in der Kraftfahrzeugtechnik - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "25212",
+      "kldbName": "Berufe in der Kraftfahrzeugtechnik - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "49-3022.00": {
       "kldbCode": "33342",
@@ -4410,14 +4410,14 @@
       "trainingCategory": "apprenticeship"
     },
     "49-3031.00": {
-      "kldbCode": "25112",
-      "kldbName": "Maschinen- und Gerätezusammensetzer - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "25212",
+      "kldbName": "Berufe in der Kraftfahrzeugtechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "49-3041.00": {
-      "kldbCode": "25102",
-      "kldbName": "Berufe in der Maschinenbau- und Betriebstechnik (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "25222",
+      "kldbName": "Berufe in der Land- und Baumaschinentechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4428,8 +4428,8 @@
       "trainingCategory": "apprenticeship"
     },
     "49-3043.00": {
-      "kldbCode": "25112",
-      "kldbName": "Maschinen- und Gerätezusammensetzer - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "51112",
+      "kldbName": "Berufe im technischen Eisenbahnbetrieb - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4446,8 +4446,8 @@
       "trainingCategory": "apprenticeship"
     },
     "49-3053.00": {
-      "kldbCode": "26222",
-      "kldbName": "Berufe in der Elektromaschinentechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "25182",
+      "kldbName": "Berufe in der Maschinenbau- und Betriebstechnik (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4470,8 +4470,8 @@
       "trainingCategory": "apprenticeship"
     },
     "49-9011.00": {
-      "kldbCode": "24522",
-      "kldbName": "Berufe in der Werkzeugtechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "26112",
+      "kldbName": "Berufe in der Mechatronik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4482,8 +4482,8 @@
       "trainingCategory": "apprenticeship"
     },
     "49-9021.00": {
-      "kldbCode": "34232",
-      "kldbName": "Berufe in der Kältetechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "34212",
+      "kldbName": "Berufe in der Sanitär-, Heizungs- und Klimatechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4512,8 +4512,8 @@
       "trainingCategory": "apprenticeship"
     },
     "49-9045.00": {
-      "kldbCode": "32122",
-      "kldbName": "Berufe im Maurerhandwerk - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "21412",
+      "kldbName": "Berufe in der Industriekeramik (Verfahrens- und Anlagentechnik) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4530,16 +4530,16 @@
       "trainingCategory": "apprenticeship"
     },
     "49-9061.00": {
-      "kldbCode": "26122",
-      "kldbName": "Berufe in der Automatisierungstechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "23312",
+      "kldbName": "Berufe in der Fototechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "49-9062.00": {
-      "kldbCode": "26122",
-      "kldbName": "Berufe in der Automatisierungstechnik - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "82503",
+      "kldbName": "Berufe in der Medizintechnik (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "49-9063.00": {
       "kldbCode": "93602",
@@ -4548,8 +4548,8 @@
       "trainingCategory": "apprenticeship"
     },
     "49-9064.00": {
-      "kldbCode": "21352",
-      "kldbName": "Berufe in der Glasapparatejustierung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "24532",
+      "kldbName": "Berufe im Uhrmacherhandwerk - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4573,10 +4573,10 @@
       "trainingCategory": "apprenticeship"
     },
     "49-9092.00": {
-      "kldbCode": "31193",
-      "kldbName": "Aufsichtskräfte - Bauplanung und -überwachung, Architektur",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "24432",
+      "kldbName": "Industrietaucher/innen und andere Taucherberufe - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "49-9094.00": {
       "kldbCode": "24522",
@@ -4598,8 +4598,8 @@
       "fromJobZone": true
     },
     "49-9097.00": {
-      "kldbCode": "51112",
-      "kldbName": "Berufe im technischen Eisenbahnbetrieb - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "51222",
+      "kldbName": "Berufe in der Überwachung und Wartung der Eisenbahninfrastruktur - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
