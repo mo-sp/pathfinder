@@ -366,8 +366,8 @@
       "trainingCategory": "specialist"
     },
     "13-1022.00": {
-      "kldbCode": null,
-      "kldbName": null,
+      "kldbCode": "61212",
+      "kldbName": "Kaufleute im Groß- und Außenhandel - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship",
       "fromJobZone": true
@@ -1083,14 +1083,14 @@
       "trainingCategory": "studies"
     },
     "17-2199.10": {
-      "kldbCode": "21124",
-      "kldbName": null,
+      "kldbCode": "26244",
+      "kldbName": "Berufe in der regenerativen Energietechnik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "17-2199.11": {
-      "kldbCode": "21124",
-      "kldbName": null,
+      "kldbCode": "26244",
+      "kldbName": "Berufe in der regenerativen Energietechnik - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -5082,8 +5082,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-9022.00": {
-      "kldbCode": "21312",
-      "kldbName": "Berufe in der Glasherstellung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "24222",
+      "kldbName": "Berufe in der schleifenden Metallbearbeitung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },

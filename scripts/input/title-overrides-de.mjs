@@ -484,7 +484,7 @@ export default {
 
   // === Cluster: "Lebensmittelproduktionsmitarbeiter" (2) ===
   '51-3092.00': 'Fachkraft für Lebensmitteltechnik', // Food Batchmakers: war "Lebensmittelproduktion Chargenherstellung" (kein Berufstitel, beschreibende Phrase); Modify gegen agent's "Lebensmitteltechniker" — letzteres impliziert Anf-3-Technikerschule, SOC ist Anf-2-Tätigkeit (Chargenmischer/Kessel-Operator); Fachkraft für Lebensmitteltechnik ist IHK-Anf-2-Ausbildung
-  '51-3093.00': 'Lebensmittelmaschinenführer/Lebensmittelmaschinenführerin', // Food Cooking Machine Operators
+  '51-3093.00': 'Maschinen- und Anlagenführer Lebensmitteltechnik/Maschinen- und Anlagenführerin Lebensmitteltechnik', // Food Cooking Machine Operators: war "Lebensmittelmaschinenführer" (kasuelle Kontraktion ohne IHK-Pendant); IHK-Berufstitel-Stil parallel zu batch-17 51-9111 "Maschinen- und Anlagenführer Verpackungstechnik"; KldB 29202 Lebensmittel ohne-Spez. Anf 2 bleibt
 
   // === Cluster: "Werkzeugbautechniker" (2) ===
   '51-4081.00': 'Mehrspindelmaschinen-Bediener/Mehrspindelmaschinen-Bedienerin', // Multiple Machine Tool Setters
@@ -525,7 +525,7 @@ export default {
   // call).
   '11-9131.00': 'Poststellenleiter/Poststellenleiterin', // Postmasters and Mail Superintendents — batch-11 in-place: war "Postdirektor" (bürokratischer Beamtentitel) — Poststellenleiter ist heute übliche Berufsbezeichnung
   '11-9199.11': 'Projektleiter Altlastensanierung / Projektleiterin Altlastensanierung', // Brownfield Redevelopment Specialists and Site Managers
-  '13-1022.00': 'Einkäufer/Einkäuferin', // Wholesale and Retail Buyers, Except Farm Products
+  '13-1022.00': 'Einkäufer Handel/Einkäuferin Handel', // Wholesale and Retail Buyers, Except Farm Products: war "Einkäufer/Einkäuferin" (kollidierte mit 13-1023 Purchasing Agents) — Handel-Qualifier macht SOC-distinction klar (B2C/Großhandel-Sortiment vs. industrieller Beschaffungseinkauf); coupled mit KldB null → 61212 Groß-/Außenhandel Anf 2
   '13-1074.00': 'Arbeitsvermittler Landwirtschaft / Arbeitsvermittlerin Landwirtschaft', // Farm Labor Contractors: war "Saisonkräfte-Vermittler Landwirtschaft" — konstruiertes Kompositum; Arbeitsvermittler ist der etablierte DE-Beruf, "Landwirtschaft" als Domain-Klammer (US-taxonomy, no 1:1 DE)
   // 15-1299.03 Document Management Specialists title moved to batch-4 block (FaMI ist Bibliotheks-/Archiv-Ausbildungsberuf, SOC ist Enterprise-DMS — siehe Audit batch 4)
   '17-1022.01': 'Vermessungsingenieur Landesvermessung / Vermessungsingenieurin Landesvermessung', // Geodetic Surveyors
@@ -825,4 +825,20 @@ export default {
   '51-9193.00': 'Anlagenführer Kältetechnik / Anlagenführerin Kältetechnik', // Cooling and Freezing Equipment Operators: war "Tiefkühlkosthersteller" (zu eng auf Lebensmittel — SOC umfasst Chemikalien, Blutplasma); Anlagenführer Kältetechnik ist operate-/tend-Frame; coupled mit KldB 29102 → 29202
   '51-9194.00': 'Graveur/Graveurin', // Etchers and Engravers: war "Prägepresse-Operator" (Anglizismus, plus Operator ≠ Etcher/Engraver); Graveur ist etabliertes IHK-Handwerk; KldB 23412 bleibt (Druck-/Gravurtechnik passt)
   '51-9198.00': 'Produktionshelfer/Produktionshelferin', // Helpers — Production Workers: war "Fabrikhilfsarbeiter" (veraltet/abwertend); Produktionshelfer ist neutraler Standardbegriff; coupled mit KldB 21201 → 25101
+
+  // === Title cleanup bundle — pre-existing duplicates (2026-05-04) ===
+  // 7 SOC pairs flagged by the post-batch-15/16 normalized dedupe scan
+  // (BACKLOG-tracked, not introduced by recent batches). Each pair has a
+  // real SOC distinction (manager/operator, B2C/B2B, general/specialty,
+  // licensed-broker/employed-agent). Differentiated along that distinction
+  // so users see two distinct careers instead of two identical labels.
+  // 13-1022 modified in-place at line ~528 above ("Einkäufer" →
+  // "Einkäufer Handel"); the other 6 pairs are NEW title overrides here.
+  '11-2033.00': 'Fundraising-Leiter/Fundraising-Leiterin', // Fundraising Managers: war "Fundraiser/Fundraiserin" (kollidierte mit 13-1131 Fundraisers) — Manager-Tier (Director/Head-of-Fundraising frame, Studienabschluss + Budgetverantwortung), parallel zu KldB 92204 Öffentlichkeitsarbeit Anf 4
+  '13-1023.00': 'Einkäufer Industrie/Einkäuferin Industrie', // Purchasing Agents, Except Wholesale, Retail, Farm Products: war "Einkäufer/Einkäuferin" (kollidierte mit 13-1022 Wholesale/Retail Buyers) — Industrie-Qualifier macht B2B-Beschaffungseinkauf-Lesart klar (parallel-Struktur zu 13-1022 "Einkäufer Handel"); KldB 61113 Einkauf Anf 3 bleibt
+  '17-2199.10': 'Ingenieur Windenergie/Ingenieurin Windenergie', // Wind Energy Engineers: war "Energieingenieur/Energieingenieurin" (kollidierte mit 17-2199.03 General Energy Engineers) — Wind-spezifisch, parallel zu 17-2199.11 "Ingenieur Solartechnik"; coupled mit KldB 21124 Sprengtechnik → 26244 regenerative Energietechnik (wrong-domain bug fix)
+  '19-3039.03': 'Klinischer Neuropsychologe/Klinische Neuropsychologin', // Clinical Neuropsychologists: war "Klinischer Psychologe/Klinische Psychologin" (kollidierte mit 19-3033 General Clinical/Counseling Psychologists) — Neuropsychologie ist eigene Spezialisierung (Hirnverletzungen, neurologische Erkrankungen); KldB 81624 klin. Psych. Anf 4 bleibt für beide Codes (eine Familie)
+  '31-2022.00': 'Physiotherapiehelfer/Physiotherapiehelferin', // Physical Therapist Aides: war "Physiotherapieassistent/Physiotherapieassistentin" (kollidierte mit 31-2021 Physical Therapist Assistants) — Aides setzen Räume vor, helfen logistisch (kein klinisches Training); Helfer-Frame trifft SOC-Lesart; KldB stays 81712 Physio Anf 2 da Catalog keinen Physio-Helfer-Anf-1-Sibling hat (Tier-Tension akzeptiert)
+  '39-9031.00': 'Fitnesstrainer/Fitnesstrainerin', // Exercise Trainers and Group Fitness Instructors: war "Sporttrainer/Sporttrainerin" (kollidierte mit 27-2022 Coaches and Scouts) — Fitnesstrainer trifft SOC-Lesart (Gym-/Group-Fitness-Instructors) und passt zu KldB 84553 Trainer Fitness/Gymnastik exakt; 27-2022 (Wettkampfsport-Coaches) bleibt "Sporttrainer"
+  '41-9022.00': 'Immobilienkaufmann/Immobilienkauffrau', // Real Estate Sales Agents: war "Immobilienmakler/Immobilienmaklerin" (kollidierte mit 41-9021 Real Estate Brokers) — Immobilienkaufmann ist IHK-Beruf für angestellte Vertriebs-/Verwaltungsmitarbeiter im Immobiliensektor (passt zu KldB 61312 Anf 2); 41-9021 Brokers (Lizenz-Inhaber, Office-Owner) bleibt "Immobilienmakler" (KldB 61313 Anf 3)
 }
