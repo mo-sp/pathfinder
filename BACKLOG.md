@@ -18,22 +18,19 @@ current PR. For what shipped when, see `SUMMARY.md`.
 
 Likely next 1–2 sessions.
 
-- **BigFive coverage gap — 169 / 923 occupations have no BigFive profile.**
-  Originally framed as ~141 (the difference between Anni's 782-O*NET
-  coverage and our 923 corpus); actual gap counting failed crosswalk
-  resolutions is 169. Of those, 150 have a known ISCO-4d that lacks
-  Anni data (recoverable via 3d/2d sibling-imputation); 19 lack any
-  ESCO-crosswalk entry (recoverable only via SOC-sibling fallback or
-  hand-curation). Fix options: (a) per-ISCO-3d sibling-imputation in
-  `scripts/build-bigfive-profiles.mjs` (recovers ~129/169 = 76 %),
-  (b) cascade 4d → 3d → 2d → SOC-sibling (recovers ~155/169), (c) a +
-  hand-curate the 19 no-crosswalk codes via
-  `scripts/input/curated-occupation-profiles.mjs` (full coverage),
-  (d) runtime small-penalty for `bigFiveModifier === null` (no data
-  invented), (e) accept and document. Was queued for Session 36 but
-  pivoted to KldB coherence first (Session 36 BigFive-on-schiefer-
-  Basis-Argument). Foundation now significantly cleaner — pursue
-  after the audit pipeline winds down.
+- **BigFive coverage gap — 19 / 923 occupations remain without profile.**
+  Down from 169 after the ISCO-3d/2d sibling cascade shipped via
+  `feat/bigfive-isco-cascade` (corpus coverage 754/923 → 904/923 = 98 %).
+  The remaining 19 are Bucket A: O*NET codes with no ESCO-crosswalk row
+  at all, so the cascade can't reach them. Recovery options: (a) SOC-
+  sibling fallback in `build-bigfive-profiles.mjs` for the 4 codes that
+  have a mapped same-SOC sibling (e.g. 11-9199.11 Brownfield Redev,
+  17-1022.01 Geodetic Surveyors, 29-2099.08 Patient Reps, 31-9099.02
+  Endoscopy Technicians), (b) hand-curate the 15 codes without SOC
+  siblings via a new BigFive-curated input file (Postmasters,
+  Mediators, Tapers, Conveyor Operators, Biofuels Tech, Traffic Tech,
+  Loss Prevention etc.). Run `node scripts/audit/bigfive-coverage-gap.mjs`
+  to see the current list with recovery flags.
 
 ## Data quality
 
@@ -117,15 +114,6 @@ Likely next 1–2 sessions.
   arbeiter, Deckarbeiter, Oberflächenbearbeiter, Gartenhilfsarbeiter,
   Fabrikhilfsarbeiter, Bankbediensteter, Küchenbediensteter) — all
   borderline, defer until a browser test surfaces a concrete complaint.
-- **45-3031.00 "Berufsfischer und -jäger" DE-title is awkwardly compounded.**
-  Reads "Berufsfischer und -jäger / Berufsfischerin und -jägerin" —
-  surfaced 2026-04-25 friends-release browser test as feeling dated /
-  zusammengezogen. Real DE-Berufe split the SOC: Fischwirt (Aquakultur /
-  Marine) vs. Berufsjäger (Wildhege). Either pick the more-common one as
-  the primary DE-label (likely Fischwirt) or rephrase ("Fischer und
-  Jäger (Berufsausübung)"). Single override, one line in
-  `title-overrides-de.mjs`.
-
 - **Audit the 131 seed entries in `scripts/input/kldb-overrides.mjs`.**
   The file was populated retrospectively in Session 26 to pin the existing
   `kldb-occupation-mapping.json` state against a silent revert on rebuild.
@@ -140,6 +128,15 @@ Likely next 1–2 sessions.
   as-is, this is hygiene.
 
 ## UX polish
+
+- **Startseite content + design refresh.** Two-part:
+  (a) Content overhaul to current state — wording, value-prop, what the
+  test actually measures (RIASEC + Big Five + Skills + Values, 4-layer
+  stack), privacy claim, what changed since the early version. Pre-
+  friends-release: the landing copy should reflect what shippers actually
+  see when they take the test. (b) Design refresh, ideally with claude-
+  design help. Independent of friends release — can ship as its own PR
+  any time.
 
 - **Concrete examples on every question** — many items (especially Skills /
   Abilities / Knowledge and Values) are abstract enough that users,
