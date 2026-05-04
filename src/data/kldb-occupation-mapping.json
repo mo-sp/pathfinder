@@ -5262,34 +5262,34 @@
       "trainingCategory": "none"
     },
     "53-1041.00": {
-      "kldbCode": "51532",
-      "kldbName": "Berufe in der Überwachung und Steuerung des Luftverkehrsbetriebs - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "51393",
+      "kldbName": "Aufsichtskräfte - Lagerwirtschaft, Post und Zustellung, Güterumschlag",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "53-1042.00": {
-      "kldbCode": "31193",
-      "kldbName": "Aufsichtskräfte - Bauplanung und -überwachung, Architektur",
+      "kldbCode": "51393",
+      "kldbName": "Aufsichtskräfte - Lagerwirtschaft, Post und Zustellung, Güterumschlag",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "53-1042.01": {
-      "kldbCode": "11724",
-      "kldbName": "Berufe in der Natur- und Landschaftspflege - hoch komplexe Tätigkeiten",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "34333",
+      "kldbName": "Berufe in der Abfallwirtschaft - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "53-1043.00": {
-      "kldbCode": "31193",
-      "kldbName": "Aufsichtskräfte - Bauplanung und -überwachung, Architektur",
+      "kldbCode": "52593",
+      "kldbName": "Aufsichtskräfte - Bau- und Transportgeräteführung",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "53-1044.00": {
-      "kldbCode": "51422",
-      "kldbName": "Servicefachkräfte im Luftverkehr - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "51493",
+      "kldbName": "Aufsichtskräfte - Personenverkehr (Servicebereich)",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "53-2011.00": {
       "kldbCode": "52313",
@@ -5304,10 +5304,10 @@
       "trainingCategory": "specialist"
     },
     "53-2021.00": {
-      "kldbCode": "51533",
-      "kldbName": "Berufe in der Überwachung und Steuerung des Luftverkehrsbetriebs - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "51534",
+      "kldbName": "Berufe in der Überwachung und Steuerung des Luftverkehrsbetriebs - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "53-2022.00": {
       "kldbCode": "51533",
@@ -5328,8 +5328,8 @@
       "trainingCategory": "apprenticeship"
     },
     "53-3031.00": {
-      "kldbCode": "52112",
-      "kldbName": "Berufskraftfahrer (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "52122",
+      "kldbName": "Berufskraftfahrer/innen (Güterverkehr/LKW) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5340,8 +5340,8 @@
       "trainingCategory": "apprenticeship"
     },
     "53-3033.00": {
-      "kldbCode": "52112",
-      "kldbName": "Berufskraftfahrer (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "52122",
+      "kldbName": "Berufskraftfahrer/innen (Güterverkehr/LKW) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5358,8 +5358,8 @@
       "trainingCategory": "apprenticeship"
     },
     "53-3053.00": {
-      "kldbCode": "52132",
-      "kldbName": "Bus- und Straßenbahnfahrer - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "52112",
+      "kldbName": "Berufskraftfahrer/innen (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5382,14 +5382,14 @@
       "trainingCategory": "apprenticeship"
     },
     "53-4022.00": {
-      "kldbCode": "51632",
-      "kldbName": "Straßen- und Schienenverkehrskaufleute - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "51112",
+      "kldbName": "Berufe im technischen Eisenbahnbetrieb - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-4031.00": {
-      "kldbCode": "51412",
-      "kldbName": "Servicefachkräfte im Straßen- und Schienenverkehr - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "51112",
+      "kldbName": "Berufe im technischen Eisenbahnbetrieb - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5400,16 +5400,16 @@
       "trainingCategory": "apprenticeship"
     },
     "53-5011.00": {
-      "kldbCode": "52422",
-      "kldbName": "Schiffsführer in Binnenschifffahrt und Hafenverkehr - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "51432",
+      "kldbName": "Servicefachkräfte im Schiffsverkehr - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-5021.00": {
-      "kldbCode": "11402",
-      "kldbName": "Berufe in der Fischwirtschaft (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "52413",
+      "kldbName": "Nautische Schiffsoffiziere/-offizierinnen und Kapitäne/Kapitäninnen - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "53-5022.00": {
       "kldbCode": "52422",
@@ -5424,26 +5424,26 @@
       "trainingCategory": "specialist"
     },
     "53-6011.00": {
-      "kldbCode": "51293",
-      "kldbName": "Aufsichtskräfte - Überwachung und Wartung der Verkehrsinfrastruktur",
+      "kldbCode": "51243",
+      "kldbName": "Wasserstraßen- und Brückenwärter/innen - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "53-6021.00": {
-      "kldbCode": "52112",
-      "kldbName": "Berufskraftfahrer (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "52182",
+      "kldbName": "Fahrzeugführer/innen im Straßenverkehr (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-6031.00": {
-      "kldbCode": "25212",
-      "kldbName": "Berufe in der Kraftfahrzeugtechnik - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "25201",
+      "kldbName": "Berufe in der Fahrzeugtechnik (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
+      "anforderungsniveau": 1,
+      "trainingCategory": "none"
     },
     "53-6032.00": {
-      "kldbCode": "52122",
-      "kldbName": "Berufskraftfahrer (Güterverkehr/LKW) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "51122",
+      "kldbName": "Berufe im technischen Luftverkehrsbetrieb - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5455,14 +5455,14 @@
       "fromJobZone": true
     },
     "53-6051.00": {
-      "kldbCode": "23123",
-      "kldbName": "Berufe in der Papierverarbeitung und Verpackungstechnik - komplexe Spezialistentätigkeiten",
+      "kldbCode": "51503",
+      "kldbName": "Berufe in der Überwachung und Steuerung des Verkehrsbetriebs (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "53-6051.01": {
-      "kldbCode": "51533",
-      "kldbName": "Berufe in der Überwachung und Steuerung des Luftverkehrsbetriebs - komplexe Spezialistentätigkeiten",
+      "kldbCode": "25233",
+      "kldbName": "Berufe in der Luft- und Raumfahrttechnik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -5486,26 +5486,26 @@
       "fromJobZone": true
     },
     "53-7021.00": {
-      "kldbCode": "51242",
-      "kldbName": "Wasserstraßen- und Brückenwärter - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "52532",
+      "kldbName": "Kranführer/innen, Aufzugsmaschinisten und Bediener/innen verwandter Hebeeinrichtungen - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-7031.00": {
-      "kldbCode": "32222",
-      "kldbName": "Berufe im Straßen- und Asphaltbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "32262",
+      "kldbName": "Berufe im Kultur- und Wasserbau - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-7041.00": {
-      "kldbCode": "51242",
-      "kldbName": "Wasserstraßen- und Brückenwärter - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "52532",
+      "kldbName": "Kranführer/innen, Aufzugsmaschinisten und Bediener/innen verwandter Hebeeinrichtungen - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-7051.00": {
-      "kldbCode": "52122",
-      "kldbName": "Berufskraftfahrer (Güterverkehr/LKW) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "51312",
+      "kldbName": "Berufe in der Lagerwirtschaft - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5516,14 +5516,14 @@
       "trainingCategory": "apprenticeship"
     },
     "53-7062.00": {
-      "kldbCode": "51122",
-      "kldbName": "Berufe im technischen Luftverkehrsbetrieb - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "51311",
+      "kldbName": "Berufe in der Lagerwirtschaft - Helfer-/Anlerntätigkeiten",
+      "anforderungsniveau": 1,
+      "trainingCategory": "none"
     },
     "53-7062.04": {
-      "kldbCode": "24412",
-      "kldbName": "Berufe im Metallbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "34332",
+      "kldbName": "Berufe in der Abfallwirtschaft - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5540,10 +5540,10 @@
       "trainingCategory": "none"
     },
     "53-7065.00": {
-      "kldbCode": "51312",
-      "kldbName": "Berufe in der Lagerwirtschaft - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "51311",
+      "kldbName": "Berufe in der Lagerwirtschaft - Helfer-/Anlerntätigkeiten",
+      "anforderungsniveau": 1,
+      "trainingCategory": "none"
     },
     "53-7071.00": {
       "kldbCode": "26232",
@@ -5552,16 +5552,16 @@
       "trainingCategory": "apprenticeship"
     },
     "53-7072.00": {
-      "kldbCode": "32242",
-      "kldbName": "Berufe im Brunnenbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "34322",
+      "kldbName": "Berufe im Rohrleitungsbau - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "53-7073.00": {
-      "kldbCode": "41343",
-      "kldbName": "Steuerer/Steuerinnen von Erdöl- und Erdgasraffinationsanlagen - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "21112",
+      "kldbName": "Berufe im Berg- und Tagebau - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "53-7081.00": {
       "kldbCode": "34301",
@@ -5570,10 +5570,10 @@
       "trainingCategory": "none"
     },
     "53-7121.00": {
-      "kldbCode": "41343",
-      "kldbName": "Steuerer/Steuerinnen von Erdöl- und Erdgasraffinationsanlagen - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "51332",
+      "kldbName": "Berufe im Güter- und Warenumschlag - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     }
   }
 }

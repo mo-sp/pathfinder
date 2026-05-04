@@ -129,24 +129,24 @@ export default {
   "51-9032.00": { kldbCode: "25122", kldbName: "Maschinen- und Anlagenführer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Rollenschneider/Rollenschneiderin
   "53-2011.00": { kldbCode: "52313", kldbName: "Piloten/Pilotinnen und Verkehrsflugzeugführer - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Flugzeugführer/Flugzeugführerin
   "53-2012.00": { kldbCode: "52313", kldbName: "Piloten/Pilotinnen und Verkehrsflugzeugführer - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Verkehrsflugzeugführer/Verkehrsflugzeugführerin
-  "53-3031.00": { kldbCode: "52112", kldbName: "Berufskraftfahrer (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Verkaufsfahrer/Verkaufsfahrerin
+  // 53-3031.00 Driver/Sales Workers pulled out of seed (was 52112 PKW — SOC ist Lieferung+Verkauf, also Gütertransport) → batch-16 block (52122 LKW Anf 2)
   "53-3032.00": { kldbCode: "52122", kldbName: "Berufskraftfahrer (Güterverkehr/LKW) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Lastkraftwagenfahrer/Lastkraftwagenfahrerin
-  "53-3033.00": { kldbCode: "52112", kldbName: "Berufskraftfahrer (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Lieferfahrer/Lieferfahrerin
+  // 53-3033.00 Light Truck Drivers pulled out of seed (was 52112 PKW — Light Truck/Van fährt Waren aus, ist Gütertransport) → batch-16 block (52122 LKW Anf 2)
   "53-3051.00": { kldbCode: "52132", kldbName: "Bus- und Straßenbahnfahrer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Oberleitungsbusfahrer/Oberleitungsbusfahrerin
   "53-3052.00": { kldbCode: "52132", kldbName: "Bus- und Straßenbahnfahrer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Omnibusfahrer/Omnibusfahrerin
-  "53-3053.00": { kldbCode: "52132", kldbName: "Bus- und Straßenbahnfahrer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Shuttle- und Chauffeurfahrer/Shuttle- und Chauffeurfahrerin
+  // 53-3053.00 Shuttle Drivers and Chauffeurs pulled out of seed (was 52132 Bus/Straßenbahn — Shuttle/Chauffeur fährt PKW/Kleinbus, kein Linienbus) → batch-16 block (52112 PKW Anf 2)
   "53-3054.00": { kldbCode: "52112", kldbName: "Berufskraftfahrer (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Taxifahrer/Taxifahrerin
   "53-4011.00": { kldbCode: "52202", kldbName: "Triebfahrzeugführer im Eisenbahnverkehr (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Schienenfahrzeugführer/Schienenfahrzeugführerin
-  "53-4022.00": { kldbCode: "51632", kldbName: "Straßen- und Schienenverkehrskaufleute - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Rangierbegleiter/Rangierbegleiterin
+  // 53-4022.00 Railroad Brake/Signal/Switch Operators pulled out of seed (was 51632 Verkehrskaufleute — Bedienung Signalanlagen + Waggon-Kuppeln ist tech Eisenbahnbetrieb) → batch-16 block (51112 tech Eisenbahn Anf 2)
   "53-4041.00": { kldbCode: "52132", kldbName: "Bus- und Straßenbahnfahrer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // U-Bahn- und Straßenbahnfahrer/U-Bahn- und Straßenbahnfahrerin
-  "53-5011.00": { kldbCode: "52422", kldbName: "Schiffsführer in Binnenschifffahrt und Hafenverkehr - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Matrose/Matrosin
+  // 53-5011.00 Sailors and Marine Oilers pulled out of seed (was 52422 Schiffsführer Binnen — Schiffsführer ist Kapitänsrolle; Matrose ist Decksmannschaft) → batch-16 block (51432 Service Schiffsverkehr Anf 2)
   "53-5022.00": { kldbCode: "52422", kldbName: "Schiffsführer in Binnenschifffahrt und Hafenverkehr - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Seelotse/Seelotsin
-  "53-6021.00": { kldbCode: "52112", kldbName: "Berufskraftfahrer (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Parkservice-Mitarbeiter/Parkservice-Mitarbeiterin
-  "53-6032.00": { kldbCode: "52122", kldbName: "Berufskraftfahrer (Güterverkehr/LKW) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Flugzeugtankwart/Flugzeugtankwartin
+  // 53-6021.00 Parking Attendants pulled out of seed (was 52112 PKW-Berufskraftfahrer — Parking Attendants parken Autos, fahren keine Kunden) → batch-16 block (52182 Fahrzeugführer Straßenverkehr sonstige Anf 2)
+  // 53-6032.00 Aircraft Service Attendants pulled out of seed (was 52122 LKW — betanken/warten Flugzeuge am Boden = Bodenabfertigung Luftverkehr, kein LKW-Gütertransport) → batch-16 block (51122 tech Luftverkehrsbetrieb Anf 2)
   "53-7011.00": { kldbCode: null, kldbName: null, anforderungsniveau: 1, trainingCategory: "none" }, // Conveyor Operators and Tenders
-  "53-7021.00": { kldbCode: "51242", kldbName: "Wasserstraßen- und Brückenwärter - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Turmdrehkranführer/Turmdrehkranführerin
-  "53-7041.00": { kldbCode: "51242", kldbName: "Wasserstraßen- und Brückenwärter - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Verladebrückenführer/Verladebrückenführerin
-  "53-7051.00": { kldbCode: "52122", kldbName: "Berufskraftfahrer (Güterverkehr/LKW) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Umzugsfahrer/Umzugsfahrerin
+  // 53-7021.00 Crane and Tower Operators pulled out of seed (was 51242 Wasserstraßen-/Brückenwärter — Drift; Crane/Tower-Operators führen Krane, kein Infrastrukturwächter) → batch-16 block (52532 Kranführer Anf 2)
+  // 53-7041.00 Hoist and Winch Operators pulled out of seed (was 51242 Wasserstraßen-/Brückenwärter — Hoist/Winch-Operators bedienen Hebemaschinen, kein Infrastrukturwächter) → batch-16 block (52532 Kranführer Anf 2)
+  // 53-7051.00 Industrial Truck and Tractor Operators pulled out of seed (was 52122 LKW — Gabelstapler/Flurförderzeuge fahren in Lagerhallen, kein LKW-Güterverkehr) → batch-16 block (51312 Lagerwirtschaft fachlich Anf 2)
 
   // Tiebreaker regressions from the compound-noun substring fix (2026-04-23).
   // The improved tiebreaker picks these wrongly because a generic German
@@ -180,7 +180,7 @@ export default {
   "47-2211.00": { kldbCode: "24412", kldbName: "Berufe im Metallbau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Konstruktionsmechaniker Feinblechbau: was Klempnerei
   // 47-5011.00 Derrick Operators (Oil and Gas) pulled out of seed (was 94512 Veranstaltungstechnik — Drift via "Bühne"; SOC ist Erdöl-/Erdgasbohranlage) → batch-14 block (21112 Berg-/Tagebau Anf 2)
   "49-2091.00": { kldbCode: "26332", kldbName: "Berufe in der Luftverkehrs-, Schiffs- und Fahrzeugelektronik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Avioniker: was Automatisierungstechnik (generic)
-  "53-7065.00": { kldbCode: "51312", kldbName: "Berufe in der Lagerwirtschaft - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Lagerarbeiter: was technischer Luftverkehrsbetrieb
+  // 53-7065.00 Stockers and Order Fillers pulled out of seed (was 51312 Lagerwirtschaft fachlich Anf 2 — Stockers sind Anlerntätigkeiten, kein Ausbildungsberuf) → batch-16 block (51311 Lagerwirtschaft Helfer Anf 1, sibling-down)
 
   // Container-abuse overrides — batch 2 (2026-04-24).
   // Remaining Session-26 browser-test (A) findings plus the older scan-based
@@ -196,7 +196,7 @@ export default {
   "47-5032.00": { kldbCode: "21122", kldbName: "Berufe in der Sprengtechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Sprengstoffarbeiter: was Chemie-/Pharmatechnik — Session-24 emptied 21122 of engineers, but the actual explosives-worker belongs here
   // 49-3021.00 Automotive Body Repairers pulled out of seed (was 25213 Kfz-Technik komplex Anf 3 — bumped für Oldtimerrestaurator-Spezialisierung) → batch-6 block (25212 Anf 2, coupled-down zum neuen generischen Title "Karosserie- und Fahrzeugbaumechaniker" = IHK-Geselle-Tier)
   "51-9051.00": { kldbCode: "24112", kldbName: "Berufe in der Hüttentechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Koksofensteuerer: was Chemie-/Pharmatechnik — coke ovens are metallurgy, not pharma
-  "53-1044.00": { kldbCode: "51422", kldbName: "Servicefachkräfte im Luftverkehr - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Leitender Flugbegleiter: was Service Straße/Schiene
+  // 53-1044.00 First-Line Supervisors of Passenger Attendants pulled out of seed (was 51422 Service Luftverkehr fachlich Anf 2 — Purser hat Aufsichtsfunktion über Kabinenbesatzung, kein Service-Tier) → batch-16 block (51493 Aufsichtskräfte Personenverkehr Servicebereich Anf 3)
 
   // Container-abuse overrides — batch 3 (2026-04-24).
   // Surfaced during the Cluster-B investigation (originally listed as
@@ -873,6 +873,93 @@ export default {
   "39-9031.00": { kldbCode: "84553", kldbName: "Trainer/innen - Fitness und Gymnastik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Exercise Trainers and Group Fitness Instructors: was seed 63122 Sport-/Fitnesskaufleute Anf 2 (Drift — Trainer ≠ Kaufmann); Modify gegen agent's 84503 Sportlehrer ohne-Spez. — 84553 trifft "Fitness und Gymnastik" wörtlich; KldB hat keine Anf-2-Klasse für Trainer (alle Trainer-/Sportlehrer-Klassen catalog-only Anf 3); pulled out of seed; KldB+Anf 2→3
   "39-9032.00": { kldbCode: "83123", kldbName: "Berufe in der Sozialarbeit und Sozialpädagogik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Recreation Workers: was seed 84553 Trainer Fitness/Gymnastik (zu eng nach Fitness — Recreation Workers organisieren breites Freizeitspektrum) und durch 39-9031 belegt; Modify-beyond-audit's-flag (Audit nur title-flag) — 83123 Sozialpädagogik fängt Freizeitpädagogen, parallel zu 39-9041 Residential Advisors; pulled out of seed; coupled mit title.de "Trainer für Outdoor-Aktivitäten" → "Freizeitpädagoge/Freizeitpädagogin"
 
+<<<<<<< fix/audit-batch-16-soc53-transport
+  // === Audit batch 16 — SOC 53 Transportation and Material Moving (2026-05-04) ===
+  // Plan-table walked all 34 SOC 53 findings. 29 KldB-changing entries below
+  // (16 Apply, 12 seed pull-outs, 1 sibling-up); 4 entries are title-only with
+  // no KldB change (53-3051 Bus Drivers School, 53-4013 Rail Yard Engineers,
+  // 53-5022 Motorboat Operators, 53-7081 Refuse Collectors); 1 explicit Reject
+  // (53-4041 Subway/Streetcar Operators — Straßenbahnfahrer-Lesart in 52132
+  // konsistent; agent's 51112 tech Eisenbahn trifft Operator-Tätigkeit nicht,
+  // 51112 ist Signalmen/Dispatcher).
+  // Heaviest pattern: Driver-Domain-Pivots (PKW ↔ LKW ↔ Bus/Straßenbahn ↔
+  // Fahrzeugführer-sonstige) — 4 Codes wandern zwischen 52112/52122/52132/
+  // 52182 je nach SOC-Lesart (Light Truck/Sales = LKW, Shuttle/Chauffeur =
+  // PKW, Parking = Fahrzeugführer-sonstige). Zweites Cluster: Hebezeug-
+  // Korrektur — 51242 Wasserstraßen-/Brückenwärter ist Drift via "-führer";
+  // Crane/Hoist-Operators gehören in 52532 Kranführer (2 Codes).
+  // Drittes Cluster: Aufsichtskraft-Tier-Anhebung (51393 Lager/Güterumschlag
+  // Anf 3, 52593 Bau-/Transportgeräteführung Anf 3, 51493 Personenverkehr
+  // Servicebereich Anf 3) für 4 First-Line-Supervisor-SOCs aus falschen
+  // Anf-2-fachlich oder Bauplanung-Klassen. Catalog-only-Anf-Pattern bei
+  // 53-2021 Air Traffic Controllers — Catalog HAT 51534 Anf 4 (DFS-
+  // Ausbildung ist bachelor-grade), sibling-up 51533 → 51534.
+  // Modifies gegen agent: 53-1041 Aircraft Cargo Handling Supervisors
+  // (agent's 51332 Anf 2 fachlich → 51393 Anf 3 Aufsichtskraft — First-
+  // Line Supervisor braucht Aufsichtskraft-Tier); 53-4041 Subway/Streetcar
+  // (Reject — siehe oben); 53-5022 Motorboat Operators (agent's null
+  // suggestion → keep 52422 Schiffsführer Binnen, KldB ist akzeptabel,
+  // nur Title-Fix von "Seelotse" → "Motorbootführer"); 53-1044 Purser
+  // (Anf-Konsens 3 — agent flagte Anf nur medium, aber Klasse 51493
+  // expliziter Aufsichtskraft-Tier).
+  // Coupled title cascades: 53-1042 → "Vorarbeiter Lager und Logistik";
+  // 53-1043 → "Aufsichtskraft Bau- und Transportgeräteführung"; 53-3051
+  // in-place → "Schulbusfahrer"; 53-3053 in-place → "Chauffeur";
+  // 53-4013 → "Lokrangierführer"; 53-5021 → "Kapitän"; 53-5022 →
+  // "Motorbootführer"; 53-6051.01 → "Luftfahrtprüfer" (war "Flugverkehrs-
+  // kontrolleur" = Fluglotse, falsch); 53-7041 → "Kranführer"; 53-7051 →
+  // "Gabelstaplerfahrer"; 53-7062.04 → "Recyclingfachkraft" (ungendert,
+  // DE-Konvention); 53-7081 → "Müllwerker".
+
+  // First-Line Supervisors — Aufsichtskraft-Tier-Anhebung
+  "53-1041.00": { kldbCode: "51393", kldbName: "Aufsichtskräfte - Lagerwirtschaft, Post und Zustellung, Güterumschlag", anforderungsniveau: 3, trainingCategory: "specialist" }, // Aircraft Cargo Handling Supervisors: war 51532 Überwachung Luftverkehrsbetrieb fachlich Anf 2 (zu niedriger Tier — First-Line Supervisor); Modify gegen agent's 51332 Güterumschlag Anf 2 fachlich (Supervisor braucht Aufsichtskraft-Tier); 51393 fängt Cargo-Handling-Aspekt = Güterumschlag-Domain; KldB+Anf 2→3
+  "53-1042.00": { kldbCode: "51393", kldbName: "Aufsichtskräfte - Lagerwirtschaft, Post und Zustellung, Güterumschlag", anforderungsniveau: 3, trainingCategory: "specialist" }, // First-Line Supervisors of Helpers/Laborers/Material Movers: war 31193 Bauplanung-Aufsicht (Stem-Tiebreaker via "Aufsichtskraft" — falsche Domain); 51393 Aufsichtskräfte Lager/Güterumschlag ist Domain-Exact; coupled mit title.de "Aufsichtskraft Abrissarbeiten" → "Vorarbeiter Lager und Logistik / Vorarbeiterin Lager und Logistik"
+  "53-1042.01": { kldbCode: "34333", kldbName: "Berufe in der Abfallwirtschaft - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Recycling Coordinators: war 11724 Natur-/Landschaftspflege hoch Anf 4 studies (komplette Domain-Verwechslung); 34333 Abfallwirtschaft komplex ist Domain-Exact; KldB+Anf 4→3 + trainingCategory studies→specialist
+  "53-1043.00": { kldbCode: "52593", kldbName: "Aufsichtskräfte - Bau- und Transportgeräteführung", anforderungsniveau: 3, trainingCategory: "specialist" }, // First-Line Supervisors of Material-Moving Machine/Vehicle Operators: war 31193 Bauplanung-Aufsicht (Stem-Tiebreaker); 52593 Aufsichtskräfte Bau-/Transportgeräteführung ist Domain-Exact für Kran-/Fahrzeugführer-Aufsicht; coupled mit title.de "Aufsichtskraft Kranarbeiten" → "Aufsichtskraft Bau- und Transportgeräteführung / …in"
+  "53-1044.00": { kldbCode: "51493", kldbName: "Aufsichtskräfte - Personenverkehr (Servicebereich)", anforderungsniveau: 3, trainingCategory: "specialist" }, // First-Line Supervisors of Passenger Attendants (Purser): pulled out of seed (was 51422 Service Luftverkehr fachlich Anf 2); 51493 Aufsichtskräfte Personenverkehr Servicebereich Anf 3 ist Domain-Exact für Kabinenchef/Purser; KldB+Anf 2→3
+
+  // Air Traffic Control — sibling-up bei catalog-vorhandenem Anf-4-Sibling
+  "53-2021.00": { kldbCode: "51534", kldbName: "Berufe in der Überwachung und Steuerung des Luftverkehrsbetriebs - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Air Traffic Controllers: war 51533 Überwachung Luftverkehrsbetrieb komplex Anf 3 specialist — DFS-Ausbildung ist mehrjährig + bachelor-grade; sibling-up 51533 → 51534; KldB+Anf 3→4 + trainingCategory specialist→studies
+
+  // Driver-Domain-Pivots (PKW ↔ LKW ↔ Bus ↔ Fahrzeugführer-sonstige)
+  "53-3031.00": { kldbCode: "52122", kldbName: "Berufskraftfahrer/innen (Güterverkehr/LKW) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Driver/Sales Workers: pulled out of seed (was 52112 PKW); SOC ist Lieferung+Verkauf via Fahrzeug = Gütertransport
+  "53-3033.00": { kldbCode: "52122", kldbName: "Berufskraftfahrer/innen (Güterverkehr/LKW) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Light Truck Drivers: pulled out of seed (was 52112 PKW); Light Truck/Van fährt Waren aus = Gütertransport
+  "53-3053.00": { kldbCode: "52112", kldbName: "Berufskraftfahrer/innen (Personentransport/PKW) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Shuttle Drivers and Chauffeurs: pulled out of seed (was 52132 Bus/Straßenbahn); Chauffeur fährt PKW/Kleinbus, kein Linienbus; coupled mit title.de "Shuttle- und Chauffeurfahrer" → "Chauffeur/Chauffeurin"
+
+  // Eisenbahn — Drift correction
+  "53-4022.00": { kldbCode: "51112", kldbName: "Berufe im technischen Eisenbahnbetrieb - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Railroad Brake/Signal/Switch Operators: pulled out of seed (was 51632 Verkehrskaufleute — kaufmännisch); SOC ist tech Bedienung Signalanlagen + Waggon-Kuppeln im Rangierbetrieb
+  "53-4031.00": { kldbCode: "51112", kldbName: "Berufe im technischen Eisenbahnbetrieb - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Railroad Conductors and Yardmasters: war 51412 Service Straße/Schiene fachlich Anf 2 (Service-Tier); SOC ist primär Yardmaster (Coordinator switch-engine crew) + Conductor secondary, gehört in tech Eisenbahnbetrieb
+
+  // Schifffahrt — Drift correction + sibling-up bei Captains
+  "53-5011.00": { kldbCode: "51432", kldbName: "Servicefachkräfte im Schiffsverkehr - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Sailors and Marine Oilers: pulled out of seed (was 52422 Schiffsführer Binnen — Schiffsführer ist Kapitänsrolle); SOC Decksmannschaft/Wartungsschmierer = Service-Tier 51432
+  "53-5021.00": { kldbCode: "52413", kldbName: "Nautische Schiffsoffiziere/-offizierinnen und Kapitäne/Kapitäninnen - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Captains/Mates/Pilots of Water Vessels: war 11402 Fischwirtschaft fachlich Anf 2 (Drift via "Küstenfischerei"-Title); SOC umfasst alle Wasserfahrzeuge (Schlepper/Fähren/etc.); coupled mit title.de "Kapitän Küstenfischerei" → "Kapitän/Kapitänin"; KldB+Anf 2→3
+
+  // Fahrzeug-Service / Parking
+  "53-6021.00": { kldbCode: "52182", kldbName: "Fahrzeugführer/innen im Straßenverkehr (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Parking Attendants: pulled out of seed (was 52112 PKW-Berufskraftfahrer); Parking Attendants parken Autos, fahren keine Kunden — 52182 Fahrzeugführer-sonstige fängt Park-/Service-Lesart
+  "53-6031.00": { kldbCode: "25201", kldbName: "Berufe in der Fahrzeugtechnik (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Automotive and Watercraft Service Attendants: war 25212 Kfz-Tech fachlich Anf 2 (zu hoch — Tankwart/Schmiertätigkeit ist Anlerntier); 25201 Kfz-Tech Helfer ist Domain-Exact; KldB+Anf 2→1 + trainingCategory apprenticeship→none
+  "53-6032.00": { kldbCode: "51122", kldbName: "Berufe im technischen Luftverkehrsbetrieb - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Aircraft Service Attendants: pulled out of seed (was 52122 LKW); Bodenabfertigung Luftverkehr — betanken/de-icen/wartet Flugzeuge am Boden, kein LKW
+
+  // Verkehrs-Inspektoren — Drift corrections
+  "53-6011.00": { kldbCode: "51243", kldbName: "Wasserstraßen- und Brückenwärter/innen - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Bridge and Lock Tenders: war 51293 Aufsichtskräfte Verkehrsinfra Anf 3 (zu generisch); 51243 ist die spezifische Klasse für Brücken-/Schleusenwärter (Anf bleibt 3, Klassen-Spezifizierung)
+  "53-6051.00": { kldbCode: "51503", kldbName: "Berufe in der Überwachung und Steuerung des Verkehrsbetriebs (ohne Spezialisierung) - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Transportation Inspectors: war 23123 Papierverarbeitung 😱 (Stem-Tiebreaker via "Verpackung"=Cargo); 51503 Überwachung Verkehrsbetrieb ohne-Spez. fängt Inspektor-Domain breit
+  "53-6051.01": { kldbCode: "25233", kldbName: "Berufe in der Luft- und Raumfahrttechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Aviation Inspectors: war 51533 Überwachung Luftverkehrsbetrieb komplex (= Fluglotse-Klasse, falsch — Aviation Inspector prüft Flugzeuge/Wartung, kein Luftraumkontrolleur); coupled mit title.de "Flugverkehrskontrolleur" (= Fluglotse, falsch) → "Luftfahrtprüfer/Luftfahrtprüferin"; 25233 Luft-/Raumfahrttechnik komplex ist Tech-Inspektor-Domain
+
+  // Hebezeug & Bagger — 51242 Brückenwärter ist Drift, korrekte Klasse 52532 Kranführer
+  "53-7021.00": { kldbCode: "52532", kldbName: "Kranführer/innen, Aufzugsmaschinisten und Bediener/innen verwandter Hebeeinrichtungen - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Crane and Tower Operators: pulled out of seed (was 51242 Brückenwärter — Drift); 52532 Kranführer ist Exact-Klasse
+  "53-7031.00": { kldbCode: "32262", kldbName: "Berufe im Kultur- und Wasserbau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Dredge Operators: war 32222 Straßen-/Asphaltbau (Drift) — Schwimmbagger im Wasser ist Wasser-/Tiefbau-Domain (32262 Kultur-/Wasserbau)
+  "53-7041.00": { kldbCode: "52532", kldbName: "Kranführer/innen, Aufzugsmaschinisten und Bediener/innen verwandter Hebeeinrichtungen - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Hoist and Winch Operators: pulled out of seed (was 51242 Brückenwärter — Drift); 52532 Kranführer/Hebezeugbediener ist Exact-Klasse für Hoist/Winch; coupled mit title.de "Verladebrückenführer" → "Kranführer/Kranführerin"
+  "53-7051.00": { kldbCode: "51312", kldbName: "Berufe in der Lagerwirtschaft - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Industrial Truck and Tractor Operators (Forklift): pulled out of seed (was 52122 LKW — Gabelstapler fahren in Lagerhallen, kein LKW-Güterverkehr); 51312 Lagerwirtschaft fachlich ist Domain-Exact; coupled mit title.de "Umzugsfahrer" → "Gabelstaplerfahrer/Gabelstaplerfahrerin"
+
+  // Lager / Recycling / Helfer
+  "53-7062.00": { kldbCode: "51311", kldbName: "Berufe in der Lagerwirtschaft - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Laborers and Freight/Stock/Material Movers: war 51122 tech Luftverkehrsbetrieb 😱 fachlich Anf 2 (komplette Sektor-Verwechslung); 51311 Lagerwirtschaft Helfer ist Domain-Exact für manuelle Materialträger ohne Ausbildung; KldB+Anf 2→1 + trainingCategory apprenticeship→none
+  "53-7062.04": { kldbCode: "34332", kldbName: "Berufe in der Abfallwirtschaft - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Recycling and Reclamation Workers: war 24412 Metallbau (Drift via "Metallarbeiter"-Title); 34332 Abfallwirtschaft fachlich ist Recycling-Domain-Exact; coupled mit title.de "Metallarbeiter im Bereich Demontage" → "Recyclingfachkraft" (ungendert, DE-Konvention für "-fachkraft")
+  "53-7065.00": { kldbCode: "51311", kldbName: "Berufe in der Lagerwirtschaft - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Stockers and Order Fillers: pulled out of seed (was 51312 Lagerwirtschaft fachlich Anf 2); SOC ist Anlerntätigkeit (Regale befüllen + Bestellungen kommissionieren), kein Ausbildungsberuf; sibling-down 51312 → 51311; KldB+Anf 2→1 + trainingCategory apprenticeship→none
+
+  // Pumpen & Verladung — Drift corrections
+  "53-7072.00": { kldbCode: "34322", kldbName: "Berufe im Rohrleitungsbau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Pump Operators (Except Wellhead): war 32242 Brunnenbau (Drift — Brunnenbau ist Wasser-/Hochbau, nicht Pumpenbedienung); 34322 Rohrleitungsbau fängt Pumpen-Domain (Pump Operators bedienen Pumpen für Flüssigkeits-/Gas-Förderung)
+  "53-7073.00": { kldbCode: "21112", kldbName: "Berufe im Berg- und Tagebau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Wellhead Pumpers: war 41343 Erdölraffinerie komplex Anf 3 (zu spät im Prozess — Wellhead ist Bohrloch, nicht Raffinerie); 21112 Berg-/Tagebau-Cluster (parallel zu batch-14 47-5011/12/13/44 Oil/Gas/Mining); KldB+Anf 3→2 + trainingCategory specialist→apprenticeship
+  "53-7121.00": { kldbCode: "51332", kldbName: "Berufe im Güter- und Warenumschlag - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Tank Car/Truck/Ship Loaders: war 41343 Erdölraffinerie komplex Anf 3 (Drift via Erdöl-Lesart); SOC verlädt Schüttgut+Chemikalien = Güter-/Warenumschlag, kein Raffinerieanlagen-Steuerer; KldB+Anf 3→2 + trainingCategory specialist→apprenticeship
+=======
   // === Audit batch 15 — SOC 29 Healthcare Practitioners and Technical (2026-05-04) ===
   // Plan-table walked all 43 SOC 29 findings. 39 KldB-changing entries below
   // (28 Apply, 6 seed pull-outs incl. 29-1031/29-2011.02/29-2036/29-2055/
@@ -970,4 +1057,5 @@ export default {
   // Sonstige
   "29-2043.00": { kldbCode: "81343", kldbName: "Berufe im Rettungsdienst - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Paramedics: war 81342 Rettungsdienst fachlich Anf 2 — Notfallsanitäter ist seit 2014 staatlich anerkannter 3-jähriger Beruf mit Heilkundekompetenzen, daher Spezialisten-Tier; sibling-up 81342 → 81343; KldB+Anf 2→3
   "29-9092.00": { kldbCode: "41274", kldbName: "Berufe in der Biologie (Humanbiologie) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Genetic Counselors: war 41204 Biologie ohne-Spez. (Drift via "genetisch") — Humanbiologie 41274 trifft Genetik-Beratungs-Domain spezifischer
+>>>>>>> main
 }
