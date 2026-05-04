@@ -483,7 +483,7 @@ export default {
   '53-5011.00': 'Matrose/Matrosin', // Sailors and Marine Oilers
 
   // === Cluster: "Lebensmittelproduktionsmitarbeiter" (2) ===
-  '51-3092.00': 'Lebensmittelproduktion Chargenherstellung', // Food Batchmakers
+  '51-3092.00': 'Fachkraft für Lebensmitteltechnik', // Food Batchmakers: war "Lebensmittelproduktion Chargenherstellung" (kein Berufstitel, beschreibende Phrase); Modify gegen agent's "Lebensmitteltechniker" — letzteres impliziert Anf-3-Technikerschule, SOC ist Anf-2-Tätigkeit (Chargenmischer/Kessel-Operator); Fachkraft für Lebensmitteltechnik ist IHK-Anf-2-Ausbildung
   '51-3093.00': 'Lebensmittelmaschinenführer/Lebensmittelmaschinenführerin', // Food Cooking Machine Operators
 
   // === Cluster: "Werkzeugbautechniker" (2) ===
@@ -774,4 +774,55 @@ export default {
   '29-2099.05': 'MTA Ophthalmologie', // Ophthalmic Medical Technologists: war "Ophthalmologisch-technischer Assistent/Ophthalmologisch-technische Assistentin" (Wortwörtlichkeit, sperrig) — MTA Ophthalmologie kompakt und konsistent zu sister codes 29-2034 "MTA Radiologie", 29-2035 "MTA MRT", 29-2099.01 "MTA Neurodiagnostik"; coupled mit KldB 81132 → 81182
   '29-9021.00': 'Medizinischer Dokumentationsassistent / Medizinische Dokumentationsassistentin', // Health Information Technologists and Medical Registrars: war "Informations- und Wissensmanager/Informations- und Wissensmanagerin (IKT)" (zu generisch IT-Label, verschleiert Med-Doku-Charakter) — Medizinischer Dokumentationsassistent ist DE-Berufsbezeichnung; KldB 73342 bleibt korrekt
   '29-9099.01': 'Freiberufliche Hebamme / Freiberuflicher Entbindungspfleger', // Midwives (SOC-Residual, Direkteinstieg ohne Pflege-Vorlauf): differenziert von 29-1161 Nurse Midwives = klinisch-angestellte Hebamme via Pflege-Spezialisierung-Route — DE-Hebamme ist eigene Profession ohne Pflege-Vorlauf, "freiberuflich" bildet SOC-Residual-Lesart (eigene Praxis, Hausgeburt) ab
+
+  // === Audit batch 17 — SOC 51 Production coupled title fixes (2026-05-04) ===
+  // Final batch of the audit pipeline. 34 new title overrides + 1 in-place
+  // modify (51-3092.00 at line ~486 above: "Lebensmittelproduktion
+  // Chargenherstellung" → "Fachkraft für Lebensmitteltechnik"). Existing
+  // overrides for 51-2031, 51-4021, 51-4033, 51-4072 deliberately kept
+  // (already correct). 4 codes have no override needed (51-6091
+  // Kunstfaserstreckmaschinenbediener, 51-8013.03 Biogas-Techniker,
+  // 51-9031 Zuschneider Bekleidung, 51-9141 Halbleiterfertiger — current
+  // ESCO defaults are good enough). 1 explicit Reject (51-4021) keeps both
+  // KldB and existing title.
+  // Most heavy patterns: (a) "Steuerer/Steuerin"-Klassennamenstil → etablierte
+  // Berufstitel "Anlagenfahrer X" / "Kraftwerksoperateur" / "Netzleitoperator";
+  // (b) ESCO-default Stem-Drift-Treffer ("Glasformer", "Steinschleifer",
+  // "Holzbohrmaschinenbediener", "Tiefkühlkosthersteller") → mat-agnostic
+  // generic IHK-Berufstitel; (c) reine Funktionsverkürzungen ("Löter" für
+  // Welder/Cutter/Solderer/Brazer) → Oberbegriffs-Title.
+  '51-2021.00': 'Spulenwickler/Spulenwicklerin', // Coil Winders, Tapers, Finishers: war "Bediener von Maschinen zum Glasfaserziehen" (komplette Domain-Drift, Glasfaser ≠ Drahtspule); coupled mit KldB 22102 → 26302
+  '51-2022.00': 'Elektrogerätemontierer/Elektrogerätemontiererin', // Electrical and Electronic Equipment Assemblers: war "Kabelanlagenmonteur" (zu eng auf Kabel — SOC umfasst Motoren, Computer, Testsysteme); KldB 26301 Anf 1 bleibt (Cable-Assembly ist Entry-Level)
+  '51-2023.00': 'Elektromechanik-Monteur/Elektromechanik-Monteurin', // Electromechanical Equipment Assemblers: war "Elektroanlageninstallateur" (impliziert Gebäudeinstallation, falsch) — SOC ist Servo/Gyro/Tape-Drive-Montage, Assembler-Frame; differenziert von 49-2092 Electric Motor Repairers (= "Elektromechaniker", Reparatur-Frame) — Monteur-Suffix parallel zu 17-3024 Mechatronikmonteur Pattern; coupled mit KldB 26301 → 26302 (anf-up 1→2)
+  '51-2051.00': 'Faserverbundkunststoff-Mechaniker/Faserverbundkunststoff-Mechanikerin', // Fiberglass Laminators and Fabricators: war "Plexiglasverformer" (Fiberglas ≠ Plexiglas); FVK-Mechaniker ist neuerer IHK-Beruf, deckt GFK-Laminieren breit (Boote, Sportgeräte, Industrie); KldB 22102 bleibt korrekt
+  '51-2092.00': 'Montierer/Montiererin', // Team Assemblers: war "Steuerer von automatisierten Montagelinien" (kein DE-Berufstitel, Klassennamen-Stil); SOC ist Fließbandmontage rotierende Aufgaben; coupled mit KldB 27303 → 25112 + Anf-down 3→2
+  '51-3091.00': 'Bediener von Röst- und Trocknungsanlagen / Bedienerin von Röst- und Trocknungsanlagen', // Food/Tobacco Roasting/Baking/Drying Machine Operators: war "Bediener von Holztrocknungsanlagen" (Stem-Drift "Trocknung" auf Holz); coupled mit KldB 22312 → 29282 (pull-out aus seed)
+  '51-4032.00': 'Maschinenführer Zerspanungstechnik / Maschinenführerin Zerspanungstechnik', // Drilling/Boring Machine: war "Holzbohrmaschinenbediener" (Stem-Drift "Bohrer" auf Holz, plus Tippfehler "Hozbohr"); SOC ist Metall+Kunststoff Bohren/Drehen/Fräsen = spanend; coupled mit KldB 22302 → 24232
+  '51-4035.00': 'Fräser/Fräserin', // Milling/Planing Machine: war "Metallsäger" (Stem-Drift "Sägen", SOC ist Fräs+Hobel); coupled mit KldB 24202 → 24232 (Modify-beyond-flag, sibling-up zu spanend)
+  '51-4051.00': 'Schmelzer/Schmelzerin', // Metal-Refining Furnace Operators: war "Schmelzofensteuerer" (ungebräuchlicher Klassenamen-Stil); Schmelzer ist IHK-Berufstitel; coupled mit KldB 24113 → 24112 (anf-down 3→2)
+  '51-4121.00': 'Schweißer/Schweißerin', // Welders/Cutters/Solderers/Brazers: war "Löter" (zu eng auf eine von vier SOC-Methoden); Schweißer ist Oberbegriff der Schweiß-/Verbindungstechnik; KldB 24422 bleibt
+  '51-4122.00': 'Maschinenbediener Schweiß- und Löttechnik / Maschinenbedienerin Schweiß- und Löttechnik', // Welding/Soldering/Brazing Machine: war "Maschinenbediener im Bereich Wellenlöten" (zu eng — Wellenlöten ist Elektronikfertigung, SOC ist breit); coupled mit KldB 26301 → 24422 (Domain-Wechsel + anf-up 1→2)
+  '51-4191.00': 'Wärmebehandler/Wärmebehandlerin', // Heat Treating Equipment: war "Konvertermann/Konverterfrau" (ungrammatische Form, ungebräuchlicher Begriff); Wärmebehandler ist etablierter DE-Beruf in Hüttentechnik; KldB 24112 bleibt
+  '51-4193.00': 'Galvaniseur/Galvaniseurin', // Plating Machine: war "Metallpolierer" (Polieren ≠ Galvanik); Galvaniseur ist IHK-Beruf der Metalloberflächenbehandlung; coupled mit KldB 24222 → 24302
+  '51-6011.00': 'Textilreiniger/Textilreinigerin', // Laundry and Dry-Cleaning Workers: war "Maschinenwäscher" (kein etablierter Beruf); Textilreiniger ist IHK-Anf-2-Ausbildungsberuf; coupled mit KldB 54101 → 54132 (pull-out aus seed + anf-up 1→2)
+  '51-6041.00': 'Schuhmacher/Schuhmacherin', // Shoe and Leather Workers/Repairers: war "Schuhstepper" (zu eng auf Näharbeit-Teilaspekt); Schuhmacher ist Oberbegriff für Konstruktion+Reparatur; KldB 28332 bleibt
+  '51-6051.00': 'Handnäher/Handnäherin', // Sewers, Hand: war "Textilgestalter im Handwerk – Sticken" (zu eng auf Sticken, SOC ist allgemeines Handnähen); KldB 28221 Anf 1 bleibt
+  '51-6061.00': 'Textilveredler/Textilveredlerin', // Textile Bleaching/Dyeing Machine: war "Färbereitechniker" ("Techniker"-Suffix impliziert Anf-3-Technikerschule, SOC ist Anf-2 Maschinenführer); Textilveredler ist IHK-Anf-2-Beruf; KldB 28142 bleibt
+  '51-6062.00': 'Textilzuschneider/Textilzuschneiderin', // Textile Cutting Machine: war "Oberlederzurichter" (Lederberuf, SOC ist Textilschnitt); Tippfehler-Fix gegen agent's "Textilzuschneiderein"; coupled mit KldB 28332 → 28102
+  '51-8011.00': 'Kraftwerksoperateur/Kraftwerksoperateurin (Kerntechnik)', // Nuclear Power Reactor Operators: war "Steuerer von Kernkraftwerken/Steuerin von Kernkraftwerken" (Klassennamen-Stil + ungrammatische Femininum-Form "Steuerin"); Kraftwerksoperateur ist etablierter DE-Berufstitel; KldB 26233 bleibt
+  '51-8012.00': 'Netzleitoperator/Netzleitoperatorin', // Power Distributors and Dispatchers: war "Steuerer Stromverteilung/Steuerin Stromverteilung" (ungrammatisch); Netzleitoperator ist etablierter Begriff im Übertragungsnetz/Verteilnetz; KldB 26233 bleibt
+  '51-8031.00': 'Fachkraft für Abwassertechnik', // Water and Wastewater Treatment Plant Operators: war "Steuerer von Flüssigabfallaufbereitungsanlagen" (umständliche Wort-für-Wort-Übersetzung); Fachkraft für Abwassertechnik ist IHK-Berufstitel; KldB 34312 bleibt
+  '51-8091.00': 'Anlagenfahrer Chemie / Anlagenfahrerin Chemie', // Chemical Plant and System Operators: war "Steuerer Chemiewerksleitstand/Steuerin Chemiewerksleitstand" (ungrammatisch); Anlagenfahrer Chemie ist etablierter DE-Berufstitel, parallel zu 51-8092 Gasanlage / 51-8093 Raffinerie; KldB 41312 bleibt
+  '51-9011.00': 'Anlagenfahrer Chemische Verfahrenstechnik / Anlagenfahrerin Chemische Verfahrenstechnik', // Chemical Equipment Operators: war "Steuerer von chemischen Verfahrensanlagen/Steuerin..." (Klassennamen-Stil ungrammatisch); Modify gegen agent's reine Grammatik-Reparatur — Anlagenfahrer ist etablierter Berufstitel parallel zu 51-8091; KldB 41333 bleibt
+  '51-9012.00': 'Verfahrenstechniker Milchverarbeitung / Verfahrenstechnikerin Milchverarbeitung', // Separating/Filtering/Clarifying/Precipitating: war "Milchwärmebehandlungsverfahrenstechniker" (extrem unhandliches Kompositum); etablierter Begriff in Molkereitechnik; KldB 29102 bleibt akzeptiert (Molkerei = Lebensmittel)
+  '51-9021.00': 'Maschinen- und Anlagenführer/Maschinen- und Anlagenführerin', // Crushing/Grinding/Polishing Machine: war "Steinschleifer" (zu eng auf Stein, SOC ist Multi-Material); coupled mit KldB 21222 → 25122 (mat-agnostic)
+  '51-9022.00': 'Schleif- und Polierarbeiter/Schleif- und Polierarbeiterin', // Grinding and Polishing Workers, Hand: war "Flachglasschleifer" (zu eng auf Flachglas — SOC ist Multi-Material Hand); KldB 21312 bleibt
+  '51-9041.00': 'Formmaschinenführer/Formmaschinenführerin', // Extruding/Forming/Pressing/Compacting Machine: war "Glasformer" (zu eng — SOC umfasst Glas+Lebensmittel+Gummi+Seife+Keramik); coupled mit KldB 22102 → 25122 (mat-agnostic, Modify gegen agent's 21312 Glas)
+  '51-9051.00': 'Anlagen- und Ofenfahrer/Anlagen- und Ofenfahrerin', // Furnace/Kiln/Oven/Drier/Kettle Operators: war "Steuerer Koksöfen" (zu eng + Klassennamen-Stil — SOC umfasst alle Ofen-/Trocknungsanlagen Glas/Holz/Gummi/Seife); KldB 24112 (in seed pin korrigiert) bleibt
+  '51-9111.00': 'Maschinen- und Anlagenführer Verpackungstechnik/Maschinen- und Anlagenführerin Verpackungstechnik', // Packaging and Filling Machine: war "Kapselfüllmaschinenbediener" (zu spezifisch auf eine Maschinenart); etablierter IHK-Schwerpunkt-Beruf; KldB 41312 bleibt (Pharma-Verpackung legitim)
+  '51-9162.00': 'Zerspanungsmechaniker CNC/Zerspanungsmechanikerin CNC', // CNC Tool Programmers: war "CNC-Programmierer" (irreführend wegen IT-Programmierer-Verwechslung); Zerspanungsmechaniker CNC ist etablierter IHK-Beruf-Schwerpunkt, eindeutig spanende Metallbearbeitung; coupled mit KldB 43412 → 24232
+  '51-9192.00': 'Maschinenführer Reinigung und Aufbereitung / Maschinenführerin Reinigung und Aufbereitung', // Cleaning/Washing/Metal Pickling Equipment: war "Raffinationsanlagenbediener" (Stem-Drift "Aufbereitung" auf Raffination); SOC ist breites Reinigen+Waschen+Beizen; coupled mit KldB 23112 → 29202
+  '51-9193.00': 'Anlagenführer Kältetechnik / Anlagenführerin Kältetechnik', // Cooling and Freezing Equipment Operators: war "Tiefkühlkosthersteller" (zu eng auf Lebensmittel — SOC umfasst Chemikalien, Blutplasma); Anlagenführer Kältetechnik ist operate-/tend-Frame; coupled mit KldB 29102 → 29202
+  '51-9194.00': 'Graveur/Graveurin', // Etchers and Engravers: war "Prägepresse-Operator" (Anglizismus, plus Operator ≠ Etcher/Engraver); Graveur ist etabliertes IHK-Handwerk; KldB 23412 bleibt (Druck-/Gravurtechnik passt)
+  '51-9198.00': 'Produktionshelfer/Produktionshelferin', // Helpers — Production Workers: war "Fabrikhilfsarbeiter" (veraltet/abwertend); Produktionshelfer ist neutraler Standardbegriff; coupled mit KldB 21201 → 25101
 }

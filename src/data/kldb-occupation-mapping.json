@@ -4629,8 +4629,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-2021.00": {
-      "kldbCode": "22102",
-      "kldbName": "Berufe in der Kunststoff- und Kautschukherstellung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "26302",
+      "kldbName": "Berufe in der Elektrotechnik (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4641,14 +4641,14 @@
       "trainingCategory": "none"
     },
     "51-2023.00": {
-      "kldbCode": "26301",
-      "kldbName": "Berufe in der Elektrotechnik (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
-      "anforderungsniveau": 1,
-      "trainingCategory": "none"
+      "kldbCode": "26302",
+      "kldbName": "Berufe in der Elektrotechnik (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "51-2031.00": {
-      "kldbCode": "25232",
-      "kldbName": "Berufe in der Luft- und Raumfahrttechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "25112",
+      "kldbName": "Maschinen- und Gerätezusammensetzer/innen - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4671,10 +4671,10 @@
       "trainingCategory": "apprenticeship"
     },
     "51-2092.00": {
-      "kldbCode": "27303",
-      "kldbName": "Berufe in der technischen Produktionsplanung und -steuerung - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "25112",
+      "kldbName": "Maschinen- und Gerätezusammensetzer/innen - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "51-3011.00": {
       "kldbCode": "29222",
@@ -4701,8 +4701,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-3091.00": {
-      "kldbCode": "22312",
-      "kldbName": "Berufe in der Holztrocknung und -konservierung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "29282",
+      "kldbName": "Berufe in der Lebensmittelherstellung (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4743,14 +4743,14 @@
       "trainingCategory": "apprenticeship"
     },
     "51-4032.00": {
-      "kldbCode": "22302",
-      "kldbName": "Berufe in der Holzbe- und -verarbeitung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "24232",
+      "kldbName": "Berufe in der spanenden Metallbearbeitung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "51-4033.00": {
-      "kldbCode": "22302",
-      "kldbName": "Berufe in der Holzbe- und -verarbeitung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "24222",
+      "kldbName": "Berufe in der schleifenden Metallbearbeitung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4761,8 +4761,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-4035.00": {
-      "kldbCode": "24202",
-      "kldbName": "Berufe in der Metallbearbeitung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "24232",
+      "kldbName": "Berufe in der spanenden Metallbearbeitung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4773,10 +4773,10 @@
       "trainingCategory": "apprenticeship"
     },
     "51-4051.00": {
-      "kldbCode": "24113",
-      "kldbName": "Berufe in der Hüttentechnik - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "24112",
+      "kldbName": "Berufe in der Hüttentechnik - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "51-4052.00": {
       "kldbCode": "24142",
@@ -4803,8 +4803,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-4072.00": {
-      "kldbCode": "24122",
-      "kldbName": "Berufe in der Metallumformung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "24132",
+      "kldbName": "Berufe in der industriellen Gießerei - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4827,10 +4827,10 @@
       "trainingCategory": "apprenticeship"
     },
     "51-4122.00": {
-      "kldbCode": "26301",
-      "kldbName": "Berufe in der Elektrotechnik (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
-      "anforderungsniveau": 1,
-      "trainingCategory": "none"
+      "kldbCode": "24422",
+      "kldbName": "Berufe in der Schweiß- und Verbindungstechnik - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "51-4191.00": {
       "kldbCode": "24112",
@@ -4846,8 +4846,8 @@
       "fromJobZone": true
     },
     "51-4193.00": {
-      "kldbCode": "24222",
-      "kldbName": "Berufe in der schleifenden Metallbearbeitung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "24302",
+      "kldbName": "Berufe in der Metalloberflächenbehandlung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4876,10 +4876,10 @@
       "trainingCategory": "apprenticeship"
     },
     "51-6011.00": {
-      "kldbCode": "54101",
-      "kldbName": "Berufe in der Reinigung (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
-      "anforderungsniveau": 1,
-      "trainingCategory": "none"
+      "kldbCode": "54132",
+      "kldbName": "Berufe in der Textilreinigung - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "51-6021.00": {
       "kldbCode": null,
@@ -4925,8 +4925,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-6062.00": {
-      "kldbCode": "28332",
-      "kldbName": "Berufe in der Schuhherstellung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "28102",
+      "kldbName": "Berufe in der Textiltechnik (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4943,8 +4943,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-6091.00": {
-      "kldbCode": "21312",
-      "kldbName": "Berufe in der Glasherstellung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "22102",
+      "kldbName": "Berufe in der Kunststoff- und Kautschukherstellung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5015,8 +5015,8 @@
       "trainingCategory": "specialist"
     },
     "51-8013.03": {
-      "kldbCode": "41333",
-      "kldbName": "Steuerer/Steuerinnen von chemischen Verfahrensanlagen - komplexe Spezialistentätigkeiten",
+      "kldbCode": "26243",
+      "kldbName": "Berufe in der regenerativen Energietechnik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -5076,8 +5076,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-9021.00": {
-      "kldbCode": "21222",
-      "kldbName": "Berufe in der Baustoffherstellung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "25122",
+      "kldbName": "Maschinen- und Anlagenführer/innen - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5094,8 +5094,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-9031.00": {
-      "kldbCode": "28332",
-      "kldbName": "Berufe in der Schuhherstellung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "28222",
+      "kldbName": "Berufe in der Bekleidungs-, Hut- und Mützenherstellung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5106,8 +5106,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-9041.00": {
-      "kldbCode": "22102",
-      "kldbName": "Berufe in der Kunststoff- und Kautschukherstellung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "25122",
+      "kldbName": "Maschinen- und Anlagenführer/innen - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5172,10 +5172,10 @@
       "trainingCategory": "apprenticeship"
     },
     "51-9141.00": {
-      "kldbCode": "26301",
-      "kldbName": "Berufe in der Elektrotechnik (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
-      "anforderungsniveau": 1,
-      "trainingCategory": "none"
+      "kldbCode": "26302",
+      "kldbName": "Berufe in der Elektrotechnik (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "51-9151.00": {
       "kldbCode": "23322",
@@ -5190,8 +5190,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-9162.00": {
-      "kldbCode": "43412",
-      "kldbName": "Berufe in der Softwareentwicklung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "24232",
+      "kldbName": "Berufe in der spanenden Metallbearbeitung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5202,14 +5202,14 @@
       "trainingCategory": "apprenticeship"
     },
     "51-9192.00": {
-      "kldbCode": "23112",
-      "kldbName": "Berufe in der Papierherstellung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "29202",
+      "kldbName": "Berufe in der Lebensmittelherstellung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "51-9193.00": {
-      "kldbCode": "29102",
-      "kldbName": "Berufe in der Getränkeherstellung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "29202",
+      "kldbName": "Berufe in der Lebensmittelherstellung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -5256,8 +5256,8 @@
       "trainingCategory": "apprenticeship"
     },
     "51-9198.00": {
-      "kldbCode": "21201",
-      "kldbName": "Berufe in der Naturstein- und Mineralaufbereitung und -verarbeitung und Baustoffherstellung (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
+      "kldbCode": "25101",
+      "kldbName": "Berufe in der Maschinenbau- und Betriebstechnik (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
       "anforderungsniveau": 1,
       "trainingCategory": "none"
     },
