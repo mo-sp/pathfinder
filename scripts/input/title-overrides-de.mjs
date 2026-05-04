@@ -744,7 +744,6 @@ export default {
   '39-7011.00': 'Gästeführer/Gästeführerin', // Tour Guides and Escorts: war "Fremdenführer/Fremdenführerin" (leicht veraltet) — Gästeführer ist moderner DE-Standardbegriff
   '39-9032.00': 'Freizeitpädagoge/Freizeitpädagogin', // Recreation Workers: war "Trainer für Outdoor-Aktivitäten/Trainerin für Outdoor-Aktivitäten" (zu eng — Recreation umfasst Kunst/Musik/Camping/Sport) — Freizeitpädagoge fängt Domain-Breite, konsistent zu KldB 83123 Sozialpädagogik
 
-<<<<<<< fix/audit-batch-16-soc53-transport
   // === Audit batch 16 — SOC 53 Transportation and Material Moving coupled title fixes (2026-05-04) ===
   // 53-3053.00 modified in-place at line ~162 (war "Shuttle- und Chauffeurfahrer" → "Chauffeur")
   '53-1042.00': 'Vorarbeiter Lager und Logistik / Vorarbeiterin Lager und Logistik', // First-Line Supervisors of Helpers/Laborers/Material Movers: war "Aufsichtskraft Abrissarbeiten" (zu enge Abriss-Lesart — SOC umfasst alle Helfer/Material Movers, nicht nur Abriss); Vorarbeiter Lager und Logistik trifft SOC-Breite; coupled mit KldB 31193 → 51393
@@ -760,7 +759,7 @@ export default {
   '53-7051.00': 'Gabelstaplerfahrer/Gabelstaplerfahrerin', // Industrial Truck and Tractor Operators: war "Umzugsfahrer/Umzugsfahrerin" (komplett falsche Lesart — Industrial Truck = Gabelstapler, kein Umzugs-LKW); Gabelstaplerfahrer ist Domain-Exact; coupled mit KldB 52122 → 51312
   '53-7062.04': 'Recyclingfachkraft', // Recycling and Reclamation Workers: war "Metallarbeiter im Bereich Demontage/Metallarbeiterin im Bereich Demontage" (zu eng auf Metall — SOC umfasst breites Recycling + Gefahrstoff-Identifikation); ungendert (DE-Konvention für "-fachkraft"); coupled mit KldB 24412 → 34332
   '53-7081.00': 'Müllwerker/Müllwerkerin', // Refuse and Recyclable Material Collectors: war "Müllmann/Müllfrau" (umgangssprachlich, kein offizieller Berufstitel) — Müllwerker ist offizielle DE-Berufsbezeichnung; KldB 34301 bleibt korrekt
-=======
+
   // === Audit batch 15 — SOC 29 Healthcare Practitioners coupled title fixes (2026-05-04) ===
   // 29-2061.00 modified in-place at line ~106 (war "Krankenpflegeassistent" → "Krankenpflegehelfer")
   // 29-2099.05 modified in-place at line ~42 (war "Ophthalmologisch-technischer Assistent" → "MTA Ophthalmologie")
@@ -775,5 +774,4 @@ export default {
   '29-2099.05': 'MTA Ophthalmologie', // Ophthalmic Medical Technologists: war "Ophthalmologisch-technischer Assistent/Ophthalmologisch-technische Assistentin" (Wortwörtlichkeit, sperrig) — MTA Ophthalmologie kompakt und konsistent zu sister codes 29-2034 "MTA Radiologie", 29-2035 "MTA MRT", 29-2099.01 "MTA Neurodiagnostik"; coupled mit KldB 81132 → 81182
   '29-9021.00': 'Medizinischer Dokumentationsassistent / Medizinische Dokumentationsassistentin', // Health Information Technologists and Medical Registrars: war "Informations- und Wissensmanager/Informations- und Wissensmanagerin (IKT)" (zu generisch IT-Label, verschleiert Med-Doku-Charakter) — Medizinischer Dokumentationsassistent ist DE-Berufsbezeichnung; KldB 73342 bleibt korrekt
   '29-9099.01': 'Freiberufliche Hebamme / Freiberuflicher Entbindungspfleger', // Midwives (SOC-Residual, Direkteinstieg ohne Pflege-Vorlauf): differenziert von 29-1161 Nurse Midwives = klinisch-angestellte Hebamme via Pflege-Spezialisierung-Route — DE-Hebamme ist eigene Profession ohne Pflege-Vorlauf, "freiberuflich" bildet SOC-Residual-Lesart (eigene Praxis, Hausgeburt) ab
->>>>>>> main
 }

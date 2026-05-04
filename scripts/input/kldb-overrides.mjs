@@ -873,7 +873,6 @@ export default {
   "39-9031.00": { kldbCode: "84553", kldbName: "Trainer/innen - Fitness und Gymnastik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Exercise Trainers and Group Fitness Instructors: was seed 63122 Sport-/Fitnesskaufleute Anf 2 (Drift — Trainer ≠ Kaufmann); Modify gegen agent's 84503 Sportlehrer ohne-Spez. — 84553 trifft "Fitness und Gymnastik" wörtlich; KldB hat keine Anf-2-Klasse für Trainer (alle Trainer-/Sportlehrer-Klassen catalog-only Anf 3); pulled out of seed; KldB+Anf 2→3
   "39-9032.00": { kldbCode: "83123", kldbName: "Berufe in der Sozialarbeit und Sozialpädagogik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Recreation Workers: was seed 84553 Trainer Fitness/Gymnastik (zu eng nach Fitness — Recreation Workers organisieren breites Freizeitspektrum) und durch 39-9031 belegt; Modify-beyond-audit's-flag (Audit nur title-flag) — 83123 Sozialpädagogik fängt Freizeitpädagogen, parallel zu 39-9041 Residential Advisors; pulled out of seed; coupled mit title.de "Trainer für Outdoor-Aktivitäten" → "Freizeitpädagoge/Freizeitpädagogin"
 
-<<<<<<< fix/audit-batch-16-soc53-transport
   // === Audit batch 16 — SOC 53 Transportation and Material Moving (2026-05-04) ===
   // Plan-table walked all 34 SOC 53 findings. 29 KldB-changing entries below
   // (16 Apply, 12 seed pull-outs, 1 sibling-up); 4 entries are title-only with
@@ -959,7 +958,7 @@ export default {
   "53-7072.00": { kldbCode: "34322", kldbName: "Berufe im Rohrleitungsbau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Pump Operators (Except Wellhead): war 32242 Brunnenbau (Drift — Brunnenbau ist Wasser-/Hochbau, nicht Pumpenbedienung); 34322 Rohrleitungsbau fängt Pumpen-Domain (Pump Operators bedienen Pumpen für Flüssigkeits-/Gas-Förderung)
   "53-7073.00": { kldbCode: "21112", kldbName: "Berufe im Berg- und Tagebau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Wellhead Pumpers: war 41343 Erdölraffinerie komplex Anf 3 (zu spät im Prozess — Wellhead ist Bohrloch, nicht Raffinerie); 21112 Berg-/Tagebau-Cluster (parallel zu batch-14 47-5011/12/13/44 Oil/Gas/Mining); KldB+Anf 3→2 + trainingCategory specialist→apprenticeship
   "53-7121.00": { kldbCode: "51332", kldbName: "Berufe im Güter- und Warenumschlag - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Tank Car/Truck/Ship Loaders: war 41343 Erdölraffinerie komplex Anf 3 (Drift via Erdöl-Lesart); SOC verlädt Schüttgut+Chemikalien = Güter-/Warenumschlag, kein Raffinerieanlagen-Steuerer; KldB+Anf 3→2 + trainingCategory specialist→apprenticeship
-=======
+
   // === Audit batch 15 — SOC 29 Healthcare Practitioners and Technical (2026-05-04) ===
   // Plan-table walked all 43 SOC 29 findings. 39 KldB-changing entries below
   // (28 Apply, 6 seed pull-outs incl. 29-1031/29-2011.02/29-2036/29-2055/
@@ -1057,5 +1056,4 @@ export default {
   // Sonstige
   "29-2043.00": { kldbCode: "81343", kldbName: "Berufe im Rettungsdienst - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Paramedics: war 81342 Rettungsdienst fachlich Anf 2 — Notfallsanitäter ist seit 2014 staatlich anerkannter 3-jähriger Beruf mit Heilkundekompetenzen, daher Spezialisten-Tier; sibling-up 81342 → 81343; KldB+Anf 2→3
   "29-9092.00": { kldbCode: "41274", kldbName: "Berufe in der Biologie (Humanbiologie) - hoch komplexe Tätigkeiten", anforderungsniveau: 4, trainingCategory: "studies" }, // Genetic Counselors: war 41204 Biologie ohne-Spez. (Drift via "genetisch") — Humanbiologie 41274 trifft Genetik-Beratungs-Domain spezifischer
->>>>>>> main
 }
