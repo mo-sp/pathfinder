@@ -18,39 +18,52 @@ current PR. For what shipped when, see `SUMMARY.md`.
 
 Likely next 1–2 sessions.
 
-- **Audit batches 15-N — ~124 findings remaining.** Session 36 ran a
+- **Audit batch 17 final — ~48 findings remaining.** Session 36 ran a
   10-agent Sonnet coherence audit over all 923 occupations, persisted
   to `scripts/audit/findings-2026-04-25.json` (402 flagged, 578 flags).
-  Batches 1+2 (SOC 21+45, SOC 31+33) walked 32 findings in Session 36;
-  batches 3+4 (SOC 23+37+35, SOC 41+15) walked 31 findings in Session 37;
-  batches 5+6 (SOC 25, SOC 49) walked 33 findings in Session 38;
-  batches 7+8 (SOC 27, SOC 13) walked 46 findings in Session 39;
-  batches 9+10 (SOC 43, SOC 19) walked 50 findings in Session 40;
-  batches 11+12 (SOC 11, SOC 17) walked 45 findings in Session 41;
-  batches 13+14 (SOC 39, SOC 47) walked 45 findings in Session 42
-  inkl. 1 Reject (47-2011 Boilermakers — agent's own reasoning admits
-  current title is correct). 278 findings applied total; ~124 remain.
-  The 1-SOC-major-per-section pattern continued to hold cleanly.
-  Three big-three SOCs left: 29 Healthcare (43), 51 Production (43),
-  53 Transport (34). Each likely needs a dedicated section.
-  Estimated 2-3 more sessions to complete. Per-batch pattern remains:
-  60-80 % apply directly, 15-20 % modify mid-review (Anf-tier
-  reconciliations, alternative class picks, sibling-domain pivots
-  when the current domain has no required-tier sibling), <5 % outright
-  reject (rising to ~10 % in some batches like SOC 17). Sub-patterns:
-  occasional re-evaluation of earlier-batch entries when later batches
-  surface a sharper SOC reading (13-1041.04 moved batch-4 → batch-8 in
-  Session 39; 19-2099.01 moved within batches in Session 40);
-  Code-Anf-Widerspruch detection im Seed (19-2032 in batch-10,
-  17-3026.01 in batch-12 — declared Anf doesn't match the KldB code's
-  actual Anf-tier); Modify-beyond-audit's-flag where title-changes
-  imply tier-shifts the agent didn't expliciten (17-2051.02 in
-  batch-12; 39-9032 + 47-3012/16 + 47-5071 in Session 42).
-  Catalog-only-Anf-Pattern stabilized as the heaviest pattern in
-  Session 42 (7 codes — Glücksspiel, Trainer-Fitness, 4 Bauhelfer-
-  Sub-Domains pivot to generic ohne-Spez.-Klasse where the specific
-  domain lacks the required-tier sibling). Reconciliation density
-  hovered around 3-4 per batch through Sessions 39-42.
+  Batches 1-2 (SOC 21+45, 31+33) walked 32 findings in Session 36;
+  3-4 (SOC 23+37+35, 41+15) walked 31 in Session 37; 5-6 (SOC 25, 49)
+  walked 33 in Session 38; 7-8 (SOC 27, 13) walked 46 in Session 39;
+  9-10 (SOC 43, 19) walked 50 in Session 40; 11-12 (SOC 11, 17) walked
+  45 in Session 41; 13-14 (SOC 39, 47) walked 45 in Session 42; 15-16
+  (SOC 29, 53) walked 75 in Session 43 inkl. 2 Rejects (29-1071
+  Physician Assistants — no Anf-4 sibling in 8110x; 53-4041 Subway/
+  Streetcar — Straßenbahnfahrer-Lesart correct in 52132). 354 findings
+  applied total; ~48 remain. Only SOC 51 Production (43 findings) is
+  the last big-three SOC group, plus scattered tail. Estimated 1 more
+  session to complete. Per-batch pattern stable: 60-80 % apply directly,
+  15-20 % modify mid-review (Anf-tier reconciliations, alternative
+  class picks, sibling-domain pivots when the current domain has no
+  required-tier sibling), <5 % outright reject (rising to ~10 % in
+  some batches like SOC 17). Sub-patterns: occasional re-evaluation of
+  earlier-batch entries when later batches surface a sharper SOC reading
+  (13-1041.04 moved batch-4 → batch-8 in Session 39; 19-2099.01 moved
+  within batches in Session 40); Code-Anf-Widerspruch detection im Seed
+  (19-2032 in batch-10, 17-3026.01 in batch-12 — declared Anf doesn't
+  match the KldB code's actual Anf-tier); Modify-beyond-audit's-flag
+  where title-changes imply tier-shifts the agent didn't expliciten
+  (17-2051.02 in batch-12; 39-9032 + 47-3012/16 + 47-5071 in Session 42).
+  Catalog-only-Anf-Pattern surfaced first POSITIVE resolution in Session 43
+  (53-2021 ATC sibling-up to 51534 Anf 4 — Catalog HAS the higher-tier
+  sibling, so sibling-up rather than fall-back-to-generic).
+  Reconciliation density hovered around 5-6 per batch through Session 43.
+  Browser-test title-duplicates surfaced twice this session (Hebamme
+  29-1161/29-9099.01, Recyclingfachkraft 53-1042.01/53-7062.04) — codified
+  as new memory `feedback_dedupe_renames.md` requiring a normalized
+  duplicate-scan post-rename.
+- **Pre-existing title duplicates — 7 candidates for cleanup.** Surfaced
+  by Session 43's dedupe-scan but NOT introduced by this session:
+  11-2033/13-1131 Fundraiser; 13-1022/13-1023 Einkäufer (Wholesale &
+  Retail Buyers); 17-2199.03/17-2199.10 Energieingenieur; 19-3033/
+  19-3039.03 Klinischer Psychologe; 27-2022/39-9031 Sporttrainer;
+  31-2021/31-2022 Physiotherapieassistent; 41-9021/41-9022 Immobilien-
+  makler. Each is a SOC pair that splits along a real distinction
+  (B2B/B2C, niche/specialty, Asylum/general practice) but the German
+  label collapsed both. Differentiation along SOC distinction (the
+  same pattern used for Hebamme + Recyclingkoordinator in Session 43)
+  is the standard fix. Can be tackled opportunistically (e.g. when
+  SOC 51 walks through 51-XXXX entries) or as a small dedicated
+  cleanup PR.
 - **BigFive coverage gap — 169 / 923 occupations have no BigFive profile.**
   Originally framed as ~141 (the difference between Anni's 782-O*NET
   coverage and our 923 corpus); actual gap counting failed crosswalk
