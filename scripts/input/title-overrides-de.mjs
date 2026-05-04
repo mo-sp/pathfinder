@@ -229,7 +229,7 @@ export default {
   '11-1031.00': 'Politiker/Politikerin', // Legislators — MPs, council members, elected officials
 
   // === Standalone: broader label for the service + recreation supervisor cluster ===
-  '39-1014.00': 'Leiter/Leiterin Gastronomie und Freizeit', // First-Line Supervisors of Personal Service and Entertainment and Recreation Workers
+  '39-1014.00': 'Teamleiter Freizeit und Unterhaltung / Teamleiterin Freizeit und Unterhaltung', // First-Line Supervisors of Entertainment & Recreation Workers (audit batch 13): war "Leiter/Leiterin Gastronomie und Freizeit" (Gastronomie-Anteil falsch — SOC ist Entertainment & Recreation, except gambling and food services); Teamleiter trifft Anf-3-Aufsichtskraft-Tier
 
   // === Standalone: German aviation-idiomatic label replaces "Purser/Purserette" ===
   '53-1044.00': 'Leitender Flugbegleiter / Leitende Flugbegleiterin', // First-Line Supervisors of Passenger Attendants
@@ -391,7 +391,7 @@ export default {
   '33-3052.00': 'Bahn- und Verkehrspolizist/Bahn- und Verkehrspolizistin', // Transit and Railroad Police
 
   // === Cluster: "Hilfskraft im Freizeit- und Erholungsbereich" (2) ===
-  '39-3031.00': 'Einlasskontrolle und Saaldienst', // Ushers, Lobby Attendants, and Ticket Takers
+  '39-3031.00': 'Platzanweiser/Platzanweiserin', // Ushers, Lobby Attendants, and Ticket Takers (audit batch 13): war "Einlasskontrolle und Saaldienst" (Tätigkeitsbeschreibung, kein Berufstitel); Platzanweiser ist etablierter DE-Begriff
   '39-3091.00': 'Mitarbeiter Freizeitpark / Mitarbeiterin Freizeitpark', // Amusement and Recreation Attendants
 
   // === Cluster: "Einbalsamierer" (2) ===
@@ -725,4 +725,13 @@ export default {
   '17-2121.00': 'Schiffbauingenieur/Schiffbauingenieurin', // Marine Engineers and Naval Architects: war "Zeichner Seefahrzeuge" (beschreibt Drafter, nicht Engineer) — Schiffbauingenieur ist DE-etablierter Begriff
   '17-2199.03': 'Energieingenieur/Energieingenieurin', // Energy Engineers (.03): war "Energieanalyst" (analytische Funktion, nicht Engineering) — Energieingenieur trifft SOC-Profil; konsistent zu 11-9199.10 Wind Energy aus batch-11
   '17-2051.02': 'Wasserbauingenieur/Wasserbauingenieurin', // Water/Wastewater Engineers: war "Wasserbautechniker" (Techniker-Tier statt Ingenieur-Tier) — Wasserbauingenieur konsistent zu batch-11's 11-9121.02 Ingenieur Wasserwirtschaft
+
+  // === Audit batch 13 — SOC 39 Personal Care and Service coupled title fixes (2026-04-25) ===
+  // 39-1014.00 modified in-place at line ~232 (war "Leiter/Leiterin Gastronomie und Freizeit" → "Teamleiter Freizeit und Unterhaltung")
+  // 39-3031.00 modified in-place at line ~394 (war "Einlasskontrolle und Saaldienst" → "Platzanweiser/Platzanweiserin")
+  '39-2021.00': 'Tierpfleger/Tierpflegerin', // Animal Caretakers: war "Tiersitter/Tiersitterin" (umgangssprachlich, Hobby-Konnotation) — Tierpfleger ist DE-Ausbildungsberuf für Zoo/Tierheim/Aquakultur
+  '39-4021.00': 'Bestattungshelfer/Bestattungshelferin', // Funeral Attendants: war "Bestattunggehilfe/Bestattungsgehilfin" (Tippfehler: fehlendes 's' vor '-gehilfe') — Modify gegen agent's "Bestattungsfachkraft" (Title bereits 39-4031 Morticians/Undertakers); Helfer-Tier hält Differenzierung Funeral Attendant vs. Mortician
+  '39-5012.00': 'Friseur/Friseurin', // Hairdressers/Hairstylists/Cosmetologists: war "Perückenmacher/Perückenmacherin" (marginale Nische, Drift) — Friseur trifft SOC-Hauptlesart; 39-5011 Barbers behält "Herrenfriseur" zur Differenzierung
+  '39-7011.00': 'Gästeführer/Gästeführerin', // Tour Guides and Escorts: war "Fremdenführer/Fremdenführerin" (leicht veraltet) — Gästeführer ist moderner DE-Standardbegriff
+  '39-9032.00': 'Freizeitpädagoge/Freizeitpädagogin', // Recreation Workers: war "Trainer für Outdoor-Aktivitäten/Trainerin für Outdoor-Aktivitäten" (zu eng — Recreation umfasst Kunst/Musik/Camping/Sport) — Freizeitpädagoge fängt Domain-Breite, konsistent zu KldB 83123 Sozialpädagogik
 }

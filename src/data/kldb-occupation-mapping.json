@@ -3249,16 +3249,16 @@
       "trainingCategory": "apprenticeship"
     },
     "39-1013.00": {
-      "kldbCode": "94342",
-      "kldbName": "Berufe im Bereich Glücks- und Wettspiel - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "71393",
+      "kldbName": "Aufsichtskräfte - Unternehmensorganisation und -strategie",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "39-1014.00": {
-      "kldbCode": "63122",
-      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "71393",
+      "kldbName": "Aufsichtskräfte - Unternehmensorganisation und -strategie",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "39-1022.00": {
       "kldbCode": null,
@@ -3268,14 +3268,14 @@
       "fromJobZone": true
     },
     "39-2011.00": {
-      "kldbCode": "11502",
-      "kldbName": "Berufe in der Tierpflege (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "11582",
+      "kldbName": "Berufe in der Tierpflege (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "39-2021.00": {
-      "kldbCode": "11502",
-      "kldbName": "Berufe in der Tierpflege (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "11522",
+      "kldbName": "Berufe in der Haus- und Zootierpflege - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3292,16 +3292,16 @@
       "trainingCategory": "apprenticeship"
     },
     "39-3021.00": {
-      "kldbCode": "51182",
-      "kldbName": "Berufe im technischen Betrieb des Eisenbahn-, Luft- und Schiffsverkehrs (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "94532",
+      "kldbName": "Berufe in der Bild- und Tontechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "39-3031.00": {
-      "kldbCode": "62112",
-      "kldbName": "Kassierer und Kartenverkäufer - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "53111",
+      "kldbName": "Berufe im Objekt-, Werte- und Personenschutz - Helfer-/Anlerntätigkeiten",
+      "anforderungsniveau": 1,
+      "trainingCategory": "none"
     },
     "39-3091.00": {
       "kldbCode": null,
@@ -3310,8 +3310,8 @@
       "trainingCategory": "none"
     },
     "39-3092.00": {
-      "kldbCode": "82332",
-      "kldbName": "Tätowierer und Piercer - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "94612",
+      "kldbName": "Berufe in der Bühnen- und Kostümbildnerei - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3352,8 +3352,8 @@
       "trainingCategory": "apprenticeship"
     },
     "39-5012.00": {
-      "kldbCode": "28222",
-      "kldbName": "Berufe in der Bekleidungs-, Hut- und Mützenherstellung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "82312",
+      "kldbName": "Berufe im Friseurgewerbe - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3370,10 +3370,10 @@
       "trainingCategory": "apprenticeship"
     },
     "39-5093.00": {
-      "kldbCode": "82312",
-      "kldbName": "Berufe im Friseurgewerbe - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "82311",
+      "kldbName": "Berufe im Friseurgewerbe - Helfer-/Anlerntätigkeiten",
+      "anforderungsniveau": 1,
+      "trainingCategory": "none"
     },
     "39-5094.00": {
       "kldbCode": "82322",
@@ -3382,8 +3382,8 @@
       "trainingCategory": "apprenticeship"
     },
     "39-6011.00": {
-      "kldbCode": "51122",
-      "kldbName": "Berufe im technischen Luftverkehrsbetrieb - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "63222",
+      "kldbName": "Berufe im Hotelservice - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -3418,14 +3418,14 @@
       "trainingCategory": "none"
     },
     "39-9031.00": {
-      "kldbCode": "63122",
-      "kldbName": "Sport- und Fitnesskaufleute, Sportmanager - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "84553",
+      "kldbName": "Trainer/innen - Fitness und Gymnastik - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "39-9032.00": {
-      "kldbCode": "84553",
-      "kldbName": "Trainer - Fitness und Gymnastik - komplexe Spezialistentätigkeiten",
+      "kldbCode": "83123",
+      "kldbName": "Berufe in der Sozialarbeit und Sozialpädagogik - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
