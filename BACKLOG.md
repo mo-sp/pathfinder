@@ -18,22 +18,22 @@ current PR. For what shipped when, see `SUMMARY.md`.
 
 Likely next 1–2 sessions.
 
-- **BigFive coverage gap — 14 / 923 occupations remain without profile.**
-  Down from 169 after two PRs: the ISCO-3d/2d sibling cascade
-  (`feat/bigfive-isco-cascade`, +150) and the SOC-detail-sibling fallback
-  (`feat/bigfive-soc-sibling-fallback`, +5). Corpus coverage 754/923 →
-  909/923 = 98.5 %. The remaining 14 are Bucket A with zero SOC-detail
-  siblings, so neither cascade reaches them: 11-9131 Postmasters,
-  13-1022 Wholesale/Retail Buyers, 13-1074 Farm Labor Contractors,
-  23-1022 Mediators, 25-9021 Farm/Home Educators, 33-9099.02 Retail Loss
-  Prevention, 35-9011 Cafeteria Attendants, 39-1022 Personal-Service
-  Supervisors, 47-2082 Tapers, 49-2097 AV Installers, 49-9098 IMR
-  Helpers, 51-4192 Layout Workers, 53-6041 Traffic Tech, 53-7011 Conveyor
-  Operators. Only path forward is hand-curation via a BigFive-specific
-  curated-profiles input file (analogous to
-  `scripts/input/curated-occupation-profiles.mjs` for O*NET survey
-  gaps). Run `node scripts/audit/bigfive-coverage-gap.mjs` to verify the
-  current list before authoring.
+- **Startseite content + design refresh.** Two-part: (a) Content overhaul
+  to current state — wording, value-prop, what the test actually
+  measures (RIASEC + Big Five + Skills + Values, 4-layer stack),
+  privacy claim, what changed since the early version. Pre-friends-
+  release: the landing copy should reflect what shippers actually see
+  when they take the test. (b) Design refresh, ideally with claude-
+  design help. Independent of friends release — can ship as its own
+  PR any time. (Promoted from UX polish 2026-05-04 after BigFive
+  coverage closed to 100 %.)
+
+- **Concrete examples on every question** — many items (especially
+  Skills / Abilities / Knowledge and Values) are abstract enough that
+  users may not be sure what's meant. Add a short example per item.
+  Scope: ≈ 238 examples across 60 RIASEC + 50 Big Five + 120 Skills + 8
+  Values. Important before friends-test push but non-blocking.
+  (Promoted from UX polish 2026-05-04.)
 
 ## Data quality
 
@@ -132,25 +132,6 @@ Likely next 1–2 sessions.
 
 ## UX polish
 
-- **Startseite content + design refresh.** Two-part:
-  (a) Content overhaul to current state — wording, value-prop, what the
-  test actually measures (RIASEC + Big Five + Skills + Values, 4-layer
-  stack), privacy claim, what changed since the early version. Pre-
-  friends-release: the landing copy should reflect what shippers actually
-  see when they take the test. (b) Design refresh, ideally with claude-
-  design help. Independent of friends release — can ship as its own PR
-  any time.
-
-- **Concrete examples on every question** — many items (especially Skills /
-  Abilities / Knowledge and Values) are abstract enough that users,
-  particularly students or first-time career-assessment takers, may not be
-  sure what's meant. Add a short example per item that clarifies the intended
-  construct without over-narrowing it (e.g. "Mündliches Verständnis —
-  Beispiel: einem Kollegen in einer Besprechung zuhören und den Auftrag
-  korrekt umsetzen"). Scope: all 60 RIASEC + 50 Big Five + 120 Skills + 8
-  Values items (≈ 238 examples). Keep examples neutral and broad enough that
-  they don't steer the answer. Non-blocking but important before friends-test
-  push.
 - **Education 2-year vs 3-year split** — v1 uses the 4 KldB Anforderungsniveaus.
   Upgrade to true Ausbildungsdauer granularity would need BERUFENET-API per
   Ausbildungsberuf (~800 calls at build time). Only pursue if users ask.

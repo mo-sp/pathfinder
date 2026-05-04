@@ -5,6 +5,62 @@
 
 ---
 
+### Session 45 – 2026-05-04
+**Focus:** Closed the BigFive coverage gap end-to-end. Three PRs on `feat/bigfive-isco-cascade`, `feat/bigfive-soc-sibling-fallback`, and `feat/bigfive-hand-curated-14`. Coverage of the 923-code corpus went from 754/923 (82 %) to 923/923 (100 %).
+
+**Meta / process notes:**
+- **Diagnose-first paid off.** The first move wasn't to start coding — it was a `scripts/audit/bigfive-coverage-gap.mjs` diagnostic that classified the unmapped codes by failure mode (Bucket A = no crosswalk row, Bucket B = unresolvable ESCO URI, Bucket C = ISCO-4d resolved but no Anni data) and projected sibling-recovery potential. Surfaced two corrections to the BACKLOG framing: real gap is 169 not 141 (the 782/923 subtraction was wrong because BigFive output includes 28 non-corpus codes), and Bucket B is empty (the resolver has no gaps — better than the BACKLOG entry suggested). Without the diagnostic, the first PR would have been guessing at recovery rates.
+- **Three-tier cascade matches three semantic levels.** PR 1 added ISCO-3d → 2d sibling-imputation inside the existing crosswalk-driven loop, recovering all 150 Bucket-C codes (3d covered 136, 2d the remaining 22 — every single Bucket-C code had at least one ISCO-2d sibling with Anni data). PR 2 added a SOC-detail-sibling fallback OUTSIDE the crosswalk loop, walking the corpus to catch the 19 Bucket-A codes that bypass crosswalk entirely; recovered 5/19 (one more than the diagnostic projected, because the SOC-sibling pool now includes already-imputed profiles from PR 1, which let 51-8099.01 Biofuels recover via its 51-8099.00 cascade-imputed sibling). PR 3 hand-curated the final 14 with no SOC-detail siblings via `scripts/input/bigfive-curated-profiles.mjs` (anchored on closest 4d-direct Anni-mapped codes with optional ±1-2 T-score tweaks).
+- **Provenance via side-channel, not in-profile.** Rather than adding a `source` field per profile (which would change the runtime `BigFiveProfile = Record<BigFiveDimension, number>` type), provenance lives in `meta.profileSourceCounts` (aggregate counts) + top-level `profileSources: Record<onetCode, tier>` map. Runtime consumers see no schema change; if we ever want to surface "imputed" markers in the UI, the data is there.
+- **Imputation-leans-toward-mean is honest behavior, not a bug.** Imputed profiles cluster nearer the population mean (T=50) because wider averaging dilutes per-dimension signal. Spot-checked 11-9199.11 Brownfield Redev (soc-sibling-imputed, O=51.14 etc.) against its 11-9199.00/.10 anchors — average was correct. Conveyed this to @mo-sp before browser test so close-to-50 values weren't read as a bug.
+- **Anchor choice forced one swap from 4d-imputed to 4d-direct mid-planning.** First-cut anchor list had 49-2022 Telekommunikationstechniker for AV Installers, but it was 3d-imputed (not real Anni data). Swapped to 49-2098 Servicetechniker Sicherheits-/Alarmanlagen [4d-direct] — same install-and-wire-electronic-signal-systems work pattern. Same swap on Conveyor Operators: 51-9023 Mischanlagenbediener [2d-imputed, near-mean] → 53-7065 Lagerarbeiter [4d-direct, real warehouse-tier signal]. Lesson: when authoring curated values, anchor on 4d-direct when at all possible — anchoring on imputed values would mean curated profiles inherit population-mean drift.
+- **Anni's white-collar bias surfaced naturally in the gap distribution.** 70 % of Anni's 237 ISCO-4d profiles are in ISCO 1-4 (Managers/Professionals/Technicians/Clerical), only ~20 % in ISCO 6-9 (Skilled Agriculture/Trades/Operators/Elementary). The 169 unmapped corpus codes were correspondingly concentrated in trades and plant operators (ISCO 81xx alone had 40 unmapped, ISCO 71xx and 72xx another 30 combined). The 3d-cascade still works in those clusters because Anni HAS some sparse data per blue-collar 1d-group; it's just thinner.
+- **Pacing — three small PRs in one session worked well.** Diagnostic + plan up front, each PR a single-concept change (cascade / soc-sibling / hand-curation), browser test between each, no rework. SUMMARY rides on this last PR per `feedback_summary_timing.md`. The BigFive entry was the lead "Up next" item; with it closed, Startseite content + design refresh and Concrete examples on every question are now the lead pre-friends-release candidates.
+- **Terminology check mid-session.** @mo-sp asked twice for plain-language explanations: "white-collar vs. blue-collar" (he had it inverted) and "what does imputed mean". Both are jargon I'd lapsed into without noticing. Worth flagging as a behavioral pattern: when introducing statistical or domain-jargon mid-flow, glossing it inline costs nothing and prevents the user from having to interrupt. Existing `feedback_code_style.md` covers writing artifact language but not in-conversation explanation depth — not memory-worthy on its own, but a calibration note.
+
+**What shipped — `feat/bigfive-isco-cascade` (PR #93, merged):**
+
+*`scripts/build-bigfive-profiles.mjs`*: cascade in `buildProfiles`. Tier 1 = direct ISCO-4d match (existing). Tier 2 = average over Anni profiles sharing the first 3 digits with any resolved 4d. Tier 3 = same with first 2 digits. Build output now logs `Profiles by source: 4d=782 3d-imputed=136 2d-imputed=22 no-recovery=0`.
+
+*`src/data/bigfive-occupation-profiles.json`*: regenerated. 940 total profiles (was 782); per-profile shape unchanged. New `meta.profileSourceCounts` + top-level `profileSources` map.
+
+*`scripts/audit/bigfive-coverage-gap.mjs`*: new diagnostic. Reports corpus unmapped codes by bucket and projects sibling-recovery potential. Bucket B is empty; Bucket C fully recovered.
+
+**What shipped — `feat/bigfive-soc-sibling-fallback` (PR #94, merged):**
+
+*`scripts/build-bigfive-profiles.mjs`*: new `applySocSiblingFallback` runs after the ISCO cascade. Walks the corpus, finds codes with no profile yet, averages the BigFive profiles of any other O*NET code sharing the same SOC-detail prefix (first 7 chars). Recovered 5: 11-9199.11 Brownfield Redev, 17-1022.01 Geodetic Surveyors, 29-2099.08 Patient Reps, 31-9099.02 Endoscopy Tech, 51-8099.01 Biofuels Tech.
+
+*`src/data/bigfive-occupation-profiles.json`*: 945 total profiles.
+
+**What shipped — `feat/bigfive-hand-curated-14` (PR #95, this PR):**
+
+*`scripts/input/bigfive-curated-profiles.mjs`*: new file with 14 hand-authored entries. Each anchored on closest 4d-direct Anni-mapped O*NET code, with optional ±1-2 T-score tweaks documented in `_notes`. Anchors used: 11-3071 Logistik-/Vertriebsmanager (Postmasters), 13-1023 Einkäufer Industrie (Wholesale Buyers), 13-1071 Personalberater (Farm Labor Contractors), 21-1014 Sozialarbeiter Psych. Gesundheit (Mediators), 21-1091 Public Health Referent (Farm/Home Educators), 33-9032 Fachkraft Schutz/Sicherheit (Loss Prevention), 35-9021 Küchenbedienstete (Cafeteria), 39-1014 Teamleiter Freizeit (Personal Service Sup), 47-2141 Maler (Tapers), 49-2098 Servicetechniker Sicherheits/Alarm (AV Installers), 49-9071 Wartungsmonteur (IMR Helpers), 51-4041 Zerspanungsmechaniker (Layout Workers), 17-3023 Elektroniker Automatisierung (Traffic Tech), 53-7065 Lagerarbeiter (Conveyor Operators).
+
+*`scripts/build-bigfive-profiles.mjs`*: new `applyCuratedFallback` runs as the final tier. Loads the curated file via dynamic import (`.mjs`), applies entries only when no other tier produced a profile (conditional fallback — if a future ESCO-crosswalk update gives one of these codes a real ISCO partner with Anni data, the curated override is skipped silently). `main()` is now async to await the dynamic import.
+
+*`src/data/bigfive-occupation-profiles.json`*: 959 total profiles. `meta.profileSourceCounts` now includes `pathfinder-curated: 14`; `profileSources` tags each curated code with `pathfinder-curated-2026-05`.
+
+**Coverage after the session:**
+
+| | Before | After |
+|---|---|---|
+| Corpus codes with BigFive profile | 754 / 923 | **923 / 923** = 100 % |
+| Profile sources: 4d-direct | 782 | 782 |
+| Profile sources: 3d-imputed | 0 | **136** |
+| Profile sources: 2d-imputed | 0 | **22** |
+| Profile sources: soc-sibling-imputed | 0 | **5** |
+| Profile sources: pathfinder-curated | 0 | **14** |
+| Tests passing | 243 | 243 (data-only changes) |
+
+**Branches:** `feat/bigfive-isco-cascade` (PR #93, merged), `feat/bigfive-soc-sibling-fallback` (PR #94, merged), `feat/bigfive-hand-curated-14` (PR #95 with this docs commit, this PR).
+
+**Open for next sessions (tracked in BACKLOG):**
+- **Startseite content + design refresh.** Promoted to lead "Up next" — pre-friends-release content overhaul (current state, value-prop, 4-layer stack, privacy claim) + optional design refresh with claude-design help (latter ships independently).
+- **Concrete examples on every question.** ≈ 238 examples across RIASEC/BigFive/Skills/Values items. Important pre-friends-release but explicitly non-blocking.
+- **Various Data quality + Scoring + Tech debt items** unchanged from prior sessions.
+
+---
+
 ### Session 44 – 2026-05-04
 **Focus:** Closed the 10-agent Sonnet coherence audit pipeline that started Session 36, then a small follow-up bundle for the 7 pre-existing title duplicates + a residual KldB drift bug + one consistency polish. Two PRs on `fix/audit-batch-17-soc51-production` and `fix/title-dedupe-bundle`. With the audit closed, ~396/402 findings applied across 17 batches over 9 sessions; ~6 documented Rejects remain.
 
