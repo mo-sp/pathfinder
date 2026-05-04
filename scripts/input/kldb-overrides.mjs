@@ -89,13 +89,13 @@ export default {
   "35-3011.00": { kldbCode: "63322", kldbName: "Barkeeper - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Barkeeper/Barkeeperin
   "35-3023.01": { kldbCode: "63322", kldbName: "Barkeeper - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Barista
   "35-9011.00": { kldbCode: null, kldbName: null, anforderungsniveau: 1, trainingCategory: "none" }, // Dining Room and Cafeteria Attendants and Bartender Helpers
-  "39-1014.00": { kldbCode: "63122", kldbName: "Sport- und Fitnesskaufleute, Sportmanager - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Leiter/Leiterin Gastronomie und Freizeit
-  "39-3031.00": { kldbCode: "62112", kldbName: "Kassierer und Kartenverkäufer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Einlasskontrolle und Saaldienst
-  "39-3092.00": { kldbCode: "82332", kldbName: "Tätowierer und Piercer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Ankleider/Ankleiderin
-  "39-7011.00": { kldbCode: "63142", kldbName: "Reiseleiter und Fremdenführer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Fremdenführer/Fremdenführerin
+  // 39-1014.00 First-Line Supervisors of Entertainment & Recreation Workers pulled out of seed (was 63122 Sport-/Fitnesskaufleute Anf 2 — Drift; KldB hat kein 63193 Aufsichtskraft-Tourismus/Sport, sibling-domain-pivot zu generic Aufsichtskräfte) → batch-13 block (71393 Aufsichtskräfte Unternehmensorganisation Anf 3)
+  // 39-3031.00 Ushers/Lobby Attendants/Ticket Takers pulled out of seed (was 62112 Kassierer/Kartenverkäufer Anf 2 — Drift; Einlasskontrolle ≠ Kassieren) → batch-13 block (53111 Objekt-/Werte-/Personenschutz Helfer Anf 1)
+  // 39-3092.00 Costume Attendants pulled out of seed (was 82332 Tätowierer/Piercer Anf 2 — komplett falsche Domain) → batch-13 block (94612 Bühnen-/Kostümbildnerei Anf 2)
+  "39-7011.00": { kldbCode: "63142", kldbName: "Reiseleiter und Fremdenführer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Tour Guides and Escorts: KldB stays — seed correct; batch-13 changes title.de "Fremdenführer" → "Gästeführer"
   "39-7012.00": { kldbCode: "63142", kldbName: "Reiseleiter und Fremdenführer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Reiseleiter/Reiseleiterin
-  "39-9031.00": { kldbCode: "63122", kldbName: "Sport- und Fitnesskaufleute, Sportmanager - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Sporttrainer/Sporttrainerin
-  "39-9032.00": { kldbCode: "84553", kldbName: "Trainer - Fitness und Gymnastik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Trainer für Outdoor-Aktivitäten/Trainerin für Outdoor-Aktivitäten
+  // 39-9031.00 Exercise Trainers and Group Fitness Instructors pulled out of seed (was 63122 Sport-/Fitnesskaufleute Anf 2 — kaufmännisch, nicht Trainer-Tätigkeit) → batch-13 block (84553 Trainer Fitness/Gymnastik Anf 3, catalog-only Anf-3 sibling-Familie)
+  // 39-9032.00 Recreation Workers pulled out of seed (was 84553 Trainer Fitness/Gymnastik Anf 3 — zu eng nach Fitness; auch durch 39-9031 belegt) → batch-13 block (83123 Sozialarbeit/Sozialpädagogik komplex Anf 3, parallel zu 39-9041 Residential Advisors)
   "41-2011.00": { kldbCode: "62112", kldbName: "Kassierer und Kartenverkäufer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Kassierer/Kassiererin
   "41-2012.00": { kldbCode: "62112", kldbName: "Kassierer und Kartenverkäufer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Kassierer Spielbank / Kassiererin Spielbank
   "41-9091.00": { kldbCode: "62301", kldbName: "Berufe im Verkauf von Lebensmitteln (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Straßenverkäufer von Lebensmitteln/Straßenverkäuferin von Lebensmitteln
@@ -742,4 +742,51 @@ export default {
   "17-3028.00": { kldbCode: "27312", kldbName: "Berufe in der technischen Qualitätssicherung - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Calibration Technicians/Metrology Tech: war 41322 chem-tech. Lab (Drift — Kalibrierung ist physikalische Messtechnik, nicht Chemie); Modify gegen agent's null (KldB hat keine dedizierte Mess-/Eichwesen-Klasse) — 27312 Tech QS fachlich passt (Mess-/Eichwesen ist QS-Disziplin), konsistent zu sibling 17-3029.01 NDT in 27313
   "17-3029.01": { kldbCode: "27313", kldbName: "Berufe in der technischen Qualitätssicherung - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // NDT Specialists (Non-Destructive Testing): war 27312 Tech QS fachlich Anf 2 (zu niedrig — NDT-Spezialisten sind zertifizierte Spezialisten, kein Apprenticeship-Tier); sibling-up 27312 → 27313 mit Anf 2→3
   "17-3029.08": { kldbCode: "21363", kldbName: "Berufe in der Feinoptik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Photonics Technicians: war 27182 Tech F&E sonstige fachlich Anf 2 (zu generisch + zu niedrig) — Photonik-Tech installieren/warten optische Geräte = Feinoptik komplex; sibling-domain pivot + Anf-up 2→3
+
+  // === Audit batch 13 — SOC 39 Personal Care and Service (2026-04-25) ===
+  // Plan-table walked all 14 SOC 39 findings. 12 KldB-changing entries below
+  // (5 Apply, 5 seed pull-outs, 2 Modify reconciliations against agent's
+  // catalog-misses); 2 entries are title-only with no KldB change
+  // (39-4021 Funeral Attendants — title only; 39-7011 Tour Guides — title
+  // only, seed kept as-is). Catalog-only-Anf-Pattern at zwei Stellen:
+  // (1) 39-1013 Spielbetriebsleiter — 94342 Glücksspiel hat keinen Anf-3-
+  // sibling, sibling-domain-pivot zu 71393 generic Aufsichtskräfte (parallel
+  // zu Casino Manager 11-9071 → 71394 aus batch-11, eine Tier-Stufe runter
+  // für First-Line-Supervisor); (2) 39-9031 Exercise Trainers — KldB hat
+  // keine Anf-2-Klasse für Trainer/Sportlehrer (nur Sport-/Fitnesskaufleute
+  // 63122 ist Anf 2, aber kaufmännisch); 84553 Trainer Fitness/Gymnastik
+  // catalog-only Anf 3 akzeptiert. Modify gegen agent: 39-9031 → 84553
+  // statt agent's 84503 Sportlehrer ohne-Spez. (84553 trifft "Fitness und
+  // Gymnastik" wörtlich); 39-3031 Ushers → 53111 statt agent's 53112
+  // (agent flag Anf-down 2→1 erfordert Anf-1-sibling 53111). Modify-beyond-
+  // audit's-flag bei 39-9032 Recreation Workers — Audit nur title-Flag,
+  // aber 84553 (current) wird durch 39-9031 belegt + ist für Recreation
+  // zu eng; 83123 Sozialpädagogik (Freizeitpädagoge) parallel zu 39-9041
+  // Residential Advisors. Sibling-Anf-Pattern aktiv: 39-3031 62112→53111
+  // mit Anf 2→1; 39-5093 82312→82311 mit Anf 2→1; 39-9031 63122→84553
+  // mit Anf 2→3.
+
+  // First-Line Supervisors — generic Aufsichtskraft-Pivot
+  "39-1013.00": { kldbCode: "71393", kldbName: "Aufsichtskräfte - Unternehmensorganisation und -strategie", anforderungsniveau: 3, trainingCategory: "specialist" }, // First-Line Supervisors of Gambling Services Workers: war 94342 Glücksspiel Anf 2 (catalog-only — kein Anf-3-sibling in 9434x) — sibling-domain-pivot zu 71393 generic Aufsichtskräfte, parallel zu 11-9071 Casino Manager → 71394 (eine Tier-Stufe höher) aus batch-11; KldB+Anf 2→3
+  "39-1014.00": { kldbCode: "71393", kldbName: "Aufsichtskräfte - Unternehmensorganisation und -strategie", anforderungsniveau: 3, trainingCategory: "specialist" }, // First-Line Supervisors of Entertainment & Recreation Workers: was seed 63122 Sport-/Fitnesskaufleute Anf 2 (Drift) — kein 63193 Aufsichtskraft-Tourismus/Sport in KldB; sibling-domain-pivot zu 71393 parallel zu #39-1013, konsistent zu 11-9072 Recreation Mgmt 63194 (Director-Tier) eine Stufe höher; pulled out of seed; KldB+Anf 2→3; coupled mit title.de "Leiter Gastronomie und Freizeit" → "Teamleiter Freizeit und Unterhaltung"
+
+  // Animal — Drift correction
+  "39-2011.00": { kldbCode: "11582", kldbName: "Berufe in der Tierpflege (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Animal Trainers: war 11502 Tierpflege ohne-Spez. (zu generisch — Trainer ≠ reine Pflege); 11582 sonstige Tätigkeitsangabe trifft Trainings-Aspekt
+  "39-2021.00": { kldbCode: "11522", kldbName: "Berufe in der Haus- und Zootierpflege - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Animal Caretakers: war 11502 Tierpflege ohne-Spez. (zu generisch) — 11522 Haus-/Zootierpflege trifft Tierheim/Zoo-Domain; coupled mit title.de "Tiersitter" → "Tierpfleger/Tierpflegerin"
+
+  // Entertainment/Theater — Drift corrections + sibling-tier
+  "39-3021.00": { kldbCode: "94532", kldbName: "Berufe in der Bild- und Tontechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Motion Picture Projectionists: war 51182 Eisenbahn-/Luft-/Schiffstechnik (Drift via "-betrieb-") — Filmvorführer ist Medien-/Veranstaltungstechnik
+  "39-3031.00": { kldbCode: "53111", kldbName: "Berufe im Objekt-, Werte- und Personenschutz - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Ushers/Lobby Attendants/Ticket Takers: was seed 62112 Kassierer/Kartenverkäufer Anf 2 (Drift — Einlasskontrolle ≠ Kassieren) — Modify gegen agent's 53112 Anf 2 (agent flagte Anf-down 2→1, also Anf-1-sibling 53111 ist konsistent); pulled out of seed; coupled mit title.de "Einlasskontrolle und Saaldienst" → "Platzanweiser/Platzanweiserin"; KldB+Anf 2→1
+  "39-3092.00": { kldbCode: "94612", kldbName: "Berufe in der Bühnen- und Kostümbildnerei - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Costume Attendants: was seed 82332 Tätowierer/Piercer Anf 2 (komplett falsche Domain) — 94612 Bühnen-/Kostümbildnerei ist Exact-Klasse; pulled out of seed (title "Ankleider" bleibt, agent flagte nicht)
+
+  // Hair/Beauty — Drift corrections + sibling-tier
+  "39-5012.00": { kldbCode: "82312", kldbName: "Berufe im Friseurgewerbe - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Hairdressers/Hairstylists/Cosmetologists: war 28222 Bekleidungs-/Hutherstellung (Drift — "Perückenmacher" als wörtliche Lesart) — 82312 Friseurgewerbe ist Exact-Klasse; coupled mit title.de "Perückenmacher" → "Friseur/Friseurin" (39-5011 Barbers behält "Herrenfriseur" zur Differenzierung)
+  "39-5093.00": { kldbCode: "82311", kldbName: "Berufe im Friseurgewerbe - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Shampooers: war 82312 fachlich Anf 2 — Haarewaschen ist Anlerntätigkeit (kein Apprenticeship-Tier); sibling-down 82312 → 82311 mit Anf 2→1
+
+  // Hotel — Drift correction
+  "39-6011.00": { kldbCode: "63222", kldbName: "Berufe im Hotelservice - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Baggage Porters and Bellhops: war 51122 tech. Luftverkehrsbetrieb (Drift — Hotelportier ≠ Airport-Bagagedienst) — 63222 Hotelservice ist Exact-Klasse
+
+  // Sport/Recreation — catalog-only-Anf + Modify-beyond-audit
+  "39-9031.00": { kldbCode: "84553", kldbName: "Trainer/innen - Fitness und Gymnastik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Exercise Trainers and Group Fitness Instructors: was seed 63122 Sport-/Fitnesskaufleute Anf 2 (Drift — Trainer ≠ Kaufmann); Modify gegen agent's 84503 Sportlehrer ohne-Spez. — 84553 trifft "Fitness und Gymnastik" wörtlich; KldB hat keine Anf-2-Klasse für Trainer (alle Trainer-/Sportlehrer-Klassen catalog-only Anf 3); pulled out of seed; KldB+Anf 2→3
+  "39-9032.00": { kldbCode: "83123", kldbName: "Berufe in der Sozialarbeit und Sozialpädagogik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Recreation Workers: was seed 84553 Trainer Fitness/Gymnastik (zu eng nach Fitness — Recreation Workers organisieren breites Freizeitspektrum) und durch 39-9031 belegt; Modify-beyond-audit's-flag (Audit nur title-flag) — 83123 Sozialpädagogik fängt Freizeitpädagogen, parallel zu 39-9041 Residential Advisors; pulled out of seed; coupled mit title.de "Trainer für Outdoor-Aktivitäten" → "Freizeitpädagoge/Freizeitpädagogin"
 }
