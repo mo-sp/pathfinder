@@ -38,6 +38,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
 
 const ANNI_INPUT = join(ROOT, 'scripts/input/anni-bigfive-profiles.json')
+const CORPUS_PATH = join(ROOT, 'src/data/onet-occupations.json')
 const ESCO_DIR = join(ROOT, 'data-raw/esco')
 const CROSSWALK_PATH = join(ESCO_DIR, 'onet-esco-crosswalk.csv')
 const CROSSWALK_URL =
@@ -161,7 +162,13 @@ function buildProfiles(anniByIsco, escoToIsco, crosswalk) {
 
   const profiles = {}
   const profileSources = {}
-  const counts = { '4d-direct': 0, '3d-imputed': 0, '2d-imputed': 0, 'no-recovery': 0 }
+  const counts = {
+    '4d-direct': 0,
+    '3d-imputed': 0,
+    '2d-imputed': 0,
+    'soc-sibling-imputed': 0,
+    'no-recovery': 0,
+  }
 
   for (const [onetCode, iscoSet] of onetToIsco4d) {
     const direct = [...iscoSet].filter((c) => anniByIsco.has(c))
@@ -191,18 +198,44 @@ function buildProfiles(anniByIsco, escoToIsco, crosswalk) {
     counts['no-recovery']++
   }
 
-  console.log(
-    `Profiles by source: 4d=${counts['4d-direct']} 3d-imputed=${counts['3d-imputed']} 2d-imputed=${counts['2d-imputed']} no-recovery=${counts['no-recovery']}`,
-  )
   return { profiles, profileSources, counts }
+}
+
+// SOC-sibling fallback: corpus codes with no ESCO-crosswalk row at all bypass
+// the ISCO cascade entirely. For each such code, average the profiles of any
+// other O*NET code sharing the same SOC-detail prefix (first 7 chars,
+// "NN-NNNN") that the cascade did map. Recovers ~4 of the 19 Bucket-A codes.
+// The remaining ~15 have no SOC-detail siblings and need hand-curation.
+function applySocSiblingFallback(profiles, profileSources, counts, corpus) {
+  const allMappedCodes = Object.keys(profiles)
+  for (const occ of corpus) {
+    if (profiles[occ.onetCode]) continue
+    const socDetail = occ.onetCode.slice(0, 7)
+    const siblings = allMappedCodes.filter(
+      (code) => code !== occ.onetCode && code.startsWith(socDetail),
+    )
+    if (siblings.length === 0) continue
+    const out = {}
+    for (const dim of DIMENSIONS) {
+      out[dim] = Number(average(siblings.map((s) => profiles[s][dim])).toFixed(2))
+    }
+    profiles[occ.onetCode] = out
+    profileSources[occ.onetCode] = 'soc-sibling-imputed'
+    counts['soc-sibling-imputed']++
+  }
 }
 
 function main() {
   const { byIsco: anniByIsco, source } = loadAnniProfiles()
   const escoToIsco = loadEscoToIsco()
   const crosswalk = loadCrosswalk()
+  const corpus = JSON.parse(readFileSync(CORPUS_PATH, 'utf-8'))
 
   const { profiles, profileSources, counts } = buildProfiles(anniByIsco, escoToIsco, crosswalk)
+  applySocSiblingFallback(profiles, profileSources, counts, corpus)
+  console.log(
+    `Profiles by source: 4d=${counts['4d-direct']} 3d-imputed=${counts['3d-imputed']} 2d-imputed=${counts['2d-imputed']} soc-sibling-imputed=${counts['soc-sibling-imputed']}`,
+  )
   const onetCount = Object.keys(profiles).length
 
   const output = {
@@ -215,7 +248,7 @@ function main() {
       mock: false,
       dimensions: DIMENSIONS,
       scale: source.scale,
-      iscoMapping: `${onetCount} O*NET codes mapped via ESCO crosswalk + ESCO occupation taxonomy: ${counts['4d-direct']} direct ISCO-4d, ${counts['3d-imputed']} imputed from ISCO-3d siblings, ${counts['2d-imputed']} imputed from ISCO-2d siblings`,
+      iscoMapping: `${onetCount} O*NET codes mapped via ESCO crosswalk + ESCO occupation taxonomy: ${counts['4d-direct']} direct ISCO-4d, ${counts['3d-imputed']} imputed from ISCO-3d siblings, ${counts['2d-imputed']} imputed from ISCO-2d siblings, ${counts['soc-sibling-imputed']} imputed from SOC-detail siblings (no crosswalk)`,
       profileSourceCounts: counts,
     },
     profileSources,

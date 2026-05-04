@@ -18,19 +18,22 @@ current PR. For what shipped when, see `SUMMARY.md`.
 
 Likely next 1–2 sessions.
 
-- **BigFive coverage gap — 19 / 923 occupations remain without profile.**
-  Down from 169 after the ISCO-3d/2d sibling cascade shipped via
-  `feat/bigfive-isco-cascade` (corpus coverage 754/923 → 904/923 = 98 %).
-  The remaining 19 are Bucket A: O*NET codes with no ESCO-crosswalk row
-  at all, so the cascade can't reach them. Recovery options: (a) SOC-
-  sibling fallback in `build-bigfive-profiles.mjs` for the 4 codes that
-  have a mapped same-SOC sibling (e.g. 11-9199.11 Brownfield Redev,
-  17-1022.01 Geodetic Surveyors, 29-2099.08 Patient Reps, 31-9099.02
-  Endoscopy Technicians), (b) hand-curate the 15 codes without SOC
-  siblings via a new BigFive-curated input file (Postmasters,
-  Mediators, Tapers, Conveyor Operators, Biofuels Tech, Traffic Tech,
-  Loss Prevention etc.). Run `node scripts/audit/bigfive-coverage-gap.mjs`
-  to see the current list with recovery flags.
+- **BigFive coverage gap — 14 / 923 occupations remain without profile.**
+  Down from 169 after two PRs: the ISCO-3d/2d sibling cascade
+  (`feat/bigfive-isco-cascade`, +150) and the SOC-detail-sibling fallback
+  (`feat/bigfive-soc-sibling-fallback`, +5). Corpus coverage 754/923 →
+  909/923 = 98.5 %. The remaining 14 are Bucket A with zero SOC-detail
+  siblings, so neither cascade reaches them: 11-9131 Postmasters,
+  13-1022 Wholesale/Retail Buyers, 13-1074 Farm Labor Contractors,
+  23-1022 Mediators, 25-9021 Farm/Home Educators, 33-9099.02 Retail Loss
+  Prevention, 35-9011 Cafeteria Attendants, 39-1022 Personal-Service
+  Supervisors, 47-2082 Tapers, 49-2097 AV Installers, 49-9098 IMR
+  Helpers, 51-4192 Layout Workers, 53-6041 Traffic Tech, 53-7011 Conveyor
+  Operators. Only path forward is hand-curation via a BigFive-specific
+  curated-profiles input file (analogous to
+  `scripts/input/curated-occupation-profiles.mjs` for O*NET survey
+  gaps). Run `node scripts/audit/bigfive-coverage-gap.mjs` to verify the
+  current list before authoring.
 
 ## Data quality
 
