@@ -159,7 +159,7 @@ export default {
 
   // === Cluster: "Omnibusfahrer" (3) ===
   '53-3052.00': 'Omnibusfahrer/Omnibusfahrerin', // Bus Drivers, Transit and Intercity
-  '53-3053.00': 'Shuttle- und Chauffeurfahrer/Shuttle- und Chauffeurfahrerin', // Shuttle Drivers and Chauffeurs
+  // 53-3053.00 modified in batch-16 block (war "Shuttle- und Chauffeurfahrer" → "Chauffeur/Chauffeurin")
   '53-4041.00': 'U-Bahn- und Straßenbahnfahrer/U-Bahn- und Straßenbahnfahrerin', // Subway and Streetcar Operators
 
   // === Cluster: "Sicherheitsbeauftragter" (2) ===
@@ -743,4 +743,19 @@ export default {
   '39-5012.00': 'Friseur/Friseurin', // Hairdressers/Hairstylists/Cosmetologists: war "Perückenmacher/Perückenmacherin" (marginale Nische, Drift) — Friseur trifft SOC-Hauptlesart; 39-5011 Barbers behält "Herrenfriseur" zur Differenzierung
   '39-7011.00': 'Gästeführer/Gästeführerin', // Tour Guides and Escorts: war "Fremdenführer/Fremdenführerin" (leicht veraltet) — Gästeführer ist moderner DE-Standardbegriff
   '39-9032.00': 'Freizeitpädagoge/Freizeitpädagogin', // Recreation Workers: war "Trainer für Outdoor-Aktivitäten/Trainerin für Outdoor-Aktivitäten" (zu eng — Recreation umfasst Kunst/Musik/Camping/Sport) — Freizeitpädagoge fängt Domain-Breite, konsistent zu KldB 83123 Sozialpädagogik
+
+  // === Audit batch 16 — SOC 53 Transportation and Material Moving coupled title fixes (2026-05-04) ===
+  // 53-3053.00 modified in-place at line ~162 (war "Shuttle- und Chauffeurfahrer" → "Chauffeur")
+  '53-1042.00': 'Vorarbeiter Lager und Logistik / Vorarbeiterin Lager und Logistik', // First-Line Supervisors of Helpers/Laborers/Material Movers: war "Aufsichtskraft Abrissarbeiten" (zu enge Abriss-Lesart — SOC umfasst alle Helfer/Material Movers, nicht nur Abriss); Vorarbeiter Lager und Logistik trifft SOC-Breite; coupled mit KldB 31193 → 51393
+  '53-1043.00': 'Aufsichtskraft Bau- und Transportgeräteführung', // First-Line Supervisors of Material-Moving Machine/Vehicle Operators: war "Aufsichtskraft Kranarbeiten" (zu eng auf Kran — SOC umfasst alle Bau-/Transportgeräte); ungendert (DE-Konvention für "-kraft"-Endungen); coupled mit KldB 31193 → 52593
+  '53-3051.00': 'Schulbusfahrer/Schulbusfahrerin', // Bus Drivers, School: war "Oberleitungsbusfahrer/Oberleitungsbusfahrerin" (Trolleybus-Lesart, in DE kaum existent — SOC ist Schulbusfahrer); KldB 52132 bleibt korrekt
+  '53-3053.00': 'Chauffeur/Chauffeurin', // Shuttle Drivers and Chauffeurs: war "Shuttle- und Chauffeurfahrer/Shuttle- und Chauffeurfahrerin" (Doppelung unidiomatisch); coupled mit KldB 52132 → 52112
+  '53-4013.00': 'Lokrangierführer/Lokrangierführerin', // Rail Yard Engineers/Dinkey Operators/Hostlers: war "Rangierer/Rangiererin" (umgangssprachlich) — Lokrangierführer ist DE-Standardberuf für Rangierloks; KldB 51112 bleibt korrekt
+  '53-5021.00': 'Kapitän/Kapitänin', // Captains/Mates/Pilots of Water Vessels: war "Kapitän Küstenfischerei/Kapitänin Küstenfischerei" (zu eng auf Fischerei — SOC umfasst alle Wasserfahrzeuge: Schlepper/Fähren/etc.); coupled mit KldB 11402 → 52413
+  '53-5022.00': 'Motorbootführer/Motorbootführerin', // Motorboat Operators: war "Seelotse/Seelotsin" (hochqualifizierter Navigationsspezialist, falsch — Motorboat Operator fährt kleine Motorboote); KldB 52422 bleibt akzeptabel (audit's Modify war null suggestion)
+  '53-6051.01': 'Luftfahrtprüfer/Luftfahrtprüferin', // Aviation Inspectors: war "Flugverkehrskontrolleur/Flugverkehrskontrolleurin" (= Fluglotse, komplett anderer Beruf!) — Luftfahrtprüfer ist DE-Berufsbild für Aviation Inspector (prüft Flugzeuge/Wartungsverfahren); coupled mit KldB 51533 → 25233
+  '53-7041.00': 'Kranführer/Kranführerin', // Hoist and Winch Operators: war "Verladebrückenführer/Verladebrückenführerin" (zu spezifisch auf Containerbrücke im Hafen) — Kranführer ist breitester DE-Begriff für Hebezeugbedienung; coupled mit KldB 51242 → 52532
+  '53-7051.00': 'Gabelstaplerfahrer/Gabelstaplerfahrerin', // Industrial Truck and Tractor Operators: war "Umzugsfahrer/Umzugsfahrerin" (komplett falsche Lesart — Industrial Truck = Gabelstapler, kein Umzugs-LKW); Gabelstaplerfahrer ist Domain-Exact; coupled mit KldB 52122 → 51312
+  '53-7062.04': 'Recyclingfachkraft', // Recycling and Reclamation Workers: war "Metallarbeiter im Bereich Demontage/Metallarbeiterin im Bereich Demontage" (zu eng auf Metall — SOC umfasst breites Recycling + Gefahrstoff-Identifikation); ungendert (DE-Konvention für "-fachkraft"); coupled mit KldB 24412 → 34332
+  '53-7081.00': 'Müllwerker/Müllwerkerin', // Refuse and Recyclable Material Collectors: war "Müllmann/Müllfrau" (umgangssprachlich, kein offizieller Berufstitel) — Müllwerker ist offizielle DE-Berufsbezeichnung; KldB 34301 bleibt korrekt
 }
