@@ -484,7 +484,7 @@ export default {
 
   // === Cluster: "Lebensmittelproduktionsmitarbeiter" (2) ===
   '51-3092.00': 'Fachkraft für Lebensmitteltechnik', // Food Batchmakers: war "Lebensmittelproduktion Chargenherstellung" (kein Berufstitel, beschreibende Phrase); Modify gegen agent's "Lebensmitteltechniker" — letzteres impliziert Anf-3-Technikerschule, SOC ist Anf-2-Tätigkeit (Chargenmischer/Kessel-Operator); Fachkraft für Lebensmitteltechnik ist IHK-Anf-2-Ausbildung
-  '51-3093.00': 'Lebensmittelmaschinenführer/Lebensmittelmaschinenführerin', // Food Cooking Machine Operators
+  '51-3093.00': 'Maschinen- und Anlagenführer Lebensmitteltechnik/Maschinen- und Anlagenführerin Lebensmitteltechnik', // Food Cooking Machine Operators: war "Lebensmittelmaschinenführer" (kasuelle Kontraktion ohne IHK-Pendant); IHK-Berufstitel-Stil parallel zu batch-17 51-9111 "Maschinen- und Anlagenführer Verpackungstechnik"; KldB 29202 Lebensmittel ohne-Spez. Anf 2 bleibt
 
   // === Cluster: "Werkzeugbautechniker" (2) ===
   '51-4081.00': 'Mehrspindelmaschinen-Bediener/Mehrspindelmaschinen-Bedienerin', // Multiple Machine Tool Setters
