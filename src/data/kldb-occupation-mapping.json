@@ -2297,10 +2297,10 @@
       "trainingCategory": "specialist"
     },
     "29-1011.00": {
-      "kldbCode": "81724",
-      "kldbName": "Berufe in der Ergotherapie - hoch komplexe Tätigkeiten",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "81753",
+      "kldbName": "Berufe in der Heilkunde und Homöopathie - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "29-1021.00": {
       "kldbCode": "81474",
@@ -2315,20 +2315,20 @@
       "trainingCategory": "studies"
     },
     "29-1023.00": {
-      "kldbCode": "82513",
-      "kldbName": "Berufe in der Orthopädie- und Rehatechnik - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "81474",
+      "kldbName": "Zahnärzte/-ärztinnen und Kieferorthopäden/-orthopädinnen - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "29-1024.00": {
-      "kldbCode": "82513",
-      "kldbName": "Berufe in der Orthopädie- und Rehatechnik - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "81474",
+      "kldbName": "Zahnärzte/-ärztinnen und Kieferorthopäden/-orthopädinnen - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "29-1031.00": {
-      "kldbCode": "41204",
-      "kldbName": null,
+      "kldbCode": "81764",
+      "kldbName": "Berufe in der Diät- und Ernährungstherapie - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2351,16 +2351,16 @@
       "trainingCategory": "specialist"
     },
     "29-1071.01": {
-      "kldbCode": "81623",
-      "kldbName": "Berufe in der klinischen Psychologie - komplexe Spezialistentätigkeiten",
+      "kldbCode": "81333",
+      "kldbName": "Berufe in der operations-/medizintechnischen Assistenz - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "29-1081.00": {
-      "kldbCode": "81724",
-      "kldbName": "Berufe in der Ergotherapie - hoch komplexe Tätigkeiten",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "81772",
+      "kldbName": "Podologen/Podologinnen - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "29-1122.00": {
       "kldbCode": "81724",
@@ -2369,16 +2369,16 @@
       "trainingCategory": "studies"
     },
     "29-1122.01": {
-      "kldbCode": "83124",
-      "kldbName": "Berufe in der Sozialarbeit und Sozialpädagogik - hoch komplexe Tätigkeiten",
+      "kldbCode": "81784",
+      "kldbName": "Berufe in der nicht ärztlichen Therapie und Heilkunde (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "29-1123.00": {
-      "kldbCode": "81714",
-      "kldbName": "Berufe in der Physiotherapie - hoch komplexe Tätigkeiten",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "81712",
+      "kldbName": "Berufe in der Physiotherapie - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "29-1124.00": {
       "kldbCode": "81232",
@@ -2393,10 +2393,10 @@
       "trainingCategory": "specialist"
     },
     "29-1126.00": {
-      "kldbCode": "81782",
-      "kldbName": "Berufe in der nicht ärztlichen Therapie und Heilkunde (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "81783",
+      "kldbName": "Berufe in der nicht ärztlichen Therapie und Heilkunde (sonstige spezifische Tätigkeitsangabe) - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "29-1127.00": {
       "kldbCode": "81734",
@@ -2429,10 +2429,10 @@
       "trainingCategory": "studies"
     },
     "29-1141.00": {
-      "kldbCode": "81393",
-      "kldbName": "Aufsichtskräfte - Gesundheits- und Krankenpflege, Rettungsdienst und Geburtshilfe",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "81302",
+      "kldbName": "Berufe in der Gesundheits- und Krankenpflege (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "29-1141.01": {
       "kldbCode": "81393",
@@ -2441,10 +2441,10 @@
       "trainingCategory": "specialist"
     },
     "29-1141.02": {
-      "kldbCode": "81614",
-      "kldbName": "Berufe in der nicht klinischen Psychologie - hoch komplexe Tätigkeiten",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "81313",
+      "kldbName": "Berufe in der Fachkrankenpflege - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "29-1141.03": {
       "kldbCode": "81313",
@@ -2459,16 +2459,16 @@
       "trainingCategory": "specialist"
     },
     "29-1151.00": {
-      "kldbCode": "81103",
-      "kldbName": "Medizinische Fachangestellte (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "81313",
+      "kldbName": "Berufe in der Fachkrankenpflege - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
     "29-1161.00": {
-      "kldbCode": "84214",
-      "kldbName": "Lehrkräfte für berufsbildende Fächer - hoch komplexe Tätigkeiten",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "81353",
+      "kldbName": "Berufe in der Geburtshilfe und Entbindungspflege - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "29-1171.00": {
       "kldbCode": "81394",
@@ -2477,8 +2477,8 @@
       "trainingCategory": "studies"
     },
     "29-1181.00": {
-      "kldbCode": "81734",
-      "kldbName": "Berufe in der Sprachtherapie - hoch komplexe Tätigkeiten",
+      "kldbCode": "81784",
+      "kldbName": "Berufe in der nicht ärztlichen Therapie und Heilkunde (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2489,14 +2489,14 @@
       "trainingCategory": "studies"
     },
     "29-1212.00": {
-      "kldbCode": "81414",
-      "kldbName": "Fachärzte/-ärztinnen in der Kinder- und Jugendmedizin - hoch komplexe Tätigkeiten",
+      "kldbCode": "81424",
+      "kldbName": "Fachärzte/-ärztinnen in der Inneren Medizin - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "29-1213.00": {
-      "kldbCode": "81414",
-      "kldbName": "Fachärzte/-ärztinnen in der Kinder- und Jugendmedizin - hoch komplexe Tätigkeiten",
+      "kldbCode": "81444",
+      "kldbName": "Fachärzte/-ärztinnen in den Bereichen Hautkrankheiten, Sinnes- und Geschlechtsorgane - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2513,8 +2513,8 @@
       "trainingCategory": "studies"
     },
     "29-1216.00": {
-      "kldbCode": "81814",
-      "kldbName": "Fachärzte/-ärztinnen in der Pharmakologie - hoch komplexe Tätigkeiten",
+      "kldbCode": "81424",
+      "kldbName": "Fachärzte/-ärztinnen in der Inneren Medizin - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2549,8 +2549,8 @@
       "trainingCategory": "studies"
     },
     "29-1224.00": {
-      "kldbCode": "81784",
-      "kldbName": "Berufe in der nicht ärztlichen Therapie und Heilkunde (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
+      "kldbCode": "81484",
+      "kldbName": "Ärzte/Ärztinnen (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2573,8 +2573,8 @@
       "trainingCategory": "studies"
     },
     "29-1229.04": {
-      "kldbCode": "81714",
-      "kldbName": "Berufe in der Physiotherapie - hoch komplexe Tätigkeiten",
+      "kldbCode": "81484",
+      "kldbName": "Ärzte/Ärztinnen (sonstige spezifische Tätigkeitsangabe) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2585,14 +2585,14 @@
       "trainingCategory": "studies"
     },
     "29-1229.06": {
-      "kldbCode": "11394",
-      "kldbName": "Führungskräfte - Pferdewirtschaft",
+      "kldbCode": "81404",
+      "kldbName": "Ärzte/Ärztinnen (ohne Spezialisierung) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "29-1241.00": {
-      "kldbCode": "82524",
-      "kldbName": "Berufe in der Augenoptik - hoch komplexe Tätigkeiten",
+      "kldbCode": "81444",
+      "kldbName": "Fachärzte/-ärztinnen in den Bereichen Hautkrankheiten, Sinnes- und Geschlechtsorgane - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
@@ -2615,10 +2615,10 @@
       "trainingCategory": "specialist"
     },
     "29-1292.00": {
-      "kldbCode": "81112",
-      "kldbName": "Zahnmedizinische Fachangestellte - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "81113",
+      "kldbName": "Zahnmedizinische Fachangestellte - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "29-1299.01": {
       "kldbCode": "81753",
@@ -2633,8 +2633,8 @@
       "trainingCategory": "studies"
     },
     "29-2011.00": {
-      "kldbCode": "41203",
-      "kldbName": "Berufe in der Biologie (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "81213",
+      "kldbName": "Medizinisch-technische Berufe im Laboratorium - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -2645,14 +2645,14 @@
       "trainingCategory": "specialist"
     },
     "29-2011.02": {
-      "kldbCode": "41204",
-      "kldbName": null,
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "81213",
+      "kldbName": "Medizinisch-technische Berufe im Laboratorium - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "29-2011.04": {
-      "kldbCode": "41203",
-      "kldbName": "Berufe in der Biologie (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "81213",
+      "kldbName": "Medizinisch-technische Berufe im Laboratorium - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -2669,22 +2669,22 @@
       "trainingCategory": "apprenticeship"
     },
     "29-2031.00": {
-      "kldbCode": "81232",
-      "kldbName": "Medizinisch-technische Berufe in der Radiologie - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "81222",
+      "kldbName": "Medizinisch-technische Berufe in der Funktionsdiagnostik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "29-2032.00": {
-      "kldbCode": "81723",
-      "kldbName": "Berufe in der Ergotherapie - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "81222",
+      "kldbName": "Medizinisch-technische Berufe in der Funktionsdiagnostik - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "29-2033.00": {
-      "kldbCode": "81723",
-      "kldbName": "Berufe in der Ergotherapie - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "81232",
+      "kldbName": "Medizinisch-technische Berufe in der Radiologie - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "29-2034.00": {
       "kldbCode": "81232",
@@ -2699,10 +2699,10 @@
       "trainingCategory": "specialist"
     },
     "29-2036.00": {
-      "kldbCode": "81233",
-      "kldbName": "Medizinisch-technische Berufe in der Radiologie - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "81234",
+      "kldbName": "Medizinisch-technische Berufe in der Radiologie - hoch komplexe Tätigkeiten",
+      "anforderungsniveau": 4,
+      "trainingCategory": "studies"
     },
     "29-2042.00": {
       "kldbCode": "81342",
@@ -2711,14 +2711,14 @@
       "trainingCategory": "apprenticeship"
     },
     "29-2043.00": {
-      "kldbCode": "81342",
-      "kldbName": "Berufe im Rettungsdienst - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "81343",
+      "kldbName": "Berufe im Rettungsdienst - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "29-2051.00": {
-      "kldbCode": "81722",
-      "kldbName": "Berufe in der Ergotherapie - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "81762",
+      "kldbName": "Berufe in der Diät- und Ernährungstherapie - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2729,14 +2729,14 @@
       "trainingCategory": "apprenticeship"
     },
     "29-2053.00": {
-      "kldbCode": "83122",
-      "kldbName": "Berufe in der Sozialarbeit und Sozialpädagogik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "81302",
+      "kldbName": "Berufe in der Gesundheits- und Krankenpflege (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "29-2055.00": {
-      "kldbCode": "81102",
-      "kldbName": "Medizinische Fachangestellte (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "81332",
+      "kldbName": "Berufe in der operations-/medizintechnischen Assistenz - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2753,8 +2753,8 @@
       "trainingCategory": "apprenticeship"
     },
     "29-2061.00": {
-      "kldbCode": "83142",
-      "kldbName": "Berufe in der Haus- und Familienpflege - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "81302",
+      "kldbName": "Berufe in der Gesundheits- und Krankenpflege (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2783,14 +2783,14 @@
       "trainingCategory": "apprenticeship"
     },
     "29-2099.01": {
-      "kldbCode": "81723",
-      "kldbName": "Berufe in der Ergotherapie - komplexe Spezialistentätigkeiten",
-      "anforderungsniveau": 3,
-      "trainingCategory": "specialist"
+      "kldbCode": "81222",
+      "kldbName": "Medizinisch-technische Berufe in der Funktionsdiagnostik - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "29-2099.05": {
-      "kldbCode": "81132",
-      "kldbName": "Orthoptisten/Orthoptistinnen - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "81182",
+      "kldbName": "Medizinische Fachangestellte (sonstige spezifische Tätigkeitsangabe) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -2808,20 +2808,20 @@
       "trainingCategory": "apprenticeship"
     },
     "29-9091.00": {
-      "kldbCode": "81714",
-      "kldbName": "Berufe in der Physiotherapie - hoch komplexe Tätigkeiten",
-      "anforderungsniveau": 4,
-      "trainingCategory": "studies"
+      "kldbCode": "81713",
+      "kldbName": "Berufe in der Physiotherapie - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "29-9092.00": {
-      "kldbCode": "41204",
-      "kldbName": null,
+      "kldbCode": "41274",
+      "kldbName": "Berufe in der Biologie (Humanbiologie) - hoch komplexe Tätigkeiten",
       "anforderungsniveau": 4,
       "trainingCategory": "studies"
     },
     "29-9093.00": {
-      "kldbCode": "81102",
-      "kldbName": "Medizinische Fachangestellte (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "81332",
+      "kldbName": "Berufe in der operations-/medizintechnischen Assistenz - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },

@@ -39,7 +39,7 @@ export default {
   '29-1041.00': 'Optometrist/Optometristin', // Optometrists (keeps the natural DE term)
   '29-1241.00': 'Augenarzt/Augenärztin', // Ophthalmologists, Except Pediatric
   '29-2057.00': 'Augenoptiker-Assistent/Augenoptiker-Assistentin', // Ophthalmic Medical Technicians
-  '29-2099.05': 'Ophthalmologisch-technischer Assistent/Ophthalmologisch-technische Assistentin', // Ophthalmic Medical Technologists
+  // 29-2099.05 modified in batch-15 block (war "Ophthalmologisch-technischer Assistent" → "MTA Ophthalmologie")
 
   // === Cluster: "Arzt für Allgemeinmedizin" (4) ===
   '29-1171.00': 'Pflegeexperte/Pflegeexpertin', // Nurse Practitioners — DE-Äquivalent ist Advanced Practice Nurse, aber der APN-Zusatz stiftet mehr Verwirrung als er nützt
@@ -103,7 +103,7 @@ export default {
   '29-2099.01': 'MTA Neurodiagnostik', // Neurodiagnostic Technologists
 
   // === Cluster: "Pflegehelfer" (3) ===
-  '29-2061.00': 'Krankenpflegeassistent/Krankenpflegeassistentin', // Licensed Practical and Licensed Vocational Nurses
+  // 29-2061.00 modified in batch-15 block (war "Krankenpflegeassistent" → "Krankenpflegehelfer")
   '29-9093.00': 'OP-Assistent/OP-Assistentin', // Surgical Assistants
   '31-1133.00': 'Pflegehelfer Psychiatrie / Pflegehelferin Psychiatrie', // Psychiatric Aides
 
@@ -743,4 +743,19 @@ export default {
   '39-5012.00': 'Friseur/Friseurin', // Hairdressers/Hairstylists/Cosmetologists: war "Perückenmacher/Perückenmacherin" (marginale Nische, Drift) — Friseur trifft SOC-Hauptlesart; 39-5011 Barbers behält "Herrenfriseur" zur Differenzierung
   '39-7011.00': 'Gästeführer/Gästeführerin', // Tour Guides and Escorts: war "Fremdenführer/Fremdenführerin" (leicht veraltet) — Gästeführer ist moderner DE-Standardbegriff
   '39-9032.00': 'Freizeitpädagoge/Freizeitpädagogin', // Recreation Workers: war "Trainer für Outdoor-Aktivitäten/Trainerin für Outdoor-Aktivitäten" (zu eng — Recreation umfasst Kunst/Musik/Camping/Sport) — Freizeitpädagoge fängt Domain-Breite, konsistent zu KldB 83123 Sozialpädagogik
+
+  // === Audit batch 15 — SOC 29 Healthcare Practitioners coupled title fixes (2026-05-04) ===
+  // 29-2061.00 modified in-place at line ~106 (war "Krankenpflegeassistent" → "Krankenpflegehelfer")
+  // 29-2099.05 modified in-place at line ~42 (war "Ophthalmologisch-technischer Assistent" → "MTA Ophthalmologie")
+  '29-1126.00': 'Atmungstherapeut/Atmungstherapeutin', // Respiratory Therapists: war "Atemtherapietechniker/Atemtherapietechnikerin" (ungebräuchliches Wort) — Atmungstherapeut ist DE-etablierter Beruf mit Fachweiterbildung; coupled mit KldB 81782 → 81783 (Anf-up)
+  '29-1131.00': 'Tierarzt/Tierärztin', // Veterinarians: war "Alternativer Tiertherapeut/Alternative Tiertherapeutin" (Naturheilkunde-Konnotation, kein Veterinärmediziner) — Tierarzt ist Standardberuf; KldB 81504 bleibt korrekt
+  '29-1141.02': 'Fachkrankenpfleger Psychiatrie / Fachkrankenpflegerin Psychiatrie', // Advanced Practice Psychiatric Nurses: war "Psychotherapeut/Psychotherapeutin" (verwechselt APRN mit Psychotherapeut) — Fachkrankenpfleger Psychiatrie trifft DE-Lesart; coupled mit KldB 81614 → 81313
+  '29-1161.00': 'Hebamme/Entbindungspfleger', // Nurse Midwives: war "Lehrkraft für Krankenpflege- und Geburtshilfekräfte" (😱 Lehrer-Lesart, falsch) — Hebamme ist Standardberuf für klinische Geburtshilfe; coupled mit KldB 84214 → 81353
+  '29-1216.00': 'Internist/Internistin', // General Internal Medicine Physicians: war "Physiologe/Physiologin" (Wissenschaftler ≠ Internist) — Internist trifft General-Internal-Med-Profil; coupled mit KldB 81814 → 81424
+  '29-1229.04': 'Facharzt für Physikalische und Rehabilitative Medizin / Fachärztin für Physikalische und Rehabilitative Medizin', // Physical Medicine and Rehabilitation Physicians: war "Fachphysiotherapeut/Fachphysiotherapeutin" (kein anerkannter Facharzt-Titel) — etablierter DE-Facharzt-Titel; coupled mit KldB 81714 → 81484
+  '29-2053.00': 'Psychiatriepfleger/Psychiatriepflegerin', // Psychiatric Technicians: war "Sozialbetreuer psychische Gesundheit/Sozialbetreuerin psychische Gesundheit" (unidiomatisch) — Psychiatriepfleger ist gängiger DE-Begriff; coupled mit KldB 83122 → 81302
+  '29-2061.00': 'Krankenpflegehelfer/Krankenpflegehelferin', // Licensed Practical and Licensed Vocational Nurses: war "Krankenpflegeassistent/Krankenpflegeassistentin" (regionale Variante) — Krankenpflegehelfer ist etablierter Standardbegriff für 1-jährige Pflege-Helferausbildung; coupled mit KldB 83142 → 81302
+  '29-2099.05': 'MTA Ophthalmologie', // Ophthalmic Medical Technologists: war "Ophthalmologisch-technischer Assistent/Ophthalmologisch-technische Assistentin" (Wortwörtlichkeit, sperrig) — MTA Ophthalmologie kompakt und konsistent zu sister codes 29-2034 "MTA Radiologie", 29-2035 "MTA MRT", 29-2099.01 "MTA Neurodiagnostik"; coupled mit KldB 81132 → 81182
+  '29-9021.00': 'Medizinischer Dokumentationsassistent / Medizinische Dokumentationsassistentin', // Health Information Technologists and Medical Registrars: war "Informations- und Wissensmanager/Informations- und Wissensmanagerin (IKT)" (zu generisch IT-Label, verschleiert Med-Doku-Charakter) — Medizinischer Dokumentationsassistent ist DE-Berufsbezeichnung; KldB 73342 bleibt korrekt
+  '29-9099.01': 'Freiberufliche Hebamme / Freiberuflicher Entbindungspfleger', // Midwives (SOC-Residual, Direkteinstieg ohne Pflege-Vorlauf): differenziert von 29-1161 Nurse Midwives = klinisch-angestellte Hebamme via Pflege-Spezialisierung-Route — DE-Hebamme ist eigene Profession ohne Pflege-Vorlauf, "freiberuflich" bildet SOC-Residual-Lesart (eigene Praxis, Hausgeburt) ab
 }
