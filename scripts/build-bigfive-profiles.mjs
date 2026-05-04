@@ -121,9 +121,32 @@ function average(values) {
   return values.reduce((a, b) => a + b, 0) / values.length
 }
 
+function profileFromContribs(contribs) {
+  const out = {}
+  for (const dim of DIMENSIONS) {
+    out[dim] = Number(average(contribs.map((p) => p.scores[dim])).toFixed(2))
+  }
+  return out
+}
+
+// ISCO-3d / 2d sibling cascade: for an O*NET code whose resolved 4d groups
+// have no Anni profile, fall back to averaging all Anni profiles sharing the
+// same first 3 (then 2) digits as any resolved 4d. Recovers ~150/169 corpus
+// codes that would otherwise have a null bigFiveModifier at runtime.
+function siblingsAtPrefix(anniByIsco, isco4dSet, prefixLen) {
+  const out = new Set()
+  for (const code of isco4dSet) {
+    const prefix = code.slice(0, prefixLen)
+    for (const anniCode of anniByIsco.keys()) {
+      if (anniCode.startsWith(prefix)) out.add(anniCode)
+    }
+  }
+  return out
+}
+
 function buildProfiles(anniByIsco, escoToIsco, crosswalk) {
-  // O*NET code → Set of ISCO codes that contribute via any crosswalk partner
-  const onetToIscos = new Map()
+  // O*NET code → Set of resolved ISCO-4d codes (regardless of Anni coverage)
+  const onetToIsco4d = new Map()
   let unresolved = 0
   for (const { onetCode, escoUri } of crosswalk) {
     const iscoCode = resolveIscoFromEscoUri(escoUri, escoToIsco)
@@ -131,21 +154,47 @@ function buildProfiles(anniByIsco, escoToIsco, crosswalk) {
       unresolved++
       continue
     }
-    if (!anniByIsco.has(iscoCode)) continue
-    if (!onetToIscos.has(onetCode)) onetToIscos.set(onetCode, new Set())
-    onetToIscos.get(onetCode).add(iscoCode)
+    if (!onetToIsco4d.has(onetCode)) onetToIsco4d.set(onetCode, new Set())
+    onetToIsco4d.get(onetCode).add(iscoCode)
   }
   console.log(`ESCO URIs with unresolvable ISCO: ${unresolved}`)
 
   const profiles = {}
-  for (const [onetCode, iscoSet] of onetToIscos) {
-    const contribs = [...iscoSet].map((c) => anniByIsco.get(c))
-    profiles[onetCode] = {}
-    for (const dim of DIMENSIONS) {
-      profiles[onetCode][dim] = Number(average(contribs.map((p) => p.scores[dim])).toFixed(2))
+  const profileSources = {}
+  const counts = { '4d-direct': 0, '3d-imputed': 0, '2d-imputed': 0, 'no-recovery': 0 }
+
+  for (const [onetCode, iscoSet] of onetToIsco4d) {
+    const direct = [...iscoSet].filter((c) => anniByIsco.has(c))
+    if (direct.length > 0) {
+      profiles[onetCode] = profileFromContribs(direct.map((c) => anniByIsco.get(c)))
+      profileSources[onetCode] = '4d-direct'
+      counts['4d-direct']++
+      continue
     }
+
+    const sib3 = siblingsAtPrefix(anniByIsco, iscoSet, 3)
+    if (sib3.size > 0) {
+      profiles[onetCode] = profileFromContribs([...sib3].map((c) => anniByIsco.get(c)))
+      profileSources[onetCode] = '3d-imputed'
+      counts['3d-imputed']++
+      continue
+    }
+
+    const sib2 = siblingsAtPrefix(anniByIsco, iscoSet, 2)
+    if (sib2.size > 0) {
+      profiles[onetCode] = profileFromContribs([...sib2].map((c) => anniByIsco.get(c)))
+      profileSources[onetCode] = '2d-imputed'
+      counts['2d-imputed']++
+      continue
+    }
+
+    counts['no-recovery']++
   }
-  return profiles
+
+  console.log(
+    `Profiles by source: 4d=${counts['4d-direct']} 3d-imputed=${counts['3d-imputed']} 2d-imputed=${counts['2d-imputed']} no-recovery=${counts['no-recovery']}`,
+  )
+  return { profiles, profileSources, counts }
 }
 
 function main() {
@@ -153,7 +202,7 @@ function main() {
   const escoToIsco = loadEscoToIsco()
   const crosswalk = loadCrosswalk()
 
-  const profiles = buildProfiles(anniByIsco, escoToIsco, crosswalk)
+  const { profiles, profileSources, counts } = buildProfiles(anniByIsco, escoToIsco, crosswalk)
   const onetCount = Object.keys(profiles).length
 
   const output = {
@@ -166,8 +215,10 @@ function main() {
       mock: false,
       dimensions: DIMENSIONS,
       scale: source.scale,
-      iscoMapping: `${onetCount} O*NET codes mapped from 237 real ISCO-08 4d groups via ESCO crosswalk + ESCO occupation taxonomy`,
+      iscoMapping: `${onetCount} O*NET codes mapped via ESCO crosswalk + ESCO occupation taxonomy: ${counts['4d-direct']} direct ISCO-4d, ${counts['3d-imputed']} imputed from ISCO-3d siblings, ${counts['2d-imputed']} imputed from ISCO-2d siblings`,
+      profileSourceCounts: counts,
     },
+    profileSources,
     profiles,
   }
 

@@ -14,7 +14,955 @@
       "neuroticism"
     ],
     "scale": "T-scores (mean=50, SD=10) across all jobs",
-    "iscoMapping": "782 O*NET codes mapped from 237 real ISCO-08 4d groups via ESCO crosswalk + ESCO occupation taxonomy"
+    "iscoMapping": "940 O*NET codes mapped via ESCO crosswalk + ESCO occupation taxonomy: 782 direct ISCO-4d, 136 imputed from ISCO-3d siblings, 22 imputed from ISCO-2d siblings",
+    "profileSourceCounts": {
+      "4d-direct": 782,
+      "3d-imputed": 136,
+      "2d-imputed": 22,
+      "no-recovery": 0
+    }
+  },
+  "profileSources": {
+    "11-1011.00": "4d-direct",
+    "11-1011.03": "4d-direct",
+    "11-1021.00": "4d-direct",
+    "11-1031.00": "3d-imputed",
+    "11-2011.00": "4d-direct",
+    "11-2021.00": "4d-direct",
+    "11-2022.00": "4d-direct",
+    "11-2032.00": "4d-direct",
+    "11-2033.00": "4d-direct",
+    "11-3012.00": "4d-direct",
+    "11-3013.00": "4d-direct",
+    "11-3013.01": "4d-direct",
+    "11-3021.00": "4d-direct",
+    "11-3031.00": "4d-direct",
+    "11-3031.01": "4d-direct",
+    "11-3031.03": "4d-direct",
+    "11-3051.00": "4d-direct",
+    "11-3051.01": "4d-direct",
+    "11-3051.02": "4d-direct",
+    "11-3051.03": "4d-direct",
+    "11-3051.04": "4d-direct",
+    "11-3051.06": "4d-direct",
+    "11-3061.00": "4d-direct",
+    "11-3071.00": "4d-direct",
+    "11-3071.04": "4d-direct",
+    "11-3111.00": "4d-direct",
+    "11-3121.00": "4d-direct",
+    "11-3131.00": "4d-direct",
+    "11-9013.00": "4d-direct",
+    "11-9021.00": "4d-direct",
+    "11-9031.00": "4d-direct",
+    "11-9032.00": "4d-direct",
+    "11-9033.00": "4d-direct",
+    "11-9039.00": "3d-imputed",
+    "11-9041.00": "4d-direct",
+    "11-9041.01": "4d-direct",
+    "11-9051.00": "4d-direct",
+    "11-9071.00": "4d-direct",
+    "11-9072.00": "4d-direct",
+    "11-9081.00": "4d-direct",
+    "11-9111.00": "4d-direct",
+    "11-9121.00": "4d-direct",
+    "11-9121.01": "4d-direct",
+    "11-9121.02": "4d-direct",
+    "11-9141.00": "4d-direct",
+    "11-9151.00": "4d-direct",
+    "11-9161.00": "4d-direct",
+    "11-9171.00": "3d-imputed",
+    "11-9179.01": "4d-direct",
+    "11-9179.02": "4d-direct",
+    "11-9199.00": "4d-direct",
+    "11-9199.01": "4d-direct",
+    "11-9199.02": "4d-direct",
+    "11-9199.08": "4d-direct",
+    "11-9199.09": "4d-direct",
+    "11-9199.10": "4d-direct",
+    "13-1011.00": "3d-imputed",
+    "13-1021.00": "4d-direct",
+    "13-1023.00": "4d-direct",
+    "13-1031.00": "4d-direct",
+    "13-1032.00": "4d-direct",
+    "13-1041.00": "4d-direct",
+    "13-1041.01": "4d-direct",
+    "13-1041.03": "4d-direct",
+    "13-1041.04": "4d-direct",
+    "13-1041.06": "4d-direct",
+    "13-1041.07": "4d-direct",
+    "13-1041.08": "4d-direct",
+    "13-1051.00": "4d-direct",
+    "13-1071.00": "4d-direct",
+    "13-1075.00": "4d-direct",
+    "13-1081.00": "4d-direct",
+    "13-1081.01": "4d-direct",
+    "13-1081.02": "4d-direct",
+    "13-1082.00": "4d-direct",
+    "13-1111.00": "4d-direct",
+    "13-1121.00": "4d-direct",
+    "13-1131.00": "4d-direct",
+    "13-1141.00": "4d-direct",
+    "13-1151.00": "4d-direct",
+    "13-1161.00": "4d-direct",
+    "13-1161.01": "4d-direct",
+    "13-1199.00": "4d-direct",
+    "13-1199.04": "4d-direct",
+    "13-1199.05": "4d-direct",
+    "13-1199.06": "4d-direct",
+    "13-1199.07": "4d-direct",
+    "13-2011.00": "4d-direct",
+    "13-2022.00": "4d-direct",
+    "13-2023.00": "4d-direct",
+    "13-2031.00": "4d-direct",
+    "13-2041.00": "4d-direct",
+    "13-2051.00": "4d-direct",
+    "13-2052.00": "4d-direct",
+    "13-2053.00": "4d-direct",
+    "13-2054.00": "4d-direct",
+    "13-2061.00": "4d-direct",
+    "13-2071.00": "4d-direct",
+    "13-2072.00": "4d-direct",
+    "13-2081.00": "3d-imputed",
+    "13-2082.00": "4d-direct",
+    "13-2099.00": "4d-direct",
+    "13-2099.01": "4d-direct",
+    "13-2099.04": "4d-direct",
+    "15-1211.00": "4d-direct",
+    "15-1211.01": "4d-direct",
+    "15-1212.00": "4d-direct",
+    "15-1221.00": "4d-direct",
+    "15-1231.00": "4d-direct",
+    "15-1232.00": "3d-imputed",
+    "15-1241.00": "4d-direct",
+    "15-1241.01": "3d-imputed",
+    "15-1242.00": "4d-direct",
+    "15-1243.00": "4d-direct",
+    "15-1243.01": "4d-direct",
+    "15-1244.00": "4d-direct",
+    "15-1251.00": "4d-direct",
+    "15-1252.00": "4d-direct",
+    "15-1253.00": "4d-direct",
+    "15-1254.00": "4d-direct",
+    "15-1255.00": "4d-direct",
+    "15-1255.01": "4d-direct",
+    "15-1299.01": "3d-imputed",
+    "15-1299.02": "4d-direct",
+    "15-1299.03": "4d-direct",
+    "15-1299.04": "4d-direct",
+    "15-1299.05": "4d-direct",
+    "15-1299.06": "4d-direct",
+    "15-1299.07": "4d-direct",
+    "15-1299.08": "4d-direct",
+    "15-1299.09": "4d-direct",
+    "15-2011.00": "4d-direct",
+    "15-2021.00": "4d-direct",
+    "15-2031.00": "4d-direct",
+    "15-2041.00": "4d-direct",
+    "15-2041.01": "4d-direct",
+    "15-2051.00": "4d-direct",
+    "15-2051.01": "4d-direct",
+    "15-2051.02": "4d-direct",
+    "15-2099.00": "4d-direct",
+    "15-2099.01": "4d-direct",
+    "17-1011.00": "4d-direct",
+    "17-1012.00": "4d-direct",
+    "17-1021.00": "4d-direct",
+    "17-1022.00": "4d-direct",
+    "17-2011.00": "4d-direct",
+    "17-2021.00": "4d-direct",
+    "17-2031.00": "4d-direct",
+    "17-2041.00": "4d-direct",
+    "17-2051.00": "4d-direct",
+    "17-2051.01": "4d-direct",
+    "17-2051.02": "4d-direct",
+    "17-2061.00": "4d-direct",
+    "17-2071.00": "4d-direct",
+    "17-2072.00": "4d-direct",
+    "17-2072.01": "4d-direct",
+    "17-2081.00": "4d-direct",
+    "17-2111.00": "4d-direct",
+    "17-2111.02": "4d-direct",
+    "17-2112.00": "4d-direct",
+    "17-2112.01": "4d-direct",
+    "17-2112.02": "4d-direct",
+    "17-2112.03": "4d-direct",
+    "17-2121.00": "4d-direct",
+    "17-2131.00": "4d-direct",
+    "17-2141.00": "4d-direct",
+    "17-2141.01": "4d-direct",
+    "17-2141.02": "4d-direct",
+    "17-2151.00": "4d-direct",
+    "17-2161.00": "4d-direct",
+    "17-2171.00": "4d-direct",
+    "17-2199.00": "4d-direct",
+    "17-2199.03": "4d-direct",
+    "17-2199.05": "4d-direct",
+    "17-2199.06": "4d-direct",
+    "17-2199.07": "4d-direct",
+    "17-2199.08": "4d-direct",
+    "17-2199.09": "4d-direct",
+    "17-2199.10": "4d-direct",
+    "17-2199.11": "4d-direct",
+    "17-3011.00": "4d-direct",
+    "17-3012.00": "4d-direct",
+    "17-3013.00": "4d-direct",
+    "17-3021.00": "4d-direct",
+    "17-3022.00": "4d-direct",
+    "17-3023.00": "4d-direct",
+    "17-3024.00": "4d-direct",
+    "17-3024.01": "3d-imputed",
+    "17-3025.00": "4d-direct",
+    "17-3026.00": "4d-direct",
+    "17-3026.01": "4d-direct",
+    "17-3027.00": "4d-direct",
+    "17-3027.01": "4d-direct",
+    "17-3028.00": "4d-direct",
+    "17-3029.00": "4d-direct",
+    "17-3029.01": "4d-direct",
+    "17-3029.08": "4d-direct",
+    "17-3031.00": "4d-direct",
+    "19-1011.00": "4d-direct",
+    "19-1012.00": "4d-direct",
+    "19-1013.00": "4d-direct",
+    "19-1021.00": "4d-direct",
+    "19-1022.00": "4d-direct",
+    "19-1023.00": "4d-direct",
+    "19-1029.01": "4d-direct",
+    "19-1029.02": "4d-direct",
+    "19-1029.03": "4d-direct",
+    "19-1029.04": "4d-direct",
+    "19-1031.00": "4d-direct",
+    "19-1031.02": "4d-direct",
+    "19-1031.03": "4d-direct",
+    "19-1032.00": "4d-direct",
+    "19-1041.00": "4d-direct",
+    "19-1042.00": "4d-direct",
+    "19-2011.00": "3d-imputed",
+    "19-2012.00": "4d-direct",
+    "19-2021.00": "3d-imputed",
+    "19-2031.00": "4d-direct",
+    "19-2032.00": "4d-direct",
+    "19-2041.00": "4d-direct",
+    "19-2041.01": "4d-direct",
+    "19-2041.02": "4d-direct",
+    "19-2041.03": "4d-direct",
+    "19-2042.00": "4d-direct",
+    "19-2043.00": "4d-direct",
+    "19-2099.01": "3d-imputed",
+    "19-3011.00": "4d-direct",
+    "19-3011.01": "4d-direct",
+    "19-3022.00": "4d-direct",
+    "19-3032.00": "4d-direct",
+    "19-3033.00": "4d-direct",
+    "19-3034.00": "4d-direct",
+    "19-3039.02": "4d-direct",
+    "19-3039.03": "4d-direct",
+    "19-3041.00": "3d-imputed",
+    "19-3051.00": "4d-direct",
+    "19-3091.00": "3d-imputed",
+    "19-3092.00": "3d-imputed",
+    "19-3093.00": "3d-imputed",
+    "19-3094.00": "4d-direct",
+    "19-3099.00": "4d-direct",
+    "19-3099.01": "4d-direct",
+    "19-4012.00": "4d-direct",
+    "19-4012.01": "4d-direct",
+    "19-4013.00": "4d-direct",
+    "19-4021.00": "4d-direct",
+    "19-4031.00": "4d-direct",
+    "19-4042.00": "4d-direct",
+    "19-4043.00": "3d-imputed",
+    "19-4044.00": "3d-imputed",
+    "19-4051.00": "3d-imputed",
+    "19-4051.02": "3d-imputed",
+    "19-4061.00": "4d-direct",
+    "19-4071.00": "4d-direct",
+    "19-4092.00": "4d-direct",
+    "19-4099.01": "4d-direct",
+    "19-4099.03": "3d-imputed",
+    "19-5011.00": "4d-direct",
+    "19-5012.00": "4d-direct",
+    "21-1011.00": "4d-direct",
+    "21-1012.00": "4d-direct",
+    "21-1013.00": "4d-direct",
+    "21-1014.00": "4d-direct",
+    "21-1015.00": "4d-direct",
+    "21-1019.00": "4d-direct",
+    "21-1021.00": "4d-direct",
+    "21-1022.00": "4d-direct",
+    "21-1023.00": "4d-direct",
+    "21-1029.00": "4d-direct",
+    "21-1091.00": "4d-direct",
+    "21-1092.00": "4d-direct",
+    "21-1093.00": "4d-direct",
+    "21-1094.00": "4d-direct",
+    "21-1099.00": "4d-direct",
+    "21-2011.00": "4d-direct",
+    "21-2021.00": "4d-direct",
+    "23-1011.00": "4d-direct",
+    "23-1012.00": "4d-direct",
+    "23-1021.00": "4d-direct",
+    "23-1023.00": "4d-direct",
+    "23-2011.00": "4d-direct",
+    "23-2093.00": "4d-direct",
+    "23-2099.00": "4d-direct",
+    "25-1011.00": "4d-direct",
+    "25-1021.00": "4d-direct",
+    "25-1022.00": "4d-direct",
+    "25-1031.00": "4d-direct",
+    "25-1032.00": "4d-direct",
+    "25-1041.00": "4d-direct",
+    "25-1042.00": "4d-direct",
+    "25-1043.00": "4d-direct",
+    "25-1051.00": "4d-direct",
+    "25-1052.00": "4d-direct",
+    "25-1053.00": "4d-direct",
+    "25-1054.00": "4d-direct",
+    "25-1061.00": "4d-direct",
+    "25-1062.00": "4d-direct",
+    "25-1063.00": "4d-direct",
+    "25-1064.00": "4d-direct",
+    "25-1065.00": "4d-direct",
+    "25-1066.00": "4d-direct",
+    "25-1067.00": "4d-direct",
+    "25-1071.00": "4d-direct",
+    "25-1072.00": "4d-direct",
+    "25-1081.00": "4d-direct",
+    "25-1082.00": "4d-direct",
+    "25-1111.00": "4d-direct",
+    "25-1112.00": "4d-direct",
+    "25-1113.00": "4d-direct",
+    "25-1121.00": "4d-direct",
+    "25-1122.00": "4d-direct",
+    "25-1123.00": "4d-direct",
+    "25-1124.00": "4d-direct",
+    "25-1125.00": "4d-direct",
+    "25-1126.00": "4d-direct",
+    "25-1192.00": "4d-direct",
+    "25-1193.00": "4d-direct",
+    "25-1194.00": "4d-direct",
+    "25-1199.00": "4d-direct",
+    "25-2011.00": "4d-direct",
+    "25-2012.00": "4d-direct",
+    "25-2021.00": "4d-direct",
+    "25-2022.00": "4d-direct",
+    "25-2023.00": "4d-direct",
+    "25-2031.00": "4d-direct",
+    "25-2032.00": "4d-direct",
+    "25-2051.00": "4d-direct",
+    "25-2055.00": "4d-direct",
+    "25-2056.00": "4d-direct",
+    "25-2057.00": "4d-direct",
+    "25-2058.00": "4d-direct",
+    "25-2059.01": "4d-direct",
+    "25-3011.00": "4d-direct",
+    "25-3021.00": "4d-direct",
+    "25-3031.00": "4d-direct",
+    "25-3041.00": "4d-direct",
+    "25-3099.00": "4d-direct",
+    "25-4011.00": "4d-direct",
+    "25-4012.00": "4d-direct",
+    "25-4013.00": "4d-direct",
+    "25-4022.00": "4d-direct",
+    "25-4031.00": "3d-imputed",
+    "25-9031.00": "4d-direct",
+    "25-9042.00": "4d-direct",
+    "25-9043.00": "4d-direct",
+    "25-9044.00": "4d-direct",
+    "27-1011.00": "4d-direct",
+    "27-1012.00": "4d-direct",
+    "27-1013.00": "4d-direct",
+    "27-1014.00": "4d-direct",
+    "27-1019.00": "4d-direct",
+    "27-1021.00": "4d-direct",
+    "27-1022.00": "4d-direct",
+    "27-1023.00": "4d-direct",
+    "27-1024.00": "4d-direct",
+    "27-1025.00": "4d-direct",
+    "27-1026.00": "4d-direct",
+    "27-1027.00": "4d-direct",
+    "27-1029.00": "4d-direct",
+    "27-2011.00": "4d-direct",
+    "27-2012.00": "4d-direct",
+    "27-2012.03": "4d-direct",
+    "27-2012.04": "4d-direct",
+    "27-2012.05": "4d-direct",
+    "27-2021.00": "3d-imputed",
+    "27-2022.00": "4d-direct",
+    "27-2023.00": "4d-direct",
+    "27-2031.00": "4d-direct",
+    "27-2032.00": "4d-direct",
+    "27-2041.00": "4d-direct",
+    "27-2042.00": "4d-direct",
+    "27-2091.00": "3d-imputed",
+    "27-2099.00": "4d-direct",
+    "27-3011.00": "4d-direct",
+    "27-3023.00": "4d-direct",
+    "27-3031.00": "4d-direct",
+    "27-3041.00": "4d-direct",
+    "27-3042.00": "4d-direct",
+    "27-3043.00": "4d-direct",
+    "27-3043.05": "4d-direct",
+    "27-3091.00": "4d-direct",
+    "27-3092.00": "4d-direct",
+    "27-3099.00": "3d-imputed",
+    "27-4011.00": "4d-direct",
+    "27-4012.00": "4d-direct",
+    "27-4014.00": "4d-direct",
+    "27-4015.00": "4d-direct",
+    "27-4021.00": "4d-direct",
+    "27-4031.00": "4d-direct",
+    "27-4032.00": "4d-direct",
+    "27-4099.00": "4d-direct",
+    "29-1011.00": "4d-direct",
+    "29-1021.00": "4d-direct",
+    "29-1022.00": "4d-direct",
+    "29-1023.00": "4d-direct",
+    "29-1024.00": "4d-direct",
+    "29-1031.00": "4d-direct",
+    "29-1041.00": "4d-direct",
+    "29-1051.00": "4d-direct",
+    "29-1071.00": "4d-direct",
+    "29-1071.01": "3d-imputed",
+    "29-1081.00": "4d-direct",
+    "29-1122.00": "4d-direct",
+    "29-1122.01": "4d-direct",
+    "29-1123.00": "4d-direct",
+    "29-1124.00": "4d-direct",
+    "29-1125.00": "4d-direct",
+    "29-1126.00": "4d-direct",
+    "29-1127.00": "4d-direct",
+    "29-1128.00": "4d-direct",
+    "29-1129.00": "4d-direct",
+    "29-1129.01": "4d-direct",
+    "29-1129.02": "4d-direct",
+    "29-1131.00": "4d-direct",
+    "29-1141.00": "4d-direct",
+    "29-1141.01": "4d-direct",
+    "29-1141.02": "4d-direct",
+    "29-1141.03": "4d-direct",
+    "29-1141.04": "4d-direct",
+    "29-1151.00": "4d-direct",
+    "29-1161.00": "4d-direct",
+    "29-1171.00": "4d-direct",
+    "29-1181.00": "4d-direct",
+    "29-1211.00": "4d-direct",
+    "29-1212.00": "4d-direct",
+    "29-1213.00": "4d-direct",
+    "29-1214.00": "4d-direct",
+    "29-1215.00": "4d-direct",
+    "29-1216.00": "4d-direct",
+    "29-1217.00": "4d-direct",
+    "29-1218.00": "4d-direct",
+    "29-1221.00": "4d-direct",
+    "29-1222.00": "4d-direct",
+    "29-1223.00": "4d-direct",
+    "29-1224.00": "4d-direct",
+    "29-1229.01": "4d-direct",
+    "29-1229.02": "4d-direct",
+    "29-1229.03": "4d-direct",
+    "29-1229.04": "4d-direct",
+    "29-1229.05": "4d-direct",
+    "29-1229.06": "4d-direct",
+    "29-1241.00": "4d-direct",
+    "29-1242.00": "4d-direct",
+    "29-1243.00": "4d-direct",
+    "29-1291.00": "2d-imputed",
+    "29-1292.00": "4d-direct",
+    "29-1299.01": "4d-direct",
+    "29-1299.02": "3d-imputed",
+    "29-2011.00": "4d-direct",
+    "29-2011.01": "4d-direct",
+    "29-2011.02": "4d-direct",
+    "29-2011.04": "4d-direct",
+    "29-2012.00": "4d-direct",
+    "29-2012.01": "4d-direct",
+    "29-2031.00": "4d-direct",
+    "29-2032.00": "4d-direct",
+    "29-2033.00": "4d-direct",
+    "29-2034.00": "4d-direct",
+    "29-2035.00": "4d-direct",
+    "29-2036.00": "4d-direct",
+    "29-2042.00": "4d-direct",
+    "29-2043.00": "4d-direct",
+    "29-2051.00": "4d-direct",
+    "29-2052.00": "4d-direct",
+    "29-2053.00": "4d-direct",
+    "29-2055.00": "4d-direct",
+    "29-2056.00": "2d-imputed",
+    "29-2057.00": "3d-imputed",
+    "29-2061.00": "4d-direct",
+    "29-2072.00": "3d-imputed",
+    "29-2081.00": "4d-direct",
+    "29-2091.00": "4d-direct",
+    "29-2092.00": "4d-direct",
+    "29-2099.01": "4d-direct",
+    "29-2099.05": "3d-imputed",
+    "29-9021.00": "4d-direct",
+    "29-9091.00": "4d-direct",
+    "29-9092.00": "4d-direct",
+    "29-9093.00": "4d-direct",
+    "29-9099.01": "4d-direct",
+    "31-1121.00": "4d-direct",
+    "31-1122.00": "4d-direct",
+    "31-1131.00": "4d-direct",
+    "31-1132.00": "4d-direct",
+    "31-1133.00": "4d-direct",
+    "31-2011.00": "4d-direct",
+    "31-2012.00": "4d-direct",
+    "31-2021.00": "4d-direct",
+    "31-2022.00": "4d-direct",
+    "31-9011.00": "4d-direct",
+    "31-9091.00": "4d-direct",
+    "31-9092.00": "4d-direct",
+    "31-9093.00": "4d-direct",
+    "31-9094.00": "3d-imputed",
+    "31-9095.00": "3d-imputed",
+    "31-9096.00": "4d-direct",
+    "31-9097.00": "4d-direct",
+    "31-9099.01": "4d-direct",
+    "33-1011.00": "4d-direct",
+    "33-1012.00": "4d-direct",
+    "33-1021.00": "4d-direct",
+    "33-1091.00": "4d-direct",
+    "33-1099.00": "4d-direct",
+    "33-2011.00": "4d-direct",
+    "33-2021.00": "4d-direct",
+    "33-2022.00": "4d-direct",
+    "33-3011.00": "4d-direct",
+    "33-3012.00": "4d-direct",
+    "33-3021.00": "4d-direct",
+    "33-3021.02": "4d-direct",
+    "33-3021.06": "4d-direct",
+    "33-3031.00": "3d-imputed",
+    "33-3041.00": "3d-imputed",
+    "33-3051.00": "4d-direct",
+    "33-3051.04": "4d-direct",
+    "33-3052.00": "4d-direct",
+    "33-9011.00": "3d-imputed",
+    "33-9021.00": "4d-direct",
+    "33-9031.00": "4d-direct",
+    "33-9032.00": "4d-direct",
+    "33-9091.00": "4d-direct",
+    "33-9092.00": "3d-imputed",
+    "33-9093.00": "4d-direct",
+    "33-9094.00": "4d-direct",
+    "35-1011.00": "4d-direct",
+    "35-1012.00": "4d-direct",
+    "35-2011.00": "4d-direct",
+    "35-2012.00": "4d-direct",
+    "35-2013.00": "4d-direct",
+    "35-2014.00": "4d-direct",
+    "35-2015.00": "4d-direct",
+    "35-2021.00": "4d-direct",
+    "35-3011.00": "3d-imputed",
+    "35-3023.00": "4d-direct",
+    "35-3023.01": "3d-imputed",
+    "35-3031.00": "4d-direct",
+    "35-3041.00": "4d-direct",
+    "35-9021.00": "4d-direct",
+    "35-9031.00": "4d-direct",
+    "35-9099.00": "4d-direct",
+    "37-1011.00": "4d-direct",
+    "37-1012.00": "4d-direct",
+    "37-2011.00": "4d-direct",
+    "37-2012.00": "4d-direct",
+    "37-2021.00": "3d-imputed",
+    "37-3011.00": "4d-direct",
+    "37-3012.00": "3d-imputed",
+    "37-3013.00": "4d-direct",
+    "39-1013.00": "4d-direct",
+    "39-1014.00": "4d-direct",
+    "39-2011.00": "4d-direct",
+    "39-2021.00": "4d-direct",
+    "39-3011.00": "3d-imputed",
+    "39-3012.00": "3d-imputed",
+    "39-3021.00": "4d-direct",
+    "39-3031.00": "4d-direct",
+    "39-3091.00": "4d-direct",
+    "39-3092.00": "4d-direct",
+    "39-3093.00": "4d-direct",
+    "39-4011.00": "3d-imputed",
+    "39-4012.00": "3d-imputed",
+    "39-4021.00": "3d-imputed",
+    "39-4031.00": "3d-imputed",
+    "39-5011.00": "4d-direct",
+    "39-5012.00": "4d-direct",
+    "39-5091.00": "4d-direct",
+    "39-5092.00": "4d-direct",
+    "39-5093.00": "4d-direct",
+    "39-5094.00": "4d-direct",
+    "39-6011.00": "3d-imputed",
+    "39-6012.00": "3d-imputed",
+    "39-7011.00": "4d-direct",
+    "39-7012.00": "4d-direct",
+    "39-9011.00": "4d-direct",
+    "39-9011.01": "4d-direct",
+    "39-9031.00": "4d-direct",
+    "39-9032.00": "4d-direct",
+    "39-9041.00": "4d-direct",
+    "41-1011.00": "4d-direct",
+    "41-1012.00": "4d-direct",
+    "41-2011.00": "4d-direct",
+    "41-2012.00": "4d-direct",
+    "41-2021.00": "4d-direct",
+    "41-2022.00": "4d-direct",
+    "41-2031.00": "4d-direct",
+    "41-3011.00": "3d-imputed",
+    "41-3021.00": "4d-direct",
+    "41-3031.00": "3d-imputed",
+    "41-3041.00": "4d-direct",
+    "41-3091.00": "4d-direct",
+    "41-4011.00": "4d-direct",
+    "41-4011.07": "4d-direct",
+    "41-4012.00": "4d-direct",
+    "41-9011.00": "4d-direct",
+    "41-9012.00": "3d-imputed",
+    "41-9021.00": "4d-direct",
+    "41-9022.00": "4d-direct",
+    "41-9031.00": "3d-imputed",
+    "41-9041.00": "4d-direct",
+    "41-9091.00": "4d-direct",
+    "41-9099.00": "4d-direct",
+    "43-1011.00": "4d-direct",
+    "43-2011.00": "4d-direct",
+    "43-2021.00": "4d-direct",
+    "43-3011.00": "4d-direct",
+    "43-3021.00": "4d-direct",
+    "43-3031.00": "4d-direct",
+    "43-3041.00": "4d-direct",
+    "43-3051.00": "4d-direct",
+    "43-3061.00": "4d-direct",
+    "43-3071.00": "4d-direct",
+    "43-4011.00": "3d-imputed",
+    "43-4021.00": "4d-direct",
+    "43-4031.00": "4d-direct",
+    "43-4041.00": "4d-direct",
+    "43-4051.00": "4d-direct",
+    "43-4061.00": "4d-direct",
+    "43-4071.00": "4d-direct",
+    "43-4081.00": "4d-direct",
+    "43-4111.00": "4d-direct",
+    "43-4121.00": "4d-direct",
+    "43-4131.00": "4d-direct",
+    "43-4141.00": "4d-direct",
+    "43-4151.00": "4d-direct",
+    "43-4161.00": "4d-direct",
+    "43-4171.00": "4d-direct",
+    "43-4181.00": "4d-direct",
+    "43-4199.00": "2d-imputed",
+    "43-5011.00": "4d-direct",
+    "43-5011.01": "4d-direct",
+    "43-5021.00": "4d-direct",
+    "43-5031.00": "4d-direct",
+    "43-5032.00": "4d-direct",
+    "43-5041.00": "3d-imputed",
+    "43-5051.00": "4d-direct",
+    "43-5052.00": "4d-direct",
+    "43-5053.00": "4d-direct",
+    "43-5061.00": "4d-direct",
+    "43-5071.00": "4d-direct",
+    "43-5111.00": "4d-direct",
+    "43-6011.00": "4d-direct",
+    "43-6012.00": "4d-direct",
+    "43-6013.00": "4d-direct",
+    "43-6014.00": "4d-direct",
+    "43-9021.00": "4d-direct",
+    "43-9022.00": "4d-direct",
+    "43-9031.00": "4d-direct",
+    "43-9041.00": "4d-direct",
+    "43-9051.00": "4d-direct",
+    "43-9061.00": "4d-direct",
+    "43-9071.00": "4d-direct",
+    "43-9081.00": "4d-direct",
+    "43-9111.00": "4d-direct",
+    "43-9199.00": "4d-direct",
+    "45-1011.00": "4d-direct",
+    "45-2011.00": "4d-direct",
+    "45-2021.00": "4d-direct",
+    "45-2041.00": "4d-direct",
+    "45-2091.00": "4d-direct",
+    "45-2092.00": "4d-direct",
+    "45-2093.00": "4d-direct",
+    "45-2099.00": "3d-imputed",
+    "45-3031.00": "4d-direct",
+    "45-4011.00": "4d-direct",
+    "45-4021.00": "4d-direct",
+    "45-4022.00": "4d-direct",
+    "45-4023.00": "4d-direct",
+    "47-1011.00": "4d-direct",
+    "47-1011.03": "4d-direct",
+    "47-2011.00": "4d-direct",
+    "47-2021.00": "3d-imputed",
+    "47-2022.00": "3d-imputed",
+    "47-2031.00": "4d-direct",
+    "47-2041.00": "3d-imputed",
+    "47-2042.00": "3d-imputed",
+    "47-2043.00": "3d-imputed",
+    "47-2044.00": "4d-direct",
+    "47-2051.00": "3d-imputed",
+    "47-2053.00": "3d-imputed",
+    "47-2061.00": "4d-direct",
+    "47-2071.00": "4d-direct",
+    "47-2072.00": "4d-direct",
+    "47-2073.00": "4d-direct",
+    "47-2081.00": "3d-imputed",
+    "47-2111.00": "4d-direct",
+    "47-2121.00": "4d-direct",
+    "47-2131.00": "3d-imputed",
+    "47-2132.00": "3d-imputed",
+    "47-2141.00": "4d-direct",
+    "47-2142.00": "4d-direct",
+    "47-2151.00": "4d-direct",
+    "47-2152.00": "4d-direct",
+    "47-2152.04": "4d-direct",
+    "47-2161.00": "3d-imputed",
+    "47-2171.00": "3d-imputed",
+    "47-2181.00": "3d-imputed",
+    "47-2211.00": "4d-direct",
+    "47-2221.00": "4d-direct",
+    "47-2231.00": "4d-direct",
+    "47-3011.00": "3d-imputed",
+    "47-3012.00": "4d-direct",
+    "47-3013.00": "4d-direct",
+    "47-3014.00": "4d-direct",
+    "47-3015.00": "4d-direct",
+    "47-3016.00": "3d-imputed",
+    "47-3019.00": "3d-imputed",
+    "47-4011.00": "4d-direct",
+    "47-4011.01": "4d-direct",
+    "47-4021.00": "4d-direct",
+    "47-4031.00": "4d-direct",
+    "47-4041.00": "3d-imputed",
+    "47-4051.00": "4d-direct",
+    "47-4061.00": "4d-direct",
+    "47-4071.00": "4d-direct",
+    "47-4091.00": "4d-direct",
+    "47-4099.03": "4d-direct",
+    "47-5011.00": "2d-imputed",
+    "47-5012.00": "3d-imputed",
+    "47-5013.00": "2d-imputed",
+    "47-5022.00": "4d-direct",
+    "47-5023.00": "3d-imputed",
+    "47-5032.00": "3d-imputed",
+    "47-5041.00": "4d-direct",
+    "47-5043.00": "2d-imputed",
+    "47-5044.00": "4d-direct",
+    "47-5051.00": "3d-imputed",
+    "47-5071.00": "2d-imputed",
+    "47-5081.00": "3d-imputed",
+    "49-1011.00": "4d-direct",
+    "49-2011.00": "4d-direct",
+    "49-2021.00": "3d-imputed",
+    "49-2022.00": "3d-imputed",
+    "49-2091.00": "4d-direct",
+    "49-2092.00": "4d-direct",
+    "49-2093.00": "4d-direct",
+    "49-2094.00": "4d-direct",
+    "49-2095.00": "4d-direct",
+    "49-2096.00": "4d-direct",
+    "49-2098.00": "4d-direct",
+    "49-3011.00": "4d-direct",
+    "49-3021.00": "4d-direct",
+    "49-3022.00": "3d-imputed",
+    "49-3023.00": "4d-direct",
+    "49-3031.00": "4d-direct",
+    "49-3041.00": "4d-direct",
+    "49-3042.00": "3d-imputed",
+    "49-3043.00": "4d-direct",
+    "49-3051.00": "3d-imputed",
+    "49-3052.00": "4d-direct",
+    "49-3053.00": "4d-direct",
+    "49-3091.00": "4d-direct",
+    "49-3092.00": "4d-direct",
+    "49-3093.00": "4d-direct",
+    "49-9011.00": "4d-direct",
+    "49-9012.00": "4d-direct",
+    "49-9021.00": "4d-direct",
+    "49-9031.00": "4d-direct",
+    "49-9041.00": "4d-direct",
+    "49-9043.00": "3d-imputed",
+    "49-9044.00": "3d-imputed",
+    "49-9045.00": "3d-imputed",
+    "49-9051.00": "4d-direct",
+    "49-9052.00": "3d-imputed",
+    "49-9061.00": "4d-direct",
+    "49-9062.00": "4d-direct",
+    "49-9063.00": "4d-direct",
+    "49-9064.00": "3d-imputed",
+    "49-9071.00": "4d-direct",
+    "49-9081.00": "4d-direct",
+    "49-9091.00": "4d-direct",
+    "49-9092.00": "4d-direct",
+    "49-9094.00": "4d-direct",
+    "49-9095.00": "4d-direct",
+    "49-9096.00": "3d-imputed",
+    "49-9097.00": "4d-direct",
+    "49-9099.00": "3d-imputed",
+    "49-9099.01": "4d-direct",
+    "51-1011.00": "4d-direct",
+    "51-2011.00": "3d-imputed",
+    "51-2021.00": "2d-imputed",
+    "51-2022.00": "4d-direct",
+    "51-2023.00": "4d-direct",
+    "51-2031.00": "3d-imputed",
+    "51-2041.00": "4d-direct",
+    "51-2051.00": "2d-imputed",
+    "51-2061.00": "3d-imputed",
+    "51-2092.00": "4d-direct",
+    "51-2099.00": "4d-direct",
+    "51-3011.00": "4d-direct",
+    "51-3021.00": "4d-direct",
+    "51-3022.00": "4d-direct",
+    "51-3023.00": "4d-direct",
+    "51-3091.00": "3d-imputed",
+    "51-3092.00": "2d-imputed",
+    "51-3093.00": "2d-imputed",
+    "51-3099.00": "3d-imputed",
+    "51-4021.00": "3d-imputed",
+    "51-4022.00": "3d-imputed",
+    "51-4023.00": "3d-imputed",
+    "51-4031.00": "3d-imputed",
+    "51-4032.00": "3d-imputed",
+    "51-4033.00": "3d-imputed",
+    "51-4034.00": "3d-imputed",
+    "51-4035.00": "3d-imputed",
+    "51-4041.00": "4d-direct",
+    "51-4051.00": "3d-imputed",
+    "51-4052.00": "3d-imputed",
+    "51-4061.00": "4d-direct",
+    "51-4062.00": "4d-direct",
+    "51-4071.00": "4d-direct",
+    "51-4072.00": "3d-imputed",
+    "51-4081.00": "4d-direct",
+    "51-4111.00": "4d-direct",
+    "51-4121.00": "4d-direct",
+    "51-4122.00": "4d-direct",
+    "51-4191.00": "3d-imputed",
+    "51-4193.00": "4d-direct",
+    "51-4194.00": "3d-imputed",
+    "51-4199.00": "4d-direct",
+    "51-5111.00": "4d-direct",
+    "51-5112.00": "4d-direct",
+    "51-5113.00": "3d-imputed",
+    "51-6011.00": "4d-direct",
+    "51-6021.00": "2d-imputed",
+    "51-6031.00": "4d-direct",
+    "51-6041.00": "4d-direct",
+    "51-6042.00": "2d-imputed",
+    "51-6051.00": "4d-direct",
+    "51-6052.00": "4d-direct",
+    "51-6061.00": "2d-imputed",
+    "51-6062.00": "4d-direct",
+    "51-6063.00": "3d-imputed",
+    "51-6064.00": "2d-imputed",
+    "51-6091.00": "2d-imputed",
+    "51-6092.00": "4d-direct",
+    "51-6093.00": "3d-imputed",
+    "51-6099.00": "4d-direct",
+    "51-7011.00": "4d-direct",
+    "51-7021.00": "4d-direct",
+    "51-7031.00": "4d-direct",
+    "51-7032.00": "4d-direct",
+    "51-7041.00": "2d-imputed",
+    "51-7042.00": "3d-imputed",
+    "51-7099.00": "4d-direct",
+    "51-8011.00": "3d-imputed",
+    "51-8012.00": "3d-imputed",
+    "51-8013.00": "3d-imputed",
+    "51-8013.03": "3d-imputed",
+    "51-8013.04": "4d-direct",
+    "51-8021.00": "4d-direct",
+    "51-8031.00": "3d-imputed",
+    "51-8091.00": "3d-imputed",
+    "51-8092.00": "3d-imputed",
+    "51-8093.00": "3d-imputed",
+    "51-8099.00": "3d-imputed",
+    "51-9011.00": "3d-imputed",
+    "51-9012.00": "3d-imputed",
+    "51-9021.00": "3d-imputed",
+    "51-9022.00": "3d-imputed",
+    "51-9023.00": "2d-imputed",
+    "51-9031.00": "4d-direct",
+    "51-9032.00": "3d-imputed",
+    "51-9041.00": "3d-imputed",
+    "51-9051.00": "3d-imputed",
+    "51-9061.00": "4d-direct",
+    "51-9071.00": "4d-direct",
+    "51-9071.06": "4d-direct",
+    "51-9081.00": "4d-direct",
+    "51-9082.00": "4d-direct",
+    "51-9083.00": "4d-direct",
+    "51-9111.00": "2d-imputed",
+    "51-9123.00": "4d-direct",
+    "51-9124.00": "4d-direct",
+    "51-9141.00": "4d-direct",
+    "51-9151.00": "4d-direct",
+    "51-9161.00": "4d-direct",
+    "51-9162.00": "4d-direct",
+    "51-9191.00": "4d-direct",
+    "51-9192.00": "2d-imputed",
+    "51-9193.00": "2d-imputed",
+    "51-9194.00": "4d-direct",
+    "51-9195.00": "4d-direct",
+    "51-9195.03": "3d-imputed",
+    "51-9195.04": "4d-direct",
+    "51-9195.05": "4d-direct",
+    "51-9196.00": "3d-imputed",
+    "51-9197.00": "4d-direct",
+    "51-9198.00": "3d-imputed",
+    "51-9199.00": "4d-direct",
+    "53-1041.00": "4d-direct",
+    "53-1042.00": "4d-direct",
+    "53-1042.01": "4d-direct",
+    "53-1043.00": "4d-direct",
+    "53-1044.00": "4d-direct",
+    "53-2011.00": "4d-direct",
+    "53-2012.00": "4d-direct",
+    "53-2021.00": "4d-direct",
+    "53-2022.00": "4d-direct",
+    "53-2031.00": "4d-direct",
+    "53-3011.00": "4d-direct",
+    "53-3031.00": "4d-direct",
+    "53-3032.00": "4d-direct",
+    "53-3033.00": "4d-direct",
+    "53-3051.00": "4d-direct",
+    "53-3052.00": "4d-direct",
+    "53-3053.00": "4d-direct",
+    "53-3054.00": "4d-direct",
+    "53-4011.00": "4d-direct",
+    "53-4013.00": "4d-direct",
+    "53-4022.00": "4d-direct",
+    "53-4031.00": "4d-direct",
+    "53-4041.00": "4d-direct",
+    "53-5011.00": "4d-direct",
+    "53-5021.00": "4d-direct",
+    "53-5022.00": "4d-direct",
+    "53-5031.00": "4d-direct",
+    "53-6011.00": "4d-direct",
+    "53-6021.00": "4d-direct",
+    "53-6031.00": "4d-direct",
+    "53-6032.00": "4d-direct",
+    "53-6051.00": "4d-direct",
+    "53-6051.01": "4d-direct",
+    "53-6051.07": "4d-direct",
+    "53-6061.00": "4d-direct",
+    "53-6099.00": "4d-direct",
+    "53-7021.00": "4d-direct",
+    "53-7031.00": "4d-direct",
+    "53-7041.00": "4d-direct",
+    "53-7051.00": "4d-direct",
+    "53-7061.00": "4d-direct",
+    "53-7062.00": "3d-imputed",
+    "53-7062.04": "3d-imputed",
+    "53-7063.00": "2d-imputed",
+    "53-7064.00": "3d-imputed",
+    "53-7065.00": "4d-direct",
+    "53-7071.00": "4d-direct",
+    "53-7072.00": "3d-imputed",
+    "53-7073.00": "3d-imputed",
+    "53-7081.00": "4d-direct",
+    "53-7121.00": "3d-imputed"
   },
   "profiles": {
     "11-1011.00": {
@@ -37,6 +985,13 @@
       "extraversion": 50.38,
       "agreeableness": 47.93,
       "neuroticism": 47.16
+    },
+    "11-1031.00": {
+      "openness": 51.87,
+      "conscientiousness": 51.83,
+      "extraversion": 51.14,
+      "agreeableness": 48.93,
+      "neuroticism": 46.71
     },
     "11-2011.00": {
       "openness": 52.78,
@@ -241,6 +1196,13 @@
       "agreeableness": 51.54,
       "neuroticism": 51.12
     },
+    "11-9039.00": {
+      "openness": 53.15,
+      "conscientiousness": 49.17,
+      "extraversion": 52.9,
+      "agreeableness": 52.4,
+      "neuroticism": 52.17
+    },
     "11-9041.00": {
       "openness": 51.38,
       "conscientiousness": 50.22,
@@ -332,6 +1294,13 @@
       "agreeableness": 49.59,
       "neuroticism": 47.53
     },
+    "11-9171.00": {
+      "openness": 48.97,
+      "conscientiousness": 48.27,
+      "extraversion": 48.19,
+      "agreeableness": 51.25,
+      "neuroticism": 52.58
+    },
     "11-9179.01": {
       "openness": 51.44,
       "conscientiousness": 50.05,
@@ -387,6 +1356,13 @@
       "extraversion": 51.37,
       "agreeableness": 46.83,
       "neuroticism": 46.76
+    },
+    "13-1011.00": {
+      "openness": 49.13,
+      "conscientiousness": 49.2,
+      "extraversion": 53.26,
+      "agreeableness": 48.48,
+      "neuroticism": 49.03
     },
     "13-1021.00": {
       "openness": 48.57,
@@ -682,6 +1658,13 @@
       "agreeableness": 50,
       "neuroticism": 50.65
     },
+    "13-2081.00": {
+      "openness": 47.88,
+      "conscientiousness": 50.72,
+      "extraversion": 50.23,
+      "agreeableness": 49.82,
+      "neuroticism": 49.76
+    },
     "13-2082.00": {
       "openness": 48.15,
       "conscientiousness": 52.8,
@@ -745,12 +1728,26 @@
       "agreeableness": 48.93,
       "neuroticism": 45.84
     },
+    "15-1232.00": {
+      "openness": 52.27,
+      "conscientiousness": 48.26,
+      "extraversion": 46.39,
+      "agreeableness": 50.52,
+      "neuroticism": 50.22
+    },
     "15-1241.00": {
       "openness": 53.11,
       "conscientiousness": 49.31,
       "extraversion": 49.14,
       "agreeableness": 50.47,
       "neuroticism": 48.34
+    },
+    "15-1241.01": {
+      "openness": 53.22,
+      "conscientiousness": 47.16,
+      "extraversion": 43.86,
+      "agreeableness": 50,
+      "neuroticism": 47.04
     },
     "15-1242.00": {
       "openness": 50.97,
@@ -821,6 +1818,13 @@
       "extraversion": 50.77,
       "agreeableness": 51.78,
       "neuroticism": 55.56
+    },
+    "15-1299.01": {
+      "openness": 52.27,
+      "conscientiousness": 48.26,
+      "extraversion": 46.39,
+      "agreeableness": 50.52,
+      "neuroticism": 50.22
     },
     "15-1299.02": {
       "openness": 48.79,
@@ -1270,6 +2274,13 @@
       "agreeableness": 47.69,
       "neuroticism": 45.86
     },
+    "17-3024.01": {
+      "openness": 50.57,
+      "conscientiousness": 48.41,
+      "extraversion": 46.46,
+      "agreeableness": 48.31,
+      "neuroticism": 47.53
+    },
     "17-3025.00": {
       "openness": 49.63,
       "conscientiousness": 48.13,
@@ -1452,12 +2463,26 @@
       "agreeableness": 50.34,
       "neuroticism": 51.12
     },
+    "19-2011.00": {
+      "openness": 51.67,
+      "conscientiousness": 48.8,
+      "extraversion": 47.82,
+      "agreeableness": 50.7,
+      "neuroticism": 50.19
+    },
     "19-2012.00": {
       "openness": 53.16,
       "conscientiousness": 47.45,
       "extraversion": 47.11,
       "agreeableness": 50.31,
       "neuroticism": 50.82
+    },
+    "19-2021.00": {
+      "openness": 50.76,
+      "conscientiousness": 48.5,
+      "extraversion": 46.57,
+      "agreeableness": 48.43,
+      "neuroticism": 47.91
     },
     "19-2031.00": {
       "openness": 50.95,
@@ -1515,6 +2540,13 @@
       "agreeableness": 49.53,
       "neuroticism": 48.24
     },
+    "19-2099.01": {
+      "openness": 51.63,
+      "conscientiousness": 48.64,
+      "extraversion": 49.09,
+      "agreeableness": 50.71,
+      "neuroticism": 48.88
+    },
     "19-3011.00": {
       "openness": 51.12,
       "conscientiousness": 49.99,
@@ -1571,12 +2603,40 @@
       "agreeableness": 55.18,
       "neuroticism": 49.47
     },
+    "19-3041.00": {
+      "openness": 52.72,
+      "conscientiousness": 48.81,
+      "extraversion": 52.24,
+      "agreeableness": 53.57,
+      "neuroticism": 50.09
+    },
     "19-3051.00": {
       "openness": 52.53,
       "conscientiousness": 49.17,
       "extraversion": 49.52,
       "agreeableness": 49.23,
       "neuroticism": 50.58
+    },
+    "19-3091.00": {
+      "openness": 52.72,
+      "conscientiousness": 48.81,
+      "extraversion": 52.24,
+      "agreeableness": 53.57,
+      "neuroticism": 50.09
+    },
+    "19-3092.00": {
+      "openness": 52.72,
+      "conscientiousness": 48.81,
+      "extraversion": 52.24,
+      "agreeableness": 53.57,
+      "neuroticism": 50.09
+    },
+    "19-3093.00": {
+      "openness": 52.72,
+      "conscientiousness": 48.81,
+      "extraversion": 52.24,
+      "agreeableness": 53.57,
+      "neuroticism": 50.09
     },
     "19-3094.00": {
       "openness": 53.65,
@@ -1641,6 +2701,34 @@
       "agreeableness": 50.77,
       "neuroticism": 50.33
     },
+    "19-4043.00": {
+      "openness": 50.53,
+      "conscientiousness": 48.43,
+      "extraversion": 46.26,
+      "agreeableness": 47.86,
+      "neuroticism": 47.34
+    },
+    "19-4044.00": {
+      "openness": 51.67,
+      "conscientiousness": 48.8,
+      "extraversion": 47.82,
+      "agreeableness": 50.7,
+      "neuroticism": 50.19
+    },
+    "19-4051.00": {
+      "openness": 50.57,
+      "conscientiousness": 48.41,
+      "extraversion": 46.46,
+      "agreeableness": 48.31,
+      "neuroticism": 47.53
+    },
+    "19-4051.02": {
+      "openness": 50.53,
+      "conscientiousness": 48.43,
+      "extraversion": 46.26,
+      "agreeableness": 47.86,
+      "neuroticism": 47.34
+    },
     "19-4061.00": {
       "openness": 56.01,
       "conscientiousness": 48.78,
@@ -1668,6 +2756,13 @@
       "extraversion": 50.01,
       "agreeableness": 50.04,
       "neuroticism": 51.56
+    },
+    "19-4099.03": {
+      "openness": 50.53,
+      "conscientiousness": 48.43,
+      "extraversion": 46.26,
+      "agreeableness": 47.86,
+      "neuroticism": 47.34
     },
     "19-5011.00": {
       "openness": 50.06,
@@ -2257,6 +3352,13 @@
       "agreeableness": 53.37,
       "neuroticism": 52.97
     },
+    "25-4031.00": {
+      "openness": 47.15,
+      "conscientiousness": 48.75,
+      "extraversion": 48.66,
+      "agreeableness": 50.61,
+      "neuroticism": 51.71
+    },
     "25-9031.00": {
       "openness": 53.07,
       "conscientiousness": 49.07,
@@ -2411,6 +3513,13 @@
       "agreeableness": 48.3,
       "neuroticism": 52.56
     },
+    "27-2021.00": {
+      "openness": 49.97,
+      "conscientiousness": 49.7,
+      "extraversion": 53.48,
+      "agreeableness": 49.92,
+      "neuroticism": 49.24
+    },
     "27-2022.00": {
       "openness": 51.45,
       "conscientiousness": 49.85,
@@ -2452,6 +3561,13 @@
       "extraversion": 51.58,
       "agreeableness": 50,
       "neuroticism": 53.13
+    },
+    "27-2091.00": {
+      "openness": 55.59,
+      "conscientiousness": 47.11,
+      "extraversion": 52.05,
+      "agreeableness": 49.75,
+      "neuroticism": 54.25
     },
     "27-2099.00": {
       "openness": 52.49,
@@ -2522,6 +3638,13 @@
       "extraversion": 52,
       "agreeableness": 51.61,
       "neuroticism": 53.3
+    },
+    "27-3099.00": {
+      "openness": 55.59,
+      "conscientiousness": 47.11,
+      "extraversion": 52.05,
+      "agreeableness": 49.75,
+      "neuroticism": 54.25
     },
     "27-4011.00": {
       "openness": 53.28,
@@ -2641,6 +3764,13 @@
       "extraversion": 51.52,
       "agreeableness": 49.68,
       "neuroticism": 53.78
+    },
+    "29-1071.01": {
+      "openness": 50.36,
+      "conscientiousness": 50.94,
+      "extraversion": 51.68,
+      "agreeableness": 50.64,
+      "neuroticism": 50.76
     },
     "29-1081.00": {
       "openness": 53.3,
@@ -2943,6 +4073,13 @@
       "agreeableness": 50.67,
       "neuroticism": 51.35
     },
+    "29-1291.00": {
+      "openness": 50.25,
+      "conscientiousness": 51.34,
+      "extraversion": 50.27,
+      "agreeableness": 51.97,
+      "neuroticism": 51.88
+    },
     "29-1292.00": {
       "openness": 50.04,
       "conscientiousness": 52.15,
@@ -2956,6 +4093,13 @@
       "extraversion": 52.19,
       "agreeableness": 52.26,
       "neuroticism": 49.27
+    },
+    "29-1299.02": {
+      "openness": 50.21,
+      "conscientiousness": 51.16,
+      "extraversion": 50.89,
+      "agreeableness": 52.7,
+      "neuroticism": 52.6
     },
     "29-2011.00": {
       "openness": 51.4,
@@ -3083,12 +4227,33 @@
       "agreeableness": 50.77,
       "neuroticism": 53.25
     },
+    "29-2056.00": {
+      "openness": 50.2,
+      "conscientiousness": 50.55,
+      "extraversion": 50.87,
+      "agreeableness": 50.95,
+      "neuroticism": 51.59
+    },
+    "29-2057.00": {
+      "openness": 50.21,
+      "conscientiousness": 51.16,
+      "extraversion": 50.89,
+      "agreeableness": 52.7,
+      "neuroticism": 52.6
+    },
     "29-2061.00": {
       "openness": 50.22,
       "conscientiousness": 49.51,
       "extraversion": 51.98,
       "agreeableness": 52.8,
       "neuroticism": 52.54
+    },
+    "29-2072.00": {
+      "openness": 49.92,
+      "conscientiousness": 51.02,
+      "extraversion": 51.88,
+      "agreeableness": 50.7,
+      "neuroticism": 51.12
     },
     "29-2081.00": {
       "openness": 48.22,
@@ -3117,6 +4282,13 @@
       "extraversion": 51.52,
       "agreeableness": 53.48,
       "neuroticism": 52.09
+    },
+    "29-2099.05": {
+      "openness": 50.21,
+      "conscientiousness": 51.16,
+      "extraversion": 50.89,
+      "agreeableness": 52.7,
+      "neuroticism": 52.6
     },
     "29-9021.00": {
       "openness": 52.05,
@@ -3244,6 +4416,20 @@
       "agreeableness": 51.4,
       "neuroticism": 53.77
     },
+    "31-9094.00": {
+      "openness": 49.92,
+      "conscientiousness": 51.02,
+      "extraversion": 51.88,
+      "agreeableness": 50.7,
+      "neuroticism": 51.12
+    },
+    "31-9095.00": {
+      "openness": 49.88,
+      "conscientiousness": 49.77,
+      "extraversion": 49.24,
+      "agreeableness": 51.56,
+      "neuroticism": 53.26
+    },
     "31-9096.00": {
       "openness": 49.54,
       "conscientiousness": 48.63,
@@ -3356,6 +4542,20 @@
       "agreeableness": 48.9,
       "neuroticism": 51.83
     },
+    "33-3031.00": {
+      "openness": 49.42,
+      "conscientiousness": 49.88,
+      "extraversion": 48.32,
+      "agreeableness": 46.97,
+      "neuroticism": 47.39
+    },
+    "33-3041.00": {
+      "openness": 49.42,
+      "conscientiousness": 49.88,
+      "extraversion": 48.32,
+      "agreeableness": 46.97,
+      "neuroticism": 47.39
+    },
     "33-3051.00": {
       "openness": 48.86,
       "conscientiousness": 51.27,
@@ -3376,6 +4576,13 @@
       "extraversion": 49.78,
       "agreeableness": 46.95,
       "neuroticism": 46.71
+    },
+    "33-9011.00": {
+      "openness": 49.42,
+      "conscientiousness": 49.88,
+      "extraversion": 48.32,
+      "agreeableness": 46.97,
+      "neuroticism": 47.39
     },
     "33-9021.00": {
       "openness": 49.69,
@@ -3404,6 +4611,13 @@
       "extraversion": 48.46,
       "agreeableness": 48.05,
       "neuroticism": 49.16
+    },
+    "33-9092.00": {
+      "openness": 49.42,
+      "conscientiousness": 49.88,
+      "extraversion": 48.32,
+      "agreeableness": 46.97,
+      "neuroticism": 47.39
     },
     "33-9093.00": {
       "openness": 49.3,
@@ -3475,7 +4689,21 @@
       "agreeableness": 52.04,
       "neuroticism": 52.68
     },
+    "35-3011.00": {
+      "openness": 51.36,
+      "conscientiousness": 46.72,
+      "extraversion": 51.38,
+      "agreeableness": 48.82,
+      "neuroticism": 54.78
+    },
     "35-3023.00": {
+      "openness": 51.36,
+      "conscientiousness": 46.72,
+      "extraversion": 51.38,
+      "agreeableness": 48.82,
+      "neuroticism": 54.78
+    },
+    "35-3023.01": {
       "openness": 51.36,
       "conscientiousness": 46.72,
       "extraversion": 51.38,
@@ -3545,12 +4773,26 @@
       "agreeableness": 51.48,
       "neuroticism": 52.52
     },
+    "37-2021.00": {
+      "openness": 47.86,
+      "conscientiousness": 49.51,
+      "extraversion": 47.06,
+      "agreeableness": 49.92,
+      "neuroticism": 52.02
+    },
     "37-3011.00": {
       "openness": 49.32,
       "conscientiousness": 48.72,
       "extraversion": 47.03,
       "agreeableness": 50.53,
       "neuroticism": 50.16
+    },
+    "37-3012.00": {
+      "openness": 47.86,
+      "conscientiousness": 49.51,
+      "extraversion": 47.06,
+      "agreeableness": 49.92,
+      "neuroticism": 52.02
     },
     "37-3013.00": {
       "openness": 51.3,
@@ -3587,6 +4829,20 @@
       "agreeableness": 52.73,
       "neuroticism": 54.23
     },
+    "39-3011.00": {
+      "openness": 47.85,
+      "conscientiousness": 49.92,
+      "extraversion": 52.36,
+      "agreeableness": 50.69,
+      "neuroticism": 52.85
+    },
+    "39-3012.00": {
+      "openness": 47.85,
+      "conscientiousness": 49.92,
+      "extraversion": 52.36,
+      "agreeableness": 50.69,
+      "neuroticism": 52.85
+    },
     "39-3021.00": {
       "openness": 54.07,
       "conscientiousness": 47.74,
@@ -3621,6 +4877,34 @@
       "extraversion": 51.7,
       "agreeableness": 50.06,
       "neuroticism": 50.74
+    },
+    "39-4011.00": {
+      "openness": 48.97,
+      "conscientiousness": 48.27,
+      "extraversion": 48.19,
+      "agreeableness": 51.25,
+      "neuroticism": 52.58
+    },
+    "39-4012.00": {
+      "openness": 48.97,
+      "conscientiousness": 48.27,
+      "extraversion": 48.19,
+      "agreeableness": 51.25,
+      "neuroticism": 52.58
+    },
+    "39-4021.00": {
+      "openness": 48.97,
+      "conscientiousness": 48.27,
+      "extraversion": 48.19,
+      "agreeableness": 51.25,
+      "neuroticism": 52.58
+    },
+    "39-4031.00": {
+      "openness": 48.97,
+      "conscientiousness": 48.27,
+      "extraversion": 48.19,
+      "agreeableness": 51.25,
+      "neuroticism": 52.58
     },
     "39-5011.00": {
       "openness": 46.9,
@@ -3663,6 +4947,20 @@
       "extraversion": 53.87,
       "agreeableness": 49.38,
       "neuroticism": 52.11
+    },
+    "39-6011.00": {
+      "openness": 46.59,
+      "conscientiousness": 48.88,
+      "extraversion": 47.82,
+      "agreeableness": 50.2,
+      "neuroticism": 51.34
+    },
+    "39-6012.00": {
+      "openness": 48.49,
+      "conscientiousness": 49.39,
+      "extraversion": 52.28,
+      "agreeableness": 50.37,
+      "neuroticism": 51.78
     },
     "39-7011.00": {
       "openness": 50.3,
@@ -3762,12 +5060,26 @@
       "agreeableness": 51.59,
       "neuroticism": 52.53
     },
+    "41-3011.00": {
+      "openness": 49.13,
+      "conscientiousness": 49.2,
+      "extraversion": 53.26,
+      "agreeableness": 48.48,
+      "neuroticism": 49.03
+    },
     "41-3021.00": {
       "openness": 47.96,
       "conscientiousness": 49.08,
       "extraversion": 51.64,
       "agreeableness": 50.92,
       "neuroticism": 50.58
+    },
+    "41-3031.00": {
+      "openness": 47.86,
+      "conscientiousness": 50.38,
+      "extraversion": 50.89,
+      "agreeableness": 50.46,
+      "neuroticism": 51.25
     },
     "41-3041.00": {
       "openness": 48.45,
@@ -3811,6 +5123,13 @@
       "agreeableness": 52.31,
       "neuroticism": 52.27
     },
+    "41-9012.00": {
+      "openness": 46.59,
+      "conscientiousness": 49.2,
+      "extraversion": 51.41,
+      "agreeableness": 50.74,
+      "neuroticism": 53.55
+    },
     "41-9021.00": {
       "openness": 49.26,
       "conscientiousness": 48.46,
@@ -3824,6 +5143,13 @@
       "extraversion": 52.59,
       "agreeableness": 47.31,
       "neuroticism": 47.31
+    },
+    "41-9031.00": {
+      "openness": 53.23,
+      "conscientiousness": 48.72,
+      "extraversion": 53.85,
+      "agreeableness": 49.14,
+      "neuroticism": 53.19
     },
     "41-9041.00": {
       "openness": 48.54,
@@ -3915,6 +5241,13 @@
       "extraversion": 53.3,
       "agreeableness": 50.84,
       "neuroticism": 53.34
+    },
+    "43-4011.00": {
+      "openness": 46.98,
+      "conscientiousness": 51.22,
+      "extraversion": 50.99,
+      "agreeableness": 50.92,
+      "neuroticism": 51.62
     },
     "43-4021.00": {
       "openness": 47.66,
@@ -4021,6 +5354,13 @@
       "agreeableness": 51.47,
       "neuroticism": 51.73
     },
+    "43-4199.00": {
+      "openness": 46.4,
+      "conscientiousness": 51.06,
+      "extraversion": 50.59,
+      "agreeableness": 52.27,
+      "neuroticism": 52.94
+    },
     "43-5011.00": {
       "openness": 48.68,
       "conscientiousness": 50.36,
@@ -4055,6 +5395,13 @@
       "extraversion": 48.46,
       "agreeableness": 48.05,
       "neuroticism": 49.16
+    },
+    "43-5041.00": {
+      "openness": 47.38,
+      "conscientiousness": 48.33,
+      "extraversion": 47.48,
+      "agreeableness": 50.85,
+      "neuroticism": 50.91
     },
     "43-5051.00": {
       "openness": 48.34,
@@ -4245,6 +5592,13 @@
       "agreeableness": 52.55,
       "neuroticism": 52.36
     },
+    "45-2099.00": {
+      "openness": 46.57,
+      "conscientiousness": 49.11,
+      "extraversion": 47.8,
+      "agreeableness": 51.08,
+      "neuroticism": 51.24
+    },
     "45-3031.00": {
       "openness": 47.77,
       "conscientiousness": 50.36,
@@ -4301,6 +5655,20 @@
       "agreeableness": 46.87,
       "neuroticism": 46.21
     },
+    "47-2021.00": {
+      "openness": 48.47,
+      "conscientiousness": 49.95,
+      "extraversion": 44.41,
+      "agreeableness": 47.17,
+      "neuroticism": 46.77
+    },
+    "47-2022.00": {
+      "openness": 48.47,
+      "conscientiousness": 49.95,
+      "extraversion": 44.41,
+      "agreeableness": 47.17,
+      "neuroticism": 46.77
+    },
     "47-2031.00": {
       "openness": 48.47,
       "conscientiousness": 49.95,
@@ -4308,12 +5676,47 @@
       "agreeableness": 47.17,
       "neuroticism": 46.77
     },
+    "47-2041.00": {
+      "openness": 48.02,
+      "conscientiousness": 49.69,
+      "extraversion": 46.72,
+      "agreeableness": 46.38,
+      "neuroticism": 48.06
+    },
+    "47-2042.00": {
+      "openness": 48.02,
+      "conscientiousness": 49.69,
+      "extraversion": 46.72,
+      "agreeableness": 46.38,
+      "neuroticism": 48.06
+    },
+    "47-2043.00": {
+      "openness": 47.99,
+      "conscientiousness": 49.9,
+      "extraversion": 46.53,
+      "agreeableness": 47.36,
+      "neuroticism": 48.2
+    },
     "47-2044.00": {
       "openness": 50.29,
       "conscientiousness": 50.65,
       "extraversion": 47.29,
       "agreeableness": 46.35,
       "neuroticism": 44.33
+    },
+    "47-2051.00": {
+      "openness": 48.47,
+      "conscientiousness": 49.95,
+      "extraversion": 44.41,
+      "agreeableness": 47.17,
+      "neuroticism": 46.77
+    },
+    "47-2053.00": {
+      "openness": 48.47,
+      "conscientiousness": 49.95,
+      "extraversion": 44.41,
+      "agreeableness": 47.17,
+      "neuroticism": 46.77
     },
     "47-2061.00": {
       "openness": 47.7,
@@ -4343,6 +5746,13 @@
       "agreeableness": 48.46,
       "neuroticism": 44.44
     },
+    "47-2081.00": {
+      "openness": 48.02,
+      "conscientiousness": 49.69,
+      "extraversion": 46.72,
+      "agreeableness": 46.38,
+      "neuroticism": 48.06
+    },
     "47-2111.00": {
       "openness": 48.42,
       "conscientiousness": 47.38,
@@ -4356,6 +5766,20 @@
       "extraversion": 44.19,
       "agreeableness": 47.38,
       "neuroticism": 47.33
+    },
+    "47-2131.00": {
+      "openness": 48.02,
+      "conscientiousness": 49.69,
+      "extraversion": 46.72,
+      "agreeableness": 46.38,
+      "neuroticism": 48.06
+    },
+    "47-2132.00": {
+      "openness": 48.02,
+      "conscientiousness": 49.69,
+      "extraversion": 46.72,
+      "agreeableness": 46.38,
+      "neuroticism": 48.06
     },
     "47-2141.00": {
       "openness": 46.77,
@@ -4392,6 +5816,27 @@
       "agreeableness": 47.95,
       "neuroticism": 43.94
     },
+    "47-2161.00": {
+      "openness": 48.02,
+      "conscientiousness": 49.69,
+      "extraversion": 46.72,
+      "agreeableness": 46.38,
+      "neuroticism": 48.06
+    },
+    "47-2171.00": {
+      "openness": 49.2,
+      "conscientiousness": 49.3,
+      "extraversion": 43.66,
+      "agreeableness": 47.36,
+      "neuroticism": 45.82
+    },
+    "47-2181.00": {
+      "openness": 48.02,
+      "conscientiousness": 49.69,
+      "extraversion": 46.72,
+      "agreeableness": 46.38,
+      "neuroticism": 48.06
+    },
     "47-2211.00": {
       "openness": 49.83,
       "conscientiousness": 50.35,
@@ -4412,6 +5857,13 @@
       "extraversion": 42.87,
       "agreeableness": 47.95,
       "neuroticism": 43.94
+    },
+    "47-3011.00": {
+      "openness": 48.47,
+      "conscientiousness": 49.95,
+      "extraversion": 44.41,
+      "agreeableness": 47.17,
+      "neuroticism": 46.77
     },
     "47-3012.00": {
       "openness": 48.88,
@@ -4441,6 +5893,20 @@
       "agreeableness": 46.44,
       "neuroticism": 47.23
     },
+    "47-3016.00": {
+      "openness": 48.02,
+      "conscientiousness": 49.69,
+      "extraversion": 46.72,
+      "agreeableness": 46.38,
+      "neuroticism": 48.06
+    },
+    "47-3019.00": {
+      "openness": 49.2,
+      "conscientiousness": 49.3,
+      "extraversion": 43.66,
+      "agreeableness": 47.36,
+      "neuroticism": 45.82
+    },
     "47-4011.00": {
       "openness": 50.54,
       "conscientiousness": 48.92,
@@ -4468,6 +5934,13 @@
       "extraversion": 44.19,
       "agreeableness": 47.38,
       "neuroticism": 47.33
+    },
+    "47-4041.00": {
+      "openness": 49.48,
+      "conscientiousness": 48.57,
+      "extraversion": 47.27,
+      "agreeableness": 48.31,
+      "neuroticism": 48.22
     },
     "47-4051.00": {
       "openness": 49.12,
@@ -4504,12 +5977,47 @@
       "agreeableness": 47.03,
       "neuroticism": 46.08
     },
+    "47-5011.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
+    "47-5012.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "47-5013.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
     "47-5022.00": {
       "openness": 47.7,
       "conscientiousness": 50.21,
       "extraversion": 46.24,
       "agreeableness": 48.46,
       "neuroticism": 44.44
+    },
+    "47-5023.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "47-5032.00": {
+      "openness": 47.86,
+      "conscientiousness": 49.51,
+      "extraversion": 47.06,
+      "agreeableness": 49.92,
+      "neuroticism": 52.02
     },
     "47-5041.00": {
       "openness": 47.7,
@@ -4518,12 +6026,40 @@
       "agreeableness": 48.46,
       "neuroticism": 44.44
     },
+    "47-5043.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
     "47-5044.00": {
       "openness": 47.7,
       "conscientiousness": 50.21,
       "extraversion": 46.24,
       "agreeableness": 48.46,
       "neuroticism": 44.44
+    },
+    "47-5051.00": {
+      "openness": 48.47,
+      "conscientiousness": 49.95,
+      "extraversion": 44.41,
+      "agreeableness": 47.17,
+      "neuroticism": 46.77
+    },
+    "47-5071.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
+    "47-5081.00": {
+      "openness": 51.67,
+      "conscientiousness": 48.8,
+      "extraversion": 47.82,
+      "agreeableness": 50.7,
+      "neuroticism": 50.19
     },
     "49-1011.00": {
       "openness": 49.58,
@@ -4538,6 +6074,20 @@
       "extraversion": 45.9,
       "agreeableness": 49.31,
       "neuroticism": 46.08
+    },
+    "49-2021.00": {
+      "openness": 52.72,
+      "conscientiousness": 46.94,
+      "extraversion": 43.76,
+      "agreeableness": 49.99,
+      "neuroticism": 46.76
+    },
+    "49-2022.00": {
+      "openness": 50.57,
+      "conscientiousness": 47.59,
+      "extraversion": 44.65,
+      "agreeableness": 49.17,
+      "neuroticism": 46.35
     },
     "49-2091.00": {
       "openness": 50.14,
@@ -4602,6 +6152,13 @@
       "agreeableness": 48.57,
       "neuroticism": 46.24
     },
+    "49-3022.00": {
+      "openness": 48.02,
+      "conscientiousness": 49.69,
+      "extraversion": 46.72,
+      "agreeableness": 46.38,
+      "neuroticism": 48.06
+    },
     "49-3023.00": {
       "openness": 49.03,
       "conscientiousness": 49.05,
@@ -4623,12 +6180,26 @@
       "agreeableness": 46.44,
       "neuroticism": 47.23
     },
+    "49-3042.00": {
+      "openness": 49.66,
+      "conscientiousness": 48.89,
+      "extraversion": 44.64,
+      "agreeableness": 48.05,
+      "neuroticism": 45.7
+    },
     "49-3043.00": {
       "openness": 49.69,
       "conscientiousness": 48.53,
       "extraversion": 43.87,
       "agreeableness": 49,
       "neuroticism": 45
+    },
+    "49-3051.00": {
+      "openness": 49.66,
+      "conscientiousness": 48.89,
+      "extraversion": 44.64,
+      "agreeableness": 48.05,
+      "neuroticism": 45.7
     },
     "49-3052.00": {
       "openness": 49.03,
@@ -4700,12 +6271,40 @@
       "agreeableness": 49,
       "neuroticism": 45
     },
+    "49-9043.00": {
+      "openness": 49.66,
+      "conscientiousness": 48.89,
+      "extraversion": 44.64,
+      "agreeableness": 48.05,
+      "neuroticism": 45.7
+    },
+    "49-9044.00": {
+      "openness": 49.39,
+      "conscientiousness": 49.13,
+      "extraversion": 44.05,
+      "agreeableness": 47.64,
+      "neuroticism": 45.77
+    },
+    "49-9045.00": {
+      "openness": 48.68,
+      "conscientiousness": 49.76,
+      "extraversion": 46.16,
+      "agreeableness": 48.2,
+      "neuroticism": 49.03
+    },
     "49-9051.00": {
       "openness": 49.36,
       "conscientiousness": 49.02,
       "extraversion": 45.08,
       "agreeableness": 47.15,
       "neuroticism": 44.13
+    },
+    "49-9052.00": {
+      "openness": 50.1,
+      "conscientiousness": 46.72,
+      "extraversion": 45.9,
+      "agreeableness": 49.31,
+      "neuroticism": 46.08
     },
     "49-9061.00": {
       "openness": 50.1,
@@ -4727,6 +6326,13 @@
       "extraversion": 46.2,
       "agreeableness": 50,
       "neuroticism": 50.4
+    },
+    "49-9064.00": {
+      "openness": 49.1,
+      "conscientiousness": 49.37,
+      "extraversion": 49.67,
+      "agreeableness": 50.27,
+      "neuroticism": 53.54
     },
     "49-9071.00": {
       "openness": 46.98,
@@ -4770,12 +6376,26 @@
       "agreeableness": 46.92,
       "neuroticism": 46.92
     },
+    "49-9096.00": {
+      "openness": 49.13,
+      "conscientiousness": 49.37,
+      "extraversion": 44.15,
+      "agreeableness": 47.5,
+      "neuroticism": 46.06
+    },
     "49-9097.00": {
       "openness": 49.87,
       "conscientiousness": 48.95,
       "extraversion": 46.95,
       "agreeableness": 48.6,
       "neuroticism": 47.75
+    },
+    "49-9099.00": {
+      "openness": 53.23,
+      "conscientiousness": 48.72,
+      "extraversion": 53.85,
+      "agreeableness": 49.14,
+      "neuroticism": 53.19
     },
     "49-9099.01": {
       "openness": 49.83,
@@ -4791,6 +6411,20 @@
       "agreeableness": 47.53,
       "neuroticism": 46.26
     },
+    "51-2011.00": {
+      "openness": 45.92,
+      "conscientiousness": 49.42,
+      "extraversion": 46.84,
+      "agreeableness": 49.16,
+      "neuroticism": 50.61
+    },
+    "51-2021.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
     "51-2022.00": {
       "openness": 45.7,
       "conscientiousness": 49.07,
@@ -4805,12 +6439,33 @@
       "agreeableness": 49,
       "neuroticism": 46.85
     },
+    "51-2031.00": {
+      "openness": 47.79,
+      "conscientiousness": 49.16,
+      "extraversion": 45.74,
+      "agreeableness": 48.61,
+      "neuroticism": 48.16
+    },
     "51-2041.00": {
       "openness": 47.99,
       "conscientiousness": 49.54,
       "extraversion": 45.05,
       "agreeableness": 47.69,
       "neuroticism": 47.46
+    },
+    "51-2051.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
+    "51-2061.00": {
+      "openness": 49.1,
+      "conscientiousness": 49.37,
+      "extraversion": 49.67,
+      "agreeableness": 50.27,
+      "neuroticism": 53.54
     },
     "51-2092.00": {
       "openness": 46.15,
@@ -4854,12 +6509,110 @@
       "agreeableness": 49.18,
       "neuroticism": 50.82
     },
+    "51-3091.00": {
+      "openness": 47.95,
+      "conscientiousness": 50.11,
+      "extraversion": 46.33,
+      "agreeableness": 48.33,
+      "neuroticism": 48.35
+    },
+    "51-3092.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
+    "51-3093.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
+    "51-3099.00": {
+      "openness": 46.61,
+      "conscientiousness": 50.23,
+      "extraversion": 49.34,
+      "agreeableness": 50.03,
+      "neuroticism": 51.78
+    },
+    "51-4021.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-4022.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-4023.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-4031.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-4032.00": {
+      "openness": 48.21,
+      "conscientiousness": 49.22,
+      "extraversion": 45.48,
+      "agreeableness": 48.33,
+      "neuroticism": 47.54
+    },
+    "51-4033.00": {
+      "openness": 48.21,
+      "conscientiousness": 49.22,
+      "extraversion": 45.48,
+      "agreeableness": 48.33,
+      "neuroticism": 47.54
+    },
+    "51-4034.00": {
+      "openness": 48.21,
+      "conscientiousness": 49.22,
+      "extraversion": 45.48,
+      "agreeableness": 48.33,
+      "neuroticism": 47.54
+    },
+    "51-4035.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
     "51-4041.00": {
       "openness": 48.71,
       "conscientiousness": 47.44,
       "extraversion": 43.78,
       "agreeableness": 48.34,
       "neuroticism": 45.91
+    },
+    "51-4051.00": {
+      "openness": 49.73,
+      "conscientiousness": 47.88,
+      "extraversion": 45.52,
+      "agreeableness": 49.23,
+      "neuroticism": 47.11
+    },
+    "51-4052.00": {
+      "openness": 49.2,
+      "conscientiousness": 49.3,
+      "extraversion": 43.66,
+      "agreeableness": 47.36,
+      "neuroticism": 45.82
     },
     "51-4061.00": {
       "openness": 51.82,
@@ -4876,6 +6629,13 @@
       "neuroticism": 45.91
     },
     "51-4071.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-4072.00": {
       "openness": 48.71,
       "conscientiousness": 47.44,
       "extraversion": 43.78,
@@ -4910,12 +6670,26 @@
       "agreeableness": 48.95,
       "neuroticism": 47.88
     },
+    "51-4191.00": {
+      "openness": 49.73,
+      "conscientiousness": 47.88,
+      "extraversion": 45.52,
+      "agreeableness": 49.23,
+      "neuroticism": 47.11
+    },
     "51-4193.00": {
       "openness": 46.98,
       "conscientiousness": 48.9,
       "extraversion": 49.33,
       "agreeableness": 48.23,
       "neuroticism": 49.51
+    },
+    "51-4194.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
     },
     "51-4199.00": {
       "openness": 46.15,
@@ -4938,12 +6712,26 @@
       "agreeableness": 49.53,
       "neuroticism": 51.73
     },
+    "51-5113.00": {
+      "openness": 47.58,
+      "conscientiousness": 48.1,
+      "extraversion": 48.17,
+      "agreeableness": 49.53,
+      "neuroticism": 51.73
+    },
     "51-6011.00": {
       "openness": 47.38,
       "conscientiousness": 48.33,
       "extraversion": 47.48,
       "agreeableness": 50.85,
       "neuroticism": 50.91
+    },
+    "51-6021.00": {
+      "openness": 46.77,
+      "conscientiousness": 49.75,
+      "extraversion": 47.66,
+      "agreeableness": 50.29,
+      "neuroticism": 50.48
     },
     "51-6031.00": {
       "openness": 44.99,
@@ -4959,6 +6747,13 @@
       "agreeableness": 52.09,
       "neuroticism": 50.95
     },
+    "51-6042.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
     "51-6051.00": {
       "openness": 46.03,
       "conscientiousness": 50.8,
@@ -4973,6 +6768,13 @@
       "agreeableness": 52.22,
       "neuroticism": 49.99
     },
+    "51-6061.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
     "51-6062.00": {
       "openness": 46.43,
       "conscientiousness": 51.95,
@@ -4980,12 +6782,40 @@
       "agreeableness": 53.7,
       "neuroticism": 51.8
     },
+    "51-6063.00": {
+      "openness": 49.1,
+      "conscientiousness": 49.37,
+      "extraversion": 49.67,
+      "agreeableness": 50.27,
+      "neuroticism": 53.54
+    },
+    "51-6064.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
+    "51-6091.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
     "51-6092.00": {
       "openness": 46.43,
       "conscientiousness": 51.95,
       "extraversion": 48.69,
       "agreeableness": 53.7,
       "neuroticism": 51.8
+    },
+    "51-6093.00": {
+      "openness": 46.39,
+      "conscientiousness": 51.08,
+      "extraversion": 49.02,
+      "agreeableness": 52.55,
+      "neuroticism": 51.13
     },
     "51-6099.00": {
       "openness": 49.43,
@@ -5022,12 +6852,54 @@
       "agreeableness": 48.34,
       "neuroticism": 45.91
     },
+    "51-7041.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
+    "51-7042.00": {
+      "openness": 47.95,
+      "conscientiousness": 50.11,
+      "extraversion": 46.33,
+      "agreeableness": 48.33,
+      "neuroticism": 48.35
+    },
     "51-7099.00": {
       "openness": 49.93,
       "conscientiousness": 50.08,
       "extraversion": 45.7,
       "agreeableness": 47.8,
       "neuroticism": 48.29
+    },
+    "51-8011.00": {
+      "openness": 50.74,
+      "conscientiousness": 48.33,
+      "extraversion": 47.26,
+      "agreeableness": 50.11,
+      "neuroticism": 48.31
+    },
+    "51-8012.00": {
+      "openness": 50.74,
+      "conscientiousness": 48.33,
+      "extraversion": 47.26,
+      "agreeableness": 50.11,
+      "neuroticism": 48.31
+    },
+    "51-8013.00": {
+      "openness": 50.74,
+      "conscientiousness": 48.33,
+      "extraversion": 47.26,
+      "agreeableness": 50.11,
+      "neuroticism": 48.31
+    },
+    "51-8013.03": {
+      "openness": 50.74,
+      "conscientiousness": 48.33,
+      "extraversion": 47.26,
+      "agreeableness": 50.11,
+      "neuroticism": 48.31
     },
     "51-8013.04": {
       "openness": 50.99,
@@ -5043,12 +6915,103 @@
       "agreeableness": 49.01,
       "neuroticism": 45.47
     },
+    "51-8031.00": {
+      "openness": 50.57,
+      "conscientiousness": 48.41,
+      "extraversion": 46.46,
+      "agreeableness": 48.31,
+      "neuroticism": 47.53
+    },
+    "51-8091.00": {
+      "openness": 50.74,
+      "conscientiousness": 48.33,
+      "extraversion": 47.26,
+      "agreeableness": 50.11,
+      "neuroticism": 48.31
+    },
+    "51-8092.00": {
+      "openness": 50.74,
+      "conscientiousness": 48.33,
+      "extraversion": 47.26,
+      "agreeableness": 50.11,
+      "neuroticism": 48.31
+    },
+    "51-8093.00": {
+      "openness": 50.74,
+      "conscientiousness": 48.33,
+      "extraversion": 47.26,
+      "agreeableness": 50.11,
+      "neuroticism": 48.31
+    },
+    "51-8099.00": {
+      "openness": 50.74,
+      "conscientiousness": 48.33,
+      "extraversion": 47.26,
+      "agreeableness": 50.11,
+      "neuroticism": 48.31
+    },
+    "51-9011.00": {
+      "openness": 50.74,
+      "conscientiousness": 48.33,
+      "extraversion": 47.26,
+      "agreeableness": 50.11,
+      "neuroticism": 48.31
+    },
+    "51-9012.00": {
+      "openness": 50.74,
+      "conscientiousness": 48.33,
+      "extraversion": 47.26,
+      "agreeableness": 50.11,
+      "neuroticism": 48.31
+    },
+    "51-9021.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-9022.00": {
+      "openness": 48.21,
+      "conscientiousness": 49.22,
+      "extraversion": 45.48,
+      "agreeableness": 48.33,
+      "neuroticism": 47.54
+    },
+    "51-9023.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
     "51-9031.00": {
       "openness": 46.75,
       "conscientiousness": 51.01,
       "extraversion": 48.43,
       "agreeableness": 52.9,
       "neuroticism": 51.38
+    },
+    "51-9032.00": {
+      "openness": 48.71,
+      "conscientiousness": 47.44,
+      "extraversion": 43.78,
+      "agreeableness": 48.34,
+      "neuroticism": 45.91
+    },
+    "51-9041.00": {
+      "openness": 46.61,
+      "conscientiousness": 50.23,
+      "extraversion": 49.34,
+      "agreeableness": 50.03,
+      "neuroticism": 51.78
+    },
+    "51-9051.00": {
+      "openness": 47.95,
+      "conscientiousness": 50.11,
+      "extraversion": 46.33,
+      "agreeableness": 48.33,
+      "neuroticism": 48.35
     },
     "51-9061.00": {
       "openness": 47.86,
@@ -5091,6 +7054,13 @@
       "extraversion": 51.31,
       "agreeableness": 49.38,
       "neuroticism": 51.31
+    },
+    "51-9111.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
     },
     "51-9123.00": {
       "openness": 48.5,
@@ -5141,6 +7111,20 @@
       "agreeableness": 48.32,
       "neuroticism": 50.82
     },
+    "51-9192.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
+    "51-9193.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
     "51-9194.00": {
       "openness": 50.94,
       "conscientiousness": 47.44,
@@ -5154,6 +7138,13 @@
       "extraversion": 43.78,
       "agreeableness": 48.34,
       "neuroticism": 45.91
+    },
+    "51-9195.03": {
+      "openness": 48.68,
+      "conscientiousness": 49.76,
+      "extraversion": 46.16,
+      "agreeableness": 48.2,
+      "neuroticism": 49.03
     },
     "51-9195.04": {
       "openness": 57.65,
@@ -5169,12 +7160,26 @@
       "agreeableness": 51.39,
       "neuroticism": 54.81
     },
+    "51-9196.00": {
+      "openness": 48.09,
+      "conscientiousness": 48.52,
+      "extraversion": 48.67,
+      "agreeableness": 49.78,
+      "neuroticism": 52.34
+    },
     "51-9197.00": {
       "openness": 49.03,
       "conscientiousness": 49.05,
       "extraversion": 44.92,
       "agreeableness": 48.57,
       "neuroticism": 46.24
+    },
+    "51-9198.00": {
+      "openness": 45.21,
+      "conscientiousness": 49.83,
+      "extraversion": 48.14,
+      "agreeableness": 50.26,
+      "neuroticism": 51.37
     },
     "51-9199.00": {
       "openness": 47.84,
@@ -5470,6 +7475,34 @@
       "agreeableness": 51.48,
       "neuroticism": 52.52
     },
+    "53-7062.00": {
+      "openness": 45.79,
+      "conscientiousness": 49.42,
+      "extraversion": 48.16,
+      "agreeableness": 49.54,
+      "neuroticism": 51.77
+    },
+    "53-7062.04": {
+      "openness": 50.69,
+      "conscientiousness": 49.12,
+      "extraversion": 45.62,
+      "agreeableness": 48.45,
+      "neuroticism": 47.03
+    },
+    "53-7063.00": {
+      "openness": 48.09,
+      "conscientiousness": 49.51,
+      "extraversion": 46.1,
+      "agreeableness": 49.1,
+      "neuroticism": 48.44
+    },
+    "53-7064.00": {
+      "openness": 45.21,
+      "conscientiousness": 49.83,
+      "extraversion": 48.14,
+      "agreeableness": 50.26,
+      "neuroticism": 51.37
+    },
     "53-7065.00": {
       "openness": 46.88,
       "conscientiousness": 50.6,
@@ -5484,12 +7517,33 @@
       "agreeableness": 48.05,
       "neuroticism": 49.16
     },
+    "53-7072.00": {
+      "openness": 50.74,
+      "conscientiousness": 48.33,
+      "extraversion": 47.26,
+      "agreeableness": 50.11,
+      "neuroticism": 48.31
+    },
+    "53-7073.00": {
+      "openness": 50.74,
+      "conscientiousness": 48.33,
+      "extraversion": 47.26,
+      "agreeableness": 50.11,
+      "neuroticism": 48.31
+    },
     "53-7081.00": {
       "openness": 46.91,
       "conscientiousness": 49.84,
       "extraversion": 45.63,
       "agreeableness": 47.42,
       "neuroticism": 44.8
+    },
+    "53-7121.00": {
+      "openness": 50.74,
+      "conscientiousness": 48.33,
+      "extraversion": 47.26,
+      "agreeableness": 50.11,
+      "neuroticism": 48.31
     }
   }
 }
