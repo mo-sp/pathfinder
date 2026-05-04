@@ -3946,16 +3946,16 @@
       "trainingCategory": "apprenticeship"
     },
     "47-1011.00": {
-      "kldbCode": "51332",
-      "kldbName": "Berufe im Güter- und Warenumschlag - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "32193",
+      "kldbName": "Aufsichtskräfte - Hochbau",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "47-1011.03": {
-      "kldbCode": "26212",
-      "kldbName": "Berufe in der Bauelektrik - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "26243",
+      "kldbName": "Berufe in der regenerativen Energietechnik - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "47-2011.00": {
       "kldbCode": "34342",
@@ -3988,20 +3988,20 @@
       "trainingCategory": "apprenticeship"
     },
     "47-2042.00": {
-      "kldbCode": "33132",
-      "kldbName": "Berufe in der Parkettverlegung - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
-    },
-    "47-2043.00": {
       "kldbCode": "33102",
       "kldbName": "Berufe in der Bodenverlegung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
+    "47-2043.00": {
+      "kldbCode": "33132",
+      "kldbName": "Berufe in der Parkettverlegung - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
+    },
     "47-2044.00": {
-      "kldbCode": "32122",
-      "kldbName": "Berufe im Maurerhandwerk - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "33112",
+      "kldbName": "Berufe in der Fliesen-, Platten- und Mosaikverlegung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4030,8 +4030,8 @@
       "trainingCategory": "apprenticeship"
     },
     "47-2072.00": {
-      "kldbCode": "32222",
-      "kldbName": "Berufe im Straßen- und Asphaltbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "32202",
+      "kldbName": "Berufe im Tiefbau (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4085,26 +4085,26 @@
       "trainingCategory": "apprenticeship"
     },
     "47-2142.00": {
-      "kldbCode": "33212",
-      "kldbName": "Berufe für Maler- und Lackiererarbeiten - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "93232",
+      "kldbName": "Berufe in der Raumausstattung - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "47-2151.00": {
-      "kldbCode": "32232",
-      "kldbName": "Berufe im Gleisbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "32202",
+      "kldbName": "Berufe im Tiefbau (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "47-2152.00": {
-      "kldbCode": "24422",
-      "kldbName": "Berufe in der Schweiß- und Verbindungstechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "34322",
+      "kldbName": "Berufe im Rohrleitungsbau - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "47-2152.04": {
-      "kldbCode": "26212",
-      "kldbName": "Berufe in der Bauelektrik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "26242",
+      "kldbName": "Berufe in der regenerativen Energietechnik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4115,8 +4115,8 @@
       "trainingCategory": "apprenticeship"
     },
     "47-2171.00": {
-      "kldbCode": "24412",
-      "kldbName": "Berufe im Metallbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "32112",
+      "kldbName": "Berufe im Beton- und Stahlbetonbau - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4145,16 +4145,16 @@
       "trainingCategory": "apprenticeship"
     },
     "47-3011.00": {
-      "kldbCode": "32212",
-      "kldbName": "Pflasterer/Pflasterinnen und Steinsetzer - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "32101",
+      "kldbName": "Berufe im Hochbau (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
+      "anforderungsniveau": 1,
+      "trainingCategory": "none"
     },
     "47-3012.00": {
-      "kldbCode": "33322",
-      "kldbName": "Berufe in der Zimmerei - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "32101",
+      "kldbName": "Berufe im Hochbau (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
+      "anforderungsniveau": 1,
+      "trainingCategory": "none"
     },
     "47-3013.00": {
       "kldbCode": "26212",
@@ -4163,28 +4163,28 @@
       "trainingCategory": "apprenticeship"
     },
     "47-3014.00": {
-      "kldbCode": "33212",
-      "kldbName": "Berufe für Maler- und Lackiererarbeiten - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "33211",
+      "kldbName": "Berufe für Maler- und Lackiererarbeiten - Helfer-/Anlerntätigkeiten",
+      "anforderungsniveau": 1,
+      "trainingCategory": "none"
     },
     "47-3015.00": {
-      "kldbCode": "34212",
-      "kldbName": "Berufe in der Sanitär-, Heizungs- und Klimatechnik - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "32101",
+      "kldbName": "Berufe im Hochbau (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
+      "anforderungsniveau": 1,
+      "trainingCategory": "none"
     },
     "47-3016.00": {
-      "kldbCode": "32142",
-      "kldbName": "Berufe in der Dachdeckerei - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "32101",
+      "kldbName": "Berufe im Hochbau (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
+      "anforderungsniveau": 1,
+      "trainingCategory": "none"
     },
     "47-4011.00": {
-      "kldbCode": "26102",
-      "kldbName": "Berufe in der Mechatronik und Automatisierungstechnik (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "31163",
+      "kldbName": "Bausachverständige und Baukontrolleure/-kontrolleurinnen - komplexe Spezialistentätigkeiten",
+      "anforderungsniveau": 3,
+      "trainingCategory": "specialist"
     },
     "47-4011.01": {
       "kldbCode": "31102",
@@ -4193,20 +4193,20 @@
       "trainingCategory": "apprenticeship"
     },
     "47-4021.00": {
-      "kldbCode": "25132",
-      "kldbName": "Technische Servicekräfte in Wartung und Instandhaltung - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "26112",
+      "kldbName": "Berufe in der Mechatronik - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "47-4031.00": {
-      "kldbCode": "32152",
-      "kldbName": "Berufe im Fassadenbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "24412",
+      "kldbName": "Berufe im Metallbau - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "47-4041.00": {
-      "kldbCode": "22203",
-      "kldbName": "Berufe in der Farb- und Lacktechnik (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
+      "kldbCode": "42203",
+      "kldbName": "Berufe in der Umweltschutztechnik (ohne Spezialisierung) - komplexe Spezialistentätigkeiten",
       "anforderungsniveau": 3,
       "trainingCategory": "specialist"
     },
@@ -4217,20 +4217,20 @@
       "trainingCategory": "apprenticeship"
     },
     "47-4061.00": {
-      "kldbCode": "31102",
-      "kldbName": "Berufe in der Bauplanung und -überwachung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "32232",
+      "kldbName": "Berufe im Gleisbau - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "47-4071.00": {
-      "kldbCode": "32201",
-      "kldbName": "Berufe im Tiefbau (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten",
-      "anforderungsniveau": 1,
-      "trainingCategory": "none"
+      "kldbCode": "34312",
+      "kldbName": "Berufe in der Wasserversorgungs- und Abwassertechnik - fachlich ausgerichtete Tätigkeiten",
+      "anforderungsniveau": 2,
+      "trainingCategory": "apprenticeship"
     },
     "47-4091.00": {
-      "kldbCode": "32222",
-      "kldbName": "Berufe im Straßen- und Asphaltbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "32212",
+      "kldbName": "Pflasterer/Pflasterinnen und Steinsetzer/innen - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4241,20 +4241,20 @@
       "trainingCategory": "apprenticeship"
     },
     "47-5011.00": {
-      "kldbCode": "94512",
-      "kldbName": "Berufe in der Veranstaltungs- und Bühnentechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "21112",
+      "kldbName": "Berufe im Berg- und Tagebau - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "47-5012.00": {
-      "kldbCode": "32242",
-      "kldbName": "Berufe im Brunnenbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "21112",
+      "kldbName": "Berufe im Berg- und Tagebau - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
     "47-5013.00": {
-      "kldbCode": "41312",
-      "kldbName": "Berufe in der Chemie- und Pharmatechnik - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "21112",
+      "kldbName": "Berufe im Berg- und Tagebau - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4289,8 +4289,8 @@
       "trainingCategory": "apprenticeship"
     },
     "47-5044.00": {
-      "kldbCode": "32222",
-      "kldbName": "Berufe im Straßen- und Asphaltbau - fachlich ausgerichtete Tätigkeiten",
+      "kldbCode": "21112",
+      "kldbName": "Berufe im Berg- und Tagebau - fachlich ausgerichtete Tätigkeiten",
       "anforderungsniveau": 2,
       "trainingCategory": "apprenticeship"
     },
@@ -4301,10 +4301,10 @@
       "trainingCategory": "apprenticeship"
     },
     "47-5071.00": {
-      "kldbCode": "32242",
-      "kldbName": "Berufe im Brunnenbau - fachlich ausgerichtete Tätigkeiten",
-      "anforderungsniveau": 2,
-      "trainingCategory": "apprenticeship"
+      "kldbCode": "21111",
+      "kldbName": "Berufe im Berg- und Tagebau - Helfer-/Anlerntätigkeiten",
+      "anforderungsniveau": 1,
+      "trainingCategory": "none"
     },
     "47-5081.00": {
       "kldbCode": "21111",
