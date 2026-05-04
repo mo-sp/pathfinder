@@ -229,7 +229,7 @@ export default {
   '11-1031.00': 'Politiker/Politikerin', // Legislators — MPs, council members, elected officials
 
   // === Standalone: broader label for the service + recreation supervisor cluster ===
-  '39-1014.00': 'Leiter/Leiterin Gastronomie und Freizeit', // First-Line Supervisors of Personal Service and Entertainment and Recreation Workers
+  '39-1014.00': 'Teamleiter Freizeit und Unterhaltung / Teamleiterin Freizeit und Unterhaltung', // First-Line Supervisors of Entertainment & Recreation Workers (audit batch 13): war "Leiter/Leiterin Gastronomie und Freizeit" (Gastronomie-Anteil falsch — SOC ist Entertainment & Recreation, except gambling and food services); Teamleiter trifft Anf-3-Aufsichtskraft-Tier
 
   // === Standalone: German aviation-idiomatic label replaces "Purser/Purserette" ===
   '53-1044.00': 'Leitender Flugbegleiter / Leitende Flugbegleiterin', // First-Line Supervisors of Passenger Attendants
@@ -391,7 +391,7 @@ export default {
   '33-3052.00': 'Bahn- und Verkehrspolizist/Bahn- und Verkehrspolizistin', // Transit and Railroad Police
 
   // === Cluster: "Hilfskraft im Freizeit- und Erholungsbereich" (2) ===
-  '39-3031.00': 'Einlasskontrolle und Saaldienst', // Ushers, Lobby Attendants, and Ticket Takers
+  '39-3031.00': 'Platzanweiser/Platzanweiserin', // Ushers, Lobby Attendants, and Ticket Takers (audit batch 13): war "Einlasskontrolle und Saaldienst" (Tätigkeitsbeschreibung, kein Berufstitel); Platzanweiser ist etablierter DE-Begriff
   '39-3091.00': 'Mitarbeiter Freizeitpark / Mitarbeiterin Freizeitpark', // Amusement and Recreation Attendants
 
   // === Cluster: "Einbalsamierer" (2) ===
@@ -735,4 +735,12 @@ export default {
   '47-4071.00': 'Kanal- und Rohrreiniger/Kanal- und Rohrreinigerin', // Septic Tank Servicers/Sewer Pipe Cleaners: war "Kanalbauer" (Bau ≠ Reinigung) — SOC ist Servicing/Cleaning, nicht Bauausführung
   '47-5011.00': 'Bohranlagenoperator/Bohranlagenoperatorin', // Derrick Operators (Oil and Gas): war "Bühnenmann/Bühnenfrau" (Theater-Lesart, völlig falsch) — Bohranlagenoperator trifft Erdöl-/Erdgasbohranlagen-Beruf
   '47-5071.00': 'Bohranlagenhelfer/Bohranlagenhelferin', // Roustabouts (Oil and Gas): war "Deckarbeiter" (Schiffsdeck-Lesart, falsch) — Bohranlagenhelfer parallel zu 47-5011 Bohranlagenoperator (Helfer-Operator-Tier-Pair im Bohranlagen-Cluster); deckt sowohl Öl- als auch Gas-Förderung
+  // === Audit batch 13 — SOC 39 Personal Care and Service coupled title fixes (2026-04-25) ===
+  // 39-1014.00 modified in-place at line ~232 (war "Leiter/Leiterin Gastronomie und Freizeit" → "Teamleiter Freizeit und Unterhaltung")
+  // 39-3031.00 modified in-place at line ~394 (war "Einlasskontrolle und Saaldienst" → "Platzanweiser/Platzanweiserin")
+  '39-2021.00': 'Tierpfleger/Tierpflegerin', // Animal Caretakers: war "Tiersitter/Tiersitterin" (umgangssprachlich, Hobby-Konnotation) — Tierpfleger ist DE-Ausbildungsberuf für Zoo/Tierheim/Aquakultur
+  '39-4021.00': 'Bestattungshelfer/Bestattungshelferin', // Funeral Attendants: war "Bestattunggehilfe/Bestattungsgehilfin" (Tippfehler: fehlendes 's' vor '-gehilfe') — Modify gegen agent's "Bestattungsfachkraft" (Title bereits 39-4031 Morticians/Undertakers); Helfer-Tier hält Differenzierung Funeral Attendant vs. Mortician
+  '39-5012.00': 'Friseur/Friseurin', // Hairdressers/Hairstylists/Cosmetologists: war "Perückenmacher/Perückenmacherin" (marginale Nische, Drift) — Friseur trifft SOC-Hauptlesart; 39-5011 Barbers behält "Herrenfriseur" zur Differenzierung
+  '39-7011.00': 'Gästeführer/Gästeführerin', // Tour Guides and Escorts: war "Fremdenführer/Fremdenführerin" (leicht veraltet) — Gästeführer ist moderner DE-Standardbegriff
+  '39-9032.00': 'Freizeitpädagoge/Freizeitpädagogin', // Recreation Workers: war "Trainer für Outdoor-Aktivitäten/Trainerin für Outdoor-Aktivitäten" (zu eng — Recreation umfasst Kunst/Musik/Camping/Sport) — Freizeitpädagoge fängt Domain-Breite, konsistent zu KldB 83123 Sozialpädagogik
 }
