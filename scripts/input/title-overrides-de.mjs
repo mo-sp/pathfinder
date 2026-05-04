@@ -540,7 +540,7 @@ export default {
   '35-9031.00': 'Oberkellner/Oberkellnerin', // Hosts and Hostesses, Restaurant, Lounge, and Coffee Shop
   '39-1022.00': 'Teamleiter Dienstleistungsberufe / Teamleiterin Dienstleistungsberufe', // First-Line Supervisors of Personal Service Workers
   '43-3061.00': 'Sachbearbeiter Einkauf / Sachbearbeiterin Einkauf', // Procurement Clerks
-  '47-2082.00': 'Trockenbauspachtler/Trockenbauspachtlerin', // Tapers
+  '47-2082.00': 'Trockenbaumonteur/Trockenbaumonteurin', // Drywall Tapers (audit batch 14): war "Trockenbauspachtler/Trockenbauspachtlerin" (kein existierender Berufstitel) — Trockenbaumonteur ist BERUFENET-Standard
   '47-4099.03': 'Energiesanierer/Energiesaniererin', // Weatherization Installers and Technicians
   '49-2097.00': 'Installateur Audio- und Videotechnik / Installateurin Audio- und Videotechnik', // Audiovisual Equipment Installers and Repairers
   '49-9081.00': 'Servicetechniker Windenergie / Servicetechnikerin Windenergie', // Wind Turbine Service Technicians
@@ -725,4 +725,14 @@ export default {
   '17-2121.00': 'Schiffbauingenieur/Schiffbauingenieurin', // Marine Engineers and Naval Architects: war "Zeichner Seefahrzeuge" (beschreibt Drafter, nicht Engineer) — Schiffbauingenieur ist DE-etablierter Begriff
   '17-2199.03': 'Energieingenieur/Energieingenieurin', // Energy Engineers (.03): war "Energieanalyst" (analytische Funktion, nicht Engineering) — Energieingenieur trifft SOC-Profil; konsistent zu 11-9199.10 Wind Energy aus batch-11
   '17-2051.02': 'Wasserbauingenieur/Wasserbauingenieurin', // Water/Wastewater Engineers: war "Wasserbautechniker" (Techniker-Tier statt Ingenieur-Tier) — Wasserbauingenieur konsistent zu batch-11's 11-9121.02 Ingenieur Wasserwirtschaft
+
+  // === Audit batch 14 — SOC 47 Construction and Extraction coupled title fixes (2026-04-25) ===
+  // 47-2082.00 modified in-place at line ~543 (war "Trockenbauspachtler" → "Trockenbaumonteur")
+  '47-2042.00': 'Bodenleger/Bodenlegerin', // Floor Layers Except Carpet/Wood/Hard Tiles: war "Parkettleger" (SOC schließt Holz EXPLIZIT aus — Parkettleger ist falsch) — Bodenleger trifft Vinyl/Kork/Soft-Beläge
+  '47-2051.00': 'Betonbauer/Betonbauerin', // Cement Masons and Concrete Finishers: war "Betonoberflächenfertiger" (sperriges Kompositum, kein etablierter DE-Beruf) — Betonbauer ist DE-Standardberuf
+  '47-3015.00': 'Helfer Sanitär- und Rohrinstallation / Helferin Sanitär- und Rohrinstallation', // Helpers-Pipelayers/Plumbers: war "Gas- und Sanitärinstallateur" (Fachkraft-Title, aber SOC ist Helfer-Tätigkeit) — Helfer-Title hält Anf-1-Differenzierung gegen 47-2152 Plumbers
+  '47-4031.00': 'Zaunbauer/Zaunbauerin', // Fence Erectors: war "Türenbauer" (komplett falsch — Fence ≠ Door) — Zaunbauer trifft SOC-Lesart, KldB-domain Metallbau passt
+  '47-4071.00': 'Kanal- und Rohrreiniger/Kanal- und Rohrreinigerin', // Septic Tank Servicers/Sewer Pipe Cleaners: war "Kanalbauer" (Bau ≠ Reinigung) — SOC ist Servicing/Cleaning, nicht Bauausführung
+  '47-5011.00': 'Bohranlagenoperator/Bohranlagenoperatorin', // Derrick Operators (Oil and Gas): war "Bühnenmann/Bühnenfrau" (Theater-Lesart, völlig falsch) — Bohranlagenoperator trifft Erdöl-/Erdgasbohranlagen-Beruf
+  '47-5071.00': 'Bohranlagenhelfer/Bohranlagenhelferin', // Roustabouts (Oil and Gas): war "Deckarbeiter" (Schiffsdeck-Lesart, falsch) — Bohranlagenhelfer parallel zu 47-5011 Bohranlagenoperator (Helfer-Operator-Tier-Pair im Bohranlagen-Cluster); deckt sowohl Öl- als auch Gas-Förderung
 }

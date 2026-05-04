@@ -108,10 +108,10 @@ export default {
   "45-2091.00": { kldbCode: "52512", kldbName: "Führer von land- und forstwirtschaftlichen Maschinen - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Maschinenbediener für die landwirtschaftliche Produktion/Maschinenbedienerin für die landwirtschaftliche Produktion
   "45-2092.00": { kldbCode: "12101", kldbName: "Berufe im Gartenbau (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Gartenhilfsarbeiter/Gartenhilfsarbeiterin
   "45-4022.00": { kldbCode: "52512", kldbName: "Führer von land- und forstwirtschaftlichen Maschinen - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Forstmaschinenführer/Forstmaschinenführerin
-  "47-3011.00": { kldbCode: "32212", kldbName: "Pflasterer/Pflasterinnen und Steinsetzer - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Bauhelfer Maurer- und Steinmetzhandwerk / Bauhelferin Maurer- und Steinmetzhandwerk
+  // 47-3011.00 Helpers-Brickmasons/Stonemasons/Tile Setters pulled out of seed (was 32212 Pflasterer/Steinsetzer Anf 2 — falscher Tier, Pflasterer ist eigenständiger Ausbildungsberuf) → batch-14 block (32101 Hochbau Helfer Anf 1)
   "47-4051.00": { kldbCode: "51212", kldbName: "Straßen- und Tunnelwärter - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Straßenunterhaltungsarbeiter/Straßenunterhaltungsarbeiterin
-  "47-4071.00": { kldbCode: "32201", kldbName: "Berufe im Tiefbau (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Kanalbauer/Kanalbauerin
-  "47-5044.00": { kldbCode: "32222", kldbName: "Berufe im Straßen- und Asphaltbau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Bergbau-Maschinenführer Untertage / Bergbau-Maschinenführerin Untertage
+  // 47-4071.00 Septic Tank Servicers/Sewer Pipe Cleaners pulled out of seed (was 32201 Tiefbau Helfer Anf 1 — Reinigungstätigkeit ist Wasser-/Abwasser-Domain) → batch-14 block (34312 Wasserversorgung/Abwasser Anf 2)
+  // 47-5044.00 Underground Mining Loading Machine Operators pulled out of seed (was 32222 Straßen-/Asphaltbau — Drift) → batch-14 block (21112 Berg-/Tagebau Anf 2)
   "49-2094.00": { kldbCode: "26122", kldbName: "Berufe in der Automatisierungstechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Elektroniker Gewerbliche Geräte / Elektronikerin Gewerbliche Geräte
   // 49-3031.00 Bus/Truck Mechanics pulled out of seed (was 25112 Maschinen-/Gerätezusammensetzer — zu fertigungs-fokussiert für Diagnostik/Reparatur) → batch-6 block (25212 Kfz-Technik fachlich)
   // 49-3043.00 Rail Car Repairers pulled out of seed (was 25112 Maschinen-/Gerätezusammensetzer — generisch) → batch-6 block (51112 Eisenbahnbetrieb fachlich)
@@ -178,7 +178,7 @@ export default {
   "39-3091.00": { kldbCode: null, kldbName: null, anforderungsniveau: 1, trainingCategory: "none" }, // Mitarbeiter Freizeitpark: was Objekt-/Personenschutz-Helfer — no clean KldB class, suppress subtitle
   "47-2061.00": { kldbCode: "32102", kldbName: "Berufe im Hochbau (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Hochbauhelfer: was Sprengtechnik
   "47-2211.00": { kldbCode: "24412", kldbName: "Berufe im Metallbau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Konstruktionsmechaniker Feinblechbau: was Klempnerei
-  "47-5011.00": { kldbCode: "94512", kldbName: "Berufe in der Veranstaltungs- und Bühnentechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Bühnenmann: was Brunnenbau
+  // 47-5011.00 Derrick Operators (Oil and Gas) pulled out of seed (was 94512 Veranstaltungstechnik — Drift via "Bühne"; SOC ist Erdöl-/Erdgasbohranlage) → batch-14 block (21112 Berg-/Tagebau Anf 2)
   "49-2091.00": { kldbCode: "26332", kldbName: "Berufe in der Luftverkehrs-, Schiffs- und Fahrzeugelektronik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Avioniker: was Automatisierungstechnik (generic)
   "53-7065.00": { kldbCode: "51312", kldbName: "Berufe in der Lagerwirtschaft - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Lagerarbeiter: was technischer Luftverkehrsbetrieb
 
@@ -742,4 +742,88 @@ export default {
   "17-3028.00": { kldbCode: "27312", kldbName: "Berufe in der technischen Qualitätssicherung - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Calibration Technicians/Metrology Tech: war 41322 chem-tech. Lab (Drift — Kalibrierung ist physikalische Messtechnik, nicht Chemie); Modify gegen agent's null (KldB hat keine dedizierte Mess-/Eichwesen-Klasse) — 27312 Tech QS fachlich passt (Mess-/Eichwesen ist QS-Disziplin), konsistent zu sibling 17-3029.01 NDT in 27313
   "17-3029.01": { kldbCode: "27313", kldbName: "Berufe in der technischen Qualitätssicherung - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // NDT Specialists (Non-Destructive Testing): war 27312 Tech QS fachlich Anf 2 (zu niedrig — NDT-Spezialisten sind zertifizierte Spezialisten, kein Apprenticeship-Tier); sibling-up 27312 → 27313 mit Anf 2→3
   "17-3029.08": { kldbCode: "21363", kldbName: "Berufe in der Feinoptik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Photonics Technicians: war 27182 Tech F&E sonstige fachlich Anf 2 (zu generisch + zu niedrig) — Photonik-Tech installieren/warten optische Geräte = Feinoptik komplex; sibling-domain pivot + Anf-up 2→3
+
+  // === Audit batch 14 — SOC 47 Construction and Extraction (2026-04-25) ===
+  // Plan-table walked all 31 SOC 47 findings. 28 KldB-changing entries below
+  // (15 Apply, 4 seed pull-outs, 9 Modify reconciliations); 1 explicit Reject
+  // (47-2011 Boilermakers — agent's eigenes Reasoning admittiert "die
+  // Schreibweise ist korrekt", null suggestion); 2 title-only entries
+  // (47-2051 Concrete Finishers, 47-2082 Drywall Tapers — KldB unchanged).
+  // Heaviest catalog-only-Anf-Pattern der Pipeline: 5 Bauhelfer-SOC-Codes
+  // (47-3011/3012/3014/3015/3016) — KldB hat in Zimmerei/SHK/Dachdeckerei
+  // KEINE Anf-1-Sibling-Klassen; nur Maler-/Lackierer (33211) und
+  // Hochbau-ohne-Spez (32101) haben dedizierte Helfer-Klassen. 4 von 5
+  // Bauhelfer-SOC-Codes pivotieren zu generic 32101 Hochbau Helfer (catalog-
+  // only-Anf-Fallback, gleiches Pattern wie Casino-/Glücksspiel-Pivot batch
+  // 11/12). Modifies gegen agent: 47-2042 Floor Layers (agent null →
+  // 33102 Bodenverlegung ohne-Spez, parallel zu Holz-Ausschluss in SOC);
+  // 47-2072 Pile Drivers + 47-2151 Pipelayers (agent's 32102 Hochbau →
+  // 32202 Tiefbau, agent's eigenes Reasoning sagte explizit
+  // "Spezialtiefbauer"); 47-3015 Helpers-Plumbers (agent null → 32101
+  // catalog-pivot — kein 34211 Anf-1-Sibling); 47-4041 Hazmat (agent's
+  // 34333 Abfallwirtschaft → 42203 Umweltschutztechnik, konsistent zu
+  // batch-10's 19-4042 + batch-12's 17-3025). Modify-beyond-audit's-flag
+  // bei 47-3012/3016 (Audit nur Anf-flag, catalog-Pivot zu 32101 wegen
+  // fehlendem Anf-1-Sibling), 47-5071 Roustabouts (Audit nur Title-flag,
+  // KldB+Anf-Shift zu 21111 Berg-/Tagebau Helfer parallel zu 47-5081
+  // Helpers-Mining). Coupled title cascades: 47-2042 → "Bodenleger";
+  // 47-2051 → "Betonbauer"; 47-2082 → "Trockenbaumonteur"; 47-3015 →
+  // "Helfer Sanitär-/Rohrinstallation"; 47-4031 → "Zaunbauer";
+  // 47-4071 → "Kanal-/Rohrreiniger"; 47-5011 → "Bohranlagenoperator";
+  // 47-5071 → "Bohranlagenhelfer". Slot-Swaps: 47-2042/2043 (Bodenverlegung
+  // ohne-Spez ↔ Parkett); 47-3011/4091 (32212 Pflasterer slot frei nach
+  // 47-3011-Pull-out → 47-4091); 47-2151/4061 (32232 Gleisbau slot frei
+  // nach 47-2151-Move → 47-4061).
+
+  // First-Line Supervisor — Aufsichtskraft-Tier
+  "47-1011.00": { kldbCode: "32193", kldbName: "Aufsichtskräfte - Hochbau", anforderungsniveau: 3, trainingCategory: "specialist" }, // First-Line Supervisors of Construction Trades: war 51332 Güter-/Warenumschlag (komplett falscher Sektor) — 32193 Aufsichtskräfte Hochbau ist Exact-Klasse für Bauleiter-Tier; KldB+Anf 2→3
+
+  // Renewable Energy
+  "47-1011.03": { kldbCode: "26243", kldbName: "Berufe in der regenerativen Energietechnik - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Solar Energy Installation Managers: war 26212 Bauelektrik Anf 2 — Solar-Installationsleiter ist Meister/Techniker-Tier in regenerativer Energie; KldB+Anf 2→3
+  "47-2152.04": { kldbCode: "26242", kldbName: "Berufe in der regenerativen Energietechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Solar Thermal Installers: war 26212 Bauelektrik (Drift) — Solarthermie ist regenerative Energie/Sanitär-Heizung, nicht Bauelektrik
+
+  // Bodenverlegung — Slot-Swap zwischen 47-2042/2043
+  "47-2042.00": { kldbCode: "33102", kldbName: "Berufe in der Bodenverlegung (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Floor Layers Except Carpet/Wood/Hard Tiles: war 33132 Parkettverlegung (Drift — SOC schließt Holz EXPLIZIT aus); Modify gegen agent's null — 33102 Bodenverlegung ohne-Spez. trifft Vinyl/Kork/Soft-Beläge; coupled mit title.de "Parkettleger" → "Bodenleger/Bodenlegerin"
+  "47-2043.00": { kldbCode: "33132", kldbName: "Berufe in der Parkettverlegung - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Floor Sanders and Finishers: war 33102 Bodenverlegung ohne-Spez. — Schleifen ist Holzboden-spezifisch, 33132 Parkett trifft besser; Slot-Swap zu 47-2042
+
+  // Specialty trades
+  "47-2044.00": { kldbCode: "33112", kldbName: "Berufe in der Fliesen-, Platten- und Mosaikverlegung - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Tile and Stone Setters: war 32122 Maurerhandwerk (Drift) — Fliesenleger ist eigenständige Handwerksklasse
+  "47-2072.00": { kldbCode: "32202", kldbName: "Berufe im Tiefbau (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Pile-Driver Operators: war 32222 Straßen-/Asphaltbau (Drift) — Modify gegen agent's 32102 Hochbau (agent's eigenes Reasoning: "Pile Driver Operators sind Spezialtiefbauer") → 32202 Tiefbau ohne-Spez. ist Domain-konsistent
+  "47-2142.00": { kldbCode: "93232", kldbName: "Berufe in der Raumausstattung - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Paperhangers (Tapezierer): war 33212 Maler-/Lackiererarbeiten — Raumausstatter ist die korrekte DE-Ausbildung für Tapezierarbeiten
+
+  // Pipe / Drainage / Rebar
+  "47-2151.00": { kldbCode: "32202", kldbName: "Berufe im Tiefbau (ohne Spezialisierung) - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Pipelayers: war 32232 Gleisbau (Drift via "-bau") — Modify gegen agent's 32102 Hochbau — Pipelayers verlegen Rohre IM BODEN = Tiefbau-Domain (parallel zu 47-2072 Pile Drivers)
+  "47-2152.00": { kldbCode: "34322", kldbName: "Berufe im Rohrleitungsbau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Plumbers/Pipefitters/Steamfitters: war 24422 Schweiß-/Verbindungstechnik (Drift — Verbindungstechnik ist Methode, nicht Beruf); Rohrleitungsbau differenziert von 47-3015 SHK in 34212
+  "47-2171.00": { kldbCode: "32112", kldbName: "Berufe im Beton- und Stahlbetonbau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Reinforcing Iron and Rebar Workers: war 32122 Maurerhandwerk (Drift) — Bewehrungsstahl-Verlegung gehört in Beton-/Stahlbetonbau
+
+  // Bauhelfer (Helper-Tier) — Catalog-only-Anf-Fallback zu 32101 (4 von 5 Codes)
+  "47-3011.00": { kldbCode: "32101", kldbName: "Berufe im Hochbau (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Helpers-Brickmasons/Stonemasons/Tile Setters: was seed 32212 Pflasterer/Steinsetzer Anf 2 (falscher Tier — Pflasterer ist eigenständiger Ausbildungsberuf, nicht Hilfsarbeiter); pulled out of seed; KldB+Anf 2→1
+  "47-3012.00": { kldbCode: "32101", kldbName: "Berufe im Hochbau (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Helpers-Carpenters: war 33322 Zimmerei Anf 2 (Audit nur Anf-flag) — Modify-beyond-audit's-flag (catalog-pivot — kein 33321 Anf-1-Sibling in Zimmerei); 32101 generic Bauhelfer; KldB+Anf 2→1
+  "47-3014.00": { kldbCode: "33211", kldbName: "Berufe für Maler- und Lackiererarbeiten - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Helpers-Painters/Paperhangers/Plasterers: war 33212 Maler/Lackierer Anf 2 — sibling-down zur Helfer-Klasse 33211 (einzige Bauhandwerks-Domain mit Anf-1-Sibling)
+  "47-3015.00": { kldbCode: "32101", kldbName: "Berufe im Hochbau (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Helpers-Pipelayers/Plumbers: war 34212 SHK Anf 2 — Modify gegen agent's null (catalog-pivot — kein 34211 Anf-1-Sibling in SHK); 32101 generic Bauhelfer; coupled mit title.de "Gas- und Sanitärinstallateur" → "Helfer Sanitär- und Rohrinstallation"; KldB+Anf 2→1
+  "47-3016.00": { kldbCode: "32101", kldbName: "Berufe im Hochbau (ohne Spezialisierung) - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Helpers-Roofers: war 32142 Dachdeckerei Anf 2 (Audit nur Anf-flag) — Modify-beyond-audit's-flag (catalog-pivot — kein 32141 Anf-1-Sibling in Dachdeckerei); 32101 generic Bauhelfer; KldB+Anf 2→1
+
+  // Inspection
+  "47-4011.00": { kldbCode: "31163", kldbName: "Bausachverständige und Baukontrolleure/-kontrolleurinnen - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Construction and Building Inspectors: war 26102 Mechatronik (Drift) — Bausachverständige ist Exact-Klasse, Anf 3 für Meister/Techniker-Tier; KldB+Anf 2→3
+
+  // Maintenance/Specialty
+  "47-4021.00": { kldbCode: "26112", kldbName: "Berufe in der Mechatronik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Elevator and Escalator Mechanics: war 25132 Wartungstechnik (zu allgemein) — Aufzugmonteure sind Mechatroniker-Spezialisten
+  "47-4031.00": { kldbCode: "24412", kldbName: "Berufe im Metallbau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Fence Erectors: war 32152 Fassadenbau (Drift via "-bau") — Zaunbau ist Metallbau (parallel zu 47-2211 Sheet Metal Workers in 24412); coupled mit title.de "Türenbauer" → "Zaunbauer/Zaunbauerin"
+  "47-4041.00": { kldbCode: "42203", kldbName: "Berufe in der Umweltschutztechnik (ohne Spezialisierung) - komplexe Spezialistentätigkeiten", anforderungsniveau: 3, trainingCategory: "specialist" }, // Hazardous Materials Removal Workers: war 22203 Farb-/Lacktechnik komplex Anf 3 (Drift) — Modify gegen agent's 34333 Abfallwirtschaft (zu eng auf Disposal); 42203 Umweltschutztechnik fängt Asbest-/Bodensanierung breiter und ist konsistent zu batch-10's 19-4042 + batch-12's 17-3025
+
+  // Construction operators
+  "47-4061.00": { kldbCode: "32232", kldbName: "Berufe im Gleisbau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Rail-Track Laying and Maintenance Equipment Operators: war 31102 Bauplanung (Drift — Bauplanung ist planerisch, nicht ausführend) — 32232 Gleisbau ist Exact-Klasse (Slot frei nach 47-2151 Move zu Tiefbau)
+  "47-4071.00": { kldbCode: "34312", kldbName: "Berufe in der Wasserversorgungs- und Abwassertechnik - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Septic Tank Servicers/Sewer Pipe Cleaners: was seed 32201 Tiefbau Helfer Anf 1 (Reinigungstätigkeit ist Wasser-/Abwasser-Domain, nicht Tiefbau-Helfer); pulled out of seed; coupled mit title.de "Kanalbauer" → "Kanal- und Rohrreiniger/Kanal- und Rohrreinigerin"; KldB+Anf 1→2
+
+  // Pflasterer
+  "47-4091.00": { kldbCode: "32212", kldbName: "Pflasterer/Pflasterinnen und Steinsetzer/innen - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Segmental Pavers (Pflasterer): war 32222 Straßen-/Asphaltbau — 32212 Pflasterer/Steinsetzer ist Exact-Klasse (Slot frei nach 47-3011 Pull-out)
+
+  // Oil / Gas / Mining — 21112 Berg-/Tagebau-Cluster
+  "47-5011.00": { kldbCode: "21112", kldbName: "Berufe im Berg- und Tagebau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Derrick Operators (Oil and Gas): was seed 94512 Veranstaltungstechnik (Drift via "Bühne"; SOC ist Erdöl-/Erdgasbohranlage); pulled out of seed; coupled mit title.de "Bühnenmann" → "Bohranlagenoperator/Bohranlagenoperatorin"
+  "47-5012.00": { kldbCode: "21112", kldbName: "Berufe im Berg- und Tagebau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Rotary Drill Operators (Oil and Gas): war 32242 Brunnenbau (Drift — Brunnenbau ist Wasser, nicht Öl/Gas) — 21112 Berg-/Tagebau-Cluster
+  "47-5013.00": { kldbCode: "21112", kldbName: "Berufe im Berg- und Tagebau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Service Unit Operators (Oil/Gas/Mining): war 41312 Chemie-/Pharmatechnik (Drift) — 21112 Berg-/Tagebau-Cluster
+  "47-5044.00": { kldbCode: "21112", kldbName: "Berufe im Berg- und Tagebau - fachlich ausgerichtete Tätigkeiten", anforderungsniveau: 2, trainingCategory: "apprenticeship" }, // Underground Mining Loading Machine Operators: was seed 32222 Straßen-/Asphaltbau (Drift); pulled out of seed; 21112 Berg-/Tagebau-Cluster
+
+  // Roustabouts — Helfer-Tier des Bohranlagen-Clusters
+  "47-5071.00": { kldbCode: "21111", kldbName: "Berufe im Berg- und Tagebau - Helfer-/Anlerntätigkeiten", anforderungsniveau: 1, trainingCategory: "none" }, // Roustabouts (Oil and Gas): war 32242 Brunnenbau Anf 2 (Drift via "Deck"=Schiff); Modify-beyond-audit's-flag (Audit nur Title-flag) — Helfer-Tier 21111 parallel zu 47-5081 Helpers-Mining; coupled mit title.de "Deckarbeiter" → "Bohranlagenhelfer/Bohranlagenhelferin" (Helfer-Pendant zu 47-5011 Bohranlagenoperator); KldB+Anf 2→1
 }
