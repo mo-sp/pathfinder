@@ -18,15 +18,10 @@ current PR. For what shipped when, see `SUMMARY.md`.
 
 Likely next 1–2 sessions.
 
-- **Startseite content + design refresh.** Two-part: (a) Content overhaul
-  to current state — wording, value-prop, what the test actually
-  measures (RIASEC + Big Five + Skills + Values, 4-layer stack),
-  privacy claim, what changed since the early version. Pre-friends-
-  release: the landing copy should reflect what shippers actually see
-  when they take the test. (b) Design refresh, ideally with claude-
-  design help. Independent of friends release — can ship as its own
-  PR any time. (Promoted from UX polish 2026-05-04 after BigFive
-  coverage closed to 100 %.)
+- **Startseite design refresh.** Content overhaul shipped via
+  `feat/landing-content-overhaul` (2026-05-04). Remaining work: design
+  refresh, ideally with claude-design help — independent of friends
+  release, can ship as its own PR any time.
 
 - **Concrete examples on every question** — many items (especially
   Skills / Abilities / Knowledge and Values) are abstract enough that
@@ -77,6 +72,20 @@ Likely next 1–2 sessions.
   …). The "ohne 5d-Klasse → 81404 ohne Spez." fallback pattern works;
   fix candidates can come opportunistically from browser tests rather
   than as a dedicated pass.
+- **Reconcile occupation list with official German Ausbildungsberufe.**
+  Current 923-code corpus comes from O\*NET (US) + ESCO (EU) crosswalks
+  with ad-hoc DE-title reworking. No systematic alignment to the canonical
+  Ausbildungsberufe list (BIBB Verzeichnis der anerkannten Ausbildungs-
+  berufe + BERUFENET, ~325 dual-system + similar school-based). Many DE
+  titles already line up (Mechatroniker, Industriekaufmann, …), but the
+  corpus has no "is this an Ausbildungsberuf?" flag, no audit for missing
+  canonical Ausbildungen, and no preference rule for the Ausbildungs-
+  bezeichnung when one exists. German labor market is heavily Ausbildungs-
+  zentriert — tighter alignment would make the result list feel more
+  native to DE users. Open: data source (BIBB list / BERUFENET API),
+  match strategy (title overlap vs ESCO crosswalk vs BERUFENET ID), how
+  to handle O\*NET codes without a DE Ausbildungs-pendant (academic,
+  US-specific).
 - **85 broadMatch KldB mappings** — residual noise tier. Options: (a) hide
   `broadMatch` from display and fall back to jobZone-only category, (b)
   accept. Build-script stat: `match tier of mapped codes: broadMatch`.

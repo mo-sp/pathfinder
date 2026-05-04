@@ -5,6 +5,44 @@
 
 ---
 
+### Session 46 – 2026-05-04
+**Focus:** Landing-page content overhaul. PR on `feat/landing-content-overhaul`. First half of the BACKLOG's lead "Up next" entry shipped; the design-refresh half is now its own standalone "Up next" item.
+
+**Meta / process notes:**
+- **Content review iterated through ~6 rounds of @mo-sp tightening before any code touched the editor.** Each round was small (one or two sentences) and dropped a specific failure mode: speed-framing dropped because the test is intentionally long ("er soll ergebnisse bringen"); "validierte psychometrische Modelle" softened to "etablierte Berufstest-Modelle" because @mo-sp's own weighting layer is partially home-grown ("ich will mit dir etwas bauen was funktioniert"); "Wir kombinieren … Gewichtung" dropped from the hero because too inside-baseball / defensive; "Vergleichsmodus" dropped from "Was du am Ende bekommst" because the toggle only hides the previous layer, not selectively per layer; "Bild deiner Selbsteinschätzung" → "deine Selbsteinschätzung in Fähigkeiten, Talenten und Wissen" because the Skills block in the results page is 3 aggregate bars, not a chart. Plan-table-style "soll ich's bauen oder noch dran drehen?" gates between each round kept the rewrites cheap.
+- **Time-variance ranges instead of point estimates.** Replaced "~8 Min" / "~15 Min" with "6–12 Min" / "12–20 Min" etc., to remove implicit pressure on slow / careful answerers. @mo-sp's idea — added a sub-line near the CTA: "Insgesamt etwa 25–45 Minuten, je nach Bearbeitungstempo." Lower bound = zügig durchgeklickt; upper = bewusst nachdenken.
+- **Em-dash purge.** All three user-facing em-dashes (—) replaced with en-dashes (–) or restructured away. @mo-sp's preference is en-dashes or no dash; the one remaining em-dash is in an internal English code comment, not in rendered output.
+- **Half-explained UX claims hurt rather than help.** @mo-sp flagged "Du kannst sie jederzeit löschen" as missing the WIE for inexperienced users; choices were "raus or erklären kurz". Chose "raus" because pointing at "Browser-Einstellungen" or "private Daten löschen" is hand-wavy bad-UX-advice. The existing "leben ausschließlich in deinem Browser" line carries the privacy point.
+- **Open-source mention without a clickable link is performative.** Added direct link to github.com/mo-sp/pathfinder when @mo-sp asked "sollten wir das github repo vlt verlinken wenn wir open source schon erwähnen?". target=_blank + rel=noopener.
+- **Heading rename: "Ehrlicher Stand" → "Stand der Entwicklung".** @mo-sp pushback on the original. Tentatively shipped with neutral alternative; three more candidates ("Wo wir stehen" / "Aktueller Stand" / "In aktiver Entwicklung") flagged for fallback rename if "Stand der Entwicklung" feels too dry on second look.
+- **One BACKLOG addition mid-session.** Reconcile occupation list with the official German Ausbildungsberufe (BIBB Verzeichnis + BERUFENET, ~325 dual-system + similar school-based) — German labor-market reality is Ausbildungs-zentriert, current corpus is O\*NET+ESCO with ad-hoc DE-title reworking, no canonical alignment yet. Filed under Data quality, not Up next — large unscoped task.
+
+**What shipped — `feat/landing-content-overhaul` (this PR):**
+
+*`src/pages/home/HomePage.vue`*: full rewrite of the landing structure. Hero now leads with "kostenlos, ohne Login, deine Antworten verlassen dein Gerät nicht" and the goal "eine Liste passender Berufe, mit der du wirklich etwas anfangen kannst" instead of the prior "validierte psychometrische Modelle" framing. CTA "Test starten · 239 Fragen" with "~25–45 Minuten"-sub-line. New sections: "Was du am Ende bekommst:" (3 bullets covering ranked list aus 923, four profile-overviews, search + Top-20-copy), "Was wir messen:" (4 layer cards with new time-variance ranges 6–12 / 5–10 / 1–2 / 12–20 Min), "Wie deine Daten geschützt sind:" (3 bullets including the github.com/mo-sp/pathfinder link). Amber "Früher Prototyp" warning box replaced with neutral slate "Stand der Entwicklung" panel.
+
+*`src/pages/home/HomePage.test.ts`*: CTA-text assertion updated from "Test starten (239 Fragen gesamt)" to "Test starten · 239 Fragen". Other three assertions (four layer cards present, click→reset, /test link) untouched and still passing.
+
+*`BACKLOG.md`*: (a) added Reconcile-with-Ausbildungsberufe entry under Data quality; (b) "Up next" Startseite-content-+-design-refresh entry trimmed to design-refresh only — content-overhaul half shipped in this PR.
+
+**Coverage after the session:**
+
+| | Before | After |
+|---|---|---|
+| Tests passing | 243 | 243 (1 test wording update, no new tests) |
+| Em-dashes in user-facing landing strings | 3 | 0 |
+| GitHub repo link on landing | – | github.com/mo-sp/pathfinder |
+
+**Branch:** `feat/landing-content-overhaul` (this PR).
+
+**Open for next sessions (tracked in BACKLOG):**
+- **Startseite design refresh** (the other half) — now standalone "Up next" entry; can ship its own PR any time, ideally with claude-design help.
+- **Concrete examples on every question** — ~238 examples across RIASEC/BigFive/Skills/Values items; non-blocking pre-friends-release.
+- **Reconcile occupation list with official German Ausbildungsberufe** — new BACKLOG entry from this session, parked under Data quality.
+- **Various Data quality + Scoring + Tech debt items** unchanged from prior sessions.
+
+---
+
 ### Session 45 – 2026-05-04
 **Focus:** Closed the BigFive coverage gap end-to-end. Three PRs on `feat/bigfive-isco-cascade`, `feat/bigfive-soc-sibling-fallback`, and `feat/bigfive-hand-curated-14`. Coverage of the 923-code corpus went from 754/923 (82 %) to 923/923 (100 %).
 
