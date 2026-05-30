@@ -173,15 +173,6 @@ Likely next 1–2 sessions.
 - **Education 2-year vs 3-year split** — v1 uses the 4 KldB Anforderungsniveaus.
   Upgrade to true Ausbildungsdauer granularity would need BERUFENET-API per
   Ausbildungsberuf (~800 calls at build time). Only pursue if users ask.
-- **Scroll-to-top on every question advance (mobile).** When the next
-  question has more text / more answers than the previous one, on
-  mobile the user lands mid-page and has to scroll up to read the new
-  question header. Desktop has enough vertical room to not notice.
-  Fix: `window.scrollTo(0, 0)` (or a smooth-scroll equivalent) inside
-  the question-advance handler in AssessmentPage. Also revisit the
-  Schicht-interstitial transitions and the layer-completion navigation
-  to `/ergebnis` — same pattern likely needed there. Surfaced on
-  2026-05-31 by @mo-sp mobile browser test.
 - **Lock answered questions on backtrack + forward button.** Current flow
   auto-advances on Likert click (good for first-time speed) and offers
   only "Zurück". On backtrack the previously-chosen answer is neither

@@ -45,6 +45,10 @@ describe('AssessmentPage', () => {
   beforeEach(async () => {
     setActivePinia(createPinia())
     await db.sessions.clear()
+    // JSDOM doesn't implement Element.scrollIntoView; stub it so the
+    // scroll-to-question calls in selectAnswer/goBack/dismissInterstitial
+    // don't log "Not implemented" noise to stderr.
+    Element.prototype.scrollIntoView = vi.fn()
   })
 
   describe('setup-time fresh-start guard (PR #17 regression check)', () => {
