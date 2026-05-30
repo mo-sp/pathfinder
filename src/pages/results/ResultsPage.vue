@@ -73,7 +73,7 @@ const toggleOptions = computed(() => {
     opts.push({ mode: 'bigfive', label: '+ Persönlichkeit' })
   }
   if (store.valuesIsComplete) {
-    opts.push({ mode: 'values', label: '+ Werte' })
+    opts.push({ mode: 'values', label: '+ Rahmen' })
   }
   if (store.skillsIsComplete) {
     opts.push({ mode: 'skills', label: '+ Fähigkeiten' })
@@ -785,7 +785,7 @@ onBeforeUnmount(() => {
       <template v-if="store.bigfiveIsComplete">
         <div v-if="store.valuesIsComplete" id="layer-values" class="mt-12 scroll-mt-6 rounded-xl border border-slate-700/60 bg-slate-900/50 p-6">
           <h2 class="text-2xl font-semibold text-slate-100">
-            Deine Werte & Rahmenbedingungen
+            Deine Rahmenbedingungen
           </h2>
           <p class="mt-2 text-sm text-slate-400">
             Deine Präferenzen zu Ausbildung, Arbeitsumfeld und Arbeitsweise.
@@ -834,7 +834,7 @@ onBeforeUnmount(() => {
               class="text-sm text-slate-400 underline hover:text-slate-100"
               @click="repeatLayer('values')"
             >
-              Werte-Test wiederholen
+              Rahmenbedingungen-Test wiederholen
             </button>
           </div>
         </div>
@@ -846,8 +846,8 @@ onBeforeUnmount(() => {
             Weiter verfeinern
           </p>
           <p class="mt-2 text-sm text-indigo-200">
-            Mit deinen Werten und Rahmenbedingungen werden Berufe gefiltert und
-            neu gewichtet. Berufe, die nicht zu deiner Ausbildungsbereitschaft
+            Mit deinen Rahmenbedingungen werden Berufe gefiltert und neu
+            gewichtet. Berufe, die nicht zu deiner Ausbildungsbereitschaft
             passen, werden ausgeblendet.
           </p>
           <p class="mt-1 text-sm text-indigo-200">
@@ -858,7 +858,7 @@ onBeforeUnmount(() => {
             class="mt-4 inline-flex items-center rounded-md bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-400"
             @click="refineWithValues"
           >
-            Werte & Rahmenbedingungen starten
+            Rahmenbedingungen starten
           </button>
         </div>
       </template>
@@ -942,10 +942,10 @@ onBeforeUnmount(() => {
             Top-Berufsempfehlungen
           </h2>
           <p v-if="viewMode === 'skills'" class="mt-1 text-sm text-slate-400">
-            Gewichtet nach RIASEC, Persönlichkeit, Werten und deinen Fähigkeiten.
+            Gewichtet nach RIASEC, Persönlichkeit, Rahmenbedingungen und deinen Fähigkeiten.
           </p>
           <p v-else-if="viewMode === 'values'" class="mt-1 text-sm text-slate-400">
-            Gewichtet nach RIASEC-Korrelation, Persönlichkeitsprofil und deinen Werten.
+            Gewichtet nach RIASEC-Korrelation, Persönlichkeitsprofil und deinen Rahmenbedingungen.
           </p>
           <p v-else-if="viewMode === 'bigfive'" class="mt-1 text-sm text-slate-400">
             Gewichtet nach RIASEC-Korrelation und Persönlichkeitsprofil.

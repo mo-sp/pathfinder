@@ -5,6 +5,36 @@
 
 ---
 
+### Session 47 – 2026-05-31
+
+**Focus:** Re-entry after a month away. No big feature pass — ideas brainstorm with @mo-sp, BACKLOG cultivation, and one small UX rename shipped to keep the session from being pure docs. PR on `feat/rename-werte-to-rahmenbedingungen`.
+
+**Meta / process notes:**
+- **Ideas brainstorm session, not a build session.** @mo-sp came back with seven topics: phase reordering, Archäologe outdoor-malus, answer-lock on backtrack, AI-addon nuance, Ausbildungsberufe surfacing, hobbies layer, neurodivergence/handedness signals. Read code first instead of guessing — found the auto-advance / no-forward / no-highlight pattern is design not bug, found 19-3091 lumps Anthropologists+Archeologists in one record (indoor 3.74 / outdoor 2.42 averaged), found values-items.json is de-facto Rahmenbedingungen content already. Updated BACKLOG with each finding rather than building anything speculatively.
+- **Two research sub-agents, both Sonnet:** (1) handedness vs job suitability — clear NEIN, effect sizes d < 0.3, no major guidance institution uses it, logged as REJECTED in BACKLOG with sources so it doesn't keep resurfacing; (2) German hobby taxonomies — no Open-Data option exists (DESTATIS/ZVE is PDF-only, SOEP is access-restricted, Wikidata has no property), recommendation to curate ~80 items from SOEP + DOSB Sportartenliste + Wikipedia DE Kategorie:Hobby with manual modern-items addition for the 15–35 target group.
+- **Hobby-layer design finalised.** Walked through 3 mapping variants (pure SOC list / hybrid / pure RIASEC-nudge). Initially proposed reine SOC-list; @mo-sp countered with "minimal RIASEC nudge + transparent per-card display" which is genuinely cleaner — fewer maintenance points, conceptually honest (hobby ≈ "what I freely do" sits in RIASEC's domain). Adopted that as the final spec. Plus MAX-aggregation against Skills layer to prevent double-counting (same trait via two proxies → take the stronger signal). Plus layer position shift: Hobbys slots in at position 2 between Interessen and Persönlichkeit — interest + real-world correlate sitting together makes the funnel narrative cleaner.
+- **Parked the skills-examples branch with a back-pointer in BACKLOG.** `feat/skills-examples-infra` had one month of uncommitted in-progress work (types + render + 6 seed examples). @mo-sp wasn't happy with the prior curation pass, wants to restart fresh. Committed as a WIP commit, pushed, and the BACKLOG "Concrete examples" entry now points back to the branch as a reference for the render shape.
+- **One memory addition.** `feedback_no_gendering.md` — keine Gender-Sternchen / Doppelpunkt-Splits in DE prose, @mo-sp prefers normales Deutsch with generic masculine as default. Caught in this session when I wrote "Nutzer:innen" / "Nutzer:innen" twice.
+
+**What shipped — `feat/rename-werte-to-rahmenbedingungen` (this PR):**
+
+*Schicht-3 rename across all user-facing strings.* The "Werte" layer label was a misnomer: the 8 items in `values-items.json` (Ausbildungsabschluss, drinnen/draußen, Sozialkontakt, Team/allein, körperliche Arbeit, Autonomie, Publikumskontakt, Routine) are de-facto Rahmenbedingungen / Arbeitspräferenzen, not classical values. Schicht-Label already read "Werte & Rahmenbedingungen" — we drop "Werte &". Internal `values` layer key unchanged, no data migration.
+
+Touched: `AssessmentPage.vue:79` (layerLabel), `HomePage.vue:61, 95` (bullet text + Schicht-3 card title + subline), `ResultsPage.vue:76` (filter toggle "+ Werte" → "+ Rahmen", short form to keep button-row compact), `ResultsPage.vue:788, 837, 849, 861, 945, 948` (panel headers, repeat-test button, explainer copy, start-button, top-list subtitles), `shared/lib/i18n.ts:103` (factor label "Werte & Rahmen" → "Rahmenbedingungen"). Tests updated in `HomePage.test.ts` and `ResultsPage.test.ts` to match the new strings.
+
+*`BACKLOG.md` — substantial cultivation pass:*
+- **Added** SOC "X and Y" combined-codes entry (Archäologe motivating example, 19-3091 indoor/outdoor average shown), under Data quality.
+- **Added** "Lock answered on backtrack + forward button" UX entry (auto-advance kept, only the revisit case gets the forward button + visual lock).
+- **Added** "Rename Werte → Rahmenbedingungen" UX entry — retired in this same PR.
+- **Added** "Phase order — should Rahmenbedingungen come first?" UX entry — decision deferred, pro/contra noted.
+- **Added** "Neurodivergence — verify Big Five + Werte already discriminate" Scoring entry, with explicit reasoning why diagnoses-as-scoring-signal is wrong direction.
+- **Added** "Mobile scroll-to-top on every question advance" UX entry from @mo-sp's mobile browser test.
+- **Added** "Mobile post-Schicht-1 load takes ~30 s on WLAN" Tech-debt entry, same browser test.
+- **Added** "Handedness as scoring signal — REJECTED" Ideas entry with the agent-researched sources, logged explicitly so it doesn't keep resurfacing.
+- **Rewrote** the Hobbies entry to carry the final spec: layer position 2, cap 5, per-hobby RIASEC vector, MAX-aggregation against Skills, transparency-in-card, taxonomy curation plan (~80 items, 8 domains, 3-source seed).
+- **Extended** the Concrete-examples entry with a back-pointer to the parked `feat/skills-examples-infra` branch.
+- **Extended** the Ausbildungsberufe entry with a Stage-1 pragmatic option ("just surface the Ausbildungs-Bezeichnung on each occupation card") for the next milestone.
+
 ### Session 46 – 2026-05-04
 **Focus:** Landing-page content overhaul. PR on `feat/landing-content-overhaul`. First half of the BACKLOG's lead "Up next" entry shipped; the design-refresh half is now its own standalone "Up next" item.
 

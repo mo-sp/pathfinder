@@ -100,7 +100,7 @@ const messages = {
       factors: {
         riasec: 'Interessen (RIASEC)',
         bigfive: 'Persönlichkeit',
-        values: 'Werte & Rahmen',
+        values: 'Rahmenbedingungen',
         skills: 'Fähigkeiten',
       },
       notScored: 'Noch nicht erfasst',

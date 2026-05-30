@@ -58,8 +58,8 @@ function start(): void {
       <li>
         <strong class="font-semibold text-slate-100">Vier Profil-Übersichten</strong>:
         Interessen-Hexagon (RIASEC), Persönlichkeits-Diagramm (Big Five),
-        Werte-Karten und deine Selbsteinschätzung in Fähigkeiten, Talenten
-        und Wissen.
+        Rahmenbedingungen und deine Selbsteinschätzung in Fähigkeiten,
+        Talenten und Wissen.
       </li>
       <li>
         <strong class="font-semibold text-slate-100">Suche</strong> über
@@ -92,9 +92,9 @@ function start(): void {
         <p class="mt-2 text-xs text-slate-500">50 Fragen · 5–10 Min</p>
       </div>
       <div class="rounded-lg border border-slate-800 bg-slate-900 p-4">
-        <div class="text-sm font-medium text-slate-100">Schicht 3: Werte</div>
+        <div class="text-sm font-medium text-slate-100">Schicht 3: Rahmenbedingungen</div>
         <p class="mt-1 text-xs text-slate-400">
-          Rahmenbedingungen – Ausbildung, Umfeld, Arbeitsweise
+          Ausbildung, Umfeld, Arbeitsweise
         </p>
         <p class="mt-2 text-xs text-slate-500">8 Fragen · 1–2 Min</p>
       </div>

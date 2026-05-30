@@ -76,7 +76,7 @@ const description = computed(() => {
 // match PROJECT.md's numbering.
 const layerLabel = computed(() => {
   if (store.currentLayer === 'skills') return 'Schicht 4 · Fähigkeiten, Talente & Wissen'
-  if (store.currentLayer === 'values') return 'Schicht 3 · Werte & Rahmenbedingungen'
+  if (store.currentLayer === 'values') return 'Schicht 3 · Rahmenbedingungen'
   if (store.currentLayer === 'bigfive') return 'Schicht 2 · Persönlichkeit'
   return 'Schicht 1 · Interessen'
 })
