@@ -190,14 +190,6 @@ Likely next 1–2 sessions.
   chosen button (filled bg / border accent) and surface a "Weiter →"
   button so the user can move on without re-clicking the same answer.
   Pure AssessmentPage.vue + store change.
-- **Rename "Werte" layer → "Rahmenbedingungen".** The 8 items in
-  values-items.json are de-facto Rahmenbedingungen (Ausbildungsabschluss,
-  drinnen/draußen, social contact, team/solo, physical demands, autonomy,
-  public contact, routine), not classical values. Schicht-Label already
-  says "Werte & Rahmenbedingungen" (AssessmentPage.vue:88) — strip
-  "Werte &". Touches i18n labels, AssessmentPage layerLabel, any
-  result-page section header. Keep the internal `values` layer key —
-  no data migration.
 - **Phase order — should Rahmenbedingungen come first?** Open design
   question. Pro current order (RIASEC first): higher-energy opening,
   "tell me about your interests" feels more engaging than "what's your

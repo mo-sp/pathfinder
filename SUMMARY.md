@@ -25,7 +25,6 @@ Touched: `AssessmentPage.vue:79` (layerLabel), `HomePage.vue:61, 95` (bullet tex
 *`BACKLOG.md` — substantial cultivation pass:*
 - **Added** SOC "X and Y" combined-codes entry (Archäologe motivating example, 19-3091 indoor/outdoor average shown), under Data quality.
 - **Added** "Lock answered on backtrack + forward button" UX entry (auto-advance kept, only the revisit case gets the forward button + visual lock).
-- **Added** "Rename Werte → Rahmenbedingungen" UX entry — retired in this same PR.
 - **Added** "Phase order — should Rahmenbedingungen come first?" UX entry — decision deferred, pro/contra noted.
 - **Added** "Neurodivergence — verify Big Five + Werte already discriminate" Scoring entry, with explicit reasoning why diagnoses-as-scoring-signal is wrong direction.
 - **Added** "Mobile scroll-to-top on every question advance" UX entry from @mo-sp's mobile browser test.
