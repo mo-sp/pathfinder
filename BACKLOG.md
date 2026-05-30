@@ -173,18 +173,40 @@ Likely next 1–2 sessions.
 - **Education 2-year vs 3-year split** — v1 uses the 4 KldB Anforderungsniveaus.
   Upgrade to true Ausbildungsdauer granularity would need BERUFENET-API per
   Ausbildungsberuf (~800 calls at build time). Only pursue if users ask.
-- **Edit individual answers after reaching /ergebnis.** Session 48's option-B
-  fix made the LAST question of each layer editable in the moment before
-  the user clicks "Zum Ergebnis →", but once on /ergebnis the only paths
-  back into a complete layer are still the destructive "Schicht X neu
-  starten" (wipes all answers in that layer) or "Nur diesen Teil neu"
-  (skills sub-category). No per-question edit. Hypothesis: a small
-  "Antwort ändern" / "Frage anpassen" affordance on each /ergebnis layer
-  card that opens AssessmentPage at a specific question index, with the
-  setup-time guard honoring the deep-link. Could land per-layer ("letzte
-  Antwort der Schicht ändern" is the 80 % case) or per-question (would
-  need a layer-answers view). Defer until a user actually asks for it —
-  option B may cover the common case already.
+- **Unified "Antworten bearbeiten / Test fortsetzen" affordance on /ergebnis.**
+  Session 48's option-B fix made the LAST question of each layer editable
+  in the moment before the user clicks "Zum Ergebnis →", but once on
+  /ergebnis there is still no clean per-layer path back into the answers.
+  Two interlocking issues:
+
+  (a) For *complete* layers the only re-entry is "X-Test wiederholen"
+  (→ `repeatLayer`) which wipes all answers in that layer. Destructive,
+  far too coarse for an "I want to nudge Q60" intent.
+
+  (b) For *partial* layers the buttons read "X starten" / "Persönlichkeitsprofil
+  starten" / "Fähigkeiten-Test starten" — but the underlying handler
+  (`refineWithBigFive` etc.) only sets `currentLayer` and pushes to /test;
+  if the layer has 15/50 answers the user lands on Q16, not Q1. The
+  label "starten" lies.
+
+  Cleaner unified design — one affordance per layer card, label branches
+  by state:
+  - Complete layer → "Antworten bearbeiten"
+  - Partial layer → "Test fortsetzen"
+  - Not started → keep the current "X starten" CTA
+
+  In all three cases the click sets `currentLayer` + sets `currentIndex`
+  to the last answered question (= the natural resume point) and
+  navigates to /test. The setup-time guard in AssessmentPage currently
+  shuffles users away from a complete layer (to next-incomplete-layer or
+  `resetCurrentLayer()` if all complete); it needs to honor an explicit
+  deep-link signal (route query param like `?edit=true`) so the user
+  lands where they asked to land. Reuses existing machinery
+  (`startBigFiveLayer` / `repeatLayer` / etc.) — mostly a labeling +
+  guard-bypass refactor with a small "set index to last answered" helper.
+
+  No per-question deep-link UI needed: from the last answered question
+  the user can Zurück through everything they want to revise.
 - **Phase order — should Rahmenbedingungen come first?** Open design
   question. Pro current order (RIASEC first): higher-energy opening,
   "tell me about your interests" feels more engaging than "what's your
