@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import type { AssessmentLayer } from '@entities/assessment/model/types'
@@ -46,10 +46,20 @@ onMounted(() => {
   store.loadBigFiveProfiles().catch((err) => {
     console.error('Failed to prefetch Big Five profiles', err)
   })
+  // Landing → "Test starten" lands here with the page still scrolled to
+  // whatever Y the landing-page CTA sat at. Anchor the first question to
+  // the viewport top for the same reason as the in-flow nav.
+  void scrollToQuestion()
 })
 
-function restartCurrentSubCategory(): void {
+async function restartCurrentSubCategory(): Promise<void> {
   store.repeatSkillsSubCategory(store.skillsCurrentSubCategory)
+  await scrollToQuestion()
+}
+
+async function restartLayer(): Promise<void> {
+  store.resetCurrentLayer()
+  await scrollToQuestion()
 }
 
 const likertOptions = [1, 2, 3, 4, 5] as const
@@ -143,9 +153,31 @@ const interstitialNextDescription = computed(() => {
   return t(`skillsSubCategoryDescription.${sub}`)
 })
 
+// Refs on whichever card is currently rendered — question card during the
+// normal flow, interstitial card between skills sub-categories. Used by
+// scrollToQuestion() to bring the active card to the top of the viewport
+// after an in-layer navigation.
+const questionCardRef = ref<HTMLElement | null>(null)
+const interstitialCardRef = ref<HTMLElement | null>(null)
+
+// On mobile the Likert buttons sit near the fold, so without this the user
+// lands on the answer area of the next question and has to scroll up to
+// read the prompt. Scrolling the question CARD to the top (instead of the
+// whole page) keeps the user inside the question UI — progress bar and
+// layer label scroll off, focus stays on the question itself. nextTick
+// waits for Vue to swap question/interstitial DOM before measuring.
+async function scrollToQuestion(): Promise<void> {
+  await nextTick()
+  const target = interstitialCardRef.value ?? questionCardRef.value
+  target?.scrollIntoView({ block: 'start' })
+}
+
 async function selectAnswer(value: number): Promise<void> {
   store.answer(value)
-  if (!store.isComplete) return
+  if (!store.isComplete) {
+    await scrollToQuestion()
+    return
+  }
 
   // Persistence is best-effort – never block the user from seeing their result
   // because IndexedDB hiccupped (private mode, quota, etc.).
@@ -160,6 +192,16 @@ async function selectAnswer(value: number): Promise<void> {
   // shortcut + header link omit the query → top-of-page stays the default
   // for explicit-peek navigation.
   await router.push({ path: '/ergebnis', query: { focus: store.currentLayer } })
+}
+
+async function goBack(): Promise<void> {
+  store.previous()
+  await scrollToQuestion()
+}
+
+async function dismissInterstitial(): Promise<void> {
+  store.dismissSkillsInterstitial()
+  await scrollToQuestion()
 }
 </script>
 
@@ -187,6 +229,7 @@ async function selectAnswer(value: number): Promise<void> {
          of silently crossing from "skill 35" to "ability 1". -->
     <div
       v-if="store.skillsInterstitialPending"
+      ref="interstitialCardRef"
       class="rounded-lg border border-indigo-500/40 bg-slate-900 p-8"
     >
       <p class="text-xs uppercase tracking-wide text-indigo-300">Sehr gut!</p>
@@ -209,14 +252,14 @@ async function selectAnswer(value: number): Promise<void> {
         <button
           type="button"
           class="rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700"
-          @click="store.previous"
+          @click="goBack"
         >
           ← Zurück
         </button>
         <button
           type="button"
           class="rounded-md bg-indigo-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-400"
-          @click="store.dismissSkillsInterstitial"
+          @click="dismissInterstitial"
         >
           {{ t('skillsInterstitial.continue') }} →
         </button>
@@ -225,6 +268,7 @@ async function selectAnswer(value: number): Promise<void> {
 
     <div
       v-else-if="store.currentQuestion"
+      ref="questionCardRef"
       class="rounded-lg border border-slate-800 bg-slate-900 p-8"
     >
       <p
@@ -263,7 +307,7 @@ async function selectAnswer(value: number): Promise<void> {
           type="button"
           class="rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40"
           :disabled="store.currentIndex === 0"
-          @click="store.previous"
+          @click="goBack"
         >
           ← Zurück
         </button>
@@ -290,7 +334,7 @@ async function selectAnswer(value: number): Promise<void> {
         <button
           type="button"
           class="rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700"
-          @click="store.resetCurrentLayer"
+          @click="restartLayer"
         >
           Schicht neu starten
         </button>
