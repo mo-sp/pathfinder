@@ -92,6 +92,52 @@ describe('questionnaire store', () => {
       expect(store.currentIndex).toBe(0)
     })
 
+    it('currentAnswer surfaces the stored answer on revisit, undefined otherwise', () => {
+      // Backs the AssessmentPage "highlight chosen Likert + show Weiter
+      // button" behavior — on revisit the currently-displayed question
+      // already has an answer; on fresh territory it does not.
+      const store = useQuestionnaireStore()
+      expect(store.currentAnswer).toBeUndefined()
+
+      store.answer(4)
+      store.answer(2)
+      // After two answers, currentIndex sits at 3 — virgin territory.
+      expect(store.currentAnswer).toBeUndefined()
+
+      store.previous()
+      expect(store.currentIndex).toBe(1)
+      expect(store.currentAnswer?.value).toBe(2)
+
+      store.previous()
+      expect(store.currentIndex).toBe(0)
+      expect(store.currentAnswer?.value).toBe(4)
+    })
+
+    it('goForward() advances without recording, no-op past the end', () => {
+      const store = useQuestionnaireStore()
+      store.answer(4)
+      store.answer(3)
+      store.previous()
+      store.previous()
+      expect(store.currentIndex).toBe(0)
+      expect(store.answers).toHaveLength(2)
+
+      store.goForward()
+      expect(store.currentIndex).toBe(1)
+      // No new answer was recorded — goForward just moves the cursor.
+      expect(store.answers).toHaveLength(2)
+      expect(store.answers[1]?.value).toBe(3)
+
+      store.goForward()
+      expect(store.currentIndex).toBe(2)
+
+      // Walk to the last question and verify goForward clamps.
+      while (store.currentIndex < store.total - 1) store.goForward()
+      expect(store.currentIndex).toBe(store.total - 1)
+      store.goForward()
+      expect(store.currentIndex).toBe(store.total - 1)
+    })
+
     it('progress tracks currentIndex, so previous() lowers the displayed percent', () => {
       // Regression guard: progress used to be `answers.length / total`
       // which stayed frozen at the high-water mark when the user
@@ -974,6 +1020,23 @@ describe('questionnaire store', () => {
       store.previous()
       expect(store.skillsInterstitialPending).toBe(false)
       // Still on the last skill question — user can revise before advancing
+      expect(store.currentIndex).toBe(34)
+    })
+
+    it('goForward() at a sub-category boundary re-triggers the interstitial', () => {
+      // After backing out of the interstitial via previous(), goForward()
+      // (the Weiter button on revisit) must re-show the checkpoint so the
+      // user sees the same context they saw when first crossing it.
+      const store = useQuestionnaireStore()
+      store.startSkillsLayer()
+      for (let i = 0; i < 35; i += 1) store.answer(3)
+      store.previous() // dismiss interstitial, back on boundary question
+      expect(store.skillsInterstitialPending).toBe(false)
+      expect(store.currentIndex).toBe(34)
+
+      store.goForward()
+      expect(store.skillsInterstitialPending).toBe(true)
+      // Boundary semantics: index stays put while pending flag flips.
       expect(store.currentIndex).toBe(34)
     })
 

@@ -173,26 +173,19 @@ async function scrollToQuestion(): Promise<void> {
 }
 
 async function selectAnswer(value: number): Promise<void> {
+  // The Likert click never auto-navigates anymore — even when this answer
+  // completes the layer, the user lands on the now-locked question card
+  // with a "Zum Ergebnis →" button. That gives them an explicit edit
+  // window for the final answer instead of the previous "answer → flash
+  // to /ergebnis → no way back without wiping the layer" trap.
   store.answer(value)
-  if (!store.isComplete) {
-    await scrollToQuestion()
-    return
-  }
-
-  // Persistence is best-effort – never block the user from seeing their result
-  // because IndexedDB hiccupped (private mode, quota, etc.).
-  try {
-    await store.persist()
-  } catch (err) {
-    console.error('Failed to persist assessment session', err)
-  }
-  // Layer-completion navigation carries `focus=<layer>` so /ergebnis can
-  // scroll to the just-finished section instead of landing at top of page
-  // (which sits past the RIASEC hexagon every time). The "Ergebnisansicht"
-  // shortcut + header link omit the query → top-of-page stays the default
-  // for explicit-peek navigation.
-  await router.push({ path: '/ergebnis', query: { focus: store.currentLayer } })
+  await scrollToQuestion()
 }
+
+// When goForward would dead-end (last layer index, or a finished skills
+// partial-retake at a sub-category boundary), the Weiter button switches
+// to "Zum Ergebnis →" and the click navigates instead of advancing.
+const isFinalForward = computed(() => store.isComplete && !store.canAdvance)
 
 async function goBack(): Promise<void> {
   store.previous()
@@ -201,6 +194,27 @@ async function goBack(): Promise<void> {
 
 async function dismissInterstitial(): Promise<void> {
   store.dismissSkillsInterstitial()
+  await scrollToQuestion()
+}
+
+async function goForward(): Promise<void> {
+  if (isFinalForward.value) {
+    // Persistence is best-effort – never block the user from seeing their
+    // result because IndexedDB hiccupped (private mode, quota, etc.).
+    try {
+      await store.persist()
+    } catch (err) {
+      console.error('Failed to persist assessment session', err)
+    }
+    // Layer-completion navigation carries `focus=<layer>` so /ergebnis can
+    // scroll to the just-finished section instead of landing at top of
+    // page (which sits past the RIASEC hexagon every time). The
+    // "Ergebnisansicht" shortcut + header link omit the query → top-of-
+    // page stays the default for explicit-peek navigation.
+    await router.push({ path: '/ergebnis', query: { focus: store.currentLayer } })
+    return
+  }
+  store.goForward()
   await scrollToQuestion()
 }
 </script>
@@ -292,17 +306,33 @@ async function dismissInterstitial(): Promise<void> {
           v-for="value in likertOptions"
           :key="value"
           type="button"
-          class="group flex flex-col items-center gap-2 rounded-md border border-slate-700 bg-slate-800 px-3 py-3 text-sm text-slate-200 transition hover:border-indigo-400 hover:bg-indigo-950/50"
+          :class="[
+            'group flex flex-col items-center gap-2 rounded-md border px-3 py-3 text-sm transition',
+            value === store.currentAnswer?.value
+              ? 'border-indigo-400 bg-indigo-950/70 text-slate-200'
+              : 'border-slate-700 bg-slate-800 text-slate-200 hover:border-indigo-400/60 hover:bg-indigo-950/25',
+          ]"
           @click="selectAnswer(value)"
         >
-          <span class="text-lg font-bold text-slate-100 group-hover:text-indigo-300">
+          <span
+            :class="[
+              'text-lg font-bold',
+              value === store.currentAnswer?.value
+                ? 'text-indigo-300'
+                : 'text-slate-100 group-hover:text-indigo-300',
+            ]"
+          >
             {{ value }}
           </span>
           <span class="text-xs text-slate-400">{{ likertLabels[value - 1] }}</span>
         </button>
       </div>
 
-      <div class="mt-6 flex flex-wrap items-center justify-between gap-2">
+      <!-- Left-grouped: Zurück + the layer-reset and peek actions all sit
+           in stable DOM order so toggling Weiter does not shuffle them.
+           Weiter is right-anchored via ms-auto so its appearance only
+           fills the right gap rather than reflowing the row. -->
+      <div class="mt-6 flex flex-wrap items-center gap-2">
         <button
           type="button"
           class="rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40"
@@ -337,6 +367,21 @@ async function dismissInterstitial(): Promise<void> {
           @click="restartLayer"
         >
           Schicht neu starten
+        </button>
+        <!-- Forward affordance on revisit: shown only when the current
+             question already has a stored answer, so the user can advance
+             without re-clicking the same Likert value. Styled analogous
+             to Zurück — a user who actively chose to backtrack does not
+             need a prominent CTA to walk forward again. ms-auto anchors
+             it to the right so its appearance does not shift the
+             left-grouped buttons. -->
+        <button
+          v-if="store.currentAnswer"
+          type="button"
+          class="ms-auto rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700"
+          @click="goForward"
+        >
+          {{ isFinalForward ? 'Zum Ergebnis →' : 'Weiter →' }}
         </button>
       </div>
     </div>

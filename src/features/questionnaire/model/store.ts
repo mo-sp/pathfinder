@@ -447,6 +447,35 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
   const currentQuestion = computed<Question | null>(
     () => questions.value[currentIndex.value] ?? null,
   )
+  // On revisit (user navigated back via Zurück), the active question
+  // already has an answer recorded. AssessmentPage uses this to highlight
+  // the previously-chosen Likert button and to show the "Weiter →"
+  // forward affordance so the user can advance without re-clicking.
+  const currentAnswer = computed<Answer | undefined>(() => {
+    const q = currentQuestion.value
+    if (!q) return undefined
+    return answers.value.find((a) => a.questionId === q.id)
+  })
+  // Mirrors goForward's advance condition. The component uses this to
+  // distinguish "Weiter → next question" from "Weiter → /ergebnis"
+  // (the latter when goForward would dead-end — last layer index for the
+  // simple layers, or a sub-category boundary in a finished partial
+  // skills retake).
+  const canAdvance = computed<boolean>(() => {
+    if (currentLayer.value === 'skills') {
+      if (skillsBoundaries.value.includes(skillsCurrentIndex.value)) {
+        return skillsAnswers.value.length < skillsTotal.value
+      }
+      return skillsCurrentIndex.value < skillsTotal.value - 1
+    }
+    if (currentLayer.value === 'values') {
+      return valuesCurrentIndex.value < valuesTotal.value - 1
+    }
+    if (currentLayer.value === 'bigfive') {
+      return bigfiveCurrentIndex.value < bigfiveTotal.value - 1
+    }
+    return riasecCurrentIndex.value < riasecTotal.value - 1
+  })
   const isComplete = computed(() => {
     if (currentLayer.value === 'skills') return skillsIsComplete.value
     if (currentLayer.value === 'values') return valuesIsComplete.value
@@ -542,6 +571,35 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
       if (bigfiveCurrentIndex.value > 0) bigfiveCurrentIndex.value -= 1
     } else {
       if (riasecCurrentIndex.value > 0) riasecCurrentIndex.value -= 1
+    }
+  }
+
+  /**
+   * Advance one step forward without recording an answer. Used by the
+   * "Weiter →" button on revisit (when the current question already has
+   * a stored answer): the user wants to move on without re-clicking the
+   * same Likert value. Mirrors the index/boundary side of the answer
+   * handlers but skips the record step. No-op past the layer end.
+   */
+  function goForward(): void {
+    if (currentLayer.value === 'skills') {
+      // Re-traversing a sub-category boundary re-triggers the interstitial
+      // so the checkpoint is shown on every pass — same UX as the original
+      // forward path through answerSkillsQuestion.
+      if (skillsBoundaries.value.includes(skillsCurrentIndex.value)) {
+        if (skillsAnswers.value.length >= skillsTotal.value) return
+        skillsInterstitialPending.value = true
+        return
+      }
+      if (skillsCurrentIndex.value < skillsTotal.value - 1) {
+        skillsCurrentIndex.value += 1
+      }
+    } else if (currentLayer.value === 'values') {
+      if (valuesCurrentIndex.value < valuesTotal.value - 1) valuesCurrentIndex.value += 1
+    } else if (currentLayer.value === 'bigfive') {
+      if (bigfiveCurrentIndex.value < bigfiveTotal.value - 1) bigfiveCurrentIndex.value += 1
+    } else {
+      if (riasecCurrentIndex.value < riasecTotal.value - 1) riasecCurrentIndex.value += 1
     }
   }
 
@@ -910,6 +968,8 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     questions,
     total,
     currentQuestion,
+    currentAnswer,
+    canAdvance,
     isComplete,
     progress,
     // RIASEC-specific
@@ -953,6 +1013,7 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     results,
     answer,
     previous,
+    goForward,
     reset,
     resetCurrentLayer,
     repeatLayer,
