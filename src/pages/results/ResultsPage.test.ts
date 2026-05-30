@@ -328,7 +328,7 @@ describe('ResultsPage', () => {
       expect(wrapper2.text()).toContain('Persönlichkeitstest wiederholen')
     })
 
-    it('shows "Werte-Test wiederholen" only when Values is complete', async () => {
+    it('shows "Rahmenbedingungen-Test wiederholen" only when Values is complete', async () => {
       await seedDirectionalSession()
       const store = useQuestionnaireStore()
 
@@ -340,7 +340,7 @@ describe('ResultsPage', () => {
       for (let i = 0; i < store.valuesTotal; i += 1) store.answer((i % 5) + 1)
 
       const wrapper = mountWith(makeRouter())
-      expect(wrapper.text()).toContain('Werte-Test wiederholen')
+      expect(wrapper.text()).toContain('Rahmenbedingungen-Test wiederholen')
     })
   })
 
@@ -435,7 +435,7 @@ describe('ResultsPage', () => {
       // All four factor labels present.
       expect(panel.text()).toContain('Interessen (RIASEC)')
       expect(panel.text()).toContain('Persönlichkeit')
-      expect(panel.text()).toContain('Werte & Rahmen')
+      expect(panel.text()).toContain('Rahmenbedingungen')
       expect(panel.text()).toContain('Fähigkeiten')
     })
 
@@ -475,7 +475,7 @@ describe('ResultsPage', () => {
       await wrapper.find(`[data-testid="explain-toggle-${firstCode}"]`).trigger('click')
 
       const panel = wrapper.find(`[data-testid="explain-panel-${firstCode}"]`)
-      // Big Five, Werte, Fähigkeiten are all not complete → three "Noch nicht erfasst" lines.
+      // Big Five, Rahmenbedingungen, Fähigkeiten are all not complete → three "Noch nicht erfasst" lines.
       const notScoredOccurrences = panel.text().match(/Noch nicht erfasst/g) ?? []
       expect(notScoredOccurrences.length).toBe(3)
     })

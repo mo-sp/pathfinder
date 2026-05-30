@@ -87,7 +87,7 @@ describe('HomePage', () => {
     const wrapper = mountHomePage()
     expect(wrapper.text()).toContain('Schicht 1: RIASEC')
     expect(wrapper.text()).toContain('Schicht 2: Big Five')
-    expect(wrapper.text()).toContain('Schicht 3: Werte')
+    expect(wrapper.text()).toContain('Schicht 3: Rahmenbedingungen')
     expect(wrapper.text()).toContain('Schicht 4: Fähigkeiten')
   })
 })

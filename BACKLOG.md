@@ -30,6 +30,16 @@ Likely next 1–2 sessions.
   Values. Important before friends-test push but non-blocking.
   (Promoted from UX polish 2026-05-04.)
 
+  **Parked branch**: `feat/skills-examples-infra` already carries the
+  infra (optional `example?: LocalizedText` field on `Question`,
+  AssessmentPage renders it under the description with "z. B." prefix)
+  + 6 seed skills examples (Active Listening, Mathematics, Oral
+  Expression, Fluency of Ideas, Economics, Customer Service). @mo-sp
+  wasn't happy with the prior curation pass and wants to restart fresh
+  in a later session — pull the branch as a reference for the render
+  shape, decide whether to keep / rewrite the seed 6, then continue the
+  pass.
+
 ## Data quality
 
 - **KldB subtitle for medical specialties — systemic build-time fallback.**
@@ -85,7 +95,11 @@ Likely next 1–2 sessions.
   native to DE users. Open: data source (BIBB list / BERUFENET API),
   match strategy (title overlap vs ESCO crosswalk vs BERUFENET ID), how
   to handle O\*NET codes without a DE Ausbildungs-pendant (academic,
-  US-specific).
+  US-specific). Stage 1 (pragmatic, 2026-05-30 discussion): just surface
+  the matching Ausbildungsberuf-Bezeichnung on each occupation card as
+  supplementary text (e.g. "auch als Ausbildungsberuf: Mechatroniker/in")
+  — buys the DE-native feel without restructuring the corpus, and is
+  the natural pull for young users who tend toward Ausbildung over Uni.
 - **85 broadMatch KldB mappings** — residual noise tier. Options: (a) hide
   `broadMatch` from display and fall back to jobZone-only category, (b)
   accept. Build-script stat: `match tier of mapped codes: broadMatch`.
@@ -126,6 +140,21 @@ Likely next 1–2 sessions.
   arbeiter, Deckarbeiter, Oberflächenbearbeiter, Gartenhilfsarbeiter,
   Fabrikhilfsarbeiter, Bankbediensteter, Küchenbediensteter) — all
   borderline, defer until a browser test surfaces a concrete complaint.
+- **SOC "X and Y" combined codes — split into separate occupations.**
+  Some O\*NET SOC codes lump two distinct occupations under one record
+  (e.g. 19-3091.00 "Anthropologists and Archeologists"). O\*NET's
+  workContext averages over both populations, producing distorted
+  signals: 19-3091 has `indoor 3.74 / outdoor 2.42`, matcher computes
+  `occEnv ≈ 1.84` ("mostly indoor"), penalising users with an outdoor
+  preference even though archeologists clearly belong to the outdoor
+  cluster. Anthropologists (office / teaching) drag the average down.
+  Likely affects more codes than this one. Treat as its own session:
+  (i) scan onet-occupations.json for SOC titles matching "X and Y" /
+  "X / Y" patterns, (ii) for each, judge whether the two halves have
+  meaningfully different workContext / interest profiles, (iii) split
+  into two records with synthesised per-half workContext (manual or
+  half-O\*NET / half-from-related-code). Surfaced 2026-05-30 by @mo-sp
+  via Archäologe "draußen"-Malus complaint.
 - **Audit the 131 seed entries in `scripts/input/kldb-overrides.mjs`.**
   The file was populated retrospectively in Session 26 to pin the existing
   `kldb-occupation-mapping.json` state against a silent revert on rebuild.
@@ -144,6 +173,32 @@ Likely next 1–2 sessions.
 - **Education 2-year vs 3-year split** — v1 uses the 4 KldB Anforderungsniveaus.
   Upgrade to true Ausbildungsdauer granularity would need BERUFENET-API per
   Ausbildungsberuf (~800 calls at build time). Only pursue if users ask.
+- **Scroll-to-top on every question advance (mobile).** When the next
+  question has more text / more answers than the previous one, on
+  mobile the user lands mid-page and has to scroll up to read the new
+  question header. Desktop has enough vertical room to not notice.
+  Fix: `window.scrollTo(0, 0)` (or a smooth-scroll equivalent) inside
+  the question-advance handler in AssessmentPage. Also revisit the
+  Schicht-interstitial transitions and the layer-completion navigation
+  to `/ergebnis` — same pattern likely needed there. Surfaced on
+  2026-05-31 by @mo-sp mobile browser test.
+- **Lock answered questions on backtrack + forward button.** Current flow
+  auto-advances on Likert click (good for first-time speed) and offers
+  only "Zurück". On backtrack the previously-chosen answer is neither
+  visually highlighted nor "locked" against accidental re-click. Plan:
+  keep auto-advance for the first answer; on revisit, highlight the
+  chosen button (filled bg / border accent) and surface a "Weiter →"
+  button so the user can move on without re-clicking the same answer.
+  Pure AssessmentPage.vue + store change.
+- **Phase order — should Rahmenbedingungen come first?** Open design
+  question. Pro current order (RIASEC first): higher-energy opening,
+  "tell me about your interests" feels more engaging than "what's your
+  desired education level". Pro Rahmenbedingungen first: hard filters
+  (Anforderungsniveau, drinnen/draußen) take effect earlier, the
+  RIASEC funnel then runs against a smaller, more relevant pool; also
+  a "wer bist du, was sind deine Ziele" opening can be its own hook.
+  Decision deferred — run both orderings against friends-test users
+  before committing.
 ## Scoring
 
 - **Anti-match "Was passt definitiv NICHT"** view — currently the "Alle Berufe
@@ -171,6 +226,22 @@ Likely next 1–2 sessions.
   archetype-persona test whether the current breadth is enough or
   whether further swaps are warranted. Same family as the RIASEC
   long-form note above.
+- **Neurodivergence — verify Big Five + Werte already discriminate.**
+  Question raised 2026-05-30: should ADHD / autism / similar lifelong
+  neurodivergent patterns feed a scoring bonus/malus? Hypothesis: Big
+  Five already captures the underlying traits (Conscientiousness ↔
+  structure need, Openness ↔ novelty tolerance, Extraversion ↔ social
+  load) and Werte covers routine + sensory environment. Action: pick
+  2-3 archetypal ND profiles (high-energy low-structure; sensory-
+  cautious detail-focused; …), run them through the matcher with
+  realistic Big-Five + Values inputs, see whether the top-10 already
+  differentiates meaningfully. If yes: no new items, just communicate
+  it. If no: sharpen Big-Five items in the under-discriminating
+  dimensions rather than adding diagnosis labels — diagnoses as a
+  scoring signal would be stigmatising and the empirical basis for
+  "ADHD = bonus on creative roles" is pop-psychology, not job-
+  suitability research. Same direction for other lifelong conditions
+  if a real coverage gap surfaces.
 
 ## Ideas
 
@@ -193,17 +264,52 @@ Likely next 1–2 sessions.
   signed "AI delta" or show both dimensions separately. Discuss scope
   before building.
 
-- **Hobbies/interests as bonus signal.** Currently the matcher captures
-  what users *can* do (Skills) and *value* (Values/Workcontext) but not
-  what they *enjoy doing in their spare time*. A hobby-to-occupation
-  bonus layer would catch real signal: "schwimmen" → bonus on
-  Rettungsschwimmer / Schwimmtrainer / Bademeister; "Heimwerken" →
-  bonus on handwerkliche Berufe; "Brettspiele" → bonus on Game-Designer
-  / Mathematik. Could be parallel to RIASEC or integrated with the
-  "Modern interests" idea below. Open: how many hobbies in the picker
-  (30-50?), how strong the bonus (±0.05? ±0.10?), whether to surface
-  as a separate flow step or bundle with Values. Discuss before
-  building. Shipped 2026-04-25 by @mo-sp idea.
+- **Hobbies as a new layer feeding RIASEC nudge.** Currently the matcher
+  captures what users *can* do (Skills) and *value* (Values/Workcontext)
+  but not what they *enjoy doing in their spare time*. Hobbies catch
+  real signal beyond Skills self-rating, which is often distorted by
+  modesty / status anxiety.
+
+  **Final design (spec'd 2026-05-30 with @mo-sp, ready to build):**
+
+  - **Layer position**: new "Hobbys" layer slotted at position 2,
+    between Interessen (RIASEC) and Persönlichkeit (Big Five). Logic:
+    Schicht 1 = "what would you like to do", Schicht 2 = "what do you
+    actually do" — the real-world correlate sits next to the wish.
+  - **Cap**: max 5 hobbies per user. More dilutes the signal and
+    nobody actually pursues more than 5 seriously.
+  - **Per-hobby inputs**: experience years, frequency, self-rated
+    skill (each on a small scale).
+  - **Bonus formula**:
+    `bonus = base × min(1, years/5) × frequency_factor × (skill/5)`.
+    Beginner-hobby from 6 months ago barely registers; decades-long
+    weekly practice with high self-rating maxes out.
+  - **Mapping mechanism**: each hobby carries a small RIASEC vector
+    (e.g. `bushcraft: { R: 0.8, I: 0.4 }`). The user's 5 hobbies
+    contribute weighted nudges to the user's RIASEC scores. No
+    hobby→SOC list — the matcher's existing RIASEC pipeline handles
+    propagation. ~80 hobbies × 6 RIASEC numbers = small, debuggable.
+  - **Transparency**: each occupation card displays the hobby
+    contribution explicitly ("+0.07 durch Hobby 'Bushcraft'") so the
+    nudge is visible, not a black-box adjustment.
+  - **Double-count prevention vs Skills layer**:
+    `final = base + max(skills_contribution, hobby_bonus)` — Skills
+    and Hobbies are alternative proxies for the same underlying trait;
+    take the stronger signal, never add. Heavy heimwerker with high
+    Skills self-rating gets no extra hobby boost; same hobby with low
+    Skills rating lets the hobby compensate.
+
+  **Taxonomy (research done 2026-05-30, no open data exists):**
+  Curate ~80 items in 8 domains (Sport, Musik, Handwerk, Natur,
+  Digital/Gaming, Soziales, Sammeln, Kreatives). Seed sources: SOEP
+  Welle P Freizeit-Items (soep.de — ~18 items, validated for DE but
+  coarse), DOSB Sportartenliste (dosb.de/sportarten — ~60 sports,
+  structured), Wikipedia DE Kategorie:Hobby (~70 entries, flat).
+  Explicitly add modern items missing from SOEP: gaming genres,
+  streaming/content creation, social-media-natives — target group
+  15–35.
+
+  Surfaced 2026-04-25, re-scoped + finalised 2026-05-30 by @mo-sp.
 - **MBTI / 16personalities as Big-Five onboarding shortcut.** Many users
   know their MBTI type (INFJ, ENTP, …) but not their Big-Five profile.
   Don't add MBTI as a scoring layer — its dimensions overlap heavily
@@ -229,9 +335,38 @@ Likely next 1–2 sessions.
   vs. single-choice tags, whether to surface as a separate step in the
   assessment flow or bundle with RIASEC.
 
+- **Handedness as scoring signal — REJECTED 2026-05-30.** Researched
+  via general-purpose agent (Sonnet) before deciding. Effect sizes
+  consistently d < 0.3 across all examined domains: Faurie & Raymond
+  2005 (reactive-combat sports), Benbow 1986 / O'Boyle & Benbow 1990
+  (STEM giftedness — OR ≈ 1.2-1.5, not replicated), Tate et al. 2011
+  (no laparoscopic-surgery disadvantage). Heavy selection-bias confound:
+  left-handers adapt lifelong to right-handed tools, so measured
+  differences reflect adaptation, not inherent aptitude. No major
+  vocational guidance institution (BIBB, IAB, O\*NET, BERUFENET) uses
+  handedness as a matching criterion. Conclusion: not worth the
+  measurement-noise cost; risk of producing a stigmatising signal on
+  thin evidence. Logged here so the idea doesn't keep resurfacing —
+  reopen only with a meta-analysis showing d ≥ 0.5 in a specific
+  occupation cluster.
+
 ## Tech debt
 
 - **Bundle size** — `onet-occupations-*.js` is 3.8 MB raw / 658 KB gzip. Code
   chunking is lazy-loaded so initial TTI isn't hit, but reducing the payload
   by dropping unused O\*NET fields (descriptions we don't render, etc.) would
   be tidy.
+- **Mobile post-Schicht-1 load takes ~30 s on WLAN.** @mo-sp browser
+  test 2026-05-31: after finishing Schicht 1 on mobile, the transition
+  to `/ergebnis` stalls roughly 30 s before the first results paint.
+  Desktop on Ethernet is fine. Likely cause: the 658 KB gzipped
+  `onet-occupations-*.js` + `bigfive-occupation-profiles` (~16 KB)
+  chunks are prefetched in AssessmentPage `onMounted` but on a slow
+  WLAN connection that fetch hasn't completed by the time the user
+  reaches the end of RIASEC. Options: (a) start prefetch earlier (on
+  /test entry or even on landing page), (b) shrink the occupations
+  chunk by dropping unrendered O\*NET fields (see "Bundle size" above
+  — same root cause), (c) show a clearly-labelled "Ergebnisse werden
+  geladen" interstitial so 30 s feels intentional, not broken. (a)+(b)
+  are real fixes, (c) is cosmetic. Verify the actual bottleneck with
+  mobile network-tab logging before optimising blindly.
