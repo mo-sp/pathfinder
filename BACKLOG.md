@@ -173,14 +173,18 @@ Likely next 1–2 sessions.
 - **Education 2-year vs 3-year split** — v1 uses the 4 KldB Anforderungsniveaus.
   Upgrade to true Ausbildungsdauer granularity would need BERUFENET-API per
   Ausbildungsberuf (~800 calls at build time). Only pursue if users ask.
-- **Lock answered questions on backtrack + forward button.** Current flow
-  auto-advances on Likert click (good for first-time speed) and offers
-  only "Zurück". On backtrack the previously-chosen answer is neither
-  visually highlighted nor "locked" against accidental re-click. Plan:
-  keep auto-advance for the first answer; on revisit, highlight the
-  chosen button (filled bg / border accent) and surface a "Weiter →"
-  button so the user can move on without re-clicking the same answer.
-  Pure AssessmentPage.vue + store change.
+- **Edit individual answers after reaching /ergebnis.** Session 48's option-B
+  fix made the LAST question of each layer editable in the moment before
+  the user clicks "Zum Ergebnis →", but once on /ergebnis the only paths
+  back into a complete layer are still the destructive "Schicht X neu
+  starten" (wipes all answers in that layer) or "Nur diesen Teil neu"
+  (skills sub-category). No per-question edit. Hypothesis: a small
+  "Antwort ändern" / "Frage anpassen" affordance on each /ergebnis layer
+  card that opens AssessmentPage at a specific question index, with the
+  setup-time guard honoring the deep-link. Could land per-layer ("letzte
+  Antwort der Schicht ändern" is the 80 % case) or per-question (would
+  need a layer-answers view). Defer until a user actually asks for it —
+  option B may cover the common case already.
 - **Phase order — should Rahmenbedingungen come first?** Open design
   question. Pro current order (RIASEC first): higher-energy opening,
   "tell me about your interests" feels more engaging than "what's your

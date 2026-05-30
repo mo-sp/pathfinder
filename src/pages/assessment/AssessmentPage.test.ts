@@ -337,22 +337,19 @@ describe('AssessmentPage', () => {
   })
 
   describe('completion → router push', () => {
-    it('answering the final question triggers router.push("/ergebnis")', async () => {
+    it('answering the final question stays on /test with a "Zum Ergebnis →" button that navigates on click', async () => {
       const router = makeRouter()
       const pushSpy = vi.spyOn(router, 'push').mockResolvedValue(undefined)
 
       const store = useQuestionnaireStore()
       // Pre-answer all but the last question so the next click is the
-      // final answer that triggers the navigation.
+      // final answer.
       for (let i = 0; i < store.total - 1; i += 1) store.answer(3)
       expect(store.isComplete).toBe(false)
       expect(store.currentIndex).toBe(store.total - 1)
 
-      // Pre-warm the occupations dataset so the click's persist() call
-      // doesn't have to wait on the 500 KB dynamic import. Without this,
-      // selectAnswer's `await store.persist()` chain stretches past the
-      // default flushAsync window and pushSpy hasn't fired yet by the
-      // time we assert.
+      // Pre-warm the occupations dataset so the eventual persist() call
+      // doesn't have to wait on the 500 KB dynamic import.
       await store.loadOccupations()
 
       const wrapper = mount(AssessmentPage, {
@@ -360,24 +357,33 @@ describe('AssessmentPage', () => {
       })
 
       const likertButtons = wrapper.findAll('button').slice(0, 5)
-      await likertButtons[2]!.trigger('click') // any value, just complete
+      await likertButtons[2]!.trigger('click') // final answer completes the layer
 
-      // selectAnswer is async (store.answer → persist → router.push).
-      // vi.waitFor polls until the spy fires or the default timeout
-      // elapses, which is more robust than a fixed-tick flush against
-      // the mock router resolution timing. The `focus` query carries the
-      // just-finished layer so /ergebnis can scroll to that section.
+      // No auto-nav anymore — the layer is complete but the user stays
+      // on the last question so they can edit before committing. The
+      // forward button now reads "Zum Ergebnis →" (vs "Weiter →" for
+      // mid-layer revisits).
+      expect(store.isComplete).toBe(true)
+      expect(pushSpy).not.toHaveBeenCalled()
+      const finalBtn = wrapper
+        .findAll('button')
+        .find((b) => b.text().includes('Zum Ergebnis'))
+      expect(finalBtn).toBeDefined()
+
+      await finalBtn!.trigger('click')
+
+      // The explicit Weiter click is what fires the navigation. `focus`
+      // query carries the just-finished layer so /ergebnis can scroll to
+      // that section.
       await vi.waitFor(() => {
         expect(pushSpy).toHaveBeenCalledWith({
           path: '/ergebnis',
           query: { focus: 'riasec' },
         })
       })
-
-      expect(store.isComplete).toBe(true)
     })
 
-    it('passes the just-finished layer as ?focus= query on completion', async () => {
+    it('passes the just-finished layer as ?focus= query when the final-forward button is clicked', async () => {
       const router = makeRouter()
       const pushSpy = vi.spyOn(router, 'push').mockResolvedValue(undefined)
 
@@ -397,7 +403,13 @@ describe('AssessmentPage', () => {
       })
 
       const likertButtons = wrapper.findAll('button').slice(0, 5)
-      await likertButtons[2]!.trigger('click')
+      await likertButtons[2]!.trigger('click') // final bigfive answer
+      expect(pushSpy).not.toHaveBeenCalled()
+
+      const finalBtn = wrapper
+        .findAll('button')
+        .find((b) => b.text().includes('Zum Ergebnis'))!
+      await finalBtn.trigger('click')
 
       await vi.waitFor(() => {
         expect(pushSpy).toHaveBeenCalledWith({

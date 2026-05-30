@@ -5,6 +5,55 @@
 
 ---
 
+### Session 48 – 2026-05-31
+
+**Focus:** Two small UX PRs from the BACKLOG's "UX polish" cluster — scroll-to-question-top on every in-layer navigation, and lock-answered-on-backtrack with a forward affordance. Both items were parked from Session 47's brainstorm and shipped here. Two PRs on `fix/mobile-scroll-to-top-on-advance` (merged) and `feat/lock-answered-on-backtrack` (this PR).
+
+**Meta / process notes:**
+- **Iterative design dialog on the scroll target.** Started with `window.scrollTo(0, 0)` per the BACKLOG's literal suggestion. @mo-sp redirected mid-iteration to "scroll to top of the QUESTION CARD" instead — progress bar + layer label scroll off, but the user stays "in" the question UI. `scrollIntoView({ block: 'start' })` on a template ref to the active card (question or skills interstitial), with `nextTick` before measuring so Vue's v-if/v-else-if DOM swap is flushed. Cleaner mental model than page-top.
+- **Three more scroll touch-points caught mid-review.** First pass only covered the in-flow nav (Likert advance, Zurück, interstitial Weiter). @mo-sp pointed out that "Test starten" landing → /test, "Schicht neu starten", and "Nur diesen Teil neu" should also anchor the first question to the viewport top. Added `scrollToQuestion()` calls in `onMounted` and in `restartLayer` / `restartCurrentSubCategory` wrappers.
+- **Locked-answer visual went through two iterations.** First version: prominent indigo CTA Weiter button + locked Likert in identical hover-style colors (`bg-indigo-950/50`). @mo-sp pushback: (i) a user who actively backtracked doesn't need a CTA-styled forward prompt — make Weiter analog to Zurück (subtle slate); (ii) the hover state on non-chosen buttons should be visibly lighter than the locked state so the locked button is the clear anchor. Final: locked at `bg-indigo-950/70 border-indigo-400` (denser), hover at `bg-indigo-950/25 border-indigo-400/60` (transient preview).
+- **Bottom-row layout shift caught after PR2's button addition.** "Schicht neu starten" moved from the rightmost position to the interior when Weiter appeared on backtrack — a small but distracting reflow. @mo-sp suggested relocating Schicht-neu to the top-right; chose the less invasive fix of anchoring Weiter to the right via `ms-auto` and dropping `justify-between` from the row. Other buttons left-group naturally and never shift. Bonus: keeps DOM order identical, so existing index-based AssessmentPage tests continue to pass without rewiring.
+- **Last-answer-of-a-layer can't be edited (option B fix at the end of the session).** @mo-sp spotted at the end of PR2's browser test: the prior auto-nav-to-/ergebnis-on-final-click meant the *last* question of each layer was uniquely un-editable — once committed, the only way back was "Schicht neu starten" (= wipe all answers). Three fixes considered: (A) defer to BACKLOG, (B) kill the auto-nav so the user lands on the locked final question with an explicit "Zum Ergebnis →" button, (C) add a "Frage ändern" link on /ergebnis. Picked B — extends the lock pattern naturally and costs only one extra click per layer transition (4 across the full funnel). Required: removing the auto-nav from `selectAnswer`, a new `canAdvance` computed in the store (mirrors goForward's advance condition, also covers the skills partial-retake-at-boundary edge), and a dynamic button label that switches to "Zum Ergebnis →" when `isComplete && !canAdvance`. Two completion tests rewritten to assert the new two-step flow (Likert click → no nav; explicit forward click → nav with focus query).
+- **Decision on click semantics for revisit.** Click on the locked Likert: re-record (same value) + still advances the index for mid-layer questions (matches first-time UX); on the final question with option B it stays. Click on a different Likert: update; advance for mid-layer, stay for final. Weiter button: advance without re-record (and on final, navigate to /ergebnis). "Locked against accidental re-click" interpreted as visual marker, not click-disabling.
+- **PR2 branched from main even though PR1 wasn't merged at branch time.** Per `feedback_stacked_pr_hygiene.md`: branch from fresh main, `--base main`. PR1 happened to merge in the small window between PR1 push and PR2 branch creation — fast-forwarded cleanly. Lucky timing, not a stacked PR.
+
+**What shipped — `fix/mobile-scroll-to-top-on-advance` (merge commit `af88e76`):**
+
+*`src/pages/assessment/AssessmentPage.vue`*: new `scrollToQuestion()` async helper. Template refs `questionCardRef` + `interstitialCardRef` on the two conditionally-rendered cards. `scrollToQuestion()` does `await nextTick(); (interstitialCardRef.value ?? questionCardRef.value)?.scrollIntoView({ block: 'start' })`. Called from `selectAnswer` (when layer not complete), `goBack`, `dismissInterstitial`, `restartLayer`, `restartCurrentSubCategory`, and `onMounted`. Layer completion → /ergebnis untouched (ResultsPage uses the `focus` query for its own scroll target).
+
+*`src/pages/assessment/AssessmentPage.test.ts`*: `Element.prototype.scrollIntoView = vi.fn()` in `beforeEach` — JSDOM doesn't implement it; the stub silences "Not implemented" stderr noise.
+
+**What shipped — `feat/lock-answered-on-backtrack` (this PR):**
+
+*`src/features/questionnaire/model/store.ts`*: new `currentAnswer` computed (layer-aware lookup over the active answers array — returns `Answer | undefined` for the currently-displayed question). New `goForward()` method: advances the layer's current index by one without recording an answer, with skills-boundary semantics matching `answerSkillsQuestion` (sets `skillsInterstitialPending = true` at a boundary, no-op past layer end). New `canAdvance` computed mirrors `goForward`'s advance condition (false at the last layer index for simple layers, also false at a sub-category boundary when the skills layer is fully answered — the partial-retake edge). All three exported through the store return block.
+
+*`src/features/questionnaire/model/store.test.ts`*: three new tests — `currentAnswer` surfaces the stored answer on revisit and is undefined on fresh territory; `goForward()` advances without recording and clamps at the end; `goForward()` at a sub-category boundary re-triggers the interstitial so the checkpoint re-appears for users who backed out of it via `previous()`.
+
+*`src/pages/assessment/AssessmentPage.vue`*: dynamic class on each Likert button — chosen value gets `border-indigo-400 bg-indigo-950/70` permanently with the number in `text-indigo-300`; non-chosen retain default slate with lighter hover (`hover:border-indigo-400/60 hover:bg-indigo-950/25`). `selectAnswer` no longer auto-navigates on layer completion — record + scrollToQuestion is all it does now, so the user always lands on the just-answered question with the locked state visible. New "Weiter →" / "Zum Ergebnis →" button in the bottom row, slate-styled analog to Zurück, shown only when `store.currentAnswer` is truthy, anchored right via `ms-auto`. Label flips to "Zum Ergebnis →" when `isFinalForward = store.isComplete && !store.canAdvance`; the click handler then persists + navigates with focus query instead of calling `store.goForward()`. Bottom row layout switched from `justify-between` to plain `flex flex-wrap gap-2` so left-grouped buttons stay anchored to the left and Weiter slots in on the right without reflow.
+
+*`src/pages/assessment/AssessmentPage.test.ts`*: two completion tests rewritten — final Likert click stays on /test (no `pushSpy` call), forward button text shows "Zum Ergebnis", explicit forward click is what fires the navigation. Both RIASEC and Big Five `focus=` query variants covered.
+
+**Coverage after the session:**
+
+| | Before | After |
+|---|---|---|
+| Tests passing | 243 | **246** (+3 store tests for currentAnswer + goForward; 2 completion tests rewritten for the new two-step flow) |
+| In-layer navigation actions that anchor the question to viewport top | 0 | **6** (Likert advance, Zurück, interstitial Weiter, restartLayer, restartCurrentSubCategory, onMounted) |
+| Bottom-row reflow on backtrack/forward toggle | yes | **no** (ms-auto on Weiter) |
+| Last-question of each layer is editable before commit | no | **yes** (auto-nav removed; explicit "Zum Ergebnis →" replaces it) |
+
+**Branches:** `fix/mobile-scroll-to-top-on-advance` (merged, `af88e76`), `feat/lock-answered-on-backtrack` (this PR).
+
+**Open for next sessions (tracked in BACKLOG):**
+- **Startseite design refresh** — content shipped Session 46, design refresh remains lead "Up next".
+- **Concrete examples on every question** — ~238 examples; parked branch `feat/skills-examples-infra` carries the render infra.
+- **Hobbies layer** — design fully spec'd in Session 47, ready to build.
+- **Ausbildungsberufe Stage 1** — Stage-1 surface-the-Ausbildungs-Bezeichnung-on-card option from Session 47.
+- Various Data quality + Scoring + Tech debt items unchanged.
+
+---
+
 ### Session 47 – 2026-05-31
 
 **Focus:** Re-entry after a month away. No big feature pass — ideas brainstorm with @mo-sp, BACKLOG cultivation, and one small UX rename shipped to keep the session from being pure docs. PR on `feat/rename-werte-to-rahmenbedingungen`.
