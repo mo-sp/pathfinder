@@ -138,6 +138,26 @@ describe('questionnaire store', () => {
       expect(store.currentIndex).toBe(store.total - 1)
     })
 
+    it('editLayer() switches layer and lands on the last answered question, preserving answers', () => {
+      const store = useQuestionnaireStore()
+      // Complete RIASEC, then move into Big Five and answer a few.
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(3)
+      store.startBigFiveLayer()
+      store.answer(4)
+      store.answer(2)
+      expect(store.currentLayer).toBe('bigfive')
+
+      // Edit RIASEC: switches back, lands on the last RIASEC question, and
+      // leaves both layers' answers untouched (unlike repeatLayer).
+      store.editLayer('riasec')
+      expect(store.currentLayer).toBe('riasec')
+      expect(store.currentIndex).toBe(store.riasecTotal - 1)
+      expect(store.riasecAnswers).toHaveLength(store.riasecTotal)
+      expect(store.bigfiveAnswers).toHaveLength(2)
+      // The landed-on question carries its stored answer (locked state).
+      expect(store.currentAnswer?.value).toBe(3)
+    })
+
     it('progress tracks currentIndex, so previous() lowers the displayed percent', () => {
       // Regression guard: progress used to be `answers.length / total`
       // which stayed frozen at the high-water mark when the user
