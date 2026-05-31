@@ -24,21 +24,21 @@ _(empty)_
 
 ## Data quality
 
-- **KldB subtitle for medical specialties — systemic build-time fallback.**
-  KldB 2010 has only a handful of 5d physician classes (81404 Ärzte ohne
-  Spez., 81414 Kinder- und Jugendmedizin, 81454 Anästhesiologie, 81464
-  Neurologie/Psychiatrie, 81814 Pharmakologie). Specialties without a
-  matching 5d class get routed via stem-overlap tie-breaker to arbitrary
-  far-off classes (Session 19 sent Sportmedizin to "Führungskräfte
-  Pferdewirtschaft" and Radiologe to "Ergotherapie"). Sessions 19/31
-  manually pinned the surfaced cases (Pathologie, Allergologie,
-  Notfallmedizin, Gynäkologie, Urologie, Orthopädie → 81404; Neurologie,
-  Psychiatrie → 81464). Specialties not yet flagged (Kardiologie,
-  Dermatologie, Radiologie, Sportmedizin, …) still misroute by default.
-  Systemic fix idea: per-ISCO fallback in `build-kldb-mapping.mjs` — if
-  the best KldB candidate has stemOverlap 0 with `title.de`, prefer the
-  "ohne Spezialisierung" class for that ISCO group rather than inventing
-  a match. Would retire the manual-override approach for this domain.
+- **KldB subtitle for medical specialties — systemic build-time fallback
+  (idea only, symptom already resolved).** Historically, physician
+  specialties without a matching 5d KldB class got routed via the
+  stem-overlap tie-breaker to arbitrary far-off classes (Session 19 sent
+  Sportmedizin to "Führungskräfte Pferdewirtschaft" and Radiologe to
+  "Ergotherapie"). All surfaced cases are now pinned via
+  `scripts/input/kldb-overrides.mjs` and route correctly (verified
+  2026-05-31: Kardiologe → 81424 Innere Medizin, Dermatologe → 81444
+  Hautkrankheiten, Radiologe → 81484, Pathologe/Sportmediziner → 81404
+  ohne Spez.). So the user-visible pain is gone. What remains is purely a
+  hygiene idea: replace the per-code overrides with a systemic per-ISCO
+  fallback in `build-kldb-mapping.mjs` — if the best KldB candidate has
+  stemOverlap 0 with `title.de`, prefer the "ohne Spezialisierung" class
+  for that ISCO group rather than inventing a match. Low priority; only
+  worth it if a new untracked specialty surfaces a fresh misroute.
 - **Further semantic subtitle mismatches beyond the three Session-24
   containers.** Session 24's scan flagged 155+ KldB container classes with
   ≥ 2 suspicious codes each; only 21124 Sprengtechnik (13 codes), 61394
@@ -54,32 +54,22 @@ _(empty)_
   in DE-title pass 2); the older scan findings still need a SOC-aware
   companion filter before another pass so false positives like "Bankkaufleute
   → Kreditprüfer" don't dominate the review list.
-- **KldB physician-specialty fallback — opportunistic cleanup remaining.**
-  Session 31 cleaned up 6 entries that had been routed to 81414 Kinder-
-  und Jugendmedizin via stem-overlap (Notfallmediziner, Frauenarzt,
-  Urologe, Orthopäde → 81404 Ärzte ohne Spez.; Neurologie + Psychiater
-  → 81464). The same root cause from the medical-subtitle BACKLOG entry
-  above still applies to other physician specialties not yet flagged
-  (Kardiologie, Dermatologie, Radiologie, Pathologie-adjacent, Sportmedizin,
-  …). The "ohne 5d-Klasse → 81404 ohne Spez." fallback pattern works;
-  fix candidates can come opportunistically from browser tests rather
-  than as a dedicated pass.
 - **Reconcile occupation list with official German Ausbildungsberufe.**
-  **Stage 1 shipped** via `feat/ausbildungsberufe-on-card` (2026-05-31): each
-  result card surfaces the matching anerkannter Ausbildungsberuf as a grey
-  note ("auch als Ausbildungsberuf: …"), shown only when the BIBB name
+  **Shipped** via `feat/ausbildungsberufe-on-card` (2026-05-31): each result
+  card surfaces the matching anerkannter Ausbildungsberuf as a grey note
+  ("auch als Ausbildungsberuf: …"), shown only when the BIBB name
   meaningfully differs from our job title (268 visible notes). Data:
   `scripts/input/bibb-ausbildungsberufe.json` (BIBB Erhebungsberufe + KldB
   2010). Match: hybrid KldB-gate + title similarity (58 auto) plus a
   254-entry override file seeded from a 12-Sonnet majority-vote panel.
-  Residual / future stages: (i) no `isAusbildungsberuf` flag on the corpus
-  and no audit for *missing* canonical Ausbildungen (only matched the
-  existing 923 O\*NET codes); (ii) school-based Schulberufe (Erzieher,
-  Pflege, Logopäde) aren't in the dual-system BIBB Tabelle 1; (iii)
-  Schiffsmechaniker is absent from our vendored BIBB extract; (iv) the
-  ~68 below-threshold and 24 panel-blanked candidates could be revisited
-  opportunistically. Confirm BIBB licensing (attribution) before any wider
-  reuse.
+  Still open (independent follow-ups, not a planned sequence): (i) no
+  `isAusbildungsberuf` flag on the corpus and no audit for *missing*
+  canonical Ausbildungen (only the existing 923 O\*NET codes were matched);
+  (ii) school-based Schulberufe (Erzieher, Pflege, Logopäde) aren't in the
+  dual-system BIBB Tabelle 1; (iii) Schiffsmechaniker is absent from our
+  vendored BIBB extract; (iv) the ~68 below-threshold and 24 panel-blanked
+  candidates could be revisited opportunistically. Confirm BIBB licensing
+  (attribution) before any wider reuse.
 - **85 broadMatch KldB mappings** — residual noise tier. Options: (a) hide
   `broadMatch` from display and fall back to jobZone-only category, (b)
   accept. Build-script stat: `match tier of mapped codes: broadMatch`.
@@ -149,16 +139,6 @@ _(empty)_
   as-is, this is hygiene.
 
 ## UX polish
-
-- **Studium-Badge analog zum Ausbildungsberuf-Badge.** The recognised-
-  Ausbildungsberuf badge (amber check-badge seal next to the title, shipped
-  via `feat/ausbildungsberufe-on-card`) deliberately reserves the graduation-
-  cap icon for a future companion: mark academic/Studium occupations with an
-  analogous badge (graduation cap, distinct colour). Open: data source for
-  "is this a Studiengang/academic path?" — jobZone 4-5 / trainingCategory
-  `studies` is the cheap proxy already in the corpus, but a canonical mapping
-  (Hochschulkompass / ESCO ISCED level) would be cleaner. Surfaced
-  2026-05-31 by @mo-sp.
 
 - **Startseite design refresh.** Content overhaul shipped via
   `feat/landing-content-overhaul` (2026-05-04). Remaining work: design

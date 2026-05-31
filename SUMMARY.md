@@ -35,8 +35,7 @@ Per result card, a grey note "auch als Ausbildungsberuf: <Bezeichnung>" shown wh
 **Branches:** `docs/backlog-arzt-cleanup`, `feat/ausbildungsberufe-on-card`.
 
 **Open for next sessions (tracked in BACKLOG):**
-- **Studium badge** companion (graduation cap) for academic occupations — new BACKLOG entry.
-- **Ausbildungsberufe later stages** — corpus flag, Schulberufe, below-threshold tail, BIBB licensing confirmation.
+- **Ausbildungsberufe follow-ups** — corpus `isAusbildungsberuf` flag, school-based Schulberufe, below-threshold tail, BIBB licensing confirmation. (A Studium-badge companion was considered and dropped — the badge approach itself was abandoned in favour of the differ-only note.)
 
 ---
 
