@@ -1,0 +1,3150 @@
+{
+  "_meta": {
+    "source": "BIBB – Erhebungsberufe der Berufsbildungsstatistik mit Berufsschlüsseln der KldB 2010, Berichtsjahr 2024",
+    "sourceUrl": "https://www.bibb.de/dokumente/xls/dazubi_berufsliste_erhebungsberufe-mit-berufsschluesseln-kldb2010.xlsx",
+    "listingPage": "https://www.bibb.de/de/14309.php",
+    "extracted": "2026-05-31",
+    "note": "Tabelle 1 (staatlich anerkannte Ausbildungsberufe BBiG/HwO). Aufgehobene Berufe (Aufhebungsjahr gesetzt) entfernt; Kammer-/VO-/§-Tags bereinigt; dedupliziert nach (Name, KldB-5). kldb5 = erste 5 Stellen der erweiterten KldB-2010 (8-stellig).",
+    "license": "BIBB publication – attribution required"
+  },
+  "ausbildungsberufe": [
+    {
+      "name": "Fachkraft Agrarservice",
+      "kldb5": "11102",
+      "kldb4": "1110",
+      "neuordnung": 2009
+    },
+    {
+      "name": "Landwirt/-in",
+      "kldb5": "11102",
+      "kldb4": "1110",
+      "neuordnung": 1995
+    },
+    {
+      "name": "Pflanzentechnologe/-technologin",
+      "kldb5": "11132",
+      "kldb4": "1113",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Tierwirt/-in",
+      "kldb5": "11212",
+      "kldb4": "1121",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Tierwirt/-in FR Rinderhaltung",
+      "kldb5": "11212",
+      "kldb4": "1121",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Tierwirt/-in FR Schäferei",
+      "kldb5": "11212",
+      "kldb4": "1121",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Tierwirt/-in FR Schweinehaltung",
+      "kldb5": "11212",
+      "kldb4": "1121",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Tierwirt/-in FR Geflügelhaltung",
+      "kldb5": "11222",
+      "kldb4": "1122",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Tierwirt/-in FR Imkerei",
+      "kldb5": "11232",
+      "kldb4": "1123",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Pferdewirt/-in",
+      "kldb5": "11302",
+      "kldb4": "1130",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Pferdewirt/-in FR Pferdehaltung und Service",
+      "kldb5": "11302",
+      "kldb4": "1130",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Pferdewirt/-in FR Pferdezucht",
+      "kldb5": "11312",
+      "kldb4": "1131",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Pferdewirt/-in FR Klassische Reitausbildung",
+      "kldb5": "11322",
+      "kldb4": "1132",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Pferdewirt/-in FR Pferderennen",
+      "kldb5": "11322",
+      "kldb4": "1132",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Pferdewirt/-in FR Spezialreitweisen",
+      "kldb5": "11322",
+      "kldb4": "1132",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Fischwirt/-in",
+      "kldb5": "11402",
+      "kldb4": "1140",
+      "neuordnung": 2016
+    },
+    {
+      "name": "Fischwirt/-in FR Aquakultur und Binnenfischerei",
+      "kldb5": "11412",
+      "kldb4": "1141",
+      "neuordnung": 2016
+    },
+    {
+      "name": "Fischwirt/-in FR Küstenfischerei und Kleine Hochseefischerei",
+      "kldb5": "11422",
+      "kldb4": "1142",
+      "neuordnung": 2016
+    },
+    {
+      "name": "Tierpfleger/-in",
+      "kldb5": "11502",
+      "kldb4": "1150",
+      "neuordnung": 2003
+    },
+    {
+      "name": "Tierpfleger/-in FR Tierheim und Tierpension",
+      "kldb5": "11522",
+      "kldb4": "1152",
+      "neuordnung": 2003
+    },
+    {
+      "name": "Tierpfleger/-in FR Zoo",
+      "kldb5": "11522",
+      "kldb4": "1152",
+      "neuordnung": 2003
+    },
+    {
+      "name": "Tierpfleger/-in FR Forschung und Klinik",
+      "kldb5": "11582",
+      "kldb4": "1158",
+      "neuordnung": 2003
+    },
+    {
+      "name": "Winzer/-in",
+      "kldb5": "11602",
+      "kldb4": "1160",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Forstwirt/-in",
+      "kldb5": "11712",
+      "kldb4": "1171",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Revierjäger/-in",
+      "kldb5": "11732",
+      "kldb4": "1173",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Gärtner/-in",
+      "kldb5": "12102",
+      "kldb4": "1210",
+      "neuordnung": 1996
+    },
+    {
+      "name": "Gärtner/-in FR Gemüsebau",
+      "kldb5": "12112",
+      "kldb4": "1211",
+      "neuordnung": 1996
+    },
+    {
+      "name": "Gärtner/-in FR Obstbau",
+      "kldb5": "12112",
+      "kldb4": "1211",
+      "neuordnung": 1996
+    },
+    {
+      "name": "Gärtner/-in FR Baumschule",
+      "kldb5": "12122",
+      "kldb4": "1212",
+      "neuordnung": 1996
+    },
+    {
+      "name": "Gärtner/-in FR Staudengärtnerei",
+      "kldb5": "12122",
+      "kldb4": "1212",
+      "neuordnung": 1996
+    },
+    {
+      "name": "Gärtner/-in FR Zierpflanzenbau",
+      "kldb5": "12122",
+      "kldb4": "1212",
+      "neuordnung": 1996
+    },
+    {
+      "name": "Gärtner/-in FR Friedhofsgärtnerei",
+      "kldb5": "12132",
+      "kldb4": "1213",
+      "neuordnung": 1996
+    },
+    {
+      "name": "Gärtner/-in FR Garten- und Landschaftsbau",
+      "kldb5": "12142",
+      "kldb4": "1214",
+      "neuordnung": 1996
+    },
+    {
+      "name": "Florist/-in",
+      "kldb5": "12202",
+      "kldb4": "1220",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Berg- und Maschinenmann/-frau",
+      "kldb5": "21112",
+      "kldb4": "2111",
+      "neuordnung": 1979
+    },
+    {
+      "name": "Berg- und Maschinenmann/-frau FR Vortrieb und Gewinnung",
+      "kldb5": "21112",
+      "kldb4": "2111",
+      "neuordnung": 1979
+    },
+    {
+      "name": "Bergbautechnologe/-technologin",
+      "kldb5": "21112",
+      "kldb4": "2111",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Bergbautechnologe/-technologin FR Tiefbautechnik",
+      "kldb5": "21112",
+      "kldb4": "2111",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Bergbautechnologe/-technologin FR Tiefbohrtechnik",
+      "kldb5": "21112",
+      "kldb4": "2111",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Aufbereitungsmechaniker/-in",
+      "kldb5": "21212",
+      "kldb4": "2121",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Aufbereitungsmechaniker/-in FR Braunkohle",
+      "kldb5": "21212",
+      "kldb4": "2121",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Aufbereitungsmechaniker/-in FR Feuerfeste und keramische Rohstoffe",
+      "kldb5": "21212",
+      "kldb4": "2121",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Aufbereitungsmechaniker/-in FR Naturstein",
+      "kldb5": "21212",
+      "kldb4": "2121",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Aufbereitungsmechaniker/-in FR Sand und Kies",
+      "kldb5": "21212",
+      "kldb4": "2121",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Aufbereitungsmechaniker/-in FR Steinkohle",
+      "kldb5": "21212",
+      "kldb4": "2121",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Naturwerksteinmechaniker/-in",
+      "kldb5": "21212",
+      "kldb4": "2121",
+      "neuordnung": 2003
+    },
+    {
+      "name": "Naturwerksteinmechaniker/-in FR Maschinenbearbeitungstechnik",
+      "kldb5": "21212",
+      "kldb4": "2121",
+      "neuordnung": 2003
+    },
+    {
+      "name": "Naturwerksteinmechaniker/-in FR Schleiftechnik",
+      "kldb5": "21212",
+      "kldb4": "2121",
+      "neuordnung": 2003
+    },
+    {
+      "name": "Betonfertigteilbauer/-in",
+      "kldb5": "21222",
+      "kldb4": "2122",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Verfahrensmechaniker/-in in der Steine- und Erdenindustrie",
+      "kldb5": "21222",
+      "kldb4": "2122",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Verfahrensmechaniker/-in in der Steine- und Erdenindustrie FR Asphalttechnik",
+      "kldb5": "21222",
+      "kldb4": "2122",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Verfahrensmechaniker/-in in der Steine- und Erdenindustrie FR Asphalttechnik",
+      "kldb5": "21222",
+      "kldb4": "2122",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Verfahrensmechaniker/-in in der Steine- und Erdenindustrie FR Baustoffe",
+      "kldb5": "21222",
+      "kldb4": "2122",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Verfahrensmechaniker/-in in der Steine- und Erdenindustrie FR Baustoffe",
+      "kldb5": "21222",
+      "kldb4": "2122",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Verfahrensmechaniker/-in in der Steine- und Erdenindustrie FR Gipsplatten oder Faserzement",
+      "kldb5": "21222",
+      "kldb4": "2122",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Verfahrensmechaniker/-in in der Steine- und Erdenindustrie FR Kalksandsteine oder Porenbeton",
+      "kldb5": "21222",
+      "kldb4": "2122",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Verfahrensmechaniker/-in in der Steine- und Erdenindustrie FR Transportbeton",
+      "kldb5": "21222",
+      "kldb4": "2122",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Verfahrensmechaniker/-in in der Steine- und Erdenindustrie FR Transportbeton",
+      "kldb5": "21222",
+      "kldb4": "2122",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Verfahrensmechaniker/-in in der Steine- und Erdenindustrie FR Vorgefertigte Betonerzeugnisse",
+      "kldb5": "21222",
+      "kldb4": "2122",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Werksteinhersteller/-in",
+      "kldb5": "21222",
+      "kldb4": "2122",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Naturwerksteinmechaniker/-in FR Steinmetztechnik",
+      "kldb5": "21232",
+      "kldb4": "2123",
+      "neuordnung": 2003
+    },
+    {
+      "name": "Steinmetz/-in und Steinbildhauer/-in",
+      "kldb5": "21232",
+      "kldb4": "2123",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Steinmetz/-in und Steinbildhauer/-in FR Steinmetzarbeiten",
+      "kldb5": "21232",
+      "kldb4": "2123",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Glasmacher/-in",
+      "kldb5": "21312",
+      "kldb4": "2131",
+      "neuordnung": 1985
+    },
+    {
+      "name": "Verfahrensmechaniker/-in Glastechnik",
+      "kldb5": "21312",
+      "kldb4": "2131",
+      "neuordnung": 2000
+    },
+    {
+      "name": "Glasapparatebauer/-in",
+      "kldb5": "21322",
+      "kldb4": "2132",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Thermometermacher/-in",
+      "kldb5": "21322",
+      "kldb4": "2132",
+      "neuordnung": 1986
+    },
+    {
+      "name": "Leuchtröhrenglasbläser/-in",
+      "kldb5": "21332",
+      "kldb4": "2133",
+      "neuordnung": 1986
+    },
+    {
+      "name": "Thermometermacher/-in FR Thermometerblasen",
+      "kldb5": "21332",
+      "kldb4": "2133",
+      "neuordnung": 1986
+    },
+    {
+      "name": "Flachglastechnologe/-technologin",
+      "kldb5": "21342",
+      "kldb4": "2134",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Glasveredler/-in",
+      "kldb5": "21342",
+      "kldb4": "2134",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Glasveredler/-in FR Glasmalerei und Kunstverglasung",
+      "kldb5": "21342",
+      "kldb4": "2134",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Glasveredler/-in FR Kanten- und Flächenveredlung",
+      "kldb5": "21342",
+      "kldb4": "2134",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Glasveredler/-in FR Schliff und Gravur",
+      "kldb5": "21342",
+      "kldb4": "2134",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Thermometermacher/-in FR Thermometerjustieren",
+      "kldb5": "21352",
+      "kldb4": "2135",
+      "neuordnung": 1986
+    },
+    {
+      "name": "Feinoptiker/-in",
+      "kldb5": "21362",
+      "kldb4": "2136",
+      "neuordnung": 2024
+    },
+    {
+      "name": "Verfahrensmechaniker/-in für Brillenoptik",
+      "kldb5": "21362",
+      "kldb4": "2136",
+      "neuordnung": 2002
+    },
+    {
+      "name": "Industriekeramiker/-in Anlagentechnik",
+      "kldb5": "21412",
+      "kldb4": "2141",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Industriekeramiker/-in Verfahrenstechnik",
+      "kldb5": "21412",
+      "kldb4": "2141",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Figurenkeramformer/-in",
+      "kldb5": "21422",
+      "kldb4": "2142",
+      "neuordnung": 1995
+    },
+    {
+      "name": "Industriekeramiker/-in Modelltechnik",
+      "kldb5": "21422",
+      "kldb4": "2142",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Kunststoff- und Kautschuktechnologe/-technologin",
+      "kldb5": "22102",
+      "kldb4": "2210",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Kunststoff- und Kautschuktechnologe/-technologin FR Bauteile",
+      "kldb5": "22102",
+      "kldb4": "2210",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Kunststoff- und Kautschuktechnologe/-technologin FR Compound- und Masterbatchherstellung",
+      "kldb5": "22102",
+      "kldb4": "2210",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Kunststoff- und Kautschuktechnologe/-technologin FR Faserverbundtechnologie",
+      "kldb5": "22102",
+      "kldb4": "2210",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Kunststoff- und Kautschuktechnologe/-technologin FR Formteile",
+      "kldb5": "22102",
+      "kldb4": "2210",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Kunststoff- und Kautschuktechnologe/-technologin FR Halbzeuge",
+      "kldb5": "22102",
+      "kldb4": "2210",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Kunststoff- und Kautschuktechnologe/-technologin FR Kunststofffenster",
+      "kldb5": "22102",
+      "kldb4": "2210",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Kunststoff- und Kautschuktechnologe/-technologin FR Mehrschichtkautschukteile",
+      "kldb5": "22102",
+      "kldb4": "2210",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Mechaniker/-in für Reifen- und Vulkanisationstechnik",
+      "kldb5": "22112",
+      "kldb4": "2211",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Mechaniker/-in für Reifen- und Vulkanisationstechnik FR Reifen- und Fahrwerktechnik",
+      "kldb5": "22112",
+      "kldb4": "2211",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Mechaniker/-in für Reifen- und Vulkanisationstechnik FR Vulkanisationstechnik",
+      "kldb5": "22112",
+      "kldb4": "2211",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Fahrzeuglackierer/-in",
+      "kldb5": "22212",
+      "kldb4": "2221",
+      "neuordnung": 2003
+    },
+    {
+      "name": "Lacklaborant/-in",
+      "kldb5": "22222",
+      "kldb4": "2222",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Holzbearbeitungsmechaniker/-in",
+      "kldb5": "22302",
+      "kldb4": "2230",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Holzmechaniker/-in",
+      "kldb5": "22332",
+      "kldb4": "2233",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Fachkraft für Möbel-, Küchen- und Umzugsservice",
+      "kldb5": "22342",
+      "kldb4": "2234",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Holzmechaniker/-in FR Herstellen von Bauelementen, Holzpackmitteln und Rahmen",
+      "kldb5": "22342",
+      "kldb4": "2234",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Holzmechaniker/-in FR Herstellen von Möbeln und Innenausbauteilen",
+      "kldb5": "22342",
+      "kldb4": "2234",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Holzmechaniker/-in FR Montieren von Innenausbauten und Bauelementen",
+      "kldb5": "22342",
+      "kldb4": "2234",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Tischler/-in",
+      "kldb5": "22342",
+      "kldb4": "2234",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Bürsten- und Pinselmacher/-in",
+      "kldb5": "22352",
+      "kldb4": "2235",
+      "neuordnung": 2017
+    },
+    {
+      "name": "Flechtwerkgestalter/-in",
+      "kldb5": "22352",
+      "kldb4": "2235",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Böttcher/-in",
+      "kldb5": "22382",
+      "kldb4": "2238",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Papiertechnologe/-technologin",
+      "kldb5": "23112",
+      "kldb4": "2311",
+      "neuordnung": 2019
+    },
+    {
+      "name": "Packmitteltechnologe/-technologin",
+      "kldb5": "23122",
+      "kldb4": "2312",
+      "neuordnung": 2019
+    },
+    {
+      "name": "Gestalter/-in für immersive Medien",
+      "kldb5": "23212",
+      "kldb4": "2321",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Mediengestalter/-in Digital und Print",
+      "kldb5": "23212",
+      "kldb4": "2321",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Mediengestalter/-in Digital und Print FR Designkonzeption",
+      "kldb5": "23212",
+      "kldb4": "2321",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Mediengestalter/-in Digital und Print FR Digitalmedien",
+      "kldb5": "23212",
+      "kldb4": "2321",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Mediengestalter/-in Digital und Print FR Printmedien",
+      "kldb5": "23212",
+      "kldb4": "2321",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Mediengestalter/-in Digital und Print FR Projektmanagement",
+      "kldb5": "23212",
+      "kldb4": "2321",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Fotograf/-in",
+      "kldb5": "23322",
+      "kldb4": "2332",
+      "neuordnung": 2009
+    },
+    {
+      "name": "Medientechnologe/-technologin Druck",
+      "kldb5": "23412",
+      "kldb4": "2341",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Medientechnologe/-technologin Siebdruck",
+      "kldb5": "23412",
+      "kldb4": "2341",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Buchbinder/-in",
+      "kldb5": "23422",
+      "kldb4": "2342",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Medientechnologe/-technologin Druckverarbeitung",
+      "kldb5": "23422",
+      "kldb4": "2342",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Verfahrenstechnologe/-technologin Metall",
+      "kldb5": "24112",
+      "kldb4": "2411",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Verfahrenstechnologe/-technologin Metall FR Eisen- und Stahlmetallurgie",
+      "kldb5": "24112",
+      "kldb4": "2411",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Verfahrenstechnologe/-technologin Metall FR Nichteisenmetallurgie",
+      "kldb5": "24112",
+      "kldb4": "2411",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Verfahrenstechnologe/-technologin Metall FR Nichteisenmetallumformung",
+      "kldb5": "24122",
+      "kldb4": "2412",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Verfahrenstechnologe/-technologin Metall FR Stahlumformung",
+      "kldb5": "24122",
+      "kldb4": "2412",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Gießereimechaniker/-in",
+      "kldb5": "24132",
+      "kldb4": "2413",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Metall- und Glockengießer/-in",
+      "kldb5": "24142",
+      "kldb4": "2414",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Metall- und Glockengießer/-in FR Kunst- und Glockengußtechnik",
+      "kldb5": "24142",
+      "kldb4": "2414",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Metall- und Glockengießer/-in FR Metallgußtechnik",
+      "kldb5": "24142",
+      "kldb4": "2414",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Metall- und Glockengießer/-in FR Zinngußtechnik",
+      "kldb5": "24142",
+      "kldb4": "2414",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Fachkraft für Metalltechnik",
+      "kldb5": "24202",
+      "kldb4": "2420",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Fachkraft für Metalltechnik FR Umform- und Drahttechnik",
+      "kldb5": "24212",
+      "kldb4": "2421",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Stanz- und Umformmechaniker/-in",
+      "kldb5": "24212",
+      "kldb4": "2421",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Feinpolierer/-in",
+      "kldb5": "24222",
+      "kldb4": "2422",
+      "neuordnung": 1937
+    },
+    {
+      "name": "Vorpolierer/-in -Schmuck- und Kleingeräteherstellung",
+      "kldb5": "24222",
+      "kldb4": "2422",
+      "neuordnung": 1940
+    },
+    {
+      "name": "Fachkraft für Metalltechnik FR Zerspanungstechnik",
+      "kldb5": "24232",
+      "kldb4": "2423",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Zerspanungsmechaniker/-in",
+      "kldb5": "24232",
+      "kldb4": "2423",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Oberflächenbeschichter/-in",
+      "kldb5": "24302",
+      "kldb4": "2430",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Verfahrensmechaniker/-in für Beschichtungstechnik",
+      "kldb5": "24302",
+      "kldb4": "2430",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Fachkraft für Metalltechnik FR Konstruktionstechnik",
+      "kldb5": "24412",
+      "kldb4": "2441",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Konstruktionsmechaniker/-in",
+      "kldb5": "24412",
+      "kldb4": "2441",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Metallbauer/-in",
+      "kldb5": "24412",
+      "kldb4": "2441",
+      "neuordnung": 2008
+    },
+    {
+      "name": "Metallbauer/-in (IHEx)",
+      "kldb5": "24412",
+      "kldb4": "2441",
+      "neuordnung": 2008
+    },
+    {
+      "name": "Metallbauer/-in FR Konstruktionstechnik",
+      "kldb5": "24412",
+      "kldb4": "2441",
+      "neuordnung": 2008
+    },
+    {
+      "name": "Metallbauer/-in FR Konstruktionstechnik (IHEx)",
+      "kldb5": "24412",
+      "kldb4": "2441",
+      "neuordnung": 2008
+    },
+    {
+      "name": "Metallbauer/-in FR Metallgestaltung",
+      "kldb5": "24412",
+      "kldb4": "2441",
+      "neuordnung": 2008
+    },
+    {
+      "name": "Chirurgiemechaniker/-in",
+      "kldb5": "24512",
+      "kldb4": "2451",
+      "neuordnung": 1989
+    },
+    {
+      "name": "Feinwerkmechaniker/-in",
+      "kldb5": "24512",
+      "kldb4": "2451",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Büchsenmacher/-in (36 Monate)",
+      "kldb5": "24522",
+      "kldb4": "2452",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Präzisionswerkzeugmechaniker/-in FR Schneidwerkzeuge",
+      "kldb5": "24522",
+      "kldb4": "2452",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Präzisionswerkzeugmechaniker/-in FR Zerspanwerkzeuge",
+      "kldb5": "24522",
+      "kldb4": "2452",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Werkzeugmechaniker/-in",
+      "kldb5": "24522",
+      "kldb4": "2452",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Uhrmacher/-in",
+      "kldb5": "24532",
+      "kldb4": "2453",
+      "neuordnung": 2001
+    },
+    {
+      "name": "Industriemechaniker/-in",
+      "kldb5": "25102",
+      "kldb4": "2510",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Fachkraft für Metalltechnik FR Montagetechnik",
+      "kldb5": "25112",
+      "kldb4": "2511",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Fertigungsmechaniker/-in",
+      "kldb5": "25112",
+      "kldb4": "2511",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Maschinen- und Anlagenführer/-in",
+      "kldb5": "25122",
+      "kldb4": "2512",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Automatenfachmann/-fachfrau FR Automatenmechatronik",
+      "kldb5": "25132",
+      "kldb4": "2513",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Karosserie- und Fahrzeugbaumechaniker/-in",
+      "kldb5": "25212",
+      "kldb4": "2521",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Karosserie- und Fahrzeugbaumechaniker/-in FR Caravan- und Reisemobiltechnik",
+      "kldb5": "25212",
+      "kldb4": "2521",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Karosserie- und Fahrzeugbaumechaniker/-in FR Karosserie- und Fahrzeugbautechnik",
+      "kldb5": "25212",
+      "kldb4": "2521",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Karosserie- und Fahrzeugbaumechaniker/-in FR Karosserieinstandhaltungstechnik",
+      "kldb5": "25212",
+      "kldb4": "2521",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Kraftfahrzeugmechatroniker/-in",
+      "kldb5": "25212",
+      "kldb4": "2521",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Land- und Baumaschinenmechatroniker/-in",
+      "kldb5": "25222",
+      "kldb4": "2522",
+      "neuordnung": 2014
+    },
+    {
+      "name": "Metallbauer/-in FR Nutzfahrzeugbau",
+      "kldb5": "25222",
+      "kldb4": "2522",
+      "neuordnung": 2008
+    },
+    {
+      "name": "Fluggerätmechaniker/-in",
+      "kldb5": "25232",
+      "kldb4": "2523",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Fluggerätmechaniker/-in FR Fertigungstechnik",
+      "kldb5": "25232",
+      "kldb4": "2523",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Fluggerätmechaniker/-in FR Fertigungstechnik",
+      "kldb5": "25232",
+      "kldb4": "2523",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Fluggerätmechaniker/-in FR Instandhaltungstechnik",
+      "kldb5": "25232",
+      "kldb4": "2523",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Fluggerätmechaniker/-in FR Instandhaltungstechnik",
+      "kldb5": "25232",
+      "kldb4": "2523",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Fluggerätmechaniker/-in FR Triebwerkstechnik",
+      "kldb5": "25232",
+      "kldb4": "2523",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Leichtflugzeugbauer/-in",
+      "kldb5": "25232",
+      "kldb4": "2523",
+      "neuordnung": 1987
+    },
+    {
+      "name": "Bootsbauer/-in FR Technik",
+      "kldb5": "25242",
+      "kldb4": "2524",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Fahrradmonteur/-in",
+      "kldb5": "25252",
+      "kldb4": "2525",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Zweiradmechatroniker/-in",
+      "kldb5": "25252",
+      "kldb4": "2525",
+      "neuordnung": 2014
+    },
+    {
+      "name": "Zweiradmechatroniker/-in FR Fahrradtechnik",
+      "kldb5": "25252",
+      "kldb4": "2525",
+      "neuordnung": 2014
+    },
+    {
+      "name": "Zweiradmechatroniker/-in FR Motorradtechnik",
+      "kldb5": "25252",
+      "kldb4": "2525",
+      "neuordnung": 2014
+    },
+    {
+      "name": "Mechatroniker/-in",
+      "kldb5": "26112",
+      "kldb4": "2611",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Elektroniker/-in FR Automatisierungs- und Systemtechnik",
+      "kldb5": "26122",
+      "kldb4": "2612",
+      "neuordnung": 2021
+    },
+    {
+      "name": "Elektroniker/-in für Automatisierungstechnik",
+      "kldb5": "26122",
+      "kldb4": "2612",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Elektroniker/-in FR Energie- und Gebäudetechnik",
+      "kldb5": "26212",
+      "kldb4": "2621",
+      "neuordnung": 2021
+    },
+    {
+      "name": "Elektroniker/-in für Gebäude- und Infrastruktursysteme",
+      "kldb5": "26212",
+      "kldb4": "2621",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Elektroniker/-in für Gebäudesystemintegration",
+      "kldb5": "26212",
+      "kldb4": "2621",
+      "neuordnung": 2021
+    },
+    {
+      "name": "Elektroniker/-in für Maschinen und Antriebstechnik nach dem BBiG",
+      "kldb5": "26222",
+      "kldb4": "2622",
+      "neuordnung": 2021
+    },
+    {
+      "name": "Elektroniker/-in für Maschinen und Antriebstechnik nach Handwerksordnung",
+      "kldb5": "26222",
+      "kldb4": "2622",
+      "neuordnung": 2021
+    },
+    {
+      "name": "Elektroanlagenmonteur/-in",
+      "kldb5": "26252",
+      "kldb4": "2625",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Elektroniker/-in",
+      "kldb5": "26252",
+      "kldb4": "2625",
+      "neuordnung": 2021
+    },
+    {
+      "name": "Elektroniker/-in für Betriebstechnik (HwEx)",
+      "kldb5": "26252",
+      "kldb4": "2625",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Elektroniker/-in für Betriebstechnik (IH)",
+      "kldb5": "26252",
+      "kldb4": "2625",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Industrieelektriker/-in",
+      "kldb5": "26252",
+      "kldb4": "2625",
+      "neuordnung": 2009
+    },
+    {
+      "name": "Industrieelektriker/-in FR Betriebstechnik",
+      "kldb5": "26252",
+      "kldb4": "2625",
+      "neuordnung": 2009
+    },
+    {
+      "name": "Elektroniker/-in für Geräte und Systeme",
+      "kldb5": "26302",
+      "kldb4": "2630",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Industrieelektriker/-in FR Geräte und Systeme (HwEx)",
+      "kldb5": "26302",
+      "kldb4": "2630",
+      "neuordnung": 2009
+    },
+    {
+      "name": "Industrieelektriker/-in FR Geräte und Systeme (IH)",
+      "kldb5": "26302",
+      "kldb4": "2630",
+      "neuordnung": 2009
+    },
+    {
+      "name": "Elektroniker/-in für Informations- und Systemtechnik",
+      "kldb5": "26312",
+      "kldb4": "2631",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Informationselektroniker/-in",
+      "kldb5": "26312",
+      "kldb4": "2631",
+      "neuordnung": 2021
+    },
+    {
+      "name": "IT-System-Elektroniker/-in",
+      "kldb5": "26312",
+      "kldb4": "2631",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Mikrotechnologe/-technologin",
+      "kldb5": "26322",
+      "kldb4": "2632",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Fluggerätelektroniker/-in",
+      "kldb5": "26332",
+      "kldb4": "2633",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Bauzeichner/-in",
+      "kldb5": "27212",
+      "kldb4": "2721",
+      "neuordnung": 2002
+    },
+    {
+      "name": "Technische/-r Produktdesigner/-in",
+      "kldb5": "27212",
+      "kldb4": "2721",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Technische/-r Produktdesigner/-in FR Maschinen- und Anlagenkonstruktion",
+      "kldb5": "27212",
+      "kldb4": "2721",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Technische/-r Produktdesigner/-in FR Produktgestaltung und -konstruktion",
+      "kldb5": "27212",
+      "kldb4": "2721",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Technische/-r Systemplaner/-in",
+      "kldb5": "27212",
+      "kldb4": "2721",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Technische/-r Systemplaner/-in FR Elektrotechnische Systeme",
+      "kldb5": "27212",
+      "kldb4": "2721",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Technische/-r Systemplaner/-in FR Stahl- und Metallbautechnik",
+      "kldb5": "27212",
+      "kldb4": "2721",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Technische/-r Systemplaner/-in FR Versorgungs- und Ausrüstungstechnik",
+      "kldb5": "27212",
+      "kldb4": "2721",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Biologiemodellmacher/-in",
+      "kldb5": "27232",
+      "kldb4": "2723",
+      "neuordnung": 2017
+    },
+    {
+      "name": "Technische/-r Modellbauer/-in",
+      "kldb5": "27232",
+      "kldb4": "2723",
+      "neuordnung": 2009
+    },
+    {
+      "name": "Technische/-r Modellbauer/-in FR Anschauung",
+      "kldb5": "27232",
+      "kldb4": "2723",
+      "neuordnung": 2009
+    },
+    {
+      "name": "Technische/-r Modellbauer/-in FR Gießerei",
+      "kldb5": "27232",
+      "kldb4": "2723",
+      "neuordnung": 2009
+    },
+    {
+      "name": "Technische/-r Modellbauer/-in FR Karosserie und Produktion",
+      "kldb5": "27232",
+      "kldb4": "2723",
+      "neuordnung": 2009
+    },
+    {
+      "name": "Produktionstechnologe/-technologin",
+      "kldb5": "27302",
+      "kldb4": "2730",
+      "neuordnung": 2008
+    },
+    {
+      "name": "Produktionsmechaniker/-in Textil",
+      "kldb5": "28102",
+      "kldb4": "2810",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Produktgestalter/-in Textil",
+      "kldb5": "28112",
+      "kldb4": "2811",
+      "neuordnung": 2003
+    },
+    {
+      "name": "Textilgestalter/-in im Handwerk FR Sticken",
+      "kldb5": "28112",
+      "kldb4": "2811",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Produktprüfer/-in Textil",
+      "kldb5": "28122",
+      "kldb4": "2812",
+      "neuordnung": 2007
+    },
+    {
+      "name": "Textilgestalter/-in im Handwerk",
+      "kldb5": "28122",
+      "kldb4": "2812",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Textilgestalter/-in im Handwerk FR Filzen",
+      "kldb5": "28122",
+      "kldb4": "2812",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Textilgestalter/-in im Handwerk FR Klöppeln",
+      "kldb5": "28122",
+      "kldb4": "2812",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Textilgestalter/-in im Handwerk FR Posamentieren",
+      "kldb5": "28122",
+      "kldb4": "2812",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Textilgestalter/-in im Handwerk FR Weben",
+      "kldb5": "28122",
+      "kldb4": "2812",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Seiler/-in",
+      "kldb5": "28132",
+      "kldb4": "2813",
+      "neuordnung": 2008
+    },
+    {
+      "name": "Seiler/-in (IHEx)",
+      "kldb5": "28132",
+      "kldb4": "2813",
+      "neuordnung": 2008
+    },
+    {
+      "name": "Produktveredler/-in Textil",
+      "kldb5": "28142",
+      "kldb4": "2814",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Änderungsschneider/-in",
+      "kldb5": "28222",
+      "kldb4": "2822",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Maßschneider/-in",
+      "kldb5": "28222",
+      "kldb4": "2822",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Modist/-in",
+      "kldb5": "28222",
+      "kldb4": "2822",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Textil- und Modenäher/-in",
+      "kldb5": "28222",
+      "kldb4": "2822",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Textil- und Modeschneider/-in",
+      "kldb5": "28222",
+      "kldb4": "2822",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Polster- und Dekorationsnäher/-in",
+      "kldb5": "28232",
+      "kldb4": "2823",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Segelmacher/-in",
+      "kldb5": "28232",
+      "kldb4": "2823",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Technische/-r Konfektionär/-in",
+      "kldb5": "28232",
+      "kldb4": "2823",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Fahrzeuginterieur-Mechaniker/-in",
+      "kldb5": "28242",
+      "kldb4": "2824",
+      "neuordnung": 2021
+    },
+    {
+      "name": "Polsterer/-in",
+      "kldb5": "28242",
+      "kldb4": "2824",
+      "neuordnung": 2014
+    },
+    {
+      "name": "Fachkraft für Lederherstellung und Gerbereitechnik",
+      "kldb5": "28312",
+      "kldb4": "2831",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Fachkraft für Lederverarbeitung",
+      "kldb5": "28322",
+      "kldb4": "2832",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Sattler/-in",
+      "kldb5": "28322",
+      "kldb4": "2832",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Sattler/-in FR Fahrzeugsattlerei",
+      "kldb5": "28322",
+      "kldb4": "2832",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Sattler/-in FR Feintäschnerei",
+      "kldb5": "28322",
+      "kldb4": "2832",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Sattler/-in FR Reitsportsattlerei",
+      "kldb5": "28322",
+      "kldb4": "2832",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Maßschuhmacher/-in",
+      "kldb5": "28332",
+      "kldb4": "2833",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Maßschuhmacher/-in FR Maßschuhe",
+      "kldb5": "28332",
+      "kldb4": "2833",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Maßschuhmacher/-in FR Schaftbau",
+      "kldb5": "28332",
+      "kldb4": "2833",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Orthopädieschuhmacher/-in",
+      "kldb5": "28332",
+      "kldb4": "2833",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Schuhfertiger/-in",
+      "kldb5": "28332",
+      "kldb4": "2833",
+      "neuordnung": 2017
+    },
+    {
+      "name": "Kürschner/-in",
+      "kldb5": "28342",
+      "kldb4": "2834",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Pelzveredler/-in",
+      "kldb5": "28342",
+      "kldb4": "2834",
+      "neuordnung": 1981
+    },
+    {
+      "name": "Brauer/-in und Mälzer/-in",
+      "kldb5": "29112",
+      "kldb4": "2911",
+      "neuordnung": 2021
+    },
+    {
+      "name": "Weintechnologe/-technologin",
+      "kldb5": "29122",
+      "kldb4": "2912",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Brenner/-in",
+      "kldb5": "29132",
+      "kldb4": "2913",
+      "neuordnung": 1981
+    },
+    {
+      "name": "Destillateur/-in",
+      "kldb5": "29132",
+      "kldb4": "2913",
+      "neuordnung": 1981
+    },
+    {
+      "name": "Fachkraft für Fruchtsafttechnik",
+      "kldb5": "29142",
+      "kldb4": "2914",
+      "neuordnung": 1984
+    },
+    {
+      "name": "Fachkraft für Lebensmitteltechnik",
+      "kldb5": "29202",
+      "kldb4": "2920",
+      "neuordnung": 2000
+    },
+    {
+      "name": "Verfahrenstechnologe/-technologin Mühlen- und Getreidewirtschaft",
+      "kldb5": "29212",
+      "kldb4": "2921",
+      "neuordnung": 2017
+    },
+    {
+      "name": "Verfahrenstechnologe/-technologin Mühlen- und Getreidewirtschaft FR Agrarlager",
+      "kldb5": "29212",
+      "kldb4": "2921",
+      "neuordnung": 2017
+    },
+    {
+      "name": "Verfahrenstechnologe/-technologin Mühlen- und Getreidewirtschaft FR Müllerei",
+      "kldb5": "29212",
+      "kldb4": "2921",
+      "neuordnung": 2017
+    },
+    {
+      "name": "Bäcker/-in",
+      "kldb5": "29222",
+      "kldb4": "2922",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Konditor/-in",
+      "kldb5": "29222",
+      "kldb4": "2922",
+      "neuordnung": 2003
+    },
+    {
+      "name": "Fleischer/-in",
+      "kldb5": "29232",
+      "kldb4": "2923",
+      "neuordnung": 2017
+    },
+    {
+      "name": "Milchtechnologe/-technologin",
+      "kldb5": "29252",
+      "kldb4": "2925",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Süßwarentechnologe/-technologin",
+      "kldb5": "29262",
+      "kldb4": "2926",
+      "neuordnung": 2014
+    },
+    {
+      "name": "Fachkraft Küche",
+      "kldb5": "29302",
+      "kldb4": "2930",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Koch/Köchin (HwEx)",
+      "kldb5": "29302",
+      "kldb4": "2930",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Koch/Köchin (IH)",
+      "kldb5": "29302",
+      "kldb4": "2930",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Fachkraft für Straßen- und Verkehrstechnik",
+      "kldb5": "31132",
+      "kldb4": "3113",
+      "neuordnung": 2000
+    },
+    {
+      "name": "Fachkraft für Wasserwirtschaft",
+      "kldb5": "31142",
+      "kldb4": "3114",
+      "neuordnung": 2000
+    },
+    {
+      "name": "Vermessungstechniker/-in",
+      "kldb5": "31212",
+      "kldb4": "3121",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Vermessungstechniker/-in FR Bergvermessung",
+      "kldb5": "31212",
+      "kldb4": "3121",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Vermessungstechniker/-in FR Bergvermessung",
+      "kldb5": "31212",
+      "kldb4": "3121",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Vermessungstechniker/-in FR Vermessung",
+      "kldb5": "31212",
+      "kldb4": "3121",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Vermessungstechniker/-in FR Vermessung",
+      "kldb5": "31212",
+      "kldb4": "3121",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Geomatiker/-in",
+      "kldb5": "31222",
+      "kldb4": "3122",
+      "neuordnung": 2010
+    },
+    {
+      "name": "Hochbaufacharbeiter/-in",
+      "kldb5": "32102",
+      "kldb4": "3210",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Beton- und Stahlbetonbauer/-in",
+      "kldb5": "32112",
+      "kldb4": "3211",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Maurer/-in",
+      "kldb5": "32122",
+      "kldb4": "3212",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Feuerungs- und Schornsteinbauer/-in",
+      "kldb5": "32132",
+      "kldb4": "3213",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Dachdecker/-in",
+      "kldb5": "32142",
+      "kldb4": "3214",
+      "neuordnung": 2016
+    },
+    {
+      "name": "Fassadenmonteur/-in",
+      "kldb5": "32152",
+      "kldb4": "3215",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Gerüstbauer/-in",
+      "kldb5": "32162",
+      "kldb4": "3216",
+      "neuordnung": 2000
+    },
+    {
+      "name": "Bauwerksmechaniker/-in für Abbruch und Betontrenntechnik",
+      "kldb5": "32172",
+      "kldb4": "3217",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Spezialtiefbauer/-in",
+      "kldb5": "32202",
+      "kldb4": "3220",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Tiefbaufacharbeiter/-in",
+      "kldb5": "32202",
+      "kldb4": "3220",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Asphaltbauer/-in",
+      "kldb5": "32222",
+      "kldb4": "3222",
+      "neuordnung": 1984
+    },
+    {
+      "name": "Straßenbauer/-in",
+      "kldb5": "32222",
+      "kldb4": "3222",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Gleisbauer/-in",
+      "kldb5": "32232",
+      "kldb4": "3223",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Brunnenbauer/-in",
+      "kldb5": "32242",
+      "kldb4": "3224",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Kanalbauer/-in",
+      "kldb5": "32252",
+      "kldb4": "3225",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Wasserbauer/-in",
+      "kldb5": "32262",
+      "kldb4": "3226",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Bodenleger/-in",
+      "kldb5": "33102",
+      "kldb4": "3310",
+      "neuordnung": 2002
+    },
+    {
+      "name": "Fliesen-, Platten- und Mosaikleger/-in",
+      "kldb5": "33112",
+      "kldb4": "3311",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Estrichleger/-in",
+      "kldb5": "33122",
+      "kldb4": "3312",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Parkettleger/-in",
+      "kldb5": "33132",
+      "kldb4": "3313",
+      "neuordnung": 2002
+    },
+    {
+      "name": "Maler/-in und Lackierer/-in",
+      "kldb5": "33212",
+      "kldb4": "3321",
+      "neuordnung": 2021
+    },
+    {
+      "name": "Maler/-in und Lackierer/-in FR Ausbautechnik und Oberflächengestaltung",
+      "kldb5": "33212",
+      "kldb4": "3321",
+      "neuordnung": 2021
+    },
+    {
+      "name": "Maler/-in und Lackierer/-in FR Bauten- und Korrosionsschutz",
+      "kldb5": "33212",
+      "kldb4": "3321",
+      "neuordnung": 2021
+    },
+    {
+      "name": "Maler/-in und Lackierer/-in FR Energieeffizienz- und Gestaltungstechnik",
+      "kldb5": "33212",
+      "kldb4": "3321",
+      "neuordnung": 2021
+    },
+    {
+      "name": "Maler/-in und Lackierer/-in FR Gestaltung und Instandhaltung",
+      "kldb5": "33212",
+      "kldb4": "3321",
+      "neuordnung": 2021
+    },
+    {
+      "name": "Maler/-in und Lackierer/-in FR Kirchenmalerei und Denkmalpflege",
+      "kldb5": "33212",
+      "kldb4": "3321",
+      "neuordnung": 2021
+    },
+    {
+      "name": "Stuckateur/-in",
+      "kldb5": "33222",
+      "kldb4": "3322",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Bauwerksabdichter/-in",
+      "kldb5": "33232",
+      "kldb4": "3323",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Fachkraft für Holz- und Bautenschutzarbeiten",
+      "kldb5": "33242",
+      "kldb4": "3324",
+      "neuordnung": 2007
+    },
+    {
+      "name": "Holz- und Bautenschützer/-in",
+      "kldb5": "33242",
+      "kldb4": "3324",
+      "neuordnung": 2007
+    },
+    {
+      "name": "Holz- und Bautenschützer/-in FR Bautenschutz",
+      "kldb5": "33242",
+      "kldb4": "3324",
+      "neuordnung": 2007
+    },
+    {
+      "name": "Holz- und Bautenschützer/-in FR Holzschutz",
+      "kldb5": "33242",
+      "kldb4": "3324",
+      "neuordnung": 2007
+    },
+    {
+      "name": "Ausbaufacharbeiter/-in",
+      "kldb5": "33302",
+      "kldb4": "3330",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Trockenbaumonteur/-in",
+      "kldb5": "33302",
+      "kldb4": "3330",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Industrie-Isolierer/-in",
+      "kldb5": "33312",
+      "kldb4": "3331",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Isolierfacharbeiter/-in",
+      "kldb5": "33312",
+      "kldb4": "3331",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Wärme-, Kälte- und Schallschutzisolierer/-in",
+      "kldb5": "33312",
+      "kldb4": "3331",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Bootsbauer/-in",
+      "kldb5": "33322",
+      "kldb4": "3332",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Bootsbauer/-in FR Neu-, Aus- und Umbau",
+      "kldb5": "33322",
+      "kldb4": "3332",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Zimmerer/-in",
+      "kldb5": "33322",
+      "kldb4": "3332",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Glaser/-in",
+      "kldb5": "33342",
+      "kldb4": "3334",
+      "neuordnung": 2001
+    },
+    {
+      "name": "Glaser/-in FR Fenster- und Glasfassadenbau",
+      "kldb5": "33342",
+      "kldb4": "3334",
+      "neuordnung": 2001
+    },
+    {
+      "name": "Glaser/-in FR Verglasung und Glasbau",
+      "kldb5": "33342",
+      "kldb4": "3334",
+      "neuordnung": 2001
+    },
+    {
+      "name": "Rollladen- und Sonnenschutzmechatroniker/-in",
+      "kldb5": "33352",
+      "kldb4": "3335",
+      "neuordnung": 2016
+    },
+    {
+      "name": "Klempner/-in",
+      "kldb5": "34202",
+      "kldb4": "3420",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Anlagenmechaniker/-in für Sanitär-, Heizungs- und Klimatechnik",
+      "kldb5": "34212",
+      "kldb4": "3421",
+      "neuordnung": 2016
+    },
+    {
+      "name": "Ofen- und Luftheizungsbauer/-in",
+      "kldb5": "34222",
+      "kldb4": "3422",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Mechatroniker/-in für Kältetechnik",
+      "kldb5": "34232",
+      "kldb4": "3423",
+      "neuordnung": 2007
+    },
+    {
+      "name": "Umwelttechnologe/-technologin für Abwasserbewirtschaftung",
+      "kldb5": "34312",
+      "kldb4": "3431",
+      "neuordnung": 2024
+    },
+    {
+      "name": "Umwelttechnologe/-technologin für Rohrleitungsnetze und Industrieanlagen",
+      "kldb5": "34312",
+      "kldb4": "3431",
+      "neuordnung": 2024
+    },
+    {
+      "name": "Umwelttechnologe/-technologin für Wasserversorgung",
+      "kldb5": "34312",
+      "kldb4": "3431",
+      "neuordnung": 2024
+    },
+    {
+      "name": "Rohrleitungsbauer/-in",
+      "kldb5": "34322",
+      "kldb4": "3432",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Umwelttechnologe/-technologin für Kreislauf- und Abfallwirtschaft",
+      "kldb5": "34332",
+      "kldb4": "3433",
+      "neuordnung": 2024
+    },
+    {
+      "name": "Anlagenmechaniker/-in",
+      "kldb5": "34342",
+      "kldb4": "3434",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Behälter- und Apparatebauer/-in",
+      "kldb5": "34342",
+      "kldb4": "3434",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Biologielaborant/-in",
+      "kldb5": "41212",
+      "kldb4": "4121",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Milchwirtschaftliche/-r Laborant/-in",
+      "kldb5": "41212",
+      "kldb4": "4121",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Chemikant/-in",
+      "kldb5": "41312",
+      "kldb4": "4131",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Pharmakant/-in",
+      "kldb5": "41312",
+      "kldb4": "4131",
+      "neuordnung": 2009
+    },
+    {
+      "name": "Produktionsfachkraft Chemie",
+      "kldb5": "41312",
+      "kldb4": "4131",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Chemielaborant/-in",
+      "kldb5": "41322",
+      "kldb4": "4132",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Chemielaborjungwerker/-in",
+      "kldb5": "41322",
+      "kldb4": "4132",
+      "neuordnung": 1938
+    },
+    {
+      "name": "Prüftechnologe/-technologin Keramik",
+      "kldb5": "41322",
+      "kldb4": "4132",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Textillaborant/-in",
+      "kldb5": "41322",
+      "kldb4": "4132",
+      "neuordnung": 2003
+    },
+    {
+      "name": "Physiklaborant/-in",
+      "kldb5": "41412",
+      "kldb4": "4141",
+      "neuordnung": 1996
+    },
+    {
+      "name": "Edelmetallprüfer/-in",
+      "kldb5": "41422",
+      "kldb4": "4142",
+      "neuordnung": 1937
+    },
+    {
+      "name": "Werkstoffprüfer/-in",
+      "kldb5": "41422",
+      "kldb4": "4142",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Werkstoffprüfer/-in FR Kunststofftechnik",
+      "kldb5": "41422",
+      "kldb4": "4142",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Werkstoffprüfer/-in FR Metalltechnik",
+      "kldb5": "41422",
+      "kldb4": "4142",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Werkstoffprüfer/-in FR Systemtechnik",
+      "kldb5": "41422",
+      "kldb4": "4142",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Werkstoffprüfer/-in FR Wärmebehandlungstechnik",
+      "kldb5": "41422",
+      "kldb4": "4142",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Baustoffprüfer/-in",
+      "kldb5": "41432",
+      "kldb4": "4143",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Schornsteinfeger/-in",
+      "kldb5": "42212",
+      "kldb4": "4221",
+      "neuordnung": 2012
+    },
+    {
+      "name": "Fachinformatiker/-in",
+      "kldb5": "43102",
+      "kldb4": "4310",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Fachinformatiker/-in FR Systemintegration",
+      "kldb5": "43102",
+      "kldb4": "4310",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Fachinformatiker/-in FR Daten- und Prozessanalyse",
+      "kldb5": "43112",
+      "kldb4": "4311",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Kaufmann/Kauffrau für Digitalisierungsmanagement",
+      "kldb5": "43112",
+      "kldb4": "4311",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Kaufmann/Kauffrau für IT-System-Management",
+      "kldb5": "43232",
+      "kldb4": "4323",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Fachinformatiker/-in FR Digitale Vernetzung",
+      "kldb5": "43312",
+      "kldb4": "4331",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Fachinformatiker/-in FR Anwendungsentwicklung",
+      "kldb5": "43412",
+      "kldb4": "4341",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Mathematisch-technische/-r Softwareentwickler/-in",
+      "kldb5": "43412",
+      "kldb4": "4341",
+      "neuordnung": 2007
+    },
+    {
+      "name": "Straßenwärter/-in",
+      "kldb5": "51212",
+      "kldb4": "5121",
+      "neuordnung": 2002
+    },
+    {
+      "name": "Fachkraft für Lagerlogistik",
+      "kldb5": "51312",
+      "kldb4": "5131",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Fachlagerist/-in",
+      "kldb5": "51312",
+      "kldb4": "5131",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Fachkraft für Kurier-, Express- und Postdienstleistungen",
+      "kldb5": "51322",
+      "kldb4": "5132",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Fachkraft für Hafenlogistik",
+      "kldb5": "51332",
+      "kldb4": "5133",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Kaufmann/Kauffrau für Verkehrsservice",
+      "kldb5": "51412",
+      "kldb4": "5141",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Servicekaufmann/-kauffrau im Luftverkehr",
+      "kldb5": "51422",
+      "kldb4": "5142",
+      "neuordnung": 2017
+    },
+    {
+      "name": "Eisenbahner/-in in der Zugverkehrssteuerung",
+      "kldb5": "51522",
+      "kldb4": "5152",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Kaufmann/Kauffrau für Spedition und Logistikdienstleistung",
+      "kldb5": "51622",
+      "kldb4": "5162",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Kaufmann/Kauffrau im Eisenbahn- und Straßenverkehr",
+      "kldb5": "51632",
+      "kldb4": "5163",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Luftverkehrskaufmann/-kauffrau",
+      "kldb5": "51642",
+      "kldb4": "5164",
+      "neuordnung": 2017
+    },
+    {
+      "name": "Schifffahrtskaufmann/-kauffrau",
+      "kldb5": "51652",
+      "kldb4": "5165",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Schifffahrtskaufmann/-kauffrau FR Linienfahrt",
+      "kldb5": "51652",
+      "kldb4": "5165",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Schifffahrtskaufmann/-kauffrau FR Trampfahrt",
+      "kldb5": "51652",
+      "kldb4": "5165",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Kaufmann/Kauffrau für Kurier-, Express- und Postdienstleistungen",
+      "kldb5": "51662",
+      "kldb4": "5166",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Berufskraftfahrer/-in",
+      "kldb5": "52122",
+      "kldb4": "5212",
+      "neuordnung": 2001
+    },
+    {
+      "name": "Fachkraft im Fahrbetrieb",
+      "kldb5": "52132",
+      "kldb4": "5213",
+      "neuordnung": 2002
+    },
+    {
+      "name": "Servicefahrer/-in",
+      "kldb5": "52182",
+      "kldb4": "5218",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Eisenbahner/-in im Betriebsdienst Lokführer/-in und Transport",
+      "kldb5": "52202",
+      "kldb4": "5220",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Binnenschiffer/-in",
+      "kldb5": "52422",
+      "kldb4": "5242",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Binnenschifffahrtskapitän/-in",
+      "kldb5": "52422",
+      "kldb4": "5242",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Hafenschiffer/-in",
+      "kldb5": "52422",
+      "kldb4": "5242",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Baugeräteführer/-in",
+      "kldb5": "52522",
+      "kldb4": "5252",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Fachkraft für Schutz und Sicherheit",
+      "kldb5": "53112",
+      "kldb4": "5311",
+      "neuordnung": 2008
+    },
+    {
+      "name": "Servicekraft für Schutz und Sicherheit",
+      "kldb5": "53112",
+      "kldb4": "5311",
+      "neuordnung": 2008
+    },
+    {
+      "name": "Werkfeuerwehrmann/Werkfeuerwehrfrau",
+      "kldb5": "53132",
+      "kldb4": "5313",
+      "neuordnung": 2009
+    },
+    {
+      "name": "Fachangestellte/-r für Bäderbetriebe",
+      "kldb5": "53142",
+      "kldb4": "5314",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Schädlingsbekämpfer/-in",
+      "kldb5": "53342",
+      "kldb4": "5334",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Gebäudereiniger/-in",
+      "kldb5": "54112",
+      "kldb4": "5411",
+      "neuordnung": 2019
+    },
+    {
+      "name": "Textilreiniger/-in",
+      "kldb5": "54132",
+      "kldb4": "5413",
+      "neuordnung": 2002
+    },
+    {
+      "name": "Automatenfachmann/-fachfrau",
+      "kldb5": "61142",
+      "kldb4": "6114",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Automatenfachmann/-fachfrau FR Automatendienstleistung",
+      "kldb5": "61142",
+      "kldb4": "6114",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Automatenfachmann/-fachfrau FR Automatendienstleistung",
+      "kldb5": "61142",
+      "kldb4": "6114",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Kaufmann/Kauffrau für Groß- und Außenhandelsmanagement",
+      "kldb5": "61212",
+      "kldb4": "6121",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Kaufmann/Kauffrau für Groß- und Außenhandelsmanagement FR Außenhandel",
+      "kldb5": "61212",
+      "kldb4": "6121",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Kaufmann/Kauffrau für Groß- und Außenhandelsmanagement FR Großhandel",
+      "kldb5": "61212",
+      "kldb4": "6121",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Kaufmann/Kauffrau im E-Commerce",
+      "kldb5": "61282",
+      "kldb4": "6128",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Immobilienkaufmann/-kauffrau",
+      "kldb5": "61312",
+      "kldb4": "6131",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Kaufmann/Kauffrau im Einzelhandel",
+      "kldb5": "62102",
+      "kldb4": "6210",
+      "neuordnung": 2017
+    },
+    {
+      "name": "Verkäufer/-in",
+      "kldb5": "62102",
+      "kldb4": "6210",
+      "neuordnung": 2017
+    },
+    {
+      "name": "Fotomedienfachmann/-fachfrau",
+      "kldb5": "62242",
+      "kldb4": "6224",
+      "neuordnung": 2008
+    },
+    {
+      "name": "Automobilkaufmann/-kauffrau",
+      "kldb5": "62272",
+      "kldb4": "6227",
+      "neuordnung": 2017
+    },
+    {
+      "name": "Tankwart/-in",
+      "kldb5": "62282",
+      "kldb4": "6228",
+      "neuordnung": 1952
+    },
+    {
+      "name": "Fachverkäufer/-in im Lebensmittelhandwerk",
+      "kldb5": "62302",
+      "kldb4": "6230",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Fachverkäufer/-in im Lebensmittelhandwerk o.SP (HwEx)",
+      "kldb5": "62302",
+      "kldb4": "6230",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Fachverkäufer/-in im Lebensmittelhandwerk SP Bäckerei (HwEx)",
+      "kldb5": "62312",
+      "kldb4": "6231",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Fachverkäufer/-in im Lebensmittelhandwerk SP Konditorei (HwEx)",
+      "kldb5": "62312",
+      "kldb4": "6231",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Fachverkäufer/-in im Lebensmittelhandwerk SP Fleischerei (HwEx)",
+      "kldb5": "62322",
+      "kldb4": "6232",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Drogist/-in",
+      "kldb5": "62412",
+      "kldb4": "6241",
+      "neuordnung": 1992
+    },
+    {
+      "name": "Pharmazeutisch-kaufmännische/-r Angestellte/-r",
+      "kldb5": "62412",
+      "kldb4": "6241",
+      "neuordnung": 2012
+    },
+    {
+      "name": "Buchhändler/-in",
+      "kldb5": "62512",
+      "kldb4": "6251",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Musikfachhändler/-in",
+      "kldb5": "62532",
+      "kldb4": "6253",
+      "neuordnung": 2009
+    },
+    {
+      "name": "Kaufmann/Kauffrau für Tourismus und Freizeit",
+      "kldb5": "63112",
+      "kldb4": "6311",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Tourismuskaufmann/-kauffrau (Kaufmann/Kauffrau für Privat- und Geschäftsreisen)",
+      "kldb5": "63112",
+      "kldb4": "6311",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Sport- und Fitnesskaufmann/-kauffrau",
+      "kldb5": "63122",
+      "kldb4": "6312",
+      "neuordnung": 2007
+    },
+    {
+      "name": "Sportfachmann/-fachfrau",
+      "kldb5": "63122",
+      "kldb4": "6312",
+      "neuordnung": 2007
+    },
+    {
+      "name": "Kaufmann/Kauffrau für Hotelmanagement",
+      "kldb5": "63212",
+      "kldb4": "6321",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Hotelfachmann/-fachfrau (IH)",
+      "kldb5": "63222",
+      "kldb4": "6322",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Fachkraft für Gastronomie",
+      "kldb5": "63302",
+      "kldb4": "6330",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Fachmann/Fachfrau für Restaurants und Veranstaltungsgastronomie",
+      "kldb5": "63302",
+      "kldb4": "6330",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Fachmann/Fachfrau für Systemgastronomie (HwEx)",
+      "kldb5": "63312",
+      "kldb4": "6331",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Fachmann/Fachfrau für Systemgastronomie (IH)",
+      "kldb5": "63312",
+      "kldb4": "6331",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Veranstaltungskaufmann/-kauffrau",
+      "kldb5": "63402",
+      "kldb4": "6340",
+      "neuordnung": 2001
+    },
+    {
+      "name": "Industriekaufmann/-kauffrau",
+      "kldb5": "71302",
+      "kldb4": "7130",
+      "neuordnung": 2024
+    },
+    {
+      "name": "Werkgehilfe/-gehilfin Schmuckwarenindustrie, Taschen- und Armbanduhren",
+      "kldb5": "71382",
+      "kldb4": "7138",
+      "neuordnung": 1939
+    },
+    {
+      "name": "Kaufmann/Kauffrau für Büromanagement",
+      "kldb5": "71402",
+      "kldb4": "7140",
+      "neuordnung": 2014
+    },
+    {
+      "name": "Personaldienstleistungskaufmann/-kauffrau",
+      "kldb5": "71522",
+      "kldb4": "7152",
+      "neuordnung": 2008
+    },
+    {
+      "name": "Bankkaufmann/-kauffrau",
+      "kldb5": "72112",
+      "kldb4": "7211",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Investmentfondskaufmann/-kauffrau",
+      "kldb5": "72122",
+      "kldb4": "7212",
+      "neuordnung": 2003
+    },
+    {
+      "name": "Kaufmann/Kauffrau für Versicherungen und Finanzanlagen",
+      "kldb5": "72132",
+      "kldb4": "7213",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Steuerfachangestellte/-r",
+      "kldb5": "72302",
+      "kldb4": "7230",
+      "neuordnung": 2023
+    },
+    {
+      "name": "Notarfachangestellte/-r",
+      "kldb5": "73112",
+      "kldb4": "7311",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Patentanwaltsfachangestellte/-r",
+      "kldb5": "73112",
+      "kldb4": "7311",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Rechtsanwalts- und Notarfachangestellte/-r",
+      "kldb5": "73112",
+      "kldb4": "7311",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Rechtsanwaltsfachangestellte/-r",
+      "kldb5": "73112",
+      "kldb4": "7311",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Verwaltungsfachangestellte/-r",
+      "kldb5": "73202",
+      "kldb4": "7320",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Verwaltungsfachangestellte/-r FR Bundesverwaltung",
+      "kldb5": "73202",
+      "kldb4": "7320",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Verwaltungsfachangestellte/-r FR Kommunalverwaltung",
+      "kldb5": "73202",
+      "kldb4": "7320",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Verwaltungsfachangestellte/-r FR Landes-/Kommunalverwaltung (Zusammenfassung von FR nach § 4 der AO)",
+      "kldb5": "73202",
+      "kldb4": "7320",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Verwaltungsfachangestellte/-r FR Landesverwaltung",
+      "kldb5": "73202",
+      "kldb4": "7320",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Fachangestellte/-r für Arbeitsmarktdienstleistungen",
+      "kldb5": "73212",
+      "kldb4": "7321",
+      "neuordnung": 2012
+    },
+    {
+      "name": "Sozialversicherungsfachangestellte/-r",
+      "kldb5": "73212",
+      "kldb4": "7321",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Sozialversicherungsfachangestellte/-r FR Allgemeine Krankenversicherung",
+      "kldb5": "73212",
+      "kldb4": "7321",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Sozialversicherungsfachangestellte/-r FR Gesetzliche Rentenversicherung",
+      "kldb5": "73212",
+      "kldb4": "7321",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Sozialversicherungsfachangestellte/-r FR Gesetzliche Unfallversicherung",
+      "kldb5": "73212",
+      "kldb4": "7321",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Sozialversicherungsfachangestellte/-r FR Knappschaftliche Sozialversicherung",
+      "kldb5": "73212",
+      "kldb4": "7321",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Sozialversicherungsfachangestellte/-r FR Landwirtschaftliche Sozialversicherung",
+      "kldb5": "73212",
+      "kldb4": "7321",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Kaufmann/Kauffrau im Gesundheitswesen",
+      "kldb5": "73222",
+      "kldb4": "7322",
+      "neuordnung": 2001
+    },
+    {
+      "name": "Justizfachangestellte/-r",
+      "kldb5": "73252",
+      "kldb4": "7325",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Verwaltungsfachangestellte/-r FR Handwerksorganisation und Industrie- und Handelskammern",
+      "kldb5": "73282",
+      "kldb4": "7328",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Verwaltungsfachangestellte/-r FR Kirchenverwaltung in den Gliedkirchen der Evangelischen Kirchen in\r\nDeutschland",
+      "kldb5": "73282",
+      "kldb4": "7328",
+      "neuordnung": 1999
+    },
+    {
+      "name": "Fachangestellte/-r für Medien- und Informationsdienste FR Archiv",
+      "kldb5": "73312",
+      "kldb4": "7331",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Fachangestellte/-r für Medien- und Informationsdienste FR Bildagentur",
+      "kldb5": "73312",
+      "kldb4": "7331",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Fachangestellte/-r für Medien- und Informationsdienste FR Bibliothek",
+      "kldb5": "73322",
+      "kldb4": "7332",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Fachangestellte/-r für Medien- und Informationsdienste",
+      "kldb5": "73332",
+      "kldb4": "7333",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Fachangestellte/-r für Medien- und Informationsdienste FR Information und Dokumentation",
+      "kldb5": "73332",
+      "kldb4": "7333",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Fachangestellte/-r für Medien- und Informationsdienste FR Medizinische Dokumentation",
+      "kldb5": "73342",
+      "kldb4": "7334",
+      "neuordnung": 2000
+    },
+    {
+      "name": "Medizinische/-r Fachangestellte/-r",
+      "kldb5": "81102",
+      "kldb4": "8110",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Zahnmedizinische/-r Fachangestellte/-r",
+      "kldb5": "81112",
+      "kldb4": "8111",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Tiermedizinische/-r Fachangestellte/-r",
+      "kldb5": "81142",
+      "kldb4": "8114",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Friseur/-in",
+      "kldb5": "82312",
+      "kldb4": "8231",
+      "neuordnung": 2008
+    },
+    {
+      "name": "Kosmetiker/-in",
+      "kldb5": "82322",
+      "kldb4": "8232",
+      "neuordnung": 2003
+    },
+    {
+      "name": "Maskenbildner/-in",
+      "kldb5": "82342",
+      "kldb4": "8234",
+      "neuordnung": 2002
+    },
+    {
+      "name": "Bestattungsfachkraft",
+      "kldb5": "82402",
+      "kldb4": "8240",
+      "neuordnung": 2007
+    },
+    {
+      "name": "Orthopädietechnik-Mechaniker/-in",
+      "kldb5": "82512",
+      "kldb4": "8251",
+      "neuordnung": 2013
+    },
+    {
+      "name": "Augenoptiker/-in",
+      "kldb5": "82522",
+      "kldb4": "8252",
+      "neuordnung": 2011
+    },
+    {
+      "name": "Hörakustiker/-in",
+      "kldb5": "82532",
+      "kldb4": "8253",
+      "neuordnung": 2016
+    },
+    {
+      "name": "Zahntechniker/-in",
+      "kldb5": "82542",
+      "kldb4": "8254",
+      "neuordnung": 2022
+    },
+    {
+      "name": "Hauswirtschafter/-in",
+      "kldb5": "83212",
+      "kldb4": "8321",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Hauswirtschafter/-in (Hausw)",
+      "kldb5": "83212",
+      "kldb4": "8321",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Fachangestellte/-r für Markt- und Sozialforschung",
+      "kldb5": "91342",
+      "kldb4": "9134",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Kaufmann/Kauffrau für Marketingkommunikation",
+      "kldb5": "92112",
+      "kldb4": "9211",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Kaufmann/Kauffrau für Dialogmarketing",
+      "kldb5": "92122",
+      "kldb4": "9212",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Servicefachkraft für Dialogmarketing",
+      "kldb5": "92122",
+      "kldb4": "9212",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Kaufmann/Kauffrau für audiovisuelle Medien",
+      "kldb5": "92302",
+      "kldb4": "9230",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Medienkaufmann/-kauffrau Digital und Print",
+      "kldb5": "92302",
+      "kldb4": "9230",
+      "neuordnung": 2006
+    },
+    {
+      "name": "Gestalter/-in für visuelles Marketing",
+      "kldb5": "93222",
+      "kldb4": "9322",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Raumausstatter/-in",
+      "kldb5": "93232",
+      "kldb4": "9323",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Raumausstatter/-in (IHEx)",
+      "kldb5": "93232",
+      "kldb4": "9323",
+      "neuordnung": 2004
+    },
+    {
+      "name": "Holzbildhauer/-in",
+      "kldb5": "93312",
+      "kldb4": "9331",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Steinmetz/-in und Steinbildhauer/-in FR Steinbildhauerarbeiten",
+      "kldb5": "93312",
+      "kldb4": "9331",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Drechsler/-in (Elfenbeinschnitzer/-in)",
+      "kldb5": "93332",
+      "kldb4": "9333",
+      "neuordnung": 1988
+    },
+    {
+      "name": "Drechsler/-in (Elfenbeinschnitzer/-in) FR Drechseln",
+      "kldb5": "93332",
+      "kldb4": "9333",
+      "neuordnung": 1988
+    },
+    {
+      "name": "Drechsler/-in (Elfenbeinschnitzer/-in) FR Elfenbeinschnitzen",
+      "kldb5": "93332",
+      "kldb4": "9333",
+      "neuordnung": 1988
+    },
+    {
+      "name": "Holzspielzeugmacher/-in",
+      "kldb5": "93332",
+      "kldb4": "9333",
+      "neuordnung": 1996
+    },
+    {
+      "name": "Spielzeughersteller/-in",
+      "kldb5": "93332",
+      "kldb4": "9333",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Vergolder/-in",
+      "kldb5": "93342",
+      "kldb4": "9334",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Kerzenhersteller/-in und Wachsbildner/-in",
+      "kldb5": "93352",
+      "kldb4": "9335",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Keramiker/-in",
+      "kldb5": "93412",
+      "kldb4": "9341",
+      "neuordnung": 2009
+    },
+    {
+      "name": "Glas- und Porzellanmaler/-in",
+      "kldb5": "93422",
+      "kldb4": "9342",
+      "neuordnung": 1962
+    },
+    {
+      "name": "Industriekeramiker/-in Dekorationstechnik",
+      "kldb5": "93422",
+      "kldb4": "9342",
+      "neuordnung": 2005
+    },
+    {
+      "name": "Manufakturporzellanmaler/-in",
+      "kldb5": "93422",
+      "kldb4": "9342",
+      "neuordnung": 1995
+    },
+    {
+      "name": "Glasbläser/-in",
+      "kldb5": "93432",
+      "kldb4": "9343",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Glasbläser/-in FR Christbaumschmuck",
+      "kldb5": "93432",
+      "kldb4": "9343",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Glasbläser/-in FR Glasgestaltung",
+      "kldb5": "93432",
+      "kldb4": "9343",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Glasbläser/-in FR Kunstaugen",
+      "kldb5": "93432",
+      "kldb4": "9343",
+      "neuordnung": 1998
+    },
+    {
+      "name": "Metallbildner/-in",
+      "kldb5": "93512",
+      "kldb4": "9351",
+      "neuordnung": 2016
+    },
+    {
+      "name": "Metallbildner/-in FR Gürtlertechnik",
+      "kldb5": "93512",
+      "kldb4": "9351",
+      "neuordnung": 2016
+    },
+    {
+      "name": "Metallbildner/-in FR Metalldrücktechnik",
+      "kldb5": "93512",
+      "kldb4": "9351",
+      "neuordnung": 2016
+    },
+    {
+      "name": "Edelsteinfasser/-in",
+      "kldb5": "93522",
+      "kldb4": "9352",
+      "neuordnung": 1992
+    },
+    {
+      "name": "Edelsteinschleifer/-in",
+      "kldb5": "93522",
+      "kldb4": "9352",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Edelsteinschleifer/-in FR Edelsteingravieren",
+      "kldb5": "93522",
+      "kldb4": "9352",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Edelsteinschleifer/-in FR Edelsteinschleifen",
+      "kldb5": "93522",
+      "kldb4": "9352",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Edelsteinschleifer/-in FR Edelsteinschleifen",
+      "kldb5": "93522",
+      "kldb4": "9352",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Edelsteinschleifer/-in FR Industriediamantschleifen",
+      "kldb5": "93522",
+      "kldb4": "9352",
+      "neuordnung": 2018
+    },
+    {
+      "name": "Goldschmied/-in",
+      "kldb5": "93522",
+      "kldb4": "9352",
+      "neuordnung": 1992
+    },
+    {
+      "name": "Goldschmied/-in FR Juwelen",
+      "kldb5": "93522",
+      "kldb4": "9352",
+      "neuordnung": 1992
+    },
+    {
+      "name": "Goldschmied/-in FR Ketten",
+      "kldb5": "93522",
+      "kldb4": "9352",
+      "neuordnung": 1992
+    },
+    {
+      "name": "Goldschmied/-in FR Schmuck",
+      "kldb5": "93522",
+      "kldb4": "9352",
+      "neuordnung": 1992
+    },
+    {
+      "name": "Silberschmied/-in",
+      "kldb5": "93522",
+      "kldb4": "9352",
+      "neuordnung": 1992
+    },
+    {
+      "name": "Graveur/-in",
+      "kldb5": "93532",
+      "kldb4": "9353",
+      "neuordnung": 2016
+    },
+    {
+      "name": "Metallbildner/-in FR Ziseliertechnik",
+      "kldb5": "93532",
+      "kldb4": "9353",
+      "neuordnung": 2016
+    },
+    {
+      "name": "Schilder- und Lichtreklamehersteller/-in",
+      "kldb5": "93542",
+      "kldb4": "9354",
+      "neuordnung": 2012
+    },
+    {
+      "name": "Bogenmacher/-in",
+      "kldb5": "93612",
+      "kldb4": "9361",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Geigenbauer/-in",
+      "kldb5": "93612",
+      "kldb4": "9361",
+      "neuordnung": 2015
+    },
+    {
+      "name": "Zupfinstrumentenmacher/-in",
+      "kldb5": "93612",
+      "kldb4": "9361",
+      "neuordnung": 2014
+    },
+    {
+      "name": "Zupfinstrumentenmacher/-in FR Gitarrenbau",
+      "kldb5": "93612",
+      "kldb4": "9361",
+      "neuordnung": 2014
+    },
+    {
+      "name": "Zupfinstrumentenmacher/-in FR Harfenbau",
+      "kldb5": "93612",
+      "kldb4": "9361",
+      "neuordnung": 2014
+    },
+    {
+      "name": "Holzblasinstrumentenmacher/-in",
+      "kldb5": "93622",
+      "kldb4": "9362",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Metallblasinstrumentenmacher/-in",
+      "kldb5": "93632",
+      "kldb4": "9363",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Klavier- und Cembalobauer/-in",
+      "kldb5": "93642",
+      "kldb4": "9364",
+      "neuordnung": 2017
+    },
+    {
+      "name": "Klavier- und Cembalobauer/-in FR Cembalobau",
+      "kldb5": "93642",
+      "kldb4": "9364",
+      "neuordnung": 2017
+    },
+    {
+      "name": "Klavier- und Cembalobauer/-in FR Klavierbau",
+      "kldb5": "93642",
+      "kldb4": "9364",
+      "neuordnung": 2017
+    },
+    {
+      "name": "Orgelbauer/-in",
+      "kldb5": "93652",
+      "kldb4": "9365",
+      "neuordnung": 2019
+    },
+    {
+      "name": "Orgelbauer/-in FR Orgelbau",
+      "kldb5": "93652",
+      "kldb4": "9365",
+      "neuordnung": 2019
+    },
+    {
+      "name": "Orgelbauer/-in FR Pfeifenbau",
+      "kldb5": "93652",
+      "kldb4": "9365",
+      "neuordnung": 2019
+    },
+    {
+      "name": "Handzuginstrumentenmacher/-in",
+      "kldb5": "93682",
+      "kldb4": "9368",
+      "neuordnung": 1997
+    },
+    {
+      "name": "Fachkraft für Veranstaltungstechnik",
+      "kldb5": "94512",
+      "kldb4": "9451",
+      "neuordnung": 2016
+    },
+    {
+      "name": "Mediengestalter/-in Bild und Ton",
+      "kldb5": "94532",
+      "kldb4": "9453",
+      "neuordnung": 2020
+    },
+    {
+      "name": "Bühnenmaler/-in und -plastiker/-in",
+      "kldb5": "94612",
+      "kldb4": "9461",
+      "neuordnung": 2000
+    },
+    {
+      "name": "Bühnenmaler/-in und -plastiker/-in FR Malerei",
+      "kldb5": "94612",
+      "kldb4": "9461",
+      "neuordnung": 2000
+    },
+    {
+      "name": "Bühnenmaler/-in und -plastiker/-in FR Plastik",
+      "kldb5": "94612",
+      "kldb4": "9461",
+      "neuordnung": 2000
+    }
+  ]
+}
