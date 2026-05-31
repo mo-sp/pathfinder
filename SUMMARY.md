@@ -5,6 +5,41 @@
 
 ---
 
+### Session 50 – 2026-05-31
+
+**Focus:** Shipped Stage 1 of the "official German Ausbildungsberufe" BACKLOG item — surfacing the matching anerkannter Ausbildungsberuf on each result card. Bookended by a BACKLOG-accuracy cleanup of the stale Arzt-routing items. Two branches: `docs/backlog-arzt-cleanup` and `feat/ausbildungsberufe-on-card`.
+
+**Meta / process notes:**
+- **BACKLOG verification pass first.** @mo-sp suspected several Data-quality items were silently done. Verified against the build scripts + JSON: the 85 broadMatch / 22 unmapped / 17 Anf-distance-2 stats are unchanged (still open), but the KldB physician-specialty misroutes (Radiologe, Kardiologe, Dermatologe, Sportmediziner, Pathologe) all route correctly now via `kldb-overrides.mjs`. Deleted the resolved "opportunistic cleanup" item and reframed the systemic-fallback item as idea-only on `docs/backlog-arzt-cleanup`.
+- **Strategic decision: note, not rename.** Considered renaming our occupation titles to the Ausbildungsbezeichnung. Rejected — the corpus titles are *jobs* (O\*NET), the BIBB names are *training qualifications*, and the relation is many-to-one (one Ausbildung → many jobs). Renaming would collapse distinct occupations and break job-level granularity. The supplementary note keeps both concepts distinct.
+- **Display went through several iterations against @mo-sp's browser.** Amber text line → amber badge with tooltip → graduation-cap icon → check-badge icon → final: a **grey note line** ("auch als Ausbildungsberuf: …") shown ONLY when the BIBB name meaningfully differs from our title. Reason: a status badge implies a binary is/isn't-Ausbildungsberuf claim we can't populate completely (457 Anf-2 jobs, partial coverage), and its meaning lived in a hover tooltip that mobile lacks. The "show only when it adds info" rule dissolves the redundancy, the false-negative, and the mobile problem at once. The graduation cap is reserved for a future Studium badge (parked in BACKLOG).
+- **Helfer bug caught in testing.** @mo-sp spotted Bauhelfer (Anforderungsniveau 1) matched to the skilled Maler/-in und Lackierer/-in via the KldB-4 fallback. Fixed: the matcher now skips Anf-1 (Helfer) occupations entirely (35 skipped).
+- **12-Sonnet majority-vote panel for the override picks.** @mo-sp asked to run panels over the candidate lists. Built a background Workflow: Teil 1 (151 single-candidate, 4 voters keep/skip + better-fix), Teil 2 (123 multi-candidate, 8 voters pick-from-group). Aggregated by majority, cross-checked every value against the BIBB list so nothing is invented. Panel corrected matcher picks (Zerspanungsmechaniker over Fachkraft Metalltechnik; Maschinen- und Anlagenführer; Fischwirt for Fischer) and blanked academic/Beamten paths (Berufsfeuerwehrmann, Förster, Physician Assistant). A finishing pass added 4 hand-pins and stripped residual chamber tags ((IH)/(HwEx)/(IHEx)).
+
+**What shipped — `docs/backlog-arzt-cleanup`:**
+
+BACKLOG accuracy fix: deleted the "KldB physician-specialty fallback — opportunistic cleanup remaining" item (the named specialties route correctly now) and rewrote the "medical specialties systemic build-time fallback" item as idea-only with the 2026-05-31 verification (Kardiologe → 81424, Dermatologe → 81444, etc.).
+
+**What shipped — `feat/ausbildungsberufe-on-card`:**
+
+Per result card, a grey note "auch als Ausbildungsberuf: <Bezeichnung>" shown when the canonical BIBB name differs from the displayed job title. *Data*: `scripts/input/bibb-ausbildungsberufe.json` (523 active Ausbildungsberufe extracted from the BIBB Erhebungsberufe XLSX with KldB 2010 codes, aufgehobene filtered, deduped). *Build*: `scripts/build-ausbildung-mapping.mjs` — hybrid KldB-gate + title-similarity matcher → `src/data/ausbildung-occupation-mapping.json` + a review audit file; 58 auto-matches. *Overrides*: `scripts/input/ausbildung-overrides.mjs` — 254 entries seeded from the Sonnet panel + 4 hand-pins. *Runtime*: `store.ts` overlays the mapping as a third parallel import; `Occupation.ausbildungsberuf` field added. *UI*: `ResultsPage.vue` `ausbildungNote()` / `formatAusbildung()` (m/w form kept, "FR X" → "(X)", chamber tags stripped). 308 mapped, 268 visible notes. New npm script `build:ausbildung`.
+
+**Coverage after the session:**
+
+| | Before | After |
+|---|---|---|
+| Tests passing | 248 | **249** (+1: Ausbildungsberuf overlay merge) |
+| Result cards show matching Ausbildungsberuf | no | **yes** (268 visible notes, differ-from-title gated) |
+| Helfer (Anf 1) wrongly matched to skilled trades | yes | **no** (Anf-1 skipped) |
+
+**Branches:** `docs/backlog-arzt-cleanup`, `feat/ausbildungsberufe-on-card`.
+
+**Open for next sessions (tracked in BACKLOG):**
+- **Studium badge** companion (graduation cap) for academic occupations — new BACKLOG entry.
+- **Ausbildungsberufe later stages** — corpus flag, Schulberufe, below-threshold tail, BIBB licensing confirmation.
+
+---
+
 ### Session 49 – 2026-05-31
 
 **Focus:** Re-entry / edit UX on `/ergebnis` plus a long iterative round of mobile UX polish on the assessment flow. Bookended by session-start planning: BACKLOG housekeeping and a 5-agent evaluation of the Hobbies layer that ended in a deferral + redesign. Two PRs: `feat/edit-answers-on-results` (#100, merged `40d8d78`) and `fix/results-ux-bar-and-card-height` (this PR).

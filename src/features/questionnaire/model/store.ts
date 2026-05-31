@@ -203,10 +203,18 @@ async function fetchOccupations(): Promise<Occupation[]> {
         }
         return data.mappings
       }),
-    ]).then(([occupations, kldbMap]) =>
+      import('@data/ausbildung-occupation-mapping.json').then((mod) => {
+        const data = (mod.default ?? mod) as {
+          mappings: Record<string, { ausbildungsberuf: string }>
+        }
+        return data.mappings
+      }),
+    ]).then(([occupations, kldbMap, ausbildungMap]) =>
       occupations.map((o) => {
-        const overlay = kldbMap[o.onetCode]
-        return overlay ? { ...o, ...overlay } : o
+        const kldb = kldbMap[o.onetCode]
+        const ausbildung = ausbildungMap[o.onetCode]
+        const merged = kldb ? { ...o, ...kldb } : o
+        return ausbildung ? { ...merged, ausbildungsberuf: ausbildung.ausbildungsberuf } : merged
       }),
     )
   }

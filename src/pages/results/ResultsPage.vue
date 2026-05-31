@@ -230,6 +230,38 @@ function occupationSubtitle(o: Occupation): string | null {
   return cleaned
 }
 
+// Reduce a title to a comparison key: male form only, letters/digits only.
+function ausbildungKey(s: string): string {
+  return s
+    .split('/')[0]
+    .toLowerCase()
+    .replace(/[^a-zäöüß0-9]/g, '')
+}
+
+// Format a BIBB Ausbildungsberuf for display: keep the BIBB m/w form
+// ("Fachinformatiker/-in") to match the main occupation titles, turn
+// "FR <Fachrichtung>" into "(<Fachrichtung>)".
+function formatAusbildung(name: string): string {
+  return name
+    .replace(/\s*\((?:Hw|IH|HwEx|IHEx|Lw|ÖD|FB|S|Bg|See)\)/g, '') // chamber tags
+    .replace(/\s+FR\s+(.+)$/, ' ($1)')
+    .replace(/\s+\)/g, ')')
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+}
+
+// Surface the canonical Ausbildungsberuf only when it adds information —
+// i.e. its name meaningfully differs from the displayed title (gender form
+// ignored). Mirrors occupationSubtitle's "only when different" rule, so a
+// "Bäcker" → "Bäcker/-in" pairing stays silent and "Web-Entwickler" →
+// "Fachinformatiker (Anwendungsentwicklung)" shows.
+function ausbildungNote(o: Occupation): string | null {
+  if (!o.ausbildungsberuf) return null
+  const formatted = formatAusbildung(o.ausbildungsberuf)
+  if (ausbildungKey(formatted) === ausbildungKey(displayTitle(o))) return null
+  return formatted
+}
+
 const SHARE_TOP_N = 20
 const SHARE_LANDING_URL = 'https://pathfinder-liard-phi.vercel.app'
 
@@ -1122,7 +1154,13 @@ onBeforeUnmount(() => {
                   <div class="font-medium break-words text-slate-100">
                     {{ result.rank }}. {{ displayTitle(result.occupation) }}
                   </div>
-                  <div class="text-xs break-words text-slate-400">
+                  <div
+                    v-if="ausbildungNote(result.occupation)"
+                    class="mt-1 text-xs break-words text-slate-400"
+                  >
+                    auch als Ausbildungsberuf: {{ ausbildungNote(result.occupation) }}
+                  </div>
+                  <div class="mt-1.5 text-xs break-words text-slate-400">
                     <span v-if="occupationSubtitle(result.occupation)">
                       {{ occupationSubtitle(result.occupation) }} ·
                     </span>

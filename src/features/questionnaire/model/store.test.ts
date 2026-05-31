@@ -263,6 +263,16 @@ describe('questionnaire store', () => {
       expect(second).toBe(first)
       expect(first.length).toBeGreaterThan(0)
     })
+
+    it('overlays the Ausbildungsberuf mapping onto matched occupations', async () => {
+      const store = useQuestionnaireStore()
+      const occupations = await store.loadOccupations()
+      // At least some occupations carry a recognised Ausbildungsberuf.
+      expect(occupations.some((o) => o.ausbildungsberuf)).toBe(true)
+      // Spot-check a stable auto-match: Chemielaborant (19-4031.00).
+      const chem = occupations.find((o) => o.onetCode === '19-4031.00')
+      expect(chem?.ausbildungsberuf).toBe('Chemielaborant/-in')
+    })
   })
 
   describe('persistence: watcher → Dexie', () => {
