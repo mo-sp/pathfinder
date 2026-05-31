@@ -5,6 +5,31 @@
 
 ---
 
+### Session 51 – 2026-05-31
+
+**Focus:** Refreshed three lame/redundant RIASEC interest items for better discrimination and appeal, ahead of the open-beta push. Session-start was a BACKLOG triage of what's actually pre-beta (infrastructure migration is the real blocker; the 30s mobile-load bug is parked until after the infra move removes the WLAN bottleneck; concrete-examples deprioritised in favour of sharpening interest items). One branch: `feat/riasec-item-refresh`.
+
+**Meta / process notes:**
+- **"Lame ≠ bad" framing up front.** A RIASEC item must *discriminate*, not *please* — the unglamorous C items are partly the construct (most people decline, a few light up). The real defect is *floor-effected* items nobody endorses (no variance = dead weight). @mo-sp's 20+ self-runs were the signal for which items those are; we only touched items that were both low-appeal *and* redundant with a sibling.
+- **Iterated the picks in the working tree against @mo-sp's review.** First c-05 proposal ("Vorgänge auf Einhaltung von Vorschriften kontrollieren") was rejected as redundant with c-08 (Datenschutz-Vorgaben prüfen) / c-02 (Verträge prüfen). Settled on filling the genuinely-thin "systems / dev-flavoured Conventional" gap (only c-03 was systems-flavoured) with an access-management item. Also declined a 2nd outdoor R item to avoid over-tilting Realistic away from its mechanical core.
+- **Process correction.** Committed/pushed once before the browser-test OK; corrected course to edit-in-place → user test → commit only after approval (per the established workflow). No PR was open at that point, so it was folgenlos.
+
+**What shipped — `feat/riasec-item-refresh`:**
+
+Three DE rewordings in `src/data/onet-items.json`; six-dimension / 10-items-per-dimension balance and the verbatim O\*NET English originals unchanged.
+- `ip-c-04`: number-crunching ("Rechnungen … nachrechnen") overlapped c-06 (Lohnabrechnung) + c-10 (Belege verbuchen) → rule-bound clerical ("Anträge und Formulare nach festen Vorgaben bearbeiten").
+- `ip-c-05`: third data-entry/maintenance item of the c-01/c-05/c-07 cluster → systems-flavoured Conventional ("Benutzerkonten und Zugriffsrechte in einem IT-System verwalten"), closing the dev-flavoured-Conventional gap noted in BACKLOG.
+- `ip-r-07`: low-appeal quality control ("Qualität von Bauteilen prüfen") → outdoor green-space work ("Im Freien arbeiten und Gärten oder Grünanlagen anlegen und pflegen"), a stronger discriminator that also thickens R's thin outdoor coverage.
+
+**Verification:** JSON valid, `type-check` + `lint` + `build` clean; @mo-sp browser-tested the RIASEC flow on desktop (and a mobile glance for the longer-text wrap) — the three items render verbatim, no English leakage, Likert + progress bar intact.
+
+**Branch:** `feat/riasec-item-refresh`.
+
+**Open for next sessions (tracked in BACKLOG):**
+- **Pre-open-beta infrastructure migration** off Vercel to real self-hosting + own domain — the next task this session moves into (provider choice VPS vs. EC2 vs. other, price/performance, scalability, security; must also host @mo-sp's photo management + a possible future photo-sales site; cheap domain for the beta).
+
+---
+
 ### Session 50 – 2026-05-31
 
 **Focus:** Shipped Stage 1 of the "official German Ausbildungsberufe" BACKLOG item — surfacing the matching anerkannter Ausbildungsberuf on each result card. Bookended by a BACKLOG-accuracy cleanup of the stale Arzt-routing items. Two branches: `docs/backlog-arzt-cleanup` and `feat/ausbildungsberufe-on-card`.
