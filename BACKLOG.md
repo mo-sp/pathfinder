@@ -20,7 +20,17 @@ current PR. For what shipped when, see `SUMMARY.md`.
 Likely next 1–2 sessions. Only add items here after explicit agreement
 with @mo-sp — otherwise park them in their topical section below.
 
-_(empty)_
+- **Donation / "support the server costs" link on the landing page.** A
+  voluntary support link to offset the self-hosting cost (~€10–40/mo after
+  the Vercel → Hetzner migration). Prefer **GitHub Sponsors** or **Liberapay**
+  (most OSS-/privacy-aligned); Ko-fi / BuyMeACoffee acceptable. Implement as
+  a **plain external link, not an embedded JS widget** — embeds load
+  third-party trackers and would violate the privacy-first / no-tracker
+  principle. Tax (DE): practically negligible at pocket-money / cost-coverage
+  scale, but if income becomes regular, check with Finanzamt / Steuerberater;
+  a paid link also nudges the project slightly toward commercial use (cf. the
+  PathFinder trademark note). Surfaced 2026-05-31 by @mo-sp during the infra
+  setup.
 
 ## Data quality
 
