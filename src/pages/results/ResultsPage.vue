@@ -422,6 +422,19 @@ async function repeatLayer(layer: AssessmentLayer): Promise<void> {
   await router.push('/test')
 }
 
+/**
+ * Non-destructive re-entry: drop the user back into a completed layer on
+ * its last answered question so they can revise via Zurück. The
+ * `edit=true` query tells AssessmentPage's setup guard to keep them on the
+ * chosen layer instead of bouncing to the next incomplete one (or wiping
+ * when all layers are complete). Counterpart to the destructive
+ * `repeatLayer`.
+ */
+async function editLayer(layer: AssessmentLayer): Promise<void> {
+  store.editLayer(layer)
+  await router.push({ path: '/test', query: { edit: 'true' } })
+}
+
 async function repeatSkillsSub(sub: SkillsSubCategory): Promise<void> {
   store.repeatSkillsSubCategory(sub)
   await router.push('/test')
@@ -707,7 +720,14 @@ onBeforeUnmount(() => {
             </dd>
           </div>
         </dl>
-        <div class="mt-4 flex justify-end">
+        <div class="mt-4 flex flex-wrap justify-end gap-x-4 gap-y-2">
+          <button
+            type="button"
+            class="text-sm text-indigo-300 underline hover:text-indigo-200"
+            @click="editLayer('riasec')"
+          >
+            Antworten bearbeiten
+          </button>
           <button
             type="button"
             class="text-sm text-slate-400 underline hover:text-slate-100"
@@ -745,7 +765,14 @@ onBeforeUnmount(() => {
             </dd>
           </div>
         </dl>
-        <div class="mt-4 flex justify-end">
+        <div class="mt-4 flex flex-wrap justify-end gap-x-4 gap-y-2">
+          <button
+            type="button"
+            class="text-sm text-indigo-300 underline hover:text-indigo-200"
+            @click="editLayer('bigfive')"
+          >
+            Antworten bearbeiten
+          </button>
           <button
             type="button"
             class="text-sm text-slate-400 underline hover:text-slate-100"
@@ -775,7 +802,7 @@ onBeforeUnmount(() => {
           class="mt-4 inline-flex items-center rounded-md bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-400"
           @click="refineWithBigFive"
         >
-          Persönlichkeitsprofil starten
+          {{ store.bigfiveAnswers.length > 0 ? 'Persönlichkeitsprofil fortsetzen' : 'Persönlichkeitsprofil starten' }}
         </button>
       </div>
 
@@ -828,7 +855,14 @@ onBeforeUnmount(() => {
               </dd>
             </div>
           </dl>
-          <div class="mt-4 flex justify-end">
+          <div class="mt-4 flex flex-wrap justify-end gap-x-4 gap-y-2">
+            <button
+              type="button"
+              class="text-sm text-indigo-300 underline hover:text-indigo-200"
+              @click="editLayer('values')"
+            >
+              Antworten bearbeiten
+            </button>
             <button
               type="button"
               class="text-sm text-slate-400 underline hover:text-slate-100"
@@ -858,7 +892,7 @@ onBeforeUnmount(() => {
             class="mt-4 inline-flex items-center rounded-md bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-400"
             @click="refineWithValues"
           >
-            Rahmenbedingungen starten
+            {{ store.valuesAnswers.length > 0 ? 'Rahmenbedingungen fortsetzen' : 'Rahmenbedingungen starten' }}
           </button>
         </div>
       </template>
@@ -900,6 +934,13 @@ onBeforeUnmount(() => {
           </dl>
           <div class="mt-4 flex flex-wrap justify-end gap-x-4 gap-y-2">
             <button
+              type="button"
+              class="text-sm text-indigo-300 underline hover:text-indigo-200"
+              @click="editLayer('skills')"
+            >
+              Antworten bearbeiten
+            </button>
+            <button
               v-for="entry in skillsSummary"
               :key="entry.sub"
               type="button"
@@ -931,7 +972,7 @@ onBeforeUnmount(() => {
             class="mt-4 inline-flex items-center rounded-md bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-400"
             @click="refineWithSkills"
           >
-            Fähigkeiten-Test starten
+            {{ store.skillsAnswers.length > 0 ? 'Fähigkeiten-Test fortsetzen' : 'Fähigkeiten-Test starten' }}
           </button>
         </div>
       </template>

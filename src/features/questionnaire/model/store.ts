@@ -723,6 +723,34 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
   }
 
   /**
+   * Non-destructive edit re-entry. Switch to `layer` and land on its last
+   * answered question — the natural anchor from which the user can step
+   * Zurück through everything they want to revise. Called from the
+   * ResultsPage "Antworten bearbeiten" buttons on completed layer cards,
+   * paired there with a `/test?edit=true` navigation so AssessmentPage's
+   * setup guard knows to keep the user on the chosen layer instead of
+   * bouncing them to the next incomplete layer (or wiping, when all are
+   * complete). Unlike `repeatLayer` this preserves every answer.
+   */
+  function editLayer(layer: AssessmentLayer): void {
+    currentLayer.value = layer
+    if (layer === 'skills') {
+      skillsInterstitialPending.value = false
+      const last = Math.min(skillsAnswers.value.length - 1, skillsTotal.value - 1)
+      skillsCurrentIndex.value = Math.max(0, last)
+    } else if (layer === 'values') {
+      const last = Math.min(valuesAnswers.value.length - 1, valuesTotal.value - 1)
+      valuesCurrentIndex.value = Math.max(0, last)
+    } else if (layer === 'bigfive') {
+      const last = Math.min(bigfiveAnswers.value.length - 1, bigfiveTotal.value - 1)
+      bigfiveCurrentIndex.value = Math.max(0, last)
+    } else {
+      const last = Math.min(riasecAnswers.value.length - 1, riasecTotal.value - 1)
+      riasecCurrentIndex.value = Math.max(0, last)
+    }
+  }
+
+  /**
    * Dismiss the Zwischenscreen and advance past the sub-category boundary.
    * Called from the AssessmentPage interstitial "Weiter" button.
    */
@@ -1022,6 +1050,7 @@ export const useQuestionnaireStore = defineStore('questionnaire', () => {
     startBigFiveLayer,
     startValuesLayer,
     startSkillsLayer,
+    editLayer,
     dismissSkillsInterstitial,
     persist,
     hydrate,

@@ -109,6 +109,31 @@ describe('AssessmentPage', () => {
       expect(wrapper.text()).toContain('Fähigkeiten (1/35)')
     })
 
+    it('mounting with ?edit=true keeps the deep-linked complete layer instead of bouncing', async () => {
+      const store = useQuestionnaireStore()
+      // Complete RIASEC + Big Five; leave Values/Skills untouched. Without
+      // the edit flag the guard would bounce a complete Big Five layer
+      // forward to the next incomplete layer (values).
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(4)
+      store.startBigFiveLayer()
+      for (let i = 0; i < store.bigfiveTotal; i += 1) store.answer(4)
+      // Simulate ResultsPage's "Antworten bearbeiten" action.
+      store.editLayer('bigfive')
+      expect(store.currentLayer).toBe('bigfive')
+
+      const router = makeRouter()
+      await router.push({ path: '/test', query: { edit: 'true' } })
+      await router.isReady()
+      const wrapper = mountWith(router)
+
+      // Guard skipped: still on Big Five (not bounced to values), answers
+      // intact, parked on the last question for revision.
+      expect(store.currentLayer).toBe('bigfive')
+      expect(store.bigfiveIsComplete).toBe(true)
+      expect(store.currentIndex).toBe(store.bigfiveTotal - 1)
+      expect(wrapper.text()).toContain('Frage 50 von 50')
+    })
+
     it('mounting with an in-progress session preserves state and does NOT reset', () => {
       const store = useQuestionnaireStore()
       store.answer(3)

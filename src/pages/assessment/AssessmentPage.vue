@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import type { AssessmentLayer } from '@entities/assessment/model/types'
 import { useQuestionnaireStore } from '@features/questionnaire/model/store'
 
 const store = useQuestionnaireStore()
 const router = useRouter()
+const route = useRoute()
 const { t } = useI18n()
 
 // Navigating to /test after the user has finished the current layer
@@ -19,7 +20,12 @@ const { t } = useI18n()
 // every layer is already done do we fall back to resetting the current
 // layer (the user is asking for a re-run). Runs in setup() — before the
 // first render — so there is no flash of stale "complete" state.
-if (store.isComplete) {
+//
+// `?edit=true` opts out: it means the user clicked "Antworten bearbeiten"
+// on /ergebnis, where the store already switched to the chosen layer and
+// parked the index on its last answered question. Bouncing or resetting
+// here would defeat that intent, so we leave the deep-linked state alone.
+if (store.isComplete && route.query.edit !== 'true') {
   const layerOrder: AssessmentLayer[] = ['riasec', 'bigfive', 'values', 'skills']
   const isLayerComplete: Record<AssessmentLayer, boolean> = {
     riasec: store.riasecIsComplete,
