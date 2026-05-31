@@ -71,6 +71,12 @@ export interface Occupation {
   anforderungsniveau?: number
   /** Coarse training-requirement bucket for the Ausbildungs-Filter UI. */
   trainingCategory?: TrainingCategory
+  /** Canonical German recognised training occupation (BIBB anerkannter
+   * Ausbildungsberuf) matched via KldB + title similarity. Surfaced as
+   * supplementary text on the result card. Absent when no Ausbildungsberuf
+   * applies (academic / management / US-specific). See
+   * scripts/build-ausbildung-mapping.mjs. */
+  ausbildungsberuf?: string
   /** O*NET Work Context values on the CX scale (1-5). */
   workContext?: WorkContext
   /** O*NET Skills map (35 items), keyed by Element ID. */

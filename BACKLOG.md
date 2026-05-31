@@ -65,23 +65,21 @@ _(empty)_
   fix candidates can come opportunistically from browser tests rather
   than as a dedicated pass.
 - **Reconcile occupation list with official German Ausbildungsberufe.**
-  Current 923-code corpus comes from O\*NET (US) + ESCO (EU) crosswalks
-  with ad-hoc DE-title reworking. No systematic alignment to the canonical
-  Ausbildungsberufe list (BIBB Verzeichnis der anerkannten Ausbildungs-
-  berufe + BERUFENET, ~325 dual-system + similar school-based). Many DE
-  titles already line up (Mechatroniker, Industriekaufmann, …), but the
-  corpus has no "is this an Ausbildungsberuf?" flag, no audit for missing
-  canonical Ausbildungen, and no preference rule for the Ausbildungs-
-  bezeichnung when one exists. German labor market is heavily Ausbildungs-
-  zentriert — tighter alignment would make the result list feel more
-  native to DE users. Open: data source (BIBB list / BERUFENET API),
-  match strategy (title overlap vs ESCO crosswalk vs BERUFENET ID), how
-  to handle O\*NET codes without a DE Ausbildungs-pendant (academic,
-  US-specific). Stage 1 (pragmatic, 2026-05-30 discussion): just surface
-  the matching Ausbildungsberuf-Bezeichnung on each occupation card as
-  supplementary text (e.g. "auch als Ausbildungsberuf: Mechatroniker/in")
-  — buys the DE-native feel without restructuring the corpus, and is
-  the natural pull for young users who tend toward Ausbildung over Uni.
+  **Stage 1 shipped** via `feat/ausbildungsberufe-on-card` (2026-05-31): each
+  result card surfaces the matching anerkannter Ausbildungsberuf as a grey
+  note ("auch als Ausbildungsberuf: …"), shown only when the BIBB name
+  meaningfully differs from our job title (268 visible notes). Data:
+  `scripts/input/bibb-ausbildungsberufe.json` (BIBB Erhebungsberufe + KldB
+  2010). Match: hybrid KldB-gate + title similarity (58 auto) plus a
+  254-entry override file seeded from a 12-Sonnet majority-vote panel.
+  Residual / future stages: (i) no `isAusbildungsberuf` flag on the corpus
+  and no audit for *missing* canonical Ausbildungen (only matched the
+  existing 923 O\*NET codes); (ii) school-based Schulberufe (Erzieher,
+  Pflege, Logopäde) aren't in the dual-system BIBB Tabelle 1; (iii)
+  Schiffsmechaniker is absent from our vendored BIBB extract; (iv) the
+  ~68 below-threshold and 24 panel-blanked candidates could be revisited
+  opportunistically. Confirm BIBB licensing (attribution) before any wider
+  reuse.
 - **85 broadMatch KldB mappings** — residual noise tier. Options: (a) hide
   `broadMatch` from display and fall back to jobZone-only category, (b)
   accept. Build-script stat: `match tier of mapped codes: broadMatch`.
@@ -151,6 +149,16 @@ _(empty)_
   as-is, this is hygiene.
 
 ## UX polish
+
+- **Studium-Badge analog zum Ausbildungsberuf-Badge.** The recognised-
+  Ausbildungsberuf badge (amber check-badge seal next to the title, shipped
+  via `feat/ausbildungsberufe-on-card`) deliberately reserves the graduation-
+  cap icon for a future companion: mark academic/Studium occupations with an
+  analogous badge (graduation cap, distinct colour). Open: data source for
+  "is this a Studiengang/academic path?" — jobZone 4-5 / trainingCategory
+  `studies` is the cheap proxy already in the corpus, but a canonical mapping
+  (Hochschulkompass / ESCO ISCED level) would be cleaner. Surfaced
+  2026-05-31 by @mo-sp.
 
 - **Startseite design refresh.** Content overhaul shipped via
   `feat/landing-content-overhaul` (2026-05-04). Remaining work: design

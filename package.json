@@ -12,7 +12,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "build:data": "node scripts/build-onet-data.mjs",
-    "build:esco": "node scripts/build-esco-german.mjs"
+    "build:esco": "node scripts/build-esco-german.mjs",
+    "build:ausbildung": "node scripts/build-ausbildung-mapping.mjs"
   },
   "dependencies": {
     "dexie": "^4.0.11",

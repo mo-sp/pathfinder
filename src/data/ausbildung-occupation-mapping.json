@@ -1,0 +1,1376 @@
+{
+  "_meta": {
+    "source": "BIBB – Erhebungsberufe der Berufsbildungsstatistik mit Berufsschlüsseln der KldB 2010, Berichtsjahr 2024",
+    "sourceUrl": "https://www.bibb.de/dokumente/xls/dazubi_berufsliste_erhebungsberufe-mit-berufsschluesseln-kldb2010.xlsx",
+    "built": "2026-05-31",
+    "threshold": 0.5,
+    "note": "Hybrid KldB-gate + title-similarity match of O*NET occupations to BIBB anerkannte Ausbildungsberufe. source=auto|override. Regenerate with node scripts/build-ausbildung-mapping.mjs",
+    "license": "BIBB publication – attribution required"
+  },
+  "mappings": {
+    "11-9121.02": {
+      "ausbildungsberuf": "Fachkraft für Wasserwirtschaft",
+      "kldb": "31142",
+      "score": 1,
+      "source": "auto"
+    },
+    "11-9141.00": {
+      "ausbildungsberuf": "Immobilienkaufmann/-kauffrau",
+      "source": "override"
+    },
+    "11-9171.00": {
+      "ausbildungsberuf": "Bestattungsfachkraft",
+      "source": "override"
+    },
+    "13-1022.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Groß- und Außenhandelsmanagement (Großhandel)",
+      "source": "override"
+    },
+    "13-1031.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Versicherungen und Finanzanlagen",
+      "source": "override"
+    },
+    "13-1032.00": {
+      "ausbildungsberuf": "Kraftfahrzeugmechatroniker/-in",
+      "source": "override"
+    },
+    "13-1041.08": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Spedition und Logistikdienstleistung",
+      "source": "override"
+    },
+    "13-1081.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Spedition und Logistikdienstleistung",
+      "source": "override"
+    },
+    "13-1081.02": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Spedition und Logistikdienstleistung",
+      "source": "override"
+    },
+    "13-1121.00": {
+      "ausbildungsberuf": "Veranstaltungskaufmann/-kauffrau",
+      "source": "override"
+    },
+    "13-1131.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Marketingkommunikation",
+      "source": "override"
+    },
+    "13-1161.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Marketingkommunikation",
+      "source": "override"
+    },
+    "13-1199.06": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau im E-Commerce",
+      "source": "override"
+    },
+    "13-2041.00": {
+      "ausbildungsberuf": "Bankkaufmann/-kauffrau",
+      "source": "override"
+    },
+    "13-2053.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Versicherungen und Finanzanlagen",
+      "source": "override"
+    },
+    "13-2072.00": {
+      "ausbildungsberuf": "Bankkaufmann/-kauffrau",
+      "source": "override"
+    },
+    "13-2082.00": {
+      "ausbildungsberuf": "Steuerfachangestellte/-r",
+      "source": "override"
+    },
+    "15-1211.00": {
+      "ausbildungsberuf": "Fachinformatiker/-in (Systemintegration)",
+      "source": "override"
+    },
+    "15-1232.00": {
+      "ausbildungsberuf": "Fachinformatiker/-in (Systemintegration)",
+      "source": "override"
+    },
+    "15-1241.00": {
+      "ausbildungsberuf": "Fachinformatiker/-in (Digitale Vernetzung)",
+      "source": "override"
+    },
+    "15-1251.00": {
+      "ausbildungsberuf": "Fachinformatiker/-in (Anwendungsentwicklung)",
+      "source": "override"
+    },
+    "15-1252.00": {
+      "ausbildungsberuf": "Fachinformatiker/-in (Anwendungsentwicklung)",
+      "source": "override"
+    },
+    "15-1253.00": {
+      "ausbildungsberuf": "Fachinformatiker/-in (Anwendungsentwicklung)",
+      "source": "override"
+    },
+    "15-1254.00": {
+      "ausbildungsberuf": "Fachinformatiker/-in (Anwendungsentwicklung)",
+      "source": "override"
+    },
+    "15-1299.07": {
+      "ausbildungsberuf": "Fachinformatiker/-in (Anwendungsentwicklung)",
+      "source": "override"
+    },
+    "15-1299.08": {
+      "ausbildungsberuf": "Fachinformatiker/-in (Systemintegration)",
+      "source": "override"
+    },
+    "15-2051.00": {
+      "ausbildungsberuf": "Fachinformatiker/-in (Systemintegration)",
+      "source": "override"
+    },
+    "17-1021.00": {
+      "ausbildungsberuf": "Vermessungstechniker/-in (Vermessung)",
+      "source": "override"
+    },
+    "17-1022.00": {
+      "ausbildungsberuf": "Vermessungstechniker/-in (Vermessung)",
+      "source": "override"
+    },
+    "17-2072.01": {
+      "ausbildungsberuf": "Elektroniker/-in für Geräte und Systeme",
+      "source": "override"
+    },
+    "17-3011.00": {
+      "ausbildungsberuf": "Bauzeichner/-in",
+      "kldb": "27212",
+      "score": 1,
+      "source": "auto"
+    },
+    "17-3012.00": {
+      "ausbildungsberuf": "Technische/-r Systemplaner/-in (Elektrotechnische Systeme)",
+      "source": "override"
+    },
+    "17-3013.00": {
+      "ausbildungsberuf": "Technische/-r Produktdesigner/-in (Maschinen- und Anlagenkonstruktion)",
+      "source": "override"
+    },
+    "17-3023.00": {
+      "ausbildungsberuf": "Elektroniker/-in FR Automatisierungs- und Systemtechnik",
+      "kldb": "26122",
+      "score": 1,
+      "source": "auto"
+    },
+    "17-3027.00": {
+      "ausbildungsberuf": "Industriemechaniker/-in",
+      "source": "override"
+    },
+    "17-3027.01": {
+      "ausbildungsberuf": "Karosserie- und Fahrzeugbaumechaniker/-in (Karosserie- und Fahrzeugbautechnik)",
+      "source": "override"
+    },
+    "17-3029.08": {
+      "ausbildungsberuf": "Feinoptiker/-in",
+      "source": "override"
+    },
+    "17-3031.00": {
+      "ausbildungsberuf": "Vermessungstechniker/-in",
+      "kldb": "31212",
+      "score": 1,
+      "source": "auto"
+    },
+    "19-4012.00": {
+      "ausbildungsberuf": "Pflanzentechnologe/-technologin",
+      "source": "override"
+    },
+    "19-4021.00": {
+      "ausbildungsberuf": "Biologielaborant/-in",
+      "source": "override"
+    },
+    "19-4031.00": {
+      "ausbildungsberuf": "Chemielaborant/-in",
+      "kldb": "41322",
+      "score": 1,
+      "source": "auto"
+    },
+    "19-4061.00": {
+      "ausbildungsberuf": "Fachangestellte/-r für Markt- und Sozialforschung",
+      "source": "override"
+    },
+    "19-4071.00": {
+      "ausbildungsberuf": "Forstwirt/-in",
+      "source": "override"
+    },
+    "19-4099.03": {
+      "ausbildungsberuf": "Vermessungstechniker/-in (Vermessung)",
+      "source": "override"
+    },
+    "23-1012.00": {
+      "ausbildungsberuf": "Justizfachangestellte/-r",
+      "source": "override"
+    },
+    "23-2011.00": {
+      "ausbildungsberuf": "Rechtsanwaltsfachangestellte/-r",
+      "kldb": "73112",
+      "score": 1,
+      "source": "auto"
+    },
+    "23-2093.00": {
+      "ausbildungsberuf": "Notarfachangestellte/-r",
+      "source": "override"
+    },
+    "25-4031.00": {
+      "ausbildungsberuf": "Fachangestellte/-r für Medien- und Informationsdienste (Bibliothek)",
+      "source": "override"
+    },
+    "27-1023.00": {
+      "ausbildungsberuf": "Florist/-in",
+      "kldb": "12202",
+      "score": 1,
+      "source": "auto"
+    },
+    "27-1026.00": {
+      "ausbildungsberuf": "Gestalter/-in für visuelles Marketing",
+      "source": "override"
+    },
+    "27-4011.00": {
+      "ausbildungsberuf": "Mediengestalter/-in Bild und Ton",
+      "source": "override"
+    },
+    "27-4012.00": {
+      "ausbildungsberuf": "Fachkraft für Veranstaltungstechnik",
+      "source": "override"
+    },
+    "27-4014.00": {
+      "ausbildungsberuf": "Mediengestalter/-in Bild und Ton",
+      "source": "override"
+    },
+    "27-4015.00": {
+      "ausbildungsberuf": "Fachkraft für Veranstaltungstechnik",
+      "source": "override"
+    },
+    "27-4021.00": {
+      "ausbildungsberuf": "Fotograf/-in",
+      "kldb": "23322",
+      "score": 1,
+      "source": "auto"
+    },
+    "29-1292.00": {
+      "ausbildungsberuf": "Zahnmedizinische/-r Fachangestellte/-r",
+      "source": "override"
+    },
+    "29-2056.00": {
+      "ausbildungsberuf": "Tiermedizinische/-r Fachangestellte/-r",
+      "source": "override"
+    },
+    "29-2072.00": {
+      "ausbildungsberuf": "Fachangestellte/-r für Medien- und Informationsdienste (Medizinische Dokumentation)",
+      "source": "override"
+    },
+    "29-2081.00": {
+      "ausbildungsberuf": "Augenoptiker/-in",
+      "kldb": "82522",
+      "score": 1,
+      "source": "auto"
+    },
+    "29-2091.00": {
+      "ausbildungsberuf": "Orthopädietechnik-Mechaniker/-in",
+      "source": "override"
+    },
+    "29-2092.00": {
+      "ausbildungsberuf": "Hörakustiker/-in",
+      "source": "override"
+    },
+    "29-9021.00": {
+      "ausbildungsberuf": "Fachangestellte/-r für Medien- und Informationsdienste (Medizinische Dokumentation)",
+      "source": "override"
+    },
+    "31-9091.00": {
+      "ausbildungsberuf": "Zahnmedizinische/-r Fachangestellte/-r",
+      "source": "override"
+    },
+    "31-9092.00": {
+      "ausbildungsberuf": "Medizinische/-r Fachangestellte/-r",
+      "source": "override"
+    },
+    "31-9094.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau im Gesundheitswesen",
+      "source": "override"
+    },
+    "31-9096.00": {
+      "ausbildungsberuf": "Tierpfleger/-in",
+      "source": "override"
+    },
+    "33-1021.00": {
+      "ausbildungsberuf": "Werkfeuerwehrmann/Werkfeuerwehrfrau",
+      "source": "override"
+    },
+    "33-2021.00": {
+      "ausbildungsberuf": "Werkfeuerwehrmann/Werkfeuerwehrfrau",
+      "source": "override"
+    },
+    "33-2022.00": {
+      "ausbildungsberuf": "Forstwirt/-in",
+      "source": "override"
+    },
+    "33-9032.00": {
+      "ausbildungsberuf": "Fachkraft für Schutz und Sicherheit",
+      "kldb": "53112",
+      "score": 1,
+      "source": "auto"
+    },
+    "33-9092.00": {
+      "ausbildungsberuf": "Fachangestellte/-r für Bäderbetriebe",
+      "source": "override"
+    },
+    "33-9093.00": {
+      "ausbildungsberuf": "Fachkraft für Schutz und Sicherheit",
+      "kldb": "53112",
+      "score": 1,
+      "source": "auto"
+    },
+    "35-2012.00": {
+      "ausbildungsberuf": "Koch/Köchin",
+      "source": "override"
+    },
+    "35-2013.00": {
+      "ausbildungsberuf": "Koch/Köchin",
+      "source": "override"
+    },
+    "35-2015.00": {
+      "ausbildungsberuf": "Fachmann/Fachfrau für Systemgastronomie",
+      "source": "override"
+    },
+    "35-3031.00": {
+      "ausbildungsberuf": "Fachmann/Fachfrau für Restaurants und Veranstaltungsgastronomie",
+      "source": "override"
+    },
+    "35-3041.00": {
+      "ausbildungsberuf": "Fachkraft für Gastronomie",
+      "source": "override"
+    },
+    "35-9031.00": {
+      "ausbildungsberuf": "Fachmann/Fachfrau für Restaurants und Veranstaltungsgastronomie",
+      "source": "override"
+    },
+    "37-2011.00": {
+      "ausbildungsberuf": "Gebäudereiniger/-in",
+      "kldb": "54112",
+      "score": 1,
+      "source": "auto"
+    },
+    "37-2021.00": {
+      "ausbildungsberuf": "Schädlingsbekämpfer/-in",
+      "kldb": "53342",
+      "score": 1,
+      "source": "auto"
+    },
+    "37-3011.00": {
+      "ausbildungsberuf": "Gärtner/-in (Garten- und Landschaftsbau)",
+      "source": "override"
+    },
+    "37-3012.00": {
+      "ausbildungsberuf": "Pflanzentechnologe/-technologin",
+      "source": "override"
+    },
+    "39-2011.00": {
+      "ausbildungsberuf": "Tierpfleger/-in",
+      "source": "override"
+    },
+    "39-2021.00": {
+      "ausbildungsberuf": "Tierpfleger/-in FR Tierheim und Tierpension",
+      "kldb": "11522",
+      "score": 1,
+      "source": "auto"
+    },
+    "39-3021.00": {
+      "ausbildungsberuf": "Fachkraft für Veranstaltungstechnik",
+      "source": "override"
+    },
+    "39-4011.00": {
+      "ausbildungsberuf": "Bestattungsfachkraft",
+      "source": "override"
+    },
+    "39-4012.00": {
+      "ausbildungsberuf": "Bestattungsfachkraft",
+      "source": "override"
+    },
+    "39-4021.00": {
+      "ausbildungsberuf": "Bestattungsfachkraft",
+      "source": "override"
+    },
+    "39-4031.00": {
+      "ausbildungsberuf": "Bestattungsfachkraft",
+      "kldb": "82402",
+      "score": 1,
+      "source": "auto"
+    },
+    "39-5011.00": {
+      "ausbildungsberuf": "Friseur/-in",
+      "source": "override"
+    },
+    "39-5012.00": {
+      "ausbildungsberuf": "Friseur/-in",
+      "kldb": "82312",
+      "score": 1,
+      "source": "auto"
+    },
+    "39-5091.00": {
+      "ausbildungsberuf": "Kosmetiker/-in",
+      "source": "override"
+    },
+    "39-5092.00": {
+      "ausbildungsberuf": "Kosmetiker/-in",
+      "source": "override"
+    },
+    "39-5094.00": {
+      "ausbildungsberuf": "Kosmetiker/-in",
+      "kldb": "82322",
+      "score": 1,
+      "source": "auto"
+    },
+    "39-6011.00": {
+      "ausbildungsberuf": "Hotelfachmann/-fachfrau",
+      "source": "override"
+    },
+    "41-2022.00": {
+      "ausbildungsberuf": "Automobilkaufmann/-kauffrau",
+      "source": "override"
+    },
+    "41-2031.00": {
+      "ausbildungsberuf": "Verkäufer/-in",
+      "source": "override"
+    },
+    "41-3011.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Marketingkommunikation",
+      "source": "override"
+    },
+    "41-3021.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Versicherungen und Finanzanlagen",
+      "source": "override"
+    },
+    "41-3041.00": {
+      "ausbildungsberuf": "Tourismuskaufmann/-kauffrau (Kaufmann/Kauffrau für Privat- und Geschäftsreisen)",
+      "source": "override"
+    },
+    "41-9021.00": {
+      "ausbildungsberuf": "Immobilienkaufmann/-kauffrau",
+      "source": "override"
+    },
+    "41-9022.00": {
+      "ausbildungsberuf": "Immobilienkaufmann/-kauffrau",
+      "kldb": "61312",
+      "score": 1,
+      "source": "auto"
+    },
+    "41-9041.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Dialogmarketing",
+      "source": "override"
+    },
+    "43-2021.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Dialogmarketing",
+      "source": "override"
+    },
+    "43-3071.00": {
+      "ausbildungsberuf": "Bankkaufmann/-kauffrau",
+      "source": "override"
+    },
+    "43-4011.00": {
+      "ausbildungsberuf": "Investmentfondskaufmann/-kauffrau",
+      "source": "override"
+    },
+    "43-4021.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Büromanagement",
+      "source": "override"
+    },
+    "43-4031.00": {
+      "ausbildungsberuf": "Justizfachangestellte/-r",
+      "source": "override"
+    },
+    "43-4041.00": {
+      "ausbildungsberuf": "Bankkaufmann/-kauffrau",
+      "source": "override"
+    },
+    "43-4061.00": {
+      "ausbildungsberuf": "Sozialversicherungsfachangestellte/-r",
+      "source": "override"
+    },
+    "43-4071.00": {
+      "ausbildungsberuf": "Fachangestellte/-r für Medien- und Informationsdienste (Archiv)",
+      "source": "override"
+    },
+    "43-4081.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Hotelmanagement",
+      "source": "override"
+    },
+    "43-4111.00": {
+      "ausbildungsberuf": "Fachangestellte/-r für Markt- und Sozialforschung",
+      "source": "override"
+    },
+    "43-4121.00": {
+      "ausbildungsberuf": "Fachangestellte/-r für Medien- und Informationsdienste (Bibliothek)",
+      "source": "override"
+    },
+    "43-4131.00": {
+      "ausbildungsberuf": "Bankkaufmann/-kauffrau",
+      "source": "override"
+    },
+    "43-4141.00": {
+      "ausbildungsberuf": "Bankkaufmann/-kauffrau",
+      "source": "override"
+    },
+    "43-4181.00": {
+      "ausbildungsberuf": "Tourismuskaufmann/-kauffrau (Kaufmann/Kauffrau für Privat- und Geschäftsreisen)",
+      "source": "override"
+    },
+    "43-5011.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Spedition und Logistikdienstleistung",
+      "source": "override"
+    },
+    "43-5011.01": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Spedition und Logistikdienstleistung",
+      "source": "override"
+    },
+    "43-5021.00": {
+      "ausbildungsberuf": "Fachkraft für Kurier-, Express- und Postdienstleistungen",
+      "source": "override"
+    },
+    "43-5032.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Spedition und Logistikdienstleistung",
+      "source": "override"
+    },
+    "43-5051.00": {
+      "ausbildungsberuf": "Fachkraft für Kurier-, Express- und Postdienstleistungen",
+      "source": "override"
+    },
+    "43-5052.00": {
+      "ausbildungsberuf": "Fachkraft für Kurier-, Express- und Postdienstleistungen",
+      "source": "override"
+    },
+    "43-5053.00": {
+      "ausbildungsberuf": "Fachkraft für Kurier-, Express- und Postdienstleistungen",
+      "source": "override"
+    },
+    "43-5061.00": {
+      "ausbildungsberuf": "Industriekaufmann/-kauffrau",
+      "source": "override"
+    },
+    "43-5071.00": {
+      "ausbildungsberuf": "Fachkraft für Lagerlogistik",
+      "kldb": "51312",
+      "score": 1,
+      "source": "auto"
+    },
+    "43-6011.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Büromanagement",
+      "source": "override"
+    },
+    "43-6012.00": {
+      "ausbildungsberuf": "Rechtsanwaltsfachangestellte/-r",
+      "source": "override"
+    },
+    "43-6013.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau im Gesundheitswesen",
+      "source": "override"
+    },
+    "43-6014.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Büromanagement",
+      "source": "override"
+    },
+    "43-9041.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Versicherungen und Finanzanlagen",
+      "source": "override"
+    },
+    "43-9051.00": {
+      "ausbildungsberuf": "Fachkraft für Kurier-, Express- und Postdienstleistungen",
+      "source": "override"
+    },
+    "43-9061.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Büromanagement",
+      "source": "override"
+    },
+    "43-9071.00": {
+      "ausbildungsberuf": "Medientechnologe/-technologin Druck",
+      "source": "override"
+    },
+    "43-9111.00": {
+      "ausbildungsberuf": "Fachangestellte/-r für Markt- und Sozialforschung",
+      "source": "override"
+    },
+    "45-2021.00": {
+      "ausbildungsberuf": "Tierwirt/-in",
+      "source": "override"
+    },
+    "45-2093.00": {
+      "ausbildungsberuf": "Tierwirt/-in",
+      "kldb": "11212",
+      "score": 1,
+      "source": "auto"
+    },
+    "45-3031.00": {
+      "ausbildungsberuf": "Fischwirt/-in",
+      "source": "override"
+    },
+    "45-4021.00": {
+      "ausbildungsberuf": "Forstwirt/-in",
+      "kldb": "11712",
+      "score": 1,
+      "source": "auto"
+    },
+    "45-4023.00": {
+      "ausbildungsberuf": "Forstwirt/-in",
+      "source": "override"
+    },
+    "47-2011.00": {
+      "ausbildungsberuf": "Behälter- und Apparatebauer/-in",
+      "kldb": "34342",
+      "score": 1,
+      "source": "auto"
+    },
+    "47-2021.00": {
+      "ausbildungsberuf": "Maurer/-in",
+      "kldb": "32122",
+      "score": 1,
+      "source": "auto"
+    },
+    "47-2022.00": {
+      "ausbildungsberuf": "Steinmetz/-in und Steinbildhauer/-in",
+      "kldb": "21232",
+      "score": 1,
+      "source": "auto"
+    },
+    "47-2031.00": {
+      "ausbildungsberuf": "Zimmerer/-in",
+      "kldb": "33322",
+      "score": 1,
+      "source": "auto"
+    },
+    "47-2041.00": {
+      "ausbildungsberuf": "Bodenleger/-in",
+      "source": "override"
+    },
+    "47-2042.00": {
+      "ausbildungsberuf": "Bodenleger/-in",
+      "kldb": "33102",
+      "score": 1,
+      "source": "auto"
+    },
+    "47-2043.00": {
+      "ausbildungsberuf": "Parkettleger/-in",
+      "source": "override"
+    },
+    "47-2044.00": {
+      "ausbildungsberuf": "Fliesen-, Platten- und Mosaikleger/-in",
+      "source": "override"
+    },
+    "47-2051.00": {
+      "ausbildungsberuf": "Beton- und Stahlbetonbauer/-in",
+      "source": "override"
+    },
+    "47-2053.00": {
+      "ausbildungsberuf": "Fliesen-, Platten- und Mosaikleger/-in",
+      "source": "override"
+    },
+    "47-2061.00": {
+      "ausbildungsberuf": "Hochbaufacharbeiter/-in",
+      "source": "override"
+    },
+    "47-2071.00": {
+      "ausbildungsberuf": "Straßenbauer/-in",
+      "source": "override"
+    },
+    "47-2072.00": {
+      "ausbildungsberuf": "Spezialtiefbauer/-in",
+      "source": "override"
+    },
+    "47-2073.00": {
+      "ausbildungsberuf": "Baugeräteführer/-in",
+      "source": "override"
+    },
+    "47-2081.00": {
+      "ausbildungsberuf": "Trockenbaumonteur/-in",
+      "source": "override"
+    },
+    "47-2111.00": {
+      "ausbildungsberuf": "Elektroniker/-in (Energie- und Gebäudetechnik)",
+      "source": "override"
+    },
+    "47-2121.00": {
+      "ausbildungsberuf": "Glaser/-in (Fenster- und Glasfassadenbau)",
+      "source": "override"
+    },
+    "47-2131.00": {
+      "ausbildungsberuf": "Wärme-, Kälte- und Schallschutzisolierer/-in",
+      "source": "override"
+    },
+    "47-2132.00": {
+      "ausbildungsberuf": "Wärme-, Kälte- und Schallschutzisolierer/-in",
+      "kldb": "33312",
+      "score": 0.5,
+      "source": "auto"
+    },
+    "47-2141.00": {
+      "ausbildungsberuf": "Maler/-in und Lackierer/-in",
+      "kldb": "33212",
+      "score": 1,
+      "source": "auto"
+    },
+    "47-2142.00": {
+      "ausbildungsberuf": "Raumausstatter/-in",
+      "source": "override"
+    },
+    "47-2151.00": {
+      "ausbildungsberuf": "Tiefbaufacharbeiter/-in",
+      "source": "override"
+    },
+    "47-2152.00": {
+      "ausbildungsberuf": "Rohrleitungsbauer/-in",
+      "kldb": "34322",
+      "score": 1,
+      "source": "auto"
+    },
+    "47-2161.00": {
+      "ausbildungsberuf": "Stuckateur/-in",
+      "kldb": "33222",
+      "score": 1,
+      "source": "auto"
+    },
+    "47-2171.00": {
+      "ausbildungsberuf": "Beton- und Stahlbetonbauer/-in",
+      "source": "override"
+    },
+    "47-2181.00": {
+      "ausbildungsberuf": "Dachdecker/-in",
+      "kldb": "32142",
+      "score": 1,
+      "source": "auto"
+    },
+    "47-2211.00": {
+      "ausbildungsberuf": "Konstruktionsmechaniker/-in",
+      "kldb": "24412",
+      "score": 1,
+      "source": "auto"
+    },
+    "47-2221.00": {
+      "ausbildungsberuf": "Metallbauer/-in (Konstruktionstechnik)",
+      "source": "override"
+    },
+    "47-2231.00": {
+      "ausbildungsberuf": "Elektroniker/-in (Energie- und Gebäudetechnik)",
+      "source": "override"
+    },
+    "47-3013.00": {
+      "ausbildungsberuf": "Elektroniker/-in (Energie- und Gebäudetechnik)",
+      "source": "override"
+    },
+    "47-4031.00": {
+      "ausbildungsberuf": "Metallbauer/-in (Konstruktionstechnik)",
+      "source": "override"
+    },
+    "47-4051.00": {
+      "ausbildungsberuf": "Straßenwärter/-in",
+      "source": "override"
+    },
+    "47-4061.00": {
+      "ausbildungsberuf": "Gleisbauer/-in",
+      "source": "override"
+    },
+    "47-4071.00": {
+      "ausbildungsberuf": "Umwelttechnologe/-technologin für Rohrleitungsnetze und Industrieanlagen",
+      "source": "override"
+    },
+    "47-4099.03": {
+      "ausbildungsberuf": "Wärme-, Kälte- und Schallschutzisolierer/-in",
+      "source": "override"
+    },
+    "47-5011.00": {
+      "ausbildungsberuf": "Bergbautechnologe/-technologin (Tiefbohrtechnik)",
+      "source": "override"
+    },
+    "47-5012.00": {
+      "ausbildungsberuf": "Bergbautechnologe/-technologin (Tiefbohrtechnik)",
+      "source": "override"
+    },
+    "47-5013.00": {
+      "ausbildungsberuf": "Bergbautechnologe/-technologin (Tiefbohrtechnik)",
+      "source": "override"
+    },
+    "47-5022.00": {
+      "ausbildungsberuf": "Baugeräteführer/-in",
+      "source": "override"
+    },
+    "47-5023.00": {
+      "ausbildungsberuf": "Naturwerksteinmechaniker/-in (Maschinenbearbeitungstechnik)",
+      "source": "override"
+    },
+    "47-5041.00": {
+      "ausbildungsberuf": "Bergbautechnologe/-technologin (Tiefbautechnik)",
+      "source": "override"
+    },
+    "47-5051.00": {
+      "ausbildungsberuf": "Verfahrensmechaniker/-in in der Steine- und Erdenindustrie (Baustoffe)",
+      "source": "override"
+    },
+    "49-2011.00": {
+      "ausbildungsberuf": "IT-System-Elektroniker/-in",
+      "source": "override"
+    },
+    "49-2021.00": {
+      "ausbildungsberuf": "Elektroniker/-in für Informations- und Systemtechnik",
+      "kldb": "26312",
+      "score": 1,
+      "source": "auto"
+    },
+    "49-2022.00": {
+      "ausbildungsberuf": "Elektroniker/-in für Informations- und Systemtechnik",
+      "source": "override"
+    },
+    "49-2091.00": {
+      "ausbildungsberuf": "Fluggerätelektroniker/-in",
+      "source": "override"
+    },
+    "49-2092.00": {
+      "ausbildungsberuf": "Mechatroniker/-in",
+      "source": "override"
+    },
+    "49-2093.00": {
+      "ausbildungsberuf": "Kraftfahrzeugmechatroniker/-in",
+      "source": "override"
+    },
+    "49-2094.00": {
+      "ausbildungsberuf": "Elektroniker/-in FR Automatisierungs- und Systemtechnik",
+      "kldb": "26122",
+      "score": 1,
+      "source": "auto"
+    },
+    "49-2096.00": {
+      "ausbildungsberuf": "Elektroniker/-in für Geräte und Systeme",
+      "source": "override"
+    },
+    "49-2098.00": {
+      "ausbildungsberuf": "Elektroniker/-in für Informations- und Systemtechnik",
+      "source": "override"
+    },
+    "49-3011.00": {
+      "ausbildungsberuf": "Fluggerätmechaniker/-in (Instandhaltungstechnik)",
+      "source": "override"
+    },
+    "49-3021.00": {
+      "ausbildungsberuf": "Karosserie- und Fahrzeugbaumechaniker/-in",
+      "kldb": "25212",
+      "score": 1,
+      "source": "auto"
+    },
+    "49-3022.00": {
+      "ausbildungsberuf": "Glaser/-in (Verglasung und Glasbau)",
+      "source": "override"
+    },
+    "49-3023.00": {
+      "ausbildungsberuf": "Kraftfahrzeugmechatroniker/-in",
+      "source": "override"
+    },
+    "49-3031.00": {
+      "ausbildungsberuf": "Kraftfahrzeugmechatroniker/-in",
+      "source": "override"
+    },
+    "49-3041.00": {
+      "ausbildungsberuf": "Land- und Baumaschinenmechatroniker/-in",
+      "source": "override"
+    },
+    "49-3042.00": {
+      "ausbildungsberuf": "Land- und Baumaschinenmechatroniker/-in",
+      "kldb": "25222",
+      "score": 1,
+      "source": "auto"
+    },
+    "49-3052.00": {
+      "ausbildungsberuf": "Zweiradmechatroniker/-in",
+      "source": "override"
+    },
+    "49-3091.00": {
+      "ausbildungsberuf": "Zweiradmechatroniker/-in (Fahrradtechnik)",
+      "source": "override"
+    },
+    "49-3092.00": {
+      "ausbildungsberuf": "Kraftfahrzeugmechatroniker/-in",
+      "source": "override"
+    },
+    "49-3093.00": {
+      "ausbildungsberuf": "Kraftfahrzeugmechatroniker/-in",
+      "source": "override"
+    },
+    "49-9011.00": {
+      "ausbildungsberuf": "Metallbauer/-in",
+      "source": "override"
+    },
+    "49-9012.00": {
+      "ausbildungsberuf": "Industriemechaniker/-in",
+      "source": "override"
+    },
+    "49-9021.00": {
+      "ausbildungsberuf": "Anlagenmechaniker/-in für Sanitär-, Heizungs- und Klimatechnik",
+      "source": "override"
+    },
+    "49-9031.00": {
+      "ausbildungsberuf": "Elektroniker/-in für Geräte und Systeme",
+      "source": "override"
+    },
+    "49-9041.00": {
+      "ausbildungsberuf": "Industriemechaniker/-in",
+      "kldb": "25102",
+      "score": 1,
+      "source": "auto"
+    },
+    "49-9043.00": {
+      "ausbildungsberuf": "Industriemechaniker/-in",
+      "source": "override"
+    },
+    "49-9044.00": {
+      "ausbildungsberuf": "Industriemechaniker/-in",
+      "kldb": "25102",
+      "score": 1,
+      "source": "auto"
+    },
+    "49-9045.00": {
+      "ausbildungsberuf": "Industriekeramiker/-in Anlagentechnik",
+      "source": "override"
+    },
+    "49-9052.00": {
+      "ausbildungsberuf": "Elektroniker/-in für Informations- und Systemtechnik",
+      "source": "override"
+    },
+    "49-9064.00": {
+      "ausbildungsberuf": "Uhrmacher/-in",
+      "source": "override"
+    },
+    "49-9091.00": {
+      "ausbildungsberuf": "Elektroniker/-in für Automatisierungstechnik",
+      "source": "override"
+    },
+    "49-9095.00": {
+      "ausbildungsberuf": "Zimmerer/-in",
+      "source": "override"
+    },
+    "49-9099.01": {
+      "ausbildungsberuf": "Anlagenmechaniker/-in für Sanitär-, Heizungs- und Klimatechnik",
+      "source": "override"
+    },
+    "51-2011.00": {
+      "ausbildungsberuf": "Fertigungsmechaniker/-in",
+      "source": "override"
+    },
+    "51-2023.00": {
+      "ausbildungsberuf": "Elektroniker/-in für Geräte und Systeme",
+      "source": "override"
+    },
+    "51-2031.00": {
+      "ausbildungsberuf": "Fertigungsmechaniker/-in",
+      "source": "override"
+    },
+    "51-2041.00": {
+      "ausbildungsberuf": "Metallbauer/-in",
+      "kldb": "24412",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-2051.00": {
+      "ausbildungsberuf": "Kunststoff- und Kautschuktechnologe/-technologin (Faserverbundtechnologie)",
+      "source": "override"
+    },
+    "51-2061.00": {
+      "ausbildungsberuf": "Feinwerkmechaniker/-in",
+      "source": "override"
+    },
+    "51-2092.00": {
+      "ausbildungsberuf": "Fachkraft für Metalltechnik (Montagetechnik)",
+      "source": "override"
+    },
+    "51-3011.00": {
+      "ausbildungsberuf": "Bäcker/-in",
+      "kldb": "29222",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-3021.00": {
+      "ausbildungsberuf": "Fleischer/-in",
+      "kldb": "29232",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-3023.00": {
+      "ausbildungsberuf": "Fleischer/-in",
+      "source": "override"
+    },
+    "51-3092.00": {
+      "ausbildungsberuf": "Fachkraft für Lebensmitteltechnik",
+      "kldb": "29202",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-3093.00": {
+      "ausbildungsberuf": "Fachkraft für Lebensmitteltechnik",
+      "kldb": "29202",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-4021.00": {
+      "ausbildungsberuf": "Verfahrenstechnologe/-technologin Metall (Nichteisenmetallumformung)",
+      "source": "override"
+    },
+    "51-4022.00": {
+      "ausbildungsberuf": "Maschinen- und Anlagenführer/-in",
+      "source": "override"
+    },
+    "51-4023.00": {
+      "ausbildungsberuf": "Maschinen- und Anlagenführer/-in",
+      "source": "override"
+    },
+    "51-4031.00": {
+      "ausbildungsberuf": "Maschinen- und Anlagenführer/-in",
+      "source": "override"
+    },
+    "51-4032.00": {
+      "ausbildungsberuf": "Fachkraft für Metalltechnik FR Zerspanungstechnik",
+      "kldb": "24232",
+      "score": 0.5,
+      "source": "auto"
+    },
+    "51-4033.00": {
+      "ausbildungsberuf": "Feinpolierer/-in",
+      "source": "override"
+    },
+    "51-4034.00": {
+      "ausbildungsberuf": "Zerspanungsmechaniker/-in",
+      "source": "override"
+    },
+    "51-4035.00": {
+      "ausbildungsberuf": "Zerspanungsmechaniker/-in",
+      "source": "override"
+    },
+    "51-4041.00": {
+      "ausbildungsberuf": "Zerspanungsmechaniker/-in",
+      "source": "override"
+    },
+    "51-4051.00": {
+      "ausbildungsberuf": "Verfahrenstechnologe/-technologin Metall (Eisen- und Stahlmetallurgie)",
+      "source": "override"
+    },
+    "51-4052.00": {
+      "ausbildungsberuf": "Metall- und Glockengießer/-in (Metallgußtechnik)",
+      "source": "override"
+    },
+    "51-4061.00": {
+      "ausbildungsberuf": "Werkzeugmechaniker/-in",
+      "source": "override"
+    },
+    "51-4062.00": {
+      "ausbildungsberuf": "Technische/-r Modellbauer/-in (Gießerei)",
+      "source": "override"
+    },
+    "51-4071.00": {
+      "ausbildungsberuf": "Metall- und Glockengießer/-in (Metallgußtechnik)",
+      "source": "override"
+    },
+    "51-4072.00": {
+      "ausbildungsberuf": "Gießereimechaniker/-in",
+      "source": "override"
+    },
+    "51-4111.00": {
+      "ausbildungsberuf": "Werkzeugmechaniker/-in",
+      "kldb": "24522",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-4191.00": {
+      "ausbildungsberuf": "Verfahrenstechnologe/-technologin Metall (Eisen- und Stahlmetallurgie)",
+      "source": "override"
+    },
+    "51-4193.00": {
+      "ausbildungsberuf": "Oberflächenbeschichter/-in",
+      "source": "override"
+    },
+    "51-5111.00": {
+      "ausbildungsberuf": "Mediengestalter/-in Digital und Print",
+      "kldb": "23212",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-5112.00": {
+      "ausbildungsberuf": "Medientechnologe/-technologin Druck",
+      "source": "override"
+    },
+    "51-5113.00": {
+      "ausbildungsberuf": "Papiertechnologe/-technologin",
+      "source": "override"
+    },
+    "51-6011.00": {
+      "ausbildungsberuf": "Textilreiniger/-in",
+      "kldb": "54132",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-6041.00": {
+      "ausbildungsberuf": "Schuhfertiger/-in",
+      "source": "override"
+    },
+    "51-6042.00": {
+      "ausbildungsberuf": "Schuhfertiger/-in",
+      "source": "override"
+    },
+    "51-6052.00": {
+      "ausbildungsberuf": "Änderungsschneider/-in",
+      "source": "override"
+    },
+    "51-6061.00": {
+      "ausbildungsberuf": "Produktveredler/-in Textil",
+      "source": "override"
+    },
+    "51-6062.00": {
+      "ausbildungsberuf": "Maßschneider/-in",
+      "source": "override"
+    },
+    "51-6063.00": {
+      "ausbildungsberuf": "Produktionsmechaniker/-in Textil",
+      "source": "override"
+    },
+    "51-6064.00": {
+      "ausbildungsberuf": "Seiler/-in",
+      "source": "override"
+    },
+    "51-6091.00": {
+      "ausbildungsberuf": "Kunststoff- und Kautschuktechnologe/-technologin (Halbzeuge)",
+      "source": "override"
+    },
+    "51-6093.00": {
+      "ausbildungsberuf": "Polsterer/-in",
+      "kldb": "28242",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-7011.00": {
+      "ausbildungsberuf": "Tischler/-in",
+      "kldb": "22342",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-7021.00": {
+      "ausbildungsberuf": "Tischler/-in",
+      "source": "override"
+    },
+    "51-7032.00": {
+      "ausbildungsberuf": "Technische/-r Modellbauer/-in (Gießerei)",
+      "source": "override"
+    },
+    "51-8013.04": {
+      "ausbildungsberuf": "Elektroniker/-in für Betriebstechnik",
+      "source": "override"
+    },
+    "51-8021.00": {
+      "ausbildungsberuf": "Maschinen- und Anlagenführer/-in",
+      "source": "override"
+    },
+    "51-8031.00": {
+      "ausbildungsberuf": "Umwelttechnologe/-technologin für Abwasserbewirtschaftung",
+      "source": "override"
+    },
+    "51-8091.00": {
+      "ausbildungsberuf": "Produktionsfachkraft Chemie",
+      "kldb": "41312",
+      "score": 0.5,
+      "source": "auto"
+    },
+    "51-8093.00": {
+      "ausbildungsberuf": "Chemikant/-in",
+      "source": "override"
+    },
+    "51-9021.00": {
+      "ausbildungsberuf": "Maschinen- und Anlagenführer/-in",
+      "kldb": "25122",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-9022.00": {
+      "ausbildungsberuf": "Feinpolierer/-in",
+      "source": "override"
+    },
+    "51-9023.00": {
+      "ausbildungsberuf": "Chemikant/-in",
+      "source": "override"
+    },
+    "51-9031.00": {
+      "ausbildungsberuf": "Textil- und Modeschneider/-in",
+      "source": "override"
+    },
+    "51-9032.00": {
+      "ausbildungsberuf": "Maschinen- und Anlagenführer/-in",
+      "source": "override"
+    },
+    "51-9041.00": {
+      "ausbildungsberuf": "Maschinen- und Anlagenführer/-in",
+      "source": "override"
+    },
+    "51-9051.00": {
+      "ausbildungsberuf": "Verfahrenstechnologe/-technologin Metall (Eisen- und Stahlmetallurgie)",
+      "source": "override"
+    },
+    "51-9071.00": {
+      "ausbildungsberuf": "Goldschmied/-in (Juwelen)",
+      "source": "override"
+    },
+    "51-9071.06": {
+      "ausbildungsberuf": "Goldschmied/-in",
+      "kldb": "93522",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-9081.00": {
+      "ausbildungsberuf": "Zahntechniker/-in",
+      "kldb": "82542",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-9082.00": {
+      "ausbildungsberuf": "Orthopädietechnik-Mechaniker/-in",
+      "kldb": "82512",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-9083.00": {
+      "ausbildungsberuf": "Augenoptiker/-in",
+      "source": "override"
+    },
+    "51-9111.00": {
+      "ausbildungsberuf": "Produktionsfachkraft Chemie",
+      "source": "override"
+    },
+    "51-9123.00": {
+      "ausbildungsberuf": "Glas- und Porzellanmaler/-in",
+      "kldb": "93422",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-9151.00": {
+      "ausbildungsberuf": "Fotomedienfachmann/-fachfrau",
+      "source": "override"
+    },
+    "51-9161.00": {
+      "ausbildungsberuf": "Zerspanungsmechaniker/-in",
+      "source": "override"
+    },
+    "51-9162.00": {
+      "ausbildungsberuf": "Zerspanungsmechaniker/-in",
+      "kldb": "24232",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-9191.00": {
+      "ausbildungsberuf": "Maschinen- und Anlagenführer/-in",
+      "source": "override"
+    },
+    "51-9192.00": {
+      "ausbildungsberuf": "Maschinen- und Anlagenführer/-in",
+      "source": "override"
+    },
+    "51-9193.00": {
+      "ausbildungsberuf": "Mechatroniker/-in für Kältetechnik",
+      "source": "override"
+    },
+    "51-9194.00": {
+      "ausbildungsberuf": "Medientechnologe/-technologin Druck",
+      "source": "override"
+    },
+    "51-9195.00": {
+      "ausbildungsberuf": "Keramiker/-in",
+      "source": "override"
+    },
+    "51-9195.03": {
+      "ausbildungsberuf": "Edelsteinschleifer/-in",
+      "kldb": "93522",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-9195.04": {
+      "ausbildungsberuf": "Leuchtröhrenglasbläser/-in",
+      "source": "override"
+    },
+    "51-9195.05": {
+      "ausbildungsberuf": "Keramiker/-in",
+      "kldb": "93412",
+      "score": 1,
+      "source": "auto"
+    },
+    "51-9196.00": {
+      "ausbildungsberuf": "Papiertechnologe/-technologin",
+      "source": "override"
+    },
+    "51-9197.00": {
+      "ausbildungsberuf": "Mechaniker/-in für Reifen- und Vulkanisationstechnik",
+      "source": "override"
+    },
+    "53-1042.01": {
+      "ausbildungsberuf": "Umwelttechnologe/-technologin für Kreislauf- und Abfallwirtschaft",
+      "source": "override"
+    },
+    "53-2031.00": {
+      "ausbildungsberuf": "Servicekaufmann/-kauffrau im Luftverkehr",
+      "source": "override"
+    },
+    "53-3031.00": {
+      "ausbildungsberuf": "Berufskraftfahrer/-in",
+      "source": "override"
+    },
+    "53-3032.00": {
+      "ausbildungsberuf": "Berufskraftfahrer/-in",
+      "source": "override"
+    },
+    "53-3033.00": {
+      "ausbildungsberuf": "Berufskraftfahrer/-in",
+      "source": "override"
+    },
+    "53-3051.00": {
+      "ausbildungsberuf": "Fachkraft im Fahrbetrieb",
+      "source": "override"
+    },
+    "53-3052.00": {
+      "ausbildungsberuf": "Fachkraft im Fahrbetrieb",
+      "source": "override"
+    },
+    "53-4011.00": {
+      "ausbildungsberuf": "Eisenbahner/-in im Betriebsdienst Lokführer/-in und Transport",
+      "source": "override"
+    },
+    "53-4041.00": {
+      "ausbildungsberuf": "Fachkraft im Fahrbetrieb",
+      "source": "override"
+    },
+    "53-5022.00": {
+      "ausbildungsberuf": "Binnenschiffer/-in",
+      "source": "override"
+    },
+    "53-6021.00": {
+      "ausbildungsberuf": "Servicefahrer/-in",
+      "source": "override"
+    },
+    "53-6051.01": {
+      "ausbildungsberuf": "Fluggerätmechaniker/-in (Instandhaltungstechnik)",
+      "source": "override"
+    },
+    "53-6061.00": {
+      "ausbildungsberuf": "Kaufmann/Kauffrau für Verkehrsservice",
+      "source": "override"
+    },
+    "53-7031.00": {
+      "ausbildungsberuf": "Wasserbauer/-in",
+      "source": "override"
+    },
+    "53-7051.00": {
+      "ausbildungsberuf": "Fachlagerist/-in",
+      "source": "override"
+    },
+    "53-7062.04": {
+      "ausbildungsberuf": "Umwelttechnologe/-technologin für Kreislauf- und Abfallwirtschaft",
+      "source": "override"
+    },
+    "53-7063.00": {
+      "ausbildungsberuf": "Verfahrenstechnologe/-technologin Mühlen- und Getreidewirtschaft (Müllerei)",
+      "source": "override"
+    },
+    "53-7072.00": {
+      "ausbildungsberuf": "Rohrleitungsbauer/-in",
+      "source": "override"
+    },
+    "53-7121.00": {
+      "ausbildungsberuf": "Fachkraft für Hafenlogistik",
+      "source": "override"
+    }
+  }
+}
