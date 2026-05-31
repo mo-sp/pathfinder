@@ -214,14 +214,33 @@ async function goForward(): Promise<void> {
     }
     // Layer-completion navigation carries `focus=<layer>` so /ergebnis can
     // scroll to the just-finished section instead of landing at top of
-    // page (which sits past the RIASEC hexagon every time). The
-    // "Ergebnisansicht" shortcut + header link omit the query → top-of-
-    // page stays the default for explicit-peek navigation.
+    // page (which sits past the RIASEC hexagon every time).
     await router.push({ path: '/ergebnis', query: { focus: store.currentLayer } })
     return
   }
   store.goForward()
   await scrollToQuestion()
+}
+
+// Which results section the "Ergebnisansicht" shortcut should scroll to:
+// the current layer if it's already complete (edit flow), otherwise the
+// most recently completed layer in the funnel. The button only renders
+// once RIASEC is complete, so this always resolves to a rendered
+// `#layer-<x>` section rather than dumping the user at page top.
+const ergebnisFocus = computed<AssessmentLayer>(() => {
+  const complete: Record<AssessmentLayer, boolean> = {
+    riasec: store.riasecIsComplete,
+    bigfive: store.bigfiveIsComplete,
+    values: store.valuesIsComplete,
+    skills: store.skillsIsComplete,
+  }
+  if (complete[store.currentLayer]) return store.currentLayer
+  const order: AssessmentLayer[] = ['skills', 'values', 'bigfive', 'riasec']
+  return order.find((l) => complete[l]) ?? 'riasec'
+})
+
+async function goToResults(): Promise<void> {
+  await router.push({ path: '/ergebnis', query: { focus: ergebnisFocus.value } })
 }
 </script>
 
@@ -250,7 +269,7 @@ async function goForward(): Promise<void> {
     <div
       v-if="store.skillsInterstitialPending"
       ref="interstitialCardRef"
-      class="rounded-lg border border-indigo-500/40 bg-slate-900 p-8"
+      class="scroll-mt-24 rounded-lg border border-indigo-500/40 bg-slate-900 p-8"
     >
       <p class="text-xs uppercase tracking-wide text-indigo-300">Sehr gut!</p>
       <h2 class="mt-2 text-2xl font-semibold text-slate-100">
@@ -289,23 +308,32 @@ async function goForward(): Promise<void> {
     <div
       v-else-if="store.currentQuestion"
       ref="questionCardRef"
-      class="rounded-lg border border-slate-800 bg-slate-900 p-8"
+      class="scroll-mt-24 rounded-lg border border-slate-800 bg-slate-900 p-8"
     >
-      <p
-        v-if="showQuestionPrompt"
-        class="text-xs uppercase tracking-wide text-slate-500"
-      >
-        {{ questionPromptText }}
-      </p>
-      <h2 class="mt-2 text-2xl font-semibold text-slate-100">
-        {{ text }}
-      </h2>
-      <p
-        v-if="description"
-        class="mt-2 text-sm text-slate-400"
-      >
-        {{ description }}
-      </p>
+      <!-- Reserve a consistent height for the prompt + question (+ optional
+           skills description) so the Likert grid and the bottom button row
+           start at the same vertical position whether the question is one
+           line or three. Without this the buttons jump between questions,
+           which is jarring now that the lock/edit flow has users stepping
+           back and forth a lot. Longer questions still grow past the
+           reserve; this only stabilises the common 1–3 line case. -->
+      <div class="min-h-[8.5rem] sm:min-h-[7rem]">
+        <p
+          v-if="showQuestionPrompt"
+          class="text-xs uppercase tracking-wide text-slate-500"
+        >
+          {{ questionPromptText }}
+        </p>
+        <h2 class="mt-2 text-2xl font-semibold text-slate-100">
+          {{ text }}
+        </h2>
+        <p
+          v-if="description"
+          class="mt-2 text-sm text-slate-400"
+        >
+          {{ description }}
+        </p>
+      </div>
 
       <div class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-5">
         <button
@@ -334,61 +362,71 @@ async function goForward(): Promise<void> {
         </button>
       </div>
 
-      <!-- Left-grouped: Zurück + the layer-reset and peek actions all sit
-           in stable DOM order so toggling Weiter does not shuffle them.
-           Weiter is right-anchored via ms-auto so its appearance only
-           fills the right gap rather than reflowing the row. -->
-      <div class="mt-6 flex flex-wrap items-center gap-2">
-        <button
-          type="button"
-          class="rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40"
-          :disabled="store.currentIndex === 0"
-          @click="goBack"
-        >
-          ← Zurück
-        </button>
-        <!-- Shortcut back to /ergebnis during the Big Five layer: gives
-             the user a way to peek at their RIASEC result without losing
-             their partial Big Five answers. Hidden while RIASEC is
-             in-progress because there's nothing to go back TO yet. -->
-        <button
-          v-if="store.riasecIsComplete"
-          type="button"
-          class="rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700"
-          @click="router.push('/ergebnis')"
-        >
-          Ergebnisansicht
-        </button>
-        <button
-          v-if="store.currentLayer === 'skills'"
-          type="button"
-          class="rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700"
-          @click="restartCurrentSubCategory"
-        >
-          Nur diesen Teil neu
-        </button>
-        <button
-          type="button"
-          class="rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700"
-          @click="restartLayer"
-        >
-          Schicht neu starten
-        </button>
-        <!-- Forward affordance on revisit: shown only when the current
-             question already has a stored answer, so the user can advance
-             without re-clicking the same Likert value. Styled analogous
-             to Zurück — a user who actively chose to backtrack does not
-             need a prominent CTA to walk forward again. ms-auto anchors
-             it to the right so its appearance does not shift the
-             left-grouped buttons. -->
-        <button
-          v-if="store.currentAnswer"
-          type="button"
-          class="ms-auto rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700"
-          @click="goForward"
-        >
-          {{ isFinalForward ? 'Zum Ergebnis →' : 'Weiter →' }}
-        </button>
+      <!-- Controls. Mobile (flex-col): row 1 is the nav pair as an equal
+           2-column grid (Zurück | Weiter, each exactly half width); the
+           secondary actions stack full-width below, so every button shares
+           a width and the layout never shifts when the button set changes
+           (e.g. skills adding "Nur diesen Teil neu"). Desktop (sm:flex-row):
+           collapses to one row — nav pair grouped left at the compact size,
+           secondary actions pushed right (sm:ms-auto), so no buttons sit
+           between Zurück and Weiter. Both nav buttons are ALWAYS rendered
+           and just grey out when unusable (Zurück at the first question,
+           Weiter until the current question is answered), so the row never
+           shifts height or reshuffles. Buttons are larger on mobile
+           (px-4 py-2.5 text-sm) and compact on desktop (sm:*). -->
+      <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div class="grid grid-cols-2 gap-3 sm:flex sm:flex-initial">
+          <button
+            type="button"
+            class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-700 disabled:hover:bg-slate-800 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
+            :disabled="store.currentIndex === 0"
+            @click="goBack"
+          >
+            ← Zurück
+          </button>
+          <!-- Forward affordance: advances without re-recording on revisit,
+               commits + navigates on the final question ("Zum Ergebnis →").
+               Disabled (greyed) until the current question has an answer. -->
+          <button
+            type="button"
+            class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-700 disabled:hover:bg-slate-800 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
+            :disabled="!store.currentAnswer"
+            @click="goForward"
+          >
+            {{ isFinalForward ? 'Zum Ergebnis →' : 'Weiter →' }}
+          </button>
+        </div>
+        <!-- Secondary actions: peek at results + layer/sub-category restart.
+             Centered on mobile, pushed right on desktop. "Ergebnisansicht"
+             is hidden once the forward button already reads "Zum Ergebnis →"
+             (final question) since the two would be redundant; also hidden
+             while RIASEC is still in progress. "Schicht neu starten" is
+             always available. -->
+        <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:ms-auto">
+          <button
+            v-if="store.riasecIsComplete && !(store.currentAnswer && isFinalForward)"
+            type="button"
+            class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
+            @click="goToResults"
+          >
+            Ergebnisansicht
+          </button>
+          <button
+            v-if="store.currentLayer === 'skills'"
+            type="button"
+            class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
+            @click="restartCurrentSubCategory"
+          >
+            Nur diesen Teil neu
+          </button>
+          <button
+            type="button"
+            class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
+            @click="restartLayer"
+          >
+            Schicht neu starten
+          </button>
+        </div>
       </div>
     </div>
   </section>
