@@ -5,6 +5,53 @@
 
 ---
 
+### Session 49 – 2026-05-31
+
+**Focus:** Re-entry / edit UX on `/ergebnis` plus a long iterative round of mobile UX polish on the assessment flow. Bookended by session-start planning: BACKLOG housekeeping and a 5-agent evaluation of the Hobbies layer that ended in a deferral + redesign. Two PRs: `feat/edit-answers-on-results` (#100, merged `40d8d78`) and `fix/results-ux-bar-and-card-height` (this PR).
+
+**Meta / process notes:**
+- **BACKLOG housekeeping first.** On @mo-sp's instruction, emptied the `## Up next` section (moved its two items — Startseite design refresh, Concrete examples — back into UX polish) and established the rule that `## Up next` is only populated after explicit agreement, never unprompted. Saved as memory `feedback_backlog_up_next_explicit`. Added two new ideas mid-session: **email the result to yourself** (Stage 1 = client-side `mailto:`, no backend) under Ideas, and **infrastructure migration off Vercel to real self-hosting before open-beta** (own planning session; Hetzner/AWS, own domain, scalable for further projects) under Tech debt.
+- **Hobbies layer — 5-agent evaluation → deferred + redesigned.** Spun up 5 parallel Sonnet sub-agents on distinct lenses (psychometric, redundancy, UX, data/maintenance, product). Near-unanimous verdict: do NOT build the originally-spec'd "standalone layer feeding a RIASEC nudge", and not before open-beta. Psychometric + redundancy agents independently converged on the same fix: if built, hobbies should feed the **Skills/Abilities** layer, not RIASEC (Holland already treats leisure as an interest-expression mode — Armstrong & Rounds 2008). @mo-sp adopted a redesign: an **optional enrichment step at the end of the Skills layer** (pick max 5 from a dropdown with own scale, feeds Skills/Abilities). BACKLOG entry rewritten from "ready to build" to deferred-post-beta with the agent findings preserved and a build-trigger (~20 beta completions + user signal).
+- **Two PRs, surgical split.** @mo-sp flagged mid-session that the Big Five bar fix didn't belong in the Lock/Edit PR. Kept PR #100 to the edit feature only; everything from the browser-test polish round went into PR 2. PR 2 branched fresh from `main` after #100 merged (stacked-PR hygiene) — the bar fix + BACKLOG changes had been parked uncommitted in the working tree and carried across the branch switch.
+- **Mobile button layout took ~4 iterations against @mo-sp's phone.** Path: single wrapping row → two rows (nav / secondary) → centered + bigger taps → "buttons uneven width shifts the centering" → final **Option A**: nav pair as an equal 2-column grid (`Zurück | Weiter`, each exactly half), secondary actions full-width stacked below, so every button shares a width and nothing shifts when the set changes (e.g. skills adding "Nur diesen Teil neu"). Desktop kept the compact single row throughout. Also: both nav buttons are now always rendered and grey out when unusable (Zurück at Q1, Weiter until answered) rather than appearing/disappearing.
+
+**What shipped — `feat/edit-answers-on-results` (#100, merged `40d8d78`):**
+
+Non-destructive edit re-entry on `/ergebnis`. *`store.ts`*: new `editLayer(layer)` action — switches `currentLayer` and parks the layer's index on its last answered question (clears the skills interstitial flag); the per-layer index refs aren't exported, so it lives in the store. *`AssessmentPage.vue`*: the setup-time fresh-start guard now bypasses on `?edit=true` so a deep-linked complete layer isn't bounced (or wiped when all are complete). *`ResultsPage.vue`*: `editLayer` handler (`store.editLayer` + `/test?edit=true`); "Antworten bearbeiten" on all four completed layer cards alongside the destructive "… wiederholen"; partial-layer CTAs relabelled "… starten" → "… fortsetzen" (the handler already resumed at the next unanswered question, only the label lied). Tests 246 → 248 (store `editLayer`, AssessmentPage guard-bypass).
+
+**What shipped — `fix/results-ux-bar-and-card-height` (this PR):**
+
+*`widgets/bigfive-chart/ui/BigFiveBars.vue`*: fixed the label column from `auto` to `10rem` (`grid-cols-[10rem_1fr_auto]`) so every bar starts at the same x instead of after a variable-length word.
+
+*`pages/assessment/AssessmentPage.vue`*: (i) wrapped prompt + question + optional description in a `min-h-[8.5rem] sm:min-h-[7rem]` block so the Likert grid and the button row don't jump between 1–3-line questions; (ii) `scroll-mt-24` on the question + interstitial cards so `scrollToQuestion()` leaves the progress bar in view instead of pinning the card to the very top; (iii) bottom-controls redesign — mobile is a 2-column nav grid (`Zurück | Weiter`, equal halves) plus full-width-stacked secondary actions, desktop collapses to one compact row (nav grouped left, secondary `sm:ms-auto` right); both nav buttons always rendered, greyed via `:disabled` when unusable, larger tap targets on mobile (`px-4 py-2.5 text-sm sm:px-3 sm:py-1.5 sm:text-xs`); "Ergebnisansicht" hidden once "Zum Ergebnis →" shows; (iv) "Ergebnisansicht" now navigates with `?focus=<layer>` (current layer if complete, else most recently completed) so it scrolls to the relevant results section instead of page top.
+
+*`pages/results/ResultsPage.vue`*: the three simple layer cards (RIASEC / Big Five / Rahmenbedingungen) force "Antworten bearbeiten" + "… wiederholen" side-by-side on mobile (`flex justify-end`, no wrap, `whitespace-nowrap text-xs sm:text-sm`); the skills card has four buttons and keeps wrapping.
+
+*`AssessmentPage.test.ts`*: brittle index-based button lookup (`findAll('button')[6]`) → find-by-text; the "Ergebnisansicht" test now asserts the `?focus=` query. *`BACKLOG.md`*: Up-next emptied, Hobbies rewritten, email + self-hosting + `ip-a-10` YouTube-wording entries added, the shipped "Unified affordance" entry retired.
+
+**Coverage after the session:**
+
+| | Before | After |
+|---|---|---|
+| Tests passing | 246 | **248** (+2: store `editLayer`, guard-bypass on `?edit=true`) |
+| Non-destructive per-layer edit re-entry on /ergebnis | no | **yes** ("Antworten bearbeiten") |
+| Big Five bars start aligned | no (per-label offset) | **yes** (fixed label column) |
+| Assessment button row stable across question lengths | no | **mostly** (min-h reserve) |
+| Mobile bottom controls | wrapping / uneven | **uniform** (2-col nav + full-width secondary) |
+| "Ergebnisansicht" scroll target | page top | **relevant layer section** |
+
+**Branches:** `feat/edit-answers-on-results` (merged `40d8d78`), `fix/results-ux-bar-and-card-height` (this PR).
+
+**Memory added:** `feedback_backlog_up_next_explicit` (Up-next only by explicit agreement).
+
+**Open for next sessions (tracked in BACKLOG):**
+- **Pre-open-beta infrastructure migration** off Vercel to real self-hosting + own domain — new, own planning session.
+- **Email the result to yourself** — new, Stage-1 `mailto:`.
+- **Hobbies layer** — deferred post-beta, redesigned to feed Skills/Abilities.
+- **Concrete examples on every question**, **Startseite design refresh**, plus the standing Data quality / Scoring / Tech debt items.
+
+---
+
 ### Session 48 – 2026-05-31
 
 **Focus:** Two small UX PRs from the BACKLOG's "UX polish" cluster — scroll-to-question-top on every in-layer navigation, and lock-answered-on-backtrack with a forward affordance. Both items were parked from Session 47's brainstorm and shipped here. Two PRs on `fix/mobile-scroll-to-top-on-advance` (merged) and `feat/lock-answered-on-backtrack` (this PR).

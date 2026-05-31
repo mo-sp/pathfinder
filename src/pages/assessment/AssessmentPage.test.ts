@@ -203,9 +203,11 @@ describe('AssessmentPage', () => {
       const beforeId = store.sessionId
 
       const wrapper = mountWith(makeRouter())
-      const schichtNeu = wrapper.findAll('button')[6]!
-      expect(schichtNeu.text()).toContain('Schicht neu starten')
-      await schichtNeu.trigger('click')
+      const schichtNeu = wrapper
+        .findAll('button')
+        .find((b) => b.text().includes('Schicht neu starten'))
+      expect(schichtNeu).toBeDefined()
+      await schichtNeu!.trigger('click')
 
       // Layer-scoped reset: RIASEC answers cleared, but sessionId stays
       // put — this is deliberately a within-session re-run, not a new
@@ -331,7 +333,7 @@ describe('AssessmentPage', () => {
       expect(ergebnisButton).toBeDefined()
     })
 
-    it('clicking it navigates to /ergebnis without mutating store state', async () => {
+    it('clicking it navigates to /ergebnis focused on the last completed layer, without mutating store state', async () => {
       const router = makeRouter()
       const pushSpy = vi.spyOn(router, 'push').mockResolvedValue(undefined)
 
@@ -348,8 +350,13 @@ describe('AssessmentPage', () => {
         .find((b) => b.text().includes('Ergebnisansicht'))!
       await ergebnisButton.trigger('click')
 
+      // Big Five is mid-flight, so the shortcut focuses the most recently
+      // completed layer (RIASEC) rather than dumping the user at page top.
       await vi.waitFor(() => {
-        expect(pushSpy).toHaveBeenCalledWith('/ergebnis')
+        expect(pushSpy).toHaveBeenCalledWith({
+          path: '/ergebnis',
+          query: { focus: 'riasec' },
+        })
       })
 
       // The whole point: partial Big Five answers must survive the

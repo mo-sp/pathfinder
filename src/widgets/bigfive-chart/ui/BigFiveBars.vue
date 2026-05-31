@@ -43,7 +43,7 @@ const rows = computed(() =>
     <div
       v-for="row in rows"
       :key="row.dim"
-      class="grid grid-cols-[auto_1fr_auto] items-center gap-3"
+      class="grid grid-cols-[10rem_1fr_auto] items-center gap-3"
     >
       <div class="flex items-baseline gap-2 text-sm">
         <span class="font-semibold text-slate-100">{{ row.letter }}</span>

@@ -720,17 +720,17 @@ onBeforeUnmount(() => {
             </dd>
           </div>
         </dl>
-        <div class="mt-4 flex flex-wrap justify-end gap-x-4 gap-y-2">
+        <div class="mt-4 flex items-center justify-end gap-4">
           <button
             type="button"
-            class="text-sm text-indigo-300 underline hover:text-indigo-200"
+            class="whitespace-nowrap text-xs text-indigo-300 underline hover:text-indigo-200 sm:text-sm"
             @click="editLayer('riasec')"
           >
             Antworten bearbeiten
           </button>
           <button
             type="button"
-            class="text-sm text-slate-400 underline hover:text-slate-100"
+            class="whitespace-nowrap text-xs text-slate-400 underline hover:text-slate-100 sm:text-sm"
             @click="repeatLayer('riasec')"
           >
             Interessen-Test wiederholen
@@ -765,17 +765,17 @@ onBeforeUnmount(() => {
             </dd>
           </div>
         </dl>
-        <div class="mt-4 flex flex-wrap justify-end gap-x-4 gap-y-2">
+        <div class="mt-4 flex items-center justify-end gap-4">
           <button
             type="button"
-            class="text-sm text-indigo-300 underline hover:text-indigo-200"
+            class="whitespace-nowrap text-xs text-indigo-300 underline hover:text-indigo-200 sm:text-sm"
             @click="editLayer('bigfive')"
           >
             Antworten bearbeiten
           </button>
           <button
             type="button"
-            class="text-sm text-slate-400 underline hover:text-slate-100"
+            class="whitespace-nowrap text-xs text-slate-400 underline hover:text-slate-100 sm:text-sm"
             @click="repeatLayer('bigfive')"
           >
             Persönlichkeitstest wiederholen
@@ -855,17 +855,17 @@ onBeforeUnmount(() => {
               </dd>
             </div>
           </dl>
-          <div class="mt-4 flex flex-wrap justify-end gap-x-4 gap-y-2">
+          <div class="mt-4 flex items-center justify-end gap-4">
             <button
               type="button"
-              class="text-sm text-indigo-300 underline hover:text-indigo-200"
+              class="whitespace-nowrap text-xs text-indigo-300 underline hover:text-indigo-200 sm:text-sm"
               @click="editLayer('values')"
             >
               Antworten bearbeiten
             </button>
             <button
               type="button"
-              class="text-sm text-slate-400 underline hover:text-slate-100"
+              class="whitespace-nowrap text-xs text-slate-400 underline hover:text-slate-100 sm:text-sm"
               @click="repeatLayer('values')"
             >
               Rahmenbedingungen-Test wiederholen

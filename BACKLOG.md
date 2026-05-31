@@ -6,9 +6,10 @@ current PR. For what shipped when, see `SUMMARY.md`.
 ## How to use this
 
 - **Add**: when parking work mid-session or noticing something out of scope,
-  drop a bullet here with enough context to pick up cold.
-- **Prioritise**: at session start, scan `## Up next` first; promote items up
-  the file as they become the most valuable next thing.
+  drop a bullet into its topical section with enough context to pick up cold.
+- **Prioritise**: at session start, scan `## Up next` first. Only promote an
+  item into `## Up next` after explicit agreement with @mo-sp — never move
+  things there unprompted.
 - **Retire**: once it ships, delete the entry. `git log -- BACKLOG.md`
   preserves the history if you need to see what was planned and when.
 
@@ -16,29 +17,10 @@ current PR. For what shipped when, see `SUMMARY.md`.
 
 ## Up next
 
-Likely next 1–2 sessions.
+Likely next 1–2 sessions. Only add items here after explicit agreement
+with @mo-sp — otherwise park them in their topical section below.
 
-- **Startseite design refresh.** Content overhaul shipped via
-  `feat/landing-content-overhaul` (2026-05-04). Remaining work: design
-  refresh, ideally with claude-design help — independent of friends
-  release, can ship as its own PR any time.
-
-- **Concrete examples on every question** — many items (especially
-  Skills / Abilities / Knowledge and Values) are abstract enough that
-  users may not be sure what's meant. Add a short example per item.
-  Scope: ≈ 238 examples across 60 RIASEC + 50 Big Five + 120 Skills + 8
-  Values. Important before friends-test push but non-blocking.
-  (Promoted from UX polish 2026-05-04.)
-
-  **Parked branch**: `feat/skills-examples-infra` already carries the
-  infra (optional `example?: LocalizedText` field on `Question`,
-  AssessmentPage renders it under the description with "z. B." prefix)
-  + 6 seed skills examples (Active Listening, Mathematics, Oral
-  Expression, Fluency of Ideas, Economics, Customer Service). @mo-sp
-  wasn't happy with the prior curation pass and wants to restart fresh
-  in a later session — pull the branch as a reference for the render
-  shape, decide whether to keep / rewrite the seed 6, then continue the
-  pass.
+_(empty)_
 
 ## Data quality
 
@@ -170,43 +152,39 @@ Likely next 1–2 sessions.
 
 ## UX polish
 
+- **Startseite design refresh.** Content overhaul shipped via
+  `feat/landing-content-overhaul` (2026-05-04). Remaining work: design
+  refresh, ideally with claude-design help — independent of friends
+  release, can ship as its own PR any time.
+
+- **Concrete examples on every question** — many items (especially
+  Skills / Abilities / Knowledge and Values) are abstract enough that
+  users may not be sure what's meant. Add a short example per item.
+  Scope: ≈ 238 examples across 60 RIASEC + 50 Big Five + 120 Skills + 8
+  Values. Important before friends-test push but non-blocking.
+
+  **Parked branch**: `feat/skills-examples-infra` already carries the
+  infra (optional `example?: LocalizedText` field on `Question`,
+  AssessmentPage renders it under the description with "z. B." prefix)
+  + 6 seed skills examples (Active Listening, Mathematics, Oral
+  Expression, Fluency of Ideas, Economics, Customer Service). @mo-sp
+  wasn't happy with the prior curation pass and wants to restart fresh
+  in a later session — pull the branch as a reference for the render
+  shape, decide whether to keep / rewrite the seed 6, then continue the
+  pass.
+
+- **RIASEC item ip-a-10 wording — broaden beyond "schneiden".** The
+  Artistic item (EN original "Edit movies") currently reads "Videos für
+  YouTube oder Streaming-Plattformen schneiden und veröffentlichen",
+  which narrows it to editing. @mo-sp suggestion (2026-05-31): widen to
+  the whole creation act, e.g. "Videos für YouTube erstellen, schneiden
+  und veröffentlichen" — captures creators who film/produce, not just
+  cut. Stays Artistic, low risk. One-line change in
+  `src/data/onet-items.json`; bundle with a future item-wording pass.
+
 - **Education 2-year vs 3-year split** — v1 uses the 4 KldB Anforderungsniveaus.
   Upgrade to true Ausbildungsdauer granularity would need BERUFENET-API per
   Ausbildungsberuf (~800 calls at build time). Only pursue if users ask.
-- **Unified "Antworten bearbeiten / Test fortsetzen" affordance on /ergebnis.**
-  Session 48's option-B fix made the LAST question of each layer editable
-  in the moment before the user clicks "Zum Ergebnis →", but once on
-  /ergebnis there is still no clean per-layer path back into the answers.
-  Two interlocking issues:
-
-  (a) For *complete* layers the only re-entry is "X-Test wiederholen"
-  (→ `repeatLayer`) which wipes all answers in that layer. Destructive,
-  far too coarse for an "I want to nudge Q60" intent.
-
-  (b) For *partial* layers the buttons read "X starten" / "Persönlichkeitsprofil
-  starten" / "Fähigkeiten-Test starten" — but the underlying handler
-  (`refineWithBigFive` etc.) only sets `currentLayer` and pushes to /test;
-  if the layer has 15/50 answers the user lands on Q16, not Q1. The
-  label "starten" lies.
-
-  Cleaner unified design — one affordance per layer card, label branches
-  by state:
-  - Complete layer → "Antworten bearbeiten"
-  - Partial layer → "Test fortsetzen"
-  - Not started → keep the current "X starten" CTA
-
-  In all three cases the click sets `currentLayer` + sets `currentIndex`
-  to the last answered question (= the natural resume point) and
-  navigates to /test. The setup-time guard in AssessmentPage currently
-  shuffles users away from a complete layer (to next-incomplete-layer or
-  `resetCurrentLayer()` if all complete); it needs to honor an explicit
-  deep-link signal (route query param like `?edit=true`) so the user
-  lands where they asked to land. Reuses existing machinery
-  (`startBigFiveLayer` / `repeatLayer` / etc.) — mostly a labeling +
-  guard-bypass refactor with a small "set index to last answered" helper.
-
-  No per-question deep-link UI needed: from the last answered question
-  the user can Zurück through everything they want to revise.
 - **Phase order — should Rahmenbedingungen come first?** Open design
   question. Pro current order (RIASEC first): higher-energy opening,
   "tell me about your interests" feels more engaging than "what's your
@@ -262,6 +240,18 @@ Likely next 1–2 sessions.
 
 ## Ideas
 
+- **Email the result to yourself.** Today the only way to take the top-20
+  out of the app is copy-to-clipboard. Add "send my result to my email".
+  Tension with the privacy principle (everything client-side, nothing
+  leaves the browser without opt-in) — two routes: (a) a `mailto:` link
+  with a pre-filled body; stays fully client-side, no backend, opens the
+  user's mail client with ready text; limited formatting (plaintext,
+  length cap). (b) real mail dispatch via a backend / mail service
+  (opt-in); allows nicely formatted HTML/PDF but needs server infra + a
+  GDPR review. Stage 1 = `mailto:` (fits the no-backend stance, free,
+  immediately buildable); consider (b) only once the self-hosting infra
+  exists anyway (see the Tech-debt entry). Surfaced 2026-05-31 by @mo-sp.
+
 - **AI-impact per occupation — two-sided: automation risk + augmentation
   uplift.** Not just "likely to be replaced" but also "AI lifts the
   practical fit of this role for users whose weak dimensions it
@@ -281,40 +271,51 @@ Likely next 1–2 sessions.
   signed "AI delta" or show both dimensions separately. Discuss scope
   before building.
 
-- **Hobbies as a new layer feeding RIASEC nudge.** Currently the matcher
-  captures what users *can* do (Skills) and *value* (Values/Workcontext)
-  but not what they *enjoy doing in their spare time*. Hobbies catch
-  real signal beyond Skills self-rating, which is often distorted by
-  modesty / status anxiety.
+- **Hobbies as an optional Skills-layer enrichment (post-beta, redesigned).**
+  Idea: capture what users *enjoy doing in their spare time* as extra
+  signal — hobbies are less distorted by the modesty / status anxiety
+  that skews the abstract Skills self-rating.
 
-  **Final design (spec'd 2026-05-30 with @mo-sp, ready to build):**
+  **DEFERRED to post-beta + redesigned 2026-05-31.** The earlier
+  "standalone layer at position 2 feeding a RIASEC nudge" spec was
+  evaluated by 5 independent Sonnet reviewers (psychometric, redundancy,
+  UX, data/maintenance, product). Verdict was near-unanimous: do NOT
+  build the RIASEC-nudge version, and not before open-beta. Key findings,
+  worth keeping:
+  - **Psychometric (don't build as specced):** hobbies *are* RIASEC
+    interests — Holland's own theory counts leisure among the expression
+    modes of interest types, and Armstrong & Rounds (2008) show leisure
+    interests map cleanly onto the RIASEC hexagon. Nudging RIASEC with
+    hobbies re-measures the same construct with a noisier instrument; no
+    new latent variable.
+  - **Redundancy (don't build as specced):** the nudge is arithmetically
+    tiny against the 60-item RIASEC anchor (<0.01 correlation shift), and
+    the `max(skills, hobby)` rule means the layer contributes exactly 0
+    for the ~80 % of users who don't simultaneously under-rate skills and
+    have a strong overlapping hobby.
+  - **Convergent fix (two reviewers independently):** if built, hobbies
+    should feed the **Skills / Abilities** layer, NOT RIASEC. That is the
+    one place hobbies add genuinely new signal — demonstrated, practiced
+    ability the user under-reports in the abstract Skills self-rating
+    (e.g. bushcraft → manual dexterity / naturalistic knowledge).
+  - **Data/maintenance:** prefer per-domain RIASEC/ability vectors (8
+    domains × 6 ≈ 48 values) over per-hobby (~480 hand-tuned values, no
+    validated ground truth), with documented per-hobby overrides only
+    where a hobby clearly diverges from its domain.
 
-  - **Layer position**: new "Hobbys" layer slotted at position 2,
-    between Interessen (RIASEC) and Persönlichkeit (Big Five). Logic:
-    Schicht 1 = "what would you like to do", Schicht 2 = "what do you
-    actually do" — the real-world correlate sits next to the wish.
-  - **Cap**: max 5 hobbies per user. More dilutes the signal and
-    nobody actually pursues more than 5 seriously.
-  - **Per-hobby inputs**: experience years, frequency, self-rated
-    skill (each on a small scale).
-  - **Bonus formula**:
-    `bonus = base × min(1, years/5) × frequency_factor × (skill/5)`.
-    Beginner-hobby from 6 months ago barely registers; decades-long
-    weekly practice with high self-rating maxes out.
-  - **Mapping mechanism**: each hobby carries a small RIASEC vector
-    (e.g. `bushcraft: { R: 0.8, I: 0.4 }`). The user's 5 hobbies
-    contribute weighted nudges to the user's RIASEC scores. No
-    hobby→SOC list — the matcher's existing RIASEC pipeline handles
-    propagation. ~80 hobbies × 6 RIASEC numbers = small, debuggable.
-  - **Transparency**: each occupation card displays the hobby
-    contribution explicitly ("+0.07 durch Hobby 'Bushcraft'") so the
-    nudge is visible, not a black-box adjustment.
-  - **Double-count prevention vs Skills layer**:
-    `final = base + max(skills_contribution, hobby_bonus)` — Skills
-    and Hobbies are alternative proxies for the same underlying trait;
-    take the stronger signal, never add. Heavy heimwerker with high
-    Skills self-rating gets no extra hobby boost; same hobby with low
-    Skills rating lets the hobby compensate.
+  **Revised design direction (agreed 2026-05-31 with @mo-sp):** not a
+  standalone layer — an **optional enrichment step at the END of the
+  Skills layer**. After the skills questions, ask "want to refine by
+  adding your own hobbies/skills?". If yes: pick max 5 from a dropdown,
+  each with its own scale; the picks feed the Skills/Abilities signal
+  (not RIASEC). Optional + at the end = no early-funnel drop-off risk,
+  and it lands as a "make my result more accurate" reward once the user
+  is already invested.
+
+  **Trigger to actually build:** post-beta, after ~20 friends-test
+  completions, if (a) users spontaneously mention their hobbies weren't
+  reflected, or (b) real data shows the Skills signal is weak enough to
+  warrant an extra source. Otherwise stays parked here.
 
   **Taxonomy (research done 2026-05-30, no open data exists):**
   Curate ~80 items in 8 domains (Sport, Musik, Handwerk, Natur,
@@ -326,7 +327,8 @@ Likely next 1–2 sessions.
   streaming/content creation, social-media-natives — target group
   15–35.
 
-  Surfaced 2026-04-25, re-scoped + finalised 2026-05-30 by @mo-sp.
+  Surfaced 2026-04-25, re-scoped 2026-05-30, deferred + redesigned
+  2026-05-31 by @mo-sp.
 - **MBTI / 16personalities as Big-Five onboarding shortcut.** Many users
   know their MBTI type (INFJ, ENTP, …) but not their Big-Five profile.
   Don't add MBTI as a scoring layer — its dimensions overlap heavily
@@ -368,6 +370,20 @@ Likely next 1–2 sessions.
   occupation cluster.
 
 ## Tech debt
+
+- **Infrastructure before open-beta: off Vercel, onto real self-hosting.**
+  Rebuild the hosting base before the friends-/open-beta release. Goal:
+  proper, scalable self-hosting (e.g. Hetzner or AWS — rented cloud VM /
+  VPS), deliberately set up so it can also serve as a platform for
+  further projects, not just PathFinder. Plus: get a real web address /
+  own domain instead of `pathfinder-liard-phi.vercel.app`. Deserves its
+  own planning session — open points: provider choice (Hetzner Cloud
+  cheap / EU-GDPR vs. AWS scale / ecosystem), deployment pipeline (Docker
+  + reverse proxy? CI/CD?), domain + DNS + TLS, what "scalable for
+  further projects" concretely means (one box with several apps vs. k8s
+  vs. Nomad / Coolify / Dokku as a PaaS layer), cost, backup / monitoring.
+  Until then the manual `npx vercel --prod` flow stays. Surfaced
+  2026-05-31 by @mo-sp. Priority before the open-beta release.
 
 - **Bundle size** — `onet-occupations-*.js` is 3.8 MB raw / 658 KB gzip. Code
   chunking is lazy-loaded so initial TTI isn't hit, but reducing the payload
