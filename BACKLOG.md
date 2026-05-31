@@ -31,6 +31,13 @@ with @mo-sp — otherwise park them in their topical section below.
   a paid link also nudges the project slightly toward commercial use (cf. the
   PathFinder trademark note). Surfaced 2026-05-31 by @mo-sp during the infra
   setup.
+- **Feedback channel for beta testers.** The GitHub repo link covers
+  technical users, but most friends-test users won't file an issue. Stage 1:
+  a **contact email on the domain** — `kontakt@pathfinder-berufetest.de`
+  (Hetzner mail forwarder → @mo-sp's personal inbox), surfaced as a plain
+  `mailto:` link next to the GitHub link. A self-hosted feedback form (now
+  that a Coolify box exists) is a possible later step — avoid third-party
+  form embeds (trackers). Surfaced 2026-05-31 by @mo-sp.
 
 ## Data quality
 
