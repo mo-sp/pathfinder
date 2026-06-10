@@ -5,6 +5,37 @@
 
 ---
 
+### Session 52 – 2026-06-10
+
+**Focus:** The pre-open-beta infrastructure migration — PathFinder went **live on its own domain, self-hosted, off Vercel**. End state: `https://pathfinder-berufetest.de` served from the Hetzner + Coolify box with a valid Let's-Encrypt cert, deployed from `main` via a Dockerfile build, SPA routing intact, still `noindex` (closed friends-beta). One PR: `feat/coolify-dockerfile-deploy` (#106, merged `fc0a791`). This docs entry rides on `docs/session-52-infra-live`.
+
+**Meta / process notes:**
+- **Resume, not greenfield.** The infra-decision memory had a detailed execution status from Session 51: server provisioned + hardened, Coolify 4.1.1 installed, domain registered, DNS live. The session was the remaining NEXT step — deploy PathFinder itself.
+- **Coolify dashboard access took a detour.** ufw allows only 22/80/443, so the dashboard (`:8000`) is not publicly reachable. Tried a LAN-bound SSH tunnel from the dev-sandbox (`-L 0.0.0.0:8000`) → @mo-sp's browser got `ERR_ADDRESS_UNREACHABLE` for the tunnel port while Vite:5173 to the same box worked (unresolved; the self-curl 302 was a loopback false-positive). Pivoted to a **direct tunnel from @mo-sp's laptop to Hetzner** (`ssh -L 8000:localhost:8000 root@…` → `http://localhost:8000`); generated a dedicated laptop keypair and added its pubkey to the server's `authorized_keys`. Port 8000 was never opened publicly.
+- **First deploy failed on the Node version — root-caused, not guessed.** Coolify's Nixpacks build installed **Node 22.11.0**, just under vite 8 / rolldown's `^20.19.0 || >=22.12.0` floor. The optional `@rolldown/binding-linux-x64-gnu` was engine-skipped by npm, so `npm run build` crashed with MODULE_NOT_FOUND on the native binding. Verified against the lockfile (binding is `optional`, `os: linux`, `engines >=22.12.0`) and the local toolchain (Node 24 → builds green).
+- **Chose the robust fix over the quick one.** Offered NIXPACKS_NODE_VERSION=24 (2-min, but the pinned nixpkgs snapshot resolves "22"→22.11 and likely predates Node 24) vs. a Dockerfile. @mo-sp picked the Dockerfile — deterministic, repo-owned, bakes the SPA nginx config, no nixpkgs-snapshot lottery.
+- **`node:24-slim`, not alpine.** The lockfile's binding is `-gnu` (glibc); alpine is musl and would reintroduce the same class of missing-binding bug. slim (Debian/glibc) matches the dev-sandbox where the build is known green. The serve stage runs no Node, so `nginx:alpine` there is fine.
+- **Tested the branch via Coolify before merging to main.** Pointed Coolify's branch at `feat/coolify-dockerfile-deploy`, deployed, verified; only then merged #106 and switched the source back to `main` + redeployed. No live production existed to regress, but kept the test-before-merge discipline anyway.
+
+**What shipped — `feat/coolify-dockerfile-deploy` (#106, merged `fc0a791`):**
+
+- `Dockerfile` — multi-stage: `node:24-slim` build (`npm ci` + `npm run build`) → `nginx:alpine` serve (`dist`).
+- `nginx.conf` — SPA history fallback (`try_files $uri $uri/ /index.html`) for the Vue Router's `createWebHistory`; gzip; long-cache for content-hashed `/assets/`.
+- `.dockerignore` — lean build context (node_modules, dist, .git).
+
+**Verification:** Local `type-check` + `lint` + `build` clean. Coolify build from `main` completed; container healthy (image tag = `fc0a791`). Server-side: Let's-Encrypt cert active (apex), `/` → 200, `/ergebnis` → 200 (SPA fallback confirmed). @mo-sp browser-tested the live site on desktop — loads over HTTPS, valid cert, app renders.
+
+**Branch:** `feat/coolify-dockerfile-deploy` (merged `fc0a791`); `docs/session-52-infra-live` (this entry).
+
+**Open for next sessions (tracked in BACKLOG + infra memory):**
+- **`www` cert** — `www.` still serves Traefik's self-signed cert (only the apex got Let's-Encrypt); add `https://www.…` to the Coolify Domains list.
+- **Donation link** (BuyMeACoffee account created) + **`kontakt@` mail forwarder** + the `mailto:` feature.
+- **Impressum + Datenschutz** before flipping off `noindex` for a public/indexed launch (DE legal).
+- **nginx access logs capture client IPs** — privacy-aligned follow-up (anonymize/disable) given the privacy-first stance.
+- Coolify housekeeping: instance-domain HTTPS dashboard, `.env` backup.
+
+---
+
 ### Session 51 – 2026-05-31
 
 **Focus:** Refreshed three lame/redundant RIASEC interest items for better discrimination and appeal, ahead of the open-beta push. Session-start was a BACKLOG triage of what's actually pre-beta (infrastructure migration is the real blocker; the 30s mobile-load bug is parked until after the infra move removes the WLAN bottleneck; concrete-examples deprioritised in favour of sharpening interest items). One branch: `feat/riasec-item-refresh`.

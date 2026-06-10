@@ -22,15 +22,14 @@ with @mo-sp — otherwise park them in their topical section below.
 
 - **Donation / "support the server costs" link on the landing page.** A
   voluntary support link to offset the self-hosting cost (~€10–40/mo after
-  the Vercel → Hetzner migration). Prefer **GitHub Sponsors** or **Liberapay**
-  (most OSS-/privacy-aligned); Ko-fi / BuyMeACoffee acceptable. Implement as
-  a **plain external link, not an embedded JS widget** — embeds load
-  third-party trackers and would violate the privacy-first / no-tracker
-  principle. Tax (DE): practically negligible at pocket-money / cost-coverage
-  scale, but if income becomes regular, check with Finanzamt / Steuerberater;
-  a paid link also nudges the project slightly toward commercial use (cf. the
-  PathFinder trademark note). Surfaced 2026-05-31 by @mo-sp during the infra
-  setup.
+  the Vercel → Hetzner migration, now live). **Provider chosen: BuyMeACoffee**
+  (@mo-sp created the account). Implement as a **plain external link, not an
+  embedded JS widget** — embeds load third-party trackers and would violate
+  the privacy-first / no-tracker principle. Tax (DE): practically negligible
+  at pocket-money / cost-coverage scale, but if income becomes regular, check
+  with Finanzamt / Steuerberater; a paid link also nudges the project slightly
+  toward commercial use (cf. the PathFinder trademark note). Surfaced
+  2026-05-31 by @mo-sp during the infra setup; provider locked in 2026-06-10.
 - **Feedback channel for beta testers.** The GitHub repo link covers
   technical users, but most friends-test users won't file an issue. Stage 1:
   a **contact email on the domain** — `kontakt@pathfinder-berufetest.de`
@@ -376,19 +375,24 @@ with @mo-sp — otherwise park them in their topical section below.
 
 ## Tech debt
 
-- **Infrastructure before open-beta: off Vercel, onto real self-hosting.**
-  Rebuild the hosting base before the friends-/open-beta release. Goal:
-  proper, scalable self-hosting (e.g. Hetzner or AWS — rented cloud VM /
-  VPS), deliberately set up so it can also serve as a platform for
-  further projects, not just PathFinder. Plus: get a real web address /
-  own domain instead of `pathfinder-liard-phi.vercel.app`. Deserves its
-  own planning session — open points: provider choice (Hetzner Cloud
-  cheap / EU-GDPR vs. AWS scale / ecosystem), deployment pipeline (Docker
-  + reverse proxy? CI/CD?), domain + DNS + TLS, what "scalable for
-  further projects" concretely means (one box with several apps vs. k8s
-  vs. Nomad / Coolify / Dokku as a PaaS layer), cost, backup / monitoring.
-  Until then the manual `npx vercel --prod` flow stays. Surfaced
-  2026-05-31 by @mo-sp. Priority before the open-beta release.
+- **Self-hosting follow-ups (migration shipped 2026-06-10).** The Vercel →
+  Hetzner + Coolify migration is **done**: PathFinder is live at
+  `https://pathfinder-berufetest.de` (Dockerfile build, Let's-Encrypt TLS,
+  deployed from `main`, still `noindex`). Full detail in the
+  `project_infra_decision` memory + SUMMARY Session 52. Remaining bits:
+  (a) **`www` cert** — add `https://www.pathfinder-berufetest.de` to the
+  Coolify Domains list so Traefik issues a cert + the www→apex redirect
+  works (apex is fine; www still serves Traefik's self-signed cert);
+  (b) **nginx access logs capture client IPs** — privacy-aligned decision
+  (anonymize/disable) given the privacy-first stance; (c) Coolify
+  housekeeping: instance-domain HTTPS dashboard, `.env` backup; (d) an
+  auto-deploy webhook if the manual deploy flow gets tedious; (e) later:
+  Immich + Volume + Storage Box on the same box.
+- **Impressum + Datenschutzerklärung before a public/indexed launch.** As
+  soon as the site comes off `noindex` and is publicly reachable under the
+  `.de` domain, DE law requires an Impressum (§5 DDG/TMG) and a
+  DSGVO-compliant Datenschutzerklärung. Hard gate before flipping the
+  robots meta. Surfaced 2026-06-10 during the go-live.
 
 - **Bundle size** — `onet-occupations-*.js` is 3.8 MB raw / 658 KB gzip. Code
   chunking is lazy-loaded so initial TTI isn't hit, but reducing the payload
