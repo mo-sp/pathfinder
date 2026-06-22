@@ -7,6 +7,19 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [vue(), tailwindcss()],
+  // Dev-only: forward /api to the live feedback endpoint so the opt-in card
+  // is testable over HMR. Same-origin from the browser's view (no CORS), and
+  // the Origin header is rewritten to the value the endpoint allow-lists.
+  // Has no effect on the production build.
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://pathfinder-berufetest.de',
+        changeOrigin: true,
+        headers: { origin: 'https://pathfinder-berufetest.de' },
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

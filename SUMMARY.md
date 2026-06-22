@@ -5,6 +5,41 @@
 
 ---
 
+### Session 53 – 2026-06-22
+
+**Focus:** Built the voluntary, anonymous **beta-feedback channel** ahead of the friends-beta — a self-hosted `/api/feedback` endpoint on the Coolify box plus an opt-in card on `/ergebnis` that submits the raw answers + computed result for scoring review. Bookended by a traffic check on the live site and a roadmap reordering. Three PRs: `feat/beta-feedback-endpoint` (#108), `fix/feedback-strip-api-prefix` (#109), and `feat/beta-feedback-frontend` (this PR, which carries this entry).
+
+**Meta / process notes:**
+- **Traffic check first.** No analytics by design, so the only source is the nginx access log in the container. Over the ~12-day beta window: 1442 requests, overwhelmingly bot/scanner noise (`/.env`, `/wp-login.php`, `/.git/config`, crawler `/robots.txt`+`/sitemap.xml`). Real human usage, measured by app-bundle fetches: ~3 completions to `/ergebnis`, ~6 into the assessment — consistent with @mo-sp's own runs + one friend. Confirmed the need: results without answers can't be sanity-checked. Two findings folded into the plan: the access log **does** capture real client IPs (`X-Forwarded-For`) — anonymise before a public launch; and the SPA `try_files` catch-all returns `index.html` (200) for `/robots.txt`/`/sitemap.xml`, so real static files are needed when indexable.
+- **First server-side data handling in an otherwise client-only app — kept minimal and privacy-by-design.** No IP ever read/stored/logged, opaque success counter (no payload contents logged), explicit stored-record schema (no spread of the raw body), client-random submission id, `FEEDBACK_ENABLED` kill switch (`410 Gone`) for retirement at release. @mo-sp reviewed the data-handling surface via the PR before merge.
+- **Strip-prefix bug, root-caused live not guessed.** First deploy 404'd every `/api/*` call. `curl /api/api/health` → `ok` proved Coolify/Traefik strips the `/api` prefix; the server now normalises an optional leading `/api` so it works whether the prefix is stripped (path route) or kept (subdomain). Fix in #109.
+- **Coolify SSH/login detour.** @mo-sp's laptop hit `Permission denied (publickey)`; the laptop key was authorised (`mo-sp-laptop-hetzner` in `authorized_keys`) but not offered by default — `ssh -i ~/.ssh/hetzner_pathfinder -L 8000:localhost:8000 root@…` fixed it (dashboard stays tunnel-only, port 8000 never public).
+- **Dev testability over HMR.** A dev-only Vite proxy forwards `/api` to the live endpoint with the Origin header rewritten to the allow-listed value, so the opt-in card is browser-testable without deploying the frontend (no effect on the production build).
+- **Roadmap reordering (agreed with @mo-sp).** Open-beta (public/indexed launch) is **deferred**: Impressum, full public Datenschutz, and the `noindex` flip stay parked. New sequence before the friends-beta: important non-open-beta BACKLOG items → a **final one-by-one review of ALL assessment questions** (the gate) → a short plain Datenschutz-Hinweis → friends-beta with feedback live. Captured in BACKLOG Up next.
+
+**What shipped — `feat/beta-feedback-endpoint` (#108) + `fix/feedback-strip-api-prefix` (#109):**
+
+`server/feedback/` — a standalone, dependency-free Node service (`server.mjs`) exposing `POST /api/feedback` (validates a `v:1` schema, appends one JSON line to `feedback.jsonl`) and `GET /api/health`. Guards: 64 KB body cap (`413`), 2000-char comment cap, soft `Origin` allow-list (`403`), `FEEDBACK_ENABLED` kill switch (`410`). Own `Dockerfile` (`node:24-slim`, unprivileged `node` user, `VOLUME /data`) + `README.md` (API schema + Coolify deploy steps). #109 added the leading-`/api` path normalisation. `eslint.config.js` Node-globals glob extended to `server/**`. Deployed as a separate Coolify app `pathfinder-feedback` (`/api` path route on the apex, persistent `/data` volume).
+
+**What shipped — `feat/beta-feedback-frontend` (this PR):**
+
+- `src/features/feedback/lib/submitFeedback.ts` — pure `buildFeedbackPayload` (data-minimising: raw answers reduced to `{questionId, value}`, `answeredAt` dropped; incomplete-layer profiles nulled; top-20 results as `{code, title, fitScore, rank}`; fresh random `sid`) + `postFeedback` (relative `/api/feedback` POST). Unit-tested (`submitFeedback.test.ts`, 6 cases).
+- `src/features/feedback/ui/FeedbackCard.vue` — opt-in card: 1–5 self-rating ("passt das zu dir?"), optional free-text (≤2000), submit disabled until a rating is chosen, sending/done/error states. German UI, privacy-first copy.
+- `pages/results/ResultsPage.vue` — renders the card at the end of `/ergebnis` behind a `VITE_FEEDBACK_ENABLED` flag (default on in beta; `=false` disables; backend kill switch is authoritative).
+- `vite.config.ts` — dev-only `/api` proxy to the live endpoint (Origin rewrite).
+
+**Verification:** `type-check` + `lint` clean; **255 tests pass** (249 → 255, +6 feedback payload tests). Endpoint curl-matrix green on the live domain (health `ok`, valid `204`, invalid `400`, foreign origin `403`, oversized `413`, kill switch `410`). @mo-sp browser-tested the opt-in card on the live dev server and submitted; the stored record was verified server-side to match the schema exactly with **no IP-like fields** and **no `answeredAt`**, then the test entry was cleared.
+
+**Branches:** `feat/beta-feedback-endpoint` (#108), `fix/feedback-strip-api-prefix` (#109), `feat/beta-feedback-frontend` (this PR).
+
+**Open for next sessions (tracked in BACKLOG):**
+- **Final one-by-one review of all assessment questions** — the gate before the friends-beta.
+- **Short plain Datenschutz-Hinweis** covering the voluntary feedback submission — lighter friends-beta gate (distinct from the full public Impressum/Datenschutz obligation, which stays deferred with open-beta).
+- **`kontakt@` contact email** (`mailto:`) as a qualitative-report channel alongside the shipped structured form.
+- nginx access-log IP anonymisation; `www` cert; the deferred open-beta items (public Impressum/Datenschutz, `noindex` flip).
+
+---
+
 ### Session 52 – 2026-06-10
 
 **Focus:** The pre-open-beta infrastructure migration — PathFinder went **live on its own domain, self-hosted, off Vercel**. End state: `https://pathfinder-berufetest.de` served from the Hetzner + Coolify box with a valid Let's-Encrypt cert, deployed from `main` via a Dockerfile build, SPA routing intact, still `noindex` (closed friends-beta). One PR: `feat/coolify-dockerfile-deploy` (#106, merged `fc0a791`). This docs entry rides on `docs/session-52-infra-live`.

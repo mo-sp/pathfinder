@@ -20,12 +20,18 @@ import {
 } from '@features/scoring/lib/skills'
 import { RiasecHexagon } from '@widgets/riasec-chart'
 import { BigFiveBars } from '@widgets/bigfive-chart'
+import FeedbackCard from '@features/feedback/ui/FeedbackCard.vue'
 import { stripKldbSuffix } from './stripKldbSuffix'
 
 const store = useQuestionnaireStore()
 const router = useRouter()
 const route = useRoute()
 const { t } = useI18n()
+
+// Beta-only voluntary feedback card. Default on during the closed beta;
+// disabled at public release by building with VITE_FEEDBACK_ENABLED=false.
+// The backend FEEDBACK_ENABLED env is the authoritative off-switch.
+const feedbackEnabled = import.meta.env.VITE_FEEDBACK_ENABLED !== 'false'
 
 // Layer-completion navigation from AssessmentPage sets ?focus=<layer>; on
 // direct /ergebnis loads the query is absent and the page stays at top.
@@ -1258,6 +1264,8 @@ onBeforeUnmount(() => {
           </div>
         </template>
       </template>
+
+      <FeedbackCard v-if="feedbackEnabled" />
     </template>
   </section>
 </template>

@@ -20,6 +20,16 @@ current PR. For what shipped when, see `SUMMARY.md`.
 Likely next 1–2 sessions. Only add items here after explicit agreement
 with @mo-sp — otherwise park them in their topical section below.
 
+- **Agreed pre-friends-beta sequence (2026-06-22).** Open-beta (public /
+  indexed launch) is **deferred** — Impressum, a full public
+  Datenschutzerklärung, and the `noindex` flip stay parked (see Tech debt).
+  Order before the friends-beta: (1) work the important non-open-beta
+  BACKLOG items; (2) a **final review of ALL assessment questions, discussed
+  one by one** (RIASEC 60 + Big Five 50 + Werte 8 + Skills 120) — this is the
+  gate; (3) a **short, plain Datenschutz-Hinweis** on the site (transparency
+  that voluntary feedback is sent anonymously to our server — not a full
+  legal text) before collecting from real friends; (4) then open the
+  friends-beta with the feedback feature switched on. Agreed with @mo-sp.
 - **Donation / "support the server costs" link on the landing page.** A
   voluntary support link to offset the self-hosting cost (~€10–40/mo after
   the Vercel → Hetzner migration, now live). **Provider chosen: BuyMeACoffee**
@@ -30,13 +40,14 @@ with @mo-sp — otherwise park them in their topical section below.
   with Finanzamt / Steuerberater; a paid link also nudges the project slightly
   toward commercial use (cf. the PathFinder trademark note). Surfaced
   2026-05-31 by @mo-sp during the infra setup; provider locked in 2026-06-10.
-- **Feedback channel for beta testers.** The GitHub repo link covers
-  technical users, but most friends-test users won't file an issue. Stage 1:
-  a **contact email on the domain** — `kontakt@pathfinder-berufetest.de`
-  (Hetzner mail forwarder → @mo-sp's personal inbox), surfaced as a plain
-  `mailto:` link next to the GitHub link. A self-hosted feedback form (now
-  that a Coolify box exists) is a possible later step — avoid third-party
-  form embeds (trackers). Surfaced 2026-05-31 by @mo-sp.
+- **Feedback channel for beta testers — contact email (in-app form shipped).**
+  The **self-hosted anonymous feedback form shipped** 2026-06-22 (a dependency-
+  free `/api/feedback` endpoint on the Coolify box + an opt-in card on
+  `/ergebnis`; see SUMMARY Session 53). Still open: a **contact email on the
+  domain** — `kontakt@pathfinder-berufetest.de` (mail forwarder → @mo-sp's
+  personal inbox), surfaced as a plain `mailto:` link next to the GitHub link,
+  for qualitative reports the structured form doesn't capture. Surfaced
+  2026-05-31 by @mo-sp.
 
 ## Data quality
 
@@ -388,11 +399,15 @@ with @mo-sp — otherwise park them in their topical section below.
   housekeeping: instance-domain HTTPS dashboard, `.env` backup; (d) an
   auto-deploy webhook if the manual deploy flow gets tedious; (e) later:
   Immich + Volume + Storage Box on the same box.
-- **Impressum + Datenschutzerklärung before a public/indexed launch.** As
-  soon as the site comes off `noindex` and is publicly reachable under the
-  `.de` domain, DE law requires an Impressum (§5 DDG/TMG) and a
+- **Impressum + Datenschutzerklärung before a public/indexed launch.**
+  **Deferred — open-beta postponed (see the pre-friends-beta sequence in Up
+  next).** As soon as the site comes off `noindex` and is publicly reachable
+  under the `.de` domain, DE law requires an Impressum (§5 DDG/TMG) and a
   DSGVO-compliant Datenschutzerklärung. Hard gate before flipping the
-  robots meta. Surfaced 2026-06-10 during the go-live.
+  robots meta. Note: a *short* plain Datenschutz-Hinweis (covering the
+  voluntary feedback submission) is a separate, lighter friends-beta gate —
+  tracked in Up next, not this full public obligation. Surfaced 2026-06-10
+  during the go-live.
 
 - **Bundle size** — `onet-occupations-*.js` is 3.8 MB raw / 658 KB gzip. Code
   chunking is lazy-loaded so initial TTI isn't hit, but reducing the payload
