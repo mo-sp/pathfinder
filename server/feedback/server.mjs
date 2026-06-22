@@ -95,15 +95,20 @@ function readBody(req) {
 }
 
 const server = createServer(async (req, res) => {
-  const url = (req.url ?? '').split('?')[0]
+  let path = (req.url ?? '').split('?')[0]
+  // A reverse proxy may or may not strip a leading "/api" prefix before
+  // forwarding (Coolify/Traefik path routing strips it; an api.<domain>
+  // subdomain would not). Normalise so the endpoint matches either way.
+  if (path.startsWith('/api/')) path = path.slice(4)
+  else if (path === '/api') path = '/'
   const cors = corsHeaders(req)
 
   // Health check for Coolify — touches no data, returns no identifiers.
-  if (req.method === 'GET' && url === '/api/health') {
+  if (req.method === 'GET' && path === '/health') {
     return send(res, 200, 'ok')
   }
 
-  if (url !== '/api/feedback') return send(res, 404, 'not found')
+  if (path !== '/feedback') return send(res, 404, 'not found')
 
   if (req.method === 'OPTIONS') {
     res.writeHead(204, cors)

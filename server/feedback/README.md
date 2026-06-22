@@ -52,7 +52,10 @@ logs payload contents.
    `feedback.jsonl` lives — without it, data is lost on redeploy).
 3. **Domain / routing**: route `https://pathfinder-berufetest.de/api` to this
    service (Traefik path rule) so it shares the app's origin (no CORS). The
-   container listens on `8080`. Fallback if path routing is fiddly:
+   container listens on `8080`. Traefik strips the `/api` prefix before
+   forwarding, so the container receives `/feedback` / `/health`; the server
+   normalises an optional leading `/api`, so it works whether the prefix is
+   stripped or not. Fallback if path routing is fiddly:
    `https://api.pathfinder-berufetest.de` — then `ALLOWED_ORIGIN` already
    permits the apex via CORS.
 4. **Health check path**: `/api/health`.
