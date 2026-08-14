@@ -8,10 +8,10 @@
     "chain": "O*NET → ESCO (EU crosswalk) → ISCO-08-4d (tabiya ESCO taxonomy) → KldB-5d (Bundesagentur Umsteigeschlüssel)",
     "selectionStrategy": "Primary ISCO match (Schwerpunkt) with Anforderungsniveau aligned to O*NET jobZone",
     "trainingCategories": {
-      "none": "Anforderungsniveau 1 — Helfer / ohne geregelte Ausbildung",
-      "apprenticeship": "Anforderungsniveau 2 — Fachkraft (2-3 Jahre Berufsausbildung)",
-      "specialist": "Anforderungsniveau 3 — Spezialist (Meister, Techniker, Fachwirt, Bachelor)",
-      "studies": "Anforderungsniveau 4 — Experte (Master, Diplom, Promotion)"
+      "none": "Anforderungsniveau 1 – Helfer / ohne geregelte Ausbildung",
+      "apprenticeship": "Anforderungsniveau 2 – Fachkraft (2-3 Jahre Berufsausbildung)",
+      "specialist": "Anforderungsniveau 3 – Spezialist (Meister, Techniker, Fachwirt, Bachelor)",
+      "studies": "Anforderungsniveau 4 – Experte (Master, Diplom, Promotion)"
     }
   },
   "mappings": {
