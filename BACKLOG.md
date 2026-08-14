@@ -452,24 +452,28 @@ with @mo-sp — otherwise park them in their topical section below.
   tracked in Up next, not this full public obligation. Surfaced 2026-06-10
   during the go-live.
 
-- **Retire the old Vercel deployment.** `pathfinder-liard-phi.vercel.app`
-  still answers 200, months after the move to the own domain. It is an
-  unmaintained copy of the app: no Datenschutz-Hinweis, no log
-  anonymisation, US-hosted — the opposite of what the current privacy notice
-  claims. It was surfaced 2026-08-14 because the share-clipboard text still
-  linked to it, so every result copied out until now points there. The link
-  is fixed; taking the deployment down needs @mo-sp's Vercel account
-  (`npx vercel remove`, or delete the project in the dashboard). The
-  leftover `vercel.json` in the repo can go at the same time.
+- **Old Vercel deployment — paused, not deleted (2026-08-14).**
+  `pathfinder-liard-phi.vercel.app` had still been answering 200 months
+  after the move to the own domain: an unmaintained copy of the app with no
+  Datenschutz-Hinweis, no log anonymisation, US-hosted — the opposite of
+  what the current privacy notice claims. It surfaced because the
+  share-clipboard text still linked to it, so every result copied out until
+  then pointed there. Both halves are handled: the link now points at the
+  own domain, and @mo-sp paused the Vercel project (verified from outside:
+  `503 DEPLOYMENT_PAUSED`). Residual, low priority: the project still
+  exists and could be deleted outright, and the leftover `vercel.json` is
+  still in the repo.
 - **Bundle size** — `onet-occupations-*.js` is 3.8 MB raw / 658 KB gzip. Code
   chunking is lazy-loaded so initial TTI isn't hit, but reducing the payload
   by dropping unused O\*NET fields (descriptions we don't render, etc.) would
   be tidy.
-- **Off-box backup for `coolify-db`.** The Coolify instance database on the
-  Hetzner box has no backup outside that box, so a lost server loses the
-  deploy configuration of every app on it (PathFinder, the feedback
-  service, and whatever follows). Worth closing before the friends-beta,
-  when the box starts holding submitted feedback as well. Coolify has a
-  built-in scheduled backup for its own Postgres; the open part is a
-  destination that is not the same machine (Storage Box, or pull to the
-  dev-sandbox).
+- **Backup freshness now that real data exists.** Both off-box backups
+  (`feedback.jsonl` and, since 2026-08-14, `coolify-db` + its `.env`) are
+  cron pulls onto the **dev-sandbox**, a VM @mo-sp starts by hand. The
+  backup is therefore never fresher than that VM's last uptime: if the VPS
+  died during a long VM-off stretch, everything submitted in that window
+  would be gone. Hetzner's automatic backups (+20 %) are the only option
+  that does not depend on the VM; @mo-sp declined them while there was no
+  data to lose. **That premise expired on 2026-08-14** with the first real
+  feedback submission, and it expires harder once friends start sending
+  runs. Decide again, with the data now on the table.
