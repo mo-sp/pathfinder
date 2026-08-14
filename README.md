@@ -1,59 +1,57 @@
-# PathFinder
+<h1 align="center">PathFinder</h1>
+
+<p align="center">
+  <strong>Ein tiefer, kostenloser Berufstest – ohne Login, ohne Tracker, ohne Paywall.</strong><br>
+  A deep, free career aptitude assessment built on validated psychometric models.
+</p>
+
+<p align="center">
+  <img alt="Status" src="https://img.shields.io/badge/status-closed%20beta-blueviolet">
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-green">
+  <img alt="Tests" src="https://img.shields.io/badge/tests-258%20passing-brightgreen">
+  <img alt="Vue" src="https://img.shields.io/badge/Vue-3%20%2B%20TypeScript-42b883">
+  <img alt="Language" src="https://img.shields.io/badge/UI-Deutsch-lightgrey">
+</p>
+
+<!-- SCREENSHOT: results page. Put the file in docs/screenshots/ and reference it here. -->
 
 > *Everyone deserves to find their calling – regardless of income, background, or education level.*
 
-PathFinder is a free, privacy-first career aptitude assessment that helps people discover careers aligned with their interests, personality, values, and abilities.
+Existing career tests are either five-minute quizzes that tell you nothing meaningful, or locked behind paywalls. PathFinder is the opposite: 239 items across four psychometric layers, a corpus of 923 occupations, deterministic scoring, and an answer that never leaves your browser.
 
-**Status: closed friends-beta.** The app is live at `pathfinder-berufetest.de`, but `noindex` and shared by link only. All four assessment layers are implemented and the scoring pipeline is complete; what is deliberately still missing for a public launch is an Impressum and a full Datenschutzerklärung.
+> [!NOTE]
+> **Closed beta.** The app is complete and running, shared by invitation only and not indexed. What is deliberately still missing before a public launch is the German legal boilerplate — Impressum and a full Datenschutzerklärung.
 
-## Why?
+## The assessment
 
-Existing career tests are either five-minute quizzes that tell you nothing meaningful, or locked behind paywalls. PathFinder aims to be different: a deep, multi-layered assessment based on validated psychometric research — completely free, no login, no tracking, no ads. Ever.
+A **progressive funnel**: each layer refines the previous one, and stopping after layer 1 still gives a usable result.
 
-## How It Works
+| # | Layer | Items | What it does |
+|---|-------|-------|--------------|
+| 1 | **RIASEC Interests** | 60 | Pearson correlation against each occupation's interest profile. The base fit. |
+| 2 | **Big Five Personality** | 50 | Signed adjustment of up to ±0.3. Re-ranks, never eliminates. |
+| 3 | **Rahmenbedingungen** | 8 | Education level is the app's only hard filter; seven soft preferences adjust the score. |
+| 4 | **Skills, Abilities & Knowledge** | 121 | Self-ratings matched against O\*NET requirements, ±0.25. Never eliminates. |
 
-The assessment is a **progressive funnel** — each layer refines the results from the previous one, and a user who stops after layer 1 still gets a usable result. 239 items in total, about 25 to 45 minutes:
+Sources: O\*NET Interest Profiler Short Form, IPIP-50 Big Five Factor Markers, custom items, O\*NET skills taxonomy. Every one of the 60 RIASEC items was reviewed individually in 2026 and 33 were rewritten.
 
-1. **RIASEC Interests** — 60 items from the O\*NET Interest Profiler Short Form. Pearson correlation between your profile and each occupation's establishes the base fit. Every one of these 60 items was reviewed individually in 2026 and 33 were rewritten.
-2. **Big Five Personality** — 50 IPIP items. Adds a signed adjustment of at most ±0.3 based on how closely your personality matches the occupation's profile. It re-ranks; it never eliminates.
-3. **Rahmenbedingungen (Values & Preferences)** — 8 items covering education level, indoor/outdoor, contact with people, teamwork, physical demands, autonomy, public contact and routine. The education answer is the app's **only hard filter**: occupations demanding more training than you are willing to invest drop out. The other seven apply soft, signed adjustments.
-4. **Skills, Abilities & Knowledge** — 121 self-rated O\*NET elements (35 skills, 52 abilities, 34 knowledge areas), matched against each occupation's requirements as a bonus in ±0.25. Low self-ratings never eliminate an occupation.
-
-All scoring is **deterministic and algorithmic** — no AI-generated results, and the same answers always produce the same ranking. Your answers stay in your browser (IndexedDB via Dexie.js); nothing is transmitted unless you explicitly submit the optional beta feedback.
+**Scoring is deterministic** — no LLM anywhere in the pipeline, and the same answers always produce the same ranking.
 
 ## Privacy
 
-- No login, no accounts, no cookies, no analytics, no external resources — no fonts, CDNs or trackers are loaded.
-- Answers and results are computed and stored locally in your browser.
-- The only data that can leave the browser is a **voluntary beta-feedback submission** from the results page: your answers, your computed profiles and your top 20, with no name, no email, no IP and no per-answer timestamps.
-- The web server's access log truncates client IPs to /24 (IPv4) or /48 (IPv6) before writing a line.
-- Details in the app under `/datenschutz`.
+This is the part the project is actually built around.
 
-## Tech Stack
+- No login, no accounts, no cookies, no analytics.
+- **No external resources at all** — no fonts, no CDN, no trackers. The page loads from one origin and nothing else.
+- Answers and results are computed and stored **in your browser** (IndexedDB via Dexie.js).
+- The only thing that can leave the browser is a **voluntary beta-feedback submission** from the results page: answers, computed profiles and top 20 — no name, no email, no IP, no per-answer timestamps.
+- The web server truncates client IPs to /24 (IPv4) or /48 (IPv6) before writing a log line.
 
-- **Frontend:** Vue 3 + TypeScript + Vite
-- **State:** Pinia
-- **Persistence:** Dexie.js (IndexedDB)
-- **Styling:** Tailwind CSS
-- **Architecture:** Feature-Sliced Design
-- **i18n:** vue-i18n (German first, infrastructure ready for more languages)
-- **Feedback endpoint:** a small dependency-free Node service in `server/feedback/`
-- **Hosting:** self-hosted on Hetzner Cloud via Coolify — Docker build, nginx serving the static bundle, Let's Encrypt TLS
+## Tech
 
-## Data Sources & Licenses
+Vue 3 · TypeScript · Vite · Pinia · Dexie.js · Tailwind CSS · vue-i18n · Feature-Sliced Design
 
-| Source | License | Usage |
-|--------|---------|-------|
-| [O\*NET Interest Profiler](https://www.onetcenter.org/IP.html) (Short Form, 60 items) | O\*NET Developer License | RIASEC questionnaire |
-| [O\*NET Database](https://www.onetcenter.org/database.html) (923 occupations) | CC BY 4.0 | Occupation RIASEC profiles, skills/abilities/knowledge, work context, job zones |
-| [ESCO](https://esco.ec.europa.eu/) (EU occupation taxonomy) | EU Open Data | German occupation names, O\*NET mapping |
-| [IPIP-50 Big Five Factor Markers](https://ipip.ori.org/) | Public Domain | Personality assessment |
-| [KldB 2010](https://statistik.arbeitsagentur.de/) (Bundesagentur für Arbeit) | Official statistics | German occupation classification, Anforderungsniveau |
-| [BIBB Ausbildungsberufe](https://www.bibb.de/) | BIBB | Matching recognised German apprenticeships to occupations |
-
-> This site includes information from the O\*NET Career Exploration Tools and O\*NET Database by the U.S. Department of Labor, Employment and Training Administration (USDOL/ETA). Used under the O\*NET Tools Developer License and CC BY 4.0. O\*NET® is a trademark of USDOL/ETA.
-
-## Development
+Self-hosted on Hetzner Cloud via Coolify: Docker build, nginx serving the static bundle, Let's Encrypt TLS. The feedback endpoint in `server/feedback/` is a small dependency-free Node service on the same box.
 
 ```bash
 npm install          # Install dependencies
@@ -64,13 +62,29 @@ npm run type-check   # TypeScript checking
 npm test             # Vitest (258 tests)
 ```
 
-The occupation corpus is generated, not hand-maintained: `scripts/` builds `src/data/*.json` from the raw O\*NET, ESCO, KldB and BIBB sources, with curated override files for the cases the automatic mapping gets wrong.
+The occupation corpus is **generated, not hand-maintained**: `scripts/` builds `src/data/*.json` from raw O\*NET, ESCO, KldB and BIBB sources, with curated override files for the cases automatic mapping gets wrong.
 
-## Project Status
+## Data sources & licenses
 
-All four layers, the results page, the export and the beta-feedback channel are live. Current work is calibration and content quality rather than new features — see `BACKLOG.md` for what is queued and `SUMMARY.md` for what was built when.
+| Source | License | Usage |
+|--------|---------|-------|
+| [O\*NET Interest Profiler](https://www.onetcenter.org/IP.html) (Short Form, 60 items) | O\*NET Developer License | RIASEC questionnaire |
+| [O\*NET Database](https://www.onetcenter.org/database.html) (923 occupations) | CC BY 4.0 | RIASEC profiles, skills/abilities/knowledge, work context, job zones |
+| [ESCO](https://esco.ec.europa.eu/) | EU Open Data | German occupation names, O\*NET mapping |
+| [IPIP-50 Big Five Factor Markers](https://ipip.ori.org/) | Public Domain | Personality assessment |
+| [KldB 2010](https://statistik.arbeitsagentur.de/) (Bundesagentur für Arbeit) | Official statistics | German occupation classification, Anforderungsniveau |
+| [BIBB Ausbildungsberufe](https://www.bibb.de/) | BIBB | Recognised German apprenticeships per occupation |
 
-`docs/PROJECT_PLAN.md` is the original planning document from April 2026 and is kept for historical reference only.
+> This site includes information from the O\*NET Career Exploration Tools and O\*NET Database by the U.S. Department of Labor, Employment and Training Administration (USDOL/ETA). Used under the O\*NET Tools Developer License and CC BY 4.0. O\*NET® is a trademark of USDOL/ETA.
+
+## Project status & docs
+
+All four layers, the results page, the export and the beta-feedback channel are live. Current work is calibration and content quality rather than new features.
+
+- `BACKLOG.md` — what is queued, and why
+- `SUMMARY.md` — what was built when, session by session
+- `PROJECT.md` — architecture and scoring model
+- `docs/PROJECT_PLAN.md` — the original April 2026 plan, kept for history
 
 ## Financing
 
