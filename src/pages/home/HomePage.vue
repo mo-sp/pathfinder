@@ -43,7 +43,7 @@ function start(): void {
         Test starten · {{ totalQuestions }} Fragen
       </RouterLink>
       <p class="text-sm text-slate-500">
-        Insgesamt etwa 25–45 Minuten, je nach Bearbeitungstempo.
+        Insgesamt etwa 25 bis 45 Minuten, je nach Bearbeitungstempo.
       </p>
     </div>
 
@@ -82,28 +82,28 @@ function start(): void {
         <p class="mt-1 text-xs text-slate-400">
           O*NET Interest Profiler - Berufsinteressen nach Holland
         </p>
-        <p class="mt-2 text-xs text-slate-500">60 Fragen · 6–12 Min</p>
+        <p class="mt-2 text-xs text-slate-500">60 Fragen · 6-12 Min</p>
       </div>
       <div class="rounded-lg border border-slate-800 bg-slate-900 p-4">
         <div class="text-sm font-medium text-slate-100">Schicht 2: Big Five</div>
         <p class="mt-1 text-xs text-slate-400">
           IPIP Big Five Factor Markers - Persönlichkeit
         </p>
-        <p class="mt-2 text-xs text-slate-500">50 Fragen · 5–10 Min</p>
+        <p class="mt-2 text-xs text-slate-500">50 Fragen · 5-10 Min</p>
       </div>
       <div class="rounded-lg border border-slate-800 bg-slate-900 p-4">
         <div class="text-sm font-medium text-slate-100">Schicht 3: Rahmenbedingungen</div>
         <p class="mt-1 text-xs text-slate-400">
           Ausbildung, Umfeld, Arbeitsweise
         </p>
-        <p class="mt-2 text-xs text-slate-500">8 Fragen · 1–2 Min</p>
+        <p class="mt-2 text-xs text-slate-500">8 Fragen · 1-2 Min</p>
       </div>
       <div class="rounded-lg border border-slate-800 bg-slate-900 p-4">
         <div class="text-sm font-medium text-slate-100">Schicht 4: Fähigkeiten</div>
         <p class="mt-1 text-xs text-slate-400">
           Selbsteinschätzung - Fähigkeiten, Talente &amp; Wissen (O*NET)
         </p>
-        <p class="mt-2 text-xs text-slate-500">121 Fragen · 12–20 Min</p>
+        <p class="mt-2 text-xs text-slate-500">121 Fragen · 12-20 Min</p>
       </div>
     </div>
 

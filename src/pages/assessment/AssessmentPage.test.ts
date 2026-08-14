@@ -208,6 +208,12 @@ describe('AssessmentPage', () => {
         .find((b) => b.text().includes('Schicht neu starten'))
       expect(schichtNeu).toBeDefined()
       await schichtNeu!.trigger('click')
+      // The restart is guarded by an in-app dialog now, so the destructive
+      // step is a second, explicit click.
+      await wrapper
+        .findAll('button')
+        .find((b) => b.text() === 'Neu starten')!
+        .trigger('click')
 
       // Layer-scoped reset: RIASEC answers cleared, but sessionId stays
       // put — this is deliberately a within-session re-run, not a new
@@ -216,6 +222,24 @@ describe('AssessmentPage', () => {
       expect(store.riasecAnswers).toEqual([])
       expect(store.currentIndex).toBe(0)
       expect(store.sessionId).toBe(beforeId)
+    })
+
+    it('"Schicht neu starten" keeps every answer when the dialog is cancelled', async () => {
+      const store = useQuestionnaireStore()
+      store.answer(4)
+      store.answer(3)
+
+      const wrapper = mountWith(makeRouter())
+      await wrapper
+        .findAll('button')
+        .find((b) => b.text().includes('Schicht neu starten'))!
+        .trigger('click')
+      await wrapper
+        .findAll('button')
+        .find((b) => b.text() === 'Abbrechen')!
+        .trigger('click')
+
+      expect(store.riasecAnswers).toHaveLength(2)
     })
 
     it('"Schicht neu starten" in the Big Five layer preserves the completed RIASEC results', async () => {
@@ -235,6 +259,12 @@ describe('AssessmentPage', () => {
         .find((b) => b.text().includes('Schicht neu starten'))
       expect(schichtNeu).toBeDefined()
       await schichtNeu!.trigger('click')
+      // The restart is guarded by an in-app dialog now, so the destructive
+      // step is a second, explicit click.
+      await wrapper
+        .findAll('button')
+        .find((b) => b.text() === 'Neu starten')!
+        .trigger('click')
 
       // Big Five layer is wiped …
       expect(store.bigfiveAnswers).toEqual([])
@@ -306,8 +336,8 @@ describe('AssessmentPage', () => {
     })
   })
 
-  describe('"Ergebnisansicht" shortcut button', () => {
-    it('is hidden while the user is still mid-RIASEC (no result to go back to yet)', () => {
+  describe('"Zum Ergebnis" shortcut button', () => {
+    it('is rendered but disabled while the user is still mid-RIASEC (no result to go to yet)', () => {
       const store = useQuestionnaireStore()
       store.answer(3)
       store.answer(4)
@@ -316,8 +346,12 @@ describe('AssessmentPage', () => {
       const wrapper = mountWith(makeRouter())
       const ergebnisButton = wrapper
         .findAll('button')
-        .find((b) => b.text().includes('Ergebnisansicht'))
-      expect(ergebnisButton).toBeUndefined()
+        .find((b) => b.text().includes('Zum Ergebnis'))
+      // Rendered unconditionally on purpose: the slot must not appear and
+      // disappear, or the neighbouring destructive button shifts under the
+      // cursor. It only greys out.
+      expect(ergebnisButton).toBeDefined()
+      expect(ergebnisButton!.attributes('disabled')).toBeDefined()
     })
 
     it('is visible during the Big Five layer once RIASEC is complete', () => {
@@ -329,7 +363,7 @@ describe('AssessmentPage', () => {
       const wrapper = mountWith(makeRouter())
       const ergebnisButton = wrapper
         .findAll('button')
-        .find((b) => b.text().includes('Ergebnisansicht'))
+        .find((b) => b.text().includes('Zum Ergebnis'))
       expect(ergebnisButton).toBeDefined()
     })
 
@@ -347,7 +381,7 @@ describe('AssessmentPage', () => {
       const wrapper = mountWith(router)
       const ergebnisButton = wrapper
         .findAll('button')
-        .find((b) => b.text().includes('Ergebnisansicht'))!
+        .find((b) => b.text().includes('Zum Ergebnis'))!
       await ergebnisButton.trigger('click')
 
       // Big Five is mid-flight, so the shortcut focuses the most recently
@@ -449,6 +483,63 @@ describe('AssessmentPage', () => {
           query: { focus: 'bigfive' },
         })
       })
+    })
+  })
+
+  describe('"Nur diesen Teil neu" (skills sub-category restart)', () => {
+    function seedSkillsLayer() {
+      const store = useQuestionnaireStore()
+      for (let i = 0; i < store.riasecTotal; i += 1) store.answer(4)
+      store.startBigFiveLayer()
+      for (let i = 0; i < store.bigfiveTotal; i += 1) store.answer(4)
+      store.startValuesLayer()
+      for (let i = 0; i < store.valuesTotal; i += 1) store.answer(4)
+      store.startSkillsLayer()
+      store.answer(5)
+      store.answer(4)
+      store.answer(3)
+      return store
+    }
+
+    it('is guarded by the same dialog and names the sub-category, not the layer', async () => {
+      const store = seedSkillsLayer()
+      const wrapper = mountWith(makeRouter())
+
+      await wrapper
+        .findAll('button')
+        .find((b) => b.text().includes('Nur diesen Teil neu'))!
+        .trigger('click')
+
+      // Same dialog component, different scope: the title must not claim the
+      // whole layer is about to be wiped.
+      expect(wrapper.text()).toContain('Diesen Teil neu starten?')
+      expect(wrapper.text()).not.toContain('Schicht neu starten?')
+
+      await wrapper
+        .findAll('button')
+        .find((b) => b.text() === 'Abbrechen')!
+        .trigger('click')
+      expect(store.skillsAnswers).toHaveLength(3)
+    })
+
+    it('clears only the current sub-category once confirmed', async () => {
+      const store = seedSkillsLayer()
+      const wrapper = mountWith(makeRouter())
+
+      await wrapper
+        .findAll('button')
+        .find((b) => b.text().includes('Nur diesen Teil neu'))!
+        .trigger('click')
+      await wrapper
+        .findAll('button')
+        .find((b) => b.text() === 'Neu starten')!
+        .trigger('click')
+
+      expect(store.skillsAnswers).toHaveLength(0)
+      // The earlier layers are untouched — this is the narrow reset, not the
+      // layer-wide one.
+      expect(store.riasecIsComplete).toBe(true)
+      expect(store.valuesIsComplete).toBe(true)
     })
   })
 })

@@ -55,7 +55,26 @@ Six lines in three files: the question (de + en), the contact option, the card l
 
 **Verification:** `type-check` + `lint` clean, **255 tests pass**. @mo-sp browser-tested the changed question, the contact option, the results card, the hidden-count notice and the filter toggle, and confirmed.
 
-**Branches:** `feat/riasec-item-review` (merged, `3eeb572`) and `feat/values-item-review` (this PR).
+### Assessment controls — the data-loss trap, closed (`fix/assessment-controls`, this PR)
+
+@mo-sp found this during the Werte browser test and it turned out to be the one place in the app where a user can destroy their own work in a single click. Three things combined:
+
+1. `restartLayer()` called `store.resetCurrentLayer()` with **no confirmation and no undo** — and the store persists on every reset, so the answers are gone from IndexedDB immediately.
+2. The secondary-action group is right-aligned on desktop, i.e. exactly where a thumb expects "Weiter" after dozens of repetitions.
+3. **The button moved.** "Ergebnisansicht" was `v-if`-gated and vanished on the last answered question, so "Schicht neu starten" slid into the slot a harmless button had occupied a moment earlier. That is why it bit at the *end* of a layer specifically.
+
+Fixed at the cause rather than by adding a hurdle:
+
+- **Nothing is conditionally rendered any more.** Every control is always present and only greys out, so the row never reshuffles. "Weiter" no longer relabels itself to "Zum Ergebnis" on the last question either — it simply disables. A button that changes meaning under a trained cursor is how people hit the wrong one.
+- **New grouping** (@mo-sp's layout): left group = everything acting inside the layer (Zurück, Weiter, Schicht neu starten, and in skills "Nur diesen Teil neu"); right, alone = "Zum Ergebnis →", greyed until there is a result.
+- **Both restarts are guarded** by one in-app dialog (not `confirm()` — this is the only destructive action in the product and it should not look like a browser error). It names the cost: "34 bereits gegebene Antworten dieser Schicht werden gelöscht. Das lässt sich nicht rückgängig machen." The skills sub-category restart shares the dialog with its own scope and wording.
+- **A one-shot nudge instead of an auto-redirect.** @mo-sp offered four options for the moment a layer finishes; the pulse won because it is the only one that does not reverse a documented past decision — the code comment at `selectAnswer` records that auto-navigation to `/ergebnis` existed before and was removed as a trap ("no way back without wiping the layer"). "Zum Ergebnis →" now pulses twice on the **first** completion of each layer and never again: going back to revise must not shove the user towards the exit. `prefers-reduced-motion` gets a static ring instead.
+
+Also swept the corpus for em-dashes in rendered German text and replaced them with en-dashes (the correct German Gedankenstrich); code comments and source citations were left alone.
+
+**Verification:** `type-check` + `lint` clean, **258 tests pass** (255 → 258: restart-cancelled, plus two for the skills sub-category guard), production build clean. @mo-sp browser-tested the button order on desktop and mobile, both dialogs, the cancel paths, and confirmed the pulse fires once per layer and stays quiet on revisits.
+
+**Branches:** `feat/riasec-item-review` (merged, `3eeb572`), `feat/values-item-review` (merged), `fix/assessment-controls` (this PR).
 
 **Open for next sessions (tracked in BACKLOG):** whether Big Five (50), Werte (8) and Skills (120) get the same treatment is still undecided; the confirmation/layout fix for "Schicht neu starten"; a short plain Datenschutz-Hinweis; then the friends-beta itself.
 
