@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import type { AssessmentLayer } from '@entities/assessment/model/types'
@@ -58,13 +58,28 @@ onMounted(() => {
   void scrollToQuestion()
 })
 
-async function restartCurrentSubCategory(): Promise<void> {
-  store.repeatSkillsSubCategory(store.skillsCurrentSubCategory)
-  await scrollToQuestion()
+// Both restarts destroy answers and persist immediately, so both are guarded
+// by the same dialog. It names the actual cost, because a bare "Wirklich?"
+// gets dismissed reflexively by the third time.
+type RestartScope = 'layer' | 'subCategory'
+const pendingRestart = ref<RestartScope | null>(null)
+
+function askRestartLayer(): void {
+  pendingRestart.value = 'layer'
 }
 
-async function restartLayer(): Promise<void> {
-  store.resetCurrentLayer()
+function askRestartSubCategory(): void {
+  pendingRestart.value = 'subCategory'
+}
+
+async function confirmRestart(): Promise<void> {
+  const scope = pendingRestart.value
+  pendingRestart.value = null
+  if (scope === 'layer') {
+    store.resetCurrentLayer()
+  } else if (scope === 'subCategory') {
+    store.repeatSkillsSubCategory(store.skillsCurrentSubCategory)
+  }
   await scrollToQuestion()
 }
 
@@ -188,10 +203,53 @@ async function selectAnswer(value: number): Promise<void> {
   await scrollToQuestion()
 }
 
-// When goForward would dead-end (last layer index, or a finished skills
-// partial-retake at a sub-category boundary), the Weiter button switches
-// to "Zum Ergebnis →" and the click navigates instead of advancing.
+// True when goForward would dead-end (last layer index, or a finished skills
+// partial-retake at a sub-category boundary). The Weiter button then simply
+// greys out — it no longer relabels itself and navigates; leaving the layer
+// is "Zum Ergebnis →" instead. Also arms the one-shot nudge below.
 const isFinalForward = computed(() => store.isComplete && !store.canAdvance)
+
+// The "Zum Ergebnis" nudge fires exactly once per layer, on the first time
+// that layer is completed. Going back to revise an answer and coming forward
+// again must NOT re-trigger it: the user is editing on purpose at that point,
+// and a button pulsing at them reads as being pushed towards the exit.
+const pulsedLayers = new Set<AssessmentLayer>()
+const pulseResultsButton = ref(false)
+
+watch(isFinalForward, (finished) => {
+  if (!finished || !store.riasecIsComplete) return
+  if (pulsedLayers.has(store.currentLayer)) return
+  pulsedLayers.add(store.currentLayer)
+  pulseResultsButton.value = true
+})
+
+// Answers already recorded in the layer the user is currently in — used to
+// name the cost in the restart confirm.
+const answeredInCurrentLayer = computed(() => {
+  const counts: Record<AssessmentLayer, number> = {
+    riasec: store.riasecAnswers.length,
+    bigfive: store.bigfiveAnswers.length,
+    values: store.valuesAnswers.length,
+    skills: store.skillsAnswers.length,
+  }
+  return counts[store.currentLayer]
+})
+
+const restartDialogTitle = computed(() =>
+  pendingRestart.value === 'subCategory' ? 'Diesen Teil neu starten?' : 'Schicht neu starten?',
+)
+
+const restartDialogBody = computed(() => {
+  if (pendingRestart.value === 'subCategory') {
+    const name = t(`skillsSubCategory.${store.skillsCurrentSubCategory}`)
+    return `Deine Antworten zum Teil „${name}“ werden gelöscht. Das lässt sich nicht rückgängig machen.`
+  }
+  const n = answeredInCurrentLayer.value
+  if (n === 0) return 'Du fängst diese Schicht von vorne an.'
+  const noun = n === 1 ? 'bereits gegebene Antwort' : 'bereits gegebene Antworten'
+  const verb = n === 1 ? 'wird' : 'werden'
+  return `${n} ${noun} dieser Schicht ${verb} gelöscht. Das lässt sich nicht rückgängig machen.`
+})
 
 async function goBack(): Promise<void> {
   store.previous()
@@ -240,6 +298,14 @@ const ergebnisFocus = computed<AssessmentLayer>(() => {
 })
 
 async function goToResults(): Promise<void> {
+  // This is now the ONLY way out of a finished layer (the forward button no
+  // longer doubles as "Zum Ergebnis"), so flush the session on the way out.
+  // Deliberately NOT awaited: the store already persists on every answer, so
+  // this is a belt-and-braces flush, and making the user wait on IndexedDB
+  // before the page turns would be a worse trade than a rare lost write.
+  void store.persist().catch((err) => {
+    console.error('Failed to persist assessment session', err)
+  })
   await router.push({ path: '/ergebnis', query: { focus: ergebnisFocus.value } })
 }
 </script>
@@ -362,18 +428,19 @@ async function goToResults(): Promise<void> {
         </button>
       </div>
 
-      <!-- Controls. Mobile (flex-col): row 1 is the nav pair as an equal
-           2-column grid (Zurück | Weiter, each exactly half width); the
-           secondary actions stack full-width below, so every button shares
-           a width and the layout never shifts when the button set changes
-           (e.g. skills adding "Nur diesen Teil neu"). Desktop (sm:flex-row):
-           collapses to one row — nav pair grouped left at the compact size,
-           secondary actions pushed right (sm:ms-auto), so no buttons sit
-           between Zurück and Weiter. Both nav buttons are ALWAYS rendered
-           and just grey out when unusable (Zurück at the first question,
-           Weiter until the current question is answered), so the row never
-           shifts height or reshuffles. Buttons are larger on mobile
-           (px-4 py-2.5 text-sm) and compact on desktop (sm:*). -->
+      <!-- Controls, in two groups. LEFT: everything that acts inside the
+           current layer — Zurück, Weiter, Schicht neu starten, and (skills
+           only) Nur diesen Teil neu. RIGHT: "Zum Ergebnis →" on its own, so
+           the way out is never mistaken for an in-layer control.
+           Mobile (flex-col): the left group is a 2-column grid, so it reads
+           as one or two tidy rows and every button shares a width; the exit
+           stacks full-width below. Desktop (sm:flex-row): one row, left group
+           compact, exit pushed right via sm:ms-auto.
+           Every button is ALWAYS rendered and only greys out when unusable
+           (Zurück at the first question, Weiter once the layer is finished,
+           Zum Ergebnis until there is a result), so the row never reshuffles
+           and nothing lands where something else just was. Buttons are larger
+           on mobile (px-4 py-2.5 text-sm) and compact on desktop (sm:*). -->
       <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
         <div class="grid grid-cols-2 gap-3 sm:flex sm:flex-initial">
           <button
@@ -384,50 +451,119 @@ async function goToResults(): Promise<void> {
           >
             ← Zurück
           </button>
-          <!-- Forward affordance: advances without re-recording on revisit,
-               commits + navigates on the final question ("Zum Ergebnis →").
-               Disabled (greyed) until the current question has an answer. -->
+          <!-- Forward affordance: advances without re-recording on revisit.
+               It NEVER relabels itself — on the last question it simply greys
+               out, and leaving the layer happens through "Zum Ergebnis →",
+               which sits alone on the right. A button that changes its meaning under a cursor
+               trained by dozens of clicks is how users hit the wrong one. -->
           <button
             type="button"
             class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-700 disabled:hover:bg-slate-800 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
-            :disabled="!store.currentAnswer"
+            :disabled="!store.currentAnswer || isFinalForward"
             @click="goForward"
           >
-            {{ isFinalForward ? 'Zum Ergebnis →' : 'Weiter →' }}
+            Weiter →
           </button>
-        </div>
-        <!-- Secondary actions: peek at results + layer/sub-category restart.
-             Centered on mobile, pushed right on desktop. "Ergebnisansicht"
-             is hidden once the forward button already reads "Zum Ergebnis →"
-             (final question) since the two would be redundant; also hidden
-             while RIASEC is still in progress. "Schicht neu starten" is
-             always available. -->
-        <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:ms-auto">
           <button
-            v-if="store.riasecIsComplete && !(store.currentAnswer && isFinalForward)"
             type="button"
             class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
-            @click="goToResults"
+            @click="askRestartLayer"
           >
-            Ergebnisansicht
+            Schicht neu starten
           </button>
           <button
             v-if="store.currentLayer === 'skills'"
             type="button"
             class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
-            @click="restartCurrentSubCategory"
+            @click="askRestartSubCategory"
           >
             Nur diesen Teil neu
           </button>
+        </div>
+        <!-- The way out, alone on the right (sm:ms-auto) so it is never
+             confused with the in-layer controls. Previously it was v-if'd away
+             on the final question and the restart slid into the freed slot —
+             the destructive button landing exactly where the harmless one had
+             just been. Every button is now rendered unconditionally and only
+             greys out, so nothing ever moves under the cursor. -->
+        <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:ms-auto">
+          <!-- The way out. Always rendered so its slot is stable, greyed until
+               there is actually something to look at (RIASEC finished). On the
+               FIRST completion of a layer it pulses twice: the forward button
+               the user has been clicking for dozens of questions just went
+               grey, and this says where to go instead — without taking the
+               click away from them, which an automatic redirect would. On a
+               revisit it stays still; see pulsedLayers. -->
           <button
             type="button"
-            class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
-            @click="restartLayer"
+            class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-700 disabled:hover:bg-slate-800 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
+            :class="{ 'pulse-attention': pulseResultsButton }"
+            :disabled="!store.riasecIsComplete"
+            @animationend="pulseResultsButton = false"
+            @click="goToResults"
           >
-            Schicht neu starten
+            Zum Ergebnis →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Restart guard. Deliberately not a native confirm(): this is the only
+         action in the app that destroys user data, and it deserves to look
+         like the rest of the product rather than like a browser error. -->
+    <div
+      v-if="pendingRestart"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="restart-confirm-title"
+      @click.self="pendingRestart = null"
+      @keydown.esc="pendingRestart = null"
+    >
+      <div class="w-full max-w-sm rounded-xl border border-slate-700 bg-slate-900 p-5 shadow-xl">
+        <h2 id="restart-confirm-title" class="text-base font-semibold text-slate-100">
+          {{ restartDialogTitle }}
+        </h2>
+        <p class="mt-2 text-sm text-slate-400">
+          {{ restartDialogBody }}
+        </p>
+        <div class="mt-5 flex flex-col gap-2 sm:flex-row sm:justify-end">
+          <button
+            type="button"
+            class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 sm:w-auto"
+            @click="pendingRestart = null"
+          >
+            Abbrechen
+          </button>
+          <button
+            type="button"
+            class="w-full rounded-md border border-rose-500/40 bg-rose-500/10 px-4 py-2.5 text-sm font-medium text-rose-200 hover:border-rose-500/60 hover:bg-rose-500/20 sm:w-auto"
+            @click="confirmRestart"
+          >
+            Neu starten
           </button>
         </div>
       </div>
     </div>
   </section>
 </template>
+
+<style scoped>
+/* Two beats, then still — enough to catch the eye when the forward button
+   greys out, not enough to become decoration the user learns to ignore. */
+@keyframes pulse-attention {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgb(129 140 248 / 0); }
+  50% { transform: scale(1.04); box-shadow: 0 0 0 4px rgb(129 140 248 / 0.25); }
+}
+
+.pulse-attention {
+  animation: pulse-attention 0.7s ease-in-out 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-attention {
+    animation: none;
+    box-shadow: 0 0 0 2px rgb(129 140 248 / 0.35);
+  }
+}
+</style>
