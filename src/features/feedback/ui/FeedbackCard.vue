@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
 import { useQuestionnaireStore } from '@features/questionnaire/model/store'
 import { buildFeedbackPayload, postFeedback } from '../lib/submitFeedback'
 
@@ -85,7 +86,14 @@ async function submit(): Promise<void> {
       <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p class="text-xs text-slate-500">
           Mit dem Absenden überträgst du deine Antworten anonym. Die Übermittlung
-          ist freiwillig und gilt nur für die Testphase.
+          ist freiwillig und gilt nur für die Testphase. Was genau übertragen
+          wird, steht im
+          <RouterLink
+            to="/datenschutz"
+            class="underline underline-offset-2 hover:text-slate-300"
+          >
+            Datenschutz-Hinweis
+          </RouterLink>.
         </p>
         <button
           type="button"

@@ -20,16 +20,31 @@ current PR. For what shipped when, see `SUMMARY.md`.
 Likely next 1–2 sessions. Only add items here after explicit agreement
 with @mo-sp — otherwise park them in their topical section below.
 
-- **Agreed pre-friends-beta sequence (2026-06-22).** Open-beta (public /
-  indexed launch) is **deferred** — Impressum, a full public
-  Datenschutzerklärung, and the `noindex` flip stay parked (see Tech debt).
-  Order before the friends-beta: (1) work the important non-open-beta
+- **Agreed pre-friends-beta sequence (2026-06-22, status 2026-08-14).**
+  Open-beta (public / indexed launch) is **deferred** — Impressum, a full
+  public Datenschutzerklärung, and the `noindex` flip stay parked (see Tech
+  debt). Order before the friends-beta: (1) work the important non-open-beta
   BACKLOG items; (2) a **final review of ALL assessment questions, discussed
   one by one** (RIASEC 60 + Big Five 50 + Werte 8 + Skills 120) — this is the
   gate; (3) a **short, plain Datenschutz-Hinweis** on the site (transparency
   that voluntary feedback is sent anonymously to our server — not a full
   legal text) before collecting from real friends; (4) then open the
   friends-beta with the feedback feature switched on. Agreed with @mo-sp.
+
+  **Where step (2) stands:** RIASEC 60 (Session 54, 33 items changed) and
+  Werte 8 (Session 54, 2 items changed) are **done**. Still open, and the
+  scope is **undecided**: Big Five 50 and Skills 120. Session 54's
+  assessment was that neither warrants the full one-by-one tribunal — Big
+  Five is the IPIP scale, so a **translation** review is the useful pass
+  (its reverse-scored items are a known comprehension risk for younger
+  readers), and the Skills items are O\*NET taxonomy labels rather than
+  sentences, where a **sampling pass for systematic translation errors** is
+  proportionate and the real gap is the missing-examples entry under UX
+  polish. @mo-sp has not ruled on this yet.
+
+  Also still open from the sequence: step (3), and the **production
+  redeploy** that makes the merged feedback card live (the endpoint already
+  runs; the frontend deploy was deliberately held for the beta launch).
 - **Donation / "support the server costs" link on the landing page.** A
   voluntary support link to offset the self-hosting cost (~€10–40/mo after
   the Vercel → Hetzner migration, now live). **Provider chosen: BuyMeACoffee**
@@ -177,32 +192,6 @@ with @mo-sp — otherwise park them in their topical section below.
 
 ## UX polish
 
-- **"Schicht neu starten" wipes answers with no confirmation.** Found by
-  @mo-sp during the 2026-08-14 browser test. `restartLayer()` in
-  `src/pages/assessment/AssessmentPage.vue:66` calls
-  `store.resetCurrentLayer()` directly; the store persists on every reset,
-  so the answers are gone from IndexedDB immediately with no undo. Losing
-  30 of 60 answers to one stray click is the worst outcome the assessment
-  flow can produce.
-
-  Two things make the misclick likely rather than rare:
-  1. The secondary-action group is right-aligned on desktop
-     (`sm:ms-auto`), i.e. exactly where the thumb expects "Weiter →"
-     after dozens of repetitions.
-  2. **The button moves.** "Ergebnisansicht" is `v-if`-gated and
-     disappears on the last answered question, so "Schicht neu starten"
-     slides into the slot a harmless button occupied a moment earlier.
-     That is why it bites at the end of a layer specifically.
-
-  Options to weigh: a confirm step (native `confirm()` is cheap but ugly;
-  a small modal matches the rest of the UI), moving the control away from
-  the forward button (e.g. left-aligned or into a footer), keeping the
-  group's slot order stable so nothing shifts under the cursor, or an
-  undo window instead of a prompt. A confirmation is only worth it if it
-  names the cost ("30 Antworten werden gelöscht"), otherwise it is just
-  another click to dismiss reflexively. Note `restartCurrentSubCategory`
-  (Skills) has the same gap but destroys less.
-
 - **Startseite design refresh.** Content overhaul shipped via
   `feat/landing-content-overhaul` (2026-05-04). Remaining work: design
   refresh, ideally with claude-design help — independent of friends
@@ -224,14 +213,15 @@ with @mo-sp — otherwise park them in their topical section below.
   shape, decide whether to keep / rewrite the seed 6, then continue the
   pass.
 
-- **RIASEC item ip-a-10 wording — broaden beyond "schneiden".** The
-  Artistic item (EN original "Edit movies") currently reads "Videos für
-  YouTube oder Streaming-Plattformen schneiden und veröffentlichen",
-  which narrows it to editing. @mo-sp suggestion (2026-05-31): widen to
-  the whole creation act, e.g. "Videos für YouTube erstellen, schneiden
-  und veröffentlichen" — captures creators who film/produce, not just
-  cut. Stays Artistic, low risk. One-line change in
-  `src/data/onet-items.json`; bundle with a future item-wording pass.
+- **RIASEC content gaps the Session 54 review surfaced but did not fill.**
+  Two holes in the 60-item set, both noted during the one-by-one pass and
+  deliberately left for a future wording round: (i) **selecting or hiring
+  people appears in no item at all**, although it is a core Enterprising
+  activity; (ii) **Metallbau / Schweißen** is still missing from the
+  Realistic block — "Zwei Metallteile miteinander verschweißen" was the
+  undisputed runner-up with 9 second votes, so it is the obvious candidate
+  if an R slot ever frees up. Filling either means displacing an existing
+  item, so it needs a deliberate trade, not a drive-by addition.
 
 - **Education 2-year vs 3-year split** — v1 uses the 4 KldB Anforderungsniveaus.
   Upgrade to true Ausbildungsdauer granularity would need BERUFENET-API per
@@ -271,7 +261,10 @@ with @mo-sp — otherwise park them in their topical section below.
   structured documentation, syntax/test discipline. Decide after the
   archetype-persona test whether the current breadth is enough or
   whether further swaps are warranted. Same family as the RIASEC
-  long-form note above.
+  long-form note above. **Update:** Session 54's one-by-one review
+  reworked 6 of the 10 C items, but it optimised each item on its own
+  merits, not for block coverage — the breadth question above is
+  untouched and still open.
 - **Neurodivergence — verify Big Five + Werte already discriminate.**
   Question raised 2026-05-30: should ADHD / autism / similar lifelong
   neurodivergent patterns feed a scoring bonus/malus? Hypothesis: Big
@@ -449,17 +442,11 @@ with @mo-sp — otherwise park them in their topical section below.
   chunking is lazy-loaded so initial TTI isn't hit, but reducing the payload
   by dropping unused O\*NET fields (descriptions we don't render, etc.) would
   be tidy.
-- **Mobile post-Schicht-1 load takes ~30 s on WLAN.** @mo-sp browser
-  test 2026-05-31: after finishing Schicht 1 on mobile, the transition
-  to `/ergebnis` stalls roughly 30 s before the first results paint.
-  Desktop on Ethernet is fine. Likely cause: the 658 KB gzipped
-  `onet-occupations-*.js` + `bigfive-occupation-profiles` (~16 KB)
-  chunks are prefetched in AssessmentPage `onMounted` but on a slow
-  WLAN connection that fetch hasn't completed by the time the user
-  reaches the end of RIASEC. Options: (a) start prefetch earlier (on
-  /test entry or even on landing page), (b) shrink the occupations
-  chunk by dropping unrendered O\*NET fields (see "Bundle size" above
-  — same root cause), (c) show a clearly-labelled "Ergebnisse werden
-  geladen" interstitial so 30 s feels intentional, not broken. (a)+(b)
-  are real fixes, (c) is cosmetic. Verify the actual bottleneck with
-  mobile network-tab logging before optimising blindly.
+- **Off-box backup for `coolify-db`.** The Coolify instance database on the
+  Hetzner box has no backup outside that box, so a lost server loses the
+  deploy configuration of every app on it (PathFinder, the feedback
+  service, and whatever follows). Worth closing before the friends-beta,
+  when the box starts holding submitted feedback as well. Coolify has a
+  built-in scheduled backup for its own Postgres; the open part is a
+  destination that is not the same machine (Storage Box, or pull to the
+  dev-sandbox).
