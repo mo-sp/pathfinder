@@ -1,3 +1,15 @@
+> **Historical document — April 2026, kept for reference.**
+>
+> This is the original planning document, written before a line of code existed.
+> It is deliberately not maintained: it still calls the project "Berufung",
+> plans Supabase as the backend and free-tier hosting, and describes an MVP of
+> ~140 items. Reality since diverged — 239 items, a self-hosted Node feedback
+> endpoint, Hetzner + Coolify, and an own domain.
+>
+> For the current state read `README.md` and `PROJECT.md`; for what is queued
+> `BACKLOG.md`; for what was built when `SUMMARY.md`. It also predates the
+> English-only rule for docs, which is why it is in German.
+
 # Berufung – Finde deinen Weg
 ## Projektplan & Technische Architektur
 

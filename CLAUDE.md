@@ -99,11 +99,29 @@ If a user pushes back ("test before PR", "I want to verify this myself"), they m
 
 ## Data Sources
 
-- O*NET Interest Profiler Short Form (60 items) → `src/data/onet-items-de.json`
-- O*NET Occupation Database → `src/data/onet-occupations.json`
-- ESCO German occupation names → `src/data/esco-occupations-de.json`
-- ESCO↔O*NET mapping → `src/data/esco-onet-mapping.json`
-- Licenses: O*NET Developer License (attribution required), ESCO EU Open Data
+Runtime data, all under `src/data/` and all **generated** — edit the inputs in
+`scripts/input/` and rebuild, never hand-edit these:
+
+- `onet-items.json` — RIASEC items, O*NET Interest Profiler Short Form (60)
+- `ipip-bigfive-items.json` — Big Five items, IPIP-50 (50)
+- `values-items.json` — Rahmenbedingungen (8)
+- `skills-items.json` — skills / abilities / knowledge items (121)
+- `onet-occupations.json` — the 923-occupation corpus, incl. German titles,
+  RIASEC profiles, work context, skills/abilities/knowledge
+- `bigfive-occupation-profiles.json` — per-occupation Big Five targets.
+  A wrapper: `{ meta, profileSources, profiles }`, use `.profiles`
+- `kldb-occupation-mapping.json` — KldB code, name and Anforderungsniveau
+  overlay, merged onto occupations at load time; carries the field the
+  education hard filter reads
+- `ausbildung-occupation-mapping.json` — matching BIBB Ausbildungsberufe
+
+Curated inputs live in `scripts/input/` (`kldb-overrides.mjs`,
+`title-overrides-de.mjs`, `ausbildung-overrides.mjs`, `kldb-data.json`,
+`bibb-ausbildungsberufe.json`, …). Changing an override means running **both**
+build scripts — see the note in BACKLOG and `scripts/`.
+
+Licenses: O*NET Developer License (attribution required), O*NET Database
+CC BY 4.0, ESCO EU Open Data, IPIP Public Domain, KldB 2010 and BIBB.
 
 ## Session Protocol
 

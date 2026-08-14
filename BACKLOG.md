@@ -76,24 +76,16 @@ with @mo-sp — otherwise park them in their topical section below.
 
 ## Docs
 
-- **Bring ALL project docs up to date after the friends-beta milestone**
-  (agreed with @mo-sp 2026-08-15). Everything outside `SUMMARY.md` and this
-  file was last touched on 2026-04-11/12 and still describes the project as
-  it was planned, not as it is:
-  - `README.md` — no mention of the own domain, the self-hosting, the
-    privacy notice or the feedback channel; the layer list reads as future
-    work.
-  - `PROJECT.md` — labels Big Five, Werte and Skills as "Phase 2" although
-    all four layers shipped long ago, and describes Layer 4 as an
-    unimplemented "reality check" that "triggers a note".
-  - `docs/PROJECT_PLAN.md` — same vintage, needs a pass or an explicit
-    "historical, see SUMMARY" header.
-  - `WEBCLAUDE_SUMMARY.md` — still says "domain TBD" and lists finding a
-    name and domain as open questions. Decide whether this file has a
-    purpose at all now or should be retired.
-  Worth doing as one deliberate pass rather than piecemeal, and the natural
-  trigger is the friends-beta being live: at that point the docs describe a
-  running product and are the first thing a stranger reads.
+- **Retire `WEBCLAUDE_SUMMARY.md`?** Open decision for @mo-sp. The file logs
+  exactly one webchat session, at project inception 2026-04-10, and the
+  parallel-log workflow it assumed never materialised. It now carries a
+  "historical" header, so it misleads nobody — the question is only whether
+  a record of the founding decisions is worth a file of its own or belongs
+  as an appendix in `docs/PROJECT_PLAN.md`.
+
+  The docs pass itself is **done** (2026-08-15, `docs/refresh-project-docs`):
+  README, PROJECT.md, CLAUDE.md's data-source list, and historical headers on
+  `docs/PROJECT_PLAN.md` and `WEBCLAUDE_SUMMARY.md`.
 
 ## Data quality
 
@@ -258,45 +250,43 @@ with @mo-sp — otherwise park them in their topical section below.
   before committing.
 ## Scoring
 
-- **Software development does not surface for a developer — first real
-  beta run, 2026-08-14.** @mo-sp completed all 239 questions on production
-  and submitted feedback: self-rating **3 of 5**, comment "Aber wo ist mein
-  Beruf, Anwendungsentwickler?". His top 5 came back A-dominated (Tänzer,
-  Konzeptkünstler, Choreograf, Landschaftsarchitekt, Industriedesigner)
-  against a profile of RIASEC **A 74**, R 68, I 68, S 60, E 58, **C 48**
-  and Big Five openness 76 / extraversion 30. Software development is I/C
-  coded in O\*NET, and C is his lowest dimension — which is exactly the
-  suspicion already filed under "C-dimension items still under-represent
-  dev-flavoured Conventional" above. **Not yet investigated**: at what rank
-  Anwendungsentwickler / Softwareentwickler actually land with these
-  answers, and which stage loses them — the RIASEC correlation, the values
-  hard filter, or the skills weighting.
+- **A low-C profile pushes software development out of reach, and the
+  RIASEC layer alone decides it.** Surfaced by the first real beta
+  submission (2026-08-14) and investigated the next day; the analysis quotes
+  a real submission, so the numbers-with-profile version lives in the
+  private `mo-sp/pathfinder-analysis` repo
+  (`analyses/2026-08-15-dev-gap.md`). What is safe to record here is the
+  mechanism, because it is a property of the corpus rather than of any one
+  person:
+  - For a **flat interest profile whose weakest dimension is C**, the dev
+    occupations land around **#380 to #470 of 923** despite nothing being
+    hard-filtered.
+  - The layers do not agree: RIASEC contributes about **−37** percentage
+    points where Big Five contributes **+25**. The personality layer votes
+    for the occupation and is overruled by the interest layer, whose spread
+    is roughly three times larger.
+  - Cause is a single dimension. C is that user's lowest and the dev
+    occupations' **second highest** (5.6–6.1 of 7), and Pearson compares the
+    shape of the profile, not its height. Raising C alone, everything else
+    held constant, moves Anwendungsprogrammierer to **#29** and then **#8**.
+  - The same axis sorts the creative occupations across unrelated fields —
+    Digitalkünstler (C 3.13) #9, Game-Designer (C 3.85) #39, Web-Entwickler
+    (C 5.03) #461 — so this is not a quirk of the IT cluster.
 
-  **Investigated 2026-08-15**, full write-up in the private
-  `mo-sp/pathfinder-analysis` repo (`analyses/2026-08-15-dev-gap.md`), since
-  it quotes a real submission. Headline: nothing was hard-filtered, and it
-  is the RIASEC layer alone. Anwendungsprogrammierer lands at **#469 of
-  923** with RIASEC −36.8 pp against Big Five **+25.1 pp** — the personality
-  layer votes strongly *for* the occupation and is overruled. Cause is one
-  dimension: C is the user's lowest and the dev occupations' second highest
-  (5.6–6.1 of 7), and Pearson compares shape. Raising C alone moves the
-  occupation to #29 at C=70 and #8 at C=75. The same axis sorts the creative
-  occupations across unrelated fields (Digitalkünstler C=3.13 → #9,
-  Game-Designer C=3.85 → #39, Web-Entwickler C=5.03 → #461). Two readings
-  remain open and n=1 cannot separate them: either the C items measure the
-  wrong thing (see the C-dimension entry above), or C=48 is correct and this
-  is the AI-uplift case. Decidable once more developers submit runs.
+  Two readings remain open and one run cannot separate them: either the C
+  items measure the wrong thing (see the C-dimension entry above), or the
+  low C is correct and this is the AI-uplift case (see Ideas). Decidable
+  once more developers submit runs.
 - **The skills layer barely moves the ranking — watch this.** Measured on
-  the first real submission (2026-08-15, same analysis as above): spread
-  across all 923 occupations was RIASEC **173.5** percentage points, Big
-  Five **59.4**, Werte **17.7**, Skills **9.5** — and for that user only
-  −4.3 to +5.2. The skills layer is **121 of the 239 questions**, roughly
-  half the time a user spends in the test, for the smallest lever in the
-  stack. Two causes, one structural (the bonus is capped at ±0.25 by design)
-  and one behavioural (self-ratings cluster on 3, so the user resembles
-  every occupation equally — the modesty effect the hobbies entry
+  the same run: spread across all 923 occupations was RIASEC **173.5**
+  percentage points, Big Five **59.4**, Werte **17.7**, Skills **9.5**. The
+  skills layer is **121 of the 239 questions**, roughly half the time a user
+  spends in the test, for the smallest lever in the stack. Two causes, one
+  structural (the bonus is capped at ±0.25 by design) and one behavioural
+  (self-ratings cluster on the middle of the scale, so the user resembles
+  every occupation about equally — the modesty effect the hobbies entry
   describes). Not an action item yet: check whether later submissions also
-  cluster on 3 before deciding whether to recalibrate the cap, spread the
+  cluster before deciding whether to recalibrate the cap, spread the
   ratings, or shorten the layer. @mo-sp: "sollten wir definitiv beobachten".
 - **Anti-match "Was passt definitiv NICHT"** view — currently the "Alle Berufe
   zeigen" toggle reveals them; a dedicated inverse-sorted view would be

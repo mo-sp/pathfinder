@@ -5,7 +5,7 @@
 
 ---
 
-### Session 55 – 2026-08-14
+### Session 55 – 2026-08-14 / 2026-08-15
 
 **Focus:** Housekeeping ahead of the friends-beta, then its last legal gate. Four things: the BACKLOG cleaned of everything Session 54 shipped, an off-box backup for `coolify-db`, IP anonymisation in the production access log, and the **short plain Datenschutz-Hinweis**. One PR: `docs/privacy-notice`.
 
@@ -60,7 +60,30 @@ After #117 was merged and deployed, @mo-sp did **a full serious run on productio
 
 **One deploy detail worth remembering:** the first redeploy attempt never reached Coolify's queue — the dashboard had gone sluggish over a stale SSH tunnel and the click was silently dropped. The box itself was idle (load 0.4, no build container, healthy Coolify, four queue workers). Rebuilding the tunnel fixed it. The reliable check is the database, not the UI: `select id, status, commit from application_deployment_queues order by id desc`.
 
-**Branches:** `docs/privacy-notice` (merged), `fix/mobile-controls-and-scroll` (merged), `fix/share-link-and-initial-scroll` (this PR, carries this entry).
+**Branches:** `docs/privacy-notice` (merged), `fix/mobile-controls-and-scroll` (merged), `fix/share-link-and-initial-scroll` (merged).
+
+### Chasing the finding, and a docs refresh (`docs/refresh-project-docs`, this PR)
+
+**Where software development actually lands.** The dev-gap question was worked through by recomputing the full 923-occupation ranking from the stored submission using PathFinder's own `matchOccupations` rather than a reimplementation — and validating that twice before trusting a number: the recomputed top-20 is identical to the stored one, and the RIASEC profile recomputed from the raw answers matches the stored profile exactly. The second check also settled a side question: the numbers @mo-sp remembered differently are the memory's fault, the submission is faithful.
+
+The answer: **nothing is hard-filtered, and the RIASEC layer decides alone.** For a flat interest profile whose weakest dimension is C, dev occupations land around #380–470 of 923, with RIASEC contributing about −37 percentage points against Big Five's +25 — the personality layer votes *for* the occupation and is overruled by an interest layer whose spread is three times larger. The cause is one dimension: C is that profile's lowest and the dev occupations' second highest (5.6–6.1 of 7), and Pearson compares shape, not height. Raising C alone moves Anwendungsprogrammierer to #29, then #8. The same axis sorts the creative occupations across unrelated fields — Digitalkünstler (C 3.13) #9, Game-Designer (C 3.85) #39, Web-Entwickler (C 5.03) #461 — which is what makes it a corpus property rather than an IT quirk.
+
+**A second finding nobody was looking for:** measured per-layer spread across all 923 occupations was RIASEC 173.5 percentage points, Big Five 59.4, Werte 17.7, **Skills 9.5**. The skills layer is 121 of the 239 questions — roughly half the time a user spends — for the smallest lever in the stack. Partly structural (the bonus is capped at ±0.25 by design), partly behavioural (self-ratings cluster mid-scale, so the user resembles every occupation about equally). Filed to watch, not to act on.
+
+**Where analyses live now.** @mo-sp asked for the data work to stay unpublished. Since git has no per-file privacy — a file committed once stays in the history of a repo others may have cloned — the split is by repository: a new **private** `mo-sp/pathfinder-analysis` holds `data/` (raw submissions), `analyses/` (one report per question) and `scripts/`. The scripts only run inside the pathfinder repo (they need the path aliases and vitest), so the documented workflow is copy in, run, delete — and it was run end to end before being written down. Two traps are recorded there because both were hit: `bigfive-occupation-profiles.json` is a wrapper and passing it unopened **silently disables the entire Big Five layer** while the numbers still look plausible, and occupations need the KldB overlay merged or the education filter never fires.
+
+That prompted a correction in the public repo: the BACKLOG entry had recorded @mo-sp's psychometric profile and comment verbatim, under his name. Rewritten to the mechanism — ranks, per-layer contributions, the counterfactual — with the person moved to the private repo. The history was deliberately left alone; rewriting a public repo's history for a handful of values is the worse trade.
+
+**The docs pass** (@mo-sp: "nach unserm meilenstein closed freunde beta sollten wir mal ALLE docs auf den aktuellen stand bringen"). Everything outside SUMMARY/BACKLOG dated from 2026-04-11/12 and described the project as planned rather than as built:
+
+- **README** — rewritten: the closed friends-beta status, all four layers with their real item counts and actual mechanics, an explicit privacy section, the self-hosting, the generated corpus, 258 tests instead of 32.
+- **PROJECT.md** — the important part, because it was not merely stale but **wrong** about the current system. It documented `bigFiveModifier` as a multiplier when the code is deliberately additive (and says why: a multiplier lets a matching personality amplify a negative base), listed values dimensions that do not exist, described the skills layer as producing a "development needed" annotation, and had Supabase in the data flow. Now matches `matcher.ts`, with the code named as the authority where they disagree.
+- **CLAUDE.md** — three of the four data-source paths pointed at files that do not exist (`onet-items-de.json`, `esco-occupations-de.json`, `esco-onet-mapping.json`). Replaced with the real generated files plus the wrapper/overlay gotchas. This is the file every session loads, so wrong paths there cost the most.
+- **`docs/PROJECT_PLAN.md`** and **`WEBCLAUDE_SUMMARY.md`** — not rewritten but given historical headers. Rewriting 510 lines of an inception-era plan buys nothing; saying plainly that it is history does. Whether to retire WEBCLAUDE_SUMMARY entirely is left as an open question in BACKLOG.
+
+**Verification:** `type-check` + `lint` clean, **258 tests pass**, production build clean. Every factual claim added to the docs was checked against the code or the data rather than carried over: item counts from the JSON files, the α constants and the score composition from `matcher.ts`, the file list from `src/data/`.
+
+**Branch:** `docs/refresh-project-docs` (this PR, carries this entry). It also rescues a BACKLOG commit that was pushed to `fix/share-link-and-initial-scroll` after that PR had already merged and would otherwise have been stranded.
 
 ---
 

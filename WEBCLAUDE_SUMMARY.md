@@ -1,5 +1,19 @@
 # WEBCLAUDE_SUMMARY.md – Webchat Session Protocol
 
+> **Historical document — one entry, 2026-04-10, kept for reference.**
+>
+> This file was meant to log webchat sessions in parallel to `SUMMARY.md`. It
+> was used exactly once, at project inception, and the workflow it assumed
+> never materialised: everything since has run through Claude Code and is
+> logged in `SUMMARY.md`.
+>
+> Its "open questions" are all long since answered — the project is called
+> PathFinder, the repo is `mo-sp/pathfinder`, the domain is
+> `pathfinder-berufetest.de`, and the German item translations were reviewed
+> item by item in 2026-08. Retiring this file is queued in `BACKLOG.md` under
+> Docs; it survives for now because a record of the founding decisions is
+> worth keeping somewhere.
+
 ## Project: PathFinder
 
 ---
