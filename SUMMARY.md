@@ -41,7 +41,24 @@ One correction to the pre-deploy checks: the earlier "the feedback card is not i
 
 **Verification:** `type-check` + `lint` clean, **258 tests pass**, production build clean. @mo-sp tested each change on desktop and mobile as it landed, and confirmed the layer-completion jump, the no-jump-on-revisit case and the final footer values.
 
-**Branches:** `docs/privacy-notice` (merged), `fix/mobile-controls-and-scroll` (this PR, carries this entry).
+### The first real run (`fix/share-link-and-initial-scroll`, this PR)
+
+After #117 was merged and deployed, @mo-sp did **a full serious run on production**: all 239 questions across the four layers, then an actual feedback submission. It is the first time the card → Traefik → endpoint → file chain has run end to end, and it worked. The stored record holds exactly the seven fields the notice promises — `answers`, `comment`, `receivedAt`, `result`, `selfRating`, `sid`, `v` — with no IP and no per-answer timestamps, so the Datenschutz text matches what is on disk word for word.
+
+**Duration, from the access log:** first request 21:29:14, AssessmentPage loaded 21:30:33, submission received 21:48:18 — **17 min 45 s for 239 questions**, about 4.5 s per item. The landing page advertises 25 to 45 minutes. One data point from the person who wrote the items, so not a reason to rewrite the copy, but worth watching once friends' runs come in.
+
+**The result was a finding, not a celebration.** Self-rating 3 of 5 and the comment "Tjaa ich soll wohl Tänzer werden auf meine alten Tage. Sonst alles gut. Aber wo ist mein Beruf, Anwendungsentwickler?" — an A-dominated top 5 (Tänzer, Konzeptkünstler, Choreograf, …) against RIASEC A 74 / R 68 / I 68 / C 48. Software development is I/C coded in O\*NET and C is his lowest dimension, which lines up with the C-item complaint already in BACKLOG. Filed under Scoring with the profile numbers; not investigated yet.
+
+**Two bugs came out of the same session, both fixed here:**
+
+- **The share text still linked to Vercel.** `SHARE_LANDING_URL` in ResultsPage pointed at `pathfinder-liard-phi.vercel.app`, so every result copied to the clipboard since the domain move carried the old address out with it. Now the canonical domain, deliberately hardcoded rather than read from `location.origin` — that string leaves the app in whatever the user pastes it into, and from the dev sandbox `origin` would be a LAN address. The worse half of this is that **the Vercel deployment still answers 200**: an unmaintained copy with no privacy notice, no log anonymisation, US-hosted. Filed under Tech debt; taking it down needs @mo-sp's Vercel account.
+- **Arriving on the site landed you in the footer**, on desktop as well as mobile — and this one was self-inflicted earlier the same evening. Vue Router keeps the scroll offset in `history.state` and hands it back as `savedPosition` on a reload, and the new `scrollBehavior` dutifully restored it. Restoring is right for back/forward and wrong for arriving, so the very first navigation of a session (`from === START_LOCATION`) now always goes to the top.
+
+**Verification:** `type-check` + `lint` clean, **258 tests pass**, production build clean. Post-deploy checks of #117 were done against the server: served asset hashes identical to a local build of the same commit (`AssessmentPage-eSyxhQRu.js`, `index-B4wGnvxP.css`), image tag `79b2830`, zero full IPs in the fresh container's log. @mo-sp confirmed the share link and all four scroll cases in the browser.
+
+**One deploy detail worth remembering:** the first redeploy attempt never reached Coolify's queue — the dashboard had gone sluggish over a stale SSH tunnel and the click was silently dropped. The box itself was idle (load 0.4, no build container, healthy Coolify, four queue workers). Rebuilding the tunnel fixed it. The reliable check is the database, not the UI: `select id, status, commit from application_deployment_queues order by id desc`.
+
+**Branches:** `docs/privacy-notice` (merged), `fix/mobile-controls-and-scroll` (merged), `fix/share-link-and-initial-scroll` (this PR, carries this entry).
 
 ---
 

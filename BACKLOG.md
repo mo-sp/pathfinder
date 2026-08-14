@@ -237,6 +237,20 @@ with @mo-sp — otherwise park them in their topical section below.
   before committing.
 ## Scoring
 
+- **Software development does not surface for a developer — first real
+  beta run, 2026-08-14.** @mo-sp completed all 239 questions on production
+  and submitted feedback: self-rating **3 of 5**, comment "Aber wo ist mein
+  Beruf, Anwendungsentwickler?". His top 5 came back A-dominated (Tänzer,
+  Konzeptkünstler, Choreograf, Landschaftsarchitekt, Industriedesigner)
+  against a profile of RIASEC **A 74**, R 68, I 68, S 60, E 58, **C 48**
+  and Big Five openness 76 / extraversion 30. Software development is I/C
+  coded in O\*NET, and C is his lowest dimension — which is exactly the
+  suspicion already filed under "C-dimension items still under-represent
+  dev-flavoured Conventional" above. **Not yet investigated**: at what rank
+  Anwendungsentwickler / Softwareentwickler actually land with these
+  answers, and which stage loses them — the RIASEC correlation, the values
+  hard filter, or the skills weighting. Worth its own session; the stored
+  submission is the input data.
 - **Anti-match "Was passt definitiv NICHT"** view — currently the "Alle Berufe
   zeigen" toggle reveals them; a dedicated inverse-sorted view would be
   clearer framing if users want it.
@@ -438,6 +452,15 @@ with @mo-sp — otherwise park them in their topical section below.
   tracked in Up next, not this full public obligation. Surfaced 2026-06-10
   during the go-live.
 
+- **Retire the old Vercel deployment.** `pathfinder-liard-phi.vercel.app`
+  still answers 200, months after the move to the own domain. It is an
+  unmaintained copy of the app: no Datenschutz-Hinweis, no log
+  anonymisation, US-hosted — the opposite of what the current privacy notice
+  claims. It was surfaced 2026-08-14 because the share-clipboard text still
+  linked to it, so every result copied out until now points there. The link
+  is fixed; taking the deployment down needs @mo-sp's Vercel account
+  (`npx vercel remove`, or delete the project in the dashboard). The
+  leftover `vercel.json` in the repo can go at the same time.
 - **Bundle size** — `onet-occupations-*.js` is 3.8 MB raw / 658 KB gzip. Code
   chunking is lazy-loaded so initial TTI isn't hit, but reducing the payload
   by dropping unused O\*NET fields (descriptions we don't render, etc.) would
