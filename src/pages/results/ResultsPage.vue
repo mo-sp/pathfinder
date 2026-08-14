@@ -269,7 +269,12 @@ function ausbildungNote(o: Occupation): string | null {
 }
 
 const SHARE_TOP_N = 20
-const SHARE_LANDING_URL = 'https://pathfinder-liard-phi.vercel.app'
+// The canonical public address, deliberately hardcoded rather than taken from
+// `location.origin`: this string travels out of the app in whatever the user
+// pastes their result into, so it must not become a LAN address from the dev
+// sandbox or a preview host. Was left pointing at the retired Vercel
+// deployment after the move to the own domain.
+const SHARE_LANDING_URL = 'https://pathfinder-berufetest.de'
 
 // Tri-state so the button label can flicker "Kopiert!" briefly without
 // inventing a toast layer for one feature.
