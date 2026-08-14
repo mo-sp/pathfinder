@@ -180,6 +180,7 @@ const interstitialNextDescription = computed(() => {
 // after an in-layer navigation.
 const questionCardRef = ref<HTMLElement | null>(null)
 const interstitialCardRef = ref<HTMLElement | null>(null)
+const resultsButtonRef = ref<HTMLElement | null>(null)
 
 // On mobile the Likert buttons sit near the fold, so without this the user
 // lands on the answer area of the next question and has to scroll up to
@@ -200,6 +201,17 @@ async function selectAnswer(value: number): Promise<void> {
   // window for the final answer instead of the previous "answer → flash
   // to /ergebnis → no way back without wiping the layer" trap.
   store.answer(value)
+  // The isFinalForward watcher runs on the pre-flush queue, so the pulse flag
+  // is only readable after the tick.
+  await nextTick()
+  if (pulseResultsButton.value) {
+    // Anchoring the card to the top can leave the button row below the fold on
+    // a phone, and a pulse nobody sees is no signal at all. On the answer that
+    // finishes a layer, bring the button itself into view instead — it is the
+    // only control still usable at that moment.
+    resultsButtonRef.value?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    return
+  }
   await scrollToQuestion()
 }
 
@@ -382,8 +394,12 @@ async function goToResults(): Promise<void> {
            line or three. Without this the buttons jump between questions,
            which is jarring now that the lock/edit flow has users stepping
            back and forth a lot. Longer questions still grow past the
-           reserve; this only stabilises the common 1–3 line case. -->
-      <div class="min-h-[8.5rem] sm:min-h-[7rem]">
+           reserve; this only stabilises the common 1–3 line case.
+           The content sits at the BOTTOM of that reserve (justify-end): a
+           short question then stays close to the answers it belongs to, and
+           the leftover space collects above the prompt where it reads as
+           card padding rather than as a gap in the middle of the card. -->
+      <div class="flex min-h-[7rem] flex-col justify-end sm:min-h-[6rem]">
         <p
           v-if="showQuestionPrompt"
           class="text-xs uppercase tracking-wide text-slate-500"
@@ -401,7 +417,7 @@ async function goToResults(): Promise<void> {
         </p>
       </div>
 
-      <div class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-5">
+      <div class="mt-5 grid grid-cols-1 gap-3 sm:mt-8 sm:grid-cols-5">
         <button
           v-for="value in likertOptions"
           :key="value"
@@ -428,83 +444,109 @@ async function goToResults(): Promise<void> {
         </button>
       </div>
 
-      <!-- Controls, in two groups. LEFT: everything that acts inside the
-           current layer — Zurück, Weiter, Schicht neu starten, and (skills
-           only) Nur diesen Teil neu. RIGHT: "Zum Ergebnis →" on its own, so
-           the way out is never mistaken for an in-layer control.
-           Mobile (flex-col): the left group is a 2-column grid, so it reads
-           as one or two tidy rows and every button shares a width; the exit
-           stacks full-width below. Desktop (sm:flex-row): one row, left group
-           compact, exit pushed right via sm:ms-auto.
+      <!-- Controls. One wrapping flex row whose order differs per breakpoint,
+           so the same buttons serve both layouts without being duplicated.
+           Desktop (sm:, nowrap): Zurück · Weiter · Schicht neu starten ·
+           (skills) Nur diesen Teil neu ——— Zum Ergebnis →, the exit pushed to
+           the far right by ms-auto so it is never mistaken for an in-layer
+           control.
+           Mobile (wrapping): row 1 is Zurück + Weiter at half width each,
+           row 2 is the restart icon plus the exit filling the rest, and the
+           skills-only sub-restart wraps onto row 3. The in-layer loop the user
+           repeats dozens of times therefore owns the top row on its own.
            Every button is ALWAYS rendered and only greys out when unusable
            (Zurück at the first question, Weiter once the layer is finished,
            Zum Ergebnis until there is a result), so the row never reshuffles
            and nothing lands where something else just was. Buttons are larger
            on mobile (px-4 py-2.5 text-sm) and compact on desktop (sm:*). -->
-      <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-        <div class="grid grid-cols-2 gap-3 sm:flex sm:flex-initial">
-          <button
-            type="button"
-            class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-700 disabled:hover:bg-slate-800 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
-            :disabled="store.currentIndex === 0"
-            @click="goBack"
-          >
-            ← Zurück
-          </button>
-          <!-- Forward affordance: advances without re-recording on revisit.
+      <div class="mt-6 flex flex-wrap items-center gap-3 sm:flex-nowrap">
+        <button
+          type="button"
+          class="order-1 basis-[calc(50%-0.375rem)] rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-700 disabled:hover:bg-slate-800 sm:basis-auto sm:px-3 sm:py-1.5 sm:text-xs"
+          :disabled="store.currentIndex === 0"
+          @click="goBack"
+        >
+          ← Zurück
+        </button>
+        <!-- Forward affordance: advances without re-recording on revisit.
                It NEVER relabels itself — on the last question it simply greys
                out, and leaving the layer happens through "Zum Ergebnis →",
                which sits alone on the right. A button that changes its meaning under a cursor
                trained by dozens of clicks is how users hit the wrong one. -->
-          <button
-            type="button"
-            class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-700 disabled:hover:bg-slate-800 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
-            :disabled="!store.currentAnswer || isFinalForward"
-            @click="goForward"
+        <button
+          type="button"
+          class="order-2 basis-[calc(50%-0.375rem)] rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-700 disabled:hover:bg-slate-800 sm:basis-auto sm:px-3 sm:py-1.5 sm:text-xs"
+          :disabled="!store.currentAnswer || isFinalForward"
+          @click="goForward"
+        >
+          Weiter →
+        </button>
+        <!-- Icon-only on mobile, where the full label made this destructive
+               control as loud as "Weiter" and left a lopsided half-width gap
+               in the second grid row. The label is still announced via
+               aria-label, and the guard dialog names the cost either way. -->
+        <button
+          type="button"
+          aria-label="Schicht neu starten"
+          title="Schicht neu starten"
+          class="order-3 flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-slate-700 bg-slate-800 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 sm:h-auto sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
+          @click="askRestartLayer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-5 w-5 sm:hidden"
+            aria-hidden="true"
           >
-            Weiter →
-          </button>
-          <button
-            type="button"
-            class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
-            @click="askRestartLayer"
-          >
-            Schicht neu starten
-          </button>
-          <button
-            v-if="store.currentLayer === 'skills'"
-            type="button"
-            class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
-            @click="askRestartSubCategory"
-          >
-            Nur diesen Teil neu
-          </button>
-        </div>
+            <path d="M3 2v6h6" />
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L3 8" />
+          </svg>
+          <span class="hidden sm:inline">Schicht neu starten</span>
+        </button>
+        <!-- Keeps its label: two unlabelled restart icons side by side would
+               be a guessing game, and this one only exists in the skills layer.
+               On mobile it wraps onto its own row below (order-5). -->
+        <button
+          v-if="store.currentLayer === 'skills'"
+          type="button"
+          class="order-5 w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 sm:order-4 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
+          @click="askRestartSubCategory"
+        >
+          Nur diesen Teil neu
+        </button>
         <!-- The way out, alone on the right (sm:ms-auto) so it is never
              confused with the in-layer controls. Previously it was v-if'd away
              on the final question and the restart slid into the freed slot —
              the destructive button landing exactly where the harmless one had
              just been. Every button is now rendered unconditionally and only
              greys out, so nothing ever moves under the cursor. -->
-        <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:ms-auto">
-          <!-- The way out. Always rendered so its slot is stable, greyed until
+        <!-- The way out. Always rendered so its slot is stable, greyed until
                there is actually something to look at (RIASEC finished). On the
                FIRST completion of a layer it pulses twice: the forward button
                the user has been clicking for dozens of questions just went
                grey, and this says where to go instead — without taking the
                click away from them, which an automatic redirect would. On a
-               revisit it stays still; see pulsedLayers. -->
-          <button
-            type="button"
-            class="w-full rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-700 disabled:hover:bg-slate-800 sm:w-auto sm:px-3 sm:py-1.5 sm:text-xs"
-            :class="{ 'pulse-attention': pulseResultsButton }"
-            :disabled="!store.riasecIsComplete"
-            @animationend="pulseResultsButton = false"
-            @click="goToResults"
-          >
-            Zum Ergebnis →
-          </button>
-        </div>
+               revisit it stays still; see pulsedLayers.
+               Mobile: shares the second row with the restart icon and takes
+               whatever width is left (flex-1). Desktop: last in order and
+               pushed to the far right, so the exit is never mistaken for one
+               of the in-layer controls. -->
+        <button
+          ref="resultsButtonRef"
+          type="button"
+          class="order-4 flex-1 rounded-md border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-700 disabled:hover:bg-slate-800 sm:order-5 sm:ms-auto sm:flex-none sm:px-3 sm:py-1.5 sm:text-xs"
+          :class="{ 'pulse-attention': pulseResultsButton }"
+          :disabled="!store.riasecIsComplete"
+          @animationend="pulseResultsButton = false"
+          @click="goToResults"
+        >
+          Zum Ergebnis →
+        </button>
       </div>
     </div>
 
