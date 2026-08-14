@@ -167,6 +167,32 @@ with @mo-sp — otherwise park them in their topical section below.
 
 ## UX polish
 
+- **"Schicht neu starten" wipes answers with no confirmation.** Found by
+  @mo-sp during the 2026-08-14 browser test. `restartLayer()` in
+  `src/pages/assessment/AssessmentPage.vue:66` calls
+  `store.resetCurrentLayer()` directly; the store persists on every reset,
+  so the answers are gone from IndexedDB immediately with no undo. Losing
+  30 of 60 answers to one stray click is the worst outcome the assessment
+  flow can produce.
+
+  Two things make the misclick likely rather than rare:
+  1. The secondary-action group is right-aligned on desktop
+     (`sm:ms-auto`), i.e. exactly where the thumb expects "Weiter →"
+     after dozens of repetitions.
+  2. **The button moves.** "Ergebnisansicht" is `v-if`-gated and
+     disappears on the last answered question, so "Schicht neu starten"
+     slides into the slot a harmless button occupied a moment earlier.
+     That is why it bites at the end of a layer specifically.
+
+  Options to weigh: a confirm step (native `confirm()` is cheap but ugly;
+  a small modal matches the rest of the UI), moving the control away from
+  the forward button (e.g. left-aligned or into a footer), keeping the
+  group's slot order stable so nothing shifts under the cursor, or an
+  undo window instead of a prompt. A confirmation is only worth it if it
+  names the cost ("30 Antworten werden gelöscht"), otherwise it is just
+  another click to dismiss reflexively. Note `restartCurrentSubCategory`
+  (Skills) has the same gap but destroys less.
+
 - **Startseite design refresh.** Content overhaul shipped via
   `feat/landing-content-overhaul` (2026-05-04). Remaining work: design
   refresh, ideally with claude-design help — independent of friends

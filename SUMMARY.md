@@ -5,6 +5,41 @@
 
 ---
 
+### Session 54 – 2026-08-13 / 2026-08-14
+
+**Focus:** The **friends-beta gate**: a complete one-by-one review of all **60 RIASEC Schicht-1 items**, run over two days. Every item got its own verdict, a candidate set, and — where a defect was suspected — a ten-reviewer adversarial vote. @mo-sp decided every case. **33 of 60 items changed**; the other 27 were reviewed and deliberately kept. One PR: `feat/riasec-item-review` (this PR).
+
+**Method.** The review tool is a Workflow script (`~/.claude/workflows/item-tribunal.mjs`, deliberately outside the repo — it uses Workflow-injected globals that trip the project's `no-undef`, and it is tooling, not app code). Ten reviewers with genuinely distinct lenses (15-year-old, Berufsberater, psychometrician, Lektorin, DIF/fairness, practitioner, UX researcher, advocatus diaboli, O\*NET purist, teacher), each returning a first and second preference; the tally is plain JS. Ten clones of one prompt would have measured sampling noise.
+
+**Method findings — the two that matter most:**
+
+- **Change bias, measured and fixed.** Offering the current item as one option among candidates biases reviewers toward change. Controlled on `ip-r-01`, an item with no identifiable defect: without a burden-of-proof rule the original scored **0/10**; with the rule, **9/10** — same item, same candidates, same lenses. A "Beweislastregel" now sits permanently in the base prompt. One earlier decision (`ip-r-06`) had been taken on a biased vote, was re-tested, scored 0/10, and was reverted at @mo-sp's direction.
+- **The tribunal optimises whatever the prompt names as the problem.** `ip-c-08` was run twice. Framed on comprehension and length, "Mit einer Checkliste einen Ablauf kontrollieren" won 9:1 — and @mo-sp rejected it outright: the activity has no consequence, so nothing hangs on doing it. Reframed on consequence (plus the counterweight that Conventional measures enjoyment of *order*, not of drama), the unchanged original won 8:2. Same item, opposite outcomes, both driven by the prompt. Votes are evidence about the framing as much as about the item; where the concern was only a hypothesis, a vote is not evidence.
+
+**Content findings worth carrying:**
+
+- **Evaluative words draw agreement from virtue, not interest.** "Daten **sauber** eintragen" got 0 of 10 first and 0 second votes; "**sorgfältig** auf Fehler prüfen" lost 9:1 to the identical sentence without the adverb. Nobody reports that they would work sloppily. Same family as the A-block's "**kreativ** gestalten" / "**künstlerisch** bearbeiten", removed earlier in the pass. A sweep of all 60 items now finds exactly one remaining hit, `ip-i-07` "genauer vorhersagen" — which is the research goal and is in the EN original ("better predict the weather"), so it stays.
+- **Doublets are only a defect when the second verb restates the first act.** "zusammenbauen und reparieren" and "vermarkten und einführen" survived; "reparieren und wieder in Gang bringen" and "berechnen und abrechnen" did not (abrechnen already contains the calculation).
+- **Occupation labels invert the loading.** Items naming a *profession* rather than an activity measure aversion to being seen as that profession; since E's status motive is appetitive and stigma aversion is aversive, the loading is partly sign-inverted. Cost `ip-e-10` (Immobilienmakler) and `ip-r-08` (Schlüsseldienst) their wording.
+- **The C block was by a wide margin the wordiest** (7.0 words/item vs A 4.1, S 4.8, E 5.6, R/I 5.7) — the driest content in the heaviest sentences, read last when attention is lowest. Now 6.3. `prüfen` went from 3 occurrences to 1, `erfassen` from 2 to 1.
+- **Gaps the review surfaced but did not fill:** selecting/hiring people appears nowhere in all 60 items; Metallbau/Schweißen remains the R block's open gap ("Zwei Metallteile miteinander verschweißen" was the undisputed runner-up with 9 second votes).
+
+**What changed (33 items):** R 7 (`r-02`, `r-03`, `r-04`, `r-06`, `r-07`, `r-08`, `r-10`), I 2 (`i-06`, `i-07`), A 4 (`a-06`, `a-08`, `a-09`, `a-10`), S 7 (`s-01`, `s-03`, `s-04`, `s-05`, `s-06`, `s-08`, `s-09`), E 7 (`e-01`, `e-05`, `e-06`, `e-07`, `e-08`, `e-09`, `e-10`), C 6 (`c-01`, `c-02`, `c-06`, `c-08`, `c-09`, `c-10`).
+
+Recurring repairs: German adaptations that had silently dropped a facet (both music items in A, both teaching items in S, the counselling facet in S), a role shift (EN "**Help** conduct a group therapy session" had become "leiten", an assisting role turned leading — an E cross-load, now "mitarbeiten"), items too universal to discriminate (smartphone photography), and cross-loading verbs ("auswerten" is analysis, i.e. Investigative, inside a Conventional item).
+
+**Attribution header:** all 60 EN/DE pairs were re-classified. The **23 replaced** count is confirmed exactly; the reworded count is left as-is because the boundary between "localised rewording" and "plain translation" is a judgement call worth ±6 items. One example in the header was stale and was removed: **no item mentions the energy transition any more** — the solar and e-mobility candidates were all rejected during the R block for carrying a motive with them.
+
+**Also in this PR:** a BACKLOG entry for a data-loss risk @mo-sp found during the browser test — "Schicht neu starten" wipes the layer's answers with no confirmation and no undo (`AssessmentPage.vue:66`), and the button *moves into* the slot vacated by "Ergebnisansicht" on the last answered question, i.e. it lands under a thumb trained by dozens of "Weiter" clicks. Parked under UX polish, not fixed here.
+
+**Verification:** `type-check` + `lint` clean, **255 tests pass** (no test touches item wording, so the count is unchanged). @mo-sp browser-tested the full 60-item run on desktop and mobile against the dev server and confirmed every item.
+
+**Branch:** `feat/riasec-item-review` (this PR).
+
+**Open for next sessions (tracked in BACKLOG):** whether Big Five (50), Werte (8) and Skills (120) get the same treatment is still undecided; the confirmation/layout fix for "Schicht neu starten"; a short plain Datenschutz-Hinweis; then the friends-beta itself.
+
+---
+
 ### Session 53 – 2026-06-22
 
 **Focus:** Built the voluntary, anonymous **beta-feedback channel** ahead of the friends-beta — a self-hosted `/api/feedback` endpoint on the Coolify box plus an opt-in card on `/ergebnis` that submits the raw answers + computed result for scoring review. Bookended by a traffic check on the live site and a roadmap reordering. Three PRs: `feat/beta-feedback-endpoint` (#108), `fix/feedback-strip-api-prefix` (#109), and `feat/beta-feedback-frontend` (this PR, which carries this entry).
