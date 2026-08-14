@@ -919,8 +919,8 @@ onBeforeUnmount(() => {
           </p>
           <p class="mt-2 text-sm text-indigo-200">
             Mit deinen Rahmenbedingungen werden Berufe gefiltert und neu
-            gewichtet. Berufe, die nicht zu deiner Ausbildungsbereitschaft
-            passen, werden ausgeblendet.
+            gewichtet. Berufe, die einen höheren Bildungsabschluss verlangen
+            als von dir angegeben, werden ausgeblendet.
           </p>
           <p class="mt-1 text-sm text-indigo-200">
             {{ store.valuesTotal }} kurze Fragen, etwa 1 Minute.
@@ -1057,7 +1057,7 @@ onBeforeUnmount(() => {
         v-if="hardFilteredCount > 0"
         class="mt-2 text-xs text-slate-500"
       >
-        {{ hardFilteredCount }} Berufe aufgrund deiner Ausbildungspräferenz ausgeblendet.
+        {{ hardFilteredCount }} Berufe aufgrund deines Bildungsabschlusses ausgeblendet.
       </p>
 
       <p
