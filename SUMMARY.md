@@ -7,7 +7,7 @@
 
 ### Session 54 – 2026-08-13 / 2026-08-14
 
-**Focus:** The **friends-beta gate**: a complete one-by-one review of all **60 RIASEC Schicht-1 items**, run over two days. Every item got its own verdict, a candidate set, and — where a defect was suspected — a ten-reviewer adversarial vote. @mo-sp decided every case. **33 of 60 items changed**; the other 27 were reviewed and deliberately kept. One PR: `feat/riasec-item-review` (this PR).
+**Focus:** The **friends-beta gate**: a complete one-by-one review of all **60 RIASEC Schicht-1 items**, run over two days, followed by the **8 Werte items**. Every item got its own verdict, a candidate set, and — where a defect was suspected — a ten-reviewer adversarial vote. @mo-sp decided every case. **33 of 60 RIASEC items changed** plus **2 of 8 Werte items**; everything else was reviewed and deliberately kept. Two PRs: `feat/riasec-item-review` and `feat/values-item-review` (this PR, which carries this entry).
 
 **Method.** The review tool is a Workflow script (`~/.claude/workflows/item-tribunal.mjs`, deliberately outside the repo — it uses Workflow-injected globals that trip the project's `no-undef`, and it is tooling, not app code). Ten reviewers with genuinely distinct lenses (15-year-old, Berufsberater, psychometrician, Lektorin, DIF/fairness, practitioner, UX researcher, advocatus diaboli, O\*NET purist, teacher), each returning a first and second preference; the tally is plain JS. Ten clones of one prompt would have measured sampling noise.
 
@@ -34,7 +34,28 @@ Recurring repairs: German adaptations that had silently dropped a facet (both mu
 
 **Verification:** `type-check` + `lint` clean, **255 tests pass** (no test touches item wording, so the count is unchanged). @mo-sp browser-tested the full 60-item run on desktop and mobile against the dev server and confirmed every item.
 
-**Branch:** `feat/riasec-item-review` (this PR).
+### The Werte layer — and a rebuilt method (`feat/values-item-review`, this PR)
+
+Before touching the other layers, @mo-sp asked a fair question: how do we stop **Claude's own framing** from deciding the outcome? The `ip-c-08` episode above showed the problem — the panel optimises whatever the prompt names as the defect. Claude's influence sits at four points: which items get tested at all, who writes the candidates, what the "findings" say, and how the result is weighted afterwards.
+
+**The fix is a second workflow, `~/.claude/workflows/item-diagnose.mjs`, and a two-stage process.** Stage 1 is blind: six reviewers see only the item and the verified mechanics — no candidates, no hypothesis. The script has **no `findings` parameter at all**, so a hypothesis cannot be injected even by accident. "No defect" is stated to be a full and welcome answer, and every reported defect must ship with the reporter's own best counter-argument. Only flagged items go to stage 2 (the existing tribunal). Two further disciplines: the defect criterion is written down **before** candidates exist, and Claude logs its prediction before each vote so its influence stays measurable.
+
+**It worked, including against Claude.** Two of eight items got 0 of 6 — the panel can say "fine". Claude logged two predictions up front; **both were wrong or unconfirmed**, while the blind panel independently found the real defect. On `val-education-01` Claude claimed the hard filter silently deletes occupations; @mo-sp refuted it from the UI (the results page shows the hidden count, the answers stay editable, the layer can be toggled off). The panel, which was given all those mitigations, still flagged the item 5 of 6 — for a different, better reason.
+
+**Results (severity out of 18):** `val-education-01` 5/6 flagged, severity 9. `val-social-01` 3/6, severity 4. The other six scored 0 to 1, and every single one of those findings came with the reporter noting it was inconsequential. Only the top two went to stage 2.
+
+- **`val-education-01`** — "Welchen Ausbildungsabschluss hast du oder möchtest du erreichen?" → **"Bis zu welchem Bildungsabschluss kommt ein Beruf für dich infrage?"** Three reviewers independently found that the "hast du **oder** möchtest du" conflates current attainment with aspiration **without a precedence rule** for the divergent case. A fourth found that "Ausbildungsabschluss" is used as the umbrella term while answer option 2 ("Ausbildung (2–3 Jahre)") uses the same word in its narrow sense; the correct umbrella is "Bildungsabschluss". Round 1's 9-of-10 winner ("Welchen Bildungsabschluss möchtest du erreichen?") was **rejected by @mo-sp** — the target group runs to 40, and someone who already holds a degree wants to reach nothing. Round 2 put it back on the ballot against three new candidates; it scored **0**.
+- **`val-social-01`** — answer option 5 only: "Ständig / mit vielen Menschen" → **"Ständig"**. Options 1–4 vary contact *quantity*; option 5 silently added *number of people*, a second dimension the scoring has no field for. Anyone wanting constant contact with a small fixed group had to guess between 4 and 5. First time the tribunal voted on a single answer label rather than a whole item — the question text was unanimously clean in stage 1, and putting it to the vote would have invited exactly the collateral damage the burden-of-proof rule exists to prevent.
+
+**The finding neither the panel nor Claude had: @mo-sp found it in the running app.** The results card labels this dimension "Ausbildungs**dauer**" with the description "Wie viel Ausbildungs**zeit** du investieren möchtest" — *time* language, while the question, the answer options and the hard filter itself are all about *level*. The reviewers never saw the results page, so no amount of item review could have caught it. Fixing all four surfaces to speak one language flipped the recommendation from candidate A to candidate B: since the card label had to change anyway, B's framing (the ceiling the mechanic actually applies) made the whole set coherent and kept every answer option, while A would additionally have broken "Egal – alle Stufen".
+
+Six lines in three files: the question (de + en), the contact option, the card label, the card description, the hidden-count notice ("aufgrund deiner Ausbildungspräferenz" → "aufgrund deines Bildungsabschlusses"), and the pre-layer blurb ("die nicht zu deiner Ausbildungsbereitschaft passen" → "die einen höheren Bildungsabschluss verlangen als von dir angegeben", which also says *which direction* the filter runs). Two further "Ausbildung" occurrences were deliberately left alone — there the word is a topic label, not a duration claim.
+
+**Assessment of the other layers (asked, answered, not acted on):** Werte was done first because 8 items carry the only hard filter in the app. **Big Five (50)** should get a *translation* review, not a content review — it is the IPIP scale, and its reverse-scored items are a known comprehension risk for younger readers. **Skills (121)** are O\*NET taxonomy labels, not sentences; 121 tribunals would be ~1200 agent runs for what is really the missing-examples problem already in BACKLOG. A sampling pass for systematic translation errors would be proportionate.
+
+**Verification:** `type-check` + `lint` clean, **255 tests pass**. @mo-sp browser-tested the changed question, the contact option, the results card, the hidden-count notice and the filter toggle, and confirmed.
+
+**Branches:** `feat/riasec-item-review` (merged, `3eeb572`) and `feat/values-item-review` (this PR).
 
 **Open for next sessions (tracked in BACKLOG):** whether Big Five (50), Werte (8) and Skills (120) get the same treatment is still undecided; the confirmation/layout fix for "Schicht neu starten"; a short plain Datenschutz-Hinweis; then the friends-beta itself.
 

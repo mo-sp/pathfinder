@@ -33,7 +33,7 @@ const messages = {
       neuroticism: 'Empfindsam für Stress, emotional reaktiv.',
     },
     values: {
-      education: 'Ausbildungsdauer',
+      education: 'Bildungsabschluss',
       environment: 'Arbeitsumgebung',
       socialInteraction: 'Soziale Interaktion',
       teamwork: 'Teamarbeit',
@@ -43,7 +43,7 @@ const messages = {
       routine: 'Routine / Abwechslung',
     },
     valuesDescription: {
-      education: 'Wie viel Ausbildungszeit du investieren möchtest.',
+      education: 'Bis zu welchem Abschluss ein Beruf für dich infrage kommt.',
       environment: 'Ob du lieber drinnen oder draußen arbeitest.',
       socialInteraction: 'Wie viel Kontakt mit Menschen du im Beruf möchtest.',
       teamwork: 'Ob du lieber allein oder im Team arbeitest.',

@@ -12,8 +12,8 @@
       "dimension": "education",
       "filterType": "hard",
       "text": {
-        "de": "Welchen Ausbildungsabschluss hast du oder möchtest du erreichen?",
-        "en": "Which training level have you reached or do you want to reach?"
+        "de": "Bis zu welchem Bildungsabschluss kommt ein Beruf für dich infrage?",
+        "en": "Up to which level of education would a job be an option for you?"
       },
       "scale": "likert5",
       "labels": {
@@ -74,7 +74,7 @@
           "Eher wenig",
           "Durchschnittlich",
           "Viel",
-          "Ständig / mit vielen Menschen"
+          "Ständig"
         ],
         "en": [
           "As little as possible",
