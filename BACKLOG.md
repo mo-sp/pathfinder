@@ -76,6 +76,20 @@ with @mo-sp — otherwise park them in their topical section below.
 
 ## Docs
 
+- **Screenshots for the README — deferred to the open beta** (@mo-sp,
+  2026-08-15). The README front page carries badges, a status callout and a
+  layer table, but no image, and a screenshot of the results page under the
+  badges is the single biggest visual improvement left. Parked deliberately:
+  the closed beta does not need to sell itself, the open beta does. There is
+  an HTML comment marking the insertion point in `README.md`; drop the file
+  into `docs/screenshots/` and reference it there. Desktop width, results
+  page with the hexagon and the top list.
+- **Real CI, so the test badge stops lying.** The README's "258 tests
+  passing" badge is hardcoded and goes stale on the next test added. There
+  are no GitHub Actions in the repo at all, so a `type-check` + `lint` +
+  `test` workflow on push would both fix the badge and give the repo a
+  visible green check before strangers look at it. Offered 2026-08-15, not
+  decided.
 - **Retire `WEBCLAUDE_SUMMARY.md`?** Open decision for @mo-sp. The file logs
   exactly one webchat session, at project inception 2026-04-10, and the
   parallel-log workflow it assumed never materialised. It now carries a
