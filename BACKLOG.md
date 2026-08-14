@@ -74,6 +74,27 @@ with @mo-sp — otherwise park them in their topical section below.
   for qualitative reports the structured form doesn't capture. Surfaced
   2026-05-31 by @mo-sp.
 
+## Docs
+
+- **Bring ALL project docs up to date after the friends-beta milestone**
+  (agreed with @mo-sp 2026-08-15). Everything outside `SUMMARY.md` and this
+  file was last touched on 2026-04-11/12 and still describes the project as
+  it was planned, not as it is:
+  - `README.md` — no mention of the own domain, the self-hosting, the
+    privacy notice or the feedback channel; the layer list reads as future
+    work.
+  - `PROJECT.md` — labels Big Five, Werte and Skills as "Phase 2" although
+    all four layers shipped long ago, and describes Layer 4 as an
+    unimplemented "reality check" that "triggers a note".
+  - `docs/PROJECT_PLAN.md` — same vintage, needs a pass or an explicit
+    "historical, see SUMMARY" header.
+  - `WEBCLAUDE_SUMMARY.md` — still says "domain TBD" and lists finding a
+    name and domain as open questions. Decide whether this file has a
+    purpose at all now or should be retired.
+  Worth doing as one deliberate pass rather than piecemeal, and the natural
+  trigger is the friends-beta being live: at that point the docs describe a
+  running product and are the first thing a stranger reads.
+
 ## Data quality
 
 - **KldB subtitle for medical specialties — systemic build-time fallback
@@ -249,8 +270,34 @@ with @mo-sp — otherwise park them in their topical section below.
   dev-flavoured Conventional" above. **Not yet investigated**: at what rank
   Anwendungsentwickler / Softwareentwickler actually land with these
   answers, and which stage loses them — the RIASEC correlation, the values
-  hard filter, or the skills weighting. Worth its own session; the stored
-  submission is the input data.
+  hard filter, or the skills weighting.
+
+  **Investigated 2026-08-15**, full write-up in the private
+  `mo-sp/pathfinder-analysis` repo (`analyses/2026-08-15-dev-gap.md`), since
+  it quotes a real submission. Headline: nothing was hard-filtered, and it
+  is the RIASEC layer alone. Anwendungsprogrammierer lands at **#469 of
+  923** with RIASEC −36.8 pp against Big Five **+25.1 pp** — the personality
+  layer votes strongly *for* the occupation and is overruled. Cause is one
+  dimension: C is the user's lowest and the dev occupations' second highest
+  (5.6–6.1 of 7), and Pearson compares shape. Raising C alone moves the
+  occupation to #29 at C=70 and #8 at C=75. The same axis sorts the creative
+  occupations across unrelated fields (Digitalkünstler C=3.13 → #9,
+  Game-Designer C=3.85 → #39, Web-Entwickler C=5.03 → #461). Two readings
+  remain open and n=1 cannot separate them: either the C items measure the
+  wrong thing (see the C-dimension entry above), or C=48 is correct and this
+  is the AI-uplift case. Decidable once more developers submit runs.
+- **The skills layer barely moves the ranking — watch this.** Measured on
+  the first real submission (2026-08-15, same analysis as above): spread
+  across all 923 occupations was RIASEC **173.5** percentage points, Big
+  Five **59.4**, Werte **17.7**, Skills **9.5** — and for that user only
+  −4.3 to +5.2. The skills layer is **121 of the 239 questions**, roughly
+  half the time a user spends in the test, for the smallest lever in the
+  stack. Two causes, one structural (the bonus is capped at ±0.25 by design)
+  and one behavioural (self-ratings cluster on 3, so the user resembles
+  every occupation equally — the modesty effect the hobbies entry
+  describes). Not an action item yet: check whether later submissions also
+  cluster on 3 before deciding whether to recalibrate the cap, spread the
+  ratings, or shorten the layer. @mo-sp: "sollten wir definitiv beobachten".
 - **Anti-match "Was passt definitiv NICHT"** view — currently the "Alle Berufe
   zeigen" toggle reveals them; a dedicated inverse-sorted view would be
   clearer framing if users want it.
