@@ -40,6 +40,16 @@ with @mo-sp — otherwise park them in their topical section below.
   with Finanzamt / Steuerberater; a paid link also nudges the project slightly
   toward commercial use (cf. the PathFinder trademark note). Surfaced
   2026-05-31 by @mo-sp during the infra setup; provider locked in 2026-06-10.
+
+  **GATED (decided 2026-08-14): ship this only with the public beta or the
+  release, never during the friends-beta.** A donation link turns a private
+  project into an offering with an income intent, which triggers the German
+  Impressumspflicht (§5 DDG) plus a full Datenschutzerklärung — regardless of
+  how few people have the link. The friends-beta gets away without an
+  Impressum precisely because it is `noindex`, link-only, free and earns
+  nothing. So the ordering is not a free choice: donation link and Impressum
+  ship together, both after the friends-beta. (Not legal advice; @mo-sp's call
+  on the risk.)
 - **Feedback channel for beta testers — contact email (in-app form shipped).**
   The **self-hosted anonymous feedback form shipped** 2026-06-22 (a dependency-
   free `/api/feedback` endpoint on the Coolify box + an opt-in card on
