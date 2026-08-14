@@ -51,7 +51,15 @@ onMounted(() => {
           Training Administration (USDOL/ETA). Verwendung unter der O*NET Tools
           Developer License und CC BY 4.0. O*NET® ist eine Marke der USDOL/ETA.
         </p>
-        <p>PathFinder ist Open Source. Keine Logins, keine Tracker.</p>
+        <p>
+          PathFinder ist Open Source. Keine Logins, keine Tracker.
+          <RouterLink
+            to="/datenschutz"
+            class="ms-1 underline underline-offset-2 hover:text-indigo-400"
+          >
+            Datenschutz
+          </RouterLink>
+        </p>
       </div>
     </footer>
 
