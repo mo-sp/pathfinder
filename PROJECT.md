@@ -10,37 +10,41 @@ Inspired by the creator's own experience: decades of searching before finding hi
 
 ### Assessment Layers
 
-The assessment is a **progressive funnel**, not three separate tests. Each layer narrows and sharpens the results from the previous one. Users see their results update live as they complete each layer — the experience is one continuous journey that gets more precise the deeper you go.
+The assessment is a **progressive funnel**, not four separate tests. Each layer narrows and sharpens the results from the previous one. Users see their results update live as they complete each layer — the experience is one continuous journey that gets more precise the deeper you go.
 
-1. **RIASEC Interests (Layer 1 – MVP):** 60 items from the O*NET Interest Profiler Short Form. Measures six interest dimensions: Realistic, Investigative, Artistic, Social, Enterprising, Conventional. This is the broadest filter — it reduces 923 occupations to ~80-100 realistic candidates (correlation > 0.5). Users see a first result ("Your profile is strongly Investigative-Artistic") but the occupation list is explicitly framed as a draft.
+All four layers are implemented. 239 items in total.
 
-2. **Personality / Big Five (Layer 2 – Phase 2):** 50 IPIP-50 Big Five Factor Markers items (Goldberg 1992, Public Domain). Measures Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism with 10 items per dimension. Big Five **re-ranks within the RIASEC funnel** — it does not filter occupations out. Example: within a high-I/A candidate pool, an introverted + conscientious profile pushes Archivist and Data Analyst up, while an extraverted + open profile pushes Science Journalist and Museum Curator up.
+1. **RIASEC Interests (Layer 1):** 60 items from the O*NET Interest Profiler Short Form. Measures six interest dimensions: Realistic, Investigative, Artistic, Social, Enterprising, Conventional. This is the base fit for every occupation — Pearson correlation between the user's profile and the occupation's. Users see a first result after this layer alone.
 
-3. **Values & Preferences (Layer 3 – Phase 2):** Custom items. Education willingness, indoor/outdoor, team/solo, security vs. freedom, income vs. meaning, mobility, physical demands. These act as **hard filters and weight adjustments**: "max 3 years training" eliminates Surgeon; "outdoor work preferred" eliminates lab-based roles; "income over meaning" shifts rankings.
+2. **Personality / Big Five (Layer 2):** 50 IPIP-50 Big Five Factor Markers items (Goldberg 1992, Public Domain). Measures Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism with 10 items per dimension. Big Five **re-ranks within the RIASEC funnel** — it does not filter occupations out.
 
-4. **Skills Self-Assessment (Layer 4 – Phase 2):** Self-rated abilities matched against O*NET ability data per occupation. Provides a final reality-check layer — high interest + low self-assessed ability triggers a "you'd need to develop these skills" note rather than elimination.
+3. **Rahmenbedingungen / Values (Layer 3):** 8 custom items — education level, indoor/outdoor, contact with people, team/solo, physical demands, autonomy, public contact, routine. The education answer is the **only hard filter in the app**: occupations whose KldB Anforderungsniveau exceeds the user's willingness are removed. The other seven produce a signed soft adjustment.
+
+4. **Skills, Abilities & Knowledge (Layer 4):** 121 self-rated O*NET elements (35 skills, 52 abilities, 34 knowledge areas) matched against each occupation's requirements. Additive bonus only — a low self-rating never eliminates an occupation.
 
 ### Progressive Scoring Architecture
 
 The core principle: **each layer refines, not replaces**. A user who completes only Layer 1 gets useful results. A user who completes all layers gets highly differentiated results.
 
+Every contribution is **additive** — see `features/matching/lib/matcher.ts`, which is the authoritative version of this:
+
 ```
-Score_final(occupation) =
-    w1 × RIASEC_correlation          // Layer 1: base fit (Pearson, -1 to 1)
-  + w2 × BigFive_modifier            // Layer 2: personality re-ranking multiplier
-  + w3 × Skills_match                // Layer 4: ability alignment bonus
-  − penalties(Values_conflicts)      // Layer 3: hard/soft constraint violations
+fitScore(occupation) =
+    riasecCorrelation                // Layer 1: Pearson, -1 … +1
+  + bigFiveModifier                  // Layer 2: 0.3 × pearson(userBF, occBF), ±0.3
+  + valuesContribution               // Layer 3: 0.10 − penalty, +0.10 … −0.25
+  + skillsBonus                      // Layer 4: piecewise-linear, ±0.25
 ```
 
 **Layer interactions:**
-- `RIASEC_correlation` is always the foundation. Without it, no scoring happens.
-- `BigFive_modifier` is a multiplier, not an independent score. If an occupation typically requires high Extraversion and the user scores low, the fit score is dampened — but never zeroed out. This ensures Big Five refines rather than overrides RIASEC.
-- `Values_conflicts` are the only source of hard eliminations (e.g. education duration exceeds willingness). Soft conflicts (e.g. "prefers outdoor" but occupation is mixed) apply a smaller penalty.
-- `Skills_match` is additive — high skill alignment boosts a candidate, but low alignment doesn't eliminate it (instead triggers a "development needed" annotation).
+- `riasecCorrelation` is always the foundation. Without it, no scoring happens. Because Pearson compares the *shape* of a profile rather than its height, a flat user profile makes single dimensions decisive — a known fragility, see BACKLOG.
+- `bigFiveModifier` is **additive, not a multiplier**. A multiplier would let a matching personality amplify a negative RIASEC base and a mismatched one rescue it by dampening magnitude; additive keeps the signs intuitive across the full range. Null when the occupation has no Big Five target profile.
+- Values are the only source of **hard elimination**, and only through the education answer against the occupation's KldB Anforderungsniveau. The other seven dimensions produce a signed contribution centred at +0.10, so a perfect match is rewarded and a mismatch goes negative — deliberately asymmetric and penalty-heavier.
+- `skillsBonus` is derived from a weighted similarity between the user's self-ratings and the occupation's O*NET requirements, mapped through three per-occupation anchors. Additive; low alignment lowers rank but never removes.
 
-**UX implication:** After each completed layer, the results page updates live. The user sees their top-20 shift and can understand why — "After your personality profile, Research Scientist moved up because your high Openness and low Extraversion match well."
+**UX implication:** Results are recomputed after each completed layer, so the user watches their top-20 shift as the funnel deepens.
 
-### Optional: Adaptive Deepening
+### Optional: Adaptive Deepening (idea, not implemented)
 
 For users with ambiguous RIASEC profiles (e.g. three dimensions within 5 points of each other), the system can offer targeted follow-up questions from the O*NET Interest Profiler Long Form (180 items total, 30 per dimension) — but only for the ambiguous dimensions. This avoids forcing all users through 180 questions while giving unclear profiles more resolution.
 
@@ -49,15 +53,22 @@ For users with ambiguous RIASEC profiles (e.g. three dimensions within 5 points 
 ```
 User answers questions (browser)
     → Responses stored in IndexedDB (Dexie.js)
-    → Scoring engine computes RIASEC + Big5 profiles (Pinia store)
-    → Matching engine correlates against occupation database (static JSON)
+    → Scoring engine computes RIASEC / Big Five / values / skills profiles (Pinia store)
+    → Matching engine correlates against the occupation corpus (static JSON, lazily loaded)
     → Results displayed with visualizations, updating after each layer
-    → Optional: anonymous statistics sent to Supabase (opt-in, Phase 3)
+    → Optional, explicit opt-in: anonymous feedback POSTed to our own
+      /api/feedback endpoint (server/feedback/, self-hosted alongside the app)
 ```
+
+Supabase was the original plan for the last step; the project ended up self-hosting a small dependency-free Node service instead, which keeps the data on the same box as the app and avoids a third-party processor.
 
 ## Data Model
 
 ### Core Types
+
+The authoritative definitions live in `src/entities/occupation/model/types.ts` and
+`src/entities/assessment/model/types.ts`. The sketch below shows the shape; where
+the two disagree, the code is right.
 
 ```typescript
 interface RIASECProfile {
@@ -125,27 +136,27 @@ interface Answer {
 
 interface MatchResult {
   occupation: Occupation
-  fitScore: number           // combined score
-  riasecCorrelation: number  // Layer 1 component (Pearson, -1 to 1)
-  bigFiveModifier?: number   // Layer 2 component (multiplier)
-  skillsMatch?: number       // Layer 4 component
-  valuesPenalty?: number     // Layer 3 component (subtracted)
+  fitScore: number                  // sum of the four components below
+  riasecCorrelation: number         // Layer 1: Pearson, -1 to 1
+  bigFiveModifier: number | null    // Layer 2: additive, ±0.3; null without a target profile
+  valuesContribution: number | null // Layer 3: signed, +0.10 … −0.25
+  skillsMatch: number | null        // Layer 4: raw similarity, 0-1
+  skillsBonus: number | null        // Layer 4: the additive part, ±0.25
   rank: number
-  explanation?: string       // "Why this career fits you" (algorithmic, not AI)
 }
 ```
 
 ## Roadmap Summary
 
-| Phase | Focus | Timeline |
-|-------|-------|----------|
-| 1 | MVP: German RIASEC test + occupation matching | Months 1-3 |
-| 2 | Depth: Big Five, values, skills, progressive scoring | Months 4-8 |
-| 3 | Feedback: anonymous backend, data-driven improvements | Months 9-14 |
-| 4 | International: English, more languages, SEO | Year 2+ |
-| 5 | Professional: native apps, partnerships, research collaboration | Year 3+ |
+| Phase | Focus | Status |
+|-------|-------|--------|
+| 1 | MVP: German RIASEC test + occupation matching | **done** |
+| 2 | Depth: Big Five, values, skills, progressive scoring | **done** — all four layers live |
+| 3 | Feedback: anonymous backend, data-driven improvements | **in progress** — endpoint and opt-in card live, closed friends-beta running, first submissions arriving |
+| 4 | International: English, more languages, SEO | not started; blocked on the public launch (Impressum, full Datenschutzerklärung, `noindex` off) |
+| 5 | Professional: native apps, partnerships, research collaboration | not started |
 
-See `docs/PROJECT_PLAN.md` for the full roadmap with detailed tasks.
+The phase timeline from the original plan is dropped — it was written in month 1 and the project has not tracked it. `BACKLOG.md` holds what is queued, `SUMMARY.md` what was built when, and `docs/PROJECT_PLAN.md` is kept as the historical April 2026 plan.
 
 ## Licenses & Attribution
 
