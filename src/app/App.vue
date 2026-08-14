@@ -43,8 +43,15 @@ onMounted(() => {
       <RouterView />
     </main>
 
+    <!-- The bottom padding keeps the last line clear of the fixed ScrollToTop
+         button, which sits in the bottom-right corner of the viewport and would
+         otherwise cover whatever the footer ends with once the page is scrolled
+         down. That button occupies the lowest 68px (44px tall, 24px offset), so
+         pb-20 (80px) is about as tight as this gets — a step further and the
+         arrow sits on the text again. Desktop has no such constraint: the
+         footer text clears the corner there anyway. -->
     <footer class="border-t border-slate-800 bg-slate-900 text-xs text-slate-400">
-      <div class="mx-auto max-w-4xl px-4 py-6 space-y-2">
+      <div class="mx-auto max-w-4xl px-4 pt-5 pb-20 space-y-2 sm:pt-6 sm:pb-8">
         <p>
           Diese Seite verwendet Material aus den O*NET® Career Exploration Tools
           und der O*NET-Datenbank des U.S. Department of Labor, Employment and
