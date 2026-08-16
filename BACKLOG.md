@@ -84,14 +84,6 @@ with @mo-sp — otherwise park them in their topical section below.
   an HTML comment marking the insertion point in `README.md`; drop the file
   into `docs/screenshots/` and reference it there. Desktop width, results
   page with the hexagon and the top list.
-- **An operations guide for @mo-sp (`ANLEITUNG.md`).** A plain-language
-  command reference for the moments when Claude is not reachable: SSH to the
-  dev-sandbox and to the Hetzner box, file transfer both ways (scp and the
-  Dolphin `sftp://` route), starting and stopping the Vite dev server,
-  reading the beta feedback out of the container, the backup scripts and
-  what their log lines mean, the Coolify SSH tunnel, and how a deploy is
-  triggered. Requested by @mo-sp 2026-08-16, explicitly deferred to a later
-  session. German, since it is written for him rather than for the repo.
 - **Real CI, so the test badge stops lying.** The README's "258 tests
   passing" badge is hardcoded and goes stale on the next test added. There
   are no GitHub Actions in the repo at all, so a `type-check` + `lint` +
@@ -271,6 +263,29 @@ with @mo-sp — otherwise park them in their topical section below.
   Decision deferred — run both orderings against friends-test users
   before committing.
 ## Scoring
+
+- **Should the education filter have a lower bound? Open question, not a
+  decided change.** Surfaced by the second beta submission (2026-08-16, a
+  friend of @mo-sp; analysis in the private repo). `EDUCATION_TO_MAX_ANF` in
+  `matcher.ts` maps the layer-3 education answer to a **maximum** allowed KldB
+  Anforderungsniveau, so the filter only ever removes occupations demanding
+  *more* than the user wants. There is no floor: stating the highest
+  willingness still leaves Anf-1 occupations at the top. Measured on that
+  submission — Datentypist (Anf 1) sits at rank 1 unfiltered and rank 2 at
+  every education level, for a user who rated "Benutzerkonten und
+  Zugriffsrechte in einem IT-System verwalten" a 5. Survivors of the original
+  top 20 *rise* with willingness (2 / 11 / 17 / 17 at levels 1 to 4), which is
+  the opposite of what one would expect from the name.
+
+  @mo-sp's position (2026-08-16): not convinced a floor is actually needed,
+  but worth settling rather than leaving implicit. Arguments both ways before
+  building anything — a hard floor would hide legitimate lower-tier matches
+  from someone qualified but open, whereas a soft down-weight proportional to
+  the distance below the stated level would not. Note it interacts with the
+  layer-order question below, and with the flat-profile issue: this user
+  answered 41 of 60 items at the minimum, and a flat low profile structurally
+  favours low-complexity occupations because that is what a flat profile looks
+  like. Not launch-blocking.
 
 - **A low-C profile pushes software development out of reach, and the
   RIASEC layer alone decides it.** Surfaced by the first real beta
