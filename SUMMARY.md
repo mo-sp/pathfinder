@@ -25,6 +25,87 @@ With three completers, "nobody gave feedback" is noise rather than signal. The b
 
 **Verification:** `type-check` + `lint` clean, **258 tests pass**, production build clean. The HomePage test asserted `Test starten · 239 Fragen`; it now asserts the 60 and the 179 together, which preserves its original guard against a layer regressing to a PoC subset. @mo-sp compared the dev server against the live site on desktop and mobile and confirmed after two rounds of copy iteration: the first CTA subline was too small and too low in contrast, and a feature-card grid that briefly replaced the benefit list was reverted to the original bullets.
 
+### The rest of Session 56 (`docs/session-56-log`, this PR)
+
+Everything above was written before the evening's second half. What follows is
+the retrospective.
+
+**A second submission arrived mid-session, the first from outside the project.**
+Noticed only because `funnel.sh` reads the container directly; the local backup
+had been pulled fifteen minutes earlier and still showed one entry. RIASEC only,
+self-rating 3 of 5, comment: *"Zerspanungsmechaniker auf Platz 7 ist komisch, hab
+glaub alles handwerkliche abgelehnt 🙈"*. Full analysis lives in the private repo;
+what belongs here is the mechanism and the two corrections it produced.
+
+He answered **41 of 60 items with the minimum**, A at the floor entirely. The
+profile spans 20 to 48 percent and the R/A gap rests on three answers. His
+self-report is accurate: 7 of 10 R items got a 1, and what lifts R above the
+floor is *"Computer-Hardware zusammenbauen und reparieren"*, an item O\*NET codes
+Realistic and an IT person reads as IT. Rank 1 was **Datentypist** for someone who
+rated network administration a 5 — because Datentypist is C 7.00 and nothing
+else, which is this profile's shape exactly, while Anwendungsprogrammierer
+carries I 5.10 against his I of 32.
+
+**Two claims made during the analysis were wrong and were retracted the same
+evening.** First, the education hard filter was described as something that would
+have cleaned his list. It is a **ceiling**, not a floor: `EDUCATION_TO_MAX_ANF`
+caps the maximum Anforderungsniveau, so it only ever removes occupations that
+demand *more* education. The counterfactual measured it — survivors of the
+original top 20 rise with willingness (2 at level 1, 11 at level 2, 17 at levels
+3 and 4), and Zerspanungsmechaniker CNC does not drop but climbs from rank 7 to
+rank 4. Pulling layer 3 forward would not have helped him, and that argument was
+withdrawn. Second, a worry that flat profiles make the ranking near-arbitrary:
+only 2 of 923 occupations sit within 0.01 of rank 1, so the ordering is real.
+The harness validated before either run — recomputed profile and the full stored
+top 20 both reproduce exactly.
+
+**A rename was proposed, approved, and then withdrawn before any edit.**
+`51-9162.00` is O\*NET's "Computer Numerically Controlled Tool Programmers" under
+the German title "Zerspanungsmechaniker CNC", which reads as a metal trade.
+Opening the override file to make the change revealed that the title *had been*
+"CNC-Programmierer" and was deliberately changed away from it in audit batch 17
+(`cb4827a`), because it reads as an IT job in German and had dragged the
+automated KldB mapping to 43412 Softwareentwicklung. The proposal was an
+unwitting revert of an approved decision, argued from the opposite premise. It
+stays withdrawn on the merits too: R 4.88 and "may also set up, operate, or
+maintain equipment" make it a shop-floor role. The lesson is now a standing rule:
+grep both override files and read the existing row's rationale comment *before*
+proposing a change, not after approval.
+
+**Deployed.** PRs #117, #118, #119 and #120 had all merged after the 14 August
+deploy and went out together. Verified server-side: asset hash matches a local
+build of `main`, the new landing copy is in the served chunk and the old strings
+are gone, the share link carries the canonical domain with zero Vercel matches
+(#118 had been leaking the Vercel URL into every copied result since the domain
+move), `/api/health` ok, `/datenschutz` 200, `www` certificate good to
+12 November, `noindex` still set, feedback container untouched with both entries.
+
+**Two operations scripts now run on cron**, both outside the repo alongside the
+existing pullers. `funnel.sh` reconstructs the visitor funnel from the nginx
+access log — no tracking added, it reads what nginx already writes — and, more
+importantly, **archives that log**, because Coolify destroys the old container
+and its log on every deploy. It earned its keep immediately: the archive held
+482 lines through the deploy while the new container had 5. `daily-status.sh`
+writes a report covering site health, TLS, containers, disk, new feedback with
+comments, backup freshness and the funnel. It runs at boot after the pullers and
+daily at 07:00. @mo-sp sees it once per new report in an interactive terminal;
+Claude reads the same file at session start.
+
+**Direction changed at the end of the session.** @mo-sp does not want to work on
+PathFinder much longer: the plan is a legal pass, a security audit and go-live,
+probably skipping the open beta, then other projects. Recorded so future sessions
+treat work as launch-blocking or cuttable rather than opening new quality
+threads. Two things were flagged for that plan: the legal text should be written
+for permanent operation rather than a test phase, since `FeedbackCard` currently
+says the transfer *"gilt nur für die Testphase"*; and flipping `noindex` is not a
+traffic plan, so a null result after launch would repeat the friends-beta's reach
+problem rather than say anything about the product.
+
+**The friends-beta, measured.** 13 real app boots on invite day, 3 started the
+test, 3 reached results, 2 submissions total. Fifteen of the apparent 26 landing
+hits were scanners with spoofed browser user agents. Reach decayed to zero within
+24 hours because a WhatsApp status expires. The constraint was never conversion.
+
 ### Session 55 – 2026-08-14 / 2026-08-15
 
 **Focus:** Housekeeping ahead of the friends-beta, then its last legal gate. Four things: the BACKLOG cleaned of everything Session 54 shipped, an off-box backup for `coolify-db`, IP anonymisation in the production access log, and the **short plain Datenschutz-Hinweis**. One PR: `docs/privacy-notice`.
