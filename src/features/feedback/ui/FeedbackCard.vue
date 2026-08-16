@@ -48,8 +48,8 @@ async function submit(): Promise<void> {
         PathFinder ist in einer geschlossenen Testphase. Damit wir prüfen können,
         ob die Berufsempfehlungen wirklich passen, kannst du deine Antworten und
         dein Ergebnis freiwillig und anonym an uns übermitteln. Kein Login, keine
-        IP-Adresse, keine persönlichen Daten – nur deine Test-Antworten und die
-        berechnete Berufsliste.
+        IP-Adresse, keine persönlichen Daten. Übertragen werden nur deine
+        Test-Antworten und die berechnete Berufsliste.
       </p>
 
       <p class="mt-5 text-sm font-medium text-slate-200">

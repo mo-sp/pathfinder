@@ -84,6 +84,14 @@ with @mo-sp — otherwise park them in their topical section below.
   an HTML comment marking the insertion point in `README.md`; drop the file
   into `docs/screenshots/` and reference it there. Desktop width, results
   page with the hexagon and the top list.
+- **An operations guide for @mo-sp (`ANLEITUNG.md`).** A plain-language
+  command reference for the moments when Claude is not reachable: SSH to the
+  dev-sandbox and to the Hetzner box, file transfer both ways (scp and the
+  Dolphin `sftp://` route), starting and stopping the Vite dev server,
+  reading the beta feedback out of the container, the backup scripts and
+  what their log lines mean, the Coolify SSH tunnel, and how a deploy is
+  triggered. Requested by @mo-sp 2026-08-16, explicitly deferred to a later
+  session. German, since it is written for him rather than for the repo.
 - **Real CI, so the test badge stops lying.** The README's "258 tests
   passing" badge is hardcoded and goes stale on the next test added. There
   are no GitHub Actions in the repo at all, so a `type-check` + `lint` +

@@ -42,13 +42,17 @@ describe('HomePage', () => {
     await db.sessions.clear()
   })
 
-  it('renders the title and the CTA with the live total question count', () => {
+  it('renders the title, the CTA entry cost and the optional-layer total', () => {
     const wrapper = mountHomePage()
     expect(wrapper.text()).toContain('Finde deinen Weg.')
-    // 60 + 50 + 8 + 121 = 239 items across all 4 layers. Asserting the
-    // full-scope total guards against a regression to the old PoC subsets
-    // of any individual layer.
-    expect(wrapper.text()).toContain('Test starten · 239 Fragen')
+    // The CTA leads with the RIASEC count alone, because that is the real
+    // entry cost: a full result exists once layer 1 is done. The remaining
+    // 50 + 8 + 121 = 179 sit next to "Optional vertiefen" so the full scope
+    // stays visible and leading with 60 stays honest. Asserting both halves
+    // preserves the original guard against a regression to the old PoC
+    // subsets of any individual layer.
+    expect(wrapper.text()).toContain('Test starten · 60 Fragen')
+    expect(wrapper.text()).toContain('179 weitere Fragen')
   })
 
   it('clicking "Test starten" calls store.reset() — the homepage fresh-start path', async () => {
