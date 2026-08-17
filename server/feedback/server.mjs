@@ -16,8 +16,9 @@
 //     switched off at public release without a redeploy of the app itself.
 
 import { createServer } from 'node:http'
-import { appendFile } from 'node:fs/promises'
+import { appendFile, stat } from 'node:fs/promises'
 import { randomUUID } from 'node:crypto'
+import { pathToFileURL } from 'node:url'
 
 const PORT = Number(process.env.PORT ?? 8080)
 const ENABLED = (process.env.FEEDBACK_ENABLED ?? 'true') !== 'false'
@@ -25,6 +26,12 @@ const FEEDBACK_FILE = process.env.FEEDBACK_FILE ?? '/data/feedback.jsonl'
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN ?? 'https://pathfinder-berufetest.de'
 const MAX_BODY_BYTES = Number(process.env.MAX_BODY_BYTES ?? 65536)
 const MAX_COMMENT_CHARS = Number(process.env.MAX_COMMENT_CHARS ?? 2000)
+// Ceiling on the whole store, not on one request. Per-client throttling belongs
+// at the reverse proxy, which already sees the address this service deliberately
+// never touches; this cap is the backstop that bounds how much disk a flood of
+// otherwise-valid submissions can ever consume. 50 MB is roughly 5000 real
+// submissions at the current record size.
+const MAX_FILE_BYTES = Number(process.env.MAX_FILE_BYTES ?? 50 * 1024 * 1024)
 
 // A submission counter for the process lifetime — lets us confirm the endpoint
 // is receiving data without ever logging what was sent.
@@ -50,7 +57,30 @@ function corsHeaders(req) {
   return {}
 }
 
-function validate(payload) {
+// The comment is free text from an anonymous stranger, and it does not stay in
+// this file: it is rendered into reports and read elsewhere, later. So the risk
+// here is not XSS — nothing renders the comment in the app — but that text
+// written to be read as data ends up read as structure, or as instruction.
+//
+// The defence is deliberately structural: drop the characters that mean nothing
+// to a reader yet carry weight for a parser — C0/C1 controls, zero-width marks,
+// bidi overrides that can visually reorder a line, and the Unicode line and
+// paragraph separators. Tabs and newlines survive, because a person may
+// legitimately have typed them and the renderer quotes them safely.
+//
+// What this deliberately does NOT do is look for wording. Blocking phrases like
+// "ignore previous instructions" is endless in one language and hopeless across
+// many, and its worst effect is the false confidence it buys.
+// The rule below exists to catch control characters that slipped into a
+// pattern by accident. Here they are the entire point of the pattern.
+// eslint-disable-next-line no-control-regex
+const UNSAFE_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F\u200B-\u200F\u2028\u2029\u202A-\u202E\u2060-\u2064\u2066-\u206F\uFEFF]/gu
+
+export function sanitizeComment(text) {
+  return text.replace(UNSAFE_CHARS, '').trim()
+}
+
+export function validate(payload) {
   if (typeof payload !== 'object' || payload === null || Array.isArray(payload)) {
     return 'body must be a JSON object'
   }
@@ -158,8 +188,22 @@ const server = createServer(async (req, res) => {
     answers: payload.answers,
     result: payload.result,
   }
-  if (typeof payload.comment === 'string' && payload.comment.trim() !== '') {
-    record.comment = payload.comment.trim()
+  if (typeof payload.comment === 'string') {
+    const comment = sanitizeComment(payload.comment)
+    if (comment !== '') record.comment = comment
+  }
+
+  // Check the ceiling per request rather than caching it, so it still holds if
+  // the volume is shared or the file is replaced under a running process. A
+  // missing file is the normal first-submission case, not an error.
+  try {
+    const { size } = await stat(FEEDBACK_FILE)
+    if (size >= MAX_FILE_BYTES) {
+      console.error(`feedback file at cap (${size} bytes), refusing write`)
+      return send(res, 507, 'feedback storage full')
+    }
+  } catch {
+    // No file yet.
   }
 
   try {
@@ -177,6 +221,10 @@ const server = createServer(async (req, res) => {
   res.end()
 })
 
-server.listen(PORT, () => {
-  console.log(`feedback endpoint listening on :${PORT} (enabled=${ENABLED}, file=${FEEDBACK_FILE})`)
-})
+// Bind only when this file is run as a program. The tests import it for
+// sanitizeComment() and validate(), and an import must not open a port.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  server.listen(PORT, () => {
+    console.log(`feedback endpoint listening on :${PORT} (enabled=${ENABLED}, file=${FEEDBACK_FILE})`)
+  })
+}

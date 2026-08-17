@@ -5,6 +5,24 @@
 
 ---
 
+### Session 57 – 2026-08-17
+
+**Focus:** A security audit ahead of launch, and the hardening that came out of it. One PR here: `fix/harden-feedback-endpoint`. Most of the session's work landed outside this repository, in infrastructure and in the private ops notes.
+
+**A new rule, applied from this session on: release and operations planning stays out of the public repository.** @mo-sp's reasoning is that spreading internal detail across the internet is unprofessional even where it does no direct harm. It also had a concrete edge — the backlog described operational soft spots in enough detail to read as a map. Two entries were rewritten as part of this PR. The infrastructure follow-up list lost a claim that access logs still captured client IPs, which had been false since the migration (nginx logs the /24 or /48 network only), and the backup entry now records that the decision is open without spelling out what it depends on. The full versions live in the private analysis repo. The same pass went over the code comments added here: the first drafts explained the disk-exhaustion path and named who reads submitted comments, which is a recipe rather than a rationale.
+
+**The endpoint got a ceiling and a sanitiser.** `server.mjs` refuses writes with `507` once the store passes `MAX_FILE_BYTES` (50 MB, roughly 5000 real submissions), which bounds what an unthrottled endpoint can consume; per-client throttling belongs at the reverse proxy and is still to come. Separately, `sanitizeComment()` strips control, zero-width and bidi characters at write time. That second one is deliberately structural and deliberately not a wording filter: keyword blocklists fail across languages and buy false confidence. Tabs and newlines survive, since a person may have typed them.
+
+**The comment field is the project's only untrusted-input path, and it was flowing somewhere it should not.** Free text from anonymous submitters was rendered verbatim into the daily status report, which is read automatically at the start of every session. Rendered as a blockquote it could also forge structure — its own headings, its own sections. Comments now render as indented code blocks, which have no closing fence to forge, and the wording no longer appears in that report at all: it goes to a separate file @mo-sp reads first, and points at when it is fine to read. He asked for exactly that arrangement, in his words to look at it from outside. Worth stating plainly, because the opposite is tempting to claim: none of this makes such text inert. Nothing can. It limits how much untrusted text is seen unasked, and the boundary that actually holds is that no change reaches production without him approving it.
+
+**Security headers and a real `robots.txt`.** The live site sent none of HSTS, CSP, `X-Content-Type-Options`, `Referrer-Policy` or frame protection, and advertised its nginx version. All added, plus `server_tokens off`. HSTS deliberately omits `includeSubDomains` while `www` has no certificate of its own, since the directive would make browsers refuse it outright rather than warn. One nginx trap is worth remembering: `add_header` is **not** inherited into a location that declares any of its own, so the `/assets/` block — which sets `Cache-Control` — needed the whole list repeated or every JS and CSS response would have shipped bare. `robots.txt` and `sitemap.xml` had both been falling through the SPA history fallback and answering with HTML; `robots.txt` now exists and says `Disallow: /`, matching the `noindex` meta tag. Both flip together at launch.
+
+**Vitest now covers `server/` too.** The endpoint sits outside `src/` and had no tests at all, despite being the only server-side surface the project exposes. The include pattern was widened and the module made importable — it binds a port only when run as a program — for 14 new tests over the sanitiser and the validator.
+
+**Verification:** `type-check` and `lint` clean, **272 tests pass** (up from 258), production build clean, and `nginx -t` accepted the new configuration in a throwaway container. The endpoint was additionally run for real against a temporary store: a submission carrying zero-width and bidi characters arrived stripped, and once the file passed the ceiling the next request answered `507` and the file stopped growing. Because neither the headers nor nginx are exercised by the dev server, the CSP was tested by serving the production build behind exactly those headers — @mo-sp ran the full flow from start to results with the console open and confirmed no violations. The header changes themselves can only be verified on the live site after deploy.
+
+---
+
 ### Session 56 – 2026-08-16
 
 **Focus:** The first look at friends-beta traffic after the invitation went out on 2026-08-15, and the landing-page change that came out of it. One PR: `feat/landing-lower-entry-barrier`.
