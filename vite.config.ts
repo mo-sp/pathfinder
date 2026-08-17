@@ -34,7 +34,9 @@ export default defineConfig({
   },
   test: {
     environment: 'node',
-    include: ['src/**/*.test.ts'],
+    // The feedback endpoint lives outside src/ but is the only server-side
+    // surface the project exposes, so its tests run here too.
+    include: ['src/**/*.test.ts', 'server/**/*.test.mjs'],
     // Layer 4 pushes onet-occupations.json past 7 MB (skills + abilities
     // + knowledge per occupation). Dynamic-import + parse at test time is
     // proportionally slower, so bump the per-test timeout to give the

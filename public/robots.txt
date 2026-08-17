@@ -1,0 +1,9 @@
+# PathFinder is not public yet. index.html carries
+# <meta name="robots" content="noindex, nofollow">, and this file says the same
+# at the protocol level so crawlers stop before fetching anything.
+#
+# Both flip together at launch: remove the meta tag, replace the Disallow below
+# with "Allow: /", and add a sitemap. Until then /robots.txt and /sitemap.xml
+# would otherwise fall through to index.html and answer with HTML.
+User-agent: *
+Disallow: /

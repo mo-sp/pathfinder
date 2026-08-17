@@ -509,13 +509,14 @@ with @mo-sp — otherwise park them in their topical section below.
   deployed from `main`, still `noindex`). Full detail in the
   `project_infra_decision` memory + SUMMARY Session 52. Remaining bits:
   (a) **`www` cert** — add `https://www.pathfinder-berufetest.de` to the
-  Coolify Domains list so Traefik issues a cert + the www→apex redirect
-  works (apex is fine; www still serves Traefik's self-signed cert);
-  (b) **nginx access logs capture client IPs** — privacy-aligned decision
-  (anonymize/disable) given the privacy-first stance; (c) Coolify
-  housekeeping: instance-domain HTTPS dashboard, `.env` backup; (d) an
-  auto-deploy webhook if the manual deploy flow gets tedious; (e) later:
-  Immich + Volume + Storage Box on the same box.
+  Coolify Domains list so the certificate covers it (DNS already resolves);
+  (b) an auto-deploy webhook if the manual deploy flow gets tedious;
+  (c) later: Immich + Volume + Storage Box on the same box.
+
+  Access-log IP anonymisation, once listed here as open, **shipped** — nginx
+  logs the /24 (IPv4) or /48 (IPv6) network only. Remaining infrastructure
+  posture, including anything not yet fixed, is tracked in the private ops
+  notes rather than in this file.
 - **Impressum + Datenschutzerklärung before a public/indexed launch.**
   **Deferred — open-beta postponed (see the pre-friends-beta sequence in Up
   next).** As soon as the site comes off `noindex` and is publicly reachable
@@ -541,13 +542,9 @@ with @mo-sp — otherwise park them in their topical section below.
   chunking is lazy-loaded so initial TTI isn't hit, but reducing the payload
   by dropping unused O\*NET fields (descriptions we don't render, etc.) would
   be tidy.
-- **Backup freshness now that real data exists.** Both off-box backups
-  (`feedback.jsonl` and, since 2026-08-14, `coolify-db` + its `.env`) are
-  cron pulls onto the **dev-sandbox**, a VM @mo-sp starts by hand. The
-  backup is therefore never fresher than that VM's last uptime: if the VPS
-  died during a long VM-off stretch, everything submitted in that window
-  would be gone. Hetzner's automatic backups (+20 %) are the only option
-  that does not depend on the VM; @mo-sp declined them while there was no
-  data to lose. **That premise expired on 2026-08-14** with the first real
-  feedback submission, and it expires harder once friends start sending
-  runs. Decide again, with the data now on the table.
+- **Backup posture, now that real submissions exist.** @mo-sp declined
+  provider-side backups back when there was nothing to lose; that premise
+  expired on 2026-08-14 with the first real feedback submission, so the
+  decision is open again. The arrangement itself, what it depends on and
+  what it would cost are recorded in the private ops notes rather than
+  here.
