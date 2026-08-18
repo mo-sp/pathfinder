@@ -25,16 +25,23 @@ with @mo-sp — otherwise park them in their topical section below.
   `noindex` flip shipped as `feat/open-beta-legal-pass`. PathFinder is a
   publicly reachable open beta with a full Datenschutzerklärung and, by
   @mo-sp's decision, no Impressum. What the old sequence still had open:
-  step (2), the one-by-one review of **Big Five 50 and Skills 120**, never got
-  a scope ruling and is now explicitly cuttable, since the beta it was gating
-  already happened. RIASEC 60 and Werte 8 were done in Session 54.
+  step (2), the one-by-one review of **Big Five 50 and Skills 120**. @mo-sp
+  ruled on 2026-08-18 that it **stays open** rather than being cut with the
+  beta that was gating it: the items are the product. RIASEC 60 and Werte 8
+  were done in Session 54. The scope is still undecided, and Session 54's
+  reading was that neither warrants the full one-by-one tribunal. Big Five is
+  the IPIP scale, so a **translation** review is the useful pass, its
+  reverse-scored items being a known comprehension risk for younger readers;
+  the Skills items are O\*NET taxonomy labels rather than sentences, where a
+  **sampling pass for systematic translation errors** is proportionate.
 
-  Three operational questions were raised before launch and are **still
-  undecided**: whether the feedback endpoint stays on when nobody is reading
-  it (`FEEDBACK_ENABLED=false` is the switch), whether the backups stay
-  dependent on a VM started by hand, and whether anything should watch the
-  site's uptime, given that today nothing does. None of them blocked the
-  launch; all three get more awkward the longer the site runs unattended.
+  **Website infrastructure is closed for PathFinder until further notice**
+  (@mo-sp, 2026-08-18). The three operational questions raised before launch
+  were decided rather than parked: the feedback endpoint stays on, backups stay
+  as they are for now, and no uptime monitoring is set up. Reasoning on the last
+  one, which is the only one that looks like a gap: no visitors, no income and
+  no uptime obligation, so an alert would wake nobody for nothing. That
+  calculation changes if there is ever a distribution push, and not before.
 
   Also worth stating plainly: **there is no traffic source in the plan.**
   Coming off `noindex` is permission to be found, not distribution. A fresh
@@ -65,15 +72,6 @@ with @mo-sp — otherwise park them in their topical section below.
   how few people have the link. So this stays blocked on that decision, not on
   a phase, and reopening it means reopening the Impressum. (Not legal advice;
   @mo-sp's call on the risk.)
-- **Feedback channel for beta testers — contact email (in-app form shipped).**
-  The **self-hosted anonymous feedback form shipped** 2026-06-22 (a dependency-
-  free `/api/feedback` endpoint on the Coolify box + an opt-in card on
-  `/ergebnis`; see SUMMARY Session 53). Still open: a **contact email on the
-  domain** — `kontakt@pathfinder-berufetest.de` (mail forwarder → @mo-sp's
-  personal inbox), surfaced as a plain `mailto:` link next to the GitHub link,
-  for qualitative reports the structured form doesn't capture. Surfaced
-  2026-05-31 by @mo-sp.
-
 ## Docs
 
 - **Screenshots for the README — deferred to the open beta** (@mo-sp,
@@ -90,16 +88,14 @@ with @mo-sp — otherwise park them in their topical section below.
   `test` workflow on push would both fix the badge and give the repo a
   visible green check before strangers look at it. Offered 2026-08-15, not
   decided.
-- **Retire `WEBCLAUDE_SUMMARY.md`?** Open decision for @mo-sp. The file logs
-  exactly one webchat session, at project inception 2026-04-10, and the
-  parallel-log workflow it assumed never materialised. It now carries a
-  "historical" header, so it misleads nobody — the question is only whether
-  a record of the founding decisions is worth a file of its own or belongs
-  as an appendix in `docs/PROJECT_PLAN.md`.
+- **`WEBCLAUDE_SUMMARY.md` deleted** (@mo-sp, 2026-08-18): "war ja ein kurzer
+  Spaß". It logged exactly one webchat session at project inception and the
+  parallel-log workflow it assumed never materialised. The founding decisions it
+  recorded are also in `docs/PROJECT_PLAN.md` and in git history.
 
   The docs pass itself is **done** (2026-08-15, `docs/refresh-project-docs`):
   README, PROJECT.md, CLAUDE.md's data-source list, and historical headers on
-  `docs/PROJECT_PLAN.md` and `WEBCLAUDE_SUMMARY.md`.
+  `docs/PROJECT_PLAN.md`.
 
 ## Data quality
 
@@ -219,26 +215,48 @@ with @mo-sp — otherwise park them in their topical section below.
 
 ## UX polish
 
-- **Startseite design refresh.** Content overhaul shipped via
-  `feat/landing-content-overhaul` (2026-05-04). Remaining work: design
-  refresh, ideally with claude-design help — independent of friends
-  release, can ship as its own PR any time.
+- **Startseite design refresh, paired with SEO** (@mo-sp wants these two
+  together, 2026-08-18). Content overhaul shipped via
+  `feat/landing-content-overhaul` (2026-05-04); the visual refresh is still
+  open, ideally with claude-design help, and can ship as its own PR any time.
+  See the SEO entry below: both change the same page, and the copy decisions
+  overlap, so doing them in one pass avoids rewriting the same headline twice.
 
-- **Concrete examples on every question** — many items (especially
-  Skills / Abilities / Knowledge and Values) are abstract enough that
-  users may not be sure what's meant. Add a short example per item.
-  Scope: ≈ 238 examples across 60 RIASEC + 50 Big Five + 120 Skills + 8
-  Values. Important before friends-test push but non-blocking.
+- **SEO, measured on the live site 2026-08-18.** Three concrete gaps, cheapest
+  first:
 
-  **Parked branch**: `feat/skills-examples-infra` already carries the
-  infra (optional `example?: LocalizedText` field on `Question`,
-  AssessmentPage renders it under the description with "z. B." prefix)
-  + 6 seed skills examples (Active Listening, Mathematics, Oral
-  Expression, Fluency of Ideas, Economics, Customer Service). @mo-sp
-  wasn't happy with the prior curation pass and wants to restart fresh
-  in a later session — pull the branch as a reference for the render
-  shape, decide whether to keep / rewrite the seed 6, then continue the
-  pass.
+  1. **No keyword in title or `h1`.** The title is "PathFinder – Finde deinen
+     Weg" and the `h1` is "Finde deinen Weg."; neither contains "Berufstest",
+     which is the word people type. The `meta description` does. A five-minute
+     change with real effect.
+  2. **One `<title>` for all four routes**, no per-route titles, no canonical,
+     and **no Open Graph tags at all**, so a shared link previews as a bare URL
+     with no image or description. That directly cost reach on the WhatsApp
+     status in Session 56, which was the only distribution attempt so far.
+  3. **The raw HTML carries 27 characters of text.** Everything renders
+     client-side, so a crawler that does not execute JS sees an empty page.
+     Google does render, on a slower second pass; Bing, social previews and the
+     LLM crawlers largely do not. **Prerendering the landing and privacy pages
+     at build time** is the biggest technical lever and the largest of the three
+     jobs.
+
+  What SEO cannot do: rank a fresh `.de` with no backlinks for "Berufstest"
+  against the Arbeitsagentur and the established test sites. Where a new site
+  can win is the long tail ("RIASEC Test deutsch kostenlos", "Berufstest ohne
+  Anmeldung", "Holland Code Test deutsch"): low volume, low competition, and
+  the app genuinely matches the query. Technical SEO makes the site indexable
+  and presentable, not found, so this and distribution are one project.
+
+- **Concrete examples on every question: dropped** (@mo-sp, 2026-08-18), and
+  the parked branch `feat/skills-examples-infra` deleted with it. The idea was
+  a short example per item (≈ 238 across the four layers) for items abstract
+  enough that a reader may not be sure what is meant, and it was originally
+  filed as important before the friends-test push. It stays recorded here so it
+  does not resurface by accident: what was thrown away was one WIP commit, 41
+  lines, carrying an optional `example?: LocalizedText` field on `Question`, the
+  AssessmentPage render with a "z. B." prefix, and 6 seed skills examples. All
+  of it is cheap to rebuild if the idea ever comes back; @mo-sp was not happy
+  with the curation pass, which is what stalled it.
 
 - **RIASEC content gaps the Session 54 review surfaced but did not fill.**
   Two holes in the 60-item set, both noted during the one-by-one pass and
@@ -507,11 +525,12 @@ with @mo-sp — otherwise park them in their topical section below.
   Hetzner + Coolify migration is **done**: PathFinder is live at
   `https://pathfinder-berufetest.de` (Dockerfile build, Let's-Encrypt TLS,
   deployed from `main`, still `noindex`). Full detail in the
-  `project_infra_decision` memory + SUMMARY Session 52. Remaining bits:
-  (a) **`www` cert** — add `https://www.pathfinder-berufetest.de` to the
-  Coolify Domains list so the certificate covers it (DNS already resolves);
-  (b) an auto-deploy webhook if the manual deploy flow gets tedious;
-  (c) later: Immich + Volume + Storage Box on the same box.
+  `project_infra_decision` memory + SUMMARY Session 52. The **`www` cert**
+  shipped and covers `https://www.pathfinder-berufetest.de`. What is left is
+  optional and deliberately not scheduled: an auto-deploy webhook if the manual
+  deploy flow ever gets tedious, provider-side backups once the box carries more
+  than PathFinder (@mo-sp will buy Hetzner's paid backup at that point, roughly
+  20 % of the server price, rather than script one), and Immich alongside.
 
   Access-log IP anonymisation, once listed here as open, **shipped** — nginx
   logs the /24 (IPv4) or /48 (IPv6) network only. Remaining infrastructure
