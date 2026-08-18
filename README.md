@@ -13,7 +13,15 @@
   <img alt="Language" src="https://img.shields.io/badge/UI-Deutsch-lightgrey">
 </p>
 
-<!-- SCREENSHOT: results page. Put the file in docs/screenshots/ and reference it here. -->
+<p align="center">
+  <img alt="Ergebnisseite: Top-Berufsempfehlungen mit Gewichtungs-Umschalter, KldB-Untertitel, O*NET-Code und Anforderungsniveau" src="docs/screenshots/ergebnis-top-berufe.png" width="760">
+  <br><br>
+  <img alt="Ergebnisseite: RIASEC-Profil als Hexagon, sechs Dimensionen zwischen 52 und 84 Prozent" src="docs/screenshots/ergebnis-riasec-hexagon.png" width="700">
+</p>
+
+<p align="center">
+  <sub>The ranking, and the interest profile it is computed from. The <code>±</code> column shows what personality re-ranking changed against interests alone.</sub>
+</p>
 
 > *Everyone deserves to find their calling – regardless of income, background, or education level.*
 
