@@ -19,12 +19,24 @@ onMounted(() => {
   <div class="min-h-full flex flex-col">
     <header class="border-b border-slate-800 bg-slate-900">
       <div class="mx-auto max-w-4xl px-4 py-4 flex items-center justify-between">
-        <RouterLink
-          to="/"
-          class="text-xl font-bold text-slate-100 hover:text-indigo-400 transition-colors"
-        >
-          PathFinder
-        </RouterLink>
+        <div class="flex items-center gap-2">
+          <RouterLink
+            to="/"
+            class="text-xl font-bold text-slate-100 hover:text-indigo-400 transition-colors"
+          >
+            PathFinder
+          </RouterLink>
+          <!-- Sits on the wordmark rather than on a section, so the caveat is
+               visible on every route and before the 60 questions rather than
+               only on the results page. Deliberately the only Beta marker in
+               the UI: FeedbackCard used to carry a second one, and its own
+               first sentence already says the same thing. -->
+          <span
+            class="rounded bg-indigo-500/20 px-1.5 py-0.5 text-[0.65rem] font-medium text-indigo-300"
+          >
+            Beta
+          </span>
+        </div>
         <nav class="flex gap-4 text-sm text-slate-400">
           <RouterLink to="/" class="hover:text-indigo-400">Startseite</RouterLink>
           <RouterLink to="/test" class="hover:text-indigo-400">Zum Test</RouterLink>

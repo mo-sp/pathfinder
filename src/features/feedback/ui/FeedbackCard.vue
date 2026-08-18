@@ -34,18 +34,13 @@ async function submit(): Promise<void> {
 
 <template>
   <div class="mt-12 rounded-xl border border-slate-700/60 bg-slate-900/50 p-6">
-    <div class="flex items-center gap-2">
-      <h2 class="text-2xl font-semibold text-slate-100">
-        Hilf uns, PathFinder zu verbessern
-      </h2>
-      <span class="rounded bg-indigo-500/20 px-1.5 py-0.5 text-xs font-medium text-indigo-300">
-        Beta
-      </span>
-    </div>
+    <h2 class="text-2xl font-semibold text-slate-100">
+      Hilf uns, PathFinder zu verbessern
+    </h2>
 
     <template v-if="state !== 'done'">
       <p class="mt-2 text-sm text-slate-400">
-        PathFinder ist in einer geschlossenen Testphase. Damit wir prüfen können,
+        PathFinder ist eine offene Beta. Damit wir prüfen können,
         ob die Berufsempfehlungen wirklich passen, kannst du deine Antworten und
         dein Ergebnis freiwillig und anonym an uns übermitteln. Kein Login, keine
         IP-Adresse, keine persönlichen Daten. Übertragen werden nur deine
@@ -86,13 +81,13 @@ async function submit(): Promise<void> {
       <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p class="text-xs text-slate-500">
           Mit dem Absenden überträgst du deine Antworten anonym. Die Übermittlung
-          ist freiwillig und gilt nur für die Testphase. Was genau übertragen
-          wird, steht im
+          ist freiwillig. Was genau übertragen wird und wie lange wir es
+          aufbewahren, steht in der
           <RouterLink
             to="/datenschutz"
             class="underline underline-offset-2 hover:text-slate-300"
           >
-            Datenschutz-Hinweis
+            Datenschutzerklärung
           </RouterLink>.
         </p>
         <button

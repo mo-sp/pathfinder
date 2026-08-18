@@ -6,9 +6,9 @@
 </p>
 
 <p align="center">
-  <img alt="Status" src="https://img.shields.io/badge/status-closed%20beta-blueviolet">
+  <img alt="Status" src="https://img.shields.io/badge/status-open%20beta-blueviolet">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-green">
-  <img alt="Tests" src="https://img.shields.io/badge/tests-258%20passing-brightgreen">
+  <img alt="Tests" src="https://img.shields.io/badge/tests-280%20passing-brightgreen">
   <img alt="Vue" src="https://img.shields.io/badge/Vue-3%20%2B%20TypeScript-42b883">
   <img alt="Language" src="https://img.shields.io/badge/UI-Deutsch-lightgrey">
 </p>
@@ -20,7 +20,7 @@
 Existing career tests are either five-minute quizzes that tell you nothing meaningful, or locked behind paywalls. PathFinder is the opposite: 239 items across four psychometric layers, a corpus of 923 occupations, deterministic scoring, and an answer that never leaves your browser.
 
 > [!NOTE]
-> **Closed beta.** The app is complete and running, shared by invitation only and not indexed. What is deliberately still missing before a public launch is the German legal boilerplate — Impressum and a full Datenschutzerklärung.
+> **Open beta.** The app is complete, running and publicly reachable. It carries a full Datenschutzerklärung and no Impressum: the project is private, free and earns nothing, so §5 DDG is read as not applying. That call gets revisited if the site ever takes money in any form.
 
 ## The assessment
 
@@ -59,7 +59,7 @@ npm run dev          # Dev server (http://localhost:5173)
 npm run build        # Production build
 npm run lint         # ESLint
 npm run type-check   # TypeScript checking
-npm test             # Vitest (258 tests)
+npm test             # Vitest (280 tests)
 ```
 
 The occupation corpus is **generated, not hand-maintained**: `scripts/` builds `src/data/*.json` from raw O\*NET, ESCO, KldB and BIBB sources, with curated override files for the cases automatic mapping gets wrong.

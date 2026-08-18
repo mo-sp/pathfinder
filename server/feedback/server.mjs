@@ -14,9 +14,12 @@
 //     it is not derived from anything and links to no person.
 //   - A single FEEDBACK_ENABLED env acts as a kill switch so the feature can be
 //     switched off at public release without a redeploy of the app itself.
+//   - Submissions are deleted after RETENTION_DAYS. The Datenschutzerklärung
+//     promises twelve months, and a promise nobody automates is not one, so the
+//     deletion runs here rather than as an ops task someone has to remember.
 
 import { createServer } from 'node:http'
-import { appendFile, stat } from 'node:fs/promises'
+import { appendFile, readFile, rename, stat, writeFile } from 'node:fs/promises'
 import { randomUUID } from 'node:crypto'
 import { pathToFileURL } from 'node:url'
 
@@ -32,6 +35,11 @@ const MAX_COMMENT_CHARS = Number(process.env.MAX_COMMENT_CHARS ?? 2000)
 // otherwise-valid submissions can ever consume. 50 MB is roughly 5000 real
 // submissions at the current record size.
 const MAX_FILE_BYTES = Number(process.env.MAX_FILE_BYTES ?? 50 * 1024 * 1024)
+// Retention for stored submissions, matching what the Datenschutzerklärung says.
+// The text names an earlier trigger too ("once it has been evaluated"), which is
+// a manual step; this is the backstop that holds without anyone acting.
+const RETENTION_DAYS = Number(process.env.RETENTION_DAYS ?? 365)
+const PRUNE_INTERVAL_MS = 24 * 60 * 60 * 1000
 
 // A submission counter for the process lifetime — lets us confirm the endpoint
 // is receiving data without ever logging what was sent.
@@ -99,6 +107,84 @@ export function validate(payload) {
     if (payload.comment.length > MAX_COMMENT_CHARS) return '"comment" too long'
   }
   return null
+}
+
+// Appending and pruning both touch the same file, and the prune is a
+// read-rewrite-rename: an append landing in between would be dropped. Every
+// write goes through this single process, so one promise chain is enough to
+// order them. Tasks run even if the previous one failed.
+let writeQueue = Promise.resolve()
+
+function serialize(task) {
+  const result = writeQueue.then(task, task)
+  writeQueue = result.then(
+    () => undefined,
+    () => undefined,
+  )
+  return result
+}
+
+/**
+ * Drop stored lines older than the retention period. Pure, and `now` is a
+ * parameter, so the boundary is testable without waiting a year.
+ *
+ * A line whose receivedAt is missing or unparseable is KEPT, and the caller
+ * logs how many. Every record this service writes carries the field, so such a
+ * line means something unexpected happened to the store, and silently deleting
+ * data we failed to understand is the worse of the two failures. It stays
+ * visible instead, for a human to look at.
+ */
+export function pruneRecords(lines, now, retentionDays = RETENTION_DAYS) {
+  const cutoff = now.getTime() - retentionDays * 24 * 60 * 60 * 1000
+  const kept = []
+  let unparseable = 0
+  for (const line of lines) {
+    let receivedAt
+    try {
+      receivedAt = Date.parse(JSON.parse(line).receivedAt)
+    } catch {
+      receivedAt = NaN
+    }
+    if (Number.isNaN(receivedAt)) {
+      unparseable += 1
+      kept.push(line)
+    } else if (receivedAt >= cutoff) {
+      kept.push(line)
+    }
+  }
+  return { kept, removed: lines.length - kept.length, unparseable }
+}
+
+/**
+ * Apply the retention to the store on disk. Writes a temporary file and renames
+ * it over the original, which is atomic on the same filesystem, so a crash
+ * mid-prune leaves the previous store intact rather than a half-written one.
+ */
+export async function pruneStore(file = FEEDBACK_FILE, now = new Date()) {
+  let raw
+  try {
+    raw = await readFile(file, 'utf8')
+  } catch {
+    return { removed: 0, unparseable: 0 } // No file yet: nothing to retain.
+  }
+  const lines = raw.split('\n').filter((line) => line !== '')
+  const { kept, removed, unparseable } = pruneRecords(lines, now)
+  if (removed > 0) {
+    const tmp = `${file}.tmp`
+    await writeFile(tmp, kept.map((line) => `${line}\n`).join(''), 'utf8')
+    await rename(tmp, file)
+  }
+  return { removed, unparseable }
+}
+
+async function runPrune() {
+  try {
+    const { removed, unparseable } = await serialize(() => pruneStore())
+    if (removed > 0) console.log(`retention: removed ${removed} submission(s)`)
+    if (unparseable > 0) console.error(`retention: ${unparseable} unparseable line(s) kept`)
+  } catch (err) {
+    console.error('retention run failed:', err.code ?? err.message)
+  }
 }
 
 function readBody(req) {
@@ -207,7 +293,7 @@ const server = createServer(async (req, res) => {
   }
 
   try {
-    await appendFile(FEEDBACK_FILE, JSON.stringify(record) + '\n', 'utf8')
+    await serialize(() => appendFile(FEEDBACK_FILE, JSON.stringify(record) + '\n', 'utf8'))
   } catch (err) {
     // Log the failure reason (not the payload) so a misconfigured volume is
     // diagnosable without leaking submitted data.
@@ -227,4 +313,9 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   server.listen(PORT, () => {
     console.log(`feedback endpoint listening on :${PORT} (enabled=${ENABLED}, file=${FEEDBACK_FILE})`)
   })
+  // Once at startup, then daily. The container runs for weeks at a time, so the
+  // interval really does fire; the startup run covers a box that was restarted.
+  // unref() keeps the timer from being a reason for the process to stay alive.
+  runPrune()
+  setInterval(runPrune, PRUNE_INTERVAL_MS).unref()
 }

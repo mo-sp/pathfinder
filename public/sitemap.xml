@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Only the two pages worth a search result: the landing page and the privacy
+  statement. /test is reachable in one click from the landing page and carries
+  no text of its own, /ergebnis is state-dependent and excluded in robots.txt.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://pathfinder-berufetest.de/</loc>
+    <lastmod>2026-08-18</lastmod>
+  </url>
+  <url>
+    <loc>https://pathfinder-berufetest.de/datenschutz</loc>
+    <lastmod>2026-08-18</lastmod>
+  </url>
+</urlset>
