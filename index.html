@@ -4,8 +4,31 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="PathFinder – Kostenloser Berufstest auf Basis validierter psychometrischer Modelle (RIASEC, Big Five). Datenschutzfreundlich, kein Login, Open Source." />
-    <title>PathFinder – Finde deinen Weg</title>
+    <meta name="description" content="Kostenloser Berufstest ohne Anmeldung, auf Basis validierter psychometrischer Modelle (RIASEC, Big Five). Deine Antworten bleiben auf deinem Gerät. Open Source." />
+
+    <!-- The title carries the word people actually search for. Per-route titles
+         are set by the router (see app/router.ts); this one is the fallback the
+         crawler sees before any JavaScript runs, so it describes the landing
+         page. -->
+    <title>PathFinder: Kostenloser Berufstest ohne Anmeldung</title>
+
+    <!-- Open Graph, so a shared link previews as something rather than as a bare
+         URL. This mattered concretely: the one distribution attempt so far was a
+         WhatsApp status, which showed no preview at all.
+         Deliberately static, because the crawlers that build link previews do
+         not execute JavaScript, so a router-set value would never reach them.
+         No og:image yet, and twitter:card is therefore "summary" rather than
+         "summary_large_image" -- a card promising an image that 404s looks worse
+         than a card without one. Both change together once a 1200x630 shot
+         exists. No canonical tag on purpose: a static one here would mark
+         /datenschutz as a duplicate of the landing page. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PathFinder" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:url" content="https://pathfinder-berufetest.de/" />
+    <meta property="og:title" content="PathFinder: Kostenloser Berufstest ohne Anmeldung" />
+    <meta property="og:description" content="239 Fragen aus vier psychometrischen Ebenen, ein Ergebnis schon nach 60. Kein Login, keine Tracker, deine Antworten bleiben auf deinem Gerät." />
+    <meta name="twitter:card" content="summary" />
   </head>
   <body>
     <div id="app"></div>

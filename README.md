@@ -8,12 +8,20 @@
 <p align="center">
   <img alt="Status" src="https://img.shields.io/badge/status-open%20beta-blueviolet">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-green">
-  <img alt="Tests" src="https://img.shields.io/badge/tests-280%20passing-brightgreen">
+  <img alt="CI" src="https://github.com/mo-sp/pathfinder/actions/workflows/ci.yml/badge.svg">
   <img alt="Vue" src="https://img.shields.io/badge/Vue-3%20%2B%20TypeScript-42b883">
   <img alt="Language" src="https://img.shields.io/badge/UI-Deutsch-lightgrey">
 </p>
 
-<!-- SCREENSHOT: results page. Put the file in docs/screenshots/ and reference it here. -->
+<p align="center">
+  <img alt="Ergebnisseite: Top-Berufsempfehlungen mit Gewichtungs-Umschalter, KldB-Untertitel, O*NET-Code und Anforderungsniveau" src="docs/screenshots/ergebnis-top-berufe.png" width="760">
+  <br><br>
+  <img alt="Ergebnisseite: RIASEC-Profil als Hexagon, sechs Dimensionen zwischen 52 und 84 Prozent" src="docs/screenshots/ergebnis-riasec-hexagon.png" width="700">
+</p>
+
+<p align="center">
+  <sub>The ranking, and the interest profile it is computed from. The <code>±</code> column shows what personality re-ranking changed against interests alone.</sub>
+</p>
 
 > *Everyone deserves to find their calling – regardless of income, background, or education level.*
 
@@ -59,7 +67,7 @@ npm run dev          # Dev server (http://localhost:5173)
 npm run build        # Production build
 npm run lint         # ESLint
 npm run type-check   # TypeScript checking
-npm test             # Vitest (280 tests)
+npm test             # Vitest
 ```
 
 The occupation corpus is **generated, not hand-maintained**: `scripts/` builds `src/data/*.json` from raw O\*NET, ESCO, KldB and BIBB sources, with curated override files for the cases automatic mapping gets wrong.

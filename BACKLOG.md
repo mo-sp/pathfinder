@@ -25,15 +25,10 @@ with @mo-sp — otherwise park them in their topical section below.
   `noindex` flip shipped as `feat/open-beta-legal-pass`. PathFinder is a
   publicly reachable open beta with a full Datenschutzerklärung and, by
   @mo-sp's decision, no Impressum. What the old sequence still had open:
-  step (2), the one-by-one review of **Big Five 50 and Skills 120**. @mo-sp
-  ruled on 2026-08-18 that it **stays open** rather than being cut with the
-  beta that was gating it: the items are the product. RIASEC 60 and Werte 8
-  were done in Session 54. The scope is still undecided, and Session 54's
-  reading was that neither warrants the full one-by-one tribunal. Big Five is
-  the IPIP scale, so a **translation** review is the useful pass, its
-  reverse-scored items being a known comprehension risk for younger readers;
-  the Skills items are O\*NET taxonomy labels rather than sentences, where a
-  **sampling pass for systematic translation errors** is proportionate.
+  step (2), the one-by-one review of Big Five 50 and Skills 120, which @mo-sp
+  kept open rather than cutting with the beta that was gating it. It has its
+  own entry under UX polish now, because burying an open item inside an entry
+  headed "closed" is how it gets missed by a session that scans headlines.
 
   **Website infrastructure is closed for PathFinder until further notice**
   (@mo-sp, 2026-08-18). The three operational questions raised before launch
@@ -74,20 +69,6 @@ with @mo-sp — otherwise park them in their topical section below.
   @mo-sp's call on the risk.)
 ## Docs
 
-- **Screenshots for the README — deferred to the open beta** (@mo-sp,
-  2026-08-15). The README front page carries badges, a status callout and a
-  layer table, but no image, and a screenshot of the results page under the
-  badges is the single biggest visual improvement left. Parked deliberately:
-  the closed beta does not need to sell itself, the open beta does. There is
-  an HTML comment marking the insertion point in `README.md`; drop the file
-  into `docs/screenshots/` and reference it there. Desktop width, results
-  page with the hexagon and the top list.
-- **Real CI, so the test badge stops lying.** The README's "280 tests
-  passing" badge is hardcoded and goes stale on the next test added. There
-  are no GitHub Actions in the repo at all, so a `type-check` + `lint` +
-  `test` workflow on push would both fix the badge and give the repo a
-  visible green check before strangers look at it. Offered 2026-08-15, not
-  decided.
 - **`WEBCLAUDE_SUMMARY.md` deleted** (@mo-sp, 2026-08-18): "war ja ein kurzer
   Spaß". It logged exactly one webchat session at project inception and the
   parallel-log workflow it assumed never materialised. The founding decisions it
@@ -257,6 +238,19 @@ with @mo-sp — otherwise park them in their topical section below.
   AssessmentPage render with a "z. B." prefix, and 6 seed skills examples. All
   of it is cheap to rebuild if the idea ever comes back; @mo-sp was not happy
   with the curation pass, which is what stalled it.
+
+- **Question review for Big Five 50 and Skills 120 — open, scope unruled.**
+  This was the friends-beta gate. The beta happened, and @mo-sp decided on
+  2026-08-18 that the review **stays open anyway**, since the items are the
+  product. Done already: RIASEC 60 and Werte 8, both in Session 54, 33 and 2
+  items changed. Session 54's reading of what is left, never ruled on: neither
+  warrants the full one-by-one tribunal that RIASEC got. Big Five 50 is the
+  IPIP scale, so the useful pass is a **translation** review, its
+  reverse-scored items being a known comprehension risk for younger readers.
+  The Skills 120 are O\*NET taxonomy labels rather than sentences, where a
+  **sampling pass for systematic translation errors** is proportionate. Decide
+  the scope first, then work it. Procedure and the per-item decisions from the
+  RIASEC pass are in the private analysis repo.
 
 - **RIASEC content gaps the Session 54 review surfaced but did not fill.**
   Two holes in the 60-item set, both noted during the one-by-one pass and
