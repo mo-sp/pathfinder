@@ -326,7 +326,68 @@ with @mo-sp — otherwise park them in their topical section below.
   items measure the wrong thing (see the C-dimension entry above), or the
   low C is correct and this is the AI-uplift case (see Ideas). Decidable
   once more developers submit runs.
-- **The skills layer barely moves the ranking — watch this.** Measured on
+- **Preference cards instead of the skills self-rating (design note, 2026-08-18).**
+  @mo-sp's idea, from looking at the Bundesagentur's Check-U: near the end it
+  offers **cards with a picture and a yes/no question about concrete work
+  content**, "Kannst du dir vorstellen, mit Tieren zu arbeiten". Bring that here,
+  with as much coverage as possible, and **replace layer 4** with it.
+
+  **The reframing is the actual insight, and it costs no new data.** Layer 4 today
+  asks *"can you?"* over the O\*NET skills, abilities and knowledge values. That
+  is a self-rating, so it measures self-concept rather than ability (self-rated
+  and measured ability typically correlate only r = 0.2 to 0.4), and it takes 121
+  items to do it. Cards ask *"do you want to?"* over the **same** per-occupation
+  data. That question needs no self-insight, is far harder to answer dishonestly,
+  is more directly about occupational fit, and fits in roughly 30 items instead
+  of 121.
+
+  **The gap it closes** is @mo-sp's own example: someone who does not *want* to
+  sit all day is represented nowhere in the current instrument. Interests,
+  personality and self-rated ability all miss it. Aversion is simply not modelled.
+
+  **Data already in the bundle**, no curation pass over 923 occupations needed:
+  - the 9 `workContext` fields: `outdoor`, `indoor`, `standing`, `walking`,
+    `teamwork`, `publicContact`, `contactWithOthers`, `autonomy`, `routine`
+  - the 34 O\*NET knowledge domains, filled for **898 of 923** occupations with
+    importance values: biology, medicine, food production, mechanical, building,
+    law, foreign language, fine arts, mathematics, psychology, education, sales,
+    electronics, transportation and so on
+
+  So up to 43 candidate cards exist without new data. One caveat on the example
+  itself: **sitting is not among the 9 fields we extract.** O\*NET has the element
+  (Spend Time Sitting), so it is a build-script change rather than a data problem,
+  but it does need pulling in.
+
+  **First step, before any UI work: pick the cards by discriminative power.** A
+  card that 90 % of the corpus shares tells nobody anything. Compute the
+  distribution of each candidate field across the 923 occupations and keep the
+  ones that actually split it. That is a measurement, it is cheap, and it decides
+  the item set instead of taste deciding it.
+
+  **Scope, agreed with @mo-sp:** replace **layer 4 first**. **Layer 2 (Big Five)
+  stays** for now and only goes if it turns out redundant once cards are in,
+  which is then a measurement rather than an opinion. Dropping IPIP-50 would also
+  weaken the README's "built on validated psychometric models" claim, so that
+  decision needs to be deliberate.
+
+  **The "no" semantics are the risky part**, and they are the anti-match entry
+  below made concrete: a "no" on core work content should heavily downweight or
+  exclude. That would be the first mechanism in the app by which a user actively
+  **removes** occupations; today the education level is the only hard filter.
+  Design it as a strong soft penalty first and measure before considering a hard
+  exclusion.
+
+  **Real costs:** 30 to 40 images, self-hosted for the no-tracker principle,
+  licence-clean, and they count against a bundle that already ships 3.8 MB of
+  occupation data. Text-only cards are a valid first version: the picture carries
+  the enjoyment, not the psychometrics.
+
+  Not promoted into `## Up next` — that needs @mo-sp's explicit say-so. His words
+  on 2026-08-18 were "vielleicht machen wir das demnächst".
+
+- **The skills layer barely moves the ranking — watch this.** (See the
+  preference-cards note above: replacing this layer's question is the proposed
+  answer to it.) Measured on
   the same run: spread across all 923 occupations was RIASEC **173.5**
   percentage points, Big Five **59.4**, Werte **17.7**, Skills **9.5**. The
   skills layer is **121 of the 239 questions**, roughly half the time a user
@@ -337,7 +398,8 @@ with @mo-sp — otherwise park them in their topical section below.
   describes). Not an action item yet: check whether later submissions also
   cluster before deciding whether to recalibrate the cap, spread the
   ratings, or shorten the layer. @mo-sp: "sollten wir definitiv beobachten".
-- **Anti-match "Was passt definitiv NICHT"** view — currently the "Alle Berufe
+- **Anti-match "Was passt definitiv NICHT"** (the preference-cards note above is
+  the concrete form this would take) view — currently the "Alle Berufe
   zeigen" toggle reveals them; a dedicated inverse-sorted view would be
   clearer framing if users want it.
 - **Baseline-shift for skills bonus** at occupation-level — all-zero users
