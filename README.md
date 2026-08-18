@@ -8,7 +8,7 @@
 <p align="center">
   <img alt="Status" src="https://img.shields.io/badge/status-open%20beta-blueviolet">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-green">
-  <img alt="Tests" src="https://img.shields.io/badge/tests-280%20passing-brightgreen">
+  <img alt="CI" src="https://github.com/mo-sp/pathfinder/actions/workflows/ci.yml/badge.svg">
   <img alt="Vue" src="https://img.shields.io/badge/Vue-3%20%2B%20TypeScript-42b883">
   <img alt="Language" src="https://img.shields.io/badge/UI-Deutsch-lightgrey">
 </p>
@@ -59,7 +59,7 @@ npm run dev          # Dev server (http://localhost:5173)
 npm run build        # Production build
 npm run lint         # ESLint
 npm run type-check   # TypeScript checking
-npm test             # Vitest (280 tests)
+npm test             # Vitest
 ```
 
 The occupation corpus is **generated, not hand-maintained**: `scripts/` builds `src/data/*.json` from raw O\*NET, ESCO, KldB and BIBB sources, with curated override files for the cases automatic mapping gets wrong.

@@ -1,0 +1,33 @@
+# Runs the same four checks that were previously only ever run by hand before a
+# PR. The point is not that they are new, it is that a green PR now means the
+# checks passed rather than that someone says they did.
+#
+# Node is pinned to the version the project is developed on rather than lts/*,
+# so a change in what "lts" means cannot turn into a mystery failure later.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      # ci, not install: it installs exactly package-lock.json and fails if the
+      # lockfile and package.json disagree, which is the property that makes the
+      # run reproducible.
+      - run: npm ci
+
+      - run: npm run type-check
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
