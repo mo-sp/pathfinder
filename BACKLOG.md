@@ -332,7 +332,7 @@ with @mo-sp — otherwise park them in their topical section below.
   currently still get small positive bonuses on avg-complexity occupations;
   Session 15/16 calibration sorted most of this, edge cases may remain.
 - **RIASEC short vs. long form / item redesign.** Session 22 observation: a
-  single outlier in one dimension (e.g. C=38 % on @mo-sp's real test) can
+  single low outlier in one dimension, seen on a real test run, can
   swing the Pearson correlation almost single-handedly, because the 60-item
   short form only has 10 items per dimension. Options: (a) O\*NET long form
   (180 items) for thicker per-dim signals, (b) sharpen individual dimensions
