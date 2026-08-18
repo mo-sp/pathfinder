@@ -11,13 +11,13 @@
 
 **No Impressum, and the reasoning is not about the beta.** @mo-sp declined it on 2026-08-17 (a ladungsfähige Anschrift means a home address published permanently, a Postfach does not satisfy §5 DDG, an Impressumsservice is a recurring cost on a project he wants to leave) and declined the donation link with it. §5 DDG covers geschäftsmäßige Telemedien, and a free project with no ads and no income is defensibly outside it. What that decision does **not** touch is Art. 13 DSGVO, which applies because the server writes logs and the endpoint accepts submissions. So the Datenschutzerklärung was the only real gate, and it turned out the existing page already carried most of it: controller with a name, purposes, the consent basis for submissions, hosting, logs, rights, right to complain.
 
-**The delta was smaller than "write a full Datenschutzerklärung" suggests, and one part of it was a factual error.** Three things were missing or wrong. The log section described what is recorded but named **no legal basis at all**, which was the one genuine Art. 13 gap; it now names Art. 6 Abs. 1 lit. f. Retention was phrased as "nur für diese Testphase" and, for logs, as "sie überschreiben sich fortlaufend selbst". That second claim had been **false since Session 56**, when `funnel.sh` started archiving the access log off the box precisely because Coolify destroys a container's log on every deploy. The page's own header comment demands that every claim map to something in the code, and this one had quietly stopped doing so.
+**The delta was smaller than "write a full Datenschutzerklärung" suggests, and one part of it was a factual error.** Three things were missing or wrong. The log section described what is recorded but named **no legal basis at all**, which was the one genuine Art. 13 gap; it now names Art. 6 Abs. 1 lit. f. Retention was phrased as "nur für diese Testphase" and, for logs, as "sie überschreiben sich fortlaufend selbst". That second claim had been **false since Session 56**, when the access log started being archived off the box, precisely because a redeploy destroys the container's own log. The page's own header comment demands that every claim map to something in the code, and this one had quietly stopped doing so.
 
 **Retention is now a criterion plus a backstop, which is what Art. 13 Abs. 2 lit. a actually allows.** @mo-sp's framing produced the better formulation: the purpose is development, so a submission is deleted once it has been evaluated, and twelve months after arrival at the latest. The pure-criterion version he first proposed ("delete after release") was dropped for a specific reason: it hangs on an event that may never be declared, and a trigger that never fires is indefinite storage wearing a criterion's clothes. Logs get the same shape with 90 days. Written this way, nothing in the text expires with a phase or a date, so making feedback permanent later needs no second legal round.
 
 **One exception is named openly rather than left as a gap between text and practice.** Where a submission exposes a calculation error, the bare answer values without the comment are kept indefinitely as a regression fixture, which is what the Session 56 analysis did. The alternative was to promise complete deletion and then quietly keep fixtures. On the underlying question of whether submissions are worth keeping in bulk: no. Aggregate claims about distributions would need mid-double to triple-digit counts, and both findings so far came from a single case recomputed by hand. Individual reading is where the value is.
 
-**A promise nobody automates is not a promise, so both retentions run themselves.** `server.mjs` prunes at startup and daily, reads and rewrites the store and renames the temporary file over the original, which is atomic on one filesystem. Appends and prunes are serialised on a single promise chain, since a submission landing between the read and the rename would otherwise be lost. A line whose `receivedAt` cannot be parsed is **kept and counted** rather than deleted: every record this service writes carries the field, so such a line means something unexpected happened, and silently deleting data we failed to understand is the worse of the two failures. Log retention went into `funnel.sh` outside the repo, pruning by the date inside each line rather than by file mtime, because the archive is a union of many pulls whose mtime only says when it last grew.
+**A promise nobody automates is not a promise, so both retentions run themselves.** `server.mjs` prunes at startup and daily, reads and rewrites the store and renames the temporary file over the original, which is atomic on one filesystem. Appends and prunes are serialised on a single promise chain, since a submission landing between the read and the rename would otherwise be lost. A line whose `receivedAt` cannot be parsed is **kept and counted** rather than deleted: every record this service writes carries the field, so such a line means something unexpected happened, and silently deleting data we failed to understand is the worse of the two failures. Log retention went into a scheduled job outside the repo, pruning by the date inside each line rather than by file mtime, because that archive is a union of many pulls whose mtime only says when it last grew.
 
 **Testing the log prune found a real bug in it.** The first version compared dates lexicographically and mapped month names through a lookup that silently returned empty for anything unexpected, so a line with an unknown month abbreviation produced a short string that compared as newer and survived forever. Forcing a numeric comparison and dropping unmapped months fixed it. Unlike a submission, a log line nobody can date is worth nothing and must not become the one thing that lives forever.
 
@@ -25,11 +25,13 @@
 
 **A note on how untrusted input reached this session.** The daily status report is read at session start, and comment wording is deliberately kept out of it since Session 57. It appeared anyway: the report on disk had been generated at 18:44 on 2026-08-17, while the hardening landed at 20:47 the same evening, so a pre-hardening file sat there until the next cron run replaced it. Nothing had regressed, the assumption was wrong. The read path is now filtered rather than trusted, which does not depend on when the file was written.
 
+**Two older entries were genericized in the same commit.** The Session 56 entry named both cron scripts along with what they do and when they run, and quoted a submitted comment verbatim. Both predate the rule that operations detail and submission wording stay in the private repo, and @mo-sp's point was the decisive one: a public log that spells out where a retention mechanism lives is an inventory, not a description. They now carry the mechanism without the inventory. This is a forward correction and not a scrub, since git history keeps the earlier wording either way.
+
 **The Art. 28 DSGVO Auftragsverarbeitungsvertrag with Hetzner was the last legal gap, and @mo-sp closed it the same day.** Renting a VPS does not include one; it is free, concluded at `accounts.hetzner.com/account/dpa`, and the declaration defines the contract's scope, so it was kept to what is true: Kommunikationsdaten and Protokolldaten, plus an added category for voluntary free-text feedback, with "Besucher der Website" as the affected group rather than the preset "Kunden und Interessenten", which would have implied a contractual relationship. Ticking Personenstammdaten would have contradicted the privacy page, which lists name and e-mail among the things explicitly never collected. The hosting section now names the contract. Three operational questions stayed open, none of them launch-blocking and all of them more awkward the longer the site runs unattended: whether the feedback endpoint stays on when nobody reads it, whether backups keep depending on a VM started by hand, and whether anything watches uptime, given that today nothing does. And stated plainly for the record: coming off `noindex` is permission to be found, not distribution, so a null result after launch says nothing about the product.
 
 **One piece of UI came out of the same conversation.** The Beta badge lived on the feedback card, where it was about to be redundant: after this change the card's own first sentence says "PathFinder ist eine offene Beta". It moved to the wordmark in the app header, which puts the caveat on every route and in front of the 60 questions instead of behind them, and the card's copy lost the badge so exactly one Beta marker remains in the UI. The "Stand der Entwicklung" box on the landing page was checked and deliberately left alone: nothing in it became false at launch.
 
-**Verification:** `type-check` and `lint` clean, **280 tests pass** (up from 272, eight new ones over the retention boundary, the unparseable-line behaviour and the store rewrite), production build clean. The submission prune was additionally run for real against a throwaway store (400 days old removed, 300 days kept, no leftover temporary file), and the log prune live in `funnel.sh` with an injected old line: one line dropped, 723 real lines byte-identical to a backup taken first. @mo-sp ran the browser test on desktop and mobile in two rounds: first the privacy page, the feedback card wording, the missing robots meta and both new files, then the header badge, the card without its own badge and the added Art. 28 sentence.
+**Verification:** `type-check` and `lint` clean, **280 tests pass** (up from 272, eight new ones over the retention boundary, the unparseable-line behaviour and the store rewrite), production build clean. The submission prune was additionally run for real against a throwaway store (400 days old removed, 300 days kept, no leftover temporary file), and the log prune live against the real archive with an injected old line: one line dropped, 723 real lines byte-identical to a backup taken first. @mo-sp ran the browser test on desktop and mobile in two rounds: first the privacy page, the feedback card wording, the missing robots meta and both new files, then the header badge, the card without its own badge and the added Art. 28 sentence.
 
 ---
 
@@ -77,11 +79,12 @@ Everything above was written before the evening's second half. What follows is
 the retrospective.
 
 **A second submission arrived mid-session, the first from outside the project.**
-Noticed only because `funnel.sh` reads the container directly; the local backup
-had been pulled fifteen minutes earlier and still showed one entry. RIASEC only,
-self-rating 3 of 5, comment: *"Zerspanungsmechaniker auf Platz 7 ist komisch, hab
-glaub alles handwerkliche abgelehnt 🙈"*. Full analysis lives in the private repo;
-what belongs here is the mechanism and the two corrections it produced.
+Noticed only because the funnel report reads the container directly, while the
+local backup had been pulled fifteen minutes earlier and still showed one entry.
+RIASEC only, self-rating 3 of 5, with a comment reporting that a metal trade
+looked out of place given how the manual items had been answered. The wording and
+the full analysis live in the private repo; what belongs here is the mechanism and
+the two corrections it produced.
 
 He answered **41 of 60 items with the minimum**, A at the floor entirely. The
 profile spans 20 to 48 percent and the R/A gap rests on three answers. His
@@ -127,15 +130,15 @@ move), `/api/health` ok, `/datenschutz` 200, `www` certificate good to
 12 November, `noindex` still set, feedback container untouched with both entries.
 
 **Two operations scripts now run on cron**, both outside the repo alongside the
-existing pullers. `funnel.sh` reconstructs the visitor funnel from the nginx
-access log — no tracking added, it reads what nginx already writes — and, more
-importantly, **archives that log**, because Coolify destroys the old container
-and its log on every deploy. It earned its keep immediately: the archive held
-482 lines through the deploy while the new container had 5. `daily-status.sh`
-writes a report covering site health, TLS, containers, disk, new feedback with
-comments, backup freshness and the funnel. It runs at boot after the pullers and
-daily at 07:00. @mo-sp sees it once per new report in an interactive terminal;
-Claude reads the same file at session start.
+existing pullers. The first reconstructs the visitor funnel from the nginx access
+log, adding no tracking of any kind since it reads what nginx already writes, and,
+more importantly, **archives that log**, because a redeploy destroys the old
+container along with its log. It earned its keep immediately: the archive held
+482 lines through the deploy while the new container had 5. The second writes a
+report covering site health, TLS, containers, disk, new feedback, backup freshness
+and the funnel. @mo-sp sees it once per new report in an interactive terminal;
+Claude reads the same file at session start. What they are called, where they run
+and on what schedule is in the private ops notes rather than here.
 
 **Direction changed at the end of the session.** @mo-sp does not want to work on
 PathFinder much longer: the plan is a legal pass, a security audit and go-live,
