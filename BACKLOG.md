@@ -29,12 +29,13 @@ with @mo-sp — otherwise park them in their topical section below.
   a scope ruling and is now explicitly cuttable, since the beta it was gating
   already happened. RIASEC 60 and Werte 8 were done in Session 54.
 
-  Three operational questions were raised before launch and are **still
-  undecided**: whether the feedback endpoint stays on when nobody is reading
-  it (`FEEDBACK_ENABLED=false` is the switch), whether the backups stay
-  dependent on a VM started by hand, and whether anything should watch the
-  site's uptime, given that today nothing does. None of them blocked the
-  launch; all three get more awkward the longer the site runs unattended.
+  **Website infrastructure is closed for PathFinder until further notice**
+  (@mo-sp, 2026-08-18). The three operational questions raised before launch
+  were decided rather than parked: the feedback endpoint stays on, backups stay
+  as they are for now, and no uptime monitoring is set up. Reasoning on the last
+  one, which is the only one that looks like a gap: no visitors, no income and
+  no uptime obligation, so an alert would wake nobody for nothing. That
+  calculation changes if there is ever a distribution push, and not before.
 
   Also worth stating plainly: **there is no traffic source in the plan.**
   Coming off `noindex` is permission to be found, not distribution. A fresh
@@ -507,11 +508,12 @@ with @mo-sp — otherwise park them in their topical section below.
   Hetzner + Coolify migration is **done**: PathFinder is live at
   `https://pathfinder-berufetest.de` (Dockerfile build, Let's-Encrypt TLS,
   deployed from `main`, still `noindex`). Full detail in the
-  `project_infra_decision` memory + SUMMARY Session 52. Remaining bits:
-  (a) **`www` cert** — add `https://www.pathfinder-berufetest.de` to the
-  Coolify Domains list so the certificate covers it (DNS already resolves);
-  (b) an auto-deploy webhook if the manual deploy flow gets tedious;
-  (c) later: Immich + Volume + Storage Box on the same box.
+  `project_infra_decision` memory + SUMMARY Session 52. The **`www` cert**
+  shipped and covers `https://www.pathfinder-berufetest.de`. What is left is
+  optional and deliberately not scheduled: an auto-deploy webhook if the manual
+  deploy flow ever gets tedious, provider-side backups once the box carries more
+  than PathFinder (@mo-sp will buy Hetzner's paid backup at that point, roughly
+  20 % of the server price, rather than script one), and Immich alongside.
 
   Access-log IP anonymisation, once listed here as open, **shipped** — nginx
   logs the /24 (IPv4) or /48 (IPv6) network only. Remaining infrastructure
