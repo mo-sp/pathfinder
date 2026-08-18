@@ -28,9 +28,10 @@ const router = useRouter()
 const route = useRoute()
 const { t } = useI18n()
 
-// Beta-only voluntary feedback card. Default on during the closed beta;
-// disabled at public release by building with VITE_FEEDBACK_ENABLED=false.
-// The backend FEEDBACK_ENABLED env is the authoritative off-switch.
+// Voluntary feedback card, on by default: the open beta collects submissions
+// for the purpose the Datenschutzerklärung names, and they age out after twelve
+// months (server/feedback/server.mjs). Build with VITE_FEEDBACK_ENABLED=false to
+// hide the card; the backend FEEDBACK_ENABLED env is the authoritative switch.
 const feedbackEnabled = import.meta.env.VITE_FEEDBACK_ENABLED !== 'false'
 
 // Layer-completion navigation from AssessmentPage sets ?focus=<layer>; on

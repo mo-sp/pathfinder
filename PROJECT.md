@@ -153,7 +153,7 @@ interface MatchResult {
 | 1 | MVP: German RIASEC test + occupation matching | **done** |
 | 2 | Depth: Big Five, values, skills, progressive scoring | **done** — all four layers live |
 | 3 | Feedback: anonymous backend, data-driven improvements | **in progress** — endpoint and opt-in card live, closed friends-beta running, first submissions arriving |
-| 4 | International: English, more languages, SEO | not started; blocked on the public launch (Impressum, full Datenschutzerklärung, `noindex` off) |
+| 4 | International: English, more languages, SEO | not started; no longer blocked, the public launch shipped 2026-08-18 |
 | 5 | Professional: native apps, partnerships, research collaboration | not started |
 
 The phase timeline from the original plan is dropped — it was written in month 1 and the project has not tracked it. `BACKLOG.md` holds what is queued, `SUMMARY.md` what was built when, and `docs/PROJECT_PLAN.md` is kept as the historical April 2026 plan.

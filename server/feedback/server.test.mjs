@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
-import { sanitizeComment, validate } from './server.mjs'
+import { mkdtemp, readFile, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+
+import { pruneRecords, pruneStore, sanitizeComment, validate } from './server.mjs'
 
 /**
  * The comment field is the only free text a stranger can put into the store,
@@ -108,5 +112,90 @@ describe('validate', () => {
   it('rejects a non-string or over-long comment', () => {
     expect(validate({ ...valid, comment: 42 })).toMatch(/comment/)
     expect(validate({ ...valid, comment: 'x'.repeat(2001) })).toMatch(/too long/)
+  })
+})
+
+/**
+ * Retention. The Datenschutzerklärung promises deletion after twelve months, so
+ * these tests pin the boundary and the failure behaviour rather than the happy
+ * path alone: what happens to a line the parser cannot read decides whether the
+ * promise is kept quietly or data disappears quietly.
+ */
+const NOW = new Date('2026-08-18T12:00:00.000Z')
+const line = (receivedAt) => JSON.stringify({ v: 1, receivedAt, selfRating: 3 })
+const DAY_MS = 24 * 60 * 60 * 1000
+
+describe('pruneRecords', () => {
+  it('keeps a submission inside the retention period', () => {
+    const lines = [line('2026-08-01T09:00:00.000Z'), line('2025-09-01T09:00:00.000Z')]
+    const { kept, removed } = pruneRecords(lines, NOW, 365)
+    expect(kept).toEqual(lines)
+    expect(removed).toBe(0)
+  })
+
+  it('drops a submission past the retention period', () => {
+    const fresh = line('2026-08-01T09:00:00.000Z')
+    const stale = line('2025-01-01T09:00:00.000Z')
+    const { kept, removed } = pruneRecords([stale, fresh], NOW, 365)
+    expect(kept).toEqual([fresh])
+    expect(removed).toBe(1)
+  })
+
+  it('treats the cutoff itself as still within retention', () => {
+    const exactly = line(new Date(NOW.getTime() - 365 * DAY_MS).toISOString())
+    const oneMoreDay = line(new Date(NOW.getTime() - 366 * DAY_MS).toISOString())
+    expect(pruneRecords([exactly], NOW, 365).removed).toBe(0)
+    expect(pruneRecords([oneMoreDay], NOW, 365).removed).toBe(1)
+  })
+
+  it('keeps and counts lines it cannot parse, rather than deleting them', () => {
+    const broken = '{not json'
+    const noTimestamp = JSON.stringify({ v: 1, selfRating: 3 })
+    const garbageTimestamp = line('irgendwann')
+    const lines = [broken, noTimestamp, garbageTimestamp]
+    const { kept, removed, unparseable } = pruneRecords(lines, NOW, 365)
+    expect(kept).toEqual(lines)
+    expect(removed).toBe(0)
+    expect(unparseable).toBe(3)
+  })
+
+  it('preserves the order of what it keeps', () => {
+    const a = line('2026-08-01T09:00:00.000Z')
+    const b = line('2026-08-05T09:00:00.000Z')
+    const stale = line('2020-01-01T09:00:00.000Z')
+    expect(pruneRecords([a, stale, b], NOW, 365).kept).toEqual([a, b])
+  })
+})
+
+describe('pruneStore', () => {
+  const storeIn = async (contents) => {
+    const dir = await mkdtemp(join(tmpdir(), 'pathfinder-retention-'))
+    const file = join(dir, 'feedback.jsonl')
+    if (contents !== null) await writeFile(file, contents, 'utf8')
+    return file
+  }
+
+  it('rewrites the file without the expired submissions', async () => {
+    const fresh = line('2026-08-17T09:00:00.000Z')
+    const stale = line('2024-01-01T09:00:00.000Z')
+    const file = await storeIn(`${stale}\n${fresh}\n`)
+
+    const { removed } = await pruneStore(file, NOW)
+
+    expect(removed).toBe(1)
+    expect(await readFile(file, 'utf8')).toBe(`${fresh}\n`)
+  })
+
+  it('leaves the file untouched when nothing has expired', async () => {
+    const contents = `${line('2026-08-17T09:00:00.000Z')}\n`
+    const file = await storeIn(contents)
+
+    expect((await pruneStore(file, NOW)).removed).toBe(0)
+    expect(await readFile(file, 'utf8')).toBe(contents)
+  })
+
+  it('does nothing when no store exists yet', async () => {
+    const file = await storeIn(null)
+    await expect(pruneStore(file, NOW)).resolves.toEqual({ removed: 0, unparseable: 0 })
   })
 })

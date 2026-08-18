@@ -1,9 +1,14 @@
-# PathFinder is not public yet. index.html carries
-# <meta name="robots" content="noindex, nofollow">, and this file says the same
-# at the protocol level so crawlers stop before fetching anything.
+# PathFinder is public and indexable. The robots meta tag that used to sit in
+# index.html is gone; this file is the protocol-level counterpart.
 #
-# Both flip together at launch: remove the meta tag, replace the Disallow below
-# with "Allow: /", and add a sitemap. Until then /robots.txt and /sitemap.xml
-# would otherwise fall through to index.html and answer with HTML.
+# Both this file and /sitemap.xml must exist as real files under public/. The
+# nginx SPA history fallback (try_files ... /index.html) answers anything else
+# with HTML, so a missing sitemap would be served as an HTML document.
+#
+# /ergebnis is excluded on purpose: it renders from state held in the visitor's
+# own browser, so a crawler fetching it would index an empty results page.
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /ergebnis
+
+Sitemap: https://pathfinder-berufetest.de/sitemap.xml

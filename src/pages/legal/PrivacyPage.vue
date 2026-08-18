@@ -1,9 +1,12 @@
 <script setup lang="ts">
-// Plain-language privacy notice for the closed beta. Deliberately not a full
-// Datenschutzerklärung: that one is due when the site comes off `noindex`
-// (see BACKLOG). What it has to be is *accurate*, so every claim here maps to
-// something in the code — the payload in features/feedback/lib/submitFeedback.ts,
-// the stored record in server/feedback/server.mjs, and the log format in
+// The full Datenschutzerklärung, in plain language. It replaced the shorter
+// closed-beta Hinweis when the site came off `noindex`, and it is written for
+// indefinite operation: purposes and retention are phrased as criteria plus a
+// backstop period, so nothing here expires with a phase or a release date.
+//
+// What it has to be is *accurate*, so every claim here maps to something in the
+// code — the payload in features/feedback/lib/submitFeedback.ts, the stored
+// record and its retention in server/feedback/server.mjs, and the log format in
 // nginx.conf. Change those and this text has to move with them.
 
 /** Single point of truth for the contact address, referenced twice below. */
@@ -31,7 +34,7 @@ const notSubmitted = [
 
 <template>
   <section class="mx-auto max-w-3xl px-4 py-16">
-    <h1 class="text-4xl font-bold tracking-tight text-slate-100">Datenschutz</h1>
+    <h1 class="text-4xl font-bold tracking-tight text-slate-100">Datenschutzerklärung</h1>
 
     <p class="mt-4 text-lg text-slate-400">
       Der Test läuft vollständig in deinem Browser. Deine Antworten bleiben auf
@@ -93,8 +96,16 @@ const notSubmitted = [
     <p class="mt-3 text-slate-300">
       Rechtsgrundlage ist deine Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO,
       die du mit dem Klick auf „Anonym absenden“ erteilst. Die Übermittlung ist
-      freiwillig, der Test funktioniert vollständig ohne sie. Die Einsendungen
-      werden nur für diese Testphase ausgewertet und danach gelöscht.
+      freiwillig, der Test funktioniert vollständig ohne sie.
+    </p>
+    <p class="mt-3 text-slate-300">
+      Zweck ist ausschließlich die Weiterentwicklung des Tests. Wir lesen jede
+      Einsendung einzeln, rechnen das Ergebnis nach und löschen sie, sobald das
+      erledigt ist, spätestens aber zwölf Monate nach Eingang. Eine Ausnahme
+      benennen wir offen: hat ein Fall einen Rechenfehler aufgedeckt, behalten
+      wir die reinen Antwortwerte ohne deinen Kommentar dauerhaft als Testfall,
+      damit derselbe Fehler nicht zurückkommt. Diese Zahlenreihe steht für sich
+      und lässt sich niemandem zuordnen.
     </p>
 
     <h2 class="mt-12 text-2xl font-semibold text-slate-100">
@@ -106,10 +117,16 @@ const notSubmitted = [
       Datenmenge, verweisende Seite und die Kennung deines Browsers. Dazu kommt
       deine IP-Adresse, allerdings gekürzt: die letzte Stelle wird verworfen,
       bevor die Zeile geschrieben wird, aus 203.0.113.47 wird also 203.0.113.0.
-      Die vollständige Adresse wird nirgends gespeichert. Diese Protokolle
-      dienen dem Betrieb und der Fehlersuche, sie werden nicht ausgewertet, um
-      einzelne Besucher zu verfolgen, und sie überschreiben sich fortlaufend
-      selbst.
+      Die vollständige Adresse wird nirgends gespeichert.
+    </p>
+    <p class="mt-3 text-slate-300">
+      Diese Protokolle dienen dem Betrieb, der Fehlersuche und der Frage, wie
+      viele Menschen die Seite überhaupt erreichen. Für einzelne Besucher taugen
+      sie nicht, weil die gekürzte Adresse auf ein ganzes Netz zeigt, und wir
+      verwenden sie auch nicht so. Rechtsgrundlage ist unser berechtigtes
+      Interesse an einem funktionierenden und nachvollziehbaren Betrieb nach
+      Art. 6 Abs. 1 lit. f DSGVO. Gelöscht werden sie, sobald sie dafür nicht
+      mehr gebraucht werden, spätestens nach 90 Tagen.
     </p>
 
     <h2 class="mt-12 text-2xl font-semibold text-slate-100">
@@ -117,7 +134,9 @@ const notSubmitted = [
     </h2>
     <p class="mt-3 text-slate-300">
       Die Seite läuft auf einem Server der Hetzner Online GmbH in Nürnberg,
-      also innerhalb Deutschlands. Es sind keine externen Dienste eingebunden:
+      also innerhalb Deutschlands. Mit Hetzner besteht ein Vertrag zur
+      Auftragsverarbeitung nach Art. 28 DSGVO. Es sind keine externen Dienste
+      eingebunden:
       keine Schriftarten von fremden Servern, kein CDN, keine Werbe- oder
       Analysenetzwerke, keine Cookies. Deine Daten werden nicht an Dritte
       weitergegeben und nicht in Länder außerhalb der EU übermittelt.
@@ -136,9 +155,9 @@ const notSubmitted = [
     </p>
 
     <p class="mt-12 text-sm text-slate-500">
-      Stand: 14. August 2026. PathFinder befindet sich in einer geschlossenen
-      Testphase. Sobald die Seite öffentlich erreichbar ist, wird dieser Hinweis
-      durch eine vollständige Datenschutzerklärung ersetzt.
+      Stand: 18. August 2026. PathFinder ist eine offene Beta und wird
+      weiterentwickelt. Ändert sich etwas an der Datenverarbeitung, ändert sich
+      diese Seite mit.
     </p>
   </section>
 </template>

@@ -20,31 +20,29 @@ current PR. For what shipped when, see `SUMMARY.md`.
 Likely next 1–2 sessions. Only add items here after explicit agreement
 with @mo-sp — otherwise park them in their topical section below.
 
-- **Agreed pre-friends-beta sequence (2026-06-22, status 2026-08-14).**
-  Open-beta (public / indexed launch) is **deferred** — Impressum, a full
-  public Datenschutzerklärung, and the `noindex` flip stay parked (see Tech
-  debt). Order before the friends-beta: (1) work the important non-open-beta
-  BACKLOG items; (2) a **final review of ALL assessment questions, discussed
-  one by one** (RIASEC 60 + Big Five 50 + Werte 8 + Skills 120) — this is the
-  gate; (3) a **short, plain Datenschutz-Hinweis** on the site (transparency
-  that voluntary feedback is sent anonymously to our server — not a full
-  legal text) before collecting from real friends; (4) then open the
-  friends-beta with the feedback feature switched on. Agreed with @mo-sp.
+- **Launch sequence, closed 2026-08-18.** The friends-beta ran (2026-08-15),
+  the security audit followed (2026-08-17), and the legal pass plus the
+  `noindex` flip shipped as `feat/open-beta-legal-pass`. PathFinder is a
+  publicly reachable open beta with a full Datenschutzerklärung and, by
+  @mo-sp's decision, no Impressum. What the old sequence still had open:
+  step (2), the one-by-one review of **Big Five 50 and Skills 120**, never got
+  a scope ruling and is now explicitly cuttable, since the beta it was gating
+  already happened. RIASEC 60 and Werte 8 were done in Session 54.
 
-  **Where step (2) stands:** RIASEC 60 (Session 54, 33 items changed) and
-  Werte 8 (Session 54, 2 items changed) are **done**. Still open, and the
-  scope is **undecided**: Big Five 50 and Skills 120. Session 54's
-  assessment was that neither warrants the full one-by-one tribunal — Big
-  Five is the IPIP scale, so a **translation** review is the useful pass
-  (its reverse-scored items are a known comprehension risk for younger
-  readers), and the Skills items are O\*NET taxonomy labels rather than
-  sentences, where a **sampling pass for systematic translation errors** is
-  proportionate and the real gap is the missing-examples entry under UX
-  polish. @mo-sp has not ruled on this yet.
+  Three operational questions were raised before launch and are **still
+  undecided**: whether the feedback endpoint stays on when nobody is reading
+  it (`FEEDBACK_ENABLED=false` is the switch), whether the backups stay
+  dependent on a VM started by hand, and whether anything should watch the
+  site's uptime, given that today nothing does. None of them blocked the
+  launch; all three get more awkward the longer the site runs unattended.
 
-  Also still open from the sequence: step (3), and the **production
-  redeploy** that makes the merged feedback card live (the endpoint already
-  runs; the frontend deploy was deliberately held for the beta launch).
+  Also worth stating plainly: **there is no traffic source in the plan.**
+  Coming off `noindex` is permission to be found, not distribution. A fresh
+  `.de` with no backlinks will not rank for "Berufstest" against the
+  Arbeitsagentur for a long time, so a null result after launch says nothing
+  about the product. A distribution session (forums, subreddits,
+  Ausbildungs- and Studienberatung communities) is what would produce a real
+  answer. Offered, not agreed.
 - **Donation / "support the server costs" link on the landing page.** A
   voluntary support link to offset the self-hosting cost (~€10–40/mo after
   the Vercel → Hetzner migration, now live). **Provider chosen: BuyMeACoffee**
@@ -56,15 +54,17 @@ with @mo-sp — otherwise park them in their topical section below.
   toward commercial use (cf. the PathFinder trademark note). Surfaced
   2026-05-31 by @mo-sp during the infra setup; provider locked in 2026-06-10.
 
-  **GATED (decided 2026-08-14): ship this only with the public beta or the
-  release, never during the friends-beta.** A donation link turns a private
-  project into an offering with an income intent, which triggers the German
-  Impressumspflicht (§5 DDG) plus a full Datenschutzerklärung — regardless of
-  how few people have the link. The friends-beta gets away without an
-  Impressum precisely because it is `noindex`, link-only, free and earns
-  nothing. So the ordering is not a free choice: donation link and Impressum
-  ship together, both after the friends-beta. (Not legal advice; @mo-sp's call
-  on the risk.)
+  **GATED, and the gate moved (restated 2026-08-18).** The original wording
+  tied this to "the public beta or the release". The public beta has now
+  shipped *without* an Impressum, so the beta was never the real condition:
+  the condition is the **Impressum**, which @mo-sp declined on 2026-08-17
+  (a ladungsfähige Anschrift means his home address published permanently, a
+  Postfach does not satisfy §5 DDG, and an Impressumsservice is a recurring
+  cost on a project he wants to leave). A donation link turns a free project
+  into an offering with an income intent, which triggers §5 DDG regardless of
+  how few people have the link. So this stays blocked on that decision, not on
+  a phase, and reopening it means reopening the Impressum. (Not legal advice;
+  @mo-sp's call on the risk.)
 - **Feedback channel for beta testers — contact email (in-app form shipped).**
   The **self-hosted anonymous feedback form shipped** 2026-06-22 (a dependency-
   free `/api/feedback` endpoint on the Coolify box + an opt-in card on
@@ -84,7 +84,7 @@ with @mo-sp — otherwise park them in their topical section below.
   an HTML comment marking the insertion point in `README.md`; drop the file
   into `docs/screenshots/` and reference it there. Desktop width, results
   page with the hexagon and the top list.
-- **Real CI, so the test badge stops lying.** The README's "258 tests
+- **Real CI, so the test badge stops lying.** The README's "280 tests
   passing" badge is hardcoded and goes stale on the next test added. There
   are no GitHub Actions in the repo at all, so a `type-check` + `lint` +
   `test` workflow on push would both fix the badge and give the repo a
@@ -332,7 +332,7 @@ with @mo-sp — otherwise park them in their topical section below.
   currently still get small positive bonuses on avg-complexity occupations;
   Session 15/16 calibration sorted most of this, edge cases may remain.
 - **RIASEC short vs. long form / item redesign.** Session 22 observation: a
-  single outlier in one dimension (e.g. C=38 % on @mo-sp's real test) can
+  single low outlier in one dimension, seen on a real test run, can
   swing the Pearson correlation almost single-handedly, because the 60-item
   short form only has 10 items per dimension. Options: (a) O\*NET long form
   (180 items) for thicker per-dim signals, (b) sharpen individual dimensions
@@ -517,15 +517,18 @@ with @mo-sp — otherwise park them in their topical section below.
   logs the /24 (IPv4) or /48 (IPv6) network only. Remaining infrastructure
   posture, including anything not yet fixed, is tracked in the private ops
   notes rather than in this file.
-- **Impressum + Datenschutzerklärung before a public/indexed launch.**
-  **Deferred — open-beta postponed (see the pre-friends-beta sequence in Up
-  next).** As soon as the site comes off `noindex` and is publicly reachable
-  under the `.de` domain, DE law requires an Impressum (§5 DDG/TMG) and a
-  DSGVO-compliant Datenschutzerklärung. Hard gate before flipping the
-  robots meta. Note: a *short* plain Datenschutz-Hinweis (covering the
-  voluntary feedback submission) is a separate, lighter friends-beta gate —
-  tracked in Up next, not this full public obligation. Surfaced 2026-06-10
-  during the go-live.
+- **Impressum: declined, revisit only if money is involved (2026-08-17).**
+  The full **Datenschutzerklärung shipped** 2026-08-18 together with the
+  `noindex` flip, written for indefinite operation: purposes and retention are
+  phrased as criteria plus a backstop period (twelve months for submissions,
+  90 days for server logs), so no future release date invalidates the text.
+  The retention is enforced in `server/feedback/server.mjs` rather than left
+  as a task someone remembers. The Art. 28 DSGVO
+  Auftragsverarbeitungsvertrag with Hetzner, which renting a VPS does not
+  include, was concluded by @mo-sp on 2026-08-18 (free, via
+  `accounts.hetzner.com/account/dpa`, declared as Kommunikations- and
+  Protokolldaten plus voluntary free-text feedback, affected group "Besucher
+  der Website"). The privacy text names it. Nothing left open here.
 
 - **Old Vercel deployment — paused, not deleted (2026-08-14).**
   `pathfinder-liard-phi.vercel.app` had still been answering 200 months
@@ -542,9 +545,3 @@ with @mo-sp — otherwise park them in their topical section below.
   chunking is lazy-loaded so initial TTI isn't hit, but reducing the payload
   by dropping unused O\*NET fields (descriptions we don't render, etc.) would
   be tidy.
-- **Backup posture, now that real submissions exist.** @mo-sp declined
-  provider-side backups back when there was nothing to lose; that premise
-  expired on 2026-08-14 with the first real feedback submission, so the
-  decision is open again. The arrangement itself, what it depends on and
-  what it would cost are recorded in the private ops notes rather than
-  here.
